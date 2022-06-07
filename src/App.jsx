@@ -1,13 +1,13 @@
 import './App.css'
 
-import {Navbar, Welcome, Services, Loader, Footer} from './components'
+import {Navbar, Hero, Services, Loader, Footer} from './components'
 
 function App() {
     return (
         <div className="App">
             <div >
                 <Navbar/>
-                <Welcome/>
+                <Hero/>
             </div>
             <Services/>
             <Loader/>
