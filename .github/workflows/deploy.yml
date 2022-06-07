@@ -1,0 +1,41 @@
+name: Github pages deploy
+
+on:
+  push:
+    branches:
+      - "main"
+#  pull_request:
+#    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: npm install
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /thecyberworld
+      #      - name: Use Node.js ${{ matrix.node-version }}
+      #        uses: actions/setup-node@v2
+      #        with:
+      #          node-version: ${{ matrix.node-version }}
+      #          cache: 'npm'
+
+      - run: npm install && npm run build
+      #        env:
+      #          NEXT_PUBLIC_BASE_PATH: /cryptoverse
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
