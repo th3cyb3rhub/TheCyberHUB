@@ -21,6 +21,7 @@ jobs:
 
       - run: npm install
       - run: npm run build
+      - run: npm run deploy
         env:
           NEXT_PUBLIC_BASE_PATH: /thecyberworld
       #      - name: Use Node.js ${{ matrix.node-version }}
@@ -38,4 +39,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.
+          folder: dist # The folder the action should deploy.
