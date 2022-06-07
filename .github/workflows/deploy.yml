@@ -31,7 +31,7 @@ jobs:
 
 #      - run: npm install && npm run build
 #              env:
-#                PUBLIC_BASE_PATH: /cryptoverse
+#                PUBLIC_BASE_PATH: /thecyberworld
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.3
