@@ -1,16 +1,17 @@
 import './App.css'
-
 import {Navbar, Hero, Services, Loader, Footer} from './components'
+import {BrowserRouter as Router} from "react-router-dom";
+
 
 function App() {
     return (
-        <div className="App">
+        <Router className="App">
             <Navbar/>
             <Hero/>
             <Services/>
             <Loader/>
             <Footer/>
-        </div>
+        </Router>
     )
 }
 
