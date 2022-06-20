@@ -26,7 +26,9 @@ const Sidebar = () => {
                     <SidebarLink to={"subscribe"}>Subscribe</SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
-                    <SidebarRoute to"/subscribe">Subscribe</SidebarRoute>
+                    <SidebarRoute to={"/subscribe"}>
+                        Subscribe
+                    </SidebarRoute>
                 </SideBtnWrap>
             </SidebarWrapper>
         </SidebarContainer>
