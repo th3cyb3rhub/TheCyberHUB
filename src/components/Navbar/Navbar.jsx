@@ -17,7 +17,7 @@ const Navbar = () => {
         <>
             <Nav>
                 <NavbarContainer>
-                    <NavLogo to={"/"}>thecyberworld</NavLogo>
+                    <NavLogo to={"/"}>Thecyberworld</NavLogo>
                     <MobileIcon>
                         <FaBars/>
                     </MobileIcon>
@@ -45,7 +45,6 @@ const Navbar = () => {
                     <NavBtn>
                         <NavBtnLink to={"/subscribe"}>Subscribe</NavBtnLink>
                     </NavBtn>
-
                 </NavbarContainer>
             </Nav>
         </>
