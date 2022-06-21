@@ -12,38 +12,38 @@ import {
     NavBtnLink
 } from "./NavbarElements";
 
-const Navbar = () => {
+const Navbar = ({toggle}) => {
     return (
         <>
             <Nav>
                 <NavbarContainer>
                     <NavLogo to={"/"}>Thecyberworld</NavLogo>
-                    <MobileIcon>
+                    <MobileIcon onClick={toggle}>
                         <FaBars/>
                     </MobileIcon>
                     <NavMenu>
                         <NavItem>
-                            <NavLinks to={"about"}>About</NavLinks>
+                            <NavLinks to={"about"} onClick={toggle} >About</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"freeCourses"}>Free Courses</NavLinks>
+                            <NavLinks to={"freeCourses"} onClick={toggle} >Free Courses</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"newsletters"}>Newsletters</NavLinks>
+                            <NavLinks to={"newsletters"} onClick={toggle} >Newsletters</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"community"}>Community</NavLinks>
+                            <NavLinks to={"community"} onClick={toggle} >Community</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"joinUs"}>Join Us</NavLinks>
+                            <NavLinks to={"joinUs"} onClick={toggle} >Join Us</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"socials"}>Socials</NavLinks>
+                            <NavLinks to={"socials"} onClick={toggle} >Socials</NavLinks>
                         </NavItem>
                     </NavMenu>
 
                     <NavBtn>
-                        <NavBtnLink to={"/subscribe"}>Subscribe</NavBtnLink>
+                        <NavBtnLink to={"/subscribe"} onClick={toggle} >Subscribe</NavBtnLink>
                     </NavBtn>
                 </NavbarContainer>
             </Nav>
