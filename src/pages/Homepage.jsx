@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     Navbar,
     Sidebar,
-    Services,
-    Footer
+    Hero,
 } from '../components'
 
 const Homepage = () => {
@@ -12,10 +11,9 @@ const Homepage = () => {
 
     return (
         <>
-            <Sidebar isOpen={isOpen} toggle={toggle} />
-            <Navbar toggle={toggle} />
-            <Services />
-            <Footer />
+            <Sidebar isOpen={isOpen} toggle={toggle}/>
+            <Navbar toggle={toggle}/>
+            <Hero/>
         </>
     );
 };
