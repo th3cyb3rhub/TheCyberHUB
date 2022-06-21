@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import {Link as LinkRouter} from 'react-router-dom';
-import {Link as LinkScroll} from 'react-scroll'
+import {Link as RouterLink} from 'react-router-dom';
+import {Link as ScrollLink} from 'react-scroll'
 import {FaTimes} from 'react-icons/fa';
 
 
@@ -64,16 +64,16 @@ export const SidebarMenu = styled.div`
   text-align: center;
 
   @media screen and (min-width: 480px) {
-    grid-template-columns: repeat(6, 60px);
+    grid-template-rows: repeat(6, 60px);
   }
 `
-export const SidebarRoute = styled(LinkRouter)`
+export const SidebarRoute = styled(RouterLink)`
   border-radius: 50px;
   background: #01bf71;
   white-space: nowrap;
   padding: 16px 64px;
   color: #010606;
-  font-size: 16rem;
+  font-size: 16px;
   outline: none;
   border: none;
   cursor: pointer;
