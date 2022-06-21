@@ -1,19 +1,14 @@
-import './App.css'
-import {Navbar, Sidebar, Hero, Services, Loader, Footer} from './components'
-import {BrowserRouter as Router} from "react-router-dom";
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Homepage from './pages/Homepage';
 
-
-function App() {
+const App = () => {
     return (
-        <Router className="App">
-            <Navbar/>
-            <Sidebar/>
-            <Hero/>
-            <Services/>
-            <Loader/>
-            <Footer/>
+        <Router>
+            <Homepage />
         </Router>
-    )
-}
+    );
+};
 
-export default App
+export default App;
