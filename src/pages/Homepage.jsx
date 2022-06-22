@@ -3,7 +3,9 @@ import {
     Navbar,
     Sidebar,
     Hero,
+    Info,
 } from '../components'
+import {homeObjOne, homeObjTwo, homeObjThree} from "../components/Info/Data";
 
 const Homepage = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +16,9 @@ const Homepage = () => {
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <Navbar toggle={toggle}/>
             <Hero/>
+            <Info {...homeObjOne}/>
+            <Info {...homeObjTwo}/>
+            <Info {...homeObjThree}/>
         </>
     );
 };
