@@ -55,6 +55,7 @@ export const MobileIcon = styled.div`
     color: #fff;
   }
 `
+
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
@@ -84,6 +85,7 @@ export const NavLinks = styled(LinkScroll)`
     border-bottom: 3px solid #01bf71;
   }
 `
+
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
@@ -93,7 +95,7 @@ export const NavBtn = styled.nav`
   }
 `
 
-export const NavBtnLink = styled(LinkRouter)`
+export const NavBtnLink = styled.a`
   border-radius: 50px;
   background: #01bf71;
   white-space: nowrap;
