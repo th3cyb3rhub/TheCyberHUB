@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import {Link as ScrollLink} from "react-scroll";
 
 export const FooterContainer = styled.footer`
-  background: #101522;
+  background: #080a10;
 `;
 
 export const FooterWrap = styled.div`

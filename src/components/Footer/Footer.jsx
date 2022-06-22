@@ -23,6 +23,11 @@ import {
     FaDiscord,
 } from 'react-icons/fa';
 
+import {animateScroll as scroll} from "react-scroll";
+
+const toggleHome = () => {
+    scroll.scrollToTop();
+};
 
 const Footer = () => {
     return (
@@ -71,7 +76,7 @@ const Footer = () => {
                 </FooterLinksContainer>
                 <SocialMedia>
                     <SocialMediaWrap>
-                        <SocialLogo to="/">
+                        <SocialLogo to="/" onClick={toggleHome}>
                             Thecyberworld
                         </SocialLogo>
                         <WebsiteRights> © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
