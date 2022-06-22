@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {Link as ScrollLink} from "react-scroll";
 
 export const InfoContainer = styled.div`
   color: #fff;
@@ -21,9 +22,13 @@ export const InfoWrapper = styled.div`
   justify-content: center;
 `
 
+export const TextLink = styled(ScrollLink)`
+  margin: 10px 10px 10px 20px;
+  cursor: pointer;
+`
 export const InfoRow = styled.div`
   display: grid;
-  grid-auto-columns: minmax(auto, 1lf);
+  grid-auto-columns: minmax(auto, 1 lf);
   align-items: center;
   grid-template-areas: ${({imgStart}) => (imgStart ? `'col2 col1'` : `'col1 col2'`)};
 
@@ -77,7 +82,7 @@ export const Subtitle = styled.p`
   margin-bottom: 35px;
   font-size: 18px;
   line-height: 24px;
-  color: ${({ darkText }) => darkText ? '#010606' : '#fff'};
+  color: ${({darkText}) => darkText ? '#010606' : '#fff'};
 `;
 
 export const BtnWrap = styled.div`
