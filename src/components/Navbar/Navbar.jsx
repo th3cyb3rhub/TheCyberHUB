@@ -48,12 +48,12 @@ const Navbar = ({toggle}) => {
                         <NavMenu>
                             {[
                                 {to: 'about', title: 'About',},
-                                {to: 'community', title: 'Community',},
                                 {to: 'courses', title: 'Courses',},
+                                {to: 'community', title: 'Community',},
                                 {to: 'services', title: 'Services',},
                                 {to: 'Testimonials', title: 'Testimonials',},
-                                {to: 'Newsletter', title: 'Newsletter',},
                                 {to: 'join', title: 'Join',},
+                                {to: 'Newsletter', title: 'Newsletter',},
                             ].map(({to, title}) => (
                                 <NavItem key={to}>
                                     <NavLinks
@@ -69,11 +69,11 @@ const Navbar = ({toggle}) => {
                                 </NavItem>
                             ))}
                         </NavMenu>
-
-                        <NavBtn>
-                            <NavBtnLink to={"/subscribe"} onClick={toggle}>Subscribe</NavBtnLink>
-                        </NavBtn>
+                    <NavBtn>
+                        <NavBtnLink href={"https://www.youtube.com/c/thecyberworld?sub_confirmation=1"} target="_blank"> Subscribe </NavBtnLink>
+                    </NavBtn>
                     </NavbarContainer>
+
                 </Nav>
             </IconContext.Provider>
         </>
