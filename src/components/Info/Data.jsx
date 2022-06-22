@@ -44,7 +44,7 @@ export const homeObjThree = {
     topLine: 'Join our Community',
     headline: 'Over 1,0000 members',
     description: 'We help new folks get started into cyber security and get them up to speed with the latest tools and techniques.',
-    buttonLabel: 'Start now',
+    buttonLabel: 'Join now',
     imgStart: false,
     img: secureDataSvg,
     alt: 'Secure data',
