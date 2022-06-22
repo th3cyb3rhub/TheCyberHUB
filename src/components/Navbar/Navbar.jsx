@@ -29,39 +29,45 @@ const Navbar = ({toggle}) => {
         window.addEventListener('scroll', changeNav);
     }, []);
 
+    const toggleHome = () => {
+        scroll.scrollToTop();
+    };
+
 
     return (
         <>
             <IconContext.Provider value={{color: '#fff'}}>
                 <Nav scrollNav={scrollNav}>
                     <NavbarContainer>
-                        <NavLogo to={"/"}>Thecyberworld</NavLogo>
+                        <NavLogo to={"/"} onClick={toggleHome}>
+                            Thecyberworld
+                        </NavLogo>
                         <MobileIcon onClick={toggle}>
                             <FaBars/>
                         </MobileIcon>
                         <NavMenu>
-                            <NavItem>
-                                <NavLinks to={"about"}>About</NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to={"freeCourses"}>Free Courses</NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to={"community"}>Community</NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to={"services"}>Services</NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to={"Testimonials"}>Testimonials</NavLinks>
-                            </NavItem>
-
-                            <NavItem>
-                                <NavLinks to={"newsletters"}>Newsletters</NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to={"socials"}>Socials</NavLinks>
-                            </NavItem>
+                            {[
+                                {to: 'about', title: 'About',},
+                                {to: 'community', title: 'Community',},
+                                {to: 'courses', title: 'Courses',},
+                                {to: 'services', title: 'Services',},
+                                {to: 'Testimonials', title: 'Testimonials',},
+                                {to: 'Newsletter', title: 'Newsletter',},
+                                {to: 'join', title: 'Join',},
+                            ].map(({to, title}) => (
+                                <NavItem key={to}>
+                                    <NavLinks
+                                        to={to}
+                                        smooth={true}
+                                        duration={500}
+                                        spy={true}
+                                        exact="true"
+                                        offset={-80}
+                                    >
+                                        {title}
+                                    </NavLinks>
+                                </NavItem>
+                            ))}
                         </NavMenu>
 
                         <NavBtn>
