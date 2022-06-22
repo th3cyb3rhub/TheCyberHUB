@@ -4,6 +4,7 @@ import {
     Sidebar,
     Hero,
     Info,
+    Services
 } from '../components'
 import {homeObjOne, homeObjTwo, homeObjThree} from "../components/Info/Data";
 
@@ -18,6 +19,7 @@ const Homepage = () => {
             <Hero/>
             <Info {...homeObjOne}/>
             <Info {...homeObjTwo}/>
+            <Services/>
             <Info {...homeObjThree}/>
         </>
     );
