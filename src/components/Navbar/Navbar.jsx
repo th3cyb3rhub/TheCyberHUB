@@ -23,27 +23,25 @@ const Navbar = ({toggle}) => {
                     </MobileIcon>
                     <NavMenu>
                         <NavItem>
-                            <NavLinks to={"about"} onClick={toggle} >About</NavLinks>
+                            <NavLinks to={"about"}>About</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"freeCourses"} onClick={toggle} >Free Courses</NavLinks>
+                            <NavLinks to={"freeCourses"}>Free Courses</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"newsletters"} onClick={toggle} >Newsletters</NavLinks>
+                            <NavLinks to={"community"}>Community</NavLinks>
+                        </NavItem>
+
+                        <NavItem>
+                            <NavLinks to={"newsletters"}>Newsletters</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to={"community"} onClick={toggle} >Community</NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLinks to={"joinUs"} onClick={toggle} >Join Us</NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLinks to={"socials"} onClick={toggle} >Socials</NavLinks>
+                            <NavLinks to={"socials"}>Socials</NavLinks>
                         </NavItem>
                     </NavMenu>
 
                     <NavBtn>
-                        <NavBtnLink to={"/subscribe"} onClick={toggle} >Subscribe</NavBtnLink>
+                        <NavBtnLink to={"/subscribe"} onClick={toggle}>Subscribe</NavBtnLink>
                     </NavBtn>
                 </NavbarContainer>
             </Nav>
