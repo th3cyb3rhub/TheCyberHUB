@@ -13,7 +13,7 @@ import {
     SocialLogo,
     WebsiteRights,
     SocialIcons,
-    SocialIconLink,
+    SocialIconLink, FooterSocialLinks,
 } from './FooterElements';
 
 import {
@@ -73,10 +73,10 @@ const Footer = () => {
                 <FooterLinksWrapper>
                     <FooterLinkItems>
                         <FooterLinkTitle> Social Media </FooterLinkTitle>
-                        <FooterLink to="/signIn"> Twitter </FooterLink>
-                        <FooterLink to="/signIn"> GitHub </FooterLink>
-                        <FooterLink to="/signIn"> Discord </FooterLink>
-                        <FooterLink to="/signIn"> All Community Links </FooterLink>
+                        <FooterSocialLinks href="https://www.twitter.com/thecyberw0rld" target={"_blank"}> Twitter </FooterSocialLinks>
+                        <FooterSocialLinks href="https://www.github.com/thecyberw0rld" target={"_blank"}> GitHub </FooterSocialLinks>
+                        <FooterSocialLinks href="https://discord.gg/QHBPq6xP5p" target={"_blank"}> Discord </FooterSocialLinks>
+                        <FooterSocialLinks href="https://www.linktree.com/thecyberworld" target={"_blank"}> All Community Links </FooterSocialLinks>
                     </FooterLinkItems>
                     <FooterLinkItems>
                         <FooterLinkTitle>Contact Us</FooterLinkTitle>

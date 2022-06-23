@@ -80,6 +80,19 @@ export const FooterLink2 = styled(ScrollLink)`
   }
 `;
 
+export const FooterSocialLinks = styled.a`
+  color: #fff;
+  text-decoration: none; 
+  margin-bottom: .5rem;
+  font-size: 14px;
+
+  &:hover {
+    color: #01bf71;
+    transition: .3s ease-out;
+  }
+`;
+
+
 
 export const SocialMedia = styled.div`
   max-width: 1000px;
