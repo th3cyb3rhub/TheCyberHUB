@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from '../ButtonElements';
+import {Button, ButtonLink} from '../Buttons/ButtonElements';
 import {
     InfoContainer,
     InfoWrapper,
@@ -16,23 +16,7 @@ import {
     TextLink
 } from "./InfoElements";
 
-const InfoSection = ({
-                         id,
-                         lightBg,
-                         lightText,
-                         topLine,
-                         headline,
-                         description,
-                         buttonLabel,
-                         buttonLabel2,
-                         buttonLabel3,
-                         imgStart,
-                         img,
-                         alt,
-                         dark,
-                         dark2,
-                         primary,
-                         darkText
+const InfoSection = ({id, lightBg, lightText, topLine, headline, description, buttonLabel, buttonLabel2, buttonLabel3, imgStart, img, alt, dark, dark2, primary, darkText
                      }) => {
     return (
         <>
@@ -59,7 +43,7 @@ const InfoSection = ({
                                         {buttonLabel}
                                     </Button>
                                     <TextLink
-                                        to={"community"}
+                                        to={"contribute"}
                                         smooth={true}
                                         duration={500}
                                         spy={true}
@@ -69,7 +53,7 @@ const InfoSection = ({
                                         {buttonLabel2}
                                     </TextLink>
                                     <TextLink
-                                        to={"community"}
+                                        to={"join"}
                                         smooth={true}
                                         duration={500}
                                         spy={true}
