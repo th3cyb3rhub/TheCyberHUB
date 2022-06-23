@@ -4,11 +4,14 @@ import piggyBankSvg from '../../assets/images/piggyBank.svg';
 import contributeSvg from '../../assets/images/undraw_developer_activity_re_39tg.svg';
 import communitySvg from '../../assets/images/undraw_work_chat_re_qes4.svg';
 import {FaGithub} from "react-icons/fa";
+import {IconsSpacing} from "../Buttons/ButtonElements";
+import {IconsSpacing2} from "../Buttons/ButtonElements";
 // import {CgCommunity} from "react-icons/ca";
 // import {MdOutlineVideoLibrary} from "react-icons/md";
 // import {FcCollaboration} from "react-icons/fc";
 // import {BiGitPullRequest} from "react-icons/bi";
 // import {BiNews} from "react-icons/bi";
+import {BsCollectionPlayFill, BsFillPlayFill} from "react-icons/bs";
 
 export const aboutData = {
     id: 'about',
@@ -17,16 +20,10 @@ export const aboutData = {
     lightTextDesc: true,
     topLine: 'Thecyberworld Community',
     headline: 'About Thecyberworld',
-    // description: <ul>
-    //     <li> We help new folks to get into Cyber-security field. </li>
-    //     <li> We resolve folk's issues, doubts relates to Cyber-security. </li>
-    //     <li> Guided more than 20k folks to get into Cyber-security. </li>
-    //     <li> Working on Open-source projects. </li>
-    // </ul>,
     description: <p>
-        We help new folks to get into Cyber-security field. <br/>
-        We resolve folk's doubts relates to Cyber-security. <br/>
-        Guided more than 20k folks to get into Cyber-security. <br/>
+        We help new folks to get into Cyber-security field.
+        We resolve folk's doubts relates to Cyber-security.
+        Guided more than 20k folks to get into Cyber-security.
         Working on Open-source projects.
     </p>,
     buttonLabel: 'Get started',
@@ -48,7 +45,7 @@ export const coursesData = {
     topLine: 'Free Courses',
     headline: 'Cyber Security Courses',
     description: 'Start your cyber security journey today with our free courses.',
-    buttonLabel: 'Explore',
+    buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill /> </IconsSpacing2>  </>,
     imgStart: true,
     img: piggyBankSvg,
     alt: 'PiggyBank',
@@ -82,7 +79,7 @@ export const contributeData = {
     topLine: 'Contribute to Thecyberworld',
     headline: 'Open Source Projects',
     description: 'We help new folks get started into cyber security and get them up to speed with the latest tools and techniques.',
-    buttonLabel: <p> <FaGithub /> Contribute now </p>,
+    buttonLabel: <> <IconsSpacing> <FaGithub/> </IconsSpacing>  Contribute now </>,
     imgStart: false,
     img: contributeSvg,
     alt: 'Secure data',
