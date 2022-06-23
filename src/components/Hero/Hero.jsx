@@ -12,7 +12,7 @@ import {
     ArrowForward,
     ArrowRight
 } from './HeroElements';
-import {Button} from '../ButtonElements';
+import {Button} from '../Buttons/ButtonElements';
 
 
 const Hero = () => {
