@@ -1,12 +1,12 @@
 import carSvg from '../../assets/images/svg-1.svg';
 import piggyBankSvg from '../../assets/images/piggyBank.svg';
-import secureDataSvg from '../../assets/images/secure_data.svg';
+// import secureDataSvg from '../../assets/images/secure_data.svg';
 import contributeSvg from '../../assets/images/undraw_developer_activity_re_39tg.svg';
 import communitySvg from '../../assets/images/undraw_work_chat_re_qes4.svg';
 import {FaGithub} from "react-icons/fa";
 // import {CgCommunity} from "react-icons/ca";
 // import {MdOutlineVideoLibrary} from "react-icons/md";
-import {FcCollaboration} from "react-icons/fc";
+// import {FcCollaboration} from "react-icons/fc";
 // import {BiGitPullRequest} from "react-icons/bi";
 // import {BiNews} from "react-icons/bi";
 
