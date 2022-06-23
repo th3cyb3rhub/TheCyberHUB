@@ -55,13 +55,30 @@ const Footer = () => {
                                 </FooterLink2>
                             ))}
                     </FooterLinkItems>
-                    <FooterLinkItems>
-                        <FooterLinkTitle> Free Courses </FooterLinkTitle>
-                        <FooterLink to="/signIn"> Intro to Linux </FooterLink>
-                        <FooterLink to="/signIn"> Cyber Tools </FooterLink>
-                        <FooterLink to="/signIn"> Agency </FooterLink>
-                        <FooterLink to="/signIn"> Influence </FooterLink>
-                    </FooterLinkItems>
+                        <FooterLinkItems>
+                            <FooterLinkTitle>Contact Us</FooterLinkTitle>
+                            <FooterLink to="/signIn">Contact</FooterLink>
+                            <FooterLink to="/signIn">Support</FooterLink>
+                            <FooterLink to="/signIn">Destination</FooterLink>
+                            <FooterLink to="/signIn">Sponsorships</FooterLink>
+                        </FooterLinkItems>
+                        <FooterLinkItems>
+                            <FooterLinkTitle> Social Media </FooterLinkTitle>
+                            <FooterSocialLinks href="https://www.twitter.com/thecyberw0rld" target={"_blank"}> Twitter </FooterSocialLinks>
+                            <FooterSocialLinks href="https://www.github.com/thecyberw0rld" target={"_blank"}> GitHub </FooterSocialLinks>
+                            <FooterSocialLinks href="https://discord.gg/QHBPq6xP5p" target={"_blank"}> Discord </FooterSocialLinks>
+                            <FooterSocialLinks href="https://www.linktree.com/thecyberworld" target={"_blank"}> All Community Links </FooterSocialLinks>
+                        </FooterLinkItems>
+                    </FooterLinksWrapper>
+
+                    <FooterLinksWrapper>
+                        <FooterLinkItems>
+                            <FooterLinkTitle> Free Courses </FooterLinkTitle>
+                            <FooterLink to="/signIn"> Intro to Linux </FooterLink>
+                            <FooterLink to="/signIn"> Cyber Tools </FooterLink>
+                            <FooterLink to="/signIn"> Agency </FooterLink>
+                            <FooterLink to="/signIn"> Influence </FooterLink>
+                        </FooterLinkItems>
                     <FooterLinkItems>
                         <FooterLinkTitle> Videos </FooterLinkTitle>
                         <FooterLink to="/signIn"> About Community </FooterLink>
@@ -69,22 +86,6 @@ const Footer = () => {
                         <FooterLink to="/signIn"> How to Contribute to the Community </FooterLink>
                     </FooterLinkItems>
 
-                </FooterLinksWrapper>
-                <FooterLinksWrapper>
-                    <FooterLinkItems>
-                        <FooterLinkTitle> Social Media </FooterLinkTitle>
-                        <FooterSocialLinks href="https://www.twitter.com/thecyberw0rld" target={"_blank"}> Twitter </FooterSocialLinks>
-                        <FooterSocialLinks href="https://www.github.com/thecyberw0rld" target={"_blank"}> GitHub </FooterSocialLinks>
-                        <FooterSocialLinks href="https://discord.gg/QHBPq6xP5p" target={"_blank"}> Discord </FooterSocialLinks>
-                        <FooterSocialLinks href="https://www.linktree.com/thecyberworld" target={"_blank"}> All Community Links </FooterSocialLinks>
-                    </FooterLinkItems>
-                    <FooterLinkItems>
-                        <FooterLinkTitle>Contact Us</FooterLinkTitle>
-                        <FooterLink to="/signIn">Contact</FooterLink>
-                        <FooterLink to="/signIn">Support</FooterLink>
-                        <FooterLink to="/signIn">Destination</FooterLink>
-                        <FooterLink to="/signIn">Sponsorships</FooterLink>
-                    </FooterLinkItems>
                 </FooterLinksWrapper>
             </FooterLinksContainer>
             <SocialMedia>
@@ -94,16 +95,16 @@ const Footer = () => {
                     </SocialLogo>
                     <WebsiteRights> © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
                     <SocialIcons>
-                        <SocialIconLink href="/" target="_blank" aria-label="Twitter">
+                        <SocialIconLink href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
                             <FaTwitter/>
                         </SocialIconLink>
-                        <SocialIconLink href="/" target="_blank" aria-label="Discord">
-                            <FaDiscord/>
-                        </SocialIconLink>
-                        <SocialIconLink href="/" target="_blank" aria-label="Github">
+                        <SocialIconLink href="https://www.github.com/thecyberw0rld" target="_blank" aria-label="Github">
                             <FaGithub/>
                         </SocialIconLink>
-                        <SocialIconLink href="/" target="_blank" aria-label="Instagram">
+                        <SocialIconLink href="https://discord.gg/QHBPq6xP5p" target="_blank" aria-label="Discord">
+                            <FaDiscord/>
+                        </SocialIconLink>
+                        <SocialIconLink href="https://www.instagram.com/thecyberw0rld" target="_blank" aria-label="Instagram">
                             <FaInstagram/>
                         </SocialIconLink>
                     </SocialIcons>
