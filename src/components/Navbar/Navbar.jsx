@@ -49,6 +49,7 @@ const Navbar = ({toggle}) => {
                             {[
                                 {to: 'about', title: 'About',},
                                 {to: 'courses', title: 'Courses',},
+                                // {to: 'events', title: 'Events',},
                                 {to: 'services', title: 'Services',},
                                 {to: 'community', title: 'Community',},
                                 {to: 'contribute', title: 'Contribute',},
@@ -70,9 +71,10 @@ const Navbar = ({toggle}) => {
                                 </NavItem>
                             ))}
                         </NavMenu>
-                    <NavBtn>
-                        <NavBtnLink href={"https://www.youtube.com/c/thecyberworld?sub_confirmation=1"} target="_blank"> Subscribe </NavBtnLink>
-                    </NavBtn>
+                        <NavBtn>
+                            <NavBtnLink href={"https://www.youtube.com/c/thecyberworld?sub_confirmation=1"}
+                                        target="_blank"> Subscribe </NavBtnLink>
+                        </NavBtn>
                     </NavbarContainer>
 
                 </Nav>
