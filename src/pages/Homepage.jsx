@@ -5,9 +5,10 @@ import {
     Hero,
     Info,
     Services,
+    Contribute,
     Footer
 } from '../components'
-import {homeObjOne, homeObjTwo, homeObjThree} from "../components/Info/Data";
+import {aboutData, coursesData, communityData, contributeData} from "../components/Info/Data";
 
 const Homepage = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,11 +19,12 @@ const Homepage = () => {
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <Navbar toggle={toggle}/>
             <Hero/>
-            <Info {...homeObjOne}/>
-            <Info {...homeObjTwo}/>
+            <Info {...aboutData}/>
+            <Info {...coursesData}/>
             <Services/>
-            <Info {...homeObjThree}/>
-            <Footer />
+            <Info {...communityData}/>
+            <Contribute {...contributeData}/>
+            <Footer/>
         </>
     );
 };

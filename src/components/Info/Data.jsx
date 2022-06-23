@@ -1,16 +1,37 @@
 import carSvg from '../../assets/images/svg-1.svg';
 import piggyBankSvg from '../../assets/images/piggyBank.svg';
-import secureDataSvg from '../../assets/images/secure_data.svg';
+// import secureDataSvg from '../../assets/images/secure_data.svg';
+import contributeSvg from '../../assets/images/undraw_developer_activity_re_39tg.svg';
+import communitySvg from '../../assets/images/undraw_work_chat_re_qes4.svg';
+import {FaGithub} from "react-icons/fa";
+// import {CgCommunity} from "react-icons/ca";
+// import {MdOutlineVideoLibrary} from "react-icons/md";
+// import {FcCollaboration} from "react-icons/fc";
+// import {BiGitPullRequest} from "react-icons/bi";
+// import {BiNews} from "react-icons/bi";
 
-export const homeObjOne = {
+export const aboutData = {
     id: 'about',
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: 'Premium Bank',
-    headline: 'Unlimited Transactions with zero fees',
-    description: 'Get access to our exclusive app that allows you to send unlimited transactions without getting charged any fees.',
+    topLine: 'Thecyberworld Community',
+    headline: 'About Thecyberworld',
+    // description: <ul>
+    //     <li> We help new folks to get into Cyber-security field. </li>
+    //     <li> We resolve folk's issues, doubts relates to Cyber-security. </li>
+    //     <li> Guided more than 20k folks to get into Cyber-security. </li>
+    //     <li> Working on Open-source projects. </li>
+    // </ul>,
+    description: <p>
+        We help new folks to get into Cyber-security field. <br/>
+        We resolve folk's doubts relates to Cyber-security. <br/>
+        Guided more than 20k folks to get into Cyber-security. <br/>
+        Working on Open-source projects.
+    </p>,
     buttonLabel: 'Get started',
+    buttonLabel2: 'Contribute',
+    buttonLabel3: 'Join',
     imgStart: false,
     img: carSvg,
     alt: 'Car',
@@ -19,15 +40,15 @@ export const homeObjOne = {
     darkText: false,
 };
 
-export const homeObjTwo = {
-    id: 'freeCourses',
+export const coursesData = {
+    id: 'courses',
     lightBg: true,
     lightText: false,
     lightTextDesc: false,
     topLine: 'Free Courses',
     headline: 'Cyber Security Courses',
     description: 'Start your cyber security journey today with our free courses.',
-    buttonLabel: 'Learn more',
+    buttonLabel: 'Explore',
     imgStart: true,
     img: piggyBankSvg,
     alt: 'PiggyBank',
@@ -36,7 +57,7 @@ export const homeObjTwo = {
     darkText: true,
 };
 
-export const homeObjThree = {
+export const communityData = {
     id: 'community',
     lightBg: false,
     lightText: true,
@@ -46,7 +67,24 @@ export const homeObjThree = {
     description: 'We help new folks get started into cyber security and get them up to speed with the latest tools and techniques.',
     buttonLabel: 'Join now',
     imgStart: false,
-    img: secureDataSvg,
+    img: communitySvg,
+    alt: 'Secure data',
+    dark: true,
+    primary: true,
+    darkText: false,
+};
+
+export const contributeData = {
+    id: 'contribute',
+    lightBg: false,
+    lightText: true,
+    lightTextDesc: true,
+    topLine: 'Contribute to Thecyberworld',
+    headline: 'Open Source Projects',
+    description: 'We help new folks get started into cyber security and get them up to speed with the latest tools and techniques.',
+    buttonLabel: <p> <FaGithub /> Contribute now </p>,
+    imgStart: false,
+    img: contributeSvg,
     alt: 'Secure data',
     dark: true,
     primary: true,

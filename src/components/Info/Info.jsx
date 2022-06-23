@@ -1,5 +1,7 @@
 import React from 'react';
-import {Button} from '../ButtonElements';
+import {Button,
+    // ButtonLink
+} from '../Buttons/ButtonElements';
 import {
     InfoContainer,
     InfoWrapper,
@@ -12,10 +14,11 @@ import {
     Subtitle,
     BtnWrap,
     ImgWrap,
-    Img
+    Img,
+    TextLink
 } from "./InfoElements";
 
-const InfoSection = ({id, lightBg, lightText, topLine, headline, description, buttonLabel, imgStart, img, alt, dark,  dark2, primary, darkText
+const InfoSection = ({id, lightBg, lightText, topLine, headline, description, buttonLabel, buttonLabel2, buttonLabel3, imgStart, img, alt, dark, dark2, primary, darkText
                      }) => {
     return (
         <>
@@ -36,11 +39,31 @@ const InfoSection = ({id, lightBg, lightText, topLine, headline, description, bu
                                         exact={"true"}
                                         offset={-80}
                                         primary={primary ? 'true' : ''}
-                                        dark={dark? 1 : 0}
+                                        dark={dark ? 1 : 0}
                                         dark2={dark2 ? 1 : 0}
                                     >
                                         {buttonLabel}
                                     </Button>
+                                    <TextLink
+                                        to={"contribute"}
+                                        smooth={true}
+                                        duration={500}
+                                        spy={true}
+                                        exact={"true"}
+                                        offset={-80}
+                                    >
+                                        {buttonLabel2}
+                                    </TextLink>
+                                    <TextLink
+                                        to={"join"}
+                                        smooth={true}
+                                        duration={500}
+                                        spy={true}
+                                        exact={"true"}
+                                        offset={-80}
+                                    >
+                                        {buttonLabel3}
+                                    </TextLink>
                                 </BtnWrap>
                             </TextWrapper>
                         </Column1>

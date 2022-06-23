@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import {Link as ScrollLink} from "react-scroll";
+import Contribute from "./Contribute";
 
-export const InfoContainer = styled.div`
+export const ContributeContainer = styled.div`
   color: #fff;
   background: ${({lightBg}) => (lightBg ? '#f9f9f9' : '#010606')};
 
@@ -10,7 +11,7 @@ export const InfoContainer = styled.div`
   }
 `
 
-export const InfoWrapper = styled.div`
+export const ContributeWrapper = styled.div`
   display: grid;
   z-index: 1;
   height: 860px;
@@ -26,7 +27,7 @@ export const TextLink = styled(ScrollLink)`
   margin: 10px 10px 10px 20px;
   cursor: pointer;
 `
-export const InfoRow = styled.div`
+export const ContributeRow = styled.div`
   display: grid;
   grid-auto-columns: minmax(auto, 1 lf);
   align-items: center;
