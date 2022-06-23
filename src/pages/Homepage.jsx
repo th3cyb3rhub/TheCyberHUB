@@ -21,7 +21,8 @@ const Homepage = () => {
             <Navbar toggle={toggle}/>
             <Hero/>
             <Info {...aboutData}/>
-            <Courses {...coursesData}/>
+            <Info {...coursesData}/>
+            {/*<Courses {...coursesData}/>*/}
             <Services/>
             <Info {...communityData}/>
             <Contribute {...contributeData}/>

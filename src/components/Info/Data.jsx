@@ -3,10 +3,12 @@ import piggyBankSvg from '../../assets/images/piggyBank.svg';
 // import secureDataSvg from '../../assets/images/secure_data.svg';
 import contributeSvg from '../../assets/images/undraw_developer_activity_re_39tg.svg';
 import communitySvg from '../../assets/images/undraw_work_chat_re_qes4.svg';
-import coursesSvg from '../../assets/images/undraw_tutorial_video_re_wepc.svg';
+import coursesSvg from '../../assets/images/undraw_programming_re_kg9v.svg';
+import logo_thecyberworld from '../../assets/LogoTrans_theCyberw0rld.png';
 import {FaGithub} from "react-icons/fa";
 import {IconsSpacing} from "../Buttons/ButtonElements";
 import {IconsSpacing2} from "../Buttons/ButtonElements";
+import {Symbol} from "./InfoElements";
 // import {CgCommunity} from "react-icons/ca";
 // import {MdOutlineVideoLibrary} from "react-icons/md";
 // import {FcCollaboration} from "react-icons/fc";
@@ -14,24 +16,32 @@ import {IconsSpacing2} from "../Buttons/ButtonElements";
 // import {BiNews} from "react-icons/bi";
 import {BsCollectionPlayFill, BsFillPlayFill} from "react-icons/bs";
 
+const GSymbol = () => {
+    return (
+        <Symbol>></Symbol>
+    )
+}
+
 export const aboutData = {
     id: 'about',
+    idTo: 'community',
+    buttonType: 'scroll',
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
     topLine: 'Thecyberworld Community',
     headline: 'About Thecyberworld',
     description: <p>
-        We help new folks to get into Cyber-security field.
-        We resolve folk's doubts relates to Cyber-security.
-        Guided more than 20k folks to get into Cyber-security.
-        Working on Open-source projects.
+        <GSymbol /> We help new folks to get into Cyber-security field. <br/><br/>
+        <GSymbol /> We resolve folk's doubts relates to Cyber-security. <br/><br/>
+        <GSymbol /> Guided more than 20k folks to get into Cyber-security.<br/><br/>
+        <GSymbol /> Working on Open-source projects.
     </p>,
     buttonLabel: 'Get started',
     buttonLabel2: 'Contribute',
     buttonLabel3: 'Join',
     imgStart: false,
-    img: carSvg,
+    img: logo_thecyberworld,
     alt: 'Car',
     dark: true,
     primary: true,
@@ -40,13 +50,16 @@ export const aboutData = {
 
 export const coursesData = {
     id: 'courses',
+    idTo: 'courses',
+    buttonType: 'link',
+    link: "https://www.youtube.com/channel/UCvWsxW1ahIwGAziU4MfLp6A",
     lightBg: true,
     lightText: false,
     lightTextDesc: false,
     topLine: 'Free Courses',
     headline: 'Cyber Security Courses',
     description: 'Start your cyber security journey today with our free courses.',
-    buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill /> </IconsSpacing2>  </>,
+    buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
     imgStart: true,
     img: coursesSvg,
     alt: 'coursesSvg',
@@ -57,6 +70,10 @@ export const coursesData = {
 
 export const communityData = {
     id: 'community',
+    idTo: 'courses',
+    buttonType: 'scroll',
+    link: "joinUs",
+    link2: "https://www.linktree.com/thecyberworld",
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
@@ -80,7 +97,7 @@ export const contributeData = {
     topLine: 'Contribute to Thecyberworld',
     headline: 'Open Source Projects',
     description: 'We help new folks get started into cyber security and get them up to speed with the latest tools and techniques.',
-    buttonLabel: <> <IconsSpacing> <FaGithub/> </IconsSpacing>  Contribute now </>,
+    buttonLabel: <> <IconsSpacing> <FaGithub/> </IconsSpacing> Contribute now </>,
     imgStart: false,
     img: contributeSvg,
     alt: 'Secure data',
