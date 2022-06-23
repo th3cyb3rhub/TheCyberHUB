@@ -1,7 +1,5 @@
 import React from 'react';
-import {Button,
-    // ButtonLink
-} from '../Buttons/ButtonElements';
+import {Button, ButtonLink} from '../Buttons/ButtonElements';
 import {
     InfoContainer,
     InfoWrapper,
@@ -18,7 +16,27 @@ import {
     TextLink
 } from "./InfoElements";
 
-const InfoSection = ({id, lightBg, lightText, topLine, headline, description, buttonLabel, buttonLabel2, buttonLabel3, imgStart, img, alt, dark, dark2, primary, darkText
+const InfoSection = ({
+                         id,
+                         idTo,
+                         buttonType,
+                         link,
+                         link2,
+                         lightBg,
+                         lightText,
+                         topLine,
+                         headline,
+                         description,
+                         buttonLabel,
+                         buttonLabel2,
+                         buttonLabel3,
+                         imgStart,
+                         img,
+                         alt,
+                         dark,
+                         dark2,
+                         primary,
+                         darkText
                      }) => {
     return (
         <>
@@ -31,19 +49,31 @@ const InfoSection = ({id, lightBg, lightText, topLine, headline, description, bu
                                 <Heading lightText={lightText}> {headline} </Heading>
                                 <Subtitle darkText={darkText}> {description} </Subtitle>
                                 <BtnWrap>
-                                    <Button
-                                        to={"home"}
-                                        smooth={true}
-                                        duration={500}
-                                        spy={true}
-                                        exact={"true"}
-                                        offset={-80}
-                                        primary={primary ? 'true' : ''}
-                                        dark={dark ? 1 : 0}
-                                        dark2={dark2 ? 1 : 0}
-                                    >
-                                        {buttonLabel}
-                                    </Button>
+                                    {buttonType === 'scroll' ?
+                                        (<Button
+                                            to={"home"}
+                                            smooth={true}
+                                            duration={500}
+                                            spy={true}
+                                            exact={"true"}
+                                            offset={-80}
+                                            primary={primary ? 'true' : ''}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
+                                        >
+                                            {buttonLabel}
+                                        </Button>) :
+                                        (
+                                            <ButtonLink
+                                                href={link}
+                                                primary={primary ? 'true' : ''}
+                                                dark={dark ? 1 : 0}
+                                                dark2={dark2 ? 1 : 0}
+                                            >
+                                                {buttonLabel}
+                                            </ButtonLink>
+                                        )
+                                    }
                                     <TextLink
                                         to={"contribute"}
                                         smooth={true}
