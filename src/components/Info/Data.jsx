@@ -3,6 +3,7 @@ import piggyBankSvg from '../../assets/images/piggyBank.svg';
 // import secureDataSvg from '../../assets/images/secure_data.svg';
 import contributeSvg from '../../assets/images/undraw_developer_activity_re_39tg.svg';
 import communitySvg from '../../assets/images/undraw_work_chat_re_qes4.svg';
+import coursesSvg from '../../assets/images/undraw_tutorial_video_re_wepc.svg';
 import {FaGithub} from "react-icons/fa";
 import {IconsSpacing} from "../Buttons/ButtonElements";
 import {IconsSpacing2} from "../Buttons/ButtonElements";
@@ -47,8 +48,8 @@ export const coursesData = {
     description: 'Start your cyber security journey today with our free courses.',
     buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill /> </IconsSpacing2>  </>,
     imgStart: true,
-    img: piggyBankSvg,
-    alt: 'PiggyBank',
+    img: coursesSvg,
+    alt: 'coursesSvg',
     dark: false,
     primary: false,
     darkText: true,
