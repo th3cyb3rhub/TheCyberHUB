@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 import {Link as ScrollLink} from "react-scroll";
 
+export const Symbol = styled.a`
+  color: #01bf71;
+`
+
 export const InfoContainer = styled.div`
   color: #fff;
   background: ${({lightBg}) => (lightBg ? '#f9f9f9' : '#010606')};
