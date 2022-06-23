@@ -3,6 +3,7 @@ import piggyBankSvg from '../../assets/images/piggyBank.svg';
 import secureDataSvg from '../../assets/images/secure_data.svg';
 import contributeSvg from '../../assets/images/undraw_developer_activity_re_39tg.svg';
 import {FaGithub} from "react-icons/fa";
+import {ButtonLink} from "../Buttons/ButtonElements";
 
 export const homeObjOne = {
     id: 'about',
@@ -68,7 +69,7 @@ export const homeObjThree = {
     darkText: false,
 };
 
-export const Contribute = {
+export const ContributeObj = {
     id: 'contribute',
     lightBg: false,
     lightText: true,
