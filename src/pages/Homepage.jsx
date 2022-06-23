@@ -5,9 +5,10 @@ import {
     Hero,
     Info,
     Services,
+    Contribute,
     Footer
 } from '../components'
-import {homeObjOne, homeObjTwo, homeObjThree, Contribute} from "../components/Info/Data";
+import {homeObjOne, homeObjTwo, homeObjThree, ContributeObj} from "../components/Info/Data";
 
 const Homepage = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ const Homepage = () => {
             <Info {...homeObjTwo}/>
             <Services/>
             <Info {...homeObjThree}/>
-            <Info {...Contribute}/>
+            <Contribute {...ContributeObj}/>
             <Footer />
         </>
     );
