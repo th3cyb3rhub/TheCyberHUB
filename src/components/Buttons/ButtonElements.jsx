@@ -7,7 +7,7 @@ export const IconsSpacing = styled.span`
   flex-direction: row;
 `
 export const IconsSpacing2 = styled.span`
-  margin: 7px 0 0 5px;
+  margin: 7px 0 0 3px;
   display: inline;
   flex-direction: row;
 `
