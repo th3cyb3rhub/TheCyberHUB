@@ -1,6 +1,16 @@
 import styled from "styled-components";
 import {Link as ScrollLink} from "react-scroll";
 
+export const IconsSpacing = styled.span`
+  margin: 5px 5px 0 0;
+  display: inline;
+  flex-direction: row;
+`
+export const IconsSpacing2 = styled.span`
+  margin: 7px 0 0 5px;
+  display: inline;
+  flex-direction: row;
+`
 export const Button = styled(ScrollLink)`
   border-radius: 10px;
   margin-right: 20px; //border-radius: 50px;
