@@ -32,10 +32,10 @@ export const aboutData = {
     topLine: 'Thecyberworld Community',
     headline: 'About Thecyberworld',
     description: <p>
-        <GSymbol /> We help new folks to get into Cyber-security field. <br/><br/>
-        <GSymbol /> We resolve folk's doubts relates to Cyber-security. <br/><br/>
-        <GSymbol /> Guided more than 20k folks to get into Cyber-security.<br/><br/>
-        <GSymbol /> Working on Open-source projects.
+        <GSymbol/> We help new folks to get into Cyber-security field. <br/><br/>
+        <GSymbol/> We resolve folk's doubts relates to Cyber-security. <br/><br/>
+        <GSymbol/> Guided more than 20k folks to get into Cyber-security.<br/><br/>
+        <GSymbol/> Open-source projects.
     </p>,
     buttonLabel: 'Get started',
     buttonLabel2: 'Contribute',
@@ -51,14 +51,19 @@ export const aboutData = {
 export const coursesData = {
     id: 'courses',
     idTo: 'courses',
-    buttonType: 'link',
+    buttonType: 'scroll',
     link: "https://www.youtube.com/channel/UCvWsxW1ahIwGAziU4MfLp6A",
     lightBg: true,
     lightText: false,
     lightTextDesc: false,
     topLine: 'Free Courses',
     headline: 'Cyber Security Courses',
-    description: 'Start your cyber security journey today with our free courses.',
+    // description: 'We provide free courses for Cyber-security. ' +
+    //     'You can start your cyber-security journey today with our free courses.',
+    description: <p>
+        We provide free courses for Cyber-security. <br/>
+        You can start your cyber-security journey today with our free courses.
+    </p>,
     buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
     imgStart: true,
     img: coursesSvg,
@@ -78,8 +83,8 @@ export const communityData = {
     lightText: true,
     lightTextDesc: true,
     topLine: 'Join our Community',
-    headline: 'Over 1,0000 members',
-    description: 'We help new folks get started into cyber security and get them up to speed with the latest tools and techniques.',
+    headline: 'Over 100,000 members',
+    description: 'We help new folks get started into cyber security and We resolve folk\'s doubts relates to Cyber-security. ',
     buttonLabel: 'Join now',
     imgStart: false,
     img: communitySvg,
@@ -96,7 +101,8 @@ export const contributeData = {
     lightTextDesc: true,
     topLine: 'Contribute to Thecyberworld',
     headline: 'Open Source Projects',
-    description: 'We help new folks get started into cyber security and get them up to speed with the latest tools and techniques.',
+    description: 'We also help new folks get started into open-source world and get guided them about open-source.' +
+        'We have open-source projects, where you can contribute to it.',
     buttonLabel: <> <IconsSpacing> <FaGithub/> </IconsSpacing> Contribute now </>,
     imgStart: false,
     img: contributeSvg,
