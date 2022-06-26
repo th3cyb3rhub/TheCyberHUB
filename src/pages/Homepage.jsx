@@ -6,7 +6,6 @@ import {
     Info,
     Services,
     Contribute,
-    Courses,
     Footer
 } from '../components'
 import {aboutData, coursesData, communityData, contributeData} from "../components/Info/Data";
@@ -22,7 +21,6 @@ const Homepage = () => {
             <Hero/>
             <Info {...aboutData}/>
             <Info {...coursesData}/>
-            {/*<Courses {...coursesData}/>*/}
             <Services/>
             <Info {...communityData}/>
             <Contribute {...contributeData}/>
