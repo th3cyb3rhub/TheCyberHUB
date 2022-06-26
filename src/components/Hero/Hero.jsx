@@ -36,7 +36,7 @@ const Hero = () => {
                 </HeroP>
 
                 <HeroBtnWrapper>
-                    <Button to={"joinNow"} onMouseEnter={onHover} onMouseLeave={onHover} primary={"true"} dark={"true"}
+                    <Button to={"about"} onMouseEnter={onHover} onMouseLeave={onHover} primary={"true"} dark={"true"}
                             smooth={true}
                             duration={500}
                             spy={true}
