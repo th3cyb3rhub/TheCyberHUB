@@ -57,10 +57,10 @@ const Footer = () => {
                     </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle>Contact Us</FooterLinkTitle>
-                            <FooterLink to="/signIn">Contact</FooterLink>
-                            <FooterLink to="/signIn">Support</FooterLink>
-                            <FooterLink to="/signIn">Destination</FooterLink>
-                            <FooterLink to="/signIn">Sponsorships</FooterLink>
+                            <FooterLink to="#">Contact</FooterLink>
+                            <FooterLink to="#">Feedback</FooterLink>
+                            <FooterLink to="#">Support (Discord)</FooterLink>
+                            <FooterLink to="#">Sponsorships</FooterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
@@ -81,9 +81,9 @@ const Footer = () => {
                         </FooterLinkItems>
                     <FooterLinkItems>
                         <FooterLinkTitle> Videos </FooterLinkTitle>
-                        <FooterLink to="/signIn"> About Community </FooterLink>
-                        <FooterLink to="/signIn"> How to Join Community </FooterLink>
-                        <FooterLink to="/signIn"> How to Contribute to the Community </FooterLink>
+                        <FooterLink to="#"> About Community </FooterLink>
+                        <FooterLink to="#"> How to Join Community </FooterLink>
+                        <FooterLink to="#"> How to Contribute to the Community </FooterLink>
                     </FooterLinkItems>
 
                 </FooterLinksWrapper>
