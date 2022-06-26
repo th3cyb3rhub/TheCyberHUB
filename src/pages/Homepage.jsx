@@ -6,7 +6,8 @@ import {
     Info,
     Services,
     Contribute,
-    Footer
+    Footer,
+    ComingSoon
 } from '../components'
 import {aboutData, coursesData, communityData, contributeData} from "../components/Info/Data";
 
@@ -24,6 +25,7 @@ const Homepage = () => {
             <Services/>
             <Info {...communityData}/>
             <Contribute {...contributeData}/>
+                <ComingSoon/>
             <Footer/>
         </>
     );
