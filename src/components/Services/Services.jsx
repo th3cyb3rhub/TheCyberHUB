@@ -7,6 +7,7 @@ import {
     ServicesIcon,
     ServicesH2,
     ServicesP,
+    ScrollLinkElement
 } from './ServicesElements'
 
 import Icon1 from '../../assets/images/off_road.svg';
@@ -19,19 +20,19 @@ const Services = () => {
             <ServicesH1>Our Services</ServicesH1>
             <ServicesWrapper>
                 <ServicesCard>
-                    <ServicesIcon src={Icon1} />
-                    <ServicesH2>Reduce expenses</ServicesH2>
-                    <ServicesP>We help reduce your fess and increase your overall revenue.</ServicesP>
+                    <ServicesIcon src={Icon1}/>
+                    <ServicesH2>Free Courses</ServicesH2>
+                    <ServicesP>Free courses that will help you to start with cyber security.</ServicesP>
                 </ServicesCard>
                 <ServicesCard>
-                    <ServicesIcon src={Icon2} />
-                    <ServicesH2>Virtual Office</ServicesH2>
-                    <ServicesP>You can access our platform online anywhere in the world.</ServicesP>
+                    <ServicesIcon src={Icon2}/>
+                    <ServicesH2>Community Support</ServicesH2>
+                    <ServicesP>We have a Cyber-security community.</ServicesP>
                 </ServicesCard>
                 <ServicesCard>
-                    <ServicesIcon src={Icon3} />
-                    <ServicesH2>Premium Benefits</ServicesH2>
-                    <ServicesP>Unlock our special membership card that returns 5% cash back.</ServicesP>
+                    <ServicesIcon src={Icon3}/>
+                    <ServicesH2>Open Source</ServicesH2>
+                    <ServicesP>We have open-source projects, where you can contribute to it.</ServicesP>
                 </ServicesCard>
             </ServicesWrapper>
         </ServicesContainer>
