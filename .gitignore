@@ -7,6 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Beta features
+
+src/BetaFeatures
+src/assets/BetaFeatures
+src/components/BetaFeatures
+
 node_modules
 dist
 dist-ssr
