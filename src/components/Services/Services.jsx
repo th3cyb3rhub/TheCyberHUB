@@ -7,7 +7,6 @@ import {
     ServicesIcon,
     ServicesH2,
     ServicesP,
-    ScrollLinkElement
 } from './ServicesElements'
 
 import Icon1 from '../../assets/images/off_road.svg';
