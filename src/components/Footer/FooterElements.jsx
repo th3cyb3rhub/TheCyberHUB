@@ -56,7 +56,7 @@ export const FooterLinkTitle = styled.h1`
   margin-bottom: 16px;
 `; 
 
-export const FooterLink = styled(RouterLink)`
+export const FooterRouterLink = styled(RouterLink)`
   color: #fff;
   text-decoration: none; 
   margin-bottom: .5rem;
@@ -68,7 +68,19 @@ export const FooterLink = styled(RouterLink)`
   }
 `;
 
-export const FooterLink2 = styled(ScrollLink)`
+export const FooterScrollLink = styled(ScrollLink)`
+  color: #fff;
+  text-decoration: none; 
+  margin-bottom: .5rem;
+  font-size: 14px;
+
+  &:hover {
+    color: #01bf71;
+    transition: .3s ease-out;
+  }
+`;
+
+export const FooterRedirectLink = styled.a`
   color: #fff;
   text-decoration: none; 
   margin-bottom: .5rem;

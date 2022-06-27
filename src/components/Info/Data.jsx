@@ -49,8 +49,8 @@ export const aboutData = {
 };
 
 export const coursesData = {
-    id: 'freeCourses',
-    idTo: 'freeCourses',
+    id: 'courses',
+    idTo: 'courses',
     buttonType: 'scroll',
     link: "https://www.youtube.com/channel/UCvWsxW1ahIwGAziU4MfLp6A",
     lightBg: true,

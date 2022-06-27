@@ -6,8 +6,9 @@ import {
     FooterLinksWrapper,
     FooterLinkItems,
     FooterLinkTitle,
-    FooterLink,
-    FooterLink2,
+    FooterRouterLink,
+    FooterScrollLink,
+    FooterRedirectLink,
     SocialMedia,
     SocialMediaWrap,
     SocialLogo,
@@ -43,7 +44,7 @@ const Footer = () => {
                                 {to: 'community', title: 'Community',},
                                 {to: 'contribute', title: 'Contribute',},
                             ].map(({to, title}) => (
-                                <FooterLink2
+                                <FooterScrollLink
                                     to={to}
                                     smooth={true}
                                     duration={500}
@@ -52,15 +53,15 @@ const Footer = () => {
                                     offset={-80}
                                 >
                                     {title}
-                                </FooterLink2>
+                                </FooterScrollLink>
                             ))}
                     </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle>Contact Us</FooterLinkTitle>
-                            <FooterLink to="#">Contact</FooterLink>
-                            <FooterLink to="#">Feedback</FooterLink>
-                            <FooterLink to="#">Support (Discord)</FooterLink>
-                            <FooterLink to="#">Sponsorships</FooterLink>
+                            <FooterRouterLink to="#">Contact</FooterRouterLink>
+                            <FooterRouterLink to="#">Feedback</FooterRouterLink>
+                            <FooterRouterLink to="#">Support (Discord)</FooterRouterLink>
+                            <FooterRouterLink to="#">Sponsorships</FooterRouterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
@@ -74,16 +75,16 @@ const Footer = () => {
                     <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle> Free Courses </FooterLinkTitle>
-                            <FooterLink to="/signIn"> Intro to Linux </FooterLink>
-                            <FooterLink to="/signIn"> Cyber Tools </FooterLink>
-                            <FooterLink to="/signIn"> Agency </FooterLink>
-                            <FooterLink to="/signIn"> Influence </FooterLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Intro to Linux </FooterRedirectLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Cyber Tools </FooterRedirectLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Agency </FooterRedirectLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Influence </FooterRedirectLink>
                         </FooterLinkItems>
                     <FooterLinkItems>
                         <FooterLinkTitle> Videos </FooterLinkTitle>
-                        <FooterLink to="#"> About Community </FooterLink>
-                        <FooterLink to="#"> How to Join Community </FooterLink>
-                        <FooterLink to="#"> How to Contribute to the Community </FooterLink>
+                        <FooterRouterLink to="#"> About Community </FooterRouterLink>
+                        <FooterRouterLink to="#"> How to Join Community </FooterRouterLink>
+                        <FooterRouterLink to="#"> How to Contribute to the Community </FooterRouterLink>
                     </FooterLinkItems>
 
                 </FooterLinksWrapper>
