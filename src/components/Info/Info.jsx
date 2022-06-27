@@ -13,7 +13,7 @@ import {
     BtnWrap,
     ImgWrap,
     Img,
-    TextLink
+    ScrollText
 } from "./InfoElements";
 
 const InfoSection = ({
@@ -74,7 +74,7 @@ const InfoSection = ({
                                             </ButtonLink>
                                         )
                                     }
-                                    <TextLink
+                                    <ScrollText
                                         to={"contribute"}
                                         smooth={true}
                                         duration={500}
@@ -83,8 +83,8 @@ const InfoSection = ({
                                         offset={-80}
                                     >
                                         {buttonLabel2}
-                                    </TextLink>
-                                    <TextLink
+                                    </ScrollText>
+                                    <ScrollText
                                         to={"join"}
                                         smooth={true}
                                         duration={500}
@@ -93,7 +93,7 @@ const InfoSection = ({
                                         offset={-80}
                                     >
                                         {buttonLabel3}
-                                    </TextLink>
+                                    </ScrollText>
                                 </BtnWrap>
                             </TextWrapper>
                         </Column1>
