@@ -26,7 +26,7 @@ export const InfoWrapper = styled.div`
   justify-content: center;
 `
 
-export const TextLink = styled(ScrollLink)`
+export const ScrollText = styled(ScrollLink)`
   margin: 10px 10px 10px 20px;
   cursor: pointer;
 `
