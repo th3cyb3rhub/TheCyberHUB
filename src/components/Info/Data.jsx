@@ -82,7 +82,8 @@ export const communityData = {
     lightTextDesc: true,
     topLine: 'Join our Community',
     headline: 'Over 100,000 members',
-    description: 'We help new folks get started into cyber security and We resolve folk\'s doubts relates to Cyber-security. ',
+    description: 'We help new folks get started into cyber security and ' +
+        'We resolve folk\'s doubts relates to Cyber-security. ',
     buttonLabel: 'Join now',
     imgStart: false,
     img: communitySvg,
@@ -99,7 +100,7 @@ export const contributeData = {
     lightTextDesc: true,
     topLine: 'Contribute to Thecyberworld',
     headline: 'Open Source Projects',
-    description: 'We also help new folks get started into open-source world and get guided them about open-source.' +
+    description: 'We also help new folks get started into open-source world and guided them about open-source. ' +
         'We have open-source projects, where you can contribute to it.',
     buttonLabel: <> <IconsSpacing> <FaGithub/> </IconsSpacing> Contribute now </>,
     imgStart: false,
