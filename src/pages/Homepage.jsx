@@ -25,7 +25,7 @@ const Homepage = () => {
             <Services/>
             <Info {...communityData}/>
             <Contribute {...contributeData}/>
-                <ComingSoon/>
+            <ComingSoon/>
             <Footer/>
         </>
     );
