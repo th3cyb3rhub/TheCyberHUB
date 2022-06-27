@@ -49,8 +49,8 @@ export const aboutData = {
 };
 
 export const coursesData = {
-    id: 'courses',
-    idTo: 'courses',
+    id: 'freeCourses',
+    idTo: 'freeCourses',
     buttonType: 'scroll',
     link: "https://www.youtube.com/channel/UCvWsxW1ahIwGAziU4MfLp6A",
     lightBg: true,
@@ -58,8 +58,6 @@ export const coursesData = {
     lightTextDesc: false,
     topLine: 'Free Courses',
     headline: 'Cyber Security Courses',
-    // description: 'We provide free courses for Cyber-security. ' +
-    //     'You can start your cyber-security journey today with our free courses.',
     description: <p>
         We provide free courses for Cyber-security. <br/>
         You can start your cyber-security journey today with our free courses.
