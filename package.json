@@ -7,7 +7,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
-    "build": "vite build --base=thecyberworld",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
