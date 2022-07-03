@@ -1,15 +1,6 @@
 import React, {useState} from 'react';
-import {
-    Navbar,
-    Sidebar,
-    Hero,
-    Info,
-    Services,
-    Contribute,
-    Footer,
-    ComingSoon
-} from '../components'
-import {aboutData, coursesData, communityData, contributeData} from "../components/Info/Data";
+import {Navbar, Sidebar, Hero, Info, Services, Contribute, ComingSoon, Socials} from '../components'
+import {aboutData, coursesData, communityData, contributeData} from "../components/Homepage/Info/Data";
 
 const Homepage = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -25,8 +16,8 @@ const Homepage = () => {
             <Services/>
             <Info {...communityData}/>
             <Contribute {...contributeData}/>
+            <Socials/>
             <ComingSoon/>
-            <Footer/>
         </>
     );
 };
