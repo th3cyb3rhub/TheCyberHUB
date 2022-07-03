@@ -1,13 +1,13 @@
-import carSvg from '../../assets/images/svg-1.svg';
-import piggyBankSvg from '../../assets/images/piggyBank.svg';
+import carSvg from '../../../assets/images/svg-1.svg';
+import piggyBankSvg from '../../../assets/images/piggyBank.svg';
 // import secureDataSvg from '../../assets/images/secure_data.svg';
-import contributeSvg from '../../assets/images/undraw_developer_activity_re_39tg.svg';
-import communitySvg from '../../assets/images/undraw_work_chat_re_qes4.svg';
-import coursesSvg from '../../assets/images/undraw_programming_re_kg9v.svg';
-import logo_thecyberworld from '../../assets/LogoTrans_theCyberw0rld.png';
+import contributeSvg from '../../../assets/images/undraw_developer_activity_re_39tg.svg';
+import communitySvg from '../../../assets/images/undraw_work_chat_re_qes4.svg';
+import coursesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg';
+import logo_thecyberworld from '../../../assets/LogoTrans_theCyberw0rld.png';
 import {FaGithub} from "react-icons/fa";
-import {IconsSpacing} from "../Buttons/ButtonElements";
-import {IconsSpacing2} from "../Buttons/ButtonElements";
+import {IconsSpacing} from "../../Buttons/ButtonElements";
+import {IconsSpacing2} from "../../Buttons/ButtonElements";
 import {Symbol} from "./InfoElements";
 // import {CgCommunity} from "react-icons/ca";
 // import {MdOutlineVideoLibrary} from "react-icons/md";
@@ -50,9 +50,9 @@ export const aboutData = {
 
 export const coursesData = {
     id: 'courses',
-    idTo: 'courses',
-    buttonType: 'scroll',
-    link: "https://www.youtube.com/channel/UCvWsxW1ahIwGAziU4MfLp6A",
+    idTo: 'freeCourses',
+    buttonType: 'link',
+    link: "/freeCourses",
     lightBg: true,
     lightText: false,
     lightTextDesc: false,
@@ -73,7 +73,7 @@ export const coursesData = {
 
 export const communityData = {
     id: 'community',
-    idTo: 'courses',
+    idTo: 'join',
     buttonType: 'scroll',
     link: "joinUs",
     link2: "https://www.linktree.com/thecyberworld",

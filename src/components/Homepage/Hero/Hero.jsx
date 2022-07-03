@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Video from '../../assets/videos/video.mp4';
+import Video from '../../../assets/videos/video.mp4';
 
 import {
     HeroContainer,
@@ -12,7 +12,7 @@ import {
     ArrowForward,
     ArrowRight
 } from './HeroElements';
-import {Button} from '../Buttons/ButtonElements';
+import {Button} from '../../Buttons/ButtonElements';
 
 
 const Hero = () => {

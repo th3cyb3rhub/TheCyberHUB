@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonLink} from '../Buttons/ButtonElements';
+import {Button, ButtonLink} from '../../Buttons/ButtonElements';
 import {
     InfoContainer,
     InfoWrapper,
@@ -51,7 +51,7 @@ const InfoSection = ({
                                 <BtnWrap>
                                     {buttonType === 'scroll' ?
                                         (<Button
-                                            to={"home"}
+                                            to={idTo}
                                             smooth={true}
                                             duration={500}
                                             spy={true}

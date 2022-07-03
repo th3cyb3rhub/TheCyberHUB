@@ -9,9 +9,9 @@ import {
     ServicesP,
 } from './ServicesElements'
 
-import Icon1 from '../../assets/images/off_road.svg';
-import Icon2 from '../../assets/images/secure_data.svg';
-import Icon3 from '../../assets/images/data_report.svg';
+import Icon1 from '../../../assets/images/off_road.svg';
+import Icon2 from '../../../assets/images/secure_data.svg';
+import Icon3 from '../../../assets/images/data_report.svg';
 import {ScrollText} from "./ServicesElements";
 
 const Services = () => {
