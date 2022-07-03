@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Navbar, Sidebar, Hero, Info, Services, Contribute, ComingSoon, Socials} from '../components'
+import {Navbar, Sidebar, Hero, Info, Services, Contribute, ComingSoon} from '../components'
 import {aboutData, coursesData, communityData, contributeData} from "../components/Homepage/Info/Data";
 
 const Homepage = () => {
@@ -11,12 +11,12 @@ const Homepage = () => {
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <Navbar toggle={toggle}/>
             <Hero/>
+
             <Info {...aboutData}/>
             <Info {...coursesData}/>
             <Services/>
             <Info {...communityData}/>
             <Contribute {...contributeData}/>
-            <Socials/>
             <ComingSoon/>
         </>
     );
