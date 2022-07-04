@@ -96,23 +96,45 @@ export const NavBtn = styled.nav`
 `
 
 export const NavBtnLink = styled.a`
-  border-radius: 50px;
-  background: #01bf71;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #343434;
+  background: transparent;
   white-space: nowrap;
   padding: 10px 22px;
-  color: #010606;
+  color: #ffffff;
   font-size: 16px;
   outline: none;
-  border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
-  
+
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #010606;
-
-
+    background: transparent;
+    color: #47cf73;
+    border-color: #343434;
+    font-size: 18px;
   }
 `
+// export const NavBtnLink = styled.a`
+//   border-radius: 50px;
+//   background: #01bf71;
+//   white-space: nowrap;
+//   padding: 10px 22px;
+//   color: #010606;
+//   font-size: 16px;
+//   outline: none;
+//   border: none;
+//   cursor: pointer;
+//   transition: all 0.2s ease-in-out;
+//   text-decoration: none;
+//
+//   &:hover {
+//     transition: all 0.2s ease-in-out;
+//     background: #fff;
+//     color: #010606;
+//
+//
+//   }
+// `
