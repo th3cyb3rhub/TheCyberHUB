@@ -49,12 +49,9 @@ const Navbar = ({toggle}) => {
                             {[
                                 {to: 'about', title: 'About',},
                                 {to: 'courses', title: 'Courses',},
-                                // {to: 'events', title: 'Events',},
                                 {to: 'services', title: 'Services',},
                                 {to: 'contribute', title: 'Contribute',},
                                 {to: 'community', title: 'Community',},
-                                // {to: 'Testimonials', title: 'Testimonials',},
-                                // {to: 'Newsletter', title: 'Newsletter',},
                             ].map(({to, title}) => (
                                 <NavItem key={to}>
                                     <NavLinks
@@ -75,7 +72,6 @@ const Navbar = ({toggle}) => {
                                         target="_blank"> Subscribe </NavBtnLink>
                         </NavBtn>
                     </NavbarContainer>
-
                 </Nav>
             </IconContext.Provider>
         </>
