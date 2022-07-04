@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const SocialIconDiscord = styled.a`
   color: #fff;
+
   &:hover {
     color: #5865f2;
     transition: .3s ease-out;
@@ -19,7 +20,7 @@ export const SocialIconGithub = styled.a`
 
 export const SocialIconTwitter = styled.a`
   color: #fff;
- 
+
   &:hover {
     color: #1d9bf0;
     transition: .3s ease-out;
@@ -97,7 +98,7 @@ export const SocialsWrapper = styled.div`
   align-items: flex-start;
   grid-gap: 30px;
   padding: 0 50px;
-  
+
   @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -142,8 +143,6 @@ export const SocialsH1 = styled.h1`
     transition: all .2s ease-in-out;
     font-size: 55px;
     margin-bottom: 57px;
-
-
   }
 
   @media screen and (max-width: 480px) {
