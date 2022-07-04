@@ -51,10 +51,9 @@ const Navbar = ({toggle}) => {
                                 {to: 'courses', title: 'Courses',},
                                 // {to: 'events', title: 'Events',},
                                 {to: 'services', title: 'Services',},
-                                {to: 'community', title: 'Community',},
                                 {to: 'contribute', title: 'Contribute',},
+                                {to: 'community', title: 'Community',},
                                 // {to: 'Testimonials', title: 'Testimonials',},
-                                // {to: 'join', title: 'Join',},
                                 // {to: 'Newsletter', title: 'Newsletter',},
                             ].map(({to, title}) => (
                                 <NavItem key={to}>
