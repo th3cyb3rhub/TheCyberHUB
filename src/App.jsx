@@ -1,13 +1,22 @@
 import React from 'react';
 
 import './App.css';
+import {Route, Routes} from "react-router-dom";
 
-import Homepage from './pages/Homepage';
+import Homepage from './Pages/Homepage';
+import {Footer} from "./components";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
     return (
         <>
-            <Homepage/>
+            <ScrollToTop>
+                <Routes>
+                    <Route exact path={"/"} element={<Homepage/>}/>
+                    <Route exact path={"/freeCourses"} element={<Courses/>}/>
+                </Routes>
+            </ScrollToTop>
+            <Footer/>
         </>
     );
 };
