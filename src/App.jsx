@@ -4,14 +4,11 @@ import './App.css';
 
 import Homepage from './Pages/Homepage';
 import {Footer} from "./components";
-import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
     return (
         <>
-            <ScrollToTop>
-                        <Homepage/>
-            </ScrollToTop>
+            <Homepage/>
             <Footer/>
         </>
     );
