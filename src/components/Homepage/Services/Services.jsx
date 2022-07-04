@@ -9,9 +9,9 @@ import {
     ServicesP,
 } from './ServicesElements'
 
-import Icon1 from '../../../assets/images/off_road.svg';
-import Icon2 from '../../../assets/images/secure_data.svg';
-import Icon3 from '../../../assets/images/data_report.svg';
+import Icon1 from '../../../assets/images/Servies/undraw_video_files_fu10.svg';
+import Icon2 from '../../../assets/images/Servies/undraw_community_re_cyrm.svg';
+import Icon3 from '../../../assets/images/Servies/undraw_version_control_re_mg66.svg';
 import {ScrollText} from "./ServicesElements";
 
 const Services = () => {
@@ -19,7 +19,7 @@ const Services = () => {
         <ServicesContainer id="services">
             <ServicesH1>Our Services</ServicesH1>
             <ServicesWrapper>
-                <ScrollText to={"freeCourses"} smooth={true} duration={500} spy={true} exact={"true"} offset={-80}>
+                <ScrollText to={"courses"} smooth={true} duration={500} spy={true} exact={"true"} offset={-80}>
                     <ServicesCard>
                         <ServicesIcon src={Icon1}/>
                         <ServicesH2>Free Courses</ServicesH2>
