@@ -30,12 +30,12 @@ const Socials = () => {
             <SocialsH1>Join</SocialsH1>
             <SocialsWrapper>
                 <SocialsCard>
-                    <SocialIconDiscord href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                    <SocialIconDiscord href="https://discord.gg/QHBPq6xP5p" target="_blank" aria-label="Discord">
                             <FaDiscord/>
                     </SocialIconDiscord>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconGithub href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                    <SocialIconGithub href="https://www.github.com/thecyberw0rld" target="_blank" aria-label="Github">
                         <FaGithub/>
                     </SocialIconGithub>
                 </SocialsCard>
@@ -45,29 +45,27 @@ const Socials = () => {
                     </SocialIconTwitter>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconYoutube href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                    <SocialIconYoutube href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target="_blank" aria-label="Youtube">
                         <FaYoutube/>
                     </SocialIconYoutube>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconTelegram href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                    <SocialIconTelegram href="https://t.me/thecyberw0rld" target="_blank" aria-label="Telegram">
                         <FaTelegramPlane/>
                     </SocialIconTelegram>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconInstagram href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                    <SocialIconInstagram href="https://www.instagram.com/thecyberw0rld" target="_blank" aria-label="Instagram">
                         <FaInstagram/>
                     </SocialIconInstagram>
                 </SocialsCard>
-
                 <SocialsCard>
-                    <SocialIconLinkedin href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                    <SocialIconLinkedin href="linkedin.com/company/thecyberworld" target="_blank" aria-label="Linkedin">
                         <FaLinkedinIn/>
                     </SocialIconLinkedin>
                 </SocialsCard>
-
                 <SocialsCard>
-                    <SocialIconFacebook href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                    <SocialIconFacebook href="https://www.facebook.com/thecyberw0rld" target="_blank" aria-label="Facebook">
                         <FaFacebookF/>
                     </SocialIconFacebook>
                 </SocialsCard>
