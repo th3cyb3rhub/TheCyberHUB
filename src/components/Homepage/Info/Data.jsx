@@ -50,8 +50,8 @@ export const aboutData = {
 
 export const coursesData = {
     id: 'courses',
-    idTo: 'freeCourses',
-    buttonType: 'link',
+    idTo: 'courses',
+    buttonType: 'scroll',
     link: "/freeCourses",
     lightBg: true,
     lightText: false,

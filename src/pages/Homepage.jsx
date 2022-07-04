@@ -15,8 +15,8 @@ const Homepage = () => {
             <Info {...aboutData}/>
             <Info {...coursesData}/>
             <Services/>
-            <Info {...communityData}/>
             <Contribute {...contributeData}/>
+            <Info {...communityData}/>
             <Socials />
             <ComingSoon/>
         </>

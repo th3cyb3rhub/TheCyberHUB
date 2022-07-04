@@ -20,10 +20,10 @@ const Sidebar = ({isOpen, toggle}) => {
             <SidebarWrapper>
                 <SidebarMenu>
                     <SidebarLink to={"about"}>About</SidebarLink>
-                    <SidebarLink to={"newsletters"}>Newsletters</SidebarLink>
+                    <SidebarLink to={"courses"}>Courses</SidebarLink>
+                    <SidebarLink to={"services"}>Services</SidebarLink>
+                    <SidebarLink to={"contribute"}>Contribute</SidebarLink>
                     <SidebarLink to={"community"}>Community</SidebarLink>
-                    <SidebarLink to={"join"}>Join</SidebarLink>
-                    <SidebarLink to={"subscribe"}>Subscribe</SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
                     <SidebarRoute to={"/subscribe"}>
