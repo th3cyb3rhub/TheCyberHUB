@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import {Link as RouterLink} from 'react-router-dom';
-import {Link as ScrollLink} from 'react-scroll'
 import {FaTimes} from 'react-icons/fa';
-
 
 export const SidebarContainer = styled.nav`
   position: fixed;
