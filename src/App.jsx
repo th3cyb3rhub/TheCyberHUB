@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './App.css';
+import {Route, Routes} from "react-router-dom";
 
 import Homepage from './Pages/Homepage';
 import {Footer} from "./components";
@@ -10,7 +11,9 @@ const App = () => {
     return (
         <>
             <ScrollToTop>
-                        <Homepage/>
+                <Routes>
+                    <Route exact path={"/"} element={<Homepage/>}/>
+                </Routes>
             </ScrollToTop>
             <Footer/>
         </>
