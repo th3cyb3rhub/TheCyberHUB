@@ -1,5 +1,4 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
 
 import './App.css';
 
@@ -11,9 +10,7 @@ const App = () => {
     return (
         <>
             <ScrollToTop>
-                <Routes>
-                    <Route exact path={"/"} element={<Homepage/>}/>
-                </Routes>
+                        <Homepage/>
             </ScrollToTop>
             <Footer/>
         </>
