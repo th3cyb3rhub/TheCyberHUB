@@ -15,6 +15,7 @@ import {
     WebsiteRights,
     SocialIcons,
     SocialIconLink, FooterSocialLinks,
+    SocialIconLinkTwitter, SocialIconLinkGithub, SocialIconLinkDiscord, SocialIconLinkInstagram, FooterSocialLinksTwitter, FooterSocialLinksGithub, FooterSocialLinksDiscord, FooterSocialLinksLinktree
 } from './FooterElements';
 
 import {
@@ -65,10 +66,14 @@ const Footer = () => {
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
-                            <FooterSocialLinks href="https://www.twitter.com/thecyberw0rld" target={"_blank"}> Twitter </FooterSocialLinks>
-                            <FooterSocialLinks href="https://www.github.com/thecyberw0rld" target={"_blank"}> GitHub </FooterSocialLinks>
-                            <FooterSocialLinks href="https://discord.gg/QHBPq6xP5p" target={"_blank"}> Discord </FooterSocialLinks>
-                            <FooterSocialLinks href="https://www.linktree.com/thecyberworld" target={"_blank"}> All Community Links </FooterSocialLinks>
+                            <FooterSocialLinksTwitter href="https://www.twitter.com/cryptoverseweb3"
+                                                      target={"_blank"}> Twitter </FooterSocialLinksTwitter>
+                            <FooterSocialLinksGithub href="https://www.github.com/cryptoverseweb3"
+                                                     target={"_blank"}> GitHub </FooterSocialLinksGithub>
+                            <FooterSocialLinksDiscord href="https://discord.gg/WhDry9FWE7"
+                                                      target={"_blank"}> Discord </FooterSocialLinksDiscord>
+                            <FooterSocialLinksLinktree href="https://www.linktree.com/cryptoverseweb3"
+                                                       target={"_blank"}> All Community Links </FooterSocialLinksLinktree>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
 
@@ -96,18 +101,22 @@ const Footer = () => {
                     </SocialLogo>
                     <WebsiteRights> © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
                     <SocialIcons>
-                        <SocialIconLink href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
+                        <SocialIconLinkTwitter href="https://www.twitter.com/cryptoverseWeb3" target="_blank"
+                                               aria-label="Twitter">
                             <FaTwitter/>
-                        </SocialIconLink>
-                        <SocialIconLink href="https://www.github.com/thecyberw0rld" target="_blank" aria-label="Github">
+                        </SocialIconLinkTwitter>
+                        <SocialIconLinkGithub href="https://www.github.com/cryptoverseWeb3" target="_blank"
+                                              aria-label="Github">
                             <FaGithub/>
-                        </SocialIconLink>
-                        <SocialIconLink href="https://discord.gg/QHBPq6xP5p" target="_blank" aria-label="Discord">
+                        </SocialIconLinkGithub>
+                        <SocialIconLinkDiscord href="https://discord.gg/WhDry9FWE7" target="_blank"
+                                               aria-label="Discord">
                             <FaDiscord/>
-                        </SocialIconLink>
-                        <SocialIconLink href="https://www.instagram.com/thecyberw0rld" target="_blank" aria-label="Instagram">
+                        </SocialIconLinkDiscord>
+                        <SocialIconLinkInstagram href="https://www.instagram.com/cryptoverseWeb3" target="_blank"
+                                                 aria-label="Instagram">
                             <FaInstagram/>
-                        </SocialIconLink>
+                        </SocialIconLinkInstagram>
                     </SocialIcons>
                 </SocialMediaWrap>
             </SocialMedia>
