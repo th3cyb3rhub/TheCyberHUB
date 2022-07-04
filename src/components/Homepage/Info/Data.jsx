@@ -1,6 +1,6 @@
 import contributeSvg from '../../../assets/images/open-source-contribution.svg';
 import communitySvg from '../../../assets/images/undraw_public_discussion_re_w9up.svg';
-import coursesSvg from '../../../assets/images/Servies/undraw_programming_re_kg9v.svg';
+import coursesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg';
 import logo_thecyberworld from '../../../assets/LogoTrans_theCyberw0rld.png';
 import {FaGithub} from "react-icons/fa";
 import {IconsSpacing} from "../../Buttons/ButtonElements";
