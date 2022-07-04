@@ -13,7 +13,7 @@ const Socials = () => {
                     </SocialIconDiscord>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconGithub href="https://www.github.com/thecyberw0rld" target="_blank" aria-label="Github">
+                    <SocialIconGithub href="https://www.github.com/thecyberworld" target="_blank" aria-label="Github">
                         <FaGithub/>
                     </SocialIconGithub>
                 </SocialsCard>
