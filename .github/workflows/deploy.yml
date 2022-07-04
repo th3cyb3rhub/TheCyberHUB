@@ -1,4 +1,4 @@
-name: Github Pages deploy
+name: Github pages deploy
 
 on:
   push:
@@ -25,9 +25,9 @@ jobs:
           PUBLIC_BASE_PATH: /thecyberworld
 
       - name: Deploy 🚀
-        uses: JamesIves/github-Pages-deploy-action@v4.2.3
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-Pages # The branch the action should deploy to.
+          branch: gh-pages # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
           
