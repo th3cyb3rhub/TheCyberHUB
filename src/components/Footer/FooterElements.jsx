@@ -122,19 +122,7 @@ export const SocialMediaWrap = styled.div`
   @media screen and (max-width: 820px) {
     flex-direction: column;
   }
-`; 
-
-export const SocialLogo = styled(RouterLink)`
-  color: #fff;
-  justify-self: start;
-  cursor: pointer; 
-  text-decoration: none; 
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center; 
-  margin-bottom: 16px;
-  font-weight: bold;
-`; 
+`;
 
 export const WebsiteRights = styled.small`
   color: #fff;
@@ -155,4 +143,124 @@ export const SocialIconLink = styled.a`
     color: #01bf71;
     transition: .3s ease-out;
   }
-`; 
+`;
+
+
+
+export const FooterSocialLinksTwitter = styled.a`
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: .5rem;
+  font-size: 14px;
+
+  &:hover {
+    color: #1d9bf0;
+    font-size: 15px;
+    transition: .3s ease-out;
+
+  }
+`;
+export const FooterSocialLinksGithub = styled.a`
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: .5rem;
+  font-size: 14px;
+
+  &:hover {
+    color: #afafaf;
+    font-size: 15px;
+    transition: .3s ease-out;
+
+  }
+`;
+export const FooterSocialLinksDiscord = styled.a`
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: .5rem;
+  font-size: 14px;
+
+  &:hover {
+    color: #5865f2;
+    font-size: 15px;
+    transition: .3s ease-out;
+
+  }
+`;
+export const FooterSocialLinksLinktree = styled.a`
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: .5rem;
+  font-size: 14px;
+
+  &:hover {
+    color: #1fbd3a;
+    font-size: 15px;
+    transition: .3s ease-out;
+
+  }
+`;
+
+
+
+export const SocialIconLinkTwitter = styled.a`
+  color: #fff;
+  font-size: 24px;
+
+  &:hover {
+    color: #1d9bf0;
+    transition: .3s ease-out;
+    font-size: 30px;
+  }
+`;
+
+
+export const SocialIconLinkGithub = styled.a`
+  color: #fff;
+  font-size: 24px;
+
+  &:hover {
+    color: #f0f6fc;
+    transition: .3s ease-out;
+    font-size: 30px;
+  }
+`;
+
+export const SocialIconLinkDiscord = styled.a`
+  color: #fff;
+  font-size: 24px;
+
+  &:hover {
+    color: #5865f2;
+    transition: .3s ease-out;
+    font-size: 30px;
+  }
+`;
+export const SocialIconLinkInstagram = styled.a`
+  color: #fff;
+  font-size: 24px;
+
+  &:hover {
+    color: #b83993;
+    transition: .3s ease-out;
+    font-size: 30px;
+  }
+`;
+
+
+export const SocialLogo = styled(RouterLink)`
+  color: #fff;
+  justify-self: start;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: bold;
+
+  :hover {
+    color: #47cf73;
+    font-size: 1.6rem;
+    transition: .3s ease-out;
+  }
+`;
