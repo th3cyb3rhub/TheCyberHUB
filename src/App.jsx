@@ -13,7 +13,6 @@ const App = () => {
             <ScrollToTop>
                 <Routes>
                     <Route exact path={"/"} element={<Homepage/>}/>
-                    <Route exact path={"/freeCourses"} element={<Courses/>}/>
                 </Routes>
             </ScrollToTop>
             <Footer/>
