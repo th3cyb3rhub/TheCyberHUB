@@ -1,28 +1,6 @@
 import React from 'react';
-import {
-    SocialsContainer,
-    SocialsH1,
-    SocialsWrapper,
-    SocialsCard,
-    SocialIconDiscord,
-    SocialIconGithub,
-    SocialIconTwitter,
-    SocialIconYoutube,
-    SocialIconTelegram,
-    SocialIconInstagram,
-    SocialIconLinkedin,
-    SocialIconFacebook,
-} from './SocialsElements'
-
-import {
-    FaDiscord,
-    FaFacebookF,
-    FaGithub,
-    FaInstagram,
-    FaLinkedinIn,
-    FaTelegramPlane,
-    FaTwitter, FaYoutube
-} from "react-icons/fa";
+import {SocialsContainer, SocialsH1, SocialsWrapper, SocialsCard, SocialIconDiscord, SocialIconGithub, SocialIconTwitter, SocialIconYoutube, SocialIconTelegram, SocialIconInstagram, SocialIconLinkedin, SocialIconFacebook,} from './SocialsElements'
+import {FaDiscord, FaFacebookF, FaGithub, FaInstagram, FaLinkedinIn, FaTelegramPlane, FaTwitter, FaYoutube} from "react-icons/fa";
 
 const Socials = () => {
     return (
@@ -35,7 +13,7 @@ const Socials = () => {
                     </SocialIconDiscord>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconGithub href="https://www.github.com/thecyberw0rld" target="_blank" aria-label="Github">
+                    <SocialIconGithub href="https://www.github.com/thecyberworld" target="_blank" aria-label="Github">
                         <FaGithub/>
                     </SocialIconGithub>
                 </SocialsCard>
@@ -55,21 +33,20 @@ const Socials = () => {
                     </SocialIconTelegram>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconInstagram href="https://www.instagram.com/thecyberw0rld" target="_blank" aria-label="Instagram">
-                        <FaInstagram/>
-                    </SocialIconInstagram>
-                </SocialsCard>
-                <SocialsCard>
                     <SocialIconLinkedin href="linkedin.com/company/thecyberworld" target="_blank" aria-label="Linkedin">
                         <FaLinkedinIn/>
                     </SocialIconLinkedin>
+                </SocialsCard>
+                <SocialsCard>
+                    <SocialIconInstagram href="https://www.instagram.com/thecyberw0rld" target="_blank" aria-label="Instagram">
+                        <FaInstagram/>
+                    </SocialIconInstagram>
                 </SocialsCard>
                 <SocialsCard>
                     <SocialIconFacebook href="https://www.facebook.com/thecyberw0rld" target="_blank" aria-label="Facebook">
                         <FaFacebookF/>
                     </SocialIconFacebook>
                 </SocialsCard>
-
             </SocialsWrapper>
         </SocialsContainer>
     );
