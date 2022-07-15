@@ -22,7 +22,7 @@ jobs:
       - run: npm install
       - run: npm run build
         env:
-          PUBLIC_BASE_PATH: /thecyberhub.org
+          PUBLIC_BASE_PATH: /Thecyberhub.org
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.3
