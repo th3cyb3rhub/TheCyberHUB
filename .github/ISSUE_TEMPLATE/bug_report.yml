@@ -1,0 +1,50 @@
+name: Bug report
+description: Create a report to help us improve
+title: "[BUG] <description>"
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: To Reproduce
+      description: |
+        Steps to reproduce the bug/behavior.
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expectedbhv
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Screenshot/ Video
+      description: If applicable, add screenshots to help explain your problem.
+    validations:
+      required: false
+  - type: checkboxes
+    id: coc
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, I confirm I've read and complied with the [CoC](https://github.com/thecyberworld/Support/blob/main/CODE_OF_CONDUCT.md) 🖖
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        You can also join our [Discord](https://discord.gg/QHBPq6xP5p) community.
+        Feel free to check out other cool repositories of the [Thecyberworld](https://github.com/thecyberworld).
+        Join the Thecyberworld GitHub Organisation by raising an [issue](https://github.com/thecyberworld/Support/issues/new?assignees=&labels=invite+me+to+the+organisation&template=invitation.yml&title=Please+invite+me+to+the+GitHub+Community+Organization) (you will be sent an invitation).

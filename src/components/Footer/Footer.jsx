@@ -70,7 +70,7 @@ const Footer = () => {
                                                       target={"_blank"}> Twitter </FooterSocialLinksTwitter>
                             <FooterSocialLinksGithub href="https://www.github.com/cryptoverseweb3"
                                                      target={"_blank"}> GitHub </FooterSocialLinksGithub>
-                            <FooterSocialLinksDiscord href="https://discord.gg/WhDry9FWE7"
+                            <FooterSocialLinksDiscord href="https://discord.gg/QHBPq6xP5p"
                                                       target={"_blank"}> Discord </FooterSocialLinksDiscord>
                             <FooterSocialLinksLinktree href="https://www.linktree.com/cryptoverseweb3"
                                                        target={"_blank"}> All Community Links </FooterSocialLinksLinktree>
@@ -109,7 +109,7 @@ const Footer = () => {
                                               aria-label="Github">
                             <FaGithub/>
                         </SocialIconLinkGithub>
-                        <SocialIconLinkDiscord href="https://discord.gg/WhDry9FWE7" target="_blank"
+                        <SocialIconLinkDiscord href="https://discord.gg/QHBPq6xP5p" target="_blank"
                                                aria-label="Discord">
                             <FaDiscord/>
                         </SocialIconLinkDiscord>

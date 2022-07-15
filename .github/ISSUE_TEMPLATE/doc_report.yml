@@ -1,0 +1,41 @@
+name: Documentation issue
+description: Found an issue in the documentation? You can use this one!
+title: '[DOCS] <description>'
+labels: [Documentation issue]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A brief description of the question or issue, also include what you tried and what didn't work
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Please add screenshots if applicable
+    validations:
+      required: false
+  - type: textarea
+    id: extrainfo
+    attributes:
+      label: Additional information
+      description: Is there anything else we should know about this issue?
+    validations:
+      required: false
+  - type: checkboxes
+    id: coc
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, I confirm I've read and complied with the [CoC](https://github.com/thecyberworld/Support/blob/main/CODE_OF_CONDUCT.md) 🖖
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        You can also join our [Discord](https://discord.gg/QHBPq6xP5p) community.
+        Feel free to check out other cool repositories of the [Thecyberworld](https://github.com/thecyberworld).
+        Join the Thecyberworld GitHub Organisation by raising an [issue](https://github.com/thecyberworld/Support/issues/new?assignees=&labels=invite+me+to+the+organisation&template=invitation.yml&title=Please+invite+me+to+the+GitHub+Community+Organization) (you will be sent an invitation).

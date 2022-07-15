@@ -1,0 +1,53 @@
+name: Feature request
+description: Suggest features, propose improvements, discuss new ideas
+title: "[FEATURE] <description>"
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Provide a general summary of the issue in the title above
+  - type: textarea
+    id: description
+    attributes:
+      label: Detailed description
+      description: Provide a detailed description of the change or addition you are proposing
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: |
+        Why is this change important to you? How would you use it?
+        How can it benefit other users?
+    validations:
+      required: true
+  - type: textarea
+    id: possibleimpl
+    attributes:
+      label: Possible implementation
+      description: Not obligatory, but suggest an idea for implementing addition or change
+    validations:
+      required: false
+  - type: textarea
+    id: extrainformation
+    attributes:
+      label: Additional information
+      description: Is there anything else we should know about this feature?
+    validations:
+      required: false
+  - type: checkboxes
+    id: coc
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, I confirm I've read and complied with the [CoC](https://github.com/thecyberworld/Support/blob/main/CODE_OF_CONDUCT.md) 🖖
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        You can also join our [Discord](https://discord.gg/QHBPq6xP5p) community.
+        Feel free to check out other cool repositories of the [Thecyberworld](https://github.com/thecyberworld).
+        Join the Thecyberworld GitHub Organisation by raising an [issue](https://github.com/thecyberworld/Support/issues/new?assignees=&labels=invite+me+to+the+organisation&template=invitation.yml&title=Please+invite+me+to+the+GitHub+Community+Organization) (you will be sent an invitation).
