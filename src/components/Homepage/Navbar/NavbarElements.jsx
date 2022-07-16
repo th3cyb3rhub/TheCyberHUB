@@ -85,6 +85,19 @@ export const NavLinks = styled(LinkScroll)`
     border-bottom: 3px solid #01bf71;
   }
 `
+export const NavLinkRouter = styled.a`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+
+  &.active {
+    border-bottom: 3px solid #01bf71;
+  }
+`
 
 export const NavBtn = styled.nav`
   display: flex;

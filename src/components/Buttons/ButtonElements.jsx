@@ -21,7 +21,7 @@ export const Button = styled(ScrollLink)`
   margin-right: 20px; //border-radius: 50px;
   white-space: nowrap;
   padding: ${({big}) => (big ? '14px 48px' : '12px 30px')};
-  color: ${({dark}) => dark ? '#ffffff' : '#0e0e0e'};
+  //color: ${({dark}) => dark ? '#ffffff' : '#0e0e0e'};
   font-size: ${({fontBig}) => (fontBig ? '20px' : '16px')};
   outline: none;
   cursor: pointer;
@@ -29,11 +29,11 @@ export const Button = styled(ScrollLink)`
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
+    color: #47cf73;
 
   &:hover {
     transition: all 0.2s ease-in-out;
     background: transparent;
-    color: #47cf73;
     border-color: #343434;
     font-size: 18px;
   }

@@ -8,14 +8,14 @@ const Socials = () => {
             <SocialsH1>Join</SocialsH1>
             <SocialsWrapper>
                 <SocialsCard>
-                    <SocialIconDiscord href="https://discord.gg/QHBPq6xP5p" target="_blank" aria-label="Discord">
-                            <FaDiscord/>
-                    </SocialIconDiscord>
-                </SocialsCard>
-                <SocialsCard>
                     <SocialIconGithub href="https://www.github.com/thecyberworld" target="_blank" aria-label="Github">
                         <FaGithub/>
                     </SocialIconGithub>
+                </SocialsCard>
+                <SocialsCard>
+                    <SocialIconDiscord href="https://discord.gg/QHBPq6xP5p" target="_blank" aria-label="Discord">
+                            <FaDiscord/>
+                    </SocialIconDiscord>
                 </SocialsCard>
                 <SocialsCard>
                     <SocialIconTwitter href="https://www.twitter.com/thecyberw0rld" target="_blank" aria-label="Twitter">
@@ -33,7 +33,7 @@ const Socials = () => {
                     </SocialIconTelegram>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconLinkedin href="linkedin.com/company/thecyberworld" target="_blank" aria-label="Linkedin">
+                    <SocialIconLinkedin href="https://linkedin.com/company/thecyberworld" target="_blank" aria-label="Linkedin">
                         <FaLinkedinIn/>
                     </SocialIconLinkedin>
                 </SocialsCard>
