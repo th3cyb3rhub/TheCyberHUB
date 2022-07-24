@@ -1,3 +1,12 @@
+## [0.1.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.1.0...v0.1.1) (2022-07-24)
+
+
+### Bug Fixes
+
+* pull_request_template.md ([#60](https://github.com/thecyberworld/thecyberhub.org/issues/60)) ([4a8cc16](https://github.com/thecyberworld/thecyberhub.org/commit/4a8cc167f357817d7cb50199038d8f39813993a1))
+
+
+
 # [0.1.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.0.2...v0.1.0) (2022-07-24)
 
 
