@@ -1,8 +1,13 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Security Issues
+    url: https://twitter.com/thecyberw0rld
+    about: For security related issues, contact us on Twitter.
+
   - name: Discord community
     url: https://discord.gg/QHBPq6xP5p
     about: Join our inclusive Discord community.
+
   - name: Our socials
     url: https://linktr.ee/thecyberworld
     about: Feel free to contact us via your preferred platform.
