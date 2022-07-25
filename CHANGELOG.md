@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.1.1...v0.2.0) (2022-07-25)
+
+
+### Features
+
+* courses ([#64](https://github.com/thecyberworld/thecyberhub.org/issues/64)) ([e31c62e](https://github.com/thecyberworld/thecyberhub.org/commit/e31c62e69806e884805e1bd838d1fddbe164b6dc))
+
+
+
 ## [0.1.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.1.0...v0.1.1) (2022-07-24)
 
 
