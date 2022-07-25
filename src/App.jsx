@@ -7,6 +7,7 @@ import Homepage from './pages/Homepage';
 import {Footer} from "./components";
 import ScrollToTop from "./components/ScrollToTop";
 import {Navigate} from "react-router";
+import Courses from "./components/Courses";
 
 const App = () => {
     return (
@@ -14,9 +15,8 @@ const App = () => {
             <ScrollToTop>
                 <Routes>
                     <Route exact path={"/"} element={<Homepage/>}/>
-                    <Route path='/404' element={<Homepage/>}/>
-                    <Route path='*' element={<Navigate replace to='/404'/>} />
-            </Routes>
+                    <Route exact path={"/courses"} element={<Courses/>}/>
+                </Routes>
             </ScrollToTop>
             <Footer/>
         </>
