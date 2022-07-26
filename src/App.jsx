@@ -4,11 +4,10 @@ import './App.css';
 import {Route, Routes} from "react-router-dom";
 
 import Homepage from './pages/Homepage';
-import Courses from './pages/Courses';
 import {Footer, Navbar, Sidebar} from "./components";
 import ScrollToTop from "./components/ScrollToTop";
 import {Navigate} from "react-router";
-import YoutubeCourses from "./components/Courses/YoutubeCourses";
+import {YoutubeCourses} from './components'
 
 const App = () => {
     const [isOpen, setIsOpen] = useState(false);
