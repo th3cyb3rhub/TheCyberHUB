@@ -5,7 +5,7 @@ import YoutubeCourses from "../components/Courses/YoutubeCourses";
 const Courses = () => {
     return (
         <div>
-            <YoutubeCoursesNavbar/>
+            {/*<YoutubeCoursesNavbar/>*/}
             <YoutubeCourses/>
         </div>
     );

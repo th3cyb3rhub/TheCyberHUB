@@ -8,8 +8,7 @@ const Homepage = () => {
 
     return (
         <>
-            <Sidebar isOpen={isOpen} toggle={toggle}/>
-            <Navbar toggle={toggle}/>
+
             <Hero/>
 
             <Info {...aboutData}/>
