@@ -10,11 +10,14 @@ import {
     NavMenu,
     NavItem,
     NavLinks,
+    NavLinkRouter,
     NavBtn,
     NavBtnLink
 } from "./NavbarElements";
+import {Button} from "../../Buttons/ButtonElements";
+import {Link} from "react-router-dom";
 
-const YoutubeCoursesNavbar = ({toggle}) => {
+const Navbar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
 
     const changeNav = () => {
@@ -47,12 +50,11 @@ const YoutubeCoursesNavbar = ({toggle}) => {
                         </MobileIcon>
                         <NavMenu>
                             {[
-                                {to: 'about', title: 'About',},
-                                {to: 'courses', title: 'Courses',},
-                                // {to: 'events', title: 'Events',},
-                                // {to: 'Testimonials', title: 'Testimonials',},
-                                // {to: 'join', title: 'Join',},
-                                // {to: 'Newsletter', title: 'Newsletter',},
+                                {to: 'about', title: 'Home',},
+                                {to: 'resources', title: 'Courses',},
+                                {to: 'resources', title: 'WriteUps',},
+                                {to: 'contribute', title: 'Events',},
+                                {to: '/resources/cybernews', title: 'Cyber News',},
                             ].map(({to, title}) => (
                                 <NavItem key={to}>
                                     <NavLinks
@@ -65,21 +67,35 @@ const YoutubeCoursesNavbar = ({toggle}) => {
                                     >
                                         {title}
                                     </NavLinks>
+
                                 </NavItem>
                             ))}
+                            <NavLinkRouter
+                                href={"https://blog.thecyberhub.org/"}
+                                target={"_blank"}
+                            >
+                                Blog
+                            </NavLinkRouter>
                         </NavMenu>
                         <NavBtn>
-                            <NavBtnLink href={"https://www.youtube.com/c/thecyberworld?sub_confirmation=1"}
-                                        target="_blank"> Subscribe </NavBtnLink>
+                            <Button
+                                to={"join"}
+                                smooth={true}
+                                duration={500}
+                                spy={true}
+                                exact="true"
+                                offset={-80}
+                            >
+                                Join us
+                            </Button>
                         </NavBtn>
                     </NavbarContainer>
-
                 </Nav>
             </IconContext.Provider>
         </>
     );
 };
 
-export default YoutubeCoursesNavbar;
+export default Navbar;
 
 

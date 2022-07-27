@@ -1,8 +1,9 @@
 import contributeSvg from '../../../assets/images/open-source-contribution.svg';
 import VersionControlSvg from '../../../assets/images/Servies/undraw_version_control_re_mg66.svg';
 import communitySvg from '../../../assets/images/undraw_public_discussion_re_w9up.svg';
-import coursesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg';
+import ResourcesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg';
 import logo_thecyberworld from '../../../assets/LogoTrans_theCyberw0rld.png';
+
 import {FaGithub} from "react-icons/fa";
 import {IconsSpacing} from "../../Buttons/ButtonElements";
 import {IconsSpacing2} from "../../Buttons/ButtonElements";
@@ -43,8 +44,8 @@ export const aboutData = {
 export const ResourcesData = {
     id: 'resources',
     idTo: 'resources',
-    buttonType: 'link',
-    link: "/courses",
+    buttonType: 'router',
+    link: "/resources",
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
@@ -57,8 +58,8 @@ export const ResourcesData = {
         </p>,
     buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
     imgStart: true,
-    img: coursesSvg,
-    alt: 'coursesSvg',
+    img: ResourcesSvg,
+    alt: 'ResourcesSvg',
     dark: true,
     primary: true,
     darkText: false,

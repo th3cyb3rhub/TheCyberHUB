@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonLink} from '../../Buttons/ButtonElements';
+import {Button, ButtonLink, RouterButton} from '../../Buttons/ButtonElements';
 import {
     InfoContainer,
     InfoWrapper,
@@ -15,6 +15,7 @@ import {
     Img,
     ScrollText
 } from "./InfoElements";
+import {Link} from "react-router-dom";
 
 const InfoSection = ({
                          id,
@@ -49,8 +50,21 @@ const InfoSection = ({
                                 <Heading lightText={lightText}> {headline} </Heading>
                                 <Subtitle darkText={darkText}> {description} </Subtitle>
                                 <BtnWrap>
-                                    {buttonType === 'scroll' ?
-                                        (
+                                    {buttonType === 'router' && (
+                                            // <Link to='/resources'>
+                                        <RouterButton
+                                            to='/resources'
+                                                primary={primary ? 'true' : ''}
+                                                dark={dark ? 1 : 0}
+                                                dark2={dark2 ? 1 : 0}
+                                        >
+                                                {buttonLabel}
+                                        </RouterButton>
+                                            // </Link>
+
+                                    )}
+
+                                    {buttonType === 'scroll' && (
                                             <Button
                                                 to={idTo}
                                                 smooth={true}
@@ -64,7 +78,9 @@ const InfoSection = ({
                                             >
                                                 {buttonLabel}
                                             </Button>
-                                        ) : (
+                                        ) }
+
+                                    {buttonType === 'link' && (
                                             <ButtonLink
                                                 href={link}
                                                 primary={primary ? 'true' : ''}
@@ -73,8 +89,8 @@ const InfoSection = ({
                                             >
                                                 {buttonLabel}
                                             </ButtonLink>
-                                        )
-                                    }
+                                        ) }
+
                                     <ScrollText
                                         to={"contribute"}
                                         smooth={true}

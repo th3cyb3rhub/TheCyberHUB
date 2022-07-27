@@ -1,11 +1,11 @@
 import React from 'react';
-import YoutubeCoursesNavbar from "./Courses/YoutubeCoursesNavbar/YoutubeCoursesNavbar";
-import YoutubeCourses from "./Courses/YoutubeCourses";
+import ResourcesNavbar from "./Resources/ResourcesNavbar/ResourcesNavbar";
+import YoutubeCourses from "./Resources/Courses/YoutubeCourses";
 
 const Courses = () => {
     return (
         <div>
-            {/*<YoutubeCoursesNavbar/>*/}
+            {/*<ResourcesNavbar/>*/}
             <YoutubeCourses/>
         </div>
     );

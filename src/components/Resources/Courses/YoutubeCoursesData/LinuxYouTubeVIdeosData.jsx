@@ -11,7 +11,7 @@ export const LinuxCourses__Youtube = [
         channelName: "The Cyber Mentor",
         channelLogo: "https://yt3.ggpht.com/ytc/AKedOLRGnc0be-YXi3zenYi6s8uwgPxi_IrLBZ7Rigv7=s48-c-k-c0x00ffffff-no-rj",
         timeStamp: "Today",
-        alt: 'coursesSvg',
+        alt: 'ResourcesSvg',
         channelLink: "https://www.youtube.com/c/TheCyberMentor",
     }
 ];
