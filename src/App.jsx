@@ -4,26 +4,21 @@ import './App.css';
 import {Route, Routes} from "react-router-dom";
 
 import Homepage from './pages/Homepage';
-import {Footer, Navbar, Sidebar} from "./components";
+import {Footer} from "./components";
 import ScrollToTop from "./components/ScrollToTop";
-import {Navigate} from "react-router";
-import {YoutubeCourses} from './components'
+import Resources from "./pages/Resources";
 
 const App = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
     return (
-        <>
-            <Sidebar isOpen={isOpen} toggle={toggle}/>
-            <Navbar toggle={toggle}/>
+        <div>
             <ScrollToTop>
                 <Routes>
                     <Route exact path={"/"} element={<Homepage/>}/>
-                    <Route exact path={"/courses"} element={<YoutubeCourses/>}/>
+                    <Route exact path={"/resources"} element={<Resources/>}/>
                 </Routes>
             </ScrollToTop>
             <Footer/>
-        </>
+        </div>
     );
 };
 

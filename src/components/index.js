@@ -7,7 +7,9 @@ export {default as Info} from './Homepage/Info/Info'
 export {default as Services} from './Homepage/Services/Services'
 export {default as Socials} from './Homepage/Socials/Socials'
 
-export {default as YoutubeCourses} from './Courses/YoutubeCourses'
+export {default as ResourcesNavbar} from './Resources/ResourcesNavbar/ResourcesNavbar'
+export {default as Courses} from './Resources/Courses/YoutubeCourses'
+export {default as CyberNews} from './Resources/CyberNews/CyberNews'
 
 export {default as Contribute} from './Contribute/Contribute'
 export {default as Footer} from './Footer/Footer'

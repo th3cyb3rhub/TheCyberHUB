@@ -40,15 +40,44 @@ export const Button = styled(ScrollLink)`
 `
 
 export const RouterButton = styled(RouterLink)`
-  border-radius: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #343434;
+  background: transparent;
   margin-right: 20px; //border-radius: 50px;
-  background: ${({primary}) => primary ? '#01BF71' : '#010606'};
   white-space: nowrap;
   padding: ${({big}) => (big ? '14px 48px' : '12px 30px')};
-  color: ${({dark}) => dark ? '#010606' : '#fff'};
+    //color: ${({dark}) => dark ? '#ffffff' : '#0e0e0e'};
   font-size: ${({fontBig}) => (fontBig ? '20px' : '16px')};
   outline: none;
-  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  color: #47cf73;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: transparent;
+    border-color: #343434;
+    font-size: 18px;
+  }
+`
+
+export const ButtonLink = styled.a`
+  border-width: 1px;
+  border-style: solid;
+  border-color: #343434;
+  background: transparent;
+  margin-right: 20px;
+  white-space: nowrap;
+  padding: ${({big}) => (big ? '14px 48px' : '12px 30px')};
+  color: ${({dark}) => dark ? '#ffffff' : '#0e0e0e'};
+  font-size: ${({fontBig}) => (fontBig ? '20px' : '16px')};
+  outline: none;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -58,11 +87,14 @@ export const RouterButton = styled(RouterLink)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: ${({primary}) => primary ? '#fff' : '#01BF71'};
+    background: transparent;
+    color: #47cf73;
+    border-color: #343434;
+    font-size: 18px;
   }
 `
 
-export const ButtonLink = styled.a`
+export const ButtonRouterLink = styled(RouterLink)`
   border-width: 1px;
   border-style: solid;
   border-color: #343434;

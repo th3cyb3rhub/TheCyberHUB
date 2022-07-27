@@ -43,7 +43,7 @@ export const LinuxYoutubeVideosCard = LinuxCourses__Youtube.map(
                 </div>
                 <div className="card__body">
                     <span className="tag tag-brown">{data.tag}</span>
-                    <h3><a href={data.videoLink} target={"_blank"} className={"videoHeading"}>{data.videoHeading}</a></h3>
+                    <h3 className={"courseHeading"}><a href={data.videoLink} target={"_blank"} className={"videoHeading"}>{data.videoHeading}</a></h3>
                 </div>
 
                 <hr/>

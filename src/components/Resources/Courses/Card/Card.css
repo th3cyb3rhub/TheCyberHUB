@@ -10,12 +10,13 @@
 
 .videoHeading{
     text-decoration:none;
-    color: inherit;
+    color: #e8e6e3;
+
 }
 
 .ChannelHeading{
     text-decoration:none;
-    color: inherit;
+    color: #e8e6e3;
 }
 
 .paddingTop{
@@ -61,9 +62,7 @@ img {
     overflow: hidden;
     box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
     border-radius: 1em;
-    background: #ECE9E6;
-    background: linear-gradient(to right, #FFFFFF, #ECE9E6);
-
+    background: #1a1c1d;
 }
 
 .card__body {
@@ -93,7 +92,7 @@ img {
 
 .tag-brown {
     background: #D1913C;
-    background: linear-gradient(to bottom, #29254f, #171e26);
+    background: linear-gradient(to right, #0e0e0e, #2a2a2a);
     color: #fafafa;
 }
 
