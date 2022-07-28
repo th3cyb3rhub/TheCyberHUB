@@ -4,8 +4,7 @@ const CyberNews = () => {
     return (
         <div>
             <buttons>
-            <h1>Cyber News Soon</h1>
-
+                <h1>Cyber News Soon</h1>
             </buttons>
             <h2>Cyber News Soon</h2>
             <h3>Cyber News Soon</h3>

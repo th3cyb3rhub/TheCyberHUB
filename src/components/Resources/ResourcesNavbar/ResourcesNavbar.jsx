@@ -52,9 +52,9 @@ const Navbar = ({toggle}) => {
                             {[
                                 {to: 'about', title: 'Home',},
                                 {to: 'resources', title: 'Courses',},
-                                {to: 'resources', title: 'WriteUps',},
+                                {to: 'writeups', title: 'WriteUps',},
                                 {to: 'contribute', title: 'Events',},
-                                {to: '/resources/cybernews', title: 'Cyber News',},
+                                {to: 'cybernews', title: 'Cyber News',},
                             ].map(({to, title}) => (
                                 <NavItem key={to}>
                                     <NavLinks
