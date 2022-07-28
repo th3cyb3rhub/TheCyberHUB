@@ -1,19 +1,6 @@
 import React from 'react';
 import {Button, ButtonLink} from '../Buttons/ButtonElements';
-import {
-    ContributeContainer,
-    ContributeWrapper,
-    ContributeRow,
-    Column1,
-    Column2,
-    TextWrapper,
-    TopLine,
-    Heading,
-    Subtitle,
-    BtnWrap,
-    ImgWrap,
-    Img,
-    TextLink
+import {ContributeContainer, ContributeWrapper, ContributeRow, Column1, Column2, TextWrapper, TopLine, Heading, Subtitle, BtnWrap, ImgWrap, Img, TextLink
 } from "./ContributeElements";
 
 const Contribute = ({id, lightBg, lightText, topLine, headline, description, buttonLabel, buttonLabel2, buttonLabel3, imgStart, img, alt, dark, dark2, primary, darkText
