@@ -1,13 +1,41 @@
 import React from 'react';
-import {Heading} from './WriteUpsElements';
+import {Section, AuthorImage, AuthorUsername, Date,Content, Heading, Paragraph, Image, Tag, MinRead, Bookmark} from './WriteUpsElements';
+
+import {BsBookmarkPlus, BsBookmarkCheck, BsBookmarkDash} from 'react-icons/bs';
+
 
 const WriteUps = () => {
     return (
-        <div>
+        <Section>
+            <AuthorImage src="https://miro.medium.com/fit/c/176/176/1*WrWKJOzibjROkAF5S5Qn8w.jpeg" alt={"Steiner255"} />
+            <AuthorUsername>
+                Steiner255
+            </AuthorUsername>
+            <Date>
+               . 5 Days Ago
+            </Date>
+            <Content>
+
             <Heading>
-                Write-Ups
+                    $$$ bounty in less 3 minutes from a google dork
             </Heading>
-        </div>
+                ~ Hi Bug Bounty Hunters & CyberSecurity folks!!! It’s been long since i dropped a bug bounty writeup. Got lots of them in store, and i will be sharing them soonest possible. Just stay tuned, remember: Practice Make....
+            <Paragraph>
+            </Paragraph>
+            </Content>
+            <Image src="https://miro.medium.com/fit/c/224/224/1*cRu3ETnHdt6n-z96oedxPQ.png" alt="Bootcamp" />
+            <Tag>
+                Bug Bounty
+            </Tag>
+            <MinRead>
+                2 min read
+            </MinRead>
+            <Bookmark>
+                <BsBookmarkPlus/>
+                <BsBookmarkCheck/>
+                <BsBookmarkDash/>
+            </Bookmark>
+        </Section>
     );
 };
 
