@@ -34,9 +34,14 @@ export const Paragraph = styled.p`
   display: inline-block;
 `
 
-export const Image = styled.div`
-  width: 30%;
+export const ImageSection = styled.div`
   display: inline-block;
+  align-self: center;
+  width: 30%;
+  `
+export const Image = styled.img`
+  display: inline-block;
+  align-self: center;
 
 `
 
