@@ -1,5 +1,5 @@
 import React from 'react';
-import {Section, AuthorImage, AuthorUsername, Date,Content, Heading, Paragraph, Image, Tag, MinRead, Bookmark} from './WriteUpsElements';
+import {Section, AuthorImage, AuthorUsername, Date,Content, Heading, Paragraph, ImageSection,Image, Tag, MinRead, Bookmark} from './WriteUpsElements';
 
 import {BsBookmarkPlus, BsBookmarkCheck, BsBookmarkDash} from 'react-icons/bs';
 
@@ -23,7 +23,10 @@ const WriteUps = () => {
             <Paragraph>
             </Paragraph>
             </Content>
-            <Image src="https://miro.medium.com/fit/c/224/224/1*cRu3ETnHdt6n-z96oedxPQ.png" alt="Bootcamp" />
+            <ImageSection>
+                <Image src="https://miro.medium.com/fit/c/224/224/1*cRu3ETnHdt6n-z96oedxPQ.png" alt="Bootcamp" />
+            </ImageSection>
+
             <Tag>
                 Bug Bounty
             </Tag>
