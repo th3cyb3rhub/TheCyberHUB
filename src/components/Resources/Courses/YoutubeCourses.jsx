@@ -1,9 +1,10 @@
 import React from 'react';
 
-import "./Card/Card.css";
-import {CyberYoutubeVideosCard} from "./Card/Card";
-import {LinuxYoutubeVideosCard} from "./Card/Card";
+import "./VideoCard/VideoCard.css";
+import {LinuxYoutubeVideosCard, CyberYoutubeVideosCard,
+    BugHuntingVideosCard} from "./VideoCard/VideoCard";
 import {Section} from "./YouTubeVideosElements";
+
 
 export const LinuxVideosCard = () => {
     return (
@@ -19,15 +20,22 @@ export const LinuxVideosCard = () => {
 }
 export const CyberVideosCard = () => {
     return (
-
         <div className={"card__section"} id={"id"}>
             <h1 className={"h1_Courses"}>{"Cyber Security Courses"}</h1>
             <div className="container">
                 {CyberYoutubeVideosCard}
             </div>
         </div>
-
-
+    )
+}
+export const BugHuntingVideos = () => {
+    return (
+        <div className={"card__section"} id={"id"}>
+            <h1 className={"h1_Courses"}>{"Bug bounty hunting Courses"}</h1>
+            <div className="container">
+                {BugHuntingVideosCard}
+            </div>
+        </div>
     )
 }
 
@@ -41,6 +49,7 @@ const FreeYoutubeCourses = () => {
             </Section>
             <LinuxVideosCard/>
             <CyberVideosCard/>
+            <BugHuntingVideos/>
         </>
     )
 };
