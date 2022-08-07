@@ -1,7 +1,7 @@
 import React from 'react';
 import {Section} from "../WriteUps/WriteUpsElements";
 
-const CyberNews = () => {
+const Jobs = () => {
     return (
         <Section>
             <h1>
@@ -11,4 +11,4 @@ const CyberNews = () => {
     );
 };
 
-export default CyberNews;
+export default Jobs;

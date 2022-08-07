@@ -50,10 +50,11 @@ const Navbar = ({toggle}) => {
                         </MobileIcon>
                         <NavMenu>
                             {[
-                                {to: 'about', title: 'Home',},
-                                {to: 'resources', title: 'Courses',},
+                                {to: 'events', title: 'Home',},
+                                {to: 'events', title: 'Courses',},
                                 {to: 'writeups', title: 'WriteUps',},
-                                {to: 'contribute', title: 'Events',},
+                                {to: 'events', title: 'Events',},
+                                {to: 'jobs', title: 'Jobs',},
                                 {to: 'cybernews', title: 'Cyber News',},
                             ].map(({to, title}) => (
                                 <NavItem key={to}>

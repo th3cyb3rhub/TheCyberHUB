@@ -7,8 +7,7 @@ import Homepage from './pages/Homepage';
 import {Courses, Footer} from "./components";
 import ScrollToTop from "./components/ScrollToTop";
 import Resources from "./pages/Resources";
-import CyberNews from "./components/Resources/CyberNews/CyberNews";
-import WriteUps from "./components/Resources/WriteUps/WriteUps";
+import {CyberNews, WriteUps, Events, Jobs} from "./components";
 
 const App = () => {
     return (
@@ -20,6 +19,8 @@ const App = () => {
                         <Route index element={<Courses/>}/>
                         <Route path={"cybernews"} element={<CyberNews/>}/>
                         <Route path={"writeups"} element={<WriteUps/>}/>
+                        <Route path={"events"} element={<Events/>}/>
+                        <Route path={"jobs"} element={<Jobs/>}/>
                     </Route>
                 </Routes>
             </ScrollToTop>
