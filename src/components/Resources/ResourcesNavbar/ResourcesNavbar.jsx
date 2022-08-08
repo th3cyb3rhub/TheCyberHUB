@@ -50,8 +50,8 @@ const Navbar = ({toggle}) => {
                         </MobileIcon>
                         <NavMenu>
                             {[
-                                {to: 'events', title: 'Home',},
-                                {to: 'events', title: 'Courses',},
+                                {to: '/resources', title: 'Resources Home',},
+                                {to: 'courses', title: 'Courses',},
                                 {to: 'writeups', title: 'WriteUps',},
                                 {to: 'events', title: 'Events',},
                                 {to: 'jobs', title: 'Jobs',},

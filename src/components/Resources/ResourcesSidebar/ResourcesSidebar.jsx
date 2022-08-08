@@ -9,9 +9,9 @@ import {
     SidebarMenu,
     SideBtnWrap,
     SidebarRoute
-} from './SidebarElements';
+} from './ResourcesSidebarElements';
 
-const Sidebar = ({isOpen, toggle}) => {
+const ResourcesSidebar = ({isOpen, toggle}) => {
     return (
         <SidebarContainer isOpen={isOpen} onClick={toggle}>
             <Icon onClick={toggle}>
@@ -19,11 +19,11 @@ const Sidebar = ({isOpen, toggle}) => {
             </Icon>
             <SidebarWrapper>
                 <SidebarMenu>
-                    <SidebarLink to={"about"}>About</SidebarLink>
-                    <SidebarLink to={"newsletters"}>Newsletters</SidebarLink>
-                    <SidebarLink to={"community"}>Community</SidebarLink>
-                    <SidebarLink to={"join"}>Join</SidebarLink>
-                    <SidebarLink to={"subscribe"}>Subscribe</SidebarLink>
+                    <SidebarLink to={"events"}>Home</SidebarLink>
+                    <SidebarLink to={"events"}>Courses</SidebarLink>
+                    <SidebarLink to={"events"}>WriteUps</SidebarLink>
+                    <SidebarLink to={"events"}>Events</SidebarLink>
+                    <SidebarLink to={"events"}>Jobs</SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
                     <SidebarRoute to={"/subscribe"}>
@@ -35,4 +35,4 @@ const Sidebar = ({isOpen, toggle}) => {
     );
 };
 
-export default Sidebar;
+export default ResourcesSidebar;

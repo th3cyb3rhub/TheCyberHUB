@@ -6,8 +6,10 @@ export {default as Info} from './Homepage/Info/Info'
 export {default as Services} from './Homepage/Services/Services'
 export {default as Socials} from './Homepage/Socials/Socials'
 
-// Resources //
+// ResourcesHome //
+export {default as ResourcesHome} from './Resources/ResourcesHome/ResourcesHome'
 export {default as ResourcesNavbar} from './Resources/ResourcesNavbar/ResourcesNavbar'
+export {default as ResourcesSidebar} from './Resources/ResourcesSidebar/ResourcesSidebar'
 export {default as Courses} from './Resources/Courses/YoutubeCourses'
 export {default as WriteUps} from './Resources/WriteUps/WriteUps'
 export {default as CyberNews} from './Resources/CyberNews/CyberNews'
