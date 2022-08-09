@@ -1,3 +1,12 @@
+# [0.6.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.5.0...v0.6.0) (2022-08-09)
+
+
+### Features
+
+* writeUps under construction ([#78](https://github.com/thecyberworld/thecyberhub.org/issues/78)) ([b825fb3](https://github.com/thecyberworld/thecyberhub.org/commit/b825fb3e26b131793544b0fee6c09bc5cb543907))
+
+
+
 # [0.5.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.4.1...v0.5.0) (2022-08-08)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * courses ([d3b0945](https://github.com/thecyberworld/thecyberhub.org/commit/d3b094546d9396da3a9d1fe2a3b3e58fc6bc4d5b))
-
-
-
-## [0.2.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.2.2...v0.2.3) (2022-07-26)
-
-
-### Bug Fixes
-
-* courses ([#67](https://github.com/thecyberworld/thecyberhub.org/issues/67)) ([8e9d26a](https://github.com/thecyberworld/thecyberhub.org/commit/8e9d26a1c3b96d684062eaef216035aec8ec0fde))
 
 
 
