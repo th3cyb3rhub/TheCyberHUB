@@ -2,24 +2,9 @@ import React from "react";
 import {CyberSecFreeYoutubeVideosData} from "../YoutubeCoursesData/CyberSecYouTubeVIdeosData";
 import {LinuxCourses__Youtube} from "../YoutubeCoursesData/LinuxYouTubeVIdeosData";
 import {BugHuntingVideos} from "../YoutubeCoursesData/BugHuntingVideos";
-import {
-    Card,
-    CardBody,
-    CardFooter,
-    Channel_Img,
-    ChannelHeading,
-    Img, Link,
-    Tag,
-    User,
-    UserInfo,
-    VideoHeading
-} from './VideoCardElements'
+import {Card, CardBody, CardFooter, Channel_Img, ChannelHeading, Img, Link, Tag, User, UserInfo, VideoHeading} from './VideoCardElements'
 
-const VideosCard = [
-    CyberSecFreeYoutubeVideosData,
-    LinuxCourses__Youtube,
-    BugHuntingVideos
-];
+const VideosCard = [ CyberSecFreeYoutubeVideosData, LinuxCourses__Youtube, BugHuntingVideos ];
 
 export const CyberYoutubeVideosCard = CyberSecFreeYoutubeVideosData.map(
     (data) => {
@@ -50,6 +35,7 @@ export const CyberYoutubeVideosCard = CyberSecFreeYoutubeVideosData.map(
         )
     }
 );
+
 export const BugHuntingVideosCard = BugHuntingVideos.map(
     (data) => {
         return (
