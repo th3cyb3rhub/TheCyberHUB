@@ -1,3 +1,12 @@
+# [0.7.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.6.0...v0.7.0) (2022-08-10)
+
+
+### Features
+
+* write ups alignment ([#79](https://github.com/thecyberworld/thecyberhub.org/issues/79)) ([362136e](https://github.com/thecyberworld/thecyberhub.org/commit/362136e0d6f8ee0bb224f2d66b8208f22e25bbc7))
+
+
+
 # [0.6.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.5.0...v0.6.0) (2022-08-09)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * write-up ([706a0f3](https://github.com/thecyberworld/thecyberhub.org/commit/706a0f3ccde69dbdf2e465e5b232cb6f92fddf39))
-
-
-
-# [0.3.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.2.3...v0.3.0) (2022-07-27)
-
-
-### Features
-
-* courses ([d3b0945](https://github.com/thecyberworld/thecyberhub.org/commit/d3b094546d9396da3a9d1fe2a3b3e58fc6bc4d5b))
 
 
 
