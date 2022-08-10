@@ -4,6 +4,10 @@ export const Section = styled.div`
   text-align: center;
   margin: -50px 10px 100px 20px;
   color: #cecac3;
+
+  @media screen and (max-width: 760px) {
+    text-align: center;
+  }
 `
 
 export const WriteUpSection = styled.div`
@@ -19,6 +23,11 @@ export const WriteUpSection = styled.div`
 
   @media screen and (max-width: 760px) {
   }
+
+  @media screen and (max-width: 600px) {
+    width: 27rem;
+  }
+  
 `
 
 export const AuthorSection = styled.div`
@@ -52,10 +61,15 @@ export const Content = styled.div`
 `
 
 export const Heading = styled.h2`
-
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
 `
 
 export const Paragraph = styled.p`
+  @media screen and (max-width: 600px) {
+    font-size: 13px;
+  }
 `
 
 export const ImageSection = styled.div`
@@ -63,7 +77,7 @@ export const ImageSection = styled.div`
 `
 
 export const Image = styled.img`
-    border-radius: 5px;
+  border-radius: 5px;
 `
 
 export const ContentFooter = styled.div`

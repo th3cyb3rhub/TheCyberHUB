@@ -10,7 +10,7 @@ export const WriteUps = () => {
         <WriteUpSection>
             <Section>
                 <h1>
-                    Under Development
+                    🛠  Under Development  🛠
                 </h1>
             </Section>
             <AuthorSection>
