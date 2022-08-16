@@ -1,3 +1,12 @@
+# [0.9.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.8.0...v0.9.0) (2022-08-16)
+
+
+### Features
+
+* share-us ([#83](https://github.com/thecyberworld/thecyberhub.org/issues/83)) ([6824759](https://github.com/thecyberworld/thecyberhub.org/commit/6824759bdca612033793cd26b57bc8ee74055609))
+
+
+
 # [0.8.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.7.0...v0.8.0) (2022-08-16)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * improved structured ([#77](https://github.com/thecyberworld/thecyberhub.org/issues/77)) ([3af1b05](https://github.com/thecyberworld/thecyberhub.org/commit/3af1b059a0260f4f3f46b6a3d1f7542b8d1a1030))
-
-
-
-## [0.4.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.4.0...v0.4.1) (2022-08-07)
-
-
-### Bug Fixes
-
-* navigation ([#75](https://github.com/thecyberworld/thecyberhub.org/issues/75)) ([c3bec04](https://github.com/thecyberworld/thecyberhub.org/commit/c3bec0411f8a70b2d220f34bb9fa0f512272876a))
 
 
 
