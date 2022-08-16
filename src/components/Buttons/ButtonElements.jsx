@@ -38,6 +38,33 @@ export const Button = styled(ScrollLink)`
     font-size: 18px;
   }
 `
+export const RedirectButton = styled.a`
+  text-decoration: none;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #343434;
+  background: transparent;
+  margin-right: 20px; //border-radius: 50px;
+  white-space: nowrap;
+  padding: ${({big}) => (big ? '12px 30px' : '12px 20px')};
+  //color: ${({dark}) => dark ? '#ffffff' : '#0e0e0e'};
+  font-size: ${({fontBig}) => (fontBig ? '20px' : '16px')};
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+    color: #47cf73;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: transparent;
+    border-color: #343434;
+    font-size: 18px;
+  }
+`
 
 export const RouterButton = styled(RouterLink)`
   text-decoration: none;

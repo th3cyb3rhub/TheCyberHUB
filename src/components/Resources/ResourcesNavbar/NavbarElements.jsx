@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {Link as RouterLink} from 'react-router-dom';
 import {Link as LinkScroll} from 'react-scroll'
+import {FaTwitter} from "react-icons/fa";
 
 export const Nav = styled.nav`
   background: ${({scrollNav}) => scrollNav ? '#000' : 'transparent'};
@@ -19,6 +20,11 @@ export const Nav = styled.nav`
   }
 `
 
+export const Text = styled.div`
+    margin-left: 5px;
+  margin-bottom: 2px;
+
+`
 export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;

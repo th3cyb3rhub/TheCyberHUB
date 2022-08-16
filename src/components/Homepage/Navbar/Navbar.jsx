@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {IconContext} from 'react-icons/lib';
 import {animateScroll as scroll} from 'react-scroll';
-import {FaBars} from 'react-icons/fa';
-import {Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavLinkRouter, NavBtn, NavBtnLink
+import {FaBars, FaTwitter} from 'react-icons/fa';
+import {
+    Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavLinkRouter, NavBtn, NavBtnLink
 } from "./NavbarElements";
-import {Button} from "../../Buttons/ButtonElements";
+import {Button, RedirectButton} from "../../Buttons/ButtonElements";
+import {Text} from "../../Resources/ResourcesNavbar/NavbarElements";
 
 const Navbar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
@@ -59,12 +61,7 @@ const Navbar = ({toggle}) => {
 
                                 </NavItem>
                             ))}
-                            <NavLinkRouter
-                                href={"https://blog.thecyberhub.org/"}
-                                target={"_blank"}
-                            >
-                                Blog
-                            </NavLinkRouter>
+
                         </NavMenu>
                         <NavBtn>
                             <Button
@@ -77,6 +74,21 @@ const Navbar = ({toggle}) => {
                             >
                                 Join us
                             </Button>
+                            <RedirectButton
+                                href={"https://twitter.com/intent/tweet?text=Hi%20Everyone,%20%0D%0AFound%20the%20best%20website%20to%20learn%20Cybersecurity%20for%20free%20by%20@thecyberw0rld%20community.%20%0D%0A%0D%0AWebsite:%20https://thecyberhub.org%20%0D%0AResources:%20https://thecyberhub.org/resources%20%0D%0A%0D%0AMore%20features%20are%20on%20the%20way...%20%0D%0Afollow%20@thecyberw0rld%20for%20getting%20updates%20and%20for%20cyber%20security%20content."}
+                                rel="noopener"
+                                target="_blank"
+                                smooth={true}
+                                duration={500}
+                                spy={true}
+                                exact="true"
+                                offset={-80}
+                            >
+                                <FaTwitter/>
+                                <Text>
+                                    Share us
+                                </Text>
+                            </RedirectButton>
                         </NavBtn>
                     </NavbarContainer>
                 </Nav>

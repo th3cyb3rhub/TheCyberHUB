@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {IconContext} from 'react-icons/lib';
 import {animateScroll as scroll} from 'react-scroll';
-import {FaBars} from 'react-icons/fa';
+import {FaBars, FaTwitter} from 'react-icons/fa';
 import {
     Nav,
     NavbarContainer,
@@ -12,9 +12,10 @@ import {
     NavLinks,
     NavLinkRouter,
     NavBtn,
-    NavBtnLink
+    NavBtnLink,
+    Text
 } from "./NavbarElements";
-import {Button} from "../../Buttons/ButtonElements";
+import {Button, RedirectButton} from "../../Buttons/ButtonElements";
 import {Link} from "react-router-dom";
 
 const Navbar = ({toggle}) => {
@@ -79,16 +80,21 @@ const Navbar = ({toggle}) => {
                             </NavLinkRouter>
                         </NavMenu>
                         <NavBtn>
-                            <Button
-                                to={"join"}
+                            <RedirectButton
+                                href={"https://twitter.com/intent/tweet?text=Hi%20Everyone,%20%0D%0AFound%20the%20best%20website%20to%20learn%20Cybersecurity%20for%20free%20by%20@thecyberw0rld%20community.%20%0D%0A%0D%0AWebsite:%20https://thecyberhub.org%20%0D%0AResources:%20https://thecyberhub.org/resources%20%0D%0A%0D%0AMore%20features%20are%20on%20the%20way...%20%0D%0Afollow%20@thecyberw0rld%20for%20getting%20updates%20and%20for%20cyber%20security%20content."}
+                                rel="noopener"
+                                target="_blank"
                                 smooth={true}
                                 duration={500}
                                 spy={true}
                                 exact="true"
                                 offset={-80}
                             >
-                                Join us
-                            </Button>
+                                <FaTwitter/>
+                                <Text>
+                                    Share us
+                                </Text>
+                            </RedirectButton>
                         </NavBtn>
                     </NavbarContainer>
                 </Nav>
