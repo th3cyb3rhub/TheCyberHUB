@@ -16,7 +16,7 @@ export const CyberYoutubeVideosCard = CyberSecFreeYoutubeVideosData.map(
                 </div>
                 <CardBody>
                     <Tag className="tag-brown">{data.tag}</Tag>
-                    <VideoHeading><Link to={data.videoLink} target={"_blank"}>{data.videoHeading}</Link>
+                    <VideoHeading><Link href={data.videoLink} target={"_blank"}>{data.videoHeading}</Link>
                     </VideoHeading>
                 </CardBody>
 
@@ -25,7 +25,7 @@ export const CyberYoutubeVideosCard = CyberSecFreeYoutubeVideosData.map(
                     <User>
                         <Channel_Img src={data.channelLogo} alt="user__image"/>
                         <UserInfo>
-                            <ChannelHeading><Link to={data.channelLink} target={"_blank"}>{data.channelName}</Link>
+                            <ChannelHeading><Link href={data.channelLink} target={"_blank"}>{data.channelName}</Link>
                             </ChannelHeading>
                             <small>{data.timeStamp}</small>
                         </UserInfo>
@@ -46,7 +46,7 @@ export const BugHuntingVideosCard = BugHuntingVideos.map(
                 </div>
                 <CardBody>
                     <Tag className="tag-brown">{data.tag}</Tag>
-                    <VideoHeading><Link to={data.videoLink} target={"_blank"}>{data.videoHeading}</Link>
+                    <VideoHeading><Link href={data.videoLink} target={"_blank"}>{data.videoHeading}</Link>
                     </VideoHeading>
                 </CardBody>
 
@@ -55,7 +55,7 @@ export const BugHuntingVideosCard = BugHuntingVideos.map(
                     <User>
                         <Channel_Img src={data.channelLogo} alt="user__image"/>
                         <UserInfo>
-                            <ChannelHeading><Link to={data.channelLink} target={"_blank"}>{data.channelName}</Link>
+                            <ChannelHeading><Link href={data.channelLink} target={"_blank"}>{data.channelName}</Link>
                             </ChannelHeading>
                             <small>{data.timeStamp}</small>
                         </UserInfo>
@@ -75,7 +75,7 @@ export const LinuxYoutubeVideosCard = LinuxCourses__Youtube.map(
                 </div>
                 <CardBody>
                     <Tag className="tag-brown">{data.tag}</Tag>
-                    <VideoHeading><Link to={data.videoLink} target={"_blank"}>{data.videoHeading}</Link>
+                    <VideoHeading><Link href={data.videoLink} target={"_blank"}>{data.videoHeading}</Link>
                     </VideoHeading>
                 </CardBody>
 
@@ -84,7 +84,7 @@ export const LinuxYoutubeVideosCard = LinuxCourses__Youtube.map(
                     <User>
                         <Channel_Img src={data.channelLogo} alt="user__image"/>
                         <UserInfo>
-                            <ChannelHeading><Link to={data.channelLink} target={"_blank"}>{data.channelName}</Link>
+                            <ChannelHeading><Link href={data.channelLink} target={"_blank"}>{data.channelName}</Link>
                             </ChannelHeading>
                             <small>{data.timeStamp}</small>
                         </UserInfo>

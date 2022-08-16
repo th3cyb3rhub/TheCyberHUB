@@ -119,3 +119,6 @@ export const HR = styled.hr`
   color: #2a2a2a;
 
 `
+
+export class ResourcesListSection {
+}

@@ -15,7 +15,7 @@ const Resources = () => {
                 <ResourcesNavbar toggle={toggle}/>
             </navbar>
             <Routes>
-                <Route exact path={"/"} element={<Courses/>}/>
+                <Route exact path={"/"} element={<ResourcesHome/>}/>
                 <Route exact path={"courses"} element={<Courses/>}/>
                 <Route exact path={"cybernews"} element={<CyberNews/>}/>
                 <Route path={"writeups"} element={<WriteUps/>}/>

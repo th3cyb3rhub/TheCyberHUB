@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { Link as RouterLink} from "react-router-dom";
-// @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
-export const Link = styled(RouterLink)`
+export const Link = styled.a`
     text-decoration: none;
     color: #e8e6e3;
 
