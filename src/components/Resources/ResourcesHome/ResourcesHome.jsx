@@ -6,9 +6,7 @@ const ResourcesHome = () => {
     return (
         <Section>
             <ResourcesList />
-            <h1>Write-Ups</h1>
-            <h1>Cyber News</h1>
-            <h1>Events</h1>
+            <h1>Many things are on the way 🚀</h1>
         </Section>
     );
 };

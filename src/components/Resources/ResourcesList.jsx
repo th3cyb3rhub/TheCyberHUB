@@ -1,10 +1,10 @@
 import React from 'react';
-import {ResourcesListSection, Heading, ListContent, List, Link} from "./ResourcesListElements";
+import {ResourcesListSection, SectionHeading, Heading, ListContent, List, Link} from "./ResourcesListElements";
 
 const ResourcesList = () => {
     return (
         <ResourcesListSection>
-            <h1>👨‍💻Cyber Sec Resources👨‍💻</h1>
+            <SectionHeading>👨‍💻Cyber Sec Resources👨‍💻</SectionHeading>
 
             <Heading> Essential Skills in Every Field </Heading>
             <ListContent>

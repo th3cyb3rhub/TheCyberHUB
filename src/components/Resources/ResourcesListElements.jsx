@@ -4,13 +4,16 @@ export const ResourcesListSection = styled.div`
   text-align: center;
   color: #cecac3;
   width: 27rem;
-  margin: 200px auto;
+  margin: 100px auto;
 
-  @media screen and (max-width: 760px) {
-    text-align: center;
+  @media screen and (max-width: 600px) {
+    width: 20rem;
   }
 `
 
+export const SectionHeading = styled.h1`
+  margin: -50px auto 70px auto;
+`
 export const Heading = styled.h2`
   margin-top: 35px;
   text-align: center;
