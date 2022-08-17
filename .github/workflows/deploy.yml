@@ -27,7 +27,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
-          path: /404.html
-          contents: |
-            Hello World!
-          write-mode: append
+          file: 404.html
