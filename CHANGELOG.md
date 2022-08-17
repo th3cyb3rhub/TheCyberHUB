@@ -1,3 +1,12 @@
+# [0.10.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.9.0...v0.10.0) (2022-08-17)
+
+
+### Features
+
+* Cyber news ([#85](https://github.com/thecyberworld/thecyberhub.org/issues/85)) ([1716146](https://github.com/thecyberworld/thecyberhub.org/commit/1716146b5bed7e1ae88f14ddcf16b4f439c58af3))
+
+
+
 # [0.9.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.8.0...v0.9.0) (2022-08-16)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * writeUps under construction ([#78](https://github.com/thecyberworld/thecyberhub.org/issues/78)) ([b825fb3](https://github.com/thecyberworld/thecyberhub.org/commit/b825fb3e26b131793544b0fee6c09bc5cb543907))
-
-
-
-# [0.5.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.4.1...v0.5.0) (2022-08-08)
-
-
-### Features
-
-* improved structured ([#77](https://github.com/thecyberworld/thecyberhub.org/issues/77)) ([3af1b05](https://github.com/thecyberworld/thecyberhub.org/commit/3af1b059a0260f4f3f46b6a3d1f7542b8d1a1030))
 
 
 
