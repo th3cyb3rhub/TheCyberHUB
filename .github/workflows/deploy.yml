@@ -18,6 +18,7 @@ jobs:
 
       - run: npm install
       - run: npm run build
+      - run: cp 404.html dist/
         env:
           PUBLIC_BASE_PATH: /Thecyberhub.org
 
@@ -27,4 +28,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
-          file: 404.html
