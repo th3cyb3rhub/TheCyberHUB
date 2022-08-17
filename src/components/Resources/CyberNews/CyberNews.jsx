@@ -21,17 +21,18 @@ import {
     Paragraph,
     CyberNewsBody,
 } from "./CyberNewsElements";
+import Loader from "./Loader";
 
 const demoImage = "http://coinrevolution.com/wp-content/uploads/2020/06/cryptonews.jpg"
 
 const CyberNews = ({simplified}) => {
     const [newsCategory, setNewsCategory] = useState('cybersecurity')
     const {data: cyberNews} = useGetCyberNewsQuery({newsCategory, count: simplified ? 6 : 30});
-    if (!cyberNews?.value) return "<Loader/>";
+    if (!cyberNews?.value) return <Loader/>;
 
     return (
         <CyberNewsSection>
-            <SectionHeading style={{textAlign: "center", margin: "-80px 0 50px 0"}}> Latest CyberNews</SectionHeading>
+            <SectionHeading style={{textAlign: "center", margin: "-80px 0 50px 0"}}>Latest CyberNews</SectionHeading>
             {cyberNews.value.map((news, i) => (
                 <>
                     <CyberNewsBody>
