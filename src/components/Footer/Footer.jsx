@@ -66,13 +66,13 @@ const Footer = () => {
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
-                            <FooterSocialLinksTwitter href="https://www.twitter.com/cryptoverseweb3"
+                            <FooterSocialLinksTwitter href="https://www.twitter.com/thecyberw0rld"
                                                       target={"_blank"}> Twitter </FooterSocialLinksTwitter>
-                            <FooterSocialLinksGithub href="https://www.github.com/cryptoverseweb3"
+                            <FooterSocialLinksGithub href="https://www.github.com/thecyberworld"
                                                      target={"_blank"}> GitHub </FooterSocialLinksGithub>
                             <FooterSocialLinksDiscord href="https://discord.gg/QHBPq6xP5p"
                                                       target={"_blank"}> Discord </FooterSocialLinksDiscord>
-                            <FooterSocialLinksLinktree href="https://www.linktree.com/cryptoverseweb3"
+                            <FooterSocialLinksLinktree href="https://www.linktree.com/thecyberw0rld"
                                                        target={"_blank"}> All Community Links </FooterSocialLinksLinktree>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
@@ -80,10 +80,10 @@ const Footer = () => {
                     <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle> Free Courses </FooterLinkTitle>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Intro to Linux </FooterRedirectLink>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Cyber Tools </FooterRedirectLink>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Agency </FooterRedirectLink>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target={"_blank"}> Influence </FooterRedirectLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}> Intro to Linux </FooterRedirectLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}> Cyber Tools </FooterRedirectLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}> Agency </FooterRedirectLink>
+                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}> Influence </FooterRedirectLink>
                         </FooterLinkItems>
                     <FooterLinkItems>
                         <FooterLinkTitle> Videos </FooterLinkTitle>
@@ -101,11 +101,11 @@ const Footer = () => {
                     </SocialLogo>
                     <WebsiteRights> © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
                     <SocialIcons>
-                        <SocialIconLinkTwitter href="https://www.twitter.com/cryptoverseWeb3" target="_blank"
+                        <SocialIconLinkTwitter href="https://www.twitter.com/thecyberw0rld" target="_blank"
                                                aria-label="Twitter">
                             <FaTwitter/>
                         </SocialIconLinkTwitter>
-                        <SocialIconLinkGithub href="https://www.github.com/cryptoverseWeb3" target="_blank"
+                        <SocialIconLinkGithub href="https://www.github.com/thecyberworld" target="_blank"
                                               aria-label="Github">
                             <FaGithub/>
                         </SocialIconLinkGithub>
@@ -113,7 +113,7 @@ const Footer = () => {
                                                aria-label="Discord">
                             <FaDiscord/>
                         </SocialIconLinkDiscord>
-                        <SocialIconLinkInstagram href="https://www.instagram.com/cryptoverseWeb3" target="_blank"
+                        <SocialIconLinkInstagram href="https://www.instagram.com/thecyberw0rld" target="_blank"
                                                  aria-label="Instagram">
                             <FaInstagram/>
                         </SocialIconLinkInstagram>

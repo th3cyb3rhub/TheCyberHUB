@@ -13,12 +13,12 @@ const ResourcesList = () => {
                 <List><Link href={"https://youtu.be/apGV9Kg7ics"} target={"_blank"}>Complete Git and GitHub Tutorial</Link></List>
             </ListContent>
 
-            <Heading> Cyber Security </Heading> <ListContent>
-
-            <List><Link href={"https://youtu.be/1hvVcEhcbLM"} target={"_blank"}>Linux Essentials for Ethical Hackers</Link></List>
-            <List><Link href={"https://youtu.be/fNzpcB7ODxQ"} target={"_blank"}>Ethical Hacking Course</Link></List>
-            <List><Link href={"https://youtu.be/qwA6MmbeGNo"} target={"_blank"}>Open-Source Intelligence</Link></List>
-        </ListContent>
+            <Heading> Cyber Security </Heading>
+            <ListContent>
+                <List><Link href={"https://youtu.be/1hvVcEhcbLM"} target={"_blank"}>Linux Essentials for Ethical Hackers</Link></List>
+                <List><Link href={"https://youtu.be/fNzpcB7ODxQ"} target={"_blank"}>Ethical Hacking Course</Link></List>
+                <List><Link href={"https://youtu.be/qwA6MmbeGNo"} target={"_blank"}>Open-Source Intelligence</Link></List>
+            </ListContent>
 
 
             <Heading> Web App Pen-testing </Heading>
@@ -53,7 +53,7 @@ const ResourcesList = () => {
                 <List><Link href={"https://ctf.hacker101.com/"} target={"_blank"}>ctf.hacker101.com</Link></List>
                 <List><Link href={"https://overthewire.org/wargames/"} target={"_blank"}>overthewire.org</Link></List>
                 <List><Link href={"https://ctfchallenge.com/"} target={"_blank"}>ctfchallenge.com</Link></List>
-                <List><Link href={"https://tryhackme.com/ "} target={"_blank"}>tryhackme.com</Link></List>
+                <List><Link href={"https://tryhackme.com/"} target={"_blank"}>tryhackme.com</Link></List>
                 <List><Link href={"https://www.bugbountyhunter.com/"} target={"_blank"}>www.bugbountyhunter.com</Link></List>
                 <List><Link href={"https://www.hackthebox.com/"} target={"_blank"}>www.hackthebox.com</Link></List>
             </ListContent>

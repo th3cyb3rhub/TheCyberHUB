@@ -18,7 +18,7 @@ const App = () => {
                     <Route exact path={"/resources"} element={<Resources/>}>
                         <Route index element={<ResourcesHome/>}/>
                         <Route path={"courses"} element={<Courses/>}/>
-                        <Route path={"cybernews"} element={<CyberNews/>}/>
+                        <Route className={"app routes main"} path={"cybernews"} element={<CyberNews/>}/>
                         <Route path={"writeups"} element={<WriteUps/>}/>
                         <Route path={"events"} element={<Events/>}/>
                         <Route path={"jobs"} element={<Jobs/>}/>

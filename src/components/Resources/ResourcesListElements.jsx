@@ -4,7 +4,7 @@ export const ResourcesListSection = styled.div`
   text-align: center;
   color: #cecac3;
   width: 27rem;
-  margin: 100px auto;
+  margin: 150px auto;
 
   @media screen and (max-width: 600px) {
     width: 20rem;
