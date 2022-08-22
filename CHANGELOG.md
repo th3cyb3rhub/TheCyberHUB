@@ -1,3 +1,12 @@
+# [0.11.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.10.0...v0.11.0) (2022-08-22)
+
+
+### Features
+
+* pre-loading spinner ([#87](https://github.com/thecyberworld/thecyberhub.org/issues/87)) ([627e9e2](https://github.com/thecyberworld/thecyberhub.org/commit/627e9e2601c8f809a0c78a09315e8125338f0d49))
+
+
+
 # [0.10.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.9.0...v0.10.0) (2022-08-17)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * write ups alignment ([#79](https://github.com/thecyberworld/thecyberhub.org/issues/79)) ([362136e](https://github.com/thecyberworld/thecyberhub.org/commit/362136e0d6f8ee0bb224f2d66b8208f22e25bbc7))
-
-
-
-# [0.6.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.5.0...v0.6.0) (2022-08-09)
-
-
-### Features
-
-* writeUps under construction ([#78](https://github.com/thecyberworld/thecyberhub.org/issues/78)) ([b825fb3](https://github.com/thecyberworld/thecyberhub.org/commit/b825fb3e26b131793544b0fee6c09bc5cb543907))
 
 
 
