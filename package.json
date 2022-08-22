@@ -20,6 +20,7 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scroll": "^1.8.7",
+    "react-spinners": "^0.13.4",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
