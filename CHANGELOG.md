@@ -1,3 +1,12 @@
+## [0.11.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.11.0...v0.11.1) (2022-08-23)
+
+
+### Bug Fixes
+
+* loader spinner timestamp ([#88](https://github.com/thecyberworld/thecyberhub.org/issues/88)) ([064d678](https://github.com/thecyberworld/thecyberhub.org/commit/064d678a74bfdf2af244630f09b809a7cce9a849))
+
+
+
 # [0.11.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.10.0...v0.11.0) (2022-08-22)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Resources List ([#81](https://github.com/thecyberworld/thecyberhub.org/issues/81)) ([62c3bae](https://github.com/thecyberworld/thecyberhub.org/commit/62c3baec14b29c24e63135631b15f6854f33502c))
-
-
-
-# [0.7.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.6.0...v0.7.0) (2022-08-10)
-
-
-### Features
-
-* write ups alignment ([#79](https://github.com/thecyberworld/thecyberhub.org/issues/79)) ([362136e](https://github.com/thecyberworld/thecyberhub.org/commit/362136e0d6f8ee0bb224f2d66b8208f22e25bbc7))
 
 
 
