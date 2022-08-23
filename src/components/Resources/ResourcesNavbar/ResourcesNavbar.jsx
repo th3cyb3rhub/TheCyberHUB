@@ -54,6 +54,7 @@ const Navbar = ({toggle}) => {
                                 {to: '/resources', title: 'Resources Home',},
                                 {to: 'courses', title: 'Courses',},
                                 {to: 'writeups', title: 'WriteUps',},
+                                {to: 'quiz', title: 'Quiz',},
                                 {to: 'events', title: 'Events',},
                                 {to: 'jobs', title: 'Jobs',},
                                 {to: 'cybernews', title: 'Cyber News',},

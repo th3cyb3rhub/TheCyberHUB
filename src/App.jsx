@@ -4,11 +4,11 @@ import './App.css';
 import {Route, Routes} from "react-router-dom";
 
 import Homepage from './pages/Homepage';
-import {Courses, Footer, ResourcesHome} from "./components";
+import {Courses, Footer, ResourcesHome, Quiz} from "./components";
 import ScrollToTop from "./components/ScrollToTop";
 import Resources from "./pages/Resources";
 import {CyberNews, WriteUps, Events, Jobs} from "./components";
-import {SpinnerSection} from "./Spinner/SpinnerElements";
+import {SpinnerSection} from "./components/Spinner/SpinnerElements";
 import {BarLoader, BeatLoader, BounceLoader, CircleLoader, ClimbingBoxLoader, ClipLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader} from "react-spinners";
 
 
@@ -51,14 +51,14 @@ const App = () => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 5000)
+        }, 0)
     }, []);
 
     return (
         <div>
             {loading ? (
                 <SpinnerSection>
-                    {loadingSpinner}
+                    {/*{loadingSpinner}*/}
                 </SpinnerSection>
             ) : (
                 <> <ScrollToTop>
@@ -68,13 +68,15 @@ const App = () => {
                             <Route index element={<ResourcesHome/>}/>
                             <Route path={"courses"} element={<Courses/>}/>
                             <Route className={"app routes main"} path={"cybernews"} element={<CyberNews/>}/>
+                            <Route path={"quiz"} element={<Quiz/>}/>
                             <Route path={"writeups"} element={<WriteUps/>}/>
                             <Route path={"events"} element={<Events/>}/>
                             <Route path={"jobs"} element={<Jobs/>}/>
                         </Route>
                     </Routes>
                 </ScrollToTop>
-                    <Footer/> </>
+                    <Footer/>
+                </>
             )}
         </div>
     );

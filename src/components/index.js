@@ -15,6 +15,7 @@ export {default as WriteUps} from './Resources/WriteUps/WriteUps'
 export {default as CyberNews} from './Resources/CyberNews/CyberNews'
 export {default as Events} from './Resources/Events/Events'
 export {default as Jobs} from './Resources/Jobs/Jobs'
+export {default as Quiz} from './Resources/Quiz/Quiz'
 
 export {default as Contribute} from './Contribute/Contribute'
 export {default as Footer} from './Footer/Footer'
