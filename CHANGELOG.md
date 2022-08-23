@@ -1,3 +1,12 @@
+## [0.11.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.11.1...v0.11.2) (2022-08-23)
+
+
+### Bug Fixes
+
+* spinner timee ([#89](https://github.com/thecyberworld/thecyberhub.org/issues/89)) ([c693562](https://github.com/thecyberworld/thecyberhub.org/commit/c693562e65b8becbdc55012242a9d8e93827dab2))
+
+
+
 ## [0.11.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.11.0...v0.11.1) (2022-08-23)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * share-us ([#83](https://github.com/thecyberworld/thecyberhub.org/issues/83)) ([6824759](https://github.com/thecyberworld/thecyberhub.org/commit/6824759bdca612033793cd26b57bc8ee74055609))
-
-
-
-# [0.8.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.7.0...v0.8.0) (2022-08-16)
-
-
-### Features
-
-* Resources List ([#81](https://github.com/thecyberworld/thecyberhub.org/issues/81)) ([62c3bae](https://github.com/thecyberworld/thecyberhub.org/commit/62c3baec14b29c24e63135631b15f6854f33502c))
 
 
 
