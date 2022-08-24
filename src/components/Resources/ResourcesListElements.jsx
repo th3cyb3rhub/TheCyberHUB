@@ -12,6 +12,9 @@ export const ResourcesListSection = styled.div`
 `
 
 export const SectionHeading = styled.h1`
+  margin: -50px auto 60px auto;
+`
+export const SectionSubHeading = styled.h3`
   margin: -50px auto 70px auto;
 `
 export const Heading = styled.h2`
