@@ -36,7 +36,7 @@ export const SidebarWrapper = styled.div`
   color: #fff;
 `
 
-export const SidebarLink = styled.div`
+export const SidebarLink = styled(RouterLink)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +54,8 @@ export const SidebarLink = styled.div`
 `
 
 export const SideBtnWrap = styled.div`
+  text-align: center;
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
 `

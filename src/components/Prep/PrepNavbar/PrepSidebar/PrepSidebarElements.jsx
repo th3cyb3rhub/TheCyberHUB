@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import {Link as RouterLink} from 'react-router-dom';
+import {Link as ScrollLink} from 'react-scroll'
 import {FaTimes} from 'react-icons/fa';
-import {Link as LinkScroll} from "react-scroll";
+
 
 export const SidebarContainer = styled.nav`
   position: fixed;
@@ -35,7 +36,7 @@ export const SidebarWrapper = styled.div`
   color: #fff;
 `
 
-export const SidebarLink = styled(LinkScroll)`
+export const SidebarLink = styled(RouterLink)`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,11 +1,11 @@
 import React from 'react';
 import {Section} from "../WriteUps/WriteUpsElements";
-import ResourcesList from "../ResourcesList";
+import RoadmapResources from "../RoadmapResources/RoadmapResources";
 
 const ResourcesHome = () => {
     return (
         <Section>
-            <ResourcesList />
+            <RoadmapResources />
             <h1>Many things are on the way 🚀</h1>
         </Section>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Section} from "../WriteUps/WriteUpsElements";
+import {Section} from "../../Resources/WriteUps/WriteUpsElements";
 
 const Jobs = () => {
     return (

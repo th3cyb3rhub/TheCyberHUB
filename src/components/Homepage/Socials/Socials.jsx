@@ -23,7 +23,7 @@ const Socials = () => {
                     </SocialIconTwitter>
                 </SocialsCard>
                 <SocialsCard>
-                    <SocialIconYoutube href="https://www.youtube.com/c/thecyberworld?sub_confirmation=1" target="_blank" aria-label="Youtube">
+                    <SocialIconYoutube href="https://www.youtube.com/c/thecyberworld" target="_blank" aria-label="Youtube">
                         <FaYoutube/>
                     </SocialIconYoutube>
                 </SocialsCard>

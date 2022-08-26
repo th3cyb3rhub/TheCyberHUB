@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {ResourcesNavbar, Courses, Events, Jobs, ResourcesHome, ResourcesSidebar,Quiz} from "../components";
 import {Route, Routes} from "react-router-dom";
-import CyberNews from "../components/Resources/CyberNews/CyberNews";
-import WriteUps from "../components/Resources/WriteUps/WriteUps";
+
+import {ResourcesNavbar,ResourcesSidebar,
+    ResourcesHome, RoadmapResources, CyberNews, Blogs, Events
+} from "../components";
 
 const Resources = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,12 +17,10 @@ const Resources = () => {
             </navbar>
             <Routes>
                 <Route exact path={"/"} element={<ResourcesHome/>}/>
-                <Route exact path={"courses"} element={<Courses/>}/>
-                <Route exact path={"cybernews"} element={<CyberNews/>}/>
-                <Route exact path={"quiz"} element={<Quiz/>}/>
-                <Route path={"writeups"} element={<WriteUps/>}/>
-                <Route path={"events"} element={<Events/>}/>
-                <Route path={"jobs"} element={<Jobs/>}/>
+                <Route exact path={"roadmapResources"} element={<RoadmapResources/>}/>
+                <Route exact path={"blogs"} element={<Blogs/>}/>
+                <Route exact path={"events"} element={<Events/>}/>
+                <Route exact path={"cyberNews"} element={<CyberNews/>}/>
             </Routes>
         </div>
     );

@@ -19,11 +19,10 @@ const Sidebar = ({isOpen, toggle}) => {
             </Icon>
             <SidebarWrapper>
                 <SidebarMenu>
-                    <SidebarLink to={"about"}>About</SidebarLink>
-                    <SidebarLink to={"courses"}>Courses</SidebarLink>
-                    <SidebarLink to={"services"}>Services</SidebarLink>
-                    <SidebarLink to={"contribute"}>Contribute</SidebarLink>
-                    <SidebarLink to={"community"}>Community</SidebarLink>
+                    <SidebarLink onClick={toggle} to={"about"}>About</SidebarLink>
+                    <SidebarLink onClick={toggle} to={"resources"}>Resources</SidebarLink>
+                    <SidebarLink onClick={toggle} to={"contribute"}>Contribute</SidebarLink>
+                    <SidebarLink onClick={toggle} to={"community"}>Community</SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
                     <SidebarRoute to={"/subscribe"}>

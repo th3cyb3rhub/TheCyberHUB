@@ -4,12 +4,19 @@ import './App.css';
 import {Route, Routes} from "react-router-dom";
 
 import Homepage from './pages/Homepage';
-import {Courses, Footer, ResourcesHome, Quiz} from "./components";
 import ScrollToTop from "./components/ScrollToTop";
 import Resources from "./pages/Resources";
-import {CyberNews, WriteUps, Events, Jobs} from "./components";
-import {SpinnerSection} from "./components/Spinner/SpinnerElements";
+import Prep from "./pages/Prep";
+
+import {
+    ResourcesHome, RoadmapResources, CyberNews, Blogs, Events,
+    InterviewQuestions, InterviewExperiences, Quiz, Jobs,
+    Footer
+} from "./components";
+
+import {SpinnerSection} from "./components/MixComponenets/Spinner/SpinnerElements";
 import {BarLoader, BeatLoader, BounceLoader, CircleLoader, ClimbingBoxLoader, ClipLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader} from "react-spinners";
+
 
 
 const App = () => {
@@ -63,13 +70,19 @@ const App = () => {
                 <> <ScrollToTop>
                     <Routes>
                         <Route index exact path={"/"} element={<Homepage/>}/>
+
                         <Route exact path={"/resources"} element={<Resources/>}>
                             <Route index element={<ResourcesHome/>}/>
-                            <Route path={"courses"} element={<Courses/>}/>
-                            <Route className={"app routes main"} path={"cybernews"} element={<CyberNews/>}/>
-                            <Route path={"quiz"} element={<Quiz/>}/>
-                            <Route path={"writeups"} element={<WriteUps/>}/>
+                            <Route path={"roadmapResources"} element={<RoadmapResources/>}/>
+                            <Route path={"cyberNews"} element={<CyberNews/>}/>
+                            <Route path={"blogs"} element={<Blogs/>}/>
                             <Route path={"events"} element={<Events/>}/>
+                        </Route>
+
+                        <Route exact path={"/prep"} element={<Prep/>}>
+                            <Route path={"interviewQuestions"} element={<InterviewQuestions/>}/>
+                            <Route path={"interviewExperiences"} element={<InterviewExperiences/>}/>
+                            <Route path={"quiz"} element={<Quiz/>}/>
                             <Route path={"jobs"} element={<Jobs/>}/>
                         </Route>
                     </Routes>
