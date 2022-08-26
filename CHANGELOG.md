@@ -1,3 +1,12 @@
+## [0.13.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.13.0...v0.13.1) (2022-08-26)
+
+
+### Bug Fixes
+
+* spinner struct ([#95](https://github.com/thecyberworld/thecyberhub.org/issues/95)) ([2ddab7c](https://github.com/thecyberworld/thecyberhub.org/commit/2ddab7c453463e492afb2e0811b076a2172c491f))
+
+
+
 # [0.13.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.12.0...v0.13.0) (2022-08-26)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * spinner timee ([#89](https://github.com/thecyberworld/thecyberhub.org/issues/89)) ([c693562](https://github.com/thecyberworld/thecyberhub.org/commit/c693562e65b8becbdc55012242a9d8e93827dab2))
-
-
-
-## [0.11.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.11.0...v0.11.1) (2022-08-23)
-
-
-### Bug Fixes
-
-* loader spinner timestamp ([#88](https://github.com/thecyberworld/thecyberhub.org/issues/88)) ([064d678](https://github.com/thecyberworld/thecyberhub.org/commit/064d678a74bfdf2af244630f09b809a7cce9a849))
 
 
 
