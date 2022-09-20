@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CTFImg from "/src/assets/ctf.jpg";
+import CTFImg from "../../../assets/images/Capture.png";
 
 export const EventsContainer = styled.div`
   text-align: center;
@@ -70,7 +70,7 @@ export const ImageSection = styled.div`
 `
 
 export const CtfImage = styled.img`
-
+    background-image: url(${CTFImg});
 `
 
 export const BGCTFImage = styled.div`

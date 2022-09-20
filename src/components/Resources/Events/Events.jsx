@@ -5,18 +5,20 @@ import {
     EventContent,
     ContentList,
     EventSubHeading,
-    EventSubHeadingSection, BGCTFImage, BGImage, ImageSection
+    EventSubHeadingSection, BGCTFImage, BGImage, ImageSection, CtfImage
 } from "./EventsElemetns";
 import {Link} from "../RoadmapResources/RoadmapResourcesElements";
-import Video from "../../../assets/videos/video.mp4";
+import CTFImg from "../../../assets/images/Capture.png";
 
 const Events = () => {
     return (
         <EventsContainer>
-            <BGCTFImage>
+            {/*<BGCTFImage>*/}
                 {/*<BGImage src={"/src/assets/ctf.jpg"} type={'image'} />*/}
-            </BGCTFImage>
-            <ImageSection> <img src="/src/assets/Capture.png" alt=""/> </ImageSection>
+            {/*</BGCTFImage>*/}
+            <ImageSection>
+                <img src={CTFImg} alt=""/>
+            </ImageSection>
             <EventSubHeading> This Saturday @10pm </EventSubHeading>
             <br/>
             {/*<EventHeading> TheCyberCTF </EventHeading>*/}
