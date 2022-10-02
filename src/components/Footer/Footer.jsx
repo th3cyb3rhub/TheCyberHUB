@@ -56,7 +56,7 @@ const Footer = () => {
                                     {title}
                                 </FooterScrollLink>
                             ))}
-                    </FooterLinkItems>
+                        </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle>Contact Us</FooterLinkTitle>
                             <FooterRouterLink to="#">Contact</FooterRouterLink>
@@ -75,9 +75,6 @@ const Footer = () => {
                             <FooterSocialLinksLinktree href="https://www.linktree.com/thecyberw0rld"
                                                        target={"_blank"}> All Community Links </FooterSocialLinksLinktree>
                         </FooterLinkItems>
-                    </FooterLinksWrapper>
-
-                    <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle> Free Courses </FooterLinkTitle>
                             <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}> Intro to Linux </FooterRedirectLink>

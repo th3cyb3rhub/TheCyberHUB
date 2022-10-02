@@ -27,6 +27,6 @@ export {default as InterviewExperiences} from './Prep/InterviewExperiences/Inter
 export {default as Quiz} from './Prep/Quiz/Quiz'
 export {default as Jobs} from './Prep/Jobs/Jobs'
 
-export {default as Contribute} from './MixComponenets/Contribute/Contribute'
+export {default as Contribute} from './MixComponents/Contribute/Contribute'
 export {default as Footer} from './Footer/Footer'
-export {default as ComingSoon} from './MixComponenets/ComingSoon'
+export {default as ComingSoon} from './MixComponents/ComingSoon'

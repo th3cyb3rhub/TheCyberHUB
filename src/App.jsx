@@ -14,7 +14,7 @@ import {
     Footer
 } from "./components";
 
-import Spinner from "./components/MixComponenets/Spinner/Spinner";
+import Spinner from "./components/MixComponents/Spinner/Spinner";
 
 
 const App = () => {

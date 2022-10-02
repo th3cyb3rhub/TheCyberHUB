@@ -64,6 +64,9 @@ export const RedirectButton = styled.a`
     border-color: #343434;
     font-size: 18px;
   }
+  @media screen and (max-width: 930px) {
+    display: none;
+  }
 `
 
 export const RouterButton = styled(RouterLink)`

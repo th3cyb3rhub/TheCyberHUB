@@ -14,26 +14,24 @@ export const FooterWrap = styled.div`
   align-items: center;
   max-width: 1100px;
   margin: 0 auto;
-`;
-
-export const FooterLinksContainer = styled.div`
+  `;
+  
+  export const FooterLinksContainer = styled.div`
   display: flex;
   justify-content: center;
-
+  
   @media screen and (max-width: 820px) {
     padding-top: 32px; 
   }
-`; 
-
-export const FooterLinksWrapper = styled.div`
+  `; 
+  
+  export const FooterLinksWrapper = styled.div`
   display: flex;
-
-  @media screen and (max-width: 820px) {
-    flex-direction: column; 
-  }
-`;
-
-export const FooterLinkItems = styled.li`
+  flex-wrap: wrap;
+  justify-content: center;
+  `;
+  
+  export const FooterLinkItems = styled.li`
   display: flex;
   flex-direction: column; 
   align-items: flex-start; 

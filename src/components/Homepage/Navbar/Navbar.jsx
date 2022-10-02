@@ -5,12 +5,12 @@ import {FaBars, FaTwitter} from 'react-icons/fa';
 import {
     Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavLinkRouter, NavBtn, NavBtnLink
 } from "./NavbarElements";
-import {Button, RedirectButton} from "../../MixComponenets/Buttons/ButtonElements";
+import {Button, RedirectButton} from "../../MixComponents/Buttons/ButtonElements";
 import {Text} from "../../Resources/ResourcesNavbar/ResourcesNavbarElements";
 
 const Navbar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
-
+    
     const changeNav = () => {
         if (window.scrollY >= 80) {
             setScrollNav(true);

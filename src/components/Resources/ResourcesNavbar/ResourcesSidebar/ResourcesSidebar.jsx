@@ -10,7 +10,7 @@ import {
     SideBtnWrap,
     SidebarRoute
 } from './ResourcesSidebarElements';
-import {RedirectButton} from "../../../MixComponenets/Buttons/ButtonElements";
+import {RedirectButton} from "../../../MixComponents/Buttons/ButtonElements";
 import {FaTwitter, FaYoutube} from "react-icons/fa";
 import {Text} from "../ResourcesNavbarElements";
 

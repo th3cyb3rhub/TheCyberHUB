@@ -15,7 +15,7 @@ import {
     NavBtnLink,
     Text
 } from "./ResourcesNavbarElements";
-import {Button, RedirectButton} from "../../MixComponenets/Buttons/ButtonElements";
+import {Button, RedirectButton} from "../../MixComponents/Buttons/ButtonElements";
 import {Link} from "react-router-dom";
 
 const Navbar = ({toggle}) => {

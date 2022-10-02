@@ -5,8 +5,8 @@ import ResourcesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg'
 import logo_thecyberworld from '../../../assets/LogoTrans_theCyberw0rld.png';
 
 import {FaGithub} from "react-icons/fa";
-import {IconsSpacing} from "../../MixComponenets/Buttons/ButtonElements";
-import {IconsSpacing2} from "../../MixComponenets/Buttons/ButtonElements";
+import {IconsSpacing} from "../../MixComponents/Buttons/ButtonElements";
+import {IconsSpacing2} from "../../MixComponents/Buttons/ButtonElements";
 import {Symbol} from "./InfoElements";
 import {BsFillPlayFill} from "react-icons/bs";
 
