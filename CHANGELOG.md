@@ -1,3 +1,12 @@
+## [0.14.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.14.0...v0.14.1) (2022-10-02)
+
+
+### Bug Fixes
+
+* navbar design and typos ([#106](https://github.com/thecyberworld/thecyberhub.org/issues/106)) ([e7e2bc1](https://github.com/thecyberworld/thecyberhub.org/commit/e7e2bc17759a3c9cc0e865515072062924d052c6))
+
+
+
 # [0.14.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.13.1...v0.14.0) (2022-10-02)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Quiz app ([#91](https://github.com/thecyberworld/thecyberhub.org/issues/91)) ([545f3f0](https://github.com/thecyberworld/thecyberhub.org/commit/545f3f0cb9bd8729a06d3702b43dba7265d76ff6))
-
-
-
-## [0.11.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.11.2...v0.11.3) (2022-08-23)
-
-
-### Bug Fixes
-
-* spinner timestamps 5m ([#90](https://github.com/thecyberworld/thecyberhub.org/issues/90)) ([db9b12d](https://github.com/thecyberworld/thecyberhub.org/commit/db9b12d2a19587f1fce764031773ea7aaddcb31e))
 
 
 
