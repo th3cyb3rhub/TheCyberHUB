@@ -1,28 +1,79 @@
 import React from "react";
-import { Section } from "../WriteUps/WriteUpsElements";
+import {Section} from "../WriteUps/WriteUpsElements";
 import EventsElements from "./EventsElement";
 import "./Events.css";
+import EventsHeader from "./EventsHeader";
 
-// probably recieved by a api call
+import {Heading, ListContent, List, Link} from "../RoadmapResources/RoadmapResourcesElements";
+
+
+// probably received by a api call
+const eventsHeader = {
+    title: "We are happy to announce that Thecyberworld is participating in Hacktoberfest 2022.",
+    date: "1st October 2022",
+    venue: <>
+       <a style={{color: "white"}} href={"https://discord.gg/QHBPq6xP5p"} target={"_blank"}>Discord</a>,
+       <a style={{color: "white"}} href={"https://github.com/thecyberworld/"} target={"_blank"}>GitHub</a>,
+    </>,
+    content:
+    <p>
+        Go through the Hacktoberfest 2022 contributor section to know more about what you should do and the rewards you will receive. We would be genuinely happy if you choose the “plant a tree” option as your reward. <br/>
+        Contributions/pull requests can be made to the following repositories under the <b><Link href={"https://github.com/thecyberworld/"} target={"_blank"}> Thecyberworld </Link></b> organization: <br/>
+
+        <div style={{margin: "10px 20px"}}>
+        <ListContent>
+            <List> Thecyberhub website: <Link href={"https://github.com/thecyberworld/thecyberhub.org"} target={"_blank"}> link </Link></List>
+            <List> Thecyberhub App: <Link href={"https://github.com/thecyberworld/thecyberhub-app"} target={"_blank"}> link </Link></List>
+            <List> Thecyberhub Extension: <Link href={"https://github.com/thecyberworld/thecyberhub-ext"} target={"_blank"}> link </Link></List>
+            <List> Port scanner: <Link href={"https://github.com/thecyberworld/port-scanner"} target={"_blank"}> link </Link></List>
+            <List> Subdomain finder: <Link href={"https://github.com/thecyberworld/subdomain-finder"} target={"_blank"}> link </Link></List>
+        </ListContent>
+        </div>
+
+        Read the <Link href={"https://github.com/thecyberworld/thecyberhub.org/blob/main/CONTRIBUTING.md"} target={"_blank"}> Thecyberworld Contributing Guide</Link>.
+        If you are a beginner, please check out the curated <Link href={"https://github.com/search?q=org%3Athecyberworld+is%3Aopen+is%3Aissue+label%3AHacktoberFest"} target={"_blank"}> Hacktoberfest issues </Link>on the main Thecyberworld org.
+        If you would like to challenge yourself, you can create some issues and features requests on <b> <Link href={"https://github.com/thecyberworld"} target={"_blank"}> Thecyberworld </Link> </b>  and work on those issues.
+
+        <br/>
+        <br/>
+
+        <Link href={"https://github.com/thecyberworld/"} target={"_blank"}> </Link>
+        Some good resources to get started for beginners:
+        <div style={{margin: "10px 20px"}}>
+            <ListContent>
+                <List> Open Source Guides: <Link href={"https://opensource.guide/how-to-contribute/"} target={"_blank"}> How to contribute to Open Source </Link></List>
+                <List> GitHub: <Link href={"https://training.github.com/"} target={"_blank"}> GitHub training kit </Link></List>
+                <List> DigitalOcean: <Link href={"https://www.digitalocean.com/community/tutorial_series/an-introduction-to-open-source"} target={"_blank"}> Introduction to Open Source </Link></List>
+                <List> GitHub: <Link href={"https://github.blog/2015-01-21-how-to-write-the-perfect-pull-request/"} target={"_blank"}> Write good PRs </Link></List>
+            </ListContent>
+        </div>
+    </p>,
+}
 const events = {
-  title: "Lorem ipsum dolor",
-  date: "1st October 2022",
-  venue: "Discord",
-  content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex molestias nam, iure hic, sunt totam, eaque corporis inventore mollitia nemo saepe eligendi cumque numquam dolor placeat architecto pariatur fugiat accusantium!\nLorem ipsum dolor sit, amet consectetur adipisicing elit. Earum, cum perspiciatis pariatur facere soluta consectetur rerum aut ex quas deserunt inventore, dignissimos dicta blanditiis? Adipisci incidunt odio eaque nobis earum sit! Sequi, ducimus debitis. Commodi officiis vel quae sequi aspernatur iusto reprehenderit repellendus autem architecto!",
+    title: "TheCyberCTF",
+    date: "1st October 2022",
+    venue: <a style={{color: "white"}} href={"https://discord.gg/QHBPq6xP5p"} target={"_blank"}>Discord</a>,
+    content: " We host every weekend for the community for free. Take participate in the CTF and win exciting prizes and this is free for everyone. Join Discord now."
 }
 
 const Events = () => {
-  return (
-    <Section>
-      <h1> All Events </h1>
-      <div className="Allevents">
-        <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-        <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-        <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-        <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-      </div>
-    </Section>
-  );
+    return (
+        <Section>
+            <div className="AllEvents">
+                <EventsHeader title={eventsHeader.title} venue={eventsHeader.venue} date={eventsHeader.date} content={eventsHeader.content}/>
+            </div>
+
+            <br/>
+            <h1> All Events </h1>
+            <br/>
+            <div className="AllEvents">
+                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
+                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
+                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
+                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
+            </div>
+        </Section>
+    );
 };
 
 export default Events;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Section = styled.div`
   text-align: center;
-  margin: 200px 20px;
+  margin: 100px 20px;
   color: #cecac3;
 
   @media screen and (max-width: 760px) {
