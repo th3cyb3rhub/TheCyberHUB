@@ -1,3 +1,12 @@
+## [0.14.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.14.1...v0.14.2) (2022-10-02)
+
+
+### Bug Fixes
+
+* blogs and add data ([#114](https://github.com/thecyberworld/thecyberhub.org/issues/114)) ([ea39cfd](https://github.com/thecyberworld/thecyberhub.org/commit/ea39cfddf686023a75fcac94c877540973f9bc8c))
+
+
+
 ## [0.14.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.14.0...v0.14.1) (2022-10-02)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * interview Questions ([#94](https://github.com/thecyberworld/thecyberhub.org/issues/94)) ([c8a3b71](https://github.com/thecyberworld/thecyberhub.org/commit/c8a3b71a3a8ec14a28dc03283137ab95dfaa786c))
-
-
-
-# [0.12.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.11.3...v0.12.0) (2022-08-23)
-
-
-### Features
-
-* Quiz app ([#91](https://github.com/thecyberworld/thecyberhub.org/issues/91)) ([545f3f0](https://github.com/thecyberworld/thecyberhub.org/commit/545f3f0cb9bd8729a06d3702b43dba7265d76ff6))
 
 
 
