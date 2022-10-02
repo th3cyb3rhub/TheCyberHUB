@@ -1,4 +1,4 @@
-.blogs__container{
+.blogs__container {
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -10,19 +10,23 @@
     margin: 20px 1%;
     padding: 15px 20px;
 }
-.blogs__container__title{
+
+.blogs__container__title {
     margin: 10px 0;
-    padding: 10px 0;
+    padding: 0 0 10px 0;
 }
-.blogs__container__title h1{
+
+.blogs__container__title h1 {
     font-size: 1.8rem;
     font-weight: 600;
 }
-.blogs__container__title h6{
+
+.blogs__container__title h6 {
     font-size: 0.9rem;
     font-weight: 400;
 }
-.tags{
+
+.tags {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -31,7 +35,8 @@
     margin: 10px 0;
     padding: 10px 0;
 }
-.tag{
+
+.tag {
     margin: 0 5px;
     padding: 10 15px;
     border-radius: 5px;
@@ -40,13 +45,16 @@
     font-size: 0.8rem;
     font-weight: 400;
 }
-.AllBlogs{
+
+.AllBlogs {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
-.blogImg{
+
+.blogImg {
+    height: 100%;
     margin-bottom: 9px;
 }

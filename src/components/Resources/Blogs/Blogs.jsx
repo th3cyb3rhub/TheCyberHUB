@@ -3,12 +3,22 @@ import { Section } from "../WriteUps/WriteUpsElements";
 import BlogsElements from "./BlogsElements";
 import "./Blog.css";
 
-// probably recieved by a api call
+// probably received by a api call
+
 const blogs = {
-  title: "Lorem, ipsum",
-  author: "Dean A.",
+  title: "What is Docker?",
+  author: "@author",
   date: "1st October 2022",
-  content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex molestias nam, iure hic, sunt totam, eaque corporis inventore mollitia nemo saepe eligendi cumque numquam dolor placeat architecto pariatur fugiat accusantium!\nLorem ipsum dolor sit, amet consectetur adipisicing elit. Earum, cum perspiciatis pariatur facere soluta consectetur rerum aut ex quas deserunt inventore, dignissimos dicta blanditiis? Adipisci incidunt odio eaque nobis earum sit! Sequi, ducimus debitis. Commodi officiis vel quae sequi aspernatur iusto reprehenderit repellendus autem architecto!",
+  content: "A platform for building, running, and shipping applications in a consistent manner.\n" +
+      "If your application works on the development machine, in the same way it will work on other machines.\n" +
+      "It works on my machine! most of the time our applications do not work on the other machines. Reasons:\n" +
+      "    One or more files missing " +
+      "    Software version mismatch " +
+      "        node14.1 - on your machine " +
+      "        node9 - on another machine " +
+      "    Different configuration settings " +
+      "Here docker comes to rescue you. " +
+      "if your application works on your machine, definitely it will run on another machine. ",
   tags: ["coding", "gaming"]
 }
 
@@ -17,10 +27,12 @@ const Blogs = () => {
     <Section>
       <h1> All Blogs </h1>
       <div className="AllBlogs">
-        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content} tags={blogs.tags}/>
-        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content} tags={blogs.tags}/>
-        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content} tags={blogs.tags}/>
-        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content} tags={blogs.tags}/>
+        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content}/>
+        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content}/>
+        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content}/>
+        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content}/>
+        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content}/>
+        <BlogsElements title={blogs.title} author={blogs.author} date={blogs.date} content={blogs.content}/>
       </div>
     </Section>
   );
