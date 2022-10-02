@@ -7,10 +7,19 @@ import {
 } from "./NavbarElements";
 import {Button, RedirectButton} from "../../MixComponents/Buttons/ButtonElements";
 import {Text} from "../../Resources/ResourcesNavbar/ResourcesNavbarElements";
+import Dropdown from '../Dropdowns/Dropdown';
+import SideDropdown from '../Dropdowns/SideDropdown';
 
 const Navbar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
-    
+    const [drop, setDrop] = useState(false);
+
+    const dropHandler = (title) => {
+        if(title == 'resources'){
+            setDrop(true);
+        }else setDrop(false);
+    }
+
     const changeNav = () => {
         if (window.scrollY >= 80) {
             setScrollNav(true);
@@ -18,20 +27,16 @@ const Navbar = ({toggle}) => {
             setScrollNav(false);
         }
     };
-
     useEffect(() => {
         window.addEventListener('scroll', changeNav);
     }, []);
-
     const toggleHome = () => {
         scroll.scrollToTop();
     };
-
-
     return (
         <>
             <IconContext.Provider value={{color: '#fff'}}>
-                <Nav scrollNav={scrollNav}>
+                <Nav onMouseLeave={() => setDrop(false)} scrollNav={scrollNav}>
                     <NavbarContainer>
                         <NavLogo to={"/"} onClick={toggleHome}>
                             Thecyberworld
@@ -46,7 +51,7 @@ const Navbar = ({toggle}) => {
                                 {to: 'contribute', title: 'Contribute',},
                                 {to: 'community', title: 'Community',},
                             ].map(({to, title}) => (
-                                <NavItem key={to}>
+                                <NavItem onMouseEnter={()=>dropHandler(to)} onMouseLeave={()=>dropHandler(to)} key={to}>
                                     <NavLinks
                                         to={to}
                                         smooth={true}
@@ -54,12 +59,14 @@ const Navbar = ({toggle}) => {
                                         spy={true}
                                         exact="true"
                                         offset={-80}
-                                    >
+                                    > 
                                         {title}
                                     </NavLinks>
+                                    {to=='resources' && drop && <Dropdown sidebar={false}/>}
                                 </NavItem>
                             ))}
                         </NavMenu>
+                        
                         <NavBtn>
                             <Button
                                 to={"join"}

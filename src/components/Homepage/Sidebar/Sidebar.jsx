@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Dropdown from '../Dropdowns/Dropdown';
 
 import {
     SidebarContainer,
@@ -12,15 +13,17 @@ import {
 } from './SidebarElements';
 
 const Sidebar = ({isOpen, toggle}) => {
+    const [drop, setDrop] = useState(false);
     return (
-        <SidebarContainer isOpen={isOpen} onClick={toggle}>
+        <SidebarContainer isOpen={isOpen}>
             <Icon onClick={toggle}>
                 <CloseIcon/>
             </Icon>
             <SidebarWrapper>
                 <SidebarMenu>
                     <SidebarLink onClick={toggle} to={"about"}>About</SidebarLink>
-                    <SidebarLink onClick={toggle} to={"resources"}>Resources</SidebarLink>
+                    <SidebarLink onClick={()=>setDrop(!drop)} to={"resources"}>Resources</SidebarLink>
+                    {drop && <Dropdown sidebar={true} />}
                     <SidebarLink onClick={toggle} to={"contribute"}>Contribute</SidebarLink>
                     <SidebarLink onClick={toggle} to={"community"}>Community</SidebarLink>
                 </SidebarMenu>
