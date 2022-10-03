@@ -1,3 +1,12 @@
+# [0.15.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.14.2...v0.15.0) (2022-10-03)
+
+
+### Features
+
+* single blog pages ([#118](https://github.com/thecyberworld/thecyberhub.org/issues/118)) ([2dc38e4](https://github.com/thecyberworld/thecyberhub.org/commit/2dc38e479a0ed11eec54694637f76bc94e1100a4)), closes [#99](https://github.com/thecyberworld/thecyberhub.org/issues/99) [#116](https://github.com/thecyberworld/thecyberhub.org/issues/116)
+
+
+
 ## [0.14.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.14.1...v0.14.2) (2022-10-02)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * spinner struct ([#95](https://github.com/thecyberworld/thecyberhub.org/issues/95)) ([2ddab7c](https://github.com/thecyberworld/thecyberhub.org/commit/2ddab7c453463e492afb2e0811b076a2172c491f))
-
-
-
-# [0.13.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.12.0...v0.13.0) (2022-08-26)
-
-
-### Features
-
-* interview Questions ([#94](https://github.com/thecyberworld/thecyberhub.org/issues/94)) ([c8a3b71](https://github.com/thecyberworld/thecyberhub.org/commit/c8a3b71a3a8ec14a28dc03283137ab95dfaa786c))
 
 
 
