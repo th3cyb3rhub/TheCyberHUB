@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
 .blogs__container {
     display: flex;
     flex-direction: column;
@@ -7,13 +9,19 @@
     width: 400px;
     border-radius: 10px;
     background-color: #0d1117;
-    margin: 20px 1%;
+    margin: 20px 20px;
     padding: 15px 20px;
+
+
+}
+.styles{
+    text-decoration: none;
+    text-underline: none;
 }
 
 .blogs__container__title {
     margin: 10px 0;
-    padding: 0 0 10px 0;
+    padding: 10px 0;
 }
 
 .blogs__container__title h1 {
@@ -54,7 +62,35 @@
     justify-content: center;
 }
 
+.AllBlogs a {
+    color: #cecac3;
+}
+
 .blogImg {
-    height: 100%;
     margin-bottom: 9px;
+}
+
+.viewBlog {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 300px;
+    padding-top: 0;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.viewBlog > * {
+    margin: 10px 0;
+}
+
+.viewBlog p {
+    text-align: left;
+    padding: 0 50px;
+    white-space: pre-line;
+    font-size: 20px;
+}
+
+.viewBlog img {
+    margin-top: 0;
 }

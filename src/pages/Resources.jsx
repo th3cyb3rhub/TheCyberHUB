@@ -18,7 +18,7 @@ const Resources = () => {
             <Routes>
                 <Route exact path={"/"} element={<ResourcesHome/>}/>
                 <Route exact path={"roadmapResources"} element={<RoadmapResources/>}/>
-                <Route exact path={"blogs"} element={<Blogs/>}/>
+                <Route exact path={"blogs/*"} element={<Blogs/>}/>
                 <Route exact path={"events"} element={<Events/>}/>
                 <Route exact path={"cyberNews"} element={<CyberNews/>}/>
             </Routes>

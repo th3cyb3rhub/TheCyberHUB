@@ -36,7 +36,7 @@ const App = () => {
                     <Routes>
                         <Route index exact path={"/"} element={<Homepage/>}/>
 
-                        <Route exact path={"/resources"} element={<Resources/>}>
+                        <Route exact path={"/resources/*"} element={<Resources/>}>
                             <Route index element={<ResourcesHome/>}/>
                             <Route path={"roadmapResources"} element={<RoadmapResources/>}/>
                             <Route path={"cyberNews"} element={<CyberNews/>}/>
