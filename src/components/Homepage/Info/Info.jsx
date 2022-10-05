@@ -20,6 +20,7 @@ import {Link} from "react-router-dom";
 const InfoSection = ({
                          id,
                          idTo,
+                         idTo2,
                          buttonType,
                          link,
                          link2,
@@ -29,8 +30,11 @@ const InfoSection = ({
                          headline,
                          description,
                          buttonLabel,
+                         buttonLabel1,
                          buttonLabel2,
                          buttonLabel3,
+                         buttonLabel_ContributeToOpensource,
+                         buttonLabel_joinCommunity,
                          imgStart,
                          img,
                          alt,
@@ -49,22 +53,39 @@ const InfoSection = ({
                                 <TopLine> {topLine} </TopLine>
                                 <Heading lightText={lightText}> {headline} </Heading>
                                 <Subtitle darkText={darkText}> {description} </Subtitle>
+
                                 <BtnWrap>
                                     {buttonType === 'router' && (
-                                            // <Link to='/resources'>
+                                        // <Link to='/resources'>
                                         <RouterButton
                                             to='/resources'
-                                                primary={primary ? 'true' : ''}
-                                                dark={dark ? 1 : 0}
-                                                dark2={dark2 ? 1 : 0}
+                                            primary={primary ? 'true' : ''}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
                                         >
-                                                {buttonLabel}
+                                            {buttonLabel}
                                         </RouterButton>
-                                            // </Link>
+                                        // </Link>
 
                                     )}
-
                                     {buttonType === 'scroll' && (
+                                        <Button
+                                            to={idTo}
+                                            smooth={true}
+                                            duration={500}
+                                            spy={true}
+                                            exact={"true"}
+                                            offset={-80}
+                                            primary={primary ? 'true' : ''}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
+                                        >
+                                            {buttonLabel}
+                                        </Button>
+                                    )}
+
+                                    {buttonLabel2 && (
+                                        buttonType === 'scroll' && (
                                             <Button
                                                 to={idTo}
                                                 smooth={true}
@@ -76,41 +97,20 @@ const InfoSection = ({
                                                 dark={dark ? 1 : 0}
                                                 dark2={dark2 ? 1 : 0}
                                             >
-                                                {buttonLabel}
+                                                {buttonLabel2}
                                             </Button>
-                                        ) }
+                                        ))}
 
                                     {buttonType === 'link' && (
-                                            <ButtonLink
-                                                href={link}
-                                                primary={primary ? 'true' : ''}
-                                                dark={dark ? 1 : 0}
-                                                dark2={dark2 ? 1 : 0}
-                                            >
-                                                {buttonLabel}
-                                            </ButtonLink>
-                                        ) }
-
-                                    <ScrollText
-                                        to={"contribute"}
-                                        smooth={true}
-                                        duration={500}
-                                        spy={true}
-                                        exact={"true"}
-                                        offset={-80}
-                                    >
-                                        {buttonLabel2}
-                                    </ScrollText>
-                                    <ScrollText
-                                        to={"join"}
-                                        smooth={true}
-                                        duration={500}
-                                        spy={true}
-                                        exact={"true"}
-                                        offset={-80}
-                                    >
-                                        {buttonLabel3}
-                                    </ScrollText>
+                                        <ButtonLink
+                                            href={link}
+                                            primary={primary ? 'true' : ''}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
+                                        >
+                                            {buttonLabel}
+                                        </ButtonLink>
+                                    )}
                                 </BtnWrap>
                             </TextWrapper>
                         </Column1>

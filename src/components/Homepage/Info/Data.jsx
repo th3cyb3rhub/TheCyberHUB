@@ -17,6 +17,7 @@ const GSymbol = () => {
 export const aboutData = {
     id: 'about',
     idTo: 'community',
+    idTo2: 'contribute',
     buttonType: 'scroll',
     lightBg: false,
     lightText: true,
@@ -30,9 +31,8 @@ export const aboutData = {
             <GSymbol/> Open-source projects. <br/><br/>
             <GSymbol/> A Hub of Cyber Security. <br/><br/>
         </p>,
-    buttonLabel: 'Get started',
-    buttonLabel2: 'Contribute',
-    buttonLabel3: 'Join',
+    buttonLabel: 'Join community',
+    buttonLabel2: 'Contribute to Opensource',
     imgStart: false,
     img: logo_thecyberworld,
     alt: 'Car',
@@ -56,7 +56,7 @@ export const ResourcesData = {
             We provide free courses for Cyber-security. <br/>
             Cyber WriteUps, RoadMap, and much more.
         </p>,
-    buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
+    buttonLabel: <> Learn <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
     imgStart: true,
     img: ResourcesSvg,
     alt: 'ResourcesSvg',
@@ -81,7 +81,7 @@ export const communityData = {
             Community's goal is to help new folks to get started with open-source, cyber-security and to help existing
             folks get more involved in the open-source and cyber-security communities.
         </p>,
-    buttonLabel: 'Join now',
+    buttonLabel: 'Join community',
     imgStart: false,
     img: communitySvg,
     alt: 'Secure data',
@@ -101,7 +101,7 @@ export const OpenSource = {
         <p>
             Open source software (OSS) is software that is distributed with its source code, making it available for use, modification, and distribution with its original rights.
         </p>,
-    buttonLabel: <> <IconsSpacing> <FaGithub/> </IconsSpacing> Contribute now </>,
+    buttonLabel_ContributeToOpensource: <> <IconsSpacing> <FaGithub/> </IconsSpacing> Contribute now </>,
     imgStart: false,
     img: VersionControlSvg,
     alt: 'Secure data',

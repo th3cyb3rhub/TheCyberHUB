@@ -13,6 +13,7 @@ export const IconsSpacing2 = styled.span`
   flex-direction: row;
 `
 export const Button = styled(ScrollLink)`
+  margin: 10px;
   border-radius: 5px;
   border-width: 1px;
   border-style: solid;
@@ -36,6 +37,10 @@ export const Button = styled(ScrollLink)`
     background: transparent;
     border-color: #343434;
     font-size: 18px;
+  }
+
+  @media screen and (max-width: 600px) {
+    margin: 10px;
   }
 `
 export const RedirectButton = styled.a`

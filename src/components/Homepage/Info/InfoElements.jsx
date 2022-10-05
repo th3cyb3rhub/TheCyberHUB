@@ -92,6 +92,11 @@ export const Subtitle = styled.p`
 export const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-start;
+
+  @media screen and (max-width: 600px) {
+    display: grid;
+  }
+
 `;
 
 export const ImgWrap = styled.div`
