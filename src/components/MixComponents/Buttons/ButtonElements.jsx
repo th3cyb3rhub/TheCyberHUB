@@ -44,6 +44,8 @@ export const Button = styled(ScrollLink)`
   }
 `
 export const RedirectButton = styled.a`
+  margin-left: 15px;
+  margin-top: 10px;
   text-decoration: none;
   border-radius: 5px;
   border-width: 1px;
@@ -68,9 +70,6 @@ export const RedirectButton = styled.a`
     background: transparent;
     border-color: #343434;
     font-size: 18px;
-  }
-  @media screen and (max-width: 930px) {
-    display: none;
   }
 `
 export const RouterButton = styled(RouterLink)`

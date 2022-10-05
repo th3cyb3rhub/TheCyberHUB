@@ -2,7 +2,7 @@ import contributeSvg from '../../../assets/images/open-source-contribution.svg';
 import VersionControlSvg from '../../../assets/images/Servies/undraw_version_control_re_mg66.svg';
 import communitySvg from '../../../assets/images/undraw_public_discussion_re_w9up.svg';
 import ResourcesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg';
-import logo_thecyberworld from '../../../assets/LogoTrans_theCyberw0rld.png';
+import logo_thecyberworld from '../../../assets/thecyberworld-green01.png';
 
 import {FaGithub} from "react-icons/fa";
 import {IconsSpacing} from "../../MixComponents/Buttons/ButtonElements";
@@ -26,6 +26,7 @@ export const aboutData = {
     headline: 'About Thecyberworld',
     description:
         <p>
+            <GSymbol/> Thecyberhub Website, App, Extension, Bot are by @thecyberworld community <br/><br/>
             <GSymbol/> Community with more than 100,000 members. <br/><br/>
             <GSymbol/> Community's goal is to help new folks to get started with open-source and cyber-security. <br/><br/>
             <GSymbol/> Open-source projects. <br/><br/>

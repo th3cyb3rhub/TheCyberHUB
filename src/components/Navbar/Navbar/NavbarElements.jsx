@@ -91,7 +91,7 @@ export const NavLinks = styled(LinkRouter)`
   cursor: pointer;
 
   &.active {
-    border-bottom: 3px solid #01bf71;
+    border-bottom: 3px solid #47cf73;
   }
 `
 export const NavLinkRouter = styled.a`
@@ -104,7 +104,7 @@ export const NavLinkRouter = styled.a`
   cursor: pointer;
 
   &.active {
-    border-bottom: 3px solid #01bf71;
+    border-bottom: 3px solid #47cf73;
   }
 `
 
@@ -144,7 +144,7 @@ export const NavBtnLink = styled.a`
 
 // export const NavBtnLink = styled.a`
 //   border-radius: 50px;
-//   background: #01bf71;
+//   background: #47cf73;
 //   white-space: nowrap;
 //   padding: 10px 22px;
 //   color: #010606;

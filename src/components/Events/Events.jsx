@@ -24,6 +24,7 @@ const eventsHeader = {
         <ListContent>
             <List> Thecyberhub website: <Link href={"https://github.com/thecyberworld/thecyberhub.org"} target={"_blank"}> link </Link></List>
             <List> Thecyberhub App: <Link href={"https://github.com/thecyberworld/thecyberhub-app"} target={"_blank"}> link </Link></List>
+            <List> Thecyberbot discord: <Link href={"https://github.com/thecyberworld/thecyberbot-discord"} target={"_blank"}> link </Link></List>
             <List> Thecyberhub Extension: <Link href={"https://github.com/thecyberworld/thecyberhub-ext"} target={"_blank"}> link </Link></List>
             <List> Port scanner: <Link href={"https://github.com/thecyberworld/port-scanner"} target={"_blank"}> link </Link></List>
             <List> Subdomain finder: <Link href={"https://github.com/thecyberworld/subdomain-finder"} target={"_blank"}> link </Link></List>

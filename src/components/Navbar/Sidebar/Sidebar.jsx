@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Dropdown from '../Dropdowns/Dropdown';
 import {DropdownIcon} from "../Navbar/NavbarElements";
 
@@ -12,6 +12,7 @@ import {
     SideBtnWrap,
     SidebarRoute
 } from './SidebarElements';
+import {RedirectButton} from "../../MixComponents/Buttons/ButtonElements";
 
 const Sidebar = ({isOpen, toggle}) => {
     const [drop, setDrop] = useState(false);
@@ -22,16 +23,20 @@ const Sidebar = ({isOpen, toggle}) => {
             </Icon>
             <SidebarWrapper>
                 <SidebarMenu>
-                    <SidebarLink onClick={()=>setDrop(!drop)} to={"resources"}>Learn <DropdownIcon/> </SidebarLink>                    {drop && <Dropdown sidebar={true} />}
+                    <SidebarLink onClick={() => setDrop(!drop)} to={"resources"}>Learn <DropdownIcon/>
+                    </SidebarLink> {drop && <Dropdown sidebar={true}/>}
                     <SidebarLink onClick={toggle} to={"events"}>Events</SidebarLink>
                     <SidebarLink onClick={toggle} to={"blogs"}>Blogs</SidebarLink>
                     <SidebarLink onClick={toggle} to={"community"}>Community</SidebarLink>
                     <SidebarLink onClick={toggle} to={"about"}>About</SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
-                    <SidebarRoute to={"/subscribe"}>
-                        Subscribe
-                    </SidebarRoute>
+                    <RedirectButton
+                        href={"https://discord.gg/QHBPq6xP5p"}
+                        target={"_blank"}
+                    >
+                        Join Community
+                    </RedirectButton>
                 </SideBtnWrap>
             </SidebarWrapper>
         </SidebarContainer>

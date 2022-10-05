@@ -12,6 +12,10 @@ export const QuizSection = styled.div`
   padding: 25px;
   box-shadow: 10px 10px 42px 0 rgba(0, 0, 0, 0.75);
   display: flex;
+  
+  @media screen and (max-width: 800px) {
+    margin: 50px 30px;
+  }
 `;
 
 export const ScoreSection = styled.div`
@@ -102,6 +106,9 @@ export const CategoriesSection = styled.section`
   //outline: 0.01px solid white;
   padding: 25px;
   display: flex;
+  @media screen and (max-width: 800px) {
+    margin: 150px 30px 0;
+  }
 `;
 
 export const CategoriesButton = styled.button`
