@@ -1,3 +1,12 @@
+## [0.15.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.1...v0.15.2) (2022-10-05)
+
+
+### Bug Fixes
+
+* navbar design ([#127](https://github.com/thecyberworld/thecyberhub.org/issues/127)) ([d1a1e0f](https://github.com/thecyberworld/thecyberhub.org/commit/d1a1e0f07997838af6757785bc47bb50009ee269))
+
+
+
 ## [0.15.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.0...v0.15.1) (2022-10-05)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * navbar design and typos ([#106](https://github.com/thecyberworld/thecyberhub.org/issues/106)) ([e7e2bc1](https://github.com/thecyberworld/thecyberhub.org/commit/e7e2bc17759a3c9cc0e865515072062924d052c6))
-
-
-
-# [0.14.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.13.1...v0.14.0) (2022-10-02)
-
-
-### Features
-
-* blog page [#99](https://github.com/thecyberworld/thecyberhub.org/issues/99) ([#105](https://github.com/thecyberworld/thecyberhub.org/issues/105)) ([be4e514](https://github.com/thecyberworld/thecyberhub.org/commit/be4e514e00727a2437ec131f17207d6069caa709))
 
 
 
