@@ -35,7 +35,7 @@ export const SidebarWrapper = styled.div`
   color: #fff;
 `
 
-export const SidebarLink = styled(LinkScroll)`
+export const SidebarLink = styled(RouterLink)`
   display: flex;
   align-items: center;
   justify-content: center;

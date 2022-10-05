@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Dropdown from '../Dropdowns/Dropdown';
+import {DropdownIcon} from "../Navbar/NavbarElements";
 
 import {
     SidebarContainer,
@@ -21,11 +22,11 @@ const Sidebar = ({isOpen, toggle}) => {
             </Icon>
             <SidebarWrapper>
                 <SidebarMenu>
-                    <SidebarLink onClick={toggle} to={"about"}>About</SidebarLink>
-                    <SidebarLink onClick={()=>setDrop(!drop)} to={"resources"}>Resources</SidebarLink>
-                    {drop && <Dropdown sidebar={true} />}
-                    <SidebarLink onClick={toggle} to={"contribute"}>Contribute</SidebarLink>
+                    <SidebarLink onClick={()=>setDrop(!drop)} to={"resources"}>Learn <DropdownIcon/> </SidebarLink>                    {drop && <Dropdown sidebar={true} />}
+                    <SidebarLink onClick={toggle} to={"events"}>Events</SidebarLink>
+                    <SidebarLink onClick={toggle} to={"blogs"}>Blogs</SidebarLink>
                     <SidebarLink onClick={toggle} to={"community"}>Community</SidebarLink>
+                    <SidebarLink onClick={toggle} to={"about"}>About</SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
                     <SidebarRoute to={"/subscribe"}>

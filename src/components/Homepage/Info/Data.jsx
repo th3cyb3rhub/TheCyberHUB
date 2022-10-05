@@ -22,7 +22,7 @@ export const aboutData = {
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: 'Thecyberworld Community',
+    topLine: 'Thecyberworld About',
     headline: 'About Thecyberworld',
     description:
         <p>
@@ -74,7 +74,7 @@ export const communityData = {
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: 'Join our Community',
+    topLine: 'Join our About',
     headline: 'Over 100,0000 members',
     description:
         <p>

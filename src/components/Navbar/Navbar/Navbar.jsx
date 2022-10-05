@@ -3,10 +3,20 @@ import {IconContext} from 'react-icons/lib';
 import {animateScroll as scroll} from 'react-scroll';
 import {FaBars, FaTwitter} from 'react-icons/fa';
 import {
-    Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavLinkRouter, NavBtn, NavBtnLink
+    Nav,
+    NavbarContainer,
+    NavLogo,
+    MobileIcon,
+    NavMenu,
+    NavItem,
+    NavLinks,
+    NavLinkRouter,
+    NavBtn,
+    Text,
+    NavBtnLink,
+    DropdownIcon
 } from "./NavbarElements";
 import {Button, RedirectButton, FilledButton} from "../../MixComponents/Buttons/ButtonElements";
-import {Text} from "../../Resources/ResourcesNavbar/ResourcesNavbarElements";
 import Dropdown from '../Dropdowns/Dropdown';
 import SideDropdown from '../Dropdowns/SideDropdown';
 
@@ -15,7 +25,7 @@ const Navbar = ({toggle}) => {
     const [drop, setDrop] = useState(false);
 
     const dropHandler = (title) => {
-        if(title == 'resources'){
+        if(title === 'resources'){
             setDrop(true);
         }else setDrop(false);
     }
@@ -46,19 +56,15 @@ const Navbar = ({toggle}) => {
                         </MobileIcon>
                         <NavMenu>
                             {[
-                                {to: 'about', title: 'About',},
-                                {to: 'resources', title: 'Resources',},
-                                {to: 'contribute', title: 'Contribute',},
+                                {to: 'resources', title: <><p>Learn</p> <DropdownIcon/></>},
+                                {to: 'events', title: 'Events',},
+                                {to: 'blogs', title: 'Blogs',},
                                 {to: 'community', title: 'Community',},
+                                {to: 'about', title: 'About',},
                             ].map(({to, title}) => (
                                 <NavItem onMouseEnter={()=>dropHandler(to)} onMouseLeave={()=>dropHandler(to)} key={to}>
                                     <NavLinks
                                         to={to}
-                                        smooth={true}
-                                        duration={500}
-                                        spy={true}
-                                        exact="true"
-                                        offset={-80}
                                     >
                                         {title}
                                     </NavLinks>
@@ -68,16 +74,6 @@ const Navbar = ({toggle}) => {
                         </NavMenu>
 
                         <NavBtn>
-                            <Button
-                                to={"join"}
-                                smooth={true}
-                                duration={500}
-                                spy={true}
-                                exact="true"
-                                offset={-80}
-                            >
-                                Join us
-                            </Button>
                             <RedirectButton
                                 href={"https://twitter.com/intent/tweet?text=Hi%20Everyone,%20%0D%0AFound%20the%20best%20website%20to%20learn%20Cybersecurity%20for%20free%20by%20@thecyberw0rld%20community.%20%0D%0A%0D%0AWebsite:%20https://thecyberhub.org%20%0D%0AResources:%20https://thecyberhub.org/resources%20%0D%0A%0D%0AMore%20features%20are%20on%20the%20way...%20%0D%0Afollow%20@thecyberw0rld%20for%20getting%20updates%20and%20for%20cyber%20security%20content."}
                                 rel="noopener"
@@ -90,7 +86,7 @@ const Navbar = ({toggle}) => {
                             >
                                 <FaTwitter/>
                                 <Text>
-                                    Share us
+                                    Share
                                 </Text>
                             </RedirectButton>
                             {/*<FilledButton to="register">*/}

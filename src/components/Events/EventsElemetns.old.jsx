@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CTFImg from "../../../assets/images/Capture.png";
+import CTFImg from "../../assets/images/Capture.png";
 
 export const EventsContainer = styled.div`
   text-align: center;

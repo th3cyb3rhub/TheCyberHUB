@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import {Link as LinkRouter} from 'react-router-dom';
 import {Link as LinkScroll} from 'react-scroll'
+import {AiFillCaretDown, AiFillCaretRight} from 'react-icons/ai';
+export const DropdownIcon = styled(AiFillCaretDown)`
+  margin: 5px 0 0 5px;`
+export const SideDropdownIcon = styled(AiFillCaretRight)`
+  margin: 5px 0 0 5px;`
 
 export const Nav = styled.nav`
-  background: ${({ scrollNav }) => scrollNav ? '#000' : 'transparent'};
+  background: ${({scrollNav}) => scrollNav ? '#000' : 'transparent'};
   height: 80px;
   margin-top: -80px;
   display: flex;
@@ -55,7 +60,11 @@ export const MobileIcon = styled.div`
     color: #fff;
   }
 `
+export const Text = styled.div`
+    margin-left: 5px;
+  margin-bottom: 2px;
 
+`
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
@@ -72,7 +81,7 @@ export const NavItem = styled.li`
   height: 80px;
 `
 
-export const NavLinks = styled(LinkScroll)`
+export const NavLinks = styled(LinkRouter)`
   color: #fff;
   display: flex;
   align-items: center;
@@ -130,6 +139,9 @@ export const NavBtnLink = styled.a`
     font-size: 18px;
   }
 `
+
+
+
 // export const NavBtnLink = styled.a`
 //   border-radius: 50px;
 //   background: #01bf71;

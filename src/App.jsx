@@ -15,11 +15,15 @@ import {
     CyberNews,
     Blogs,
     Events,
+    Community,
+    About,
     InterviewQuestions,
     InterviewExperiences,
     Quiz,
     Jobs,
     Footer,
+    Sidebar,
+    Navbar
 } from "./components";
 
 import Spinner from "./components/MixComponents/Spinner/Spinner";
@@ -39,31 +43,45 @@ const App = () => {
         return pathname !== "/register";
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
+
     return (
         <div>
             {loading ? (<Spinner/>) :
-                (<> <ScrollToTop>
-                        <Routes>
-                            <Route index exact path={"/"} element={<Homepage/>}/>
+                (<>
+                        <navbar>
+                            <Sidebar isOpen={isOpen} toggle={toggle}/>
+                            <Navbar toggle={toggle}/>
+                        </navbar>
 
-                            <Route exact path={"/resources"} element={<Resources/>}>
-                                <Route index element={<ResourcesHome/>}/>
-                                <Route path={"roadmapResources"} element={<RoadmapResources/>}/>
-                                <Route path={"cyberNews"} element={<CyberNews/>}/>
-                                <Route path={"blogs"} element={<Blogs/>}/>
-                                <Route path={"events"} element={<Events/>}/>
-                            </Route>
+                        <ScrollToTop>
+                            <Routes>
+                                <Route index exact path={"/"} element={<Homepage/>}/>
 
-                            <Route exact path={"/prep"} element={<Prep/>}>
-                                <Route path={"interviewQuestions"} element={<InterviewQuestions/>}/>
-                                <Route path={"interviewExperiences"} element={<InterviewExperiences/>}/>
-                                <Route path={"quiz"} element={<Quiz/>}/>
-                                <Route path={"jobs"} element={<Jobs/>}/>
-                            </Route>
+                                <Route exact path={"/blogs"} element={<Blogs/>}/>
+                                <Route exact path={"/events"} element={<Events/>}/>
+                                <Route exact path={"/community"} element={<Community/>}/>
+                                <Route exact path={"/about"} element={<About/>}/>
 
-                            <Route exact path={"/register"} element={<Registration/>}></Route>
-                        </Routes>
-                    </ScrollToTop>
+                                <Route exact path={"/resources"} element={<Resources/>}>
+                                    <Route index element={<ResourcesHome/>}/>
+                                    <Route path={"roadmapResources"} element={<RoadmapResources/>}/>
+                                    <Route path={"cyberNews"} element={<CyberNews/>}/>
+                                    <Route path={"blogs"} element={<Blogs/>}/>
+                                    <Route path={"events"} element={<Events/>}/>
+                                </Route>
+
+                                <Route exact path={"/prep"} element={<Prep/>}>
+                                    <Route path={"interviewQuestions"} element={<InterviewQuestions/>}/>
+                                    <Route path={"interviewExperiences"} element={<InterviewExperiences/>}/>
+                                    <Route path={"quiz"} element={<Quiz/>}/>
+                                    <Route path={"jobs"} element={<Jobs/>}/>
+                                </Route>
+
+                                <Route exact path={"/register"} element={<Registration/>}></Route>
+                            </Routes>
+                        </ScrollToTop>
                         {showFooter() && <Footer/>}
                     </>
                 )}

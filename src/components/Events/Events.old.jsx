@@ -7,8 +7,8 @@ import {
     EventSubHeading,
     EventSubHeadingSection, BGCTFImage, BGImage, ImageSection, CtfImage
 } from "./EventsElemetns";
-import {Link} from "../RoadmapResources/RoadmapResourcesElements";
-import CTFImg from "../../../assets/images/Capture.png";
+import {Link} from "../Resources/RoadmapResources/RoadmapResourcesElements";
+import CTFImg from "../../assets/images/Capture.png";
 
 const Events = () => {
     return (
