@@ -5,7 +5,7 @@ import {FaBars, FaTwitter} from 'react-icons/fa';
 import {
     Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavLinkRouter, NavBtn, NavBtnLink
 } from "./NavbarElements";
-import {Button, RedirectButton} from "../../MixComponents/Buttons/ButtonElements";
+import {Button, RedirectButton, FilledButton} from "../../MixComponents/Buttons/ButtonElements";
 import {Text} from "../../Resources/ResourcesNavbar/ResourcesNavbarElements";
 import Dropdown from '../Dropdowns/Dropdown';
 import SideDropdown from '../Dropdowns/SideDropdown';
@@ -62,7 +62,7 @@ const Navbar = ({toggle}) => {
                                     > 
                                         {title}
                                     </NavLinks>
-                                    {to=='resources' && drop && <Dropdown sidebar={false}/>}
+                                    {to === 'resources' && drop && <Dropdown sidebar={false}/>}
                                 </NavItem>
                             ))}
                         </NavMenu>
@@ -93,6 +93,9 @@ const Navbar = ({toggle}) => {
                                     Share us
                                 </Text>
                             </RedirectButton>
+                                {/*<FilledButton to="register">*/}
+                                {/*    Register                                                                */}
+                                {/*</FilledButton>*/}
                         </NavBtn>
                     </NavbarContainer>
                 </Nav>

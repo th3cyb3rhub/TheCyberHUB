@@ -68,7 +68,6 @@ export const RedirectButton = styled.a`
     display: none;
   }
 `
-
 export const RouterButton = styled(RouterLink)`
   text-decoration: none;
   border-radius: 5px;
@@ -92,6 +91,17 @@ export const RouterButton = styled(RouterLink)`
   &:hover {
     transition: all 0.2s ease-in-out;
     background: transparent;
+    border-color: #343434;
+    font-size: 18px;
+  }
+`
+export const FilledButton = styled(RouterButton)`
+  background: #47cf73;
+  color: white;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #47cf73;
+    color: black;
     border-color: #343434;
     font-size: 18px;
   }
@@ -124,7 +134,7 @@ export const ButtonLink = styled.a`
   }
 `
 
-export const ButtonRouterLink = styled(RouterLink)`
+export const ButtonRouterLink = styled(RouterButton)`
   border-width: 1px;
   border-style: solid;
   border-color: #343434;
