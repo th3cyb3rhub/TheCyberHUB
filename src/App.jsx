@@ -59,12 +59,12 @@ const App = () => {
                             <Routes>
                                 <Route index exact path={"/"} element={<Homepage/>}/>
 
-                                <Route exact path={"/blogs"} element={<Blogs/>}/>
+                                <Route exact path={"/blogs/*"} element={<Blogs/>}/>
                                 <Route exact path={"/events"} element={<Events/>}/>
                                 <Route exact path={"/community"} element={<Community/>}/>
                                 <Route exact path={"/about"} element={<About/>}/>
 
-                                <Route exact path={"/resources"} element={<Resources/>}>
+                                <Route exact path={"/resources/*"} element={<Resources/>}>
                                     <Route index element={<ResourcesHome/>}/>
                                     <Route path={"roadmapResources"} element={<RoadmapResources/>}/>
                                     <Route path={"cyberNews"} element={<CyberNews/>}/>
