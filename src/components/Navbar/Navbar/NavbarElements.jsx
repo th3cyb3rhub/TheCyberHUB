@@ -57,7 +57,7 @@ export const NavLogo = styled.img`
   margin-left: 24px;
   font-weight: bold;
   text-decoration: none;
-  @media screen and (max-width: 370px) {
+  @media screen and (max-width: 500px) {
     margin: 0 0 0 0;
   }
 
@@ -89,9 +89,11 @@ export const MobileIcon = styled.div`
     top: 0;
     right: 0;
     transform: translate(-100%, 60%);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     cursor: pointer;
     color: #fff;
+    margin-top: 10px;
+
   }
 
 
