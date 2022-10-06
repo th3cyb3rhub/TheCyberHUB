@@ -48,7 +48,7 @@ export const SidebarLink = styled(RouterLink)`
   cursor: pointer;
 
   &:hover {
-    color: #47cf73;
+    color: #20c20e;
     transition: 0.2s ease-in-out;
   }
 `
@@ -69,7 +69,7 @@ export const SidebarMenu = styled.div`
 `
 export const SidebarRoute = styled(RouterLink)`
   border-radius: 50px;
-  background: #47cf73;
+  background: #20c20e;
   white-space: nowrap;
   padding: 16px 64px;
   color: #010606;

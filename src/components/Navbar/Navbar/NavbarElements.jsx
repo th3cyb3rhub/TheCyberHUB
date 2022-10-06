@@ -34,7 +34,7 @@ export const NavbarContainer = styled.div`
   max-width: 1100px;
 `
 
-export const NavLogo = styled(LinkRouter)`
+export const NavLogoRouter = styled(LinkRouter)`
   color: #fff;
   justify-self: flex-start;
   cursor: pointer;
@@ -45,6 +45,32 @@ export const NavLogo = styled(LinkRouter)`
   font-weight: bold;
   text-decoration: none;
 `
+
+export const NavLogo = styled.img`
+  height: 60px;
+  color: #fff;
+  justify-self: flex-start;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+  font-weight: bold;
+  text-decoration: none;
+`
+
+// Text logo
+// export const NavLogoRouter = styled(LinkRouter)`
+//   color: #fff;
+//   justify-self: flex-start;
+//   cursor: pointer;
+//   font-size: 1.5rem;
+//   display: flex;
+//   align-items: center;
+//   margin-left: 24px;
+//   font-weight: bold;
+//   text-decoration: none;
+// `
 
 export const MobileIcon = styled.div`
   display: none;
@@ -91,7 +117,7 @@ export const NavLinks = styled(LinkRouter)`
   cursor: pointer;
 
   &.active {
-    border-bottom: 3px solid #47cf73;
+    border-bottom: 3px solid #20c20e;
   }
 `
 export const NavLinkRouter = styled.a`
@@ -104,7 +130,7 @@ export const NavLinkRouter = styled.a`
   cursor: pointer;
 
   &.active {
-    border-bottom: 3px solid #47cf73;
+    border-bottom: 3px solid #20c20e;
   }
 `
 
@@ -134,7 +160,7 @@ export const NavBtnLink = styled.a`
   &:hover {
     transition: all 0.2s ease-in-out;
     background: transparent;
-    color: #47cf73;
+    color: #20c20e;
     border-color: #343434;
     font-size: 18px;
   }
@@ -144,7 +170,7 @@ export const NavBtnLink = styled.a`
 
 // export const NavBtnLink = styled.a`
 //   border-radius: 50px;
-//   background: #47cf73;
+//   background: #20c20e;
 //   white-space: nowrap;
 //   padding: 10px 22px;
 //   color: #010606;

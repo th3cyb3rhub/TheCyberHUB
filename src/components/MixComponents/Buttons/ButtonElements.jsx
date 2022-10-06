@@ -30,7 +30,7 @@ export const Button = styled(ScrollLink)`
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
-    color: #47cf73;
+    color: #20c20e;
 
   &:hover {
     transition: all 0.2s ease-in-out;
@@ -63,7 +63,7 @@ export const RedirectButton = styled.a`
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
-    color: #47cf73;
+    color: #20c20e;
 
   &:hover {
     transition: all 0.2s ease-in-out;
@@ -90,7 +90,7 @@ export const RouterButton = styled(RouterLink)`
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
-  color: #47cf73;
+  color: #20c20e;
 
   &:hover {
     transition: all 0.2s ease-in-out;
@@ -100,11 +100,11 @@ export const RouterButton = styled(RouterLink)`
   }
 `
 export const FilledButton = styled(RouterButton)`
-  background: #47cf73;
+  background: #20c20e;
   color: white;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #47cf73;
+    background: #20c20e;
     color: black;
     border-color: #343434;
     font-size: 18px;
@@ -132,7 +132,7 @@ export const ButtonLink = styled.a`
   &:hover {
     transition: all 0.2s ease-in-out;
     background: transparent;
-    color: #47cf73;
+    color: #20c20e;
     border-color: #343434;
     font-size: 18px;
   }
@@ -159,7 +159,7 @@ export const ButtonRouterLink = styled(RouterButton)`
   &:hover {
     transition: all 0.2s ease-in-out;
     background: transparent;
-    color: #47cf73;
+    color: #20c20e;
     border-color: #343434;
     font-size: 18px;
   }

@@ -61,7 +61,7 @@ export const FooterRouterLink = styled(RouterLink)`
   font-size: 14px;
 
   &:hover {
-    color: #47cf73;
+    color: #20c20e;
     transition: .3s ease-out;
   }
 `;
@@ -73,7 +73,7 @@ export const FooterScrollLink = styled(ScrollLink)`
   font-size: 14px;
 
   &:hover {
-    color: #47cf73;
+    color: #20c20e;
     transition: .3s ease-out;
   }
 `;
@@ -85,7 +85,7 @@ export const FooterRedirectLink = styled.a`
   font-size: 14px;
 
   &:hover {
-    color: #47cf73;
+    color: #20c20e;
     transition: .3s ease-out;
   }
 `;
@@ -97,7 +97,7 @@ export const FooterSocialLinks = styled.a`
   font-size: 14px;
 
   &:hover {
-    color: #47cf73;
+    color: #20c20e;
     transition: .3s ease-out;
   }
 `;
@@ -137,8 +137,9 @@ export const SocialIcons = styled.div`
 export const SocialIconLink = styled.a`
   color: #fff;
   font-size: 24px;
+
   &:hover {
-    color: #47cf73;
+    color: #20c20e;
     transition: .3s ease-out;
   }
 `;
@@ -257,7 +258,7 @@ export const SocialLogo = styled(RouterLink)`
   font-weight: bold;
 
   :hover {
-    color: #47cf73;
+    color: #20c20e;
     font-size: 1.6rem;
     transition: .3s ease-out;
   }

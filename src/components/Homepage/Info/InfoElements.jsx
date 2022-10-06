@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {Link as ScrollLink} from "react-scroll";
 
 export const Symbol = styled.a`
-  color: #47cf73;
+  color: #20c20e;
 `
 
 export const InfoContainer = styled.div`
@@ -60,7 +60,7 @@ export const TextWrapper = styled.div`
 `
 
 export const TopLine = styled.p`
-  color: #47cf73;
+  color: #20c20e;
   font-size: 16px;
   line-height: 16px;
   font-weight: 700;

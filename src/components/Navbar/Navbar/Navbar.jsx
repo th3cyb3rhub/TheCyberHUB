@@ -5,7 +5,7 @@ import {FaBars, FaTwitter} from 'react-icons/fa';
 import {
     Nav,
     NavbarContainer,
-    NavLogo,
+    NavLogoRouter,
     MobileIcon,
     NavMenu,
     NavItem,
@@ -14,12 +14,13 @@ import {
     NavBtn,
     Text,
     NavBtnLink,
-    DropdownIcon
+    DropdownIcon, NavLogo
 } from "./NavbarElements";
 import {Button, RedirectButton, FilledButton} from "../../MixComponents/Buttons/ButtonElements";
 import Dropdown from '../Dropdowns/Dropdown';
 import SideDropdown from '../Dropdowns/SideDropdown';
 
+import logo from "../../../assets/ThecyberhubLogo.png"
 const Navbar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
     const [drop, setDrop] = useState(false);
@@ -48,9 +49,9 @@ const Navbar = ({toggle}) => {
             <IconContext.Provider value={{color: '#fff'}}>
                 <Nav onMouseLeave={() => setDrop(false)} scrollNav={scrollNav}>
                     <NavbarContainer>
-                        <NavLogo to={"/"} onClick={toggleHome}>
-                            Thecyberworld
-                        </NavLogo>
+                        <NavLogoRouter to={"/"} onClick={toggleHome}>
+                            <NavLogo src={logo}/>
+                        </NavLogoRouter>
                         <MobileIcon onClick={toggle}>
                             <FaBars/>
                         </MobileIcon>

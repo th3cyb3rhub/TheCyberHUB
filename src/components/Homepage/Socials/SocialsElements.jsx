@@ -139,7 +139,7 @@ export const SocialsH1 = styled.h1`
   margin-bottom: 64px;
 
   &:hover {
-    color: #47cf73;
+    color: #20c20e;
     transition: all .2s ease-in-out;
     font-size: 55px;
     margin-bottom: 57px;
