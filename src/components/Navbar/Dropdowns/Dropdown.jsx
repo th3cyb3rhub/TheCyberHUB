@@ -7,10 +7,11 @@ import {NavLinks, SideDropdownIcon} from '../Navbar/NavbarElements';
 export default function Dropdown(props) {
   const menu = [
     {title: "Roadmap", url: "/resources/roadmapResources" },
+    {title: "Courses", url: "/resources/courses"},
     {title: "Prep", url: ""},
     {title: "Events", url:"/events" },
     {title: "Blogs", url: "/blogs"},
-    {title: "News", url: "/resources/cyberNews"},
+    {title: "News", url: "/cyberNews"},
   ]
 
   const [sideDrop, setSideDrop] = useState(false);
@@ -40,8 +41,6 @@ export default function Dropdown(props) {
     position: 'absolute',
     top: 80
   };
-
-
 
   return (
     <div style={props.sidebar ? mobStyle : dStyle}>

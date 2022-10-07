@@ -10,20 +10,9 @@ import Prep from "./pages/Prep";
 import Registration from "./pages/Registration";
 
 import {
-    ResourcesHome,
-    RoadmapResources,
-    CyberNews,
-    Blogs,
-    Events,
-    Community,
-    About,
-    InterviewQuestions,
-    InterviewExperiences,
-    Quiz,
-    Jobs,
-    Footer,
-    Sidebar,
-    Navbar
+    ResourcesHome, RoadmapResources, CyberNews, Blogs, Events, Community, About,
+    InterviewQuestions, InterviewExperiences, Quiz, Jobs, Footer, Sidebar, Navbar,
+    Courses
 } from "./components";
 
 import Spinner from "./components/MixComponents/Spinner/Spinner";
@@ -67,6 +56,7 @@ const App = () => {
                                 <Route exact path={"/resources/*"} element={<Resources/>}>
                                     <Route index element={<ResourcesHome/>}/>
                                     <Route path={"roadmapResources"} element={<RoadmapResources/>}/>
+                                    <Route path={"courses"} element={<Courses/>}/>
                                     <Route path={"cyberNews"} element={<CyberNews/>}/>
                                     <Route path={"blogs"} element={<Blogs/>}/>
                                     <Route path={"events"} element={<Events/>}/>

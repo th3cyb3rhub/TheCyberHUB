@@ -1,12 +1,12 @@
 import React from 'react';
 
 import "./VideoCard/VideoCard.css";
-import {LinuxYoutubeVideosCard, CyberYoutubeVideosCard,
-    BugHuntingVideosCard} from "./VideoCard/VideoCard";
-import {Section} from "./YouTubeVideosElements";
+import {
+    LinuxYoutubeVideosCard, CyberYoutubeVideosCard,
+    BugHuntingVideosCard, RedTeamCoursesCard, BlueTeamCoursesCard
+} from "./VideoCard/VideoCard";
 
-
-export const LinuxVideosCard = () => {
+export const LinuxCourses = () => {
     return (
         <div className={"paddingTop"}>
             <div className={"card__section"} id={"id"}>
@@ -18,7 +18,7 @@ export const LinuxVideosCard = () => {
         </div>
     )
 }
-export const CyberVideosCard = () => {
+export const CyberSecurityCourses = () => {
     return (
         <div className={"card__section"} id={"id"}>
             <h1 className={"h1_Courses"}>{"Cyber Security Courses"}</h1>
@@ -28,7 +28,7 @@ export const CyberVideosCard = () => {
         </div>
     )
 }
-export const BugHuntingVideos = () => {
+export const BugHuntingCourses = () => {
     return (
         <div className={"card__section"} id={"id"}>
             <h1 className={"h1_Courses"}>{"Bug bounty hunting Courses"}</h1>
@@ -38,18 +38,35 @@ export const BugHuntingVideos = () => {
         </div>
     )
 }
+export const RedTeamCourses = () => {
+    return (
+        <div className={"card__section"} id={"id"}>
+            <h1 className={"h1_Courses"}>{"Red Team Courses"}</h1>
+            <div className="container">
+                {RedTeamCoursesCard}
+            </div>
+        </div>
+    )
+}
+export const BlueTeamCourses = () => {
+    return (
+        <div className={"card__section"} id={"id"}>
+            <h1 className={"h1_Courses"}>{"Blue Team Courses"}</h1>
+            <div className="container">
+                {BlueTeamCoursesCard}
+            </div>
+        </div>
+    )
+}
 
 const FreeYoutubeCourses = () => {
     return (
         <>
-            <Section>
-                <h1>
-                    Under Development
-                </h1>
-            </Section>
-            <LinuxVideosCard/>
-            <CyberVideosCard/>
-            <BugHuntingVideos/>
+            <LinuxCourses/>
+            <CyberSecurityCourses/>
+            <BugHuntingCourses/>
+            <RedTeamCourses/>
+            <BlueTeamCourses/>
         </>
     )
 };

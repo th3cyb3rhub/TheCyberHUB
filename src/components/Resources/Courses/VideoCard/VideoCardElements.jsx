@@ -62,6 +62,7 @@ export const Card = styled.div`
   box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
   border-radius: 1em;
   background: #1a1c1d;
+  margin-bottom: 30px;
 `
 
 export const CardBody = styled.div`
