@@ -54,10 +54,10 @@ export const ResourcesData = {
     headline: 'Cyber Sec Resources',
     description:
         <p>
-            We provide free courses for Cyber-security. <br/>
-            Cyber WriteUps, RoadMap, and much more.
+            Explore cyber security resources. <br/>
+            events, blogs, tools, writeups, roadmaps, and much more.
         </p>,
-    buttonLabel: <> Learn <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
+    buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
     imgStart: true,
     img: ResourcesSvg,
     alt: 'ResourcesSvg',

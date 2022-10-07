@@ -15,15 +15,7 @@
     margin: 10px 0;
     padding: 10px 0;
 }
-.events__container__title h2{
-    font-size: 1.8rem;
-    font-weight: 800;
-}
-.events__container__title h6{
-    font-size: 0.9rem;
-    font-weight: 400;
-    opacity: 0.5;
-}
+
 
 .AllEvents{
     display: flex;
@@ -41,6 +33,17 @@
 .events__container__contentHeader{
     padding: 20px;
     margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+    .events__container__title h2 {
+        font-size: 16px;
+    }
+    .events__container__contentHeader{
+        padding: 0;
+        margin-bottom: 15px;
+        font-size: 13px;
+    }
 }
 
 .change_view_btn{
