@@ -1,3 +1,12 @@
+## [0.15.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.3...v0.15.4) (2022-10-07)
+
+
+### Bug Fixes
+
+* mobile design ([#144](https://github.com/thecyberworld/thecyberhub.org/issues/144)) ([dac6869](https://github.com/thecyberworld/thecyberhub.org/commit/dac6869ab766119ab157bad50d4ef527d04fdebd))
+
+
+
 ## [0.15.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.2...v0.15.3) (2022-10-06)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * single blog pages ([#118](https://github.com/thecyberworld/thecyberhub.org/issues/118)) ([2dc38e4](https://github.com/thecyberworld/thecyberhub.org/commit/2dc38e479a0ed11eec54694637f76bc94e1100a4)), closes [#99](https://github.com/thecyberworld/thecyberhub.org/issues/99) [#116](https://github.com/thecyberworld/thecyberhub.org/issues/116)
-
-
-
-## [0.14.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.14.1...v0.14.2) (2022-10-02)
-
-
-### Bug Fixes
-
-* blogs and add data ([#114](https://github.com/thecyberworld/thecyberhub.org/issues/114)) ([ea39cfd](https://github.com/thecyberworld/thecyberhub.org/commit/ea39cfddf686023a75fcac94c877540973f9bc8c))
 
 
 
