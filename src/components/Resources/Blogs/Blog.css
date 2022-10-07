@@ -6,7 +6,7 @@
     justify-content: left;
     text-align: left;
     height: 100%;
-    width: 400px;
+    max-width: 400px;
     border-radius: 10px;
     background-color: #0d1117;
     margin: 20px 20px;

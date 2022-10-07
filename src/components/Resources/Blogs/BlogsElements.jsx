@@ -8,7 +8,7 @@ const BlogsElements = (props) => {
     <>
       <div className="blogs__container">
         <div className="blogs__container__title">
-          <img className="blogImg" src={image} alt="Blog Image" width="360px" height="180px" />
+          <img className="blogImg" src={image} alt="Blog Image" width="100%" height="auto" />
           <h2>{props.title}</h2>
           <h6>
             {props.date} • {props.author}
