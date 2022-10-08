@@ -1,8 +1,6 @@
 name: Import standard labels
 
-on:
-  push:
-    branches: [ main ]
+on: [workflow_dispatch]
 
 jobs:
   labels:
