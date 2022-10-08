@@ -1,3 +1,12 @@
+## [0.15.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.5...v0.15.6) (2022-10-08)
+
+
+### Bug Fixes
+
+* Remove extra space ([#157](https://github.com/thecyberworld/thecyberhub.org/issues/157)) ([3592d52](https://github.com/thecyberworld/thecyberhub.org/commit/3592d522b2ce0456d03149981c76e1ce686ea90d))
+
+
+
 ## [0.15.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.4...v0.15.5) (2022-10-07)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * navbar design ([#127](https://github.com/thecyberworld/thecyberhub.org/issues/127)) ([d1a1e0f](https://github.com/thecyberworld/thecyberhub.org/commit/d1a1e0f07997838af6757785bc47bb50009ee269))
-
-
-
-## [0.15.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.0...v0.15.1) (2022-10-05)
-
-
-### Bug Fixes
-
-* homepage design ([#125](https://github.com/thecyberworld/thecyberhub.org/issues/125)) ([3323b87](https://github.com/thecyberworld/thecyberhub.org/commit/3323b87c80fcd80166713bbb74c03dffec06029d))
 
 
 
