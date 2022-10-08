@@ -2,25 +2,20 @@ import React, {useEffect, useState} from 'react'
 import {IconContext} from 'react-icons/lib';
 import {animateScroll as scroll} from 'react-scroll';
 import {FaBars, FaTwitter} from 'react-icons/fa';
+import {BsFillFlagFill} from 'react-icons/bs';
+
 import {
-    Nav,
-    NavbarContainer,
-    NavLogoRouter,
-    MobileIcon,
-    NavMenu,
-    NavItem,
-    NavLinks,
-    NavLinkRouter,
-    NavBtn,
-    Text,
-    NavBtnLink,
-    DropdownIcon, NavLogo
+    Nav, NavbarContainer, NavLogoRouter, MobileIcon, NavMenu, NavItem,
+    NavLinks, NavLinkRouter, NavBtn, Text, NavBtnLink, DropdownIcon, NavLogo
 } from "./NavbarElements";
-import {Button, RedirectButton, FilledButton} from "../../MixComponents/Buttons/ButtonElements";
+import {
+    Button, RedirectButton,GlowingButton, FilledButton
+} from "../../MixComponents/Buttons/ButtonElements";
+
 import Dropdown from '../Dropdowns/Dropdown';
 import SideDropdown from '../Dropdowns/SideDropdown';
-
 import logo from "../../../assets/ThecyberhubLogo.png"
+
 const Navbar = ({toggle}) => {
     const [scrollNav, setScrollNav] = useState(false);
     const [drop, setDrop] = useState(false);
@@ -75,21 +70,13 @@ const Navbar = ({toggle}) => {
                         </NavMenu>
 
                         <NavBtn>
-                            <RedirectButton
-                                href={"https://twitter.com/intent/tweet?text=Hi%20Everyone,%20%0D%0AFound%20the%20best%20website%20to%20learn%20Cybersecurity%20for%20free%20by%20@thecyberw0rld%20community.%20%0D%0A%0D%0AWebsite:%20https://thecyberhub.org%20%0D%0AResources:%20https://thecyberhub.org/resources%20%0D%0A%0D%0AMore%20features%20are%20on%20the%20way...%20%0D%0Afollow%20@thecyberw0rld%20for%20getting%20updates%20and%20for%20cyber%20security%20content."}
-                                rel="noopener"
-                                target="_blank"
-                                smooth={true}
-                                duration={500}
-                                spy={true}
-                                exact="true"
-                                offset={-80}
-                            >
-                                <FaTwitter/>
-                                <Text>
-                                    Share
-                                </Text>
-                            </RedirectButton>
+                            <GlowingButton to={"CTF"}>
+                                <i> Play CTF </i>
+                            </GlowingButton>
+                            {/*<RedirectButton href={"https://twitter.com/intent/tweet?text=Hi%20Everyone,%20%0D%0AFound%20the%20best%20website%20to%20learn%20Cybersecurity%20for%20free%20by%20@thecyberw0rld%20community.%20%0D%0A%0D%0AWebsite:%20https://thecyberhub.org%20%0D%0AResources:%20https://thecyberhub.org/resources%20%0D%0A%0D%0AMore%20features%20are%20on%20the%20way...%20%0D%0Afollow%20@thecyberw0rld%20for%20getting%20updates%20and%20for%20cyber%20security%20content."} rel="noopener" target="_blank" smooth={true} duration={500} spy={true} exact="true" offset={-80}>*/}
+                            {/*    <FaTwitter/>*/}
+                            {/*    <Text> Share </Text>*/}
+                            {/*</RedirectButton>*/}
                             {/*<FilledButton to="register">*/}
                             {/*    Register                                                                */}
                             {/*</FilledButton>*/}

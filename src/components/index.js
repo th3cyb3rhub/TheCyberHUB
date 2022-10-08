@@ -10,13 +10,14 @@ export {default as Socials} from './Homepage/Socials/Socials'
 // ResourcesHome //
 export {default as ResourcesHome} from './Resources/ResourcesHome/ResourcesHome'
 export {default as RoadmapResources} from './Resources/RoadmapResources/RoadmapResources'
-export {default as Courses} from './Resources/Courses/YoutubeCourses'
+export {default as Courses} from './Learn/Courses/YoutubeCourses'
 export {default as WriteUps} from './Resources/WriteUps/WriteUps'
 export {default as Blogs} from './Resources/Blogs/Blogs'
 export {default as CyberNews} from './Resources/CyberNews/CyberNews'
 export {default as Events} from './Events/Events'
 
 // //
+export {default as CTF} from './Resources/CTF/CTF'
 export {default as Community} from './Community/Community'
 export {default as About} from './About/About'
 
