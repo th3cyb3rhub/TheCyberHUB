@@ -22,15 +22,11 @@ import VSQ from "./VSQ/VSQ";
 
 export default function Categories() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-
   const [showScore, setShowScore] = useState(false);
-
   const [score, setScore] = useState(0);
-
   const [scoreList, setScoreList] = useState(0);
-
   const [categoryToShow, setCategoryToShow] = useState("CBQ");
-
+  const [showDropdown, setShowDropdown] = useState(false);
   const handleAnswerButtonClick = (isCorrect, length) => {
     if (isCorrect === true) {
       setScore(score + 1);
@@ -57,6 +53,14 @@ export default function Categories() {
     },
     [categoryToShow]
   );
+
+  const openDropdown = useCallback(() => {
+    setShowDropdown(true);
+  }, [showDropdown]);
+
+  const closeDropdown = useCallback(() => {
+    setShowDropdown(false);
+  }, [showDropdown]);
 
   const styles = {
     AnswerSection: AnswerSection,
@@ -87,6 +91,9 @@ export default function Categories() {
         showCategory={showCategory}
         handleResetButton={handleResetButton}
         score={score}
+        openDropdown={openDropdown}
+        closeDropdown={closeDropdown}
+        showDropdown={showDropdown}
       />
       {categoryToShow === "CBQ" && <CBQ {...styles} {...statesAndFunctions} />}
       {categoryToShow === "Phishing" && (
