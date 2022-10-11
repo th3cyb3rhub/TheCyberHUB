@@ -5,13 +5,15 @@ import ResourcesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg'
 import logo_thecyberworld from '../../../assets/thecyberworld-green01.png';
 
 import {FaGithub} from "react-icons/fa";
+import {BsDot} from "react-icons/bs";
+
 import {IconsSpacing} from "../../MixComponents/Buttons/ButtonElements";
 import {IconsSpacing2} from "../../MixComponents/Buttons/ButtonElements";
 import {Symbol} from "./InfoElements";
 import {BsFillPlayFill} from "react-icons/bs";
 
 const GSymbol = () => {
-    return (<Symbol>></Symbol>)
+    return (<Symbol><BsDot/></Symbol>)
 }
 
 export const aboutData = {
