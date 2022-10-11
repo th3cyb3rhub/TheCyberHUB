@@ -71,7 +71,6 @@
 .viewBlog {
     display: flex;
     flex-direction: column;
-    padding: 50px 300px;
     padding-top: 0;
     align-items: center;
     justify-content: space-between;
@@ -80,6 +79,9 @@
 
 .viewBlog > * {
     margin: 10px 0;
+
+    width: auto;
+    max-width: 50em;
 }
 
 .viewBlog p {
@@ -87,8 +89,32 @@
     padding: 0 50px;
     white-space: pre-line;
     font-size: 20px;
+    
 }
 
 .viewBlog img {
     margin-top: 0;
+
+}
+
+@media  screen and (max-width:850px) {
+    .viewBlog > img {
+        width: 85%;
+    }
+}
+
+@media  screen and (max-width:710px) {
+    .viewBlog > * {
+        width: 85%;
+    }
+    .viewBlog > img {
+        width: 85%;
+    }
+}
+
+@media  screen and (max-width:520px) {
+    .viewBlog > * {
+
+        width: 100%;
+    }
 }
