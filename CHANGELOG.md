@@ -1,3 +1,12 @@
+## [0.15.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.7...v0.15.8) (2022-10-11)
+
+
+### Bug Fixes
+
+* data.jsx ([#170](https://github.com/thecyberworld/thecyberhub.org/issues/170)) ([cfc5789](https://github.com/thecyberworld/thecyberhub.org/commit/cfc5789dac09df84b5a2bbb98f262a5940c28d59))
+
+
+
 ## [0.15.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.6...v0.15.7) (2022-10-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * mobile design ([#144](https://github.com/thecyberworld/thecyberhub.org/issues/144)) ([dac6869](https://github.com/thecyberworld/thecyberhub.org/commit/dac6869ab766119ab157bad50d4ef527d04fdebd))
-
-
-
-## [0.15.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.2...v0.15.3) (2022-10-06)
-
-
-### Bug Fixes
-
-* blogs indexing ([#138](https://github.com/thecyberworld/thecyberhub.org/issues/138)) ([67b6912](https://github.com/thecyberworld/thecyberhub.org/commit/67b691269f5340a51d6796ef9e6a16110242741a))
 
 
 
