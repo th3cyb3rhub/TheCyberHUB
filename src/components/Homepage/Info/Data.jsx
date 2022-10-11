@@ -5,7 +5,7 @@ import ResourcesSvg from '../../../assets/images/undraw_programming_re_kg9v.svg'
 import logo_thecyberworld from '../../../assets/thecyberworld-green01.png';
 
 import {FaGithub} from "react-icons/fa";
-import {BsDot} from "react-icons/bs";
+import {GoPrimitiveDot} from "react-icons/go";
 
 import {IconsSpacing} from "../../MixComponents/Buttons/ButtonElements";
 import {IconsSpacing2} from "../../MixComponents/Buttons/ButtonElements";
@@ -13,7 +13,7 @@ import {Symbol} from "./InfoElements";
 import {BsFillPlayFill} from "react-icons/bs";
 
 const GSymbol = () => {
-    return (<Symbol><BsDot/></Symbol>)
+    return (<Symbol><GoPrimitiveDot/></Symbol>)
 }
 
 export const aboutData = {
@@ -32,6 +32,7 @@ export const aboutData = {
             <GSymbol/> Community with more than 100,000 members. <br/><br/>
             <GSymbol/> Community's goal is to help new folks to get started with open-source and cyber-security. <br/><br/>
             <GSymbol/> Open-source projects. <br/><br/>
+            <GSymbol/> Weekly CTF Challenge. <br/><br/>
             <GSymbol/> A Hub of Cyber Security. <br/><br/>
         </p>,
     buttonLabel: 'Join community',
@@ -57,7 +58,7 @@ export const ResourcesData = {
     description:
         <p>
             Explore cyber security resources. <br/>
-            events, blogs, tools, writeups, roadmaps, and much more.
+            Courses, ctfs, events, blogs, tools, writeups, roadmaps, and much more.
         </p>,
     buttonLabel: <> Explore <IconsSpacing2> <BsFillPlayFill/> </IconsSpacing2>  </>,
     imgStart: true,
