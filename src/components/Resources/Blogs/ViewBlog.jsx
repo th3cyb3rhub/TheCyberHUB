@@ -23,7 +23,6 @@ const ViewBlog = (props) => {
         <p>{searchedBlog.content}</p>
       </div>
       <div className="tags">
-        tags:
         {searchedBlog.tags.map((tag, index) => (
           <div className="tag" key={index}>
             {tag}
