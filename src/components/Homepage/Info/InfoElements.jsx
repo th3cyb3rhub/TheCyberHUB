@@ -1,8 +1,15 @@
 import styled from 'styled-components'
 import {Link as ScrollLink} from "react-scroll";
+import {GoPrimitiveSquare} from "react-icons/all";
 
-export const Symbol = styled.a`
+export const DotSymbol = styled(GoPrimitiveSquare)`
   color: #20c20e;
+  margin-bottom: 4px;
+  margin-right: 4px;
+  font-size: 0.5rem;
+  display: inline;
+  justify-content: center;
+  text-align: center;
 `
 
 export const InfoContainer = styled.div`
