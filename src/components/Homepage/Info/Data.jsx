@@ -9,12 +9,8 @@ import {GoPrimitiveDot} from "react-icons/go";
 
 import {IconsSpacing} from "../../MixComponents/Buttons/ButtonElements";
 import {IconsSpacing2} from "../../MixComponents/Buttons/ButtonElements";
-import {Symbol} from "./InfoElements";
 import {BsFillPlayFill} from "react-icons/bs";
-
-const GSymbol = () => {
-    return (<Symbol><GoPrimitiveDot/></Symbol>)
-}
+import {DotSymbol} from "./InfoElements";
 
 export const aboutData = {
     id: 'about',
@@ -28,12 +24,11 @@ export const aboutData = {
     headline: 'About Thecyberworld',
     description:
         <p>
-            <GSymbol/> Thecyberhub Website, App, Extension, Bot are by @thecyberworld community <br/><br/>
-            <GSymbol/> Community with more than 100,000 members. <br/><br/>
-            <GSymbol/> Community's goal is to help new folks to get started with open-source and cyber-security. <br/><br/>
-            <GSymbol/> Open-source projects. <br/><br/>
-            <GSymbol/> Weekly CTF Challenge. <br/><br/>
-            <GSymbol/> A Hub of Cyber Security. <br/><br/>
+            <DotSymbol/> Thecyberhub Website, App, Extension, Bot are by @thecyberworld community  <br/><br/>
+            <DotSymbol/> Community with more than 100,000 members.  <br/><br/>
+            <DotSymbol/> Community's goal is to help new folks to get started with open-source and cyber-security. <br/><br/>
+            <DotSymbol/> Open-source projects.  <br/><br/>
+            <DotSymbol/> A Hub of Cyber Security.  <br/><br/>
         </p>,
     buttonLabel: 'Join community',
     buttonLabel2: 'Contribute to Opensource',
