@@ -1,3 +1,12 @@
+## [0.15.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.8...v0.15.9) (2022-10-11)
+
+
+### Bug Fixes
+
+* the responsiveness of the blogs ([#162](https://github.com/thecyberworld/thecyberhub.org/issues/162)) ([e873da5](https://github.com/thecyberworld/thecyberhub.org/commit/e873da52d4afce5e1ac3ab72936349ddc6b066d1))
+
+
+
 ## [0.15.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.7...v0.15.8) (2022-10-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * blog entry overflow on mobile ([#147](https://github.com/thecyberworld/thecyberhub.org/issues/147)) ([09d8440](https://github.com/thecyberworld/thecyberhub.org/commit/09d8440e20c66e48c136e8da4c583f1acfd1024f))
-
-
-
-## [0.15.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.3...v0.15.4) (2022-10-07)
-
-
-### Bug Fixes
-
-* mobile design ([#144](https://github.com/thecyberworld/thecyberhub.org/issues/144)) ([dac6869](https://github.com/thecyberworld/thecyberhub.org/commit/dac6869ab766119ab157bad50d4ef527d04fdebd))
 
 
 
