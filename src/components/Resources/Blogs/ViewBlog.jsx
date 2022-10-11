@@ -1,17 +1,16 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 import { Section } from "../WriteUps/WriteUpsElements";
 import image from "./img.webp";
 import "./Blog.css";
 
 import blogs from "./BlogsData";
-
+import {encodeURL} from "./util";
 
 const ViewBlog = (props) => {
-  let [searchParams, setSearchParams] = useSearchParams();
-  setSearchParams(searchParams.get("id"));
+  const {title} = useParams();
   let searchedBlog = blogs.find(
-    (blog) => blog.id === parseInt(searchParams.get("id"))
+    (blog) => encodeURL(blog.title).toLowerCase() === title.toLowerCase()
   );
   return (
     <Section>

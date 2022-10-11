@@ -9,7 +9,7 @@ const Blogs = () => {
     <>
     <Routes>
       <Route exact path={""} element={<AllBlogs />} />
-      <Route exact path={"viewBlog"} element={<ViewBlog />} />
+      <Route exact path={":title"} element={<ViewBlog />} />
     </Routes>
     </>
 

@@ -4,6 +4,7 @@ import {Section} from "../WriteUps/WriteUpsElements";
 import BlogsElements from "./BlogsElements";
 import "./Blog.css";
 import blogs from "./BlogsData";
+import { encodeURL } from "./util";
 // probably received by an api call
 
 const Blogs = () => {
@@ -14,7 +15,7 @@ const Blogs = () => {
                 {blogs.map((blog) => (
                     <Link className={"styles"}
                         to={{
-                            pathname: `viewBlog?id=${blog.id}`,
+                            pathname: `${encodeURL(blog.title)}`,
                         }}
                     >
                         <BlogsElements
