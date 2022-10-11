@@ -31,9 +31,12 @@ const RoadmapResources = () => {
 
             <Heading> Programming </Heading>
             <ListContent>
-                <List><Link href={"https://www.youtube.com/watch?v=7utwZYKweho&t=8861s"} target={"_blank"}>Python for Beginners / Hackers</Link></List>
+                    https://www.youtube.com/watch?v=qz0aGYrrlhU
+                <List><Link href={"https://www.youtube.com/watch?v=qz0aGYrrlhU"} target={"_blank"}>HTML Tutorial for Beginners: HTML Crash Course</Link></List>
                 <List><Link href={"https://www.youtube.com/watch?v=W6NZfCO5SIk"} target={"_blank"}>JavaScript Tutorial for Beginners</Link></List>
+                <List><Link href={"https://www.youtube.com/watch?v=p3qvj9hO_Bo"} target={"_blank"}>Learn SQL In 60 Minutes</Link></List>
                 <List><Link href={"https://www.youtube.com/watch?v=Zl7npywCB84"} target={"_blank"}>Basics of Bash Shell Scripting</Link></List>
+                <List><Link href={"https://www.youtube.com/watch?v=7utwZYKweho&t=8861s"} target={"_blank"}>Python for Beginners / Hackers</Link></List>
             </ListContent>
 
             <Heading> Cyber Security </Heading>
