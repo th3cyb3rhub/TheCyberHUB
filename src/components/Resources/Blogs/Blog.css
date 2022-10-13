@@ -83,7 +83,8 @@
   overflow: hidden;
 }
 .blogs__container__blogImage:hover img {
-  transform: scale(1.1);
+  /*transform: scale(1.1);*/
+  transform: scale(1.04);
 }
 .blogImg {
   max-width: 100%;
