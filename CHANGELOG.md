@@ -1,3 +1,12 @@
+## [0.15.11](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.10...v0.15.11) (2022-10-13)
+
+
+### Bug Fixes
+
+* events header ([#173](https://github.com/thecyberworld/thecyberhub.org/issues/173)) ([b73e143](https://github.com/thecyberworld/thecyberhub.org/commit/b73e143b6e75a8fdbea8759e11f82f319caac942))
+
+
+
 ## [0.15.10](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.9...v0.15.10) (2022-10-13)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * homepage design ([#166](https://github.com/thecyberworld/thecyberhub.org/issues/166)) ([f250618](https://github.com/thecyberworld/thecyberhub.org/commit/f250618e02d8170d233af6fefa0a43d40b9e1616))
-
-
-
-## [0.15.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.5...v0.15.6) (2022-10-08)
-
-
-### Bug Fixes
-
-* Remove extra space ([#157](https://github.com/thecyberworld/thecyberhub.org/issues/157)) ([3592d52](https://github.com/thecyberworld/thecyberhub.org/commit/3592d522b2ce0456d03149981c76e1ce686ea90d))
 
 
 
