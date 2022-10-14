@@ -1,3 +1,12 @@
+## [0.15.14](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.13...v0.15.14) (2022-10-14)
+
+
+### Bug Fixes
+
+* about navitem ([#181](https://github.com/thecyberworld/thecyberhub.org/issues/181)) ([f894c01](https://github.com/thecyberworld/thecyberhub.org/commit/f894c0133becb0c776a566d56e0946ac954082ea))
+
+
+
 ## [0.15.13](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.12...v0.15.13) (2022-10-14)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Blog.css ([#172](https://github.com/thecyberworld/thecyberhub.org/issues/172)) ([f97ddf8](https://github.com/thecyberworld/thecyberhub.org/commit/f97ddf8ccd1387d3ff004b38cd8d8c2851f300d1))
-
-
-
-## [0.15.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.8...v0.15.9) (2022-10-11)
-
-
-### Bug Fixes
-
-* the responsiveness of the blogs ([#162](https://github.com/thecyberworld/thecyberhub.org/issues/162)) ([e873da5](https://github.com/thecyberworld/thecyberhub.org/commit/e873da52d4afce5e1ac3ab72936349ddc6b066d1))
 
 
 
