@@ -1,3 +1,12 @@
+## [0.15.12](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.11...v0.15.12) (2022-10-14)
+
+
+### Bug Fixes
+
+* resources url bug ([#176](https://github.com/thecyberworld/thecyberhub.org/issues/176)) ([1ea6cae](https://github.com/thecyberworld/thecyberhub.org/commit/1ea6cae7e734a52bdc8ed68c47a6e3523b4cbb12))
+
+
+
 ## [0.15.11](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.10...v0.15.11) (2022-10-13)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * data.jsx ([#170](https://github.com/thecyberworld/thecyberhub.org/issues/170)) ([cfc5789](https://github.com/thecyberworld/thecyberhub.org/commit/cfc5789dac09df84b5a2bbb98f262a5940c28d59))
-
-
-
-## [0.15.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.6...v0.15.7) (2022-10-11)
-
-
-### Bug Fixes
-
-* homepage design ([#166](https://github.com/thecyberworld/thecyberhub.org/issues/166)) ([f250618](https://github.com/thecyberworld/thecyberhub.org/commit/f250618e02d8170d233af6fefa0a43d40b9e1616))
 
 
 
