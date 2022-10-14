@@ -55,6 +55,7 @@ const Navbar = ({toggle}) => {
                                 {to: 'resources', title: <><p>Learn</p> <DropdownIcon/></>},
                                 {to: 'events', title: 'Events',},
                                 {to: 'blogs', title: 'Blogs',},
+                                {to: 'projects', title: 'Projects',},
                                 {to: 'community', title: 'Community',},
                                 {to: 'about', title: 'About',},
                             ].map(({to, title}) => (
