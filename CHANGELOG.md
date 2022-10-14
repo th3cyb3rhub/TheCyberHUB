@@ -1,3 +1,12 @@
+## [0.15.13](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.12...v0.15.13) (2022-10-14)
+
+
+### Bug Fixes
+
+* nav route ([#178](https://github.com/thecyberworld/thecyberhub.org/issues/178)) ([f872b39](https://github.com/thecyberworld/thecyberhub.org/commit/f872b39653aa4aaa68b0145a4577ed451aa979af))
+
+
+
 ## [0.15.12](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.11...v0.15.12) (2022-10-14)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * the responsiveness of the blogs ([#162](https://github.com/thecyberworld/thecyberhub.org/issues/162)) ([e873da5](https://github.com/thecyberworld/thecyberhub.org/commit/e873da52d4afce5e1ac3ab72936349ddc6b066d1))
-
-
-
-## [0.15.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.7...v0.15.8) (2022-10-11)
-
-
-### Bug Fixes
-
-* data.jsx ([#170](https://github.com/thecyberworld/thecyberhub.org/issues/170)) ([cfc5789](https://github.com/thecyberworld/thecyberhub.org/commit/cfc5789dac09df84b5a2bbb98f262a5940c28d59))
 
 
 
