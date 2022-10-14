@@ -87,7 +87,7 @@ const InfoSection = ({
                                     {buttonLabel2 && (
                                         buttonType === 'scroll' && (
                                             <Button
-                                                to={idTo}
+                                                to={idTo2}
                                                 smooth={true}
                                                 duration={500}
                                                 spy={true}
