@@ -11,7 +11,6 @@ const RoadmapResources = () => {
             <Heading> Essential Skills </Heading>
             <ListContent>
                 <List><Link href={"https://www.professormesser.com/free-a-plus-training/220-1001/220-1000-training-course/"} target={"_blank"}>Basic IT Skills</Link></List>
-                {/*<List><Link href={"https://youtu.be/apGV9Kg7ics"} target={"_blank"}>Complete Git and GitHub Tutorial</Link></List>*/}
             </ListContent>
 
             <Heading> Networking skills </Heading>
@@ -31,7 +30,6 @@ const RoadmapResources = () => {
 
             <Heading> Programming </Heading>
             <ListContent>
-                    https://www.youtube.com/watch?v=qz0aGYrrlhU
                 <List><Link href={"https://www.youtube.com/watch?v=qz0aGYrrlhU"} target={"_blank"}>HTML Tutorial for Beginners: HTML Crash Course</Link></List>
                 <List><Link href={"https://www.youtube.com/watch?v=W6NZfCO5SIk"} target={"_blank"}>JavaScript Tutorial for Beginners</Link></List>
                 <List><Link href={"https://www.youtube.com/watch?v=p3qvj9hO_Bo"} target={"_blank"}>Learn SQL In 60 Minutes</Link></List>
