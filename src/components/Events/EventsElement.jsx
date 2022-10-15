@@ -1,29 +1,49 @@
-import React, {useState} from "react";
-import "./Events.css";
-import image from "/src/assets/CTF-blogImage.png";
-import EventImage from "/src/assets/HacktoberfestXthecyberworld.png";
+import styled from "styled-components";
 
-const EventsElements = (props) => {
-  const [viewFull, setViewFull] = useState(false)
-  return (
-    <>
-      <div className="events__container">
-        <div className="events__container__title">
-          <img className="eventImg" src={image} alt="Event Image" width="100%" height="180px"/>
-          <h2>{props.title}</h2>
-          <h6>
-             {props.date} • {props.venue}
-          </h6>
-        </div>
-        <div className="events__container__content">
-            {viewFull?props.content:props.content.slice(0,200)+"..."}<br></br>
-            <a className="change_view_btn" onClick={()=>{setViewFull(!viewFull)}}>
-                {viewFull?"See Less":"See More"}
-            </a>
-        </div>
-      </div>
-    </>
-  );
-};
+export const EventsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`
 
-export default EventsElements;
+export const MainEventsContainer = styled.div`
+  width: 70%;
+  
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`
+export const OnGoingEventsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: self-start;
+  justify-content: start;
+`;
+
+export const UpComingEventsContainer = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const EventsHeading = styled.h1``;
+
+export const PastEventsContainer = styled.div`
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    width: auto;
+  }
+`
+
+

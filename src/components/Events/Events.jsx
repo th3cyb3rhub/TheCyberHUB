@@ -1,80 +1,62 @@
 import React from "react";
 import {Section} from "../Resources/WriteUps/WriteUpsElements";
-import EventsElements from "./EventsElement";
-import "./Events.css";
-import EventsHeader from "./EventsHeader";
+import EventsData from "./EventsData/EventsData";
+import HacktoberfestEventData from "./EventsData/HacktoberfestEventData";
+import PastEvents from "./PastEvents/PastEvents";
+import OnGoingEvents from "./OnGoingEvents/OnGoingEvents";
+import UpComingEvents from "./UpComingEvents/UpComingEvents";
+import {
+    EventsContainer,
+    OnGoingEventsContainer,
+    MainEventsContainer,
+    PastEventsContainer,
+    UpComingEventsContainer,
+    EventsHeading
+} from "./EventsElement";
 
-import {Heading, ListContent, List, Link} from "../Resources/RoadmapResources/RoadmapResourcesElements";
-
-
-// probably received by a api call
-const eventsHeader = {
-    title: "We are happy to announce that Thecyberworld is participating in Hacktoberfest 2022.",
-    date: "1st October 2022",
-    venue: <>
-       <a style={{color: "white"}} href={"https://discord.gg/QHBPq6xP5p"} target={"_blank"}>Discord</a>,
-       <a style={{color: "white"}} href={"https://github.com/thecyberworld/"} target={"_blank"}>GitHub</a>,
-    </>,
-    content:
-    <p>
-        Go through the Hacktoberfest 2022 contributor section to know more about what you should do and the rewards you will receive. We would be genuinely happy if you choose the “plant a tree” option as your reward. <br/>
-        Contributions/pull requests can be made to the following repositories under the <b><Link href={"https://github.com/thecyberworld/"} target={"_blank"}> Thecyberworld </Link></b> organization: <br/>
-
-        <div style={{margin: "10px 20px"}}>
-        <ListContent>
-            <List> Thecyberhub website: <Link href={"https://github.com/thecyberworld/thecyberhub.org"} target={"_blank"}> link </Link></List>
-            <List> Thecyberhub App: <Link href={"https://github.com/thecyberworld/thecyberhub-app"} target={"_blank"}> link </Link></List>
-            <List> Thecyberbot discord: <Link href={"https://github.com/thecyberworld/thecyberbot-discord"} target={"_blank"}> link </Link></List>
-            <List> Thecyberhub Extension: <Link href={"https://github.com/thecyberworld/thecyberhub-ext"} target={"_blank"}> link </Link></List>
-            <List> Port scanner: <Link href={"https://github.com/thecyberworld/port-scanner"} target={"_blank"}> link </Link></List>
-            <List> Subdomain finder: <Link href={"https://github.com/thecyberworld/subdomain-finder"} target={"_blank"}> link </Link></List>
-        </ListContent>
-        </div>
-
-        Read the <Link href={"https://github.com/thecyberworld/thecyberhub.org/blob/main/CONTRIBUTING.md"} target={"_blank"}> Thecyberworld Contributing Guide</Link>.
-        If you are a beginner, please check out the curated <Link href={"https://github.com/search?q=org%3Athecyberworld+is%3Aopen+is%3Aissue+label%3AHacktoberFest"} target={"_blank"}> Hacktoberfest issues </Link>on the main Thecyberworld org.
-        If you would like to challenge yourself, you can create some issues and features requests on <b> <Link href={"https://github.com/thecyberworld"} target={"_blank"}> Thecyberworld </Link> </b>  and work on those issues.
-
-        <br/>
-        <br/>
-
-        <Link href={"https://github.com/thecyberworld/"} target={"_blank"}> </Link>
-        Some good resources to get started for beginners:
-        <div style={{margin: "10px 20px"}}>
-            <ListContent>
-                <List> Open Source Guides: <Link href={"https://opensource.guide/how-to-contribute/"} target={"_blank"}> How to contribute to Open Source </Link></List>
-                <List> GitHub: <Link href={"https://training.github.com/"} target={"_blank"}> GitHub training kit </Link></List>
-                <List> DigitalOcean: <Link href={"https://www.digitalocean.com/community/tutorial_series/an-introduction-to-open-source"} target={"_blank"}> Introduction to Open Source </Link></List>
-                <List> GitHub: <Link href={"https://github.blog/2015-01-21-how-to-write-the-perfect-pull-request/"} target={"_blank"}> Write good PRs </Link></List>
-            </ListContent>
-        </div>
-    </p>,
-}
-const events = {
-    title: "TheCyberCTF",
-    date: "1st October 2022",
-    venue: <a style={{color: "white"}} href={"https://discord.gg/QHBPq6xP5p"} target={"_blank"}>Discord</a>,
-    content: " We host every weekend for the community for free. Take participate in the CTF and win exciting prizes and this is free for everyone. Join Discord now."
-}
 
 const Events = () => {
-    return (
-        <Section>
-            <div className="AllEvents">
-                <EventsHeader title={eventsHeader.title} venue={eventsHeader.venue} date={eventsHeader.date} content={eventsHeader.content}/>
-            </div>
+    const todayDate = new Date(Date()).toLocaleDateString();
+    const eventDate15 = "2022-10-15";
+    const eventDate8 = "2022-10-8";
+    // const date = new Date("2022/10/15");
+    let q = new Date();
+    let m = q.getMonth();
+    let d = q.getDate();
+    let y = q.getFullYear();
+    let date = new Date(y, m, d);
+    let mydate = new Date('2022-10-15');
+    let eventdate0 = new Date(EventsData[0].validationDate);
+    let eventdate1 = new Date(EventsData[1].validationDate);
+    let eventdate2 = new Date(EventsData[2].validationDate);
+    let eventdate3 = new Date(EventsData[3].validationDate);
+    let eventdate4 = new Date(EventsData[4].validationDate);
 
-            <br/>
-            <h1> All Events </h1>
-            <br/>
-            <div className="AllEvents">
-                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-                <EventsElements title={events.title} venue={events.venue} date={events.date} content={events.content}/>
-            </div>
-        </Section>
-    );
+    console.log(date);
+    console.log(mydate)
+    return (<Section>
+        <EventsContainer>
+            <MainEventsContainer>
+                <EventsHeading>Today's Events</EventsHeading>
+                <OnGoingEventsContainer>
+                    {EventsData.map((event) => (todayDate === new Date(event.validationDate).toLocaleDateString()  && (
+                            <OnGoingEvents title={event.title} image={event.image} venue={event.venue} date={event.date} content={event.content}/>
+                    )))}
+                </OnGoingEventsContainer>
+                <EventsHeading>Up Coming</EventsHeading>
+                <UpComingEventsContainer>
+                    {EventsData.map((event) => (todayDate < new Date(event.validationDate).toLocaleDateString() && (
+                        <UpComingEvents title={event.title} image={event.image} venue={event.venue} date={event.date} content={event.content}/>)))}
+                </UpComingEventsContainer>
+            </MainEventsContainer>
+
+            <PastEventsContainer>
+                <EventsHeading>Past Events</EventsHeading>
+                {EventsData.map((event) => (todayDate > new Date(event.validationDate).toLocaleDateString() && (
+                    <PastEvents title={event.title} image={event.image} venue={event.venue} date={event.date} content={event.content}/>)))}
+            </PastEventsContainer>
+        </EventsContainer>
+    </Section>);
 };
 
 export default Events;
