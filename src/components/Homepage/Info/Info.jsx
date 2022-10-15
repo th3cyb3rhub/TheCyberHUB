@@ -1,5 +1,10 @@
-import React from 'react';
-import {Button, ButtonLink, RouterButton} from '../../MixComponents/Buttons/ButtonElements';
+import React from "react";
+import {
+    Button,
+    ButtonLink,
+    RouterButton,
+    OpenSourceButton,
+} from "../../MixComponents/Buttons/ButtonElements";
 import {
     InfoContainer,
     InfoWrapper,
@@ -13,7 +18,7 @@ import {
     BtnWrap,
     ImgWrap,
     Img,
-    ScrollText
+    ScrollText,
 } from "./InfoElements";
 import {Link} from "react-router-dom";
 
@@ -33,6 +38,7 @@ const InfoSection = ({
                          buttonLabel1,
                          buttonLabel2,
                          buttonLabel3,
+                         buttonLabelNew,
                          buttonLabel_ContributeToOpensource,
                          buttonLabel_joinCommunity,
                          imgStart,
@@ -41,7 +47,7 @@ const InfoSection = ({
                          dark,
                          dark2,
                          primary,
-                         darkText
+                         darkText,
                      }) => {
     return (
         <>
@@ -55,20 +61,19 @@ const InfoSection = ({
                                 <Subtitle darkText={darkText}> {description} </Subtitle>
 
                                 <BtnWrap>
-                                    {buttonType === 'router' && (
+                                    {buttonType === "router" && (
                                         // <Link to='/resources'>
                                         <RouterButton
-                                            to='/resources'
-                                            primary={primary ? 'true' : ''}
+                                            to="/resources"
+                                            primary={primary ? "true" : ""}
                                             dark={dark ? 1 : 0}
                                             dark2={dark2 ? 1 : 0}
                                         >
                                             {buttonLabel}
                                         </RouterButton>
                                         // </Link>
-
                                     )}
-                                    {buttonType === 'scroll' && (
+                                    {buttonType === "scroll" && (
                                         <Button
                                             to={idTo}
                                             smooth={true}
@@ -76,7 +81,7 @@ const InfoSection = ({
                                             spy={true}
                                             exact={"true"}
                                             offset={-80}
-                                            primary={primary ? 'true' : ''}
+                                            primary={primary ? "true" : ""}
                                             dark={dark ? 1 : 0}
                                             dark2={dark2 ? 1 : 0}
                                         >
@@ -84,27 +89,37 @@ const InfoSection = ({
                                         </Button>
                                     )}
 
-                                    {buttonLabel2 && (
-                                        buttonType === 'scroll' && (
-                                            <Button
-                                                to={idTo2}
-                                                smooth={true}
-                                                duration={500}
-                                                spy={true}
-                                                exact={"true"}
-                                                offset={-80}
-                                                primary={primary ? 'true' : ''}
-                                                dark={dark ? 1 : 0}
-                                                dark2={dark2 ? 1 : 0}
-                                            >
-                                                {buttonLabel2}
-                                            </Button>
-                                        ))}
+                                    {buttonLabel2 && buttonType === "scroll" && (
+                                        <Button
+                                            to={idTo}
+                                            smooth={true}
+                                            duration={500}
+                                            spy={true}
+                                            exact={"true"}
+                                            offset={-80}
+                                            primary={primary ? "true" : ""}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
+                                        >
+                                            {buttonLabel2}
+                                        </Button>
+                                    )}
 
-                                    {buttonType === 'link' && (
+                                    {buttonLabelNew && buttonType === "scroll" && (
+                                        <OpenSourceButton
+                                            to={"projects"}
+                                            primary={primary ? "true" : ""}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
+                                        >
+                                            {buttonLabelNew}
+                                        </OpenSourceButton>
+                                    )}
+
+                                    {buttonType === "link" && (
                                         <ButtonLink
                                             href={link}
-                                            primary={primary ? 'true' : ''}
+                                            primary={primary ? "true" : ""}
                                             dark={dark ? 1 : 0}
                                             dark2={dark2 ? 1 : 0}
                                         >

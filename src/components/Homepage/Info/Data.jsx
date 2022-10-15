@@ -81,6 +81,7 @@ export const communityData = {
             folks get more involved in the open-source and cyber-security communities.
         </p>,
     buttonLabel: 'Join community',
+    buttonLabelNew: 'Open Source Projects',
     imgStart: false,
     img: communitySvg,
     alt: 'Secure data',
