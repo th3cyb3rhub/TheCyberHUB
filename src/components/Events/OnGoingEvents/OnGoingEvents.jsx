@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import "../Extra/Events.css";
 import {
     OnGoingEventsContainer,
     OnGoingEvents_Content,
