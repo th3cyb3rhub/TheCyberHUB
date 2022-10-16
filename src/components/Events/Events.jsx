@@ -14,9 +14,21 @@ import {
     EventsHeading
 } from "./EventsElement";
 
+// Here we formatted the date as in one form so that we can compare them
+function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+function formatDate(date) {
+    return [
+      padTo2Digits(date.getMonth() + 1),
+      date.getFullYear(),
+      padTo2Digits(date.getDate()),
+    ].join('/');
+  }
+  //Format date code ends here
 
 const Events = () => {
-    const todayDate = new Date(Date()).toLocaleDateString();
+    const todayDate = new Date(Date());
     const eventDate15 = "2022-10-15";
     const eventDate8 = "2022-10-8";
     // const date = new Date("2022/10/15");
@@ -39,20 +51,20 @@ const Events = () => {
             <MainEventsContainer>
                 <EventsHeading>Today's Events</EventsHeading>
                 <OnGoingEventsContainer>
-                    {EventsData.map((event) => (todayDate === new Date(event.validationDate).toLocaleDateString()  && (
+                    {EventsData.map((event) => (formatDate(todayDate) === formatDate(new Date(event.validationDate))  && (
                             <OnGoingEvents title={event.title} image={event.image} venue={event.venue} date={event.date} content={event.content}/>
                     )))}
                 </OnGoingEventsContainer>
                 <EventsHeading>Up Coming</EventsHeading>
                 <UpComingEventsContainer>
-                    {EventsData.map((event) => (todayDate < new Date(event.validationDate).toLocaleDateString() && (
+                    {EventsData.map((event) => (formatDate(todayDate) < formatDate(new Date(event.validationDate)) && (
                         <UpComingEvents title={event.title} image={event.image} venue={event.venue} date={event.date} content={event.content}/>)))}
                 </UpComingEventsContainer>
             </MainEventsContainer>
 
             <PastEventsContainer>
                 <EventsHeading>Past Events</EventsHeading>
-                {EventsData.map((event) => (todayDate > new Date(event.validationDate).toLocaleDateString() && (
+                {EventsData.map((event) => (formatDate(todayDate) > formatDate(new Date(event.validationDate)) && (
                     <PastEvents title={event.title} image={event.image} venue={event.venue} date={event.date} content={event.content}/>)))}
             </PastEventsContainer>
         </EventsContainer>
