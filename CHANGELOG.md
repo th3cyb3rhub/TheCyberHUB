@@ -1,3 +1,12 @@
+## [0.15.15](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.14...v0.15.15) (2022-10-16)
+
+
+### Bug Fixes
+
+* Event Date Issue Resolved ([#191](https://github.com/thecyberworld/thecyberhub.org/issues/191)) ([6ec38d7](https://github.com/thecyberworld/thecyberhub.org/commit/6ec38d7d083d923ed7607bd24eaff1055e0d9d97))
+
+
+
 ## [0.15.14](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.13...v0.15.14) (2022-10-14)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * events header ([#173](https://github.com/thecyberworld/thecyberhub.org/issues/173)) ([b73e143](https://github.com/thecyberworld/thecyberhub.org/commit/b73e143b6e75a8fdbea8759e11f82f319caac942))
-
-
-
-## [0.15.10](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.9...v0.15.10) (2022-10-13)
-
-
-### Bug Fixes
-
-* Blog.css ([#172](https://github.com/thecyberworld/thecyberhub.org/issues/172)) ([f97ddf8](https://github.com/thecyberworld/thecyberhub.org/commit/f97ddf8ccd1387d3ff004b38cd8d8c2851f300d1))
 
 
 
