@@ -20,7 +20,7 @@ import {
     Img,
     ScrollText,
 } from "./InfoElements";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const InfoSection = ({
                          id,

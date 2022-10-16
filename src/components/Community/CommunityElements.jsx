@@ -10,6 +10,7 @@ export const Header = styled.header`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative;
 `;
 
 export const Overlay = styled.div`
