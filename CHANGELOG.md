@@ -1,3 +1,12 @@
+## [0.15.18](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.17...v0.15.18) (2022-10-16)
+
+
+### Bug Fixes
+
+* Responsiveness fixes in events page ([#203](https://github.com/thecyberworld/thecyberhub.org/issues/203)) ([396cbe5](https://github.com/thecyberworld/thecyberhub.org/commit/396cbe5cde6e605ec9ad3e7f671d1ac4a4429dc0))
+
+
+
 ## [0.15.17](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.16...v0.15.17) (2022-10-16)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * about navitem ([#181](https://github.com/thecyberworld/thecyberhub.org/issues/181)) ([f894c01](https://github.com/thecyberworld/thecyberhub.org/commit/f894c0133becb0c776a566d56e0946ac954082ea))
-
-
-
-## [0.15.13](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.12...v0.15.13) (2022-10-14)
-
-
-### Bug Fixes
-
-* nav route ([#178](https://github.com/thecyberworld/thecyberhub.org/issues/178)) ([f872b39](https://github.com/thecyberworld/thecyberhub.org/commit/f872b39653aa4aaa68b0145a4577ed451aa979af))
 
 
 
