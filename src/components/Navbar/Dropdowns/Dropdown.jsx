@@ -11,7 +11,7 @@ export default function Dropdown(props) {
     { title: "Prep", url: "" },
     { title: "Events", url: "/events" },
     { title: "Blogs", url: "/blogs" },
-    { title: "News", url: "/cyberNews" },
+    { title: "News", url: "/resources/cyberNews" },
   ];
 
   const [sideDrop, setSideDrop] = useState(false);

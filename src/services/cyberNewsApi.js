@@ -23,4 +23,5 @@ export const cyberNewsApi = createApi({
     })
 });
 
-export const {useGetCyberNewsQuery} = cyberNewsApi
+export const {useGetCyberNewsQuery, useLazyGetCyberNewsQuery} = cyberNewsApi
+console.log(cyberNewsApi)

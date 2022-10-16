@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import moment from 'moment';
-
-import {useGetCyberNewsQuery} from "../../../services/cyberNewsApi";
+import InfiniteScroll from "react-infinite-scroll-component";
+import {useGetCyberNewsQuery, useLazyGetCyberNewsQuery, cyberNewsApi} from "../../../services/cyberNewsApi";
 import {
     CyberNewsSection,
     SectionHeading,
@@ -22,19 +22,70 @@ import {
     CyberNewsBody,
 } from "./CyberNewsElements";
 import Loader from "./Loader";
+import { useDispatch } from "react-redux";
 
 const demoImage = "http://coinrevolution.com/wp-content/uploads/2020/06/cryptonews.jpg"
 
 const CyberNews = ({simplified}) => {
+    const [skip, setSkip] = useState(2);
+    const [hasMore, setHasMore] = useState(true);
+    const currNewsCount = simplified ? 6 : 12;
     const [newsCategory, setNewsCategory] = useState('cybersecurity')
-    const {data: cyberNews} = useGetCyberNewsQuery({newsCategory, count: simplified ? 6 : 30});
+    const initialNewsQueryParams = {
+        newsCategory,
+        count: currNewsCount,
+    };
+    const { data: cyberNews } = useGetCyberNewsQuery(initialNewsQueryParams);
+    const dispatch = useDispatch();
+    const [getCyberNewsTrigger] = useLazyGetCyberNewsQuery();
+    
     if (!cyberNews?.value) return <Loader/>;
+
+    const fetchMoreCyberNews = async () => {
+        setSkip(skip + 1);
+        try {
+          const newNews = await getCyberNewsTrigger({
+            newsCategory,
+            count: currNewsCount * skip,
+          })
+          const newNewsArray = [...newNews.data.value];
+          newNewsArray.splice(0, (skip - 1) * currNewsCount);
+          if (
+            newNews.data.value.length === 0 ||
+            newNews.data.value.length < currNewsCount * skip - 1
+          )
+            {
+                setHasMore(false);
+            }
+          else {
+            setSkip(skip + 1);
+          }
+          dispatch(
+            cyberNewsApi.util.updateQueryData(
+              "getCyberNews",
+              initialNewsQueryParams,
+              (draftNews) => {
+                newNewsArray.map((temp) => draftNews.value.push(temp));
+              }
+            )
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
     return (
         <CyberNewsSection>
             <SectionHeading style={{textAlign: "center", margin: "-80px 0 50px 0"}}>Latest CyberNews</SectionHeading>
+            <InfiniteScroll
+                dataLength={cyberNews.value.length}
+                hasMore={hasMore}
+                next={fetchMoreCyberNews}
+                loader={<Loader/>}
+                endMessage={<p>You've reached the end</p>}
+            >
             {cyberNews.value.map((news, i) => (
-                <>
+                <div key={i}>
                     <CyberNewsBody>
                         <MarginTop/>
 
@@ -84,8 +135,9 @@ const CyberNews = ({simplified}) => {
                     <MarginTop/>
                     <MarginTop/>
                     <MarginTop/>
-                </>
+                </div>
             ))}
+            </InfiniteScroll>
         </CyberNewsSection>
     );
 };
