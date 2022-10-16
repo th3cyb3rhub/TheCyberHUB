@@ -1,3 +1,12 @@
+## [0.15.17](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.16...v0.15.17) (2022-10-16)
+
+
+### Bug Fixes
+
+* typo in the jobs page ([#201](https://github.com/thecyberworld/thecyberhub.org/issues/201)) ([45bbf67](https://github.com/thecyberworld/thecyberhub.org/commit/45bbf674ea5c7b3958dc93e2ea4f2eb3a5af4afe))
+
+
+
 ## [0.15.16](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.15...v0.15.16) (2022-10-16)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * nav route ([#178](https://github.com/thecyberworld/thecyberhub.org/issues/178)) ([f872b39](https://github.com/thecyberworld/thecyberhub.org/commit/f872b39653aa4aaa68b0145a4577ed451aa979af))
-
-
-
-## [0.15.12](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.11...v0.15.12) (2022-10-14)
-
-
-### Bug Fixes
-
-* resources url bug ([#176](https://github.com/thecyberworld/thecyberhub.org/issues/176)) ([1ea6cae](https://github.com/thecyberworld/thecyberhub.org/commit/1ea6cae7e734a52bdc8ed68c47a6e3523b4cbb12))
 
 
 
