@@ -6,11 +6,10 @@ export const UpComingEventsContainer = styled.div`
   justify-content: left;
   text-align: left;
   height: auto;
-  width: 30em;
   border: 1px solid #ffffff0d;
   border-radius: 10px;
   background-color: #0d1117;
-  margin: 20px 15px;
+  margin: 20px 20px 20px 0;
   padding: 15px 20px;
 
   @media screen and (max-width: 768px) {

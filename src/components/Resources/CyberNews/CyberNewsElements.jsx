@@ -48,7 +48,6 @@ export const Date = styled.div`
 `
 
 export const ContentBody = styled.div`
-  margin: 0 0 50px 0;
   display: flex;
   justify-content: space-between;
 `
