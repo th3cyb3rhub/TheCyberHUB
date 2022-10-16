@@ -17,11 +17,89 @@ import {
     PuffLoader,
     PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader
 } from "react-spinners";
+
+import {
+    BallSpinner,
+    BarsSpinner,
+    CircleSpinner,
+    CubeSpinner,
+    DominoSpinner,
+    FillSpinner,
+    FireworkSpinner,
+    FlagSpinner,
+    GridSpinner,
+    GuardSpinner,
+    HeartSpinner,
+    ImpulseSpinner,
+    PulseSpinner,
+    PushSpinner,
+    SequenceSpinner,
+    SphereSpinner,
+    SpiralSpinner,
+    StageSpinner,
+    SwapSpinner,
+    WaveSpinner,
+    ClapSpinner,
+    RotateSpinner,
+    SwishSpinner,
+    GooSpinner,
+    CombSpinner,
+    PongSpinner,
+    RainbowSpinner,
+    RingSpinner,
+    HoopSpinner,
+    FlapperSpinner,
+    MagicSpinner,
+    JellyfishSpinner,
+    TraceSpinner,
+    ClassicSpinner,
+    MetroSpinner,
+    WhisperSpinner,
+
+} from "react-spinners-kit";
+
 import {SpinnerSection} from "./SpinnerElements";
 
 const Spinner = (loading) => {
 
     const spinnersList = [
+        <BallSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <BarsSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <CircleSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <CubeSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <DominoSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <FillSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <FireworkSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <FlagSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <GridSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <GuardSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <HeartSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <ImpulseSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <PulseSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <PushSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <SequenceSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <SphereSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <SpiralSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <StageSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <SwapSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <WaveSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <ClapSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <RotateSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <SwishSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <GooSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <CombSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <PongSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <RainbowSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <RingSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <HoopSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <FlapperSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <MagicSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <JellyfishSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <TraceSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <ClassicSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <MetroSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+        <WhisperSpinner color={"#20c20e"} SIZE={30} loading={loading}/>,
+
         <BarLoader color={"#20c20e"} loading={loading} size={50}/>,
         <BeatLoader color={"#20c20e"} loading={loading} size={15}/>,
         <BounceLoader color={"#20c20e"} loading={loading} size={60}/>,
@@ -49,8 +127,6 @@ const Spinner = (loading) => {
 
     let loadingSpinner = spinnersList[Math.floor(
         Math.random() * (spinnersList.length))];
-    console.log(Math.floor(
-        Math.random() * (spinnersList.length)))
 
     return (
         <div>

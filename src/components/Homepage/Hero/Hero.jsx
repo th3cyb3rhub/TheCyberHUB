@@ -1,18 +1,9 @@
 import React, {useState} from 'react';
 import Video from '../../../assets/videos/video.mp4';
 
-import {
-    HeroContainer,
-    HeroBg,
-    VideoBg,
-    HeroContent,
-    HeroH1,
-    HeroP,
-    HeroBtnWrapper,
-    ArrowForward,
-    ArrowRight
-} from './HeroElements';
+import {HeroContainer, HeroBg, VideoBg, HeroContent, HeroH1, HeroP, HeroBtnWrapper, ArrowForward, ArrowRight} from './HeroElements';
 import {Button} from '../../MixComponents/Buttons/ButtonElements';
+import Spinner from "../../MixComponents/Spinner/Spinner";
 
 
 const Hero = () => {
@@ -26,8 +17,8 @@ const Hero = () => {
     return (
         <HeroContainer id={"home"}>
             <HeroBg>
-                <VideoBg autoPlay loop muted src={Video} type={'video/mp4'}/>
-            </HeroBg>
+                {Video ? <VideoBg autoPlay loop muted src={Video} type={'video/mp4'}/> : <Spinner/>}
+                </HeroBg>
 
             <HeroContent>
                 <HeroH1> Cyber Security Made Easy. </HeroH1>
