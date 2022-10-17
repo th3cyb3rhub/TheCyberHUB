@@ -17,7 +17,9 @@ export {default as CyberNews} from './Resources/CyberNews/CyberNews'
 export {default as Events} from './Events/Events'
 
 // //
-export {default as CTF} from './Resources/CTF/CTF'
+export {default as CyberGames} from './CyberGames/CyberGames'
+export {default as OSINTGame} from './CyberGames/OSINTGame/OSINTGame'
+export {default as CTF} from './CyberGames/CTF/CTF'
 export {default as Community} from './Community/Community'
 export {default as About} from './About/About'
 

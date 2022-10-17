@@ -2,9 +2,9 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AllOsp from "./AllOsp";
 import ViewOsp from "./ViewOsp";
-import "./Osp.css";
+import "./OpenSourceProjects.css";
 
-const Osp = () => {
+const OpenSourceProjects = () => {
   return (
     <>
     <Routes>
@@ -16,4 +16,4 @@ const Osp = () => {
   );
 };
 
-export default Osp;
+export default OpenSourceProjects;

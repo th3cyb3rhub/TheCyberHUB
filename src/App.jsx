@@ -12,10 +12,10 @@ import Registration from "./pages/Registration";
 import {
     ResourcesHome, RoadmapResources, CyberNews, Blogs, Events, Community, About,
     InterviewQuestions, InterviewExperiences, Quiz, Jobs, Footer, Sidebar, Navbar,
-    Courses, CTF, 
+    Courses, CTF, CyberGames, OSINTGame
 } from "./components";
 
-import Osp from "./components/Opensourceprojects/Osp";
+import OpenSourceProjects from "./components/OpenSourceProjects/OpenSourceProjects";
 
 import Spinner from "./components/MixComponents/Spinner/Spinner";
 import Submit from "./components/Resources/Submit/Submit";
@@ -55,9 +55,11 @@ const App = () => {
                                 <Route exact path={"/events"} element={<Events/>}/>
                                 <Route exact path={"/community"} element={<Community/>}/>
                                 <Route exact path={"/about"} element={<About/>}/>
-                                <Route exact path={"/ctf"} element={<CTF/>}/>
+                                <Route exact path={"/projects/*"} element={<OpenSourceProjects/>}/>
+                                <Route exact path={"/CyberGames"} element={<CyberGames/>}/>
+                                <Route exact path={"/CyberGames/CTF"} element={<CTF/>}/>
+                                <Route exact path={"/CyberGames/OSINTGame"} element={<OSINTGame/>}/>
                                 <Route exact path={"/submit"} element={<Submit/>}/>
-                                <Route exact path={"/projects/*"} element={<Osp/>}/>
 
 
                                 <Route exact path={"/resources/*"} element={<Resources/>}>
