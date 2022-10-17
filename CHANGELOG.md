@@ -1,3 +1,12 @@
+## [0.15.22](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.21...v0.15.22) (2022-10-17)
+
+
+### Bug Fixes
+
+* typo in blogs ([#217](https://github.com/thecyberworld/thecyberhub.org/issues/217)) ([35068fa](https://github.com/thecyberworld/thecyberhub.org/commit/35068fa07d805c5ca2c6db075bf546250b17a935))
+
+
+
 ## [0.15.21](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.20...v0.15.21) (2022-10-17)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Responsiveness fixes in events page ([#203](https://github.com/thecyberworld/thecyberhub.org/issues/203)) ([396cbe5](https://github.com/thecyberworld/thecyberhub.org/commit/396cbe5cde6e605ec9ad3e7f671d1ac4a4429dc0))
-
-
-
-## [0.15.17](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.16...v0.15.17) (2022-10-16)
-
-
-### Bug Fixes
-
-* typo in the jobs page ([#201](https://github.com/thecyberworld/thecyberhub.org/issues/201)) ([45bbf67](https://github.com/thecyberworld/thecyberhub.org/commit/45bbf674ea5c7b3958dc93e2ea4f2eb3a5af4afe))
 
 
 
