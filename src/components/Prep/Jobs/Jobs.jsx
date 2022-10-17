@@ -47,7 +47,7 @@ const Jobs = () => {
         </Container>
       </JobIntroHeader>
 
-      <Heading>Dummy data right not, will update the real data soon.</Heading>
+      <Heading>Dummy data right now, we will update the real data very soon 🤩.</Heading>
 
       <div id="jobs" className="grid">
         {allJobs}
