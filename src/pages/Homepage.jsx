@@ -11,7 +11,6 @@ const Homepage = () => {
             <Contribute {...contributeData}/>
             <Info {...communityData}/>
             <Socials />
-            <ComingSoon/>
         </>
     );
 };
