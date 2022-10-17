@@ -1,3 +1,12 @@
+## [0.15.20](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.19...v0.15.20) (2022-10-17)
+
+
+### Bug Fixes
+
+* homepage buttons ([#212](https://github.com/thecyberworld/thecyberhub.org/issues/212)) ([910e431](https://github.com/thecyberworld/thecyberhub.org/commit/910e43149c231770feab8fd86effd6653b3dd782))
+
+
+
 ## [0.15.19](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.18...v0.15.19) (2022-10-17)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Today's event issue resolved ([#194](https://github.com/thecyberworld/thecyberhub.org/issues/194)) ([f78492c](https://github.com/thecyberworld/thecyberhub.org/commit/f78492c8e8648f826879ea134ed340da9b4e2955))
-
-
-
-## [0.15.15](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.14...v0.15.15) (2022-10-16)
-
-
-### Bug Fixes
-
-* Event Date Issue Resolved ([#191](https://github.com/thecyberworld/thecyberhub.org/issues/191)) ([6ec38d7](https://github.com/thecyberworld/thecyberhub.org/commit/6ec38d7d083d923ed7607bd24eaff1055e0d9d97))
 
 
 
