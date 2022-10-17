@@ -1,4 +1,4 @@
-.ctf__container {
+/* .ctf__container {
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -43,7 +43,7 @@
     .ctf__container__content {
         font-size: 13px;
     }
-}
+} */
 
 .AllEvents {
     display: flex;
@@ -53,7 +53,70 @@
     justify-content: center;
 }
 
-.eventImg {
+.submit-container {
+    display: flex;
+    margin: 1rem;
+    flex-direction: column;
+}
+
+.label-css {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+}
+
+.input-css {
+    margin: 1rem;
+    color: #000000;
+    font-weight: 600;
+    width: 13rem;
+    height: 2rem;
+    border-radius: 0.125rem;
+    padding: 8px;
+}
+
+.button-final {
+    cursor: pointer;
+    margin: 1rem;
+    background-color: #4cc23e;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    align-self: center;
+    width: 7rem;
+    border-radius: 0.375rem;
+    border-width: 1px;
+    border-color: #ffffff;
+    height: 40px;
+}
+
+.button-final:hover {
+    --transform-scale-x: 1.1;
+    --transform-scale-y: 1.1;
+}
+
+.button-initial {
+    margin: 1rem;
+    background-color: #000000;
+    color: #33e33c;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    align-self: center;
+    width: 7rem;
+    border-radius: 0.375rem;
+    border-width: 1px;
+    border-color: #ffffff;
+    border-style: solid;
+    height: 40px;
+}
+
+.button-intial:hover {
+    --transform-scale-x: 1.1;
+    --transform-scale-y: 1.1;
+}
+
+/* .eventImg {
     height: 100%;
     width: auto;
     margin-bottom: 9px;
@@ -68,4 +131,4 @@
     color: currentColor;
     opacity: 0.5;
     cursor: pointer;
-}
+} */

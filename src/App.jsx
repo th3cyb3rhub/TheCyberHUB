@@ -18,6 +18,7 @@ import {
 import Osp from "./components/Opensourceprojects/Osp";
 
 import Spinner from "./components/MixComponents/Spinner/Spinner";
+import Submit from "./components/Resources/Submit/Submit";
 
 const App = () => {
     const [loading, setLoading] = useState(false);
@@ -55,6 +56,7 @@ const App = () => {
                                 <Route exact path={"/community"} element={<Community/>}/>
                                 <Route exact path={"/about"} element={<About/>}/>
                                 <Route exact path={"/ctf"} element={<CTF/>}/>
+                                <Route exact path={"/submit"} element={<Submit/>}/>
                                 <Route exact path={"/projects/*"} element={<Osp/>}/>
 
 
