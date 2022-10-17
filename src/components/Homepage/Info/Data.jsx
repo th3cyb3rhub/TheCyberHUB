@@ -81,7 +81,6 @@ export const communityData = {
             folks get more involved in the open-source and cyber-security communities.
         </p>,
     buttonLabel: 'Join community',
-    buttonLabelNew: 'Open Source Projects',
     imgStart: false,
     img: communitySvg,
     alt: 'Secure data',
@@ -102,6 +101,7 @@ export const OpenSource = {
             Open source software (OSS) is software that is distributed with its source code, making it available for use, modification, and distribution with its original rights.
         </p>,
     buttonLabel_ContributeToOpensource: <> <IconsSpacing> <FaGithub/> </IconsSpacing> Contribute now </>,
+    buttonLabelNew: 'Open Source Projects',
     imgStart: false,
     img: VersionControlSvg,
     alt: 'Secure data',
