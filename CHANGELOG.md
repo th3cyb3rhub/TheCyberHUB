@@ -1,3 +1,12 @@
+## [0.15.23](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.22...v0.15.23) (2022-10-17)
+
+
+### Bug Fixes
+
+* miss-alignment of the events ([#218](https://github.com/thecyberworld/thecyberhub.org/issues/218)) ([5c167e9](https://github.com/thecyberworld/thecyberhub.org/commit/5c167e99286293361efd6609f58cd1f6efc1c567))
+
+
+
 ## [0.15.22](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.21...v0.15.22) (2022-10-17)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * alignments ([#215](https://github.com/thecyberworld/thecyberhub.org/issues/215)) ([906487b](https://github.com/thecyberworld/thecyberhub.org/commit/906487b3f069c0ff6437f4ab0b9cb4a700dc2b52))
-
-
-
-## [0.15.18](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.17...v0.15.18) (2022-10-16)
-
-
-### Bug Fixes
-
-* Responsiveness fixes in events page ([#203](https://github.com/thecyberworld/thecyberhub.org/issues/203)) ([396cbe5](https://github.com/thecyberworld/thecyberhub.org/commit/396cbe5cde6e605ec9ad3e7f671d1ac4a4429dc0))
 
 
 
