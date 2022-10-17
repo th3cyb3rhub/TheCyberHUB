@@ -5,7 +5,7 @@ export const CyberSecCoursesData = [
         topLine: 'Free Courses',
         YTChannelImageLink: "https://i.ytimg.com/vi/qJ9ZmkMvkcA/maxresdefault.jpg",
         tag: 'Cyber Security',
-        videoHeading: 'Ethical Hacking in 12 Hours - Full Course - Learn to Hack!',
+        videoHeading: ' Penetration Testing Bootcamp - Introduction',
         videoDescription: "In this video, I explore the various cybersecurity paths available as well as their corresponding certifications and skills required in order to transition into a cybersecurity role/career.",
         videoLink: "https://www.youtube.com/watch?v=qJ9ZmkMvkcA&list=PLBf0hzazHTGOepimcP15eS6Y-aR4m6ql3",
         channelName: "HackerSploit",
