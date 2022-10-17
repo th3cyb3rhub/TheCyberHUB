@@ -1,3 +1,12 @@
+## [0.15.21](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.20...v0.15.21) (2022-10-17)
+
+
+### Bug Fixes
+
+* css margin ([#216](https://github.com/thecyberworld/thecyberhub.org/issues/216)) ([079ba77](https://github.com/thecyberworld/thecyberhub.org/commit/079ba77fddf55a0dda41d3430a517677e6e3a4bc))
+
+
+
 ## [0.15.20](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.19...v0.15.20) (2022-10-17)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * typo in the jobs page ([#201](https://github.com/thecyberworld/thecyberhub.org/issues/201)) ([45bbf67](https://github.com/thecyberworld/thecyberhub.org/commit/45bbf674ea5c7b3958dc93e2ea4f2eb3a5af4afe))
-
-
-
-## [0.15.16](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.15...v0.15.16) (2022-10-16)
-
-
-### Bug Fixes
-
-* Today's event issue resolved ([#194](https://github.com/thecyberworld/thecyberhub.org/issues/194)) ([f78492c](https://github.com/thecyberworld/thecyberhub.org/commit/f78492c8e8648f826879ea134ed340da9b4e2955))
 
 
 
