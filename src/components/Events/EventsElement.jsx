@@ -31,7 +31,9 @@ export const UpComingEventsContainer = styled.div`
   justify-content: center;
 `;
 
-export const EventsHeading = styled.h1``;
+export const EventsHeading = styled.h1`
+  margin: 0 0 10px 0
+`;
 
 export const PastEventsContainer = styled.div`
   width: 30%;
