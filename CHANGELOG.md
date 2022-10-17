@@ -1,3 +1,12 @@
+## [0.15.19](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.18...v0.15.19) (2022-10-17)
+
+
+### Bug Fixes
+
+* alignments ([#215](https://github.com/thecyberworld/thecyberhub.org/issues/215)) ([906487b](https://github.com/thecyberworld/thecyberhub.org/commit/906487b3f069c0ff6437f4ab0b9cb4a700dc2b52))
+
+
+
 ## [0.15.18](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.17...v0.15.18) (2022-10-16)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Event Date Issue Resolved ([#191](https://github.com/thecyberworld/thecyberhub.org/issues/191)) ([6ec38d7](https://github.com/thecyberworld/thecyberhub.org/commit/6ec38d7d083d923ed7607bd24eaff1055e0d9d97))
-
-
-
-## [0.15.14](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.13...v0.15.14) (2022-10-14)
-
-
-### Bug Fixes
-
-* about navitem ([#181](https://github.com/thecyberworld/thecyberhub.org/issues/181)) ([f894c01](https://github.com/thecyberworld/thecyberhub.org/commit/f894c0133becb0c776a566d56e0946ac954082ea))
 
 
 
