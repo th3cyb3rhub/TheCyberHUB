@@ -13,14 +13,14 @@ const RoadmapResources = () => {
                 <List><Link href={"https://www.professormesser.com/free-a-plus-training/220-1001/220-1000-training-course/"} target={"_blank"}>Basic IT Skills</Link></List>
             </ListContent>
 
-            <Heading> Networking skills </Heading>
+            <Heading> Computer Networking </Heading>
             <ListContent>
                 <List><Link href={"https://youtu.be/IPvYjXCsTg8"} target={"_blank"}>Computer Networking</Link></List>
                 <List><Link href={"https://www.professormesser.com/network-plus/n10-007/n10-007-training-course/"} target={"_blank"}>Network-plus n10-007</Link></List>
                 <List><Link href={"https://www.netacad.com/courses/packet-tracer"} target={"_blank"}>NetCad Packet Tracer</Link></List>
             </ListContent>
 
-            <Heading> Linux skills </Heading>
+            <Heading> Linux </Heading>
             <ListContent>
                 <List><Link href={"https://youtu.be/v_1zB2WNN14"} target={"_blank"}>Linux Tutorial</Link></List>
                 <List><Link href={"https://youtu.be/1hvVcEhcbLM"} target={"_blank"}>Linux Essentials for Ethical Hackers</Link></List>
@@ -44,7 +44,7 @@ const RoadmapResources = () => {
             </ListContent>
 
 
-            <Heading> Web App Pen-testing </Heading>
+            <Heading> WebApp Pen-testing </Heading>
             <ListContent>
                 <List><Link href={"https://youtu.be/X4eRbHgRawI"} target={"_blank"}>Web App Pentesting</Link></List>
                 <List><Link href={"https://www.youtube.com/playlist?list=PLBf0hzazHTGO3EpGAs718LvLsiMIv9dSC"} target={"_blank"}>Web App Penetration Testing Tutorials</Link></List>
