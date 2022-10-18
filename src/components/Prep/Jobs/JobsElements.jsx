@@ -59,6 +59,8 @@ export const JobSection = styled.section`
     overflow: ${({viewMore}) => (viewMore ? "auto" : "hidden")};
     padding: 0.2rem;
     margin: 10rem 0;
+    justify-content: center;
+    align-items: center;
   }
 
   @media screen and (max-width: 1024px) {
