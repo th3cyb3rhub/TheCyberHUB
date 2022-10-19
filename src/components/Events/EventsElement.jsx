@@ -32,7 +32,7 @@ export const UpComingEventsContainer = styled.div`
 `;
 
 export const EventsHeading = styled.h1`
-  margin: 0 0 10px 0
+  margin: 0 0 30px 0
 `;
 
 export const PastEventsContainer = styled.div`

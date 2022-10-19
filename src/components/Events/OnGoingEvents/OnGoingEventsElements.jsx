@@ -10,8 +10,12 @@ export const OnGoingEventsContainer = styled.div`
   border: 1px solid #ffffff0d;
   border-radius: 10px;
   background-color: #0d1117;
-  margin: 20px 20px;
+  margin: 0 20px 20px 0;
   padding: 15px 20px;
+
+  @media screen and (max-width: 768px) {
+    margin: 0 0 20px 0;
+  }
 `
 
 export const OnGoingEvents_Image = styled.img`
