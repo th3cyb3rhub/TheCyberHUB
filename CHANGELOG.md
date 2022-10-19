@@ -1,3 +1,12 @@
+## [0.15.24](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.23...v0.15.24) (2022-10-19)
+
+
+### Bug Fixes
+
+* Alignment issue on the events page ([#224](https://github.com/thecyberworld/thecyberhub.org/issues/224)) ([d91067b](https://github.com/thecyberworld/thecyberhub.org/commit/d91067b35a17f5f1b1010f604f0690f0b2f93441))
+
+
+
 ## [0.15.23](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.22...v0.15.23) (2022-10-17)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * homepage buttons ([#212](https://github.com/thecyberworld/thecyberhub.org/issues/212)) ([910e431](https://github.com/thecyberworld/thecyberhub.org/commit/910e43149c231770feab8fd86effd6653b3dd782))
-
-
-
-## [0.15.19](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.18...v0.15.19) (2022-10-17)
-
-
-### Bug Fixes
-
-* alignments ([#215](https://github.com/thecyberworld/thecyberhub.org/issues/215)) ([906487b](https://github.com/thecyberworld/thecyberhub.org/commit/906487b3f069c0ff6437f4ab0b9cb4a700dc2b52))
 
 
 
