@@ -29,20 +29,20 @@ export default function SideDropdown(props) {
     color: "white",
   };
   const dStyle = {
-    width: 200,
+    width: 1480,
     padding: 6,
     borderRadius: 8,
     background: "#101417",
     border: "1px solid #101417",
     color: "white",
     position: "absolute",
-    left: 132,
-    top: -6,
+    left: -580,
+    top: 40,
   };
 
   return (
     <div style={props.sidebar ? mobStyle : dStyle}>
-      <li>
+      <li style={{marginRight:"180px"}}>
         {" "}
         {prepList.map((i) => (
           <Item>

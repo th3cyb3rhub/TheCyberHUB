@@ -26,6 +26,8 @@ export default function Dropdown(props) {
 
   const Item = styled.ul`
     height: 32px;
+    // width : 500px;
+    color : black;
     position: relative;
     &:hover {
       cursor: pointer;
@@ -34,29 +36,35 @@ export default function Dropdown(props) {
 
   const mobStyle = { width: "100%", padding: 6 };
   const dStyle = {
-    borderRadius: 8,
+    borderRadius: 20,
     background: "#101417",
     border: "1px solid #101417",
-    width: 130,
-    padding: 6,
+    // width: 130,
+    width: 1700,
+    height:200,
+    padding: 30,
     color: "white",
     position: "absolute",
     top: 80,
+    left:0,
   };
 
   return (
     <div style={props.sidebar ? mobStyle : dStyle}>
-      <li>
+      <li style={{display:"flex", marginLeft:"350px"}}>
         {menu.map((i) =>
           !props.sidebar ? (
             <Item onMouseEnter={() => sideDropHandler(i.title)}>
-              <Link style={{ textDecoration: "none", color: "white" }} to={i.url}>
+              <Link
+                style={{ textDecoration: "none", color: "white" ,marginLeft:"50px"}}
+                to={i.url}
+ 
                 {" "}
                 {i.title}{" "}
               </Link>
               {i.title === "Prep" && sideDrop && <SideDropdown sidebar={false} />}
             </Item>
-          ) : (
+          ) : ( 
             <>
               <Item onClick={() => sideDropHandler(i.title)}>
                 {i.title !== "Prep" ? (
