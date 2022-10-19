@@ -1,3 +1,12 @@
+## [0.15.26](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.25...v0.15.26) (2022-10-19)
+
+
+### Bug Fixes
+
+* big nav-bar on hover ([#225](https://github.com/thecyberworld/thecyberhub.org/issues/225)) ([1084e0e](https://github.com/thecyberworld/thecyberhub.org/commit/1084e0e2b1c089ae896dcf910cda5f30ad6f3a5a))
+
+
+
 ## [0.15.25](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.24...v0.15.25) (2022-10-19)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * typo in blogs ([#217](https://github.com/thecyberworld/thecyberhub.org/issues/217)) ([35068fa](https://github.com/thecyberworld/thecyberhub.org/commit/35068fa07d805c5ca2c6db075bf546250b17a935))
-
-
-
-## [0.15.21](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.20...v0.15.21) (2022-10-17)
-
-
-### Bug Fixes
-
-* css margin ([#216](https://github.com/thecyberworld/thecyberhub.org/issues/216)) ([079ba77](https://github.com/thecyberworld/thecyberhub.org/commit/079ba77fddf55a0dda41d3430a517677e6e3a4bc))
 
 
 
