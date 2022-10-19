@@ -39,7 +39,7 @@ export const aboutData = {
   buttonLabel: "Join community",
   buttonLabel2: "Contribute to Opensource",
   imgStart: false,
-  img: "https://firebasestorage.googleapis.com/v0/b/meet-sameer.appspot.com/o/thecyberworld-green01.png?alt=media&token=a74854d7-e246-4837-a481-5304d79b8632",
+  img: "https://firebasestorage.googleapis.com/v0/b/thecyberhub-dd340.appspot.com/o/thecyberworld-green01.png?alt=media&token=95f0053b-2280-4503-b4f6-26eab458cc0f",
   alt: "Car",
   dark: true,
   primary: true,

@@ -29,7 +29,7 @@ const Hero = () => {
           loop
           muted
           src={
-            "https://firebasestorage.googleapis.com/v0/b/meet-sameer.appspot.com/o/Untitled.mp4?alt=media&token=b155eccc-d7d6-4bef-9402-3c06d9d4993c"
+            "https://firebasestorage.googleapis.com/v0/b/thecyberhub-dd340.appspot.com/o/videos%2FUntitled.mp4?alt=media&token=13a3bd46-48f4-400b-a756-6093688ab279"
           }
           type={"video/mp4"}
         />
