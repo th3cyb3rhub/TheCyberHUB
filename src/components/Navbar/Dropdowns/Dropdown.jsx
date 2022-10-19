@@ -1,86 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import SideDropdown from "./SideDropdown";
-import { Link } from "react-router-dom";
-import { NavLinks, SideDropdownIcon } from "../Navbar/NavbarElements";
+import {
+    DropdownDesc,
+    DropdownItem,
+    DropdownContainer,
+    DropdownRouterLink, DropdownItemContainer, DropdownItemsContainer,
+} from "./DropdownElements";
 
-export default function Dropdown(props) {
-  const menu = [
-    { title: "Roadmap", url: "/resources/roadmapResources" },
-    { title: "Courses", url: "/resources/courses" },
-    { title: "Prep", url: "" },
-    { title: "Events", url: "/events" },
-    { title: "Blogs", url: "/blogs" },
-    { title: "News", url: "/resources/cyberNews" },
-  ];
+export default function Dropdown({ isOpen, toggle }) {
+    const menu = [
+        {title: "Roadmap", url: "/resources/roadmapResources", desc: "Learn about the roadmap of cybersecurity"},
+        {title: "Courses", url: "/resources/courses", desc: "Learn about the courses of cybersecurity"},
+        {title: "Events", url: "/events", desc: "Learn about the events of cybersecurity"},
+        {title: "Blogs", url: "/blogs", desc: "Learn about the blogs of cybersecurity"},
+        {title: "News", url: "/resources/cyberNews", desc: "Learn about the news of cybersecurity"},
+    ];
 
-  const [sideDrop, setSideDrop] = useState(false);
-
-  const sideDropHandler = (title) => {
-    props.sidebar
-      ? title === "Prep" && setSideDrop(!sideDrop)
-      : title === "Prep"
-      ? setSideDrop(true)
-      : setSideDrop(false);
-  };
-
-  const Item = styled.ul`
-    height: 32px;
-    // width : 500px;
-    color : black;
-    position: relative;
-    &:hover {
-      cursor: pointer;
-    }
-  `;
-
-  const mobStyle = { width: "100%", padding: 6 };
-  const dStyle = {
-    borderRadius: 20,
-    background: "#101417",
-    border: "1px solid #101417",
-    // width: 130,
-    width: 1700,
-    height:200,
-    padding: 30,
-    color: "white",
-    position: "absolute",
-    top: 80,
-    left:0,
-  };
-
-  return (
-    <div style={props.sidebar ? mobStyle : dStyle}>
-      <li style={{display:"flex", marginLeft:"350px"}}>
-        {menu.map((i) =>
-          !props.sidebar ? (
-            <Item onMouseEnter={() => sideDropHandler(i.title)}>
-              <Link
-                style={{ textDecoration: "none", color: "white" ,marginLeft:"50px"}}
-                to={i.url}
- 
-                {" "}
-                {i.title}{" "}
-              </Link>
-              {i.title === "Prep" && sideDrop && <SideDropdown sidebar={false} />}
-            </Item>
-          ) : ( 
-            <>
-              <Item onClick={() => sideDropHandler(i.title)}>
-                {i.title !== "Prep" ? (
-                  <Link onClick={props.toggle} style={{ textDecoration: "none", color: "white" }} to={i.url}>
-                    {" "}
-                    {i.title}{" "}
-                  </Link>
-                ) : (
-                  <p style={{ textDecoration: "none", color: "white" }}> {i.title} </p>
+    return (
+        <DropdownContainer isOpen={isOpen}>
+            <DropdownItemsContainer>
+                {menu.map((i) =>
+                    <DropdownItemContainer>
+                        <DropdownRouterLink to={i.url} onClick={toggle}>
+                            <DropdownItem> {i.title} </DropdownItem>
+                            <DropdownDesc> {i.desc} </DropdownDesc>
+                        </DropdownRouterLink>
+                    </DropdownItemContainer>
                 )}
-              </Item>
-              {i.title === "Prep" && sideDrop && <SideDropdown toggle={props.toggle} sidebar={true} />}
-            </>
-          ),
-        )}
-      </li>
-    </div>
-  );
+            </DropdownItemsContainer>
+        </DropdownContainer>
+    );
 }

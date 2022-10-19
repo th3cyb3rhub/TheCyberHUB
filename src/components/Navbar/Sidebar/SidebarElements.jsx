@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Link as RouterLink } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
-import { Link as LinkScroll } from "react-scroll";
+import styled from 'styled-components';
+import {Link as RouterLink} from 'react-router-dom';
+import {FaTimes} from 'react-icons/fa';
+import {Link as LinkScroll} from "react-scroll";
 
 export const SidebarContainer = styled.nav`
   position: fixed;
@@ -11,15 +11,21 @@ export const SidebarContainer = styled.nav`
   background: #0d0d0d;
   display: grid;
   align-items: center;
-  left: 0;
-  transition: 0.3s ease-in-out;
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
-  top: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
-`;
+  right: 0;
+  opacity: ${({isOpen}) => (isOpen ? '100%' : '0')};
+  top: ${({isOpen}) => (isOpen ? '0' : '-100%')};
+
+  transition: all .2s ease-in-out;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(3, 3, 3, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+`
 
 export const CloseIcon = styled(FaTimes)`
   color: #fff;
-`;
+`
 
 export const Icon = styled.div`
   position: absolute;
@@ -29,11 +35,11 @@ export const Icon = styled.div`
   font-size: 2rem;
   cursor: pointer;
   outline: none;
-`;
+`
 
 export const SidebarWrapper = styled.div`
   color: #fff;
-`;
+`
 
 export const SidebarLink = styled(RouterLink)`
   display: flex;
@@ -51,12 +57,12 @@ export const SidebarLink = styled(RouterLink)`
     color: #20c20e;
     transition: 0.2s ease-in-out;
   }
-`;
+`
 
 export const SideBtnWrap = styled.div`
   display: flex;
   justify-content: center;
-`;
+`
 export const SidebarMenu = styled.div`
   // display: grid;
   // grid-template-columns: 1fr;
@@ -66,7 +72,7 @@ export const SidebarMenu = styled.div`
   @media screen and (min-width: 480px) {
     grid-template-rows: repeat(6, 60px);
   }
-`;
+`
 export const SidebarRoute = styled(RouterLink)`
   border-radius: 50px;
   background: #20c20e;
@@ -85,4 +91,5 @@ export const SidebarRoute = styled(RouterLink)`
     background: #fff;
     color: #010606;
   }
-`;
+`
+
