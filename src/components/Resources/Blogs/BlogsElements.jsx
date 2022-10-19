@@ -15,11 +15,16 @@ const BlogsElements = (props) => {
             {props.date} • {props.author}
           </h6>
         </div>
-        <div className="blogs__container__content">{props.content.slice(0, 200)}{props.content.length>200?"...":""}</div>
+        <div className="blogs__container__content">
+          {props.content.slice(0, 200)}
+          {props.content.length > 200 ? "..." : ""}
+        </div>
         <div className="tags">
           {/*tags:*/}
           {props.tags.map((tag, index) => (
-            <div className="tag" key={index}>{tag}</div>
+            <div className="tag" key={index}>
+              {tag}
+            </div>
           ))}
         </div>
       </div>

@@ -13,13 +13,11 @@ export const VSQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "Ensure that your vendors understand your compliance rules.",
+        answerText: "Ensure that your vendors understand your compliance rules.",
         isCorrect: false,
       },
       {
-        answerText:
-          "Confirm that the vendor understands the importance of cybersecurity.",
+        answerText: "Confirm that the vendor understands the importance of cybersecurity.",
         isCorrect: false,
       },
     ],
@@ -79,8 +77,7 @@ export const VSQQuestions = [
     ],
   },
   {
-    questionText:
-      "What should you do if a vendor has a breach that impacts your business data? Pick the best answer.",
+    questionText: "What should you do if a vendor has a breach that impacts your business data? Pick the best answer.",
     answerOptions: [
       {
         answerText: "Change all network passwords.",

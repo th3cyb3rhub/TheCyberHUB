@@ -14,22 +14,18 @@ export const SRAQQuestions = [
     ],
   },
   {
-    questionText:
-      "What is a common way to help protect devices connected to the company network?",
+    questionText: "What is a common way to help protect devices connected to the company network?",
     answerOptions: [
       {
-        answerText:
-          "Only use laptops and other mobile devices with full-disk encryption.",
+        answerText: "Only use laptops and other mobile devices with full-disk encryption.",
         isCorrect: true,
       },
       {
-        answerText:
-          "Change your smartphone settings to let your devices connect automatically to public Wi-Fi.",
+        answerText: "Change your smartphone settings to let your devices connect automatically to public Wi-Fi.",
         isCorrect: false,
       },
       {
-        answerText:
-          "Let guests and customers use the same secure Wi-Fi that you use.",
+        answerText: "Let guests and customers use the same secure Wi-Fi that you use.",
         isCorrect: false,
       },
       {
@@ -79,8 +75,7 @@ export const SRAQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "Use unique, complex network passwords and avoid unattended, open workstations.",
+        answerText: "Use unique, complex network passwords and avoid unattended, open workstations.",
         isCorrect: false,
       },
       {

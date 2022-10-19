@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {Link as ScrollLink} from "react-scroll";
-import {Link as LinkRouter, Link as RouterLink} from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
+import { Link as LinkRouter, Link as RouterLink } from "react-router-dom";
 
 export const IconsSpacing = styled.span`
   margin: 5px 5px 0 0;
@@ -20,9 +20,9 @@ export const GlowingButton = styled(LinkRouter)`
   border-color: #343434;
   background: transparent;
   white-space: nowrap;
-  padding: ${({big}) => (big ? "14px 30px" : "12px 25px")};
-    //color: ${({dark}) => (dark ? "#ffffff" : "#0e0e0e")};
-  font-size: ${({fontBig}) => (fontBig ? "20px" : "16px")};
+  padding: ${({ big }) => (big ? "14px 30px" : "12px 25px")};
+  //color: ${({ dark }) => (dark ? "#ffffff" : "#0e0e0e")};
+  font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
   cursor: pointer;
   display: flex;
@@ -47,9 +47,9 @@ export const Button = styled(ScrollLink)`
   border-color: #343434;
   background: transparent;
   white-space: nowrap;
-  padding: ${({big}) => (big ? "14px 48px" : "12px 30px")};
-    //color: ${({dark}) => (dark ? "#ffffff" : "#0e0e0e")};
-  font-size: ${({fontBig}) => (fontBig ? "20px" : "16px")};
+  padding: ${({ big }) => (big ? "14px 48px" : "12px 30px")};
+  //color: ${({ dark }) => (dark ? "#ffffff" : "#0e0e0e")};
+  font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
   cursor: pointer;
   display: flex;
@@ -80,9 +80,9 @@ export const RedirectButton = styled.a`
   border-color: #343434;
   background: transparent;
   white-space: nowrap;
-  padding: ${({big}) => (big ? "12px 30px" : "12px 20px")};
-    //color: ${({dark}) => (dark ? "#ffffff" : "#0e0e0e")};
-  font-size: ${({fontBig}) => (fontBig ? "20px" : "16px")};
+  padding: ${({ big }) => (big ? "12px 30px" : "12px 20px")};
+  //color: ${({ dark }) => (dark ? "#ffffff" : "#0e0e0e")};
+  font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
   cursor: pointer;
   display: flex;
@@ -107,9 +107,9 @@ export const RouterButton = styled(RouterLink)`
   background: transparent;
   margin-right: 20px; //border-radius: 50px;
   white-space: nowrap;
-  padding: ${({big}) => (big ? "14px 48px" : "12px 30px")};
-    //color: ${({dark}) => (dark ? "#ffffff" : "#0e0e0e")};
-  font-size: ${({fontBig}) => (fontBig ? "20px" : "16px")};
+  padding: ${({ big }) => (big ? "14px 48px" : "12px 30px")};
+  //color: ${({ dark }) => (dark ? "#ffffff" : "#0e0e0e")};
+  font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
   cursor: pointer;
   display: flex;
@@ -145,9 +145,9 @@ export const ButtonLink = styled.a`
   background: transparent;
   margin-right: 20px;
   white-space: nowrap;
-  padding: ${({big}) => (big ? "14px 48px" : "12px 30px")};
-  color: ${({dark}) => (dark ? "#ffffff" : "#0e0e0e")};
-  font-size: ${({fontBig}) => (fontBig ? "20px" : "16px")};
+  padding: ${({ big }) => (big ? "14px 48px" : "12px 30px")};
+  color: ${({ dark }) => (dark ? "#ffffff" : "#0e0e0e")};
+  font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
   cursor: pointer;
   display: flex;
@@ -172,9 +172,9 @@ export const ButtonRouterLink = styled(RouterButton)`
   background: transparent;
   margin-right: 20px;
   white-space: nowrap;
-  padding: ${({big}) => (big ? "14px 48px" : "12px 30px")};
-  color: ${({dark}) => (dark ? "#ffffff" : "#0e0e0e")};
-  font-size: ${({fontBig}) => (fontBig ? "20px" : "16px")};
+  padding: ${({ big }) => (big ? "14px 48px" : "12px 30px")};
+  color: ${({ dark }) => (dark ? "#ffffff" : "#0e0e0e")};
+  font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
   cursor: pointer;
   display: flex;
@@ -202,9 +202,9 @@ export const OpenSourceButton = styled(RouterLink)`
   border-color: #343434;
   background: transparent;
   white-space: nowrap;
-  padding: ${({big}) => (big ? "14px 48px" : "12px 30px")};
-    //color: ${({dark}) => (dark ? "#ffffff" : "#0e0e0e")};
-  font-size: ${({fontBig}) => (fontBig ? "20px" : "16px")};
+  padding: ${({ big }) => (big ? "14px 48px" : "12px 30px")};
+  //color: ${({ dark }) => (dark ? "#ffffff" : "#0e0e0e")};
+  font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
   cursor: pointer;
   display: flex;

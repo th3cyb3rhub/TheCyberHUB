@@ -9,14 +9,14 @@ export const ResourcesListSection = styled.div`
   @media screen and (max-width: 600px) {
     width: 20rem;
   }
-`
+`;
 
 export const SectionHeading = styled.h1`
   margin: -50px auto 60px auto;
-`
+`;
 export const SectionSubHeading = styled.h3`
   margin: -50px auto 70px auto;
-`
+`;
 export const Heading = styled.h2`
   margin-top: 35px;
   text-align: center;
@@ -25,25 +25,20 @@ export const Heading = styled.h2`
   @media screen and (max-width: 760px) {
     text-align: center;
   }
-`
+`;
 
 export const List = styled.li`
   color: #cecac3;
-
-`
+`;
 
 export const Link = styled.a`
   color: #cecac3;
-  text-decoration-color: #D1913C;
+  text-decoration-color: #d1913c;
   text-decoration-style: dashed;
-
-`
+`;
 
 export const ListContent = styled.div`
   margin-top: 15px;
   text-align: start;
   color: #cecac3;
-`
-
-
-
+`;

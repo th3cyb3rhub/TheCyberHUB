@@ -154,14 +154,12 @@ export const CategoriesButton = styled.button`
   }
 
   @media screen and (max-width: 768px) {
-    display: ${(props) =>
-            props.type === props.show ? "inline-block" : "none"};
+    display: ${(props) => (props.type === props.show ? "inline-block" : "none")};
   }
 `;
 
 export const CategoriesButtonMobile = styled(CategoriesButton)`
   @media screen and (max-width: 768px) {
-    display: ${(props) =>
-            props.type === props.show ? "none" : "inline-block"};
+    display: ${(props) => (props.type === props.show ? "none" : "inline-block")};
   }
 `;

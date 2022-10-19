@@ -1,10 +1,10 @@
 import React from "react";
-import {MarginTop, Section} from "../../Resources/WriteUps/WriteUpsElements";
+import { MarginTop, Section } from "../../Resources/WriteUps/WriteUpsElements";
 import CTFElements from "./CTFElements";
 import "./CTF.css";
-import {useState} from "react";
-import {Heading} from "../../Community/CommunityElements";
-import {OSINTGameContainer} from "../OSINTGame/OSINTGameElements";
+import { useState } from "react";
+import { Heading } from "../../Community/CommunityElements";
+import { OSINTGameContainer } from "../OSINTGame/OSINTGameElements";
 
 // const CtfsData = {
 //     title: "TheCyberCTF",
@@ -16,20 +16,20 @@ import {OSINTGameContainer} from "../OSINTGame/OSINTGameElements";
 // }
 
 const CTF = () => {
-    const number = 193471289037
-    const [value, setValue] = useState(null)
-    const [correct, setCorrect] = useState(false)
-    console.log(value)
-    const handleClick = () => {
-        value == number ? setCorrect(true) : setCorrect(false)
-    }
-    return (
-        <OSINTGameContainer>
-            <Section>
-                <Heading> Coming soon </Heading>
-            </Section>
-        </OSINTGameContainer>
-    );
+  const number = 193471289037;
+  const [value, setValue] = useState(null);
+  const [correct, setCorrect] = useState(false);
+  console.log(value);
+  const handleClick = () => {
+    value == number ? setCorrect(true) : setCorrect(false);
+  };
+  return (
+    <OSINTGameContainer>
+      <Section>
+        <Heading> Coming soon </Heading>
+      </Section>
+    </OSINTGameContainer>
+  );
 };
 
 export default CTF;

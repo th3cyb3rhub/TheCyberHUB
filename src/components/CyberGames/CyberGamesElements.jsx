@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import {Link as RouterLink} from 'react-router-dom';
+import styled from "styled-components";
+import { Link as RouterLink } from "react-router-dom";
 
 export const CyberGamesContainer = styled.div`
   display: flex;
@@ -11,12 +11,10 @@ export const CyberGamesContainer = styled.div`
   @media screen and (max-width: 760px) {
     text-align: center;
   }
-`
+`;
 
-export const OSINTGame = styled(RouterLink)`
-`
-export const CTFGame = styled(RouterLink)`
-`
+export const OSINTGame = styled(RouterLink)``;
+export const CTFGame = styled(RouterLink)``;
 export const CyberGamesImage = styled.img`
   border-radius: 10px;
   height: 200px;
@@ -26,8 +24,8 @@ export const CyberGamesImage = styled.img`
   border: 1px solid #545454;
 
   &:hover {
-    transform: scale(1.1);;
+    transform: scale(1.1);
     border: 2px solid #72b74c;
     transition: all 0.2s ease-in-out;
   }
-`
+`;

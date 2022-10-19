@@ -1,7 +1,6 @@
 export const TSSQQuestions = [
   {
-    questionText:
-      "Which of the following scenarios does NOT describe a tech support scam?",
+    questionText: "Which of the following scenarios does NOT describe a tech support scam?",
     answerOptions: [
       {
         answerText:
@@ -14,8 +13,7 @@ export const TSSQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "A caller asks you to give him remote access to your computer to fix a problem in your computer.",
+        answerText: "A caller asks you to give him remote access to your computer to fix a problem in your computer.",
         isCorrect: false,
       },
       {
@@ -34,8 +32,7 @@ export const TSSQQuestions = [
     ],
   },
   {
-    questionText:
-      "Which of these answers describes the best way to protect against tech support scams?",
+    questionText: "Which of these answers describes the best way to protect against tech support scams?",
     answerOptions: [
       {
         answerText: "Use a unique password for each account.",
@@ -70,8 +67,7 @@ export const TSSQQuestions = [
     ],
   },
   {
-    questionText:
-      "Which is the best way to protect against viruses or other security threats?",
+    questionText: "Which is the best way to protect against viruses or other security threats?",
     answerOptions: [
       {
         answerText:
@@ -84,8 +80,7 @@ export const TSSQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "Install new virus protection software that you find online.",
+        answerText: "Install new virus protection software that you find online.",
         isCorrect: false,
       },
       {

@@ -7,12 +7,11 @@ import "./Blog.css";
 const Blogs = () => {
   return (
     <>
-    <Routes>
-      <Route exact path={""} element={<AllBlogs />} />
-      <Route exact path={":title"} element={<ViewBlog />} />
-    </Routes>
+      <Routes>
+        <Route exact path={""} element={<AllBlogs />} />
+        <Route exact path={":title"} element={<ViewBlog />} />
+      </Routes>
     </>
-
   );
 };
 

@@ -5,13 +5,11 @@ import image from "./img.webp";
 import "./Blog.css";
 
 import blogs from "./BlogsData";
-import {encodeURL} from "./util";
+import { encodeURL } from "./util";
 
 const ViewBlog = (props) => {
-  const {title} = useParams();
-  let searchedBlog = blogs.find(
-    (blog) => encodeURL(blog.title).toLowerCase() === title.toLowerCase()
-  );
+  const { title } = useParams();
+  let searchedBlog = blogs.find((blog) => encodeURL(blog.title).toLowerCase() === title.toLowerCase());
   return (
     <Section>
       <div className="viewBlog">

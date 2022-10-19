@@ -25,37 +25,25 @@ export default function Phishing({
           <ScoreInfo>
             You scored {score} out of {PhishingQuestions.length}
           </ScoreInfo>
-          <ResetButton onClick={() => handleResetButton(score)}>
-            Start again
-          </ResetButton>
+          <ResetButton onClick={() => handleResetButton(score)}>Start again</ResetButton>
         </ScoreSection>
       ) : (
         <QuizBody>
           <QuestionSection>
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/
-              {PhishingQuestions.length}
+              <span>Question {currentQuestion + 1}</span>/{PhishingQuestions.length}
             </QuestionCount>
-            <QuestionText>
-              {PhishingQuestions[currentQuestion].questionText}
-            </QuestionText>
+            <QuestionText>{PhishingQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>
           <AnswerSection>
-            {PhishingQuestions[currentQuestion].answerOptions.map(
-              (answerOption, i) => (
-                <QuestionButton
-                  key={i}
-                  onClick={() =>
-                    handleAnswerButtonClick(
-                      answerOption.isCorrect,
-                      PhishingQuestions.length
-                    )
-                  }
-                >
-                  {answerOption.answerText}
-                </QuestionButton>
-              )
-            )}
+            {PhishingQuestions[currentQuestion].answerOptions.map((answerOption, i) => (
+              <QuestionButton
+                key={i}
+                onClick={() => handleAnswerButtonClick(answerOption.isCorrect, PhishingQuestions.length)}
+              >
+                {answerOption.answerText}
+              </QuestionButton>
+            ))}
           </AnswerSection>
         </QuizBody>
       )}

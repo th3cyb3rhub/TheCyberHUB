@@ -1,12 +1,14 @@
 ## 👨‍💻 Prerequisite Skills to Contribute
 
 Basics:
-  - [Git](https://git-scm.com/)
-  - [Markdown](https://www.markdownguide.org/basic-syntax/)
+
+- [Git](https://git-scm.com/)
+- [Markdown](https://www.markdownguide.org/basic-syntax/)
 
 Front-end:
-  - [React](https://reactjs.org/)
-  - [Ant Design](https://ant.design/)
+
+- [React](https://reactjs.org/)
+- [Ant Design](https://ant.design/)
 
 ---
 
@@ -27,11 +29,13 @@ Front-end:
 **1.** Start by making a Fork of the [**thecyberhub.org**](https://github.com/thecyberworld/thecyberhub.org) repository. Click on the <a href="https://github.com/thecyberworld/thecyberhub.org/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="21" width="21"></a>Fork symbol at the top right corner.
 
 **2.** Clone your new fork of the repository in the terminal/CLI on your computer with the following command:
+
 ```bash
 git clone https://github.com/<your-github-username>/thecyberhub.org
 ```
 
 **3.** Navigate to the newly created thecyberhub.org project directory:
+
 ```bash
 cd thecyberhub.org
 ```
@@ -43,11 +47,13 @@ git remote add upstream https://github.com/thecyberworld/thecyberhub.org.git
 ```
 
 **5.** Create a new branch:
+
 ```bash
 git checkout -b YourBranchName
 ```
 
 **6.** Sync your fork or your local repository with the origin repository:
+
 - In your forked repository, click on "Fetch upstream"
 - Click "Fetch and merge"
 
@@ -96,9 +102,11 @@ git push origin YourBranchName
 ## Run project locally
 
 Start the thecyberhub.org application by typing this command:
+
 ```bash
 npm run dev
 ```
+
 Open the browser to visit the website at http://localhost:3000
 
 ---

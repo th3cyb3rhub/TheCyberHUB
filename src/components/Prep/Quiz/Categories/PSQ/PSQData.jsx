@@ -7,18 +7,15 @@ export const PSQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "Only paper files and any computer on which you store electronic copies of those files.",
+        answerText: "Only paper files and any computer on which you store electronic copies of those files.",
         isCorrect: false,
       },
       {
-        answerText:
-          "Only paper files, flash drives, and point-of-sale devices.",
+        answerText: "Only paper files, flash drives, and point-of-sale devices.",
         isCorrect: false,
       },
       {
-        answerText:
-          "All the above plus any other device with sensitive information on it.",
+        answerText: "All the above plus any other device with sensitive information on it.",
         isCorrect: true,
       },
     ],
@@ -59,8 +56,7 @@ export const PSQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "The best way to protect business data is to make sure no one loses any device.",
+        answerText: "The best way to protect business data is to make sure no one loses any device.",
         isCorrect: false,
       },
       {

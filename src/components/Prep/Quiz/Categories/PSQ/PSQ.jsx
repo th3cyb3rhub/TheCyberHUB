@@ -25,9 +25,7 @@ export default function PSQ({
           <ScoreInfo>
             You scored {score} out of {PSQQuestions.length}
           </ScoreInfo>
-          <ResetButton onClick={() => handleResetButton(score)}>
-            Start again
-          </ResetButton>
+          <ResetButton onClick={() => handleResetButton(score)}>Start again</ResetButton>
         </ScoreSection>
       ) : (
         <QuizBody>
@@ -35,26 +33,17 @@ export default function PSQ({
             <QuestionCount>
               <span>Question {currentQuestion + 1}</span>/{PSQQuestions.length}
             </QuestionCount>
-            <QuestionText>
-              {PSQQuestions[currentQuestion].questionText}
-            </QuestionText>
+            <QuestionText>{PSQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>
           <AnswerSection>
-            {PSQQuestions[currentQuestion].answerOptions.map(
-              (answerOption, i) => (
-                <QuestionButton
-                  key={i}
-                  onClick={() =>
-                    handleAnswerButtonClick(
-                      answerOption.isCorrect,
-                      PSQQuestions.length
-                    )
-                  }
-                >
-                  {answerOption.answerText}
-                </QuestionButton>
-              )
-            )}
+            {PSQQuestions[currentQuestion].answerOptions.map((answerOption, i) => (
+              <QuestionButton
+                key={i}
+                onClick={() => handleAnswerButtonClick(answerOption.isCorrect, PSQQuestions.length)}
+              >
+                {answerOption.answerText}
+              </QuestionButton>
+            ))}
           </AnswerSection>
         </QuizBody>
       )}

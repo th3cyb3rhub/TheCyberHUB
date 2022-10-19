@@ -1,6 +1,6 @@
 name: Documentation issue
 description: Found an issue in the documentation? You can use this one!
-title: '[DOCS] <description>'
+title: "[DOCS] <description>"
 labels: [Documentation issue]
 body:
   - type: textarea

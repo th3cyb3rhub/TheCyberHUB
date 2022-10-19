@@ -41,10 +41,7 @@ const Sidebar = ({ isOpen, toggle }) => {
           </SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          <RedirectButton
-            href={"https://discord.gg/QHBPq6xP5p"}
-            target={"_blank"}
-          >
+          <RedirectButton href={"https://discord.gg/QHBPq6xP5p"} target={"_blank"}>
             Join Community
           </RedirectButton>
         </SideBtnWrap>

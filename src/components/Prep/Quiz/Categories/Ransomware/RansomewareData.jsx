@@ -8,13 +8,11 @@ export const RansomwareQuestions = [
         isCorrect: true,
       },
       {
-        answerText:
-          "Computer equipment that criminals steal from you and won't return until you pay them.",
+        answerText: "Computer equipment that criminals steal from you and won't return until you pay them.",
         isCorrect: false,
       },
       {
-        answerText:
-          "Software used to protect your computer or mobile device from harmful viruses.",
+        answerText: "Software used to protect your computer or mobile device from harmful viruses.",
         isCorrect: false,
       },
       {
@@ -32,17 +30,14 @@ export const RansomwareQuestions = [
     ],
   },
   {
-    questionText:
-      "Which of these best describes how criminals start ransomware attacks?",
+    questionText: "Which of these best describes how criminals start ransomware attacks?",
     answerOptions: [
       {
-        answerText:
-          "Sending a scam email with links or attachments that put your data and network at risk.",
+        answerText: "Sending a scam email with links or attachments that put your data and network at risk.",
         isCorrect: false,
       },
       {
-        answerText:
-          "Getting into your server through vulnerabilities and installing malware.",
+        answerText: "Getting into your server through vulnerabilities and installing malware.",
         isCorrect: false,
       },
       {

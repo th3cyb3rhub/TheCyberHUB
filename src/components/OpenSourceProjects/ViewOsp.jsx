@@ -4,13 +4,11 @@ import { Section } from "../Resources/WriteUps/WriteUpsElements";
 import "./OpenSourceProjects.css";
 
 import Osp from "./OspData";
-import {encodeURL} from "./util";
+import { encodeURL } from "./util";
 
 const ViewOsp = (props) => {
-  const {title} = useParams();
-  let searchedOsp = Osp.find(
-    (Osp) => encodeURL(Osp.title).toLowerCase() === title.toLowerCase()
-  );
+  const { title } = useParams();
+  let searchedOsp = Osp.find((Osp) => encodeURL(Osp.title).toLowerCase() === title.toLowerCase());
   return (
     <Section>
       <div className="viewOsp">

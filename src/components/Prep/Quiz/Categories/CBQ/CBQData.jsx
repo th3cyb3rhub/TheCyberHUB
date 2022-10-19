@@ -1,7 +1,6 @@
 export const CBQQuestions = [
   {
-    questionText:
-      "Which of the following should you do to restrict access to your files and devices?",
+    questionText: "Which of the following should you do to restrict access to your files and devices?",
     answerOptions: [
       { answerText: "Update your software once a year.", isCorrect: false },
       {
@@ -9,8 +8,7 @@ export const CBQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "Have your staff members access information via an open Wi-Fi network.",
+        answerText: "Have your staff members access information via an open Wi-Fi network.",
         isCorrect: false,
       },
       { answerText: "Use multi-factor authentication.", isCorrect: true },
@@ -25,8 +23,7 @@ export const CBQQuestions = [
     ],
   },
   {
-    questionText:
-      "Which is the best answer for which people in a business should be responsible for cybersecurity?",
+    questionText: "Which is the best answer for which people in a business should be responsible for cybersecurity?",
     answerOptions: [
       {
         answerText:
@@ -44,8 +41,7 @@ export const CBQQuestions = [
         isCorrect: false,
       },
       {
-        answerText:
-          "All staff members should know some cybersecurity basics to reduce the risk of cyber attacks.",
+        answerText: "All staff members should know some cybersecurity basics to reduce the risk of cyber attacks.",
         isCorrect: true,
       },
     ],
@@ -58,8 +54,7 @@ export const CBQQuestions = [
     ],
   },
   {
-    questionText:
-      "Which of the following is the best answer for how to secure your router?",
+    questionText: "Which of the following is the best answer for how to secure your router?",
     answerOptions: [
       {
         answerText: "Change the default name and password of the router.",

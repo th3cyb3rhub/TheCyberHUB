@@ -1,10 +1,5 @@
 import { CategoriesButtonData } from "./CategoriesButtonData";
-import {
-  CategoriesSection,
-  MobileCategories,
-  CategoriesButton,
-  CategoriesButtonMobile,
-} from "./CategoriesElements";
+import { CategoriesSection, MobileCategories, CategoriesButton, CategoriesButtonMobile } from "./CategoriesElements";
 import { FaThList, FaWindowClose } from "react-icons/fa";
 
 export default function CategoriesButtons({

@@ -4,15 +4,14 @@ on: [workflow_dispatch]
 
 jobs:
   labels:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - uses: thecyberworld/gh-action-labels@main
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        owner-name: 'Thecyberworld'
-        repository-name: 'thecyberhub.org'
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - uses: thecyberworld/gh-action-labels@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          owner-name: "Thecyberworld"
+          repository-name: "thecyberhub.org"

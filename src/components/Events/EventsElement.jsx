@@ -6,15 +6,15 @@ export const EventsContainer = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-`
+`;
 
 export const MainEventsContainer = styled.div`
   width: 70%;
-  
+
   @media screen and (max-width: 768px) {
     width: 100%;
   }
-`
+`;
 export const OnGoingEventsContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -32,7 +32,7 @@ export const UpComingEventsContainer = styled.div`
 `;
 
 export const EventsHeading = styled.h1`
-  margin: 0 0 30px 0
+  margin: 0 0 30px 0;
 `;
 
 export const PastEventsContainer = styled.div`
@@ -46,6 +46,4 @@ export const PastEventsContainer = styled.div`
   @media screen and (max-width: 768px) {
     width: auto;
   }
-`
-
-
+`;

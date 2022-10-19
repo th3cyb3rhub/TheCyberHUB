@@ -25,9 +25,7 @@ export default function TSSQ({
           <ScoreInfo>
             You scored {score} out of {TSSQQuestions.length}
           </ScoreInfo>
-          <ResetButton onClick={() => handleResetButton(score)}>
-            Start again
-          </ResetButton>
+          <ResetButton onClick={() => handleResetButton(score)}>Start again</ResetButton>
         </ScoreSection>
       ) : (
         <QuizBody>
@@ -35,26 +33,17 @@ export default function TSSQ({
             <QuestionCount>
               <span>Question {currentQuestion + 1}</span>/{TSSQQuestions.length}
             </QuestionCount>
-            <QuestionText>
-              {TSSQQuestions[currentQuestion].questionText}
-            </QuestionText>
+            <QuestionText>{TSSQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>
           <AnswerSection>
-            {TSSQQuestions[currentQuestion].answerOptions.map(
-              (answerOption, i) => (
-                <QuestionButton
-                  key={i}
-                  onClick={() =>
-                    handleAnswerButtonClick(
-                      answerOption.isCorrect,
-                      TSSQQuestions.length
-                    )
-                  }
-                >
-                  {answerOption.answerText}
-                </QuestionButton>
-              )
-            )}
+            {TSSQQuestions[currentQuestion].answerOptions.map((answerOption, i) => (
+              <QuestionButton
+                key={i}
+                onClick={() => handleAnswerButtonClick(answerOption.isCorrect, TSSQQuestions.length)}
+              >
+                {answerOption.answerText}
+              </QuestionButton>
+            ))}
           </AnswerSection>
         </QuizBody>
       )}

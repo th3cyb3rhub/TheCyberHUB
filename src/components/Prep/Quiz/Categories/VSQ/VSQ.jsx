@@ -25,9 +25,7 @@ export default function VSQ({
           <ScoreInfo>
             You scored {score} out of {VSQQuestions.length}
           </ScoreInfo>
-          <ResetButton onClick={() => handleResetButton(score)}>
-            Start again
-          </ResetButton>
+          <ResetButton onClick={() => handleResetButton(score)}>Start again</ResetButton>
         </ScoreSection>
       ) : (
         <QuizBody>
@@ -35,26 +33,17 @@ export default function VSQ({
             <QuestionCount>
               <span>Question {currentQuestion + 1}</span>/{VSQQuestions.length}
             </QuestionCount>
-            <QuestionText>
-              {VSQQuestions[currentQuestion].questionText}
-            </QuestionText>
+            <QuestionText>{VSQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>
           <AnswerSection>
-            {VSQQuestions[currentQuestion].answerOptions.map(
-              (answerOption, i) => (
-                <QuestionButton
-                  key={i}
-                  onClick={() =>
-                    handleAnswerButtonClick(
-                      answerOption.isCorrect,
-                      VSQQuestions.length
-                    )
-                  }
-                >
-                  {answerOption.answerText}
-                </QuestionButton>
-              )
-            )}
+            {VSQQuestions[currentQuestion].answerOptions.map((answerOption, i) => (
+              <QuestionButton
+                key={i}
+                onClick={() => handleAnswerButtonClick(answerOption.isCorrect, VSQQuestions.length)}
+              >
+                {answerOption.answerText}
+              </QuestionButton>
+            ))}
           </AnswerSection>
         </QuizBody>
       )}

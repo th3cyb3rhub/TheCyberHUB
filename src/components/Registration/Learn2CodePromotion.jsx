@@ -19,7 +19,7 @@ export const Learn2CodePromotion = styled.div`
     flex-direction: column;
 
     & .brand-logo {
-        font-weight: 600;
+      font-weight: 600;
     }
 
     & .leading-title {

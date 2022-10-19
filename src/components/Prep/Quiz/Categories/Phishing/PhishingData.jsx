@@ -37,8 +37,7 @@ export const PhishingQuestions = [
       "You get a text message from a vendor who asks you to click on a link to renew your password so that you can log in to its website. You should:",
     answerOptions: [
       {
-        answerText:
-          "Reply to the text to confirm that you really need to renew your password.",
+        answerText: "Reply to the text to confirm that you really need to renew your password.",
         isCorrect: false,
       },
       {
@@ -47,23 +46,20 @@ export const PhishingQuestions = [
         isCorrect: true,
       },
       {
-        answerText:
-          "Click on the link. If it takes you to the vendor's website, then you'll know it's not a scam.",
+        answerText: "Click on the link. If it takes you to the vendor's website, then you'll know it's not a scam.",
         isCorrect: false,
       },
     ],
   },
   {
-    questionText:
-      "Email authentication can help protect against phishing attacks. True or False?",
+    questionText: "Email authentication can help protect against phishing attacks. True or False?",
     answerOptions: [
       { answerText: "True", isCorrect: true },
       { answerText: "False", isCorrect: false },
     ],
   },
   {
-    questionText:
-      "If you fall for a phishing scam, what should you do to limit the damage?",
+    questionText: "If you fall for a phishing scam, what should you do to limit the damage?",
     answerOptions: [
       {
         answerText: "Delete the phishing email.",

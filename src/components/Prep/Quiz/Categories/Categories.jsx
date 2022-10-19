@@ -51,7 +51,7 @@ export default function Categories() {
     (type) => {
       setCategoryToShow(type);
     },
-    [categoryToShow]
+    [categoryToShow],
   );
 
   const openDropdown = useCallback(() => {
@@ -96,19 +96,11 @@ export default function Categories() {
         showDropdown={showDropdown}
       />
       {categoryToShow === "CBQ" && <CBQ {...styles} {...statesAndFunctions} />}
-      {categoryToShow === "Phishing" && (
-        <Phishing {...styles} {...statesAndFunctions} />
-      )}
+      {categoryToShow === "Phishing" && <Phishing {...styles} {...statesAndFunctions} />}
       {categoryToShow === "PSQ" && <PSQ {...styles} {...statesAndFunctions} />}
-      {categoryToShow === "Ransomware" && (
-        <Ransomware {...styles} {...statesAndFunctions} />
-      )}
-      {categoryToShow === "SRAQ" && (
-        <SRAQ {...styles} {...statesAndFunctions} />
-      )}
-      {categoryToShow === "TSSQ" && (
-        <TSSQ {...styles} {...statesAndFunctions} />
-      )}
+      {categoryToShow === "Ransomware" && <Ransomware {...styles} {...statesAndFunctions} />}
+      {categoryToShow === "SRAQ" && <SRAQ {...styles} {...statesAndFunctions} />}
+      {categoryToShow === "TSSQ" && <TSSQ {...styles} {...statesAndFunctions} />}
       {categoryToShow === "VSQ" && <VSQ {...styles} {...statesAndFunctions} />}
     </section>
   );

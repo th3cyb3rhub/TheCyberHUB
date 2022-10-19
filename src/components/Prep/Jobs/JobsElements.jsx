@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import {Button, Header} from "../../Community/CommunityElements";
-import {FaChevronDown} from "react-icons/fa";
+import { Button, Header } from "../../Community/CommunityElements";
+import { FaChevronDown } from "react-icons/fa";
 
 export const ScrollButton = styled(Button)`
   outline: 2px solid #363636;
@@ -22,7 +22,6 @@ export const JobsDropdownIcon = styled(FaChevronDown)`
   margin: 2px 0 0 5px;
   font-size: 11px;
 `;
-
 
 export const JobSection = styled.section`
   margin: 100px 20px;
@@ -55,8 +54,8 @@ export const JobSection = styled.section`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    height: ${({viewMore}) => (viewMore ? "auto" : "100vh")};
-    overflow: ${({viewMore}) => (viewMore ? "auto" : "hidden")};
+    height: ${({ viewMore }) => (viewMore ? "auto" : "100vh")};
+    overflow: ${({ viewMore }) => (viewMore ? "auto" : "hidden")};
     padding: 0.2rem;
     margin: 10rem 0;
     justify-content: center;

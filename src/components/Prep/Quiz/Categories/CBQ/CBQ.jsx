@@ -25,9 +25,7 @@ export default function CBQ({
           <ScoreInfo>
             You scored {score} out of {CBQQuestions.length}
           </ScoreInfo>
-          <ResetButton onClick={() => handleResetButton(score)}>
-            Start again
-          </ResetButton>
+          <ResetButton onClick={() => handleResetButton(score)}>Start again</ResetButton>
         </ScoreSection>
       ) : (
         <QuizBody>
@@ -35,26 +33,17 @@ export default function CBQ({
             <QuestionCount>
               <span>Question {currentQuestion + 1}</span>/{CBQQuestions.length}
             </QuestionCount>
-            <QuestionText>
-              {CBQQuestions[currentQuestion].questionText}
-            </QuestionText>
+            <QuestionText>{CBQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>
           <AnswerSection>
-            {CBQQuestions[currentQuestion].answerOptions.map(
-              (answerOption, i) => (
-                <QuestionButton
-                  key={i}
-                  onClick={() =>
-                    handleAnswerButtonClick(
-                      answerOption.isCorrect,
-                      CBQQuestions.length
-                    )
-                  }
-                >
-                  {answerOption.answerText}
-                </QuestionButton>
-              )
-            )}
+            {CBQQuestions[currentQuestion].answerOptions.map((answerOption, i) => (
+              <QuestionButton
+                key={i}
+                onClick={() => handleAnswerButtonClick(answerOption.isCorrect, CBQQuestions.length)}
+              >
+                {answerOption.answerText}
+              </QuestionButton>
+            ))}
           </AnswerSection>
         </QuizBody>
       )}

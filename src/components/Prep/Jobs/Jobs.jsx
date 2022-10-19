@@ -1,13 +1,8 @@
 import { useState, useCallback } from "react";
 import { Link as ScrollLink } from "react-scroll";
 
-import {
-  Overlay,
-  Container,
-  Heading,
-  Paragraph,
-} from "../../Community/CommunityElements";
-import {ScrollButton, JobIntroHeader, JobsDropdownIcon} from "./JobsElements";
+import { Overlay, Container, Heading, Paragraph } from "../../Community/CommunityElements";
+import { ScrollButton, JobIntroHeader, JobsDropdownIcon } from "./JobsElements";
 
 import Job from "./Job";
 import { JobsData } from "./JobsData";
@@ -34,9 +29,8 @@ const Jobs = () => {
             Searching for a job? <br /> Look no further!
           </Heading>
           <Paragraph>
-            We have collated several areas/field where there are job
-            vacancy(ies). <br /> Go through the <span>Job Section</span>, and
-            find one that is best match for you.
+            We have collated several areas/field where there are job vacancy(ies). <br /> Go through the{" "}
+            <span>Job Section</span>, and find one that is best match for you.
           </Paragraph>
           <ScrollLink to={"jobs"} smooth={true} duration={600} spy={true} exact={"true"} offset={-80}>
             <ScrollButton>

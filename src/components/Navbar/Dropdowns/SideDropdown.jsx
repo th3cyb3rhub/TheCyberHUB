@@ -46,11 +46,7 @@ export default function SideDropdown(props) {
         {" "}
         {prepList.map((i) => (
           <Item>
-            <Link
-              onClick={props.toggle}
-              style={{ textDecoration: "none", color: "white" }}
-              to={i.url}
-            >
+            <Link onClick={props.toggle} style={{ textDecoration: "none", color: "white" }} to={i.url}>
               {i.title}
             </Link>
           </Item>

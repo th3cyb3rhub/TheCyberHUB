@@ -1,18 +1,18 @@
-import styled from 'styled-components';
-import {Link as LinkRouter} from 'react-router-dom';
-import {Link as LinkScroll} from 'react-scroll'
-import {AiFillCaretDown, AiFillCaretRight} from 'react-icons/ai';
+import styled from "styled-components";
+import { Link as LinkRouter } from "react-router-dom";
+import { Link as LinkScroll } from "react-scroll";
+import { AiFillCaretDown, AiFillCaretRight } from "react-icons/ai";
 
 export const DropdownIcon = styled(AiFillCaretDown)`
-  margin: 5px 0 0 5px;`
+  margin: 5px 0 0 5px;
+`;
 
 export const SideDropdownIcon = styled(AiFillCaretRight)`
-  margin: 5px 0 0 5px;`
-
-
+  margin: 5px 0 0 5px;
+`;
 
 export const Nav = styled.nav`
-  background: ${({scrollNav}) => scrollNav ? '#000' : 'transparent'};
+  background: ${({ scrollNav }) => (scrollNav ? "#000" : "transparent")};
   height: 80px;
   margin-top: -80px;
   display: flex;
@@ -26,7 +26,7 @@ export const Nav = styled.nav`
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
   }
-`
+`;
 
 export const NavbarContainer = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ export const NavbarContainer = styled.div`
   width: 100%;
   padding: 0 24px;
   max-width: 1100px;
-`
+`;
 
 export const NavLogoRouter = styled(LinkRouter)`
   color: #fff;
@@ -48,7 +48,7 @@ export const NavLogoRouter = styled(LinkRouter)`
   margin-left: 24px;
   font-weight: bold;
   text-decoration: none;
-`
+`;
 
 export const NavLogo = styled.img`
   height: 60px;
@@ -68,8 +68,7 @@ export const NavLogo = styled.img`
   @media screen and (max-width: 350px) {
     margin: 0 -20px 0 0;
   }
-
-`
+`;
 
 // Text logo
 // export const NavLogoRouter = styled(LinkRouter)`
@@ -97,9 +96,7 @@ export const MobileIcon = styled.div`
     cursor: pointer;
     color: #fff;
     margin-top: 10px;
-
   }
-
 
   @media screen and (max-width: 340px) {
     display: inline-flex;
@@ -109,12 +106,11 @@ export const MobileIcon = styled.div`
     margin-top: 60px;
     width: 30%;
   }
-`
+`;
 export const Text = styled.div`
   margin-left: 5px;
   margin-bottom: 2px;
-
-`
+`;
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
@@ -125,11 +121,11 @@ export const NavMenu = styled.div`
   @media screen and (max-width: 800px) {
     display: none;
   }
-`
+`;
 
 export const NavItem = styled.li`
   height: 80px;
-`
+`;
 
 export const NavLinks = styled(LinkRouter)`
   color: #fff;
@@ -143,7 +139,7 @@ export const NavLinks = styled(LinkRouter)`
   &.active {
     border-bottom: 3px solid #20c20e;
   }
-`
+`;
 export const NavLinkRouter = styled.a`
   color: #fff;
   display: flex;
@@ -156,7 +152,7 @@ export const NavLinkRouter = styled.a`
   &.active {
     border-bottom: 3px solid #20c20e;
   }
-`
+`;
 
 export const NavBtn = styled.nav`
   display: flex;
@@ -165,7 +161,7 @@ export const NavBtn = styled.nav`
   @media screen and (max-width: 800px) {
     display: none;
   }
-`
+`;
 
 export const NavBtnLink = styled.a`
   border-width: 2px;
@@ -188,8 +184,7 @@ export const NavBtnLink = styled.a`
     border-color: #343434;
     font-size: 18px;
   }
-`
-
+`;
 
 // export const NavBtnLink = styled.a`
 //   border-radius: 50px;
