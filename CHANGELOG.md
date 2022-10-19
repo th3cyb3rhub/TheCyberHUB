@@ -1,3 +1,12 @@
+# [0.16.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.26...v0.16.0) (2022-10-19)
+
+
+### Features
+
+* transparent drop navbar ([#229](https://github.com/thecyberworld/thecyberhub.org/issues/229)) ([3a5920b](https://github.com/thecyberworld/thecyberhub.org/commit/3a5920bd567be3423b22078a38bdd4ed333da276))
+
+
+
 ## [0.15.26](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.25...v0.15.26) (2022-10-19)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * miss-alignment of the events ([#218](https://github.com/thecyberworld/thecyberhub.org/issues/218)) ([5c167e9](https://github.com/thecyberworld/thecyberhub.org/commit/5c167e99286293361efd6609f58cd1f6efc1c567))
-
-
-
-## [0.15.22](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.21...v0.15.22) (2022-10-17)
-
-
-### Bug Fixes
-
-* typo in blogs ([#217](https://github.com/thecyberworld/thecyberhub.org/issues/217)) ([35068fa](https://github.com/thecyberworld/thecyberhub.org/commit/35068fa07d805c5ca2c6db075bf546250b17a935))
 
 
 
