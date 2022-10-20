@@ -198,7 +198,7 @@ export const SocialIconLinkTwitter = styled.a`
   &:hover {
     color: #1d9bf0;
     transition: 0.3s ease-out;
-    font-size: 30px;
+    scale: 1.2;
   }
 `;
 
@@ -209,7 +209,7 @@ export const SocialIconLinkGithub = styled.a`
   &:hover {
     color: #f0f6fc;
     transition: 0.3s ease-out;
-    font-size: 30px;
+    scale: 1.2;
   }
 `;
 
@@ -220,7 +220,7 @@ export const SocialIconLinkDiscord = styled.a`
   &:hover {
     color: #5865f2;
     transition: 0.3s ease-out;
-    font-size: 30px;
+    scale: 1.2;
   }
 `;
 export const SocialIconLinkInstagram = styled.a`
@@ -230,7 +230,7 @@ export const SocialIconLinkInstagram = styled.a`
   &:hover {
     color: #b83993;
     transition: 0.3s ease-out;
-    font-size: 30px;
+    scale: 1.2;
   }
 `;
 
@@ -247,7 +247,7 @@ export const SocialLogo = styled(RouterLink)`
 
   :hover {
     color: #20c20e;
-    font-size: 1.6rem;
+    scale: 1.2;
     transition: 0.3s ease-out;
   }
 `;

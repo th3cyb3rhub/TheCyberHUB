@@ -35,7 +35,8 @@ export const GlowingButton = styled(LinkRouter)`
     transition: all 0.2s ease-in-out;
     background: transparent;
     border-color: #343434;
-    font-size: 18px;
+    scale: 1.1;
+    font-size: 16px;
   }
 `;
 export const Button = styled(ScrollLink)`
@@ -62,7 +63,8 @@ export const Button = styled(ScrollLink)`
     transition: all 0.2s ease-in-out;
     background: transparent;
     border-color: #343434;
-    font-size: 18px;
+    scale: 1.1;
+    font-size: 16px;
   }
 
   @media screen and (max-width: 600px) {
@@ -95,7 +97,8 @@ export const RedirectButton = styled.a`
     transition: all 0.2s ease-in-out;
     background: transparent;
     border-color: #343434;
-    font-size: 18px;
+    scale: 1.1;
+    font-size: 16px;
   }
 `;
 export const RouterButton = styled(RouterLink)`
@@ -122,7 +125,8 @@ export const RouterButton = styled(RouterLink)`
     transition: all 0.2s ease-in-out;
     background: transparent;
     border-color: #343434;
-    font-size: 18px;
+    scale: 1.1;
+    font-size: 16px;
   }
 `;
 export const FilledButton = styled(RouterButton)`
@@ -161,7 +165,8 @@ export const ButtonLink = styled.a`
     background: transparent;
     color: #20c20e;
     border-color: #343434;
-    font-size: 18px;
+    scale: 1.1;
+    font-size: 16px;
   }
 `;
 
