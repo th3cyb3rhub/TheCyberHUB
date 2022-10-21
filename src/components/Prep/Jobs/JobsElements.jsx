@@ -26,29 +26,6 @@ export const JobsDropdownIcon = styled(FaChevronDown)`
 export const JobSection = styled.section`
   margin: 100px 20px;
   color: #cecac3;
-  position: relative;
-
-  & button.view {
-    background: rgba(32, 194, 14, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    outline: 2px solid #363636;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 3rem;
-    height: 3rem;
-    position: absolute;
-    bottom: -2em;
-    left: 50%;
-    transition: 260ms all;
-  }
-
-  & button.view:hover {
-    background: rgba(32, 194, 14, 0.8);
-    outline-color: #545454;
-    outline-offset: 1px;
-  }
 
   & div.grid {
     padding: 0.2rem;
@@ -58,17 +35,6 @@ export const JobSection = styled.section`
     flex-wrap : wrap;
     justify-content : center; 
     align-items : center;
-  }
-
-  @media screen and (max-width: 1024px) {
-    & div.grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media screen and (max-width: 768px) {
-    & div.grid {
-      grid-template-columns: 1fr;
-    }
   }
 `;
 

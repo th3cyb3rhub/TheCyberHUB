@@ -46,14 +46,6 @@ const Jobs = () => {
       <div id="jobs" className="grid">
         {allJobs}
       </div>
-
-      <button className="view" onClick={toggleViewMore}>
-        {!viewMore ? (
-          <FaChevronDown size={20} style={{ color: "white" }} />
-        ) : (
-          <FaChevronUp size={20} style={{ color: "white" }} />
-        )}
-      </button>
     </JobSection>
   );
 };
