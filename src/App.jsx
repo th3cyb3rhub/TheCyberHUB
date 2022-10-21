@@ -45,7 +45,7 @@ const App = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 0);
+    }, 5000);
   }, []);
 
   const showFooter = () => {
@@ -61,10 +61,10 @@ const App = () => {
         <Spinner />
       ) : (
         <>
-          <navbar>
+          <>
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Navbar toggle={toggle} />
-          </navbar>
+          </>
 
           <ScrollToTop>
             <Routes>
@@ -99,8 +99,9 @@ const App = () => {
               <Route exact path={"/register"} element={<Registration />}></Route>
             </Routes>
           </ScrollToTop>
-          <TCHBot />
-          {showFooter() && <Footer />}
+          {/*{showFooter() &&*/}
+              <Footer />
+          {/*}*/}
         </>
       )}
     </div>
