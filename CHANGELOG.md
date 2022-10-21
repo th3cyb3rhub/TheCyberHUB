@@ -1,3 +1,12 @@
+## [0.18.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.1...v0.18.2) (2022-10-21)
+
+
+### Bug Fixes
+
+* navbar still remain open Bug Fixed ([#248](https://github.com/thecyberworld/thecyberhub.org/issues/248)) ([516d4ba](https://github.com/thecyberworld/thecyberhub.org/commit/516d4badd0bed7ff8ef43a0110a8122164d12ea3))
+
+
+
 ## [0.18.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.0...v0.18.1) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * website crash ([#241](https://github.com/thecyberworld/thecyberhub.org/issues/241)) ([6712f1c](https://github.com/thecyberworld/thecyberhub.org/commit/6712f1ca46068ea6d1b5f4801f158452925b3379))
-
-
-
-## [0.17.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.2...v0.17.3) (2022-10-21)
-
-
-### Bug Fixes
-
-* logo url (cloud to local files) ([#240](https://github.com/thecyberworld/thecyberhub.org/issues/240)) ([6fbcfb7](https://github.com/thecyberworld/thecyberhub.org/commit/6fbcfb75dd0b283e47055190371bf1f741792830))
 
 
 
