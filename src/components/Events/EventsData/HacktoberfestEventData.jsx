@@ -1,4 +1,4 @@
-import HacktoberfestXthecyberworld from "../../../assets/HacktoberfestXthecyberworld.png";
+import HacktoberfestXthecyberworld from "../../../assets/images/Events/HacktoberfestXthecyberworld.png";
 import { Heading, ListContent, List, Link } from "../../Resources/RoadmapResources/RoadmapResourcesElements";
 
 const HacktoberfestEventData = [

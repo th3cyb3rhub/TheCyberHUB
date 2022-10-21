@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import bgImage from "../../assets/thecyberworld-green01.png";
+import bgImage from "../../assets/images/WebsiteLogo/thecyberworld-green01.png";
 
 export const Header = styled.header`
   color: #cecac3;

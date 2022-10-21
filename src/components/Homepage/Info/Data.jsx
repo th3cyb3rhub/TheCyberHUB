@@ -1,8 +1,8 @@
 import contributeSvg from "../../../assets/images/open-source-contribution.svg";
-import VersionControlSvg from "../../../assets/images/Servies/undraw_version_control_re_mg66.svg";
 import communitySvg from "../../../assets/images/undraw_public_discussion_re_w9up.svg";
-import ResourcesSvg from "../../../assets/images/undraw_programming_re_kg9v.svg";
-import logo_thecyberworld from "../../../assets/thecyberworld-green01.png";
+import ResourcesSvg from "../../../assets/images/undraw_firmware_re_fgdy.svg";
+import logo_thecyberworld from "../../../assets/images/WebsiteLogo/thecyberworld-green01.png";
+import VersionControlSvg from "../../../assets/images/undraw_version_control_re_mg66.svg";
 
 import { FaGithub } from "react-icons/fa";
 import { GoPrimitiveDot } from "react-icons/go";

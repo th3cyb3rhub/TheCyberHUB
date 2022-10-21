@@ -3,7 +3,6 @@ export { default as Navbar } from "./Navbar/Navbar/Navbar";
 export { default as Sidebar } from "./Navbar/Sidebar/Sidebar";
 export { default as Hero } from "./Homepage/Hero/Hero";
 export { default as Info } from "./Homepage/Info/Info";
-export { default as Services } from "./Homepage/Services/Services";
 export { default as Socials } from "./Homepage/Socials/Socials";
 
 // ResourcesHome //

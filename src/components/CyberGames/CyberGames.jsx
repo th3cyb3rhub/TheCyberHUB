@@ -1,7 +1,7 @@
 import React from "react";
 import { CTFGame, CyberGamesContainer, OSINTGame, CyberGamesImage } from "./CyberGamesElements";
-import OSINTImage from "../../assets/CyberGames/OSINT.png";
-import CTFImage from "../../assets/CyberGames/CTF.png";
+import OSINTImage from "../../assets/images/CyberGames/OSINT.png";
+import CTFImage from "../../assets/images/CyberGames/CTF.png";
 const CyberGames = () => {
   return (
     <CyberGamesContainer>

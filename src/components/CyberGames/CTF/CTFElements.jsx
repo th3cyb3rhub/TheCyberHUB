@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./CTF.css";
-import EventImage from "./Capture.png";
+import EventImage from "../../../assets/images/Events/Capture.png";
 
 const EventsElements = (props) => {
   const [viewFull, setViewFull] = useState(false);

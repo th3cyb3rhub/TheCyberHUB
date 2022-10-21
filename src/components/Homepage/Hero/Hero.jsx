@@ -13,7 +13,7 @@ import {
 } from "./HeroElements";
 import { Button } from "../../MixComponents/Buttons/ButtonElements";
 import Spinner from "../../MixComponents/Spinner/Spinner";
-import Video from '../../../assets/thecyberhubBackgroundVideo.mp4';
+import Video from '../../../assets/video/thecyberhubBackgroundVideo.mp4';
 
 const Hero = () => {
   const [hover, setHover] = useState(false);
