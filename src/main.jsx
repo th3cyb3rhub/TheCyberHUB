@@ -11,37 +11,38 @@ import store from "./app/store";
 
 const rootElement = document.getElementById("root");
 
-// For SEO
-if (rootElement.hasChildNodes()) {
-  hydrate(
+ReactDOM.createRoot(rootElement).render(
     <>
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </>,
-    rootElement,
-  );
-} else {
-  render(
-    <>
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </>,
-    rootElement,
-  );
-}
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>
+    </>
+)
 
-// ReactDOM.createRoot(rootElement).render(
+// For SEO
+// if (rootElement.hasChildNodes()) {
+//   hydrate(
 //     <>
-//         <BrowserRouter>
-//             <Provider store={store}>
-//                 <App/>
-//             </Provider>
-//         </BrowserRouter>
-//     </>
-// )
+//       <BrowserRouter>
+//         <Provider store={store}>
+//           <App />
+//         </Provider>
+//       </BrowserRouter>
+//     </>,
+//     rootElement,
+//   );
+// } else {
+//   render(
+//     <>
+//       <BrowserRouter>
+//         <Provider store={store}>
+//           <App />
+//         </Provider>
+//       </BrowserRouter>
+//     </>,
+//     rootElement,
+//   );
+// }
+
