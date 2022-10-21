@@ -1,3 +1,12 @@
+## [0.17.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.1...v0.17.2) (2022-10-21)
+
+
+### Bug Fixes
+
+* deploy issues: main.jsx rendring ([#237](https://github.com/thecyberworld/thecyberhub.org/issues/237)) ([83d8169](https://github.com/thecyberworld/thecyberhub.org/commit/83d816903f2ec6d6aea6f0811f454f0e0f201ac4))
+
+
+
 ## [0.17.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.0...v0.17.1) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * transparent drop navbar ([#229](https://github.com/thecyberworld/thecyberhub.org/issues/229)) ([3a5920b](https://github.com/thecyberworld/thecyberhub.org/commit/3a5920bd567be3423b22078a38bdd4ed333da276))
-
-
-
-## [0.15.26](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.25...v0.15.26) (2022-10-19)
-
-
-### Bug Fixes
-
-* big nav-bar on hover ([#225](https://github.com/thecyberworld/thecyberhub.org/issues/225)) ([1084e0e](https://github.com/thecyberworld/thecyberhub.org/commit/1084e0e2b1c089ae896dcf910cda5f30ad6f3a5a))
 
 
 
