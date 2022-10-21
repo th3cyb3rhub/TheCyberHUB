@@ -1,3 +1,12 @@
+## [0.17.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.0...v0.17.1) (2022-10-21)
+
+
+### Bug Fixes
+
+* deploy and build issues ([#236](https://github.com/thecyberworld/thecyberhub.org/issues/236)) ([6b79c3e](https://github.com/thecyberworld/thecyberhub.org/commit/6b79c3eb21e202f1e3c8fe55140cd79a631c0d30))
+
+
+
 # [0.17.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.16.1...v0.17.0) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * big nav-bar on hover ([#225](https://github.com/thecyberworld/thecyberhub.org/issues/225)) ([1084e0e](https://github.com/thecyberworld/thecyberhub.org/commit/1084e0e2b1c089ae896dcf910cda5f30ad6f3a5a))
-
-
-
-## [0.15.25](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.24...v0.15.25) (2022-10-19)
-
-
-### Bug Fixes
-
-* [[#226](https://github.com/thecyberworld/thecyberhub.org/issues/226)] chore: added prettier and reformatted codebase. ([#227](https://github.com/thecyberworld/thecyberhub.org/issues/227)) ([96507cf](https://github.com/thecyberworld/thecyberhub.org/commit/96507cf726d8de224bb9d38c7c5e9c3d1adce920))
 
 
 
