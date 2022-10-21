@@ -1,3 +1,12 @@
+## [0.18.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.0...v0.18.1) (2022-10-21)
+
+
+### Bug Fixes
+
+* jobs layout ([#244](https://github.com/thecyberworld/thecyberhub.org/issues/244)) ([74e8a50](https://github.com/thecyberworld/thecyberhub.org/commit/74e8a504000cfd2fbd268714fae5c1acfab7966d))
+
+
+
 # [0.18.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.5...v0.18.0) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * logo url (cloud to local files) ([#240](https://github.com/thecyberworld/thecyberhub.org/issues/240)) ([6fbcfb7](https://github.com/thecyberworld/thecyberhub.org/commit/6fbcfb75dd0b283e47055190371bf1f741792830))
-
-
-
-## [0.17.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.1...v0.17.2) (2022-10-21)
-
-
-### Bug Fixes
-
-* deploy issues: main.jsx rendring ([#237](https://github.com/thecyberworld/thecyberhub.org/issues/237)) ([83d8169](https://github.com/thecyberworld/thecyberhub.org/commit/83d816903f2ec6d6aea6f0811f454f0e0f201ac4))
 
 
 
