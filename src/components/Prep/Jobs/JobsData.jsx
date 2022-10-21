@@ -125,8 +125,7 @@ export const JobsData = [
     ],
     jobReq: [
       <>Produce a minimum of 5 articles per month.</>,
-      <>Curate travel content for a global readership.</>,
-      <>Research relevant facts and details to drive informative, engaging, and inspirational articles</>,
+      <>Curate travel content for a global readership.</>
     ],
     jobTimeline: {
       datePosted: "Hiring ongoing",
@@ -185,7 +184,6 @@ export const JobsData = [
     jobReq: [
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
-      <>Lorem ipsum dolor sit amet consectetur adipisicing elit, Mollitia expedita perferendis neque.</>,
     ],
     jobTimeline: {
       datePosted: "Hiring ongoing",
@@ -253,7 +251,6 @@ export const JobsData = [
     jobReq: [
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
-      <>Lorem ipsum dolor sit amet consectetur adipisicing elit, Mollitia expedita perferendis neque.</>,
     ],
     jobTimeline: {
       datePosted: "Hiring ongoing",
@@ -324,7 +321,6 @@ export const JobsData = [
     jobReq: [
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
-      <>Lorem ipsum dolor sit amet consectetur adipisicing elit, Mollitia expedita perferendis neque.</>,
     ],
     jobTimeline: {
       datePosted: "Hiring ongoing",
@@ -396,7 +392,6 @@ export const JobsData = [
     jobReq: [
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
       <>Lorem ipsum dolor sit amet consectetur adipisicing elit.</>,
-      <>Lorem ipsum dolor sit amet consectetur adipisicing elit, Mollitia expedita perferendis neque.</>,
     ],
     jobTimeline: {
       datePosted: "Hiring ongoing",

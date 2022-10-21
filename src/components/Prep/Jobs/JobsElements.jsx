@@ -51,15 +51,13 @@ export const JobSection = styled.section`
   }
 
   & div.grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    height: ${({ viewMore }) => (viewMore ? "auto" : "100vh")};
-    overflow: ${({ viewMore }) => (viewMore ? "auto" : "hidden")};
     padding: 0.2rem;
-    margin: 10rem 0;
-    justify-content: center;
-    align-items: center;
+    margin: 2rem auto;
+    max-width : 100rem;
+    display : flex;
+    flex-wrap : wrap;
+    justify-content : center; 
+    align-items : center;
   }
 
   @media screen and (max-width: 1024px) {
@@ -75,19 +73,24 @@ export const JobSection = styled.section`
 `;
 
 export const JobContainer = styled.div`
-  background-color: rgba(32, 194, 14, 0.04);
-  outline: 1px solid #2a2a2a;
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  padding: 1.2rem;
-  row-gap: 0.8rem;
-  transition: 260ms all;
+background-color: rgba(32, 194, 14, 0.04);
+width: 400px;
 
-  &:hover {
-    outline-color: #545454;
-    outline-offset: 2px;
-  }
+min-height: 500px;
+margin : 10px;
+outline: 1px solid #2a2a2a;
+border-radius: 0.5rem;
+display: flex;
+flex-direction: column;
+padding: 1.2rem;
+row-gap: 0.8rem;
+
+transition: 260ms all;
+
+&:hover {
+  outline-color: #545454;
+  outline-offset: 2px;
+}
 `;
 
 export const JobHero = styled.div`
