@@ -19,10 +19,20 @@ import logo from "../../../assets/images/WebsiteLogo/ThecyberhubLogo.png"
 const Navbar = ({ isOpen, toggle }) => {
     const [scrollNav, setScrollNav] = useState(false);
     const [drop, setDrop] = useState(false);
+    const [learnclick,setlearnClick] = useState(true);
+    const [onclosed,setonClosed] = useState(true);
 
+    const clickLearn = ()=>{
+        if(drop)
+        {
+            setlearnClick(false);
+        }
+    }
     const dropHandler = (title) => {
         if(title === 'resources'){
             setDrop(true);
+            setlearnClick(true);
+            setonClosed(true)
         }else setDrop(false);
     }
 
@@ -58,7 +68,7 @@ const Navbar = ({ isOpen, toggle }) => {
                         </MobileIcon>
                         <NavMenu>
                             {[
-                                {to: 'resources', title: <><p>Learn</p> <DropdownIcon/></>},
+                                {to: 'resources', title: <><p onClick={()=>clickLearn()}>Learn</p> <DropdownIcon onClick={()=>clickLearn()}/></>},
                                 {to: 'events', title: 'Events',},
                                 {to: 'blogs', title: 'Blogs',},
                                 {to: 'projects', title: 'Projects',},
@@ -71,8 +81,8 @@ const Navbar = ({ isOpen, toggle }) => {
                                     >
                                         {title}
                                     </NavLinks>
-                                    {to === 'resources' && drop &&
-                                        <Dropdown isOpen={isOpen} />
+                                    {to === 'resources' &&  learnclick && drop &&
+                                        <Dropdown toggle={setonClosed} closed={onclosed} isOpen={isOpen} />
                                     }
                                 </NavItem>
                             ))}

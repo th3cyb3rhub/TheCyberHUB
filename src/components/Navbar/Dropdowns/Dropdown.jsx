@@ -7,7 +7,7 @@ import {
     DropdownRouterLink, DropdownItemContainer, DropdownItemsContainer,
 } from "./DropdownElements";
 
-export default function Dropdown({ isOpen, toggle }) {
+export default function Dropdown({ isOpen, toggle , closed}) {
     const menu = [
         {title: "Roadmap", url: "/resources/roadmapResources", desc: "Learn about the roadmap of cybersecurity"},
         {title: "Courses", url: "/resources/courses", desc: "Learn about the courses of cybersecurity"},
@@ -17,11 +17,11 @@ export default function Dropdown({ isOpen, toggle }) {
     ];
 
     return (
-        <DropdownContainer isOpen={isOpen}>
+        closed && <DropdownContainer isOpen={isOpen}>
             <DropdownItemsContainer>
                 {menu.map((i) =>
                     <DropdownItemContainer>
-                        <DropdownRouterLink to={i.url} onClick={toggle}>
+                        <DropdownRouterLink to={i.url} onClick={()=>toggle(false)}>
                             <DropdownItem> {i.title} </DropdownItem>
                             <DropdownDesc> {i.desc} </DropdownDesc>
                         </DropdownRouterLink>
