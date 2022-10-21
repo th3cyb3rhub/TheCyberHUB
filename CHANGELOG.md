@@ -1,3 +1,12 @@
+# [0.18.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.5...v0.18.0) (2022-10-21)
+
+
+### Features
+
+* Added routing and sidebox on the course page ([#235](https://github.com/thecyberworld/thecyberhub.org/issues/235)) ([783a448](https://github.com/thecyberworld/thecyberhub.org/commit/783a44896c68453a92638fe66c602d32423fb036))
+
+
+
 ## [0.17.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.4...v0.17.5) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * deploy issues: main.jsx rendring ([#237](https://github.com/thecyberworld/thecyberhub.org/issues/237)) ([83d8169](https://github.com/thecyberworld/thecyberhub.org/commit/83d816903f2ec6d6aea6f0811f454f0e0f201ac4))
-
-
-
-## [0.17.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.0...v0.17.1) (2022-10-21)
-
-
-### Bug Fixes
-
-* deploy and build issues ([#236](https://github.com/thecyberworld/thecyberhub.org/issues/236)) ([6b79c3e](https://github.com/thecyberworld/thecyberhub.org/commit/6b79c3eb21e202f1e3c8fe55140cd79a631c0d30))
 
 
 
