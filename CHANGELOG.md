@@ -1,3 +1,12 @@
+## [0.18.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.3...v0.18.4) (2022-10-21)
+
+
+### Bug Fixes
+
+* navbar overflow and menu items layout ([#250](https://github.com/thecyberworld/thecyberhub.org/issues/250)) ([6b43917](https://github.com/thecyberworld/thecyberhub.org/commit/6b439175f6e884a5395caf2ae6d7e6f9e09222c5))
+
+
+
 ## [0.18.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.2...v0.18.3) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Added routing and sidebox on the course page ([#235](https://github.com/thecyberworld/thecyberhub.org/issues/235)) ([783a448](https://github.com/thecyberworld/thecyberhub.org/commit/783a44896c68453a92638fe66c602d32423fb036))
-
-
-
-## [0.17.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.4...v0.17.5) (2022-10-21)
-
-
-### Bug Fixes
-
-* compress images for improvement ([#242](https://github.com/thecyberworld/thecyberhub.org/issues/242)) ([caf29fe](https://github.com/thecyberworld/thecyberhub.org/commit/caf29fe734a6ecc7488c35219535748d915d258e))
 
 
 
