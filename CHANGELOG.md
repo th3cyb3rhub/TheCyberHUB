@@ -1,3 +1,12 @@
+## [0.17.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.3...v0.17.4) (2022-10-21)
+
+
+### Bug Fixes
+
+* website crash ([#241](https://github.com/thecyberworld/thecyberhub.org/issues/241)) ([6712f1c](https://github.com/thecyberworld/thecyberhub.org/commit/6712f1ca46068ea6d1b5f4801f158452925b3379))
+
+
+
 ## [0.17.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.2...v0.17.3) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Chatbot ([#234](https://github.com/thecyberworld/thecyberhub.org/issues/234)) ([f8f4e53](https://github.com/thecyberworld/thecyberhub.org/commit/f8f4e53ac5ee6050f46cc8dd9bf5275875c62b4d))
-
-
-
-## [0.16.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.16.0...v0.16.1) (2022-10-20)
-
-
-### Bug Fixes
-
-* allow buttons to transition on hover without affecting other elements ([#233](https://github.com/thecyberworld/thecyberhub.org/issues/233)) ([930bfd6](https://github.com/thecyberworld/thecyberhub.org/commit/930bfd660029011d5624f83797b7ea2db6397a29))
 
 
 
