@@ -7,51 +7,39 @@ export const DropdownContainer = styled.div`
   background: transparent;
   width: 100%;
   height: auto;
-  padding: 0 80px;
+  padding: 1rem;
   position: absolute;
   top: 80px;
   left: 0;
 
-  //background: #fff;
   transition: all .2s ease-in-out;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));
   backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(3, 3, 3, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-
-  @media screen and (max-width: 1000px) {
-    padding: 6px;
-  }
 `;
 
 export const DropdownItemsContainer = styled.div`
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap : wrap;
+  justify-content : flex-start;
+  align-items : flex-start;
   text-align: center;
-  margin-left: 360px;
-  width: 1100px;
-
-  @media screen and (max-width: 1000px) {
-    padding: 6px;
-    width: 100%;
-    margin: 0;
-  }
+  margin: 0 auto;
+  margin-bottom : 1rem;
+  max-width: 50rem;
+  height : auto;
 `;
 
 export const DropdownItemContainer = styled.div`
   color: black;
   position: relative;
-  margin: 50px;
+  margin: 1rem;
   width: 200px;
 
   &:hover {
     cursor: pointer;
-  }
-  @media screen and (max-width: 1000px) {
-    padding: 15px;
-    width: 40%;
-    margin: 15px;
   }
 `;
 
