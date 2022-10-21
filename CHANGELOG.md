@@ -1,3 +1,12 @@
+## [0.17.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.4...v0.17.5) (2022-10-21)
+
+
+### Bug Fixes
+
+* compress images for improvement ([#242](https://github.com/thecyberworld/thecyberhub.org/issues/242)) ([caf29fe](https://github.com/thecyberworld/thecyberhub.org/commit/caf29fe734a6ecc7488c35219535748d915d258e))
+
+
+
 ## [0.17.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.3...v0.17.4) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * deploy and build issues ([#236](https://github.com/thecyberworld/thecyberhub.org/issues/236)) ([6b79c3e](https://github.com/thecyberworld/thecyberhub.org/commit/6b79c3eb21e202f1e3c8fe55140cd79a631c0d30))
-
-
-
-# [0.17.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.16.1...v0.17.0) (2022-10-21)
-
-
-### Features
-
-* Chatbot ([#234](https://github.com/thecyberworld/thecyberhub.org/issues/234)) ([f8f4e53](https://github.com/thecyberworld/thecyberhub.org/commit/f8f4e53ac5ee6050f46cc8dd9bf5275875c62b4d))
 
 
 
