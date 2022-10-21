@@ -13,6 +13,7 @@ import {
 } from "./HeroElements";
 import { Button } from "../../MixComponents/Buttons/ButtonElements";
 import Spinner from "../../MixComponents/Spinner/Spinner";
+import Video from '../../../assets/thecyberhubBackgroundVideo.mp4';
 
 const Hero = () => {
   const [hover, setHover] = useState(false);
@@ -28,9 +29,7 @@ const Hero = () => {
           autoPlay
           loop
           muted
-          src={
-            "https://firebasestorage.googleapis.com/v0/b/thecyberhub-dd340.appspot.com/o/videos%2FUntitled.mp4?alt=media&token=13a3bd46-48f4-400b-a756-6093688ab279"
-          }
+          src={Video}
           type={"video/mp4"}
         />
       </HeroBg>
