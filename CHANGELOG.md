@@ -1,3 +1,12 @@
+## [0.17.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.2...v0.17.3) (2022-10-21)
+
+
+### Bug Fixes
+
+* logo url (cloud to local files) ([#240](https://github.com/thecyberworld/thecyberhub.org/issues/240)) ([6fbcfb7](https://github.com/thecyberworld/thecyberhub.org/commit/6fbcfb75dd0b283e47055190371bf1f741792830))
+
+
+
 ## [0.17.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.1...v0.17.2) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * allow buttons to transition on hover without affecting other elements ([#233](https://github.com/thecyberworld/thecyberhub.org/issues/233)) ([930bfd6](https://github.com/thecyberworld/thecyberhub.org/commit/930bfd660029011d5624f83797b7ea2db6397a29))
-
-
-
-# [0.16.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.15.26...v0.16.0) (2022-10-19)
-
-
-### Features
-
-* transparent drop navbar ([#229](https://github.com/thecyberworld/thecyberhub.org/issues/229)) ([3a5920b](https://github.com/thecyberworld/thecyberhub.org/commit/3a5920bd567be3423b22078a38bdd4ed333da276))
 
 
 
