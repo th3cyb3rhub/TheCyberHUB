@@ -28,6 +28,8 @@ import {
   CTF,
   CyberGames,
   OSINTGame,
+  CourseDetail,
+  CoursesLayout,
 } from "./components";
 
 import OpenSourceProjects from "./components/OpenSourceProjects/OpenSourceProjects";
@@ -81,10 +83,14 @@ const App = () => {
               <Route exact path={"/resources/*"} element={<Resources />}>
                 <Route index element={<ResourcesHome />} />
                 <Route path={"roadmapResources"} element={<RoadmapResources />} />
-                <Route path={"courses"} element={<Courses />} />
                 <Route path={"cyberNews"} element={<CyberNews />} />
                 <Route path={"blogs"} element={<Blogs />} />
                 <Route path={"events"} element={<Events />} />
+
+                <Route path="courses" element={<CoursesLayout />}>
+                  <Route index element={<Courses />} />
+                  <Route path=":id" element={<CourseDetail />} />
+                </Route>
               </Route>
 
               <Route exact path={"/prep"} element={<Prep />}>

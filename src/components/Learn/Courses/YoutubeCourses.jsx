@@ -11,11 +11,9 @@ import {
 
 export const LinuxCourses = () => {
   return (
-    <div className={"paddingTop"}>
-      <div className={"card__section"} id={"id"}>
-        <h1 className={"h1_Courses"}>{"Linux Courses"}</h1>
-        <div className="container">{LinuxYoutubeVideosCard}</div>
-      </div>
+    <div className={"card__section"} id={"id"}>
+      <h1 className={"h1_Courses"}>{"Linux Courses"}</h1>
+      <div className="container">{LinuxYoutubeVideosCard}</div>
     </div>
   );
 };

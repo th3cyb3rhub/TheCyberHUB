@@ -8,7 +8,9 @@ export { default as Socials } from "./Homepage/Socials/Socials";
 // ResourcesHome //
 export { default as ResourcesHome } from "./Resources/ResourcesHome/ResourcesHome";
 export { default as RoadmapResources } from "./Resources/RoadmapResources/RoadmapResources";
+export { default as CoursesLayout } from './Learn/Courses/YoutubeCoursesLayout';
 export { default as Courses } from "./Learn/Courses/YoutubeCourses";
+export { default as CourseDetail } from './Learn/Courses/YoutubeCourseDetail';
 export { default as WriteUps } from "./Resources/WriteUps/WriteUps";
 export { default as Blogs } from "./Resources/Blogs/Blogs";
 export { default as CyberNews } from "./Resources/CyberNews/CyberNews";
