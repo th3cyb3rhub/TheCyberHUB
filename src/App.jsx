@@ -35,6 +35,8 @@ import OpenSourceProjects from "./components/OpenSourceProjects/OpenSourceProjec
 import Spinner from "./components/MixComponents/Spinner/Spinner";
 import Submit from "./components/Resources/Submit/Submit";
 
+import TCHBot from "./components/Chatbot/TCHBot";
+
 const App = () => {
   const [loading, setLoading] = useState(false);
   const { pathname } = useLocation();
@@ -97,6 +99,7 @@ const App = () => {
               <Route exact path={"/register"} element={<Registration />}></Route>
             </Routes>
           </ScrollToTop>
+          <TCHBot />
           {showFooter() && <Footer />}
         </>
       )}
