@@ -1,3 +1,12 @@
+## [0.18.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.4...v0.18.5) (2022-10-22)
+
+
+### Bug Fixes
+
+* upgrade multiple dependencies with Snyk ([#252](https://github.com/thecyberworld/thecyberhub.org/issues/252)) ([8ac2397](https://github.com/thecyberworld/thecyberhub.org/commit/8ac2397fd313ab3b2f2be9e6e2bc0c2d32fe9445))
+
+
+
 ## [0.18.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.3...v0.18.4) (2022-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * jobs layout ([#244](https://github.com/thecyberworld/thecyberhub.org/issues/244)) ([74e8a50](https://github.com/thecyberworld/thecyberhub.org/commit/74e8a504000cfd2fbd268714fae5c1acfab7966d))
-
-
-
-# [0.18.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.17.5...v0.18.0) (2022-10-21)
-
-
-### Features
-
-* Added routing and sidebox on the course page ([#235](https://github.com/thecyberworld/thecyberhub.org/issues/235)) ([783a448](https://github.com/thecyberworld/thecyberhub.org/commit/783a44896c68453a92638fe66c602d32423fb036))
 
 
 
