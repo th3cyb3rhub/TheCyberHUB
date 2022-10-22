@@ -1,3 +1,13 @@
+## [0.18.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.5...v0.18.6) (2022-10-22)
+
+
+### Bug Fixes
+
+* upgrade react-redux from 8.0.2 to 8.0.4 ([#255](https://github.com/thecyberworld/thecyberhub.org/issues/255)) ([8d212d0](https://github.com/thecyberworld/thecyberhub.org/commit/8d212d0b1b244be324a47f234ff356290eadfbbd))
+* upgrade react-router-dom from 6.3.0 to 6.4.1 ([#253](https://github.com/thecyberworld/thecyberhub.org/issues/253)) ([0b7bc3a](https://github.com/thecyberworld/thecyberhub.org/commit/0b7bc3af827d01946f2da548806bd0bc58d1d27f))
+
+
+
 ## [0.18.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.4...v0.18.5) (2022-10-22)
 
 
@@ -31,15 +41,6 @@
 ### Bug Fixes
 
 * navbar still remain open Bug Fixed ([#248](https://github.com/thecyberworld/thecyberhub.org/issues/248)) ([516d4ba](https://github.com/thecyberworld/thecyberhub.org/commit/516d4badd0bed7ff8ef43a0110a8122164d12ea3))
-
-
-
-## [0.18.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.0...v0.18.1) (2022-10-21)
-
-
-### Bug Fixes
-
-* jobs layout ([#244](https://github.com/thecyberworld/thecyberhub.org/issues/244)) ([74e8a50](https://github.com/thecyberworld/thecyberhub.org/commit/74e8a504000cfd2fbd268714fae5c1acfab7966d))
 
 
 
