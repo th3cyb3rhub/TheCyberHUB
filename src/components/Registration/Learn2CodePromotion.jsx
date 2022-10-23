@@ -2,10 +2,11 @@ import styled from "styled-components";
 import CybersecurityRegImage from "../../assets/images/Registeration/CybersecurityRegPage.png";
 
 export const Learn2CodePromotion = styled.div`
+  width: 100%;
   background-image: url(${CybersecurityRegImage});
   background-size: cover;
   background-position: 45%;
-  background-color: #70cc7c30;
+  background-color: rgba(51, 51, 51, 0.19);
   background-blend-mode: soft-light;
   border-radius: 7px;
 
