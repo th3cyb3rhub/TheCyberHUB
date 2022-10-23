@@ -1,3 +1,12 @@
+## [0.19.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.0...v0.19.1) (2022-10-23)
+
+
+### Bug Fixes
+
+* navbar menu items collision with each other ([#259](https://github.com/thecyberworld/thecyberhub.org/issues/259)) ([ab8fb80](https://github.com/thecyberworld/thecyberhub.org/commit/ab8fb802663121705581f6d52a0b31bb4192a3ad))
+
+
+
 # [0.19.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.8...v0.19.0) (2022-10-23)
 
 
@@ -32,15 +41,6 @@
 
 * upgrade react-redux from 8.0.2 to 8.0.4 ([#255](https://github.com/thecyberworld/thecyberhub.org/issues/255)) ([8d212d0](https://github.com/thecyberworld/thecyberhub.org/commit/8d212d0b1b244be324a47f234ff356290eadfbbd))
 * upgrade react-router-dom from 6.3.0 to 6.4.1 ([#253](https://github.com/thecyberworld/thecyberhub.org/issues/253)) ([0b7bc3a](https://github.com/thecyberworld/thecyberhub.org/commit/0b7bc3af827d01946f2da548806bd0bc58d1d27f))
-
-
-
-## [0.18.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.4...v0.18.5) (2022-10-22)
-
-
-### Bug Fixes
-
-* upgrade multiple dependencies with Snyk ([#252](https://github.com/thecyberworld/thecyberhub.org/issues/252)) ([8ac2397](https://github.com/thecyberworld/thecyberhub.org/commit/8ac2397fd313ab3b2f2be9e6e2bc0c2d32fe9445))
 
 
 
