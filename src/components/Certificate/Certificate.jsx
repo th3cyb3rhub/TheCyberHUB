@@ -3,13 +3,13 @@ import "./certificate.scss";
 import axios from "axios";
 import {CertificateContainer} from "./CertificateElements";
 
-export default function Certificate() {
+export default function Certificate(certId) {
   const [certificate, setCertificate] = useState();
   const baseUrl = "https://thecyberhub-next.vercel.app/api/";
 
   useEffect(() => {
     async function fetchCertificate() {
-      const res = await axios.get(baseUrl + "get-certificate?id=1666530238339");
+      const res = await axios.get(baseUrl + "get-certificate?id=" + certId.certId);
       const data = await res.data;
       setCertificate(data);
     }

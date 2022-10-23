@@ -1,23 +1,14 @@
-import React, { useState } from "react";
-import "./CTF.css";
-import EventImage from "../../../assets/images/Events/Capture.png";
+import styled from "styled-components";
 
-const EventsElements = (props) => {
-  const [viewFull, setViewFull] = useState(false);
-  return (
-    <>
-      <div className="ctf__containerHeader">
-        <div className="ctf__container__title">
-          <img className="eventImg" src={EventImage} alt="Event Image" width="100%" height="180px" />
-          <h2>{props.title}</h2>
-          <h6>
-            {props.date} • {props.venue}
-          </h6>
-        </div>
-        <div className="ctf__container__contentHeader">{props.content}</div>
-      </div>
-    </>
-  );
-};
+export const CTFContainer = styled.div`
+  margin-top: 100px;
+`
 
-export default EventsElements;
+export const InputBox = styled.input`
+  width: 10em;
+  background: transparent;
+  border: #2a2a2a 1px solid;
+  color: white;
+  margin: 5px;
+  padding: 5px 10px;
+`;

@@ -36,6 +36,7 @@ import OpenSourceProjects from "./components/OpenSourceProjects/OpenSourceProjec
 
 import Spinner from "./components/MixComponents/Spinner/Spinner";
 import Submit from "./components/Resources/Submit/Submit";
+import Certificate from "./components/Certificate/Certificate";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
