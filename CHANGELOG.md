@@ -1,3 +1,12 @@
+## [0.18.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.7...v0.18.8) (2022-10-23)
+
+
+### Bug Fixes
+
+* upgrade react-router from 6.3.0 to 6.4.1 ([#254](https://github.com/thecyberworld/thecyberhub.org/issues/254)) ([77edbc1](https://github.com/thecyberworld/thecyberhub.org/commit/77edbc12bbfe8443806df770f4c16650d0795d79))
+
+
+
 ## [0.18.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.6...v0.18.7) (2022-10-22)
 
 
@@ -32,15 +41,6 @@
 ### Bug Fixes
 
 * navbar overflow and menu items layout ([#250](https://github.com/thecyberworld/thecyberhub.org/issues/250)) ([6b43917](https://github.com/thecyberworld/thecyberhub.org/commit/6b439175f6e884a5395caf2ae6d7e6f9e09222c5))
-
-
-
-## [0.18.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.2...v0.18.3) (2022-10-21)
-
-
-### Bug Fixes
-
-* dropdown removed ([#249](https://github.com/thecyberworld/thecyberhub.org/issues/249)) ([a2ce633](https://github.com/thecyberworld/thecyberhub.org/commit/a2ce6337a6c380d29d3dbd28f43241e803b423a6))
 
 
 
