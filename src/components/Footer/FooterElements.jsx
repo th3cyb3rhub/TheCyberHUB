@@ -4,6 +4,7 @@ import { Link as ScrollLink } from "react-scroll";
 
 export const FooterContainer = styled.footer`
   background: #080a10;
+  margin-top:auto;
 `;
 
 export const FooterWrap = styled.div`
