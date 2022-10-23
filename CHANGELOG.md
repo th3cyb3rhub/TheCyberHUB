@@ -1,3 +1,12 @@
+## [0.19.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.1...v0.19.2) (2022-10-23)
+
+
+### Bug Fixes
+
+* footer sticks at bottom with flex & margin ([#257](https://github.com/thecyberworld/thecyberhub.org/issues/257)) ([c061a1e](https://github.com/thecyberworld/thecyberhub.org/commit/c061a1e2d567e0eafe5972a3debf425f1a8053df))
+
+
+
 ## [0.19.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.0...v0.19.1) (2022-10-23)
 
 
@@ -31,16 +40,6 @@
 ### Bug Fixes
 
 * upgrade @reduxjs/toolkit from 1.8.4 to 1.8.5 ([#256](https://github.com/thecyberworld/thecyberhub.org/issues/256)) ([03bf652](https://github.com/thecyberworld/thecyberhub.org/commit/03bf652fa0a313d83dc48441158b5aa92cd6a873))
-
-
-
-## [0.18.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.5...v0.18.6) (2022-10-22)
-
-
-### Bug Fixes
-
-* upgrade react-redux from 8.0.2 to 8.0.4 ([#255](https://github.com/thecyberworld/thecyberhub.org/issues/255)) ([8d212d0](https://github.com/thecyberworld/thecyberhub.org/commit/8d212d0b1b244be324a47f234ff356290eadfbbd))
-* upgrade react-router-dom from 6.3.0 to 6.4.1 ([#253](https://github.com/thecyberworld/thecyberhub.org/issues/253)) ([0b7bc3a](https://github.com/thecyberworld/thecyberhub.org/commit/0b7bc3af827d01946f2da548806bd0bc58d1d27f))
 
 
 
