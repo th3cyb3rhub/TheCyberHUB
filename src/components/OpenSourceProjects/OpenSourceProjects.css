@@ -6,14 +6,18 @@
   justify-content: left;
   text-align: left;
   height: 100%;
+  opacity: 1.8;
+
   width: 30rem;
   max-width: 400px;
   border-radius: 10px;
-  background-color: rgba(32, 194, 14, 0.04);
   margin: 20px 20px;
   padding: 15px 20px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid #181818;
   transition: 260ms all;
+  /*background: url(../../assets/images/projects-bg.png);*/
+  background-size: cover;
+  background-position: center;
 }
 
 .Osp__container:hover {
