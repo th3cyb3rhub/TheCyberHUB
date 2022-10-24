@@ -1,6 +1,6 @@
 import React from "react";
 import { InterviewQuestionSection, ListContent, List } from "./InterviewQuestionsElements";
-import { Heading } from "../../Resources/RoadmapResources/RoadmapResourcesElements";
+import { Heading } from "../../Learn/Roadmaps/RoadmapsElements";
 
 const InterviewQuestions = () => {
   return (

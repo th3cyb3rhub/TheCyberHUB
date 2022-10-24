@@ -8,9 +8,9 @@ import {
   ListContent,
   List,
   Link,
-} from "./RoadmapResourcesElements";
+} from "./RoadmapsElements";
 
-const RoadmapResources = () => {
+const Roadmaps = () => {
   return (
     <ResourcesListSection>
       <SectionHeading>👨‍💻Cyber Sec Roadmap👨‍💻</SectionHeading>
@@ -281,4 +281,4 @@ const RoadmapResources = () => {
   );
 };
 
-export default RoadmapResources;
+export default Roadmaps;

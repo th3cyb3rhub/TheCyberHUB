@@ -5,12 +5,15 @@ export { default as Hero } from "./Homepage/Hero/Hero";
 export { default as Info } from "./Homepage/Info/Info";
 export { default as Socials } from "./Homepage/Socials/Socials";
 
-// ResourcesHome //
-export { default as ResourcesHome } from "./Resources/ResourcesHome/ResourcesHome";
-export { default as RoadmapResources } from "./Resources/RoadmapResources/RoadmapResources";
+// Learn //
+export { default as Learn } from "./Learn/Learn";
+export { default as Roadmaps } from "./Learn/Roadmaps/Roadmaps";
 export { default as CoursesLayout } from './Learn/Courses/YoutubeCoursesLayout';
 export { default as Courses } from "./Learn/Courses/YoutubeCourses";
 export { default as CourseDetail } from './Learn/Courses/YoutubeCourseDetail';
+
+// Resources //
+export { default as Resources } from "./Resources/Resources";
 export { default as WriteUps } from "./Resources/WriteUps/WriteUps";
 export { default as Blogs } from "./Resources/Blogs/Blogs";
 export { default as CyberNews } from "./Resources/CyberNews/CyberNews";
