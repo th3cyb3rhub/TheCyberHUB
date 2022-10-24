@@ -1,3 +1,12 @@
+# [0.20.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.2...v0.20.0) (2022-10-24)
+
+
+### Features
+
+* navbar jobs section ([#265](https://github.com/thecyberworld/thecyberhub.org/issues/265)) ([898e1c2](https://github.com/thecyberworld/thecyberhub.org/commit/898e1c2a646c8ed1a5e07a54c1e96febb47ba2cb))
+
+
+
 ## [0.19.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.1...v0.19.2) (2022-10-23)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * upgrade react-router from 6.3.0 to 6.4.1 ([#254](https://github.com/thecyberworld/thecyberhub.org/issues/254)) ([77edbc1](https://github.com/thecyberworld/thecyberhub.org/commit/77edbc12bbfe8443806df770f4c16650d0795d79))
-
-
-
-## [0.18.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.6...v0.18.7) (2022-10-22)
-
-
-### Bug Fixes
-
-* upgrade @reduxjs/toolkit from 1.8.4 to 1.8.5 ([#256](https://github.com/thecyberworld/thecyberhub.org/issues/256)) ([03bf652](https://github.com/thecyberworld/thecyberhub.org/commit/03bf652fa0a313d83dc48441158b5aa92cd6a873))
 
 
 
