@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes, Link } from "react-router-dom";
-import { Section } from "../WriteUps/WriteUpsElements";
-import BlogsElements from "./BlogsElements";
+import { Section } from "../../Resources/WriteUps/WriteUpsElements";
+import BlogCard from "./BlogCard";
 import "./Blog.css";
 import blogs from "./BlogsData";
 import { encodeURL } from "./util";
@@ -19,7 +19,7 @@ const Blogs = () => {
               pathname: `${encodeURL(blog.title)}`,
             }}
           >
-            <BlogsElements
+            <BlogCard
               title={blog.title}
               author={blog.author}
               date={blog.date}

@@ -35,12 +35,19 @@ export const HeroBg = styled.div`
   overflow: hidden;
 `;
 
+export const ImageBg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #010606;
+`;
+
 export const VideoBg = styled.video`
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
-  background: #232a34;
+  background: #010606;
 `;
 
 export const HeroContent = styled.div`

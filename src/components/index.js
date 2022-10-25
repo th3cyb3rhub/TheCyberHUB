@@ -15,9 +15,8 @@ export { default as CourseDetail } from './Learn/Courses/YoutubeCourseDetail';
 // Resources //
 export { default as Resources } from "./Resources/Resources";
 export { default as WriteUps } from "./Resources/WriteUps/WriteUps";
-export { default as Blogs } from "./Resources/Blogs/Blogs";
 export { default as CyberNews } from "./Resources/CyberNews/CyberNews";
-export { default as Events } from "./Events/Events";
+export { default as Events } from "./Resources/Events/Events";
 
 // //
 export { default as CyberGames } from "./CyberGames/CyberGames";
@@ -27,11 +26,9 @@ export { default as Community } from "./Community/Community";
 export { default as About } from "./About/About";
 
 // Prep //
-export { default as PrepHome } from "./Prep/Prep/PrepHome";
-export { default as InterviewQuestions } from "./Prep/InterviewQuestions/InterviewQuestions";
-export { default as InterviewExperiences } from "./Prep/InterviewExperiences/InterviewExperiences";
-export { default as Quiz } from "./Prep/Quiz/Quiz";
-export { default as Jobs } from "./Prep/Jobs/Jobs";
+export { default as InterviewQuestions } from "./Resources/InterviewQuestions/InterviewQuestions";
+export { default as Quiz } from "./Resources/Quiz/Quiz";
+export { default as Jobs } from "./Resources/Jobs/Jobs";
 
 export { default as Contribute } from "./MixComponents/Contribute/Contribute";
 export { default as Footer } from "./Footer/Footer";

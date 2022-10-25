@@ -1,5 +1,5 @@
 import React from "react";
-import { Section } from "../Resources/WriteUps/WriteUpsElements";
+import { Section } from "../WriteUps/WriteUpsElements";
 import EventsData from "./EventsData/EventsData";
 import PastEvents from "./PastEvents/PastEvents";
 import OnGoingEvents from "./OnGoingEvents/OnGoingEvents";

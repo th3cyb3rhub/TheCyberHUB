@@ -9,7 +9,7 @@ import Registration from "./pages/Registration";
 
 import {
     Navbar, Sidebar,
-    Learn, Courses, Blogs, CourseDetail, CoursesLayout,
+    Learn, Courses, CourseDetail, CoursesLayout,
     Roadmaps, CyberNews,
     Resources, Jobs, Quiz, InterviewQuestions,
     Events, Community, About,
@@ -19,7 +19,10 @@ import {
 
 import OpenSourceProjects from "./components/OpenSourceProjects/OpenSourceProjects";
 import Spinner from "./components/MixComponents/Spinner/Spinner";
-import Layout from "./components/Layout";
+import Layout from "./components/MixComponents/Layout";
+import AllBlogs from "./components/Learn/Blogs/Blogs";
+import ViewBlog from "./components/Learn/Blogs/ViewBlog";
+import Roadmap from "./components/Learn/Roadmaps/Roadmap";
 
 const App = () => {
     const [loading, setLoading] = useState(false);
@@ -29,7 +32,7 @@ const App = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-        }, 5000);
+        }, 3000);
     }, []);
 
     const showFooter = () => {
@@ -65,17 +68,28 @@ const App = () => {
 
 
                             <Route exact path={"/learn/*"}>
-                                <Route index path="learn" element={<Learn/>}/>
-                                <Route path="roadmaps" element={<Roadmaps/>}/>
-                                <Route path="courses" element={<CoursesLayout/>}>
-                                    <Route index element={<Courses/>}/>
-                                    <Route path=":id" element={<CourseDetail/>}/>
+                                <Route index path={"learn"} element={<Learn/>}/>
+                                {/*<Route path={"roadmaps"} element={<Roadmaps/>}/>*/}
+
+
+                                <Route path={"roadmaps"}>
+                                    <Route index element={<Roadmaps/>}/>
+                                    <Route path={":title"} element={<Roadmap/>}/>
                                 </Route>
-                                <Route path="blogs" element={<Blogs/>}/>
+
+                                <Route path={"courses"} element={<CoursesLayout/>}>
+                                    <Route index element={<Courses/>}/>
+                                    <Route path={":id"} element={<CourseDetail/>}/>
+                                </Route>
+
+                                <Route path={"blogs"} >
+                                    <Route index element={<AllBlogs/>}/>
+                                    <Route exact path={":title"} element={<ViewBlog/>}/>
+                                </Route>
                             </Route>
 
                             <Route exact path={"/resources/*"}>
-                                <Route index path="roadmaps" element={<Roadmaps/>}/>
+                                <Route index path={"roadmaps"} element={<Roadmaps/>}/>
                                 <Route path={"events"} element={<Events/>}/>
                                 <Route path={"jobs"} element={<Jobs/>}/>
                                 <Route path={"quiz"} element={<Quiz/>}/>

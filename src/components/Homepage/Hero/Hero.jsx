@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import {
   HeroContainer,
@@ -9,11 +9,13 @@ import {
   HeroP,
   HeroBtnWrapper,
   ArrowForward,
-  ArrowRight,
+  ArrowRight, ImageBg,
 } from "./HeroElements";
 import { Button } from "../../MixComponents/Buttons/ButtonElements";
 import Spinner from "../../MixComponents/Spinner/Spinner";
 import Video from '../../../assets/video/thecyberhubBackgroundVideo.mp4';
+import Image from '../../../assets/video/thecyberhubBackgroundImage.png';
+import {useLocation} from "react-router-dom";
 
 const Hero = () => {
   const [hover, setHover] = useState(false);
@@ -21,10 +23,15 @@ const Hero = () => {
   const onHover = () => {
     setHover(!hover);
   };
+  // const [loading, setLoading] = useState(false);
+  // useEffect(() => {setLoading(true);setTimeout(() => {setLoading(false);}, 2000);}, []);
 
   return (
     <HeroContainer id={"home"}>
       <HeroBg>
+        {/*{loading  &&*/}
+        {/*    <ImageBg src={Image}/>*/}
+        {/*}*/}
         <VideoBg
           autoPlay
           loop

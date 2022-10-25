@@ -2,7 +2,7 @@ import React from "react";
 import "./Blog.css";
 import image from "./img.webp";
 
-const BlogsElements = (props) => {
+const BlogCard = (props) => {
   return (
     <>
       <div className="blogs__container">
@@ -32,4 +32,4 @@ const BlogsElements = (props) => {
   );
 };
 
-export default BlogsElements;
+export default BlogCard;
