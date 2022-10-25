@@ -16,7 +16,6 @@ import { FaEllipsisV } from "react-icons/fa";
 
 export default function Job(props) {
   return (
-    <>
       <JobContainer>
         <JobHero>
           <JobHeader>
@@ -66,6 +65,5 @@ export default function Job(props) {
           </span>
         </JobTimeline>
       </JobContainer>
-    </>
   );
 }

@@ -40,7 +40,9 @@ export const JobSection = styled.section`
 
 export const JobContainer = styled.div`
 background-color: rgba(32, 194, 14, 0.04);
-width: 400px;
+//width: 20em;
+width: 27em;
+
 
 min-height: 500px;
 margin : 10px;
