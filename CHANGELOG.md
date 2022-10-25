@@ -1,3 +1,12 @@
+# [0.21.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.20.0...v0.21.0) (2022-10-25)
+
+
+### Features
+
+* roadmaps page and details sections ([#266](https://github.com/thecyberworld/thecyberhub.org/issues/266)) ([be59bc2](https://github.com/thecyberworld/thecyberhub.org/commit/be59bc2ebb4035e6e45b85b4dd0b11582337996e))
+
+
+
 # [0.20.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.2...v0.20.0) (2022-10-24)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * input func to get certificate ([#264](https://github.com/thecyberworld/thecyberhub.org/issues/264)) ([dfeb0a9](https://github.com/thecyberworld/thecyberhub.org/commit/dfeb0a9cf824e85be87eeb6c47839e23c4e171d2))
-
-
-
-## [0.18.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.7...v0.18.8) (2022-10-23)
-
-
-### Bug Fixes
-
-* upgrade react-router from 6.3.0 to 6.4.1 ([#254](https://github.com/thecyberworld/thecyberhub.org/issues/254)) ([77edbc1](https://github.com/thecyberworld/thecyberhub.org/commit/77edbc12bbfe8443806df770f4c16650d0795d79))
 
 
 
