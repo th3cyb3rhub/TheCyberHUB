@@ -3,23 +3,7 @@ import moment from "moment";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetCyberNewsQuery, useLazyGetCyberNewsQuery, cyberNewsApi } from "../../../services/cyberNewsApi";
 import {
-  CyberNewsSection,
-  SectionHeading,
-  Link,
-  AuthorImage,
-  AuthorSection,
-  AuthorUsername,
-  Content,
-  ContentBody,
-  ContentFooter,
-  Date,
-  Heading,
-  HR,
-  Image,
-  ImageSection,
-  MarginTop,
-  Paragraph,
-  CyberNewsBody,
+  CyberNewsSection, SectionHeading, Link, AuthorImage, AuthorSection, AuthorUsername, Content, ContentBody, ContentFooter, Date, Heading, HR, Image, ImageSection, MarginTop, Paragraph, CyberNewsBody,
 } from "./CyberNewsElements";
 import Loader from "./Loader";
 import { useDispatch } from "react-redux";
@@ -30,7 +14,7 @@ const CyberNews = ({ simplified }) => {
   const [skip, setSkip] = useState(2);
   const [hasMore, setHasMore] = useState(true);
   const currNewsCount = simplified ? 6 : 12;
-  const [newsCategory, setNewsCategory] = useState("cybersecurity");
+  const [newsCategory, setNewsCategory] = useState(`cybersecurity`);
   const initialNewsQueryParams = {
     newsCategory,
     count: currNewsCount,
@@ -67,7 +51,7 @@ const CyberNews = ({ simplified }) => {
 
   return (
     <CyberNewsSection>
-      <SectionHeading style={{ textAlign: "center", margin: "-80px 0 50px 0" }}>Latest CyberNews</SectionHeading>
+      <SectionHeading style={{ textAlign: "center", margin: "-80px 0 50px 0" }}> Latest Security NEWS </SectionHeading>
       <InfiniteScroll
         dataLength={cyberNews.value.length}
         hasMore={hasMore}

@@ -4,9 +4,10 @@ export const CyberNewsSection = styled.div`
   margin: 200px auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   color: #cecac3;
-  width: 40rem;
+  width: 100%;
 
   @media screen and (max-width: 1080px) {
   }
@@ -22,7 +23,11 @@ export const CyberNewsSection = styled.div`
 export const SectionHeading = styled.h1`
   color: #a2a2a2;
 `;
-export const CyberNewsBody = styled.div``;
+
+export const CyberNewsBody = styled.div`
+  width: 40rem;
+  margin: 0 0 50px 0;
+`;
 
 export const AuthorSection = styled.div`
   display: flex;
@@ -111,6 +116,7 @@ export const MarginBottom = styled.div`
 export const HR = styled.hr`
   color: #2a2a2a;
 `;
+
 export const Link = styled.a`
   text-decoration: none;
   color: #e8e6e3;
