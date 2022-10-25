@@ -1,3 +1,12 @@
+# [0.22.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.21.0...v0.22.0) (2022-10-25)
+
+
+### Features
+
+* interview questions page and new layout ([#267](https://github.com/thecyberworld/thecyberhub.org/issues/267)) ([6b7a469](https://github.com/thecyberworld/thecyberhub.org/commit/6b7a46923f41cc4da71d42f9476e2b4384dd53a9))
+
+
+
 # [0.21.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.20.0...v0.21.0) (2022-10-25)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * navbar menu items collision with each other ([#259](https://github.com/thecyberworld/thecyberhub.org/issues/259)) ([ab8fb80](https://github.com/thecyberworld/thecyberhub.org/commit/ab8fb802663121705581f6d52a0b31bb4192a3ad))
-
-
-
-# [0.19.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.18.8...v0.19.0) (2022-10-23)
-
-
-### Features
-
-* input func to get certificate ([#264](https://github.com/thecyberworld/thecyberhub.org/issues/264)) ([dfeb0a9](https://github.com/thecyberworld/thecyberhub.org/commit/dfeb0a9cf824e85be87eeb6c47839e23c4e171d2))
 
 
 
