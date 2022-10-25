@@ -1,3 +1,12 @@
+# [0.24.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.23.0...v0.24.0) (2022-10-25)
+
+
+### Features
+
+* linters prettier husky pre-commits ([6444f20](https://github.com/thecyberworld/thecyberhub.org/commit/6444f20adf3bec2b31062d3ab031d0898cfe59ae))
+
+
+
 # [0.23.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.22.0...v0.23.0) (2022-10-25)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * navbar jobs section ([#265](https://github.com/thecyberworld/thecyberhub.org/issues/265)) ([898e1c2](https://github.com/thecyberworld/thecyberhub.org/commit/898e1c2a646c8ed1a5e07a54c1e96febb47ba2cb))
-
-
-
-## [0.19.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.1...v0.19.2) (2022-10-23)
-
-
-### Bug Fixes
-
-* footer sticks at bottom with flex & margin ([#257](https://github.com/thecyberworld/thecyberhub.org/issues/257)) ([c061a1e](https://github.com/thecyberworld/thecyberhub.org/commit/c061a1e2d567e0eafe5972a3debf425f1a8053df))
 
 
 
