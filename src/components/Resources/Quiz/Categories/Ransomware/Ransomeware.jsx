@@ -14,7 +14,7 @@ export default function Ransomware({
   currentQuestion,
   showScore,
   score,
-  scoreList,
+  // scoreList,
   handleAnswerButtonClick,
   handleResetButton,
 }) {

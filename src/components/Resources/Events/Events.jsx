@@ -16,6 +16,7 @@ import {
 function padTo2Digits(num) {
   return num.toString().padStart(2, "0");
 }
+
 function formatDate(date) {
   return [padTo2Digits(date.getMonth() + 1), date.getFullYear(), padTo2Digits(date.getDate())].join("/");
 }
@@ -29,7 +30,7 @@ const Events = () => {
         <MainEventsContainer>
           {EventsData.some((event) => formatDate(todayDate) === formatDate(new Date(event.validationDate))) && (
             <>
-              <EventsHeading>Today's Events</EventsHeading>
+              <EventsHeading>Today Events</EventsHeading>
               <OnGoingEventsContainer>
                 {EventsData.map(
                   (event) =>

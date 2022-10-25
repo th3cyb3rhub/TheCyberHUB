@@ -14,7 +14,7 @@ export default function TSSQ({
   currentQuestion,
   showScore,
   score,
-  scoreList,
+  // scoreList,
   handleAnswerButtonClick,
   handleResetButton,
 }) {

@@ -14,7 +14,7 @@ export default function CBQ({
   currentQuestion,
   showScore,
   score,
-  scoreList,
+  // scoreList,
   handleAnswerButtonClick,
   handleResetButton,
 }) {

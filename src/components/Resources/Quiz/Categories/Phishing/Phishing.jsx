@@ -14,7 +14,7 @@ export default function Phishing({
   currentQuestion,
   showScore,
   score,
-  scoreList,
+  // scoreList,
   handleAnswerButtonClick,
   handleResetButton,
 }) {

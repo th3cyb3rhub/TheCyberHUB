@@ -14,7 +14,7 @@ export default function PSQ({
   currentQuestion,
   showScore,
   score,
-  scoreList,
+  // scoreList,
   handleAnswerButtonClick,
   handleResetButton,
 }) {
