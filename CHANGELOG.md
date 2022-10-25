@@ -1,3 +1,12 @@
+# [0.23.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.22.0...v0.23.0) (2022-10-25)
+
+
+### Features
+
+* news sections page and improve user visibility ([#269](https://github.com/thecyberworld/thecyberhub.org/issues/269)) ([e6e3e3d](https://github.com/thecyberworld/thecyberhub.org/commit/e6e3e3d4584adff068a51b4075661a0c378fc89a))
+
+
+
 # [0.22.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.21.0...v0.22.0) (2022-10-25)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * footer sticks at bottom with flex & margin ([#257](https://github.com/thecyberworld/thecyberhub.org/issues/257)) ([c061a1e](https://github.com/thecyberworld/thecyberhub.org/commit/c061a1e2d567e0eafe5972a3debf425f1a8053df))
-
-
-
-## [0.19.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.0...v0.19.1) (2022-10-23)
-
-
-### Bug Fixes
-
-* navbar menu items collision with each other ([#259](https://github.com/thecyberworld/thecyberhub.org/issues/259)) ([ab8fb80](https://github.com/thecyberworld/thecyberhub.org/commit/ab8fb802663121705581f6d52a0b31bb4192a3ad))
 
 
 
