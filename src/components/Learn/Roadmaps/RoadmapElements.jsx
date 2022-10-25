@@ -78,7 +78,6 @@ export const RoadmapsFooter = styled.div`
 
 export const Roadmaps = styled.div`
   width: 65em;
-
   color: white;
   background: #0a0a0a;
   padding: 0 50px;
