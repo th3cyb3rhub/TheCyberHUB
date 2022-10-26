@@ -1,4 +1,5 @@
 import { VSQQuestions } from "./VSQData";
+import RenderProgressIndicator from "../../../../../utils/components/RenderProgressIndicator";
 
 export default function VSQ({
   AnswerSection,
@@ -31,7 +32,8 @@ export default function VSQ({
         <QuizBody>
           <QuestionSection>
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/{VSQQuestions.length}
+            <RenderProgressIndicator questionsArray={VSQQuestions} currentQuestion={currentQuestion} />
+              <span>Question {currentQuestion + 1}</span>
             </QuestionCount>
             <QuestionText>{VSQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>

@@ -1,4 +1,5 @@
 import { PSQQuestions } from "./PSQData";
+import RenderProgressIndicator from "../../../../../utils/components/RenderProgressIndicator";
 
 export default function PSQ({
   AnswerSection,
@@ -31,7 +32,8 @@ export default function PSQ({
         <QuizBody>
           <QuestionSection>
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/{PSQQuestions.length}
+            <RenderProgressIndicator questionsArray={PSQQuestions} currentQuestion={currentQuestion} />
+              <span>Question {currentQuestion + 1}</span>
             </QuestionCount>
             <QuestionText>{PSQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>

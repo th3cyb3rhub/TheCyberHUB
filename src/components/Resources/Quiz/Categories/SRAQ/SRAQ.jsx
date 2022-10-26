@@ -1,4 +1,5 @@
 import { SRAQQuestions } from "./SRAQData";
+import RenderProgressIndicator from "../../../../../utils/components/RenderProgressIndicator";
 
 export default function SRAQ({
   AnswerSection,
@@ -31,7 +32,8 @@ export default function SRAQ({
         <QuizBody>
           <QuestionSection>
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/{SRAQQuestions.length}
+            <RenderProgressIndicator questionsArray={SRAQQuestions} currentQuestion={currentQuestion} />
+              <span>Question {currentQuestion + 1}</span>
             </QuestionCount>
             <QuestionText>{SRAQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>

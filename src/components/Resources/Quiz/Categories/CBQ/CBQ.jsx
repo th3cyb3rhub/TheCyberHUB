@@ -1,3 +1,4 @@
+import RenderProgressIndicator from "../../../../../utils/components/RenderProgressIndicator";
 import { CBQQuestions } from "./CBQData";
 
 export default function CBQ({
@@ -30,8 +31,9 @@ export default function CBQ({
       ) : (
         <QuizBody>
           <QuestionSection>
+           <RenderProgressIndicator questionsArray={CBQQuestions} currentQuestion={currentQuestion} />
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/{CBQQuestions.length}
+              <span>Question {currentQuestion + 1}</span>
             </QuestionCount>
             <QuestionText>{CBQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>

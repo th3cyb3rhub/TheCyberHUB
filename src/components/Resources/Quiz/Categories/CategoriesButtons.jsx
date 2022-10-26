@@ -13,8 +13,9 @@ export default function CategoriesButtons({
 }) {
   const buttonsArray = CategoriesButtonData.map((data, i) => {
     const styles = {
-      background: data.type === categoryToShow ? "transparent" : "",
-      color: data.type === categoryToShow ? "#20c20e" : "",
+      background: data.type === categoryToShow ? "white" : "",
+      color: data.type === categoryToShow ? "black" : "",
+      borderBottom: data.type === categoryToShow ? "3px solid #22D400" : "",
     };
 
     return (

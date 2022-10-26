@@ -1,4 +1,5 @@
 import { PhishingQuestions } from "./PhishingData";
+import RenderProgressIndicator from "../../../../../utils/components/RenderProgressIndicator";
 
 export default function Phishing({
   AnswerSection,
@@ -31,7 +32,8 @@ export default function Phishing({
         <QuizBody>
           <QuestionSection>
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/{PhishingQuestions.length}
+            <RenderProgressIndicator questionsArray={PhishingQuestions} currentQuestion={currentQuestion} />
+              <span>Question {currentQuestion + 1}</span>
             </QuestionCount>
             <QuestionText>{PhishingQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>

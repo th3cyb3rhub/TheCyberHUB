@@ -1,4 +1,5 @@
 import { TSSQQuestions } from "./TSSQData";
+import RenderProgressIndicator from "../../../../../utils/components/RenderProgressIndicator";
 
 export default function TSSQ({
   AnswerSection,
@@ -31,7 +32,8 @@ export default function TSSQ({
         <QuizBody>
           <QuestionSection>
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/{TSSQQuestions.length}
+            <RenderProgressIndicator questionsArray={TSSQQuestions} currentQuestion={currentQuestion} />
+              <span>Question {currentQuestion + 1}</span>
             </QuestionCount>
             <QuestionText>{TSSQQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>

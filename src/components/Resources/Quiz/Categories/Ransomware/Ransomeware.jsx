@@ -1,4 +1,5 @@
 import { RansomwareQuestions } from "./RansomewareData";
+import RenderProgressIndicator from "../../../../../utils/components/RenderProgressIndicator";
 
 export default function Ransomware({
   AnswerSection,
@@ -31,7 +32,8 @@ export default function Ransomware({
         <QuizBody>
           <QuestionSection>
             <QuestionCount>
-              <span>Question {currentQuestion + 1}</span>/{RansomwareQuestions.length}
+            <RenderProgressIndicator questionsArray={RansomwareQuestions} currentQuestion={currentQuestion} />
+              <span>Question {currentQuestion + 1}</span>
             </QuestionCount>
             <QuestionText>{RansomwareQuestions[currentQuestion].questionText}</QuestionText>
           </QuestionSection>
