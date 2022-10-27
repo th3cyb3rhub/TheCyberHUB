@@ -1,17 +1,29 @@
 import React from "react";
-import { Route, Routes, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { Section } from "../../Resources/WriteUps/WriteUpsElements";
 import BlogCard from "./BlogCard";
-import "./Blog.css";
 import blogs from "./BlogsData";
 import { encodeURL } from "./util";
-// probably received by an api call
+
+const AllBlogsComponent = styled.div`
+  margin: 30px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    color: #cecac3;
+  }
+`;
 
 const Blogs = () => {
   return (
     <Section>
       <h1> Blogs </h1>
-      <div className="AllBlogs">
+      <AllBlogsComponent>
         {blogs.map((blog) => (
           <Link
             className={"styles"}
@@ -29,7 +41,7 @@ const Blogs = () => {
             />
           </Link>
         ))}
-      </div>
+      </AllBlogsComponent>
     </Section>
   );
 };
