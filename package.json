@@ -2,7 +2,7 @@
   "homepage": "https://thecyberhub.org/",
   "name": "thecyberhub.org",
   "private": true,
-  "version": "0.24.0",
+  "version": "0.25.0",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
@@ -61,7 +61,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": ["eslint --cache --fix", "git add"],
+    "*.{js,jsx}": [
+      "eslint --cache --fix",
+      "git add"
+    ],
     "*.{js,jsx,css,md}": "prettier --write"
   }
 }

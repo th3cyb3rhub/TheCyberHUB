@@ -1,3 +1,12 @@
+# [0.25.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.24.0...v0.25.0) (2022-10-27)
+
+
+### Features
+
+* code format husky linters etx and fix: Events card width ([#275](https://github.com/thecyberworld/thecyberhub.org/issues/275)) ([97b2f71](https://github.com/thecyberworld/thecyberhub.org/commit/97b2f713ea99943a8c9579d0d8142966fa136f4d))
+
+
+
 # [0.24.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.23.0...v0.24.0) (2022-10-25)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * roadmaps page and details sections ([#266](https://github.com/thecyberworld/thecyberhub.org/issues/266)) ([be59bc2](https://github.com/thecyberworld/thecyberhub.org/commit/be59bc2ebb4035e6e45b85b4dd0b11582337996e))
-
-
-
-# [0.20.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.19.2...v0.20.0) (2022-10-24)
-
-
-### Features
-
-* navbar jobs section ([#265](https://github.com/thecyberworld/thecyberhub.org/issues/265)) ([898e1c2](https://github.com/thecyberworld/thecyberhub.org/commit/898e1c2a646c8ed1a5e07a54c1e96febb47ba2cb))
 
 
 
