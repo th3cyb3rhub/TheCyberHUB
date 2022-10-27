@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const Link = styled.a`
-  text-decoration: none;
-  color: #e8e6e3;
+    text-decoration: none;
+    color: #e8e6e3;
 `;
 export const VideoHeading = styled.h3`
-  text-decoration: none;
-  color: #e8e6e3;
+    text-decoration: none;
+    color: #e8e6e3;
 `;
 export const ChannelHeading = styled.h5`
-  text-decoration: none;
-  color: #e8e6e3;
+    text-decoration: none;
+    color: #e8e6e3;
 `;
 //
 // .ChannelHeading{
@@ -49,33 +49,33 @@ export const ChannelHeading = styled.h5`
 // }
 //
 export const Img = styled.img`
-  max-width: 100%;
-  display: block;
-  object-fit: cover;
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
 `;
 export const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: clamp(20rem, calc(20rem + 2vw), 22rem);
-  overflow: hidden;
-  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 1em;
-  background: #1a1c1d;
-  margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    width: clamp(20rem, calc(20rem + 2vw), 22rem);
+    overflow: hidden;
+    box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+    background: #1a1c1d;
+    margin-bottom: 30px;
 `;
 
 export const CardBody = styled.div`
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 `;
 
 export const Tag = styled.div`
-  align-self: flex-start;
-  padding: 0.25em 0.75em;
-  border-radius: 1em;
-  font-size: 0.75rem;
+    align-self: flex-start;
+    padding: 0.25em 0.75em;
+    border-radius: 1em;
+    font-size: 0.75rem;
 `;
 // .tag + .tag {
 //     margin-left: .5em;
@@ -105,20 +105,20 @@ export const Tag = styled.div`
 // }
 //
 export const CardFooter = styled.div`
-  display: flex;
-  padding: 1rem;
-  margin-top: auto;
+    display: flex;
+    padding: 1rem;
+    margin-top: auto;
 `;
 
 export const User = styled.div`
-  display: flex;
-  gap: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
 `;
-export const Channel_Img = styled.img`
-  border-radius: 50%;
-  width: 2.5rem;
+export const ChannelImg = styled.img`
+    border-radius: 50%;
+    width: 2.5rem;
 `;
 
 export const UserInfo = styled.div`
-  color: #666;
+    color: #666;
 `;

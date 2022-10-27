@@ -3,123 +3,123 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 .videoHeading {
-  text-decoration: none;
-  color: #e8e6e3;
+    text-decoration: none;
+    color: #e8e6e3;
 }
 
 .ChannelHeading {
-  text-decoration: none;
-  color: #e8e6e3;
+    text-decoration: none;
+    color: #e8e6e3;
 }
 
 .paddingTop {
-  padding: 150px 0 60px 0;
-  background: #010606;
+    padding: 150px 0 60px 0;
+    background: #010606;
 }
 
 .h1_Courses {
-  font-size: 2.5rem;
-  color: #fff;
-  margin-bottom: 10px;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 10px;
 }
 .card__section {
-  font-family: "Quicksand", sans-serif;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #010606;
+    font-family: "Quicksand", sans-serif;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #010606;
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1200px;
-  margin-block: 2rem;
-  gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin-block: 2rem;
+    gap: 2rem;
 }
 
 img {
-  max-width: 100%;
-  display: block;
-  object-fit: cover;
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  width: clamp(20rem, calc(20rem + 2vw), 22rem);
-  overflow: hidden;
-  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 1em;
-  background: #1a1c1d;
+    display: flex;
+    flex-direction: column;
+    width: clamp(20rem, calc(20rem + 2vw), 22rem);
+    overflow: hidden;
+    box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+    background: #1a1c1d;
 }
 
 .card__body {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .tag {
-  align-self: flex-start;
-  padding: 0.25em 0.75em;
-  border-radius: 1em;
-  font-size: 0.75rem;
+    align-self: flex-start;
+    padding: 0.25em 0.75em;
+    border-radius: 1em;
+    font-size: 0.75rem;
 }
 
 .tag + .tag {
-  margin-left: 0.5em;
+    margin-left: 0.5em;
 }
 
 .tag-blue {
-  background: #56ccf2;
-  background: linear-gradient(to bottom, #2f80ed, #56ccf2);
-  color: #fafafa;
+    background: #56ccf2;
+    background: linear-gradient(to bottom, #2f80ed, #56ccf2);
+    color: #fafafa;
 }
 
 .tag-brown {
-  background: #d1913c;
-  background: linear-gradient(to right, #0e0e0e, #2a2a2a);
-  color: #fafafa;
+    background: #d1913c;
+    background: linear-gradient(to right, #0e0e0e, #2a2a2a);
+    color: #fafafa;
 }
 
 .tag-red {
-  background: #cb2d3e;
-  background: linear-gradient(to bottom, #ef473a, #cb2d3e);
-  color: #fafafa;
+    background: #cb2d3e;
+    background: linear-gradient(to bottom, #ef473a, #cb2d3e);
+    color: #fafafa;
 }
 
 .card__body h4 {
-  font-size: 1.5rem;
-  text-transform: capitalize;
+    font-size: 1.5rem;
+    text-transform: capitalize;
 }
 
 .card__footer {
-  display: flex;
-  padding: 1rem;
-  margin-top: auto;
+    display: flex;
+    padding: 1rem;
+    margin-top: auto;
 }
 
 .user {
-  display: flex;
-  gap: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .user__image {
-  border-radius: 50%;
-  width: 2.5rem;
+    border-radius: 50%;
+    width: 2.5rem;
 }
 
 .user__info > small {
-  color: #666;
+    color: #666;
 }

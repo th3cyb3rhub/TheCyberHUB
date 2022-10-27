@@ -2,28 +2,23 @@ import React from "react";
 import {
     InterviewQuestionSection,
     InterviewsQuestionsHeading,
-    InterviewsQuestionsCard, InterviewsQuestionsTitle
+    InterviewsQuestionsCard,
+    InterviewsQuestionsTitle,
 } from "./InterviewQuestionsElements";
 import InterviewsQuestionsData from "./InterviewQuestionsData";
 
 const InterviewQuestions = () => {
     return (
         <InterviewQuestionSection>
-            {InterviewsQuestionsData.map((Question) => {
+            {InterviewsQuestionsData.map((Question, id) => {
                 return (
-                    <InterviewsQuestionsCard>
+                    <InterviewsQuestionsCard key={id}>
                         <InterviewsQuestionsHeading> {Question.title} </InterviewsQuestionsHeading>
-                        {Question.details.map(
-                            (resources) => {
-                                return (
-                                    <InterviewsQuestionsTitle>
-                                        {resources.questions}
-                                    </InterviewsQuestionsTitle>
-                                )
-                            }
-                        )}
+                        {Question.details.map((resources, id) => {
+                            return <InterviewsQuestionsTitle key={id}>{resources.questions}</InterviewsQuestionsTitle>;
+                        })}
                     </InterviewsQuestionsCard>
-                )
+                );
             })}
         </InterviewQuestionSection>
     );

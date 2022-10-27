@@ -5,14 +5,14 @@ import ViewOsp from "./ViewOsp";
 import "./OpenSourceProjects.css";
 
 const OpenSourceProjects = () => {
-  return (
-    <>
-      <Routes>
-        <Route exact path={""} element={<AllOsp />} />
-        <Route exact path={":title"} element={<ViewOsp />} />
-      </Routes>
-    </>
-  );
+    return (
+        <>
+            <Routes>
+                <Route exact path={""} element={<AllOsp />} />
+                <Route exact path={":title"} element={<ViewOsp />} />
+            </Routes>
+        </>
+    );
 };
 
 export default OpenSourceProjects;

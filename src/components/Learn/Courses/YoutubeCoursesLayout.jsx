@@ -5,14 +5,14 @@ import YoutubeCoursesSidebar from "./YoutubeCoursesSidebar";
 import { Container, MainContent } from "./YouTubeVideosElements";
 
 const FreeYoutubeCoursesLayout = () => {
-  return (
-    <Container>
-      <MainContent>
-        <Outlet />
-      </MainContent>
-      <YoutubeCoursesSidebar />
-    </Container>
-  );
+    return (
+        <Container>
+            <MainContent>
+                <Outlet />
+            </MainContent>
+            <YoutubeCoursesSidebar />
+        </Container>
+    );
 };
 
 export default FreeYoutubeCoursesLayout;

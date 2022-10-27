@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { hydrate, render } from "react-dom";
+// import { hydrate, render } from "react-dom";
 
 import App from "./App";
 import "./index.css";
@@ -15,11 +14,11 @@ ReactDOM.createRoot(rootElement).render(
     <>
         <BrowserRouter>
             <Provider store={store}>
-                <App/>
+                <App />
             </Provider>
         </BrowserRouter>
-    </>
-)
+    </>,
+);
 
 // For SEO
 // if (rootElement.hasChildNodes()) {
@@ -45,4 +44,3 @@ ReactDOM.createRoot(rootElement).render(
 //     rootElement,
 //   );
 // }
-
