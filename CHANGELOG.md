@@ -1,3 +1,12 @@
+## [0.25.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.0...v0.25.1) (2022-10-28)
+
+
+### Bug Fixes
+
+* upgrade react-spinners from 0.13.4 to 0.13.5 ([#276](https://github.com/thecyberworld/thecyberhub.org/issues/276)) ([b8050cd](https://github.com/thecyberworld/thecyberhub.org/commit/b8050cd933f4fbd42d79b872cd98509e393d2ffc))
+
+
+
 # [0.25.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.24.0...v0.25.0) (2022-10-27)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * interview questions page and new layout ([#267](https://github.com/thecyberworld/thecyberhub.org/issues/267)) ([6b7a469](https://github.com/thecyberworld/thecyberhub.org/commit/6b7a46923f41cc4da71d42f9476e2b4384dd53a9))
-
-
-
-# [0.21.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.20.0...v0.21.0) (2022-10-25)
-
-
-### Features
-
-* roadmaps page and details sections ([#266](https://github.com/thecyberworld/thecyberhub.org/issues/266)) ([be59bc2](https://github.com/thecyberworld/thecyberhub.org/commit/be59bc2ebb4035e6e45b85b4dd0b11582337996e))
 
 
 
