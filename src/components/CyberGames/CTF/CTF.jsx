@@ -1,8 +1,13 @@
-import React from "react";
-import { Section } from "../../Resources/WriteUps/WriteUpsElements";
-import { CTFContainer, InputBox } from "./CTFElements";
+import React, { useState } from "react";
+import {
+    CertificateContainer,
+    CTFContainer,
+    GetCertificateContainer,
+    Heading,
+    InputBox,
+    InvalidCertificate,
+} from "./CTFElements";
 import "./CTF.css";
-import { useState } from "react";
 import Certificate from "../../Certificate/Certificate";
 
 const CTF = () => {
@@ -11,19 +16,27 @@ const CTF = () => {
     console.log(certId);
     return (
         <CTFContainer>
-            <Section>
-                <>
-                    Get Certificate:{" "}
-                    <InputBox
-                        type="text"
-                        placeholder={"certificate id"}
-                        name={"site"}
-                        value={certId}
-                        onChange={(e) => setCert(e.target.value)}
-                    />
-                </>
-                {certId > 0 ? <Certificate certId={certId} /> : " "}
-            </Section>
+            <GetCertificateContainer>
+                <Heading> Get Your Certificate</Heading>
+                <InputBox
+                    type="text"
+                    placeholder={"certificate id"}
+                    name={"site"}
+                    value={certId}
+                    onChange={(e) => setCert(e.target.value)}
+                />
+            </GetCertificateContainer>
+            <CertificateContainer>
+                {certId.length === 13 ? <Certificate certId={certId} /> : " "}
+
+                {(certId.length > 5 && certId.length !== 13) || certId.length > 13 ? (
+                    <InvalidCertificate>
+                        <h4>Invalid certificate id</h4>
+                    </InvalidCertificate>
+                ) : (
+                    " "
+                )}
+            </CertificateContainer>
         </CTFContainer>
     );
 };

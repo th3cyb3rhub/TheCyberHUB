@@ -5,11 +5,11 @@ export const CertificateContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px auto;
     color: #fff;
 `;
 
 export const CertificateComponent = styled.div`
+    margin: 50px;
     width: 60em;
     padding: 1rem 5rem;
     font-family: "Oswald", sans-serif;
@@ -60,7 +60,7 @@ export const CertificateComponent = styled.div`
 export const CertificateFooter = styled.div`
     min-width: 60em;
     max-width: 60em;
-    padding: 0px 50px;
+    padding: 0 50px;
     margin-top: 4rem;
     display: flex;
     flex-direction: row;
@@ -69,7 +69,7 @@ export const CertificateFooter = styled.div`
 
     .date-block {
         .date {
-            padding: 1rem 1rem 0.5rem 1rem;
+            padding: 0.7rem 1rem 0.5rem 1rem;
             border-bottom: 2px solid #ccc;
         }
 
@@ -80,12 +80,15 @@ export const CertificateFooter = styled.div`
     }
 
     .certificate-id {
-        justify-content: end;
+        text-align: center;
+        margin-left: 40px;
+        margin-top: 40px;
     }
 
     .signature-block {
         .signature {
-            padding: 1rem 1rem 0.5rem 1rem;
+            font-family: "Condiment", sans-serif;
+            padding: 1rem 1rem 0.2rem 1rem;
             border-bottom: 2px solid #ccc;
         }
 
