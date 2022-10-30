@@ -1,3 +1,12 @@
+## [0.25.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.2...v0.25.3) (2022-10-30)
+
+
+### Bug Fixes
+
+* upgrade react-spinners from 0.13.5 to 0.13.6 ([#279](https://github.com/thecyberworld/thecyberhub.org/issues/279)) ([4574ab0](https://github.com/thecyberworld/thecyberhub.org/commit/4574ab0ffaaf87445af139cbef34aefc7124e2cd))
+
+
+
 ## [0.25.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.1...v0.25.2) (2022-10-29)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * linters prettier husky pre-commits ([6444f20](https://github.com/thecyberworld/thecyberhub.org/commit/6444f20adf3bec2b31062d3ab031d0898cfe59ae))
-
-
-
-# [0.23.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.22.0...v0.23.0) (2022-10-25)
-
-
-### Features
-
-* news sections page and improve user visibility ([#269](https://github.com/thecyberworld/thecyberhub.org/issues/269)) ([e6e3e3d](https://github.com/thecyberworld/thecyberhub.org/commit/e6e3e3d4584adff068a51b4075661a0c378fc89a))
 
 
 
