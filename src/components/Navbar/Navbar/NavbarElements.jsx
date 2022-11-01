@@ -126,23 +126,14 @@ export const NavMenu = styled.div`
     list-style: none;
     text-align: center;
     margin: 0 1rem;
-    position: relative;
 
     @media screen and (max-width: 875px) {
         margin: 0px;
         padding: 0;
     }
     @media screen and (max-width: 850px) {
-        position: absolute;
-        border: 2px solid red;
-        width: 100vw;
-        height: 100vh;
-        z-index: 299;
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        /* display: none; */
-        justify-content: center;
-        flex-direction: column;
+        //
+        display: none;
     }
 `;
 

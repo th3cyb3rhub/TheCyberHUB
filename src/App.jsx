@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 
 import "./App.css";
@@ -14,7 +13,6 @@ import Registration from "./pages/Registration";
 
 import {
     Navbar,
-    Navbars,
     Sidebar,
     Learn,
     Courses,
@@ -57,7 +55,6 @@ const App = () => {
     // };
 
     const [isOpen, setIsOpen] = useState(false);
-    // eslint-disable-next-line no-unused-vars
     const toggle = () => setIsOpen(!isOpen);
 
     return (
@@ -67,11 +64,8 @@ const App = () => {
             ) : (
                 <Container>
                     <>
-                        {/* ❌No need of this code❌
                         <Sidebar isOpen={isOpen} toggle={toggle} />
                         <Navbar toggle={toggle} />
-                        ❌❌ */}
-                        <Navbars />
                     </>
 
                     <ScrollToTop>
@@ -89,7 +83,7 @@ const App = () => {
 
                             <Route exact path={"/learn/*"}>
                                 <Route index path={"learn"} element={<Learn />} />
-                                {/* <Route path={"roadmaps"} element={<Roadmaps/>}/> */}
+                                {/*<Route path={"roadmaps"} element={<Roadmaps/>}/>*/}
 
                                 <Route path={"roadmaps"}>
                                     <Route index element={<Roadmaps />} />
@@ -119,9 +113,9 @@ const App = () => {
                             <Route exact path={"/register"} element={<Registration />}></Route>
                         </Routes>
                     </ScrollToTop>
-                    {/* {showFooter() &&
-                    } */}
+                    {/*{showFooter() &&*/}
                     <Footer />
+                    {/*}*/}
                 </Container>
             )}
         </div>

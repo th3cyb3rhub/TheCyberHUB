@@ -13,9 +13,7 @@ import {
 } from "./SidebarElements";
 import { RedirectButton } from "../../MixComponents/Buttons/ButtonElements";
 
-const Sidebar = (props) => {
-    // eslint-disable-next-line react/prop-types
-    const { isOpen, toggle } = props;
+const Sidebar = ({ isOpen, toggle }) => {
     const [drop, setDrop] = useState(false);
     return (
         <SidebarContainer isOpen={isOpen}>

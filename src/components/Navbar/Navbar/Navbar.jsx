@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable spaced-comment */
 import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
 import { animateScroll as scroll } from "react-scroll";
