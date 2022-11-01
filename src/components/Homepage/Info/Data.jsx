@@ -24,7 +24,7 @@ export const aboutData = {
     topLine: "Thecyberworld About",
     headline: "About Thecyberworld",
     description: (
-        <p>
+        <>
             <DotSymbol /> Thecyberhub Website, App, Extension, Bot are by @thecyberworld community <br />
             <br />
             <DotSymbol /> Community with more than 100,000 members. <br />
@@ -36,7 +36,7 @@ export const aboutData = {
             <br />
             <DotSymbol /> A Hub of Cyber Security. <br />
             <br />
-        </p>
+        </>
     ),
     buttonLabel: "Join community",
     buttonLabel2: "Contribute to Opensource",
@@ -59,10 +59,10 @@ export const ResourcesData = {
     topLine: "Resources",
     headline: "Cyber Sec Resources",
     description: (
-        <p>
+        <>
             Explore cyber security resources. <br />
             Courses, ctfs, events, blogs, tools, writeups, roadmaps, and much more.
-        </p>
+        </>
     ),
     buttonLabel: (
         <>
@@ -92,10 +92,10 @@ export const communityData = {
     topLine: "Join our About",
     headline: "Over 100,0000 members",
     description: (
-        <p>
+        <>
             Community&apos;s goal is to help new folks to get started with open-source, cyber-security and to help
             existing folks get more involved in the open-source and cyber-security communities.
-        </p>
+        </>
     ),
     buttonLabel: "Join community",
     imgStart: false,
@@ -114,11 +114,11 @@ export const contributeData = {
     topLine: "Contribute to Thecyberworld",
     headline: "Want to contribute?",
     description: (
-        <p>
+        <>
             That&apos;s great! We welcome all sorts of contributions from raising issues, starting discussions, adding
             documentation, making pull requests and so much more! Help each other and make improvements! Check the
             contributing guidelines in each repository for guidance on how to get started.
-        </p>
+        </>
     ),
     buttonLabel: (
         <>

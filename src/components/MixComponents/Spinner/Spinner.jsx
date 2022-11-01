@@ -66,7 +66,7 @@ import {
 
 import { SpinnerSection } from "./SpinnerElements";
 
-const Spinner = (loading, key) => {
+const Spinner = ({loading, key}) => {
     const spinnersList = [
         <BallSpinner color={"#20c20e"} SIZE={30} loading={loading} key={key} />,
         <BarsSpinner color={"#20c20e"} SIZE={30} loading={loading} key={key} />,
