@@ -1,3 +1,12 @@
+## [0.25.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.4...v0.25.5) (2022-11-01)
+
+
+### Bug Fixes
+
+* Sidebar dropwown not working [#274](https://github.com/thecyberworld/thecyberhub.org/issues/274)  ([c66105d](https://github.com/thecyberworld/thecyberhub.org/commit/c66105d3aa0cd7c0f17805940859dce94e5b2609))
+
+
+
 ## [0.25.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.3...v0.25.4) (2022-11-01)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * upgrade react-spinners from 0.13.4 to 0.13.5 ([#276](https://github.com/thecyberworld/thecyberhub.org/issues/276)) ([b8050cd](https://github.com/thecyberworld/thecyberhub.org/commit/b8050cd933f4fbd42d79b872cd98509e393d2ffc))
-
-
-
-# [0.25.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.24.0...v0.25.0) (2022-10-27)
-
-
-### Features
-
-* code format husky linters etx and fix: Events card width ([#275](https://github.com/thecyberworld/thecyberhub.org/issues/275)) ([97b2f71](https://github.com/thecyberworld/thecyberhub.org/commit/97b2f713ea99943a8c9579d0d8142966fa136f4d))
 
 
 
