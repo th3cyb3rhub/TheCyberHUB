@@ -17,6 +17,11 @@ export const DropdownContainer = styled.div`
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(3, 3, 3, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    @media screen and (max-width: 875px) {
+        position: relative;
+        top: 0px;
+    }
 `;
 
 export const DropdownItemsContainer = styled.div`

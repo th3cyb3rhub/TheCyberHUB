@@ -69,39 +69,31 @@ const Footer = () => {
                         <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
                             <FooterSocialLinksTwitter href="https://www.twitter.com/thecyberw0rld" target={"_blank"}>
-                                {" "}
-                                Twitter{" "}
+                                Twitter
                             </FooterSocialLinksTwitter>
                             <FooterSocialLinksGithub href="https://www.github.com/thecyberworld" target={"_blank"}>
-                                {" "}
-                                GitHub{" "}
+                                GitHub
                             </FooterSocialLinksGithub>
                             <FooterSocialLinksDiscord href="https://discord.gg/QHBPq6xP5p" target={"_blank"}>
-                                {" "}
-                                Discord{" "}
+                                Discord
                             </FooterSocialLinksDiscord>
                             <FooterSocialLinksLinktree href="https://www.linktree.com/thecyberw0rld" target={"_blank"}>
-                                {" "}
-                                All Community Links{" "}
+                                All Community Links
                             </FooterSocialLinksLinktree>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Free Courses </FooterLinkTitle>
                             <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
-                                {" "}
-                                Intro to Linux{" "}
+                                Intro to Linux
                             </FooterRedirectLink>
                             <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
-                                {" "}
-                                Cyber Tools{" "}
+                                Cyber Tools
                             </FooterRedirectLink>
                             <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
-                                {" "}
-                                Agency{" "}
+                                Agency
                             </FooterRedirectLink>
                             <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
-                                {" "}
-                                Influence{" "}
+                                Influence
                             </FooterRedirectLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
