@@ -36,6 +36,7 @@ export const PastEventsSubHeading = styled.h4`
     color: #adadad;
 `;
 export const PastEventsDiscordLink = styled.a`
+    margin-left: 5px;
     text-decoration: none;
     text-underline: none;
     color: #2f80ed;

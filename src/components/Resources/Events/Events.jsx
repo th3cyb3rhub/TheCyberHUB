@@ -1,16 +1,17 @@
 import React from "react";
 import { Section } from "../WriteUps/WriteUpsElements";
 import EventsData from "./EventsData/EventsData";
+import CTFData from "../../CyberGames/CTF/CTFData";
 import PastEvents from "./PastEvents/PastEvents";
 import OnGoingEvents from "./OnGoingEvents/OnGoingEvents";
 import UpComingEvents from "./UpComingEvents/UpComingEvents";
 import {
     EventsContainer,
-    OnGoingEventsContainer,
     MainEventsContainer,
-    PastEventsContainer,
-    UpComingEventsContainer,
     EventsHeading,
+    OnGoingEventsContainer,
+    UpComingEventsContainer,
+    PastEventsContainer,
 } from "./EventsElement";
 
 function padTo2Digits(num) {
@@ -24,23 +25,30 @@ function formatDate(date) {
 const Events = () => {
     const todayDate = new Date(Date());
 
+    const allEvents = [...EventsData, ...CTFData];
+
+    allEvents.map((event) => console.log(event.date));
+
     return (
         <Section>
             <EventsContainer>
                 <MainEventsContainer>
-                    {EventsData.some(
+                    {allEvents.some(
                         (event) => formatDate(todayDate) === formatDate(new Date(event.validationDate)),
                     ) && (
                         <>
                             <EventsHeading>Today Events</EventsHeading>
                             <OnGoingEventsContainer>
-                                {EventsData.map(
-                                    (event) =>
+                                {allEvents.map(
+                                    (event, id) =>
                                         formatDate(todayDate) === formatDate(new Date(event.validationDate)) && (
                                             <OnGoingEvents
+                                                key={id}
                                                 title={event.title}
                                                 image={event.image}
                                                 venue={event.venue}
+                                                location={event.location}
+                                                url={event.url}
                                                 date={event.date}
                                                 content={event.content}
                                             />
@@ -50,17 +58,20 @@ const Events = () => {
                         </>
                     )}
 
-                    {EventsData.some((event) => formatDate(todayDate) < formatDate(new Date(event.validationDate))) && (
+                    {allEvents.some((event) => formatDate(todayDate) < formatDate(new Date(event.validationDate))) && (
                         <>
-                            <EventsHeading>Up Coming</EventsHeading>
+                            <EventsHeading>Up Coming Events</EventsHeading>
                             <UpComingEventsContainer>
-                                {EventsData.map(
-                                    (event) =>
+                                {allEvents.map(
+                                    (event, id) =>
                                         formatDate(todayDate) < formatDate(new Date(event.validationDate)) && (
                                             <UpComingEvents
+                                                key={id}
                                                 title={event.title}
                                                 image={event.image}
                                                 venue={event.venue}
+                                                location={event.location}
+                                                url={event.url}
                                                 date={event.date}
                                                 content={event.content}
                                             />
@@ -71,16 +82,19 @@ const Events = () => {
                     )}
                 </MainEventsContainer>
 
-                {EventsData.some((event) => formatDate(todayDate) > formatDate(new Date(event.validationDate))) && (
+                {allEvents.some((event) => formatDate(todayDate) > formatDate(new Date(event.validationDate))) && (
                     <PastEventsContainer>
                         <EventsHeading>Past Events</EventsHeading>
-                        {EventsData.map(
-                            (event) =>
+                        {allEvents.map(
+                            (event, id) =>
                                 formatDate(todayDate) > formatDate(new Date(event.validationDate)) && (
                                     <PastEvents
+                                        key={id}
                                         title={event.title}
                                         image={event.image}
                                         venue={event.venue}
+                                        location={event.location}
+                                        url={event.url}
                                         date={event.date}
                                         content={event.content}
                                     />

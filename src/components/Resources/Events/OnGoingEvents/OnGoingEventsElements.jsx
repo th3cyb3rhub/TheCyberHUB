@@ -24,22 +24,13 @@ export const OnGoingEventsImage = styled.img`
     margin-bottom: 10px;
 `;
 
-export const OnGoingEventsTitle = styled.div`
-    margin: 10px 0;
-    padding: 10px 0;
-`;
-
 export const OnGoingEventsContent = styled.div`
     margin-bottom: 20px;
 `;
-export const OnGoingEventsHeading = styled.h2``;
-export const OnGoingEventsSubHeading = styled.h3`
-    text-align: center;
-`;
-export const OnGoingEventsDiscordLink = styled.a`
-    color: #2f80ed;
-    text-align: center;
-    text-decoration: none;
+
+export const OnGoingEventsSubHeading = styled.h4`
+    color: #9b9b9b;
+    margin: 5px 0 10px 0;
 `;
 
 export const OnGoingEventsChangeViewBtn = styled.a`

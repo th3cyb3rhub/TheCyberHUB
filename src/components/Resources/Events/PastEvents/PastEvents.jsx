@@ -1,29 +1,27 @@
 import React from "react";
-import {
-    PastEventsContainer,
-    PastEventsImage,
-    PastEventsTitle,
-    PastEventsHeading,
-    PastEventsSubHeading,
-    PastEventsDiscordLink,
-} from "./PastEventsElements";
+import { PastEventsContainer } from "./PastEventsElements";
 
-const PastEvents = (props) => {
+import {
+    EventLocation,
+    EventsHeader,
+    EventsHeadingSmall,
+    EventsImage,
+    EventsSubHeading,
+    EventsVenue,
+} from "../EventsElement";
+
+const PastEvents = (event) => {
     return (
-        <>
-            <PastEventsContainer>
-                <PastEventsTitle>
-                    <PastEventsImage src={props.image} alt="Event Image" width="100%" height="180px" />
-                    <PastEventsHeading>{props.title}</PastEventsHeading>
-                    <PastEventsSubHeading>
-                        {props.date} •
-                        <PastEventsDiscordLink href={props.venue} target={"_blank"}>
-                            Discord
-                        </PastEventsDiscordLink>
-                    </PastEventsSubHeading>
-                </PastEventsTitle>
-            </PastEventsContainer>
-        </>
+        <PastEventsContainer key={event.id}>
+            <EventsHeader>
+                <EventsImage src={event.image} about="Event Image" width="100%" height="180px" />
+                <EventsHeadingSmall> {event.title} </EventsHeadingSmall>
+                <EventsSubHeading>
+                    <EventLocation> {event.location} </EventLocation>
+                    {event.date} • <EventsVenue> {event.venue} </EventsVenue>
+                </EventsSubHeading>
+            </EventsHeader>
+        </PastEventsContainer>
     );
 };
 
