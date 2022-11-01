@@ -1,3 +1,12 @@
+## [0.25.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.3...v0.25.4) (2022-11-01)
+
+
+### Bug Fixes
+
+* issues appearing in the console ([#280](https://github.com/thecyberworld/thecyberhub.org/issues/280)) ([ed5b43a](https://github.com/thecyberworld/thecyberhub.org/commit/ed5b43ab45d4d171deef3e69d402b680d27db15e))
+
+
+
 ## [0.25.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.2...v0.25.3) (2022-10-30)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * code format husky linters etx and fix: Events card width ([#275](https://github.com/thecyberworld/thecyberhub.org/issues/275)) ([97b2f71](https://github.com/thecyberworld/thecyberhub.org/commit/97b2f713ea99943a8c9579d0d8142966fa136f4d))
-
-
-
-# [0.24.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.23.0...v0.24.0) (2022-10-25)
-
-
-### Features
-
-* linters prettier husky pre-commits ([6444f20](https://github.com/thecyberworld/thecyberhub.org/commit/6444f20adf3bec2b31062d3ab031d0898cfe59ae))
 
 
 
