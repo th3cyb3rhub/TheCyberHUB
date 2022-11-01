@@ -1,3 +1,12 @@
+## [0.25.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.6...v0.25.7) (2022-11-01)
+
+
+### Bug Fixes
+
+* Navbars with the Desptop version ([#283](https://github.com/thecyberworld/thecyberhub.org/issues/283)) ([61127e7](https://github.com/thecyberworld/thecyberhub.org/commit/61127e7fc7cd0d5ce2042018fb48857a902fb7b7))
+
+
+
 ## [0.25.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.5...v0.25.6) (2022-11-01)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * upgrade react-spinners from 0.13.5 to 0.13.6 ([#279](https://github.com/thecyberworld/thecyberhub.org/issues/279)) ([4574ab0](https://github.com/thecyberworld/thecyberhub.org/commit/4574ab0ffaaf87445af139cbef34aefc7124e2cd))
-
-
-
-## [0.25.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.1...v0.25.2) (2022-10-29)
-
-
-### Bug Fixes
-
-* upgrade styled-components from 5.3.5 to 5.3.6 ([#277](https://github.com/thecyberworld/thecyberhub.org/issues/277)) ([f4d4358](https://github.com/thecyberworld/thecyberhub.org/commit/f4d43589290b13233433dce8ce64ee9b39e38fd5))
 
 
 
