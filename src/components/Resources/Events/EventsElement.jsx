@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const EventsContainer = styled.div`
+    margin-top: 100px;
+    padding: 0 24px;
+    color: #cecac3;
     display: flex;
+    text-align: center;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;

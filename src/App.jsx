@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 
 import "./App.css";
@@ -14,7 +13,6 @@ import Registration from "./pages/Registration";
 
 import {
     Navbar,
-    Navbars,
     Sidebar,
     Learn,
     Courses,
@@ -85,7 +83,6 @@ const App = () => {
 
                             <Route exact path={"/learn/*"}>
                                 <Route index path={"learn"} element={<Learn />} />
-                                {/* <Route path={"roadmaps"} element={<Roadmaps/>}/> */}
 
                                 <Route path={"roadmaps"}>
                                     <Route index element={<Roadmaps />} />

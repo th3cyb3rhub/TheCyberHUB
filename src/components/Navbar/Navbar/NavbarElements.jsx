@@ -89,7 +89,7 @@ export const NavLogo = styled.img`
 
 export const MobileIcon = styled.div`
     display: none;
-    @media screen and (max-width: 850px) {
+    @media screen and (max-width: 780px) {
         //
         display: block;
         position: absolute;
@@ -119,12 +119,8 @@ export const NavMenu = styled.div`
     list-style: none;
     text-align: center;
     margin: 0 1rem;
-    @media screen and (max-width: 875px) {
-        margin: 0px;
-        padding: 0;
-    }
-    @media screen and (max-width: 850px) {
-        //
+
+    @media screen and (max-width: 780px) {
         display: none;
     }
 `;
@@ -161,7 +157,7 @@ export const NavLinkRouter = styled.a`
 export const NavBtn = styled.nav`
     display: flex;
     align-items: center;
-    @media screen and (max-width: 850px) {
+    @media screen and (max-width: 980px) {
         //
         display: none;
     }

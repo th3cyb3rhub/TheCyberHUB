@@ -1,5 +1,4 @@
 import React from "react";
-import { Section } from "../WriteUps/WriteUpsElements";
 import EventsData from "./EventsData/EventsData";
 import CTFData from "../../CyberGames/CTF/CTFData";
 import PastEvents from "./PastEvents/PastEvents";
@@ -30,80 +29,76 @@ const Events = () => {
     allEvents.map((event) => console.log(event.date));
 
     return (
-        <Section>
-            <EventsContainer>
-                <MainEventsContainer>
-                    {allEvents.some(
-                        (event) => formatDate(todayDate) === formatDate(new Date(event.validationDate)),
-                    ) && (
-                        <>
-                            <EventsHeading>Today Events</EventsHeading>
-                            <OnGoingEventsContainer>
-                                {allEvents.map(
-                                    (event, id) =>
-                                        formatDate(todayDate) === formatDate(new Date(event.validationDate)) && (
-                                            <OnGoingEvents
-                                                key={id}
-                                                title={event.title}
-                                                image={event.image}
-                                                venue={event.venue}
-                                                location={event.location}
-                                                url={event.url}
-                                                date={event.date}
-                                                content={event.content}
-                                            />
-                                        ),
-                                )}
-                            </OnGoingEventsContainer>
-                        </>
-                    )}
-
-                    {allEvents.some((event) => formatDate(todayDate) < formatDate(new Date(event.validationDate))) && (
-                        <>
-                            <EventsHeading>Up Coming Events</EventsHeading>
-                            <UpComingEventsContainer>
-                                {allEvents.map(
-                                    (event, id) =>
-                                        formatDate(todayDate) < formatDate(new Date(event.validationDate)) && (
-                                            <UpComingEvents
-                                                key={id}
-                                                title={event.title}
-                                                image={event.image}
-                                                venue={event.venue}
-                                                location={event.location}
-                                                url={event.url}
-                                                date={event.date}
-                                                content={event.content}
-                                            />
-                                        ),
-                                )}
-                            </UpComingEventsContainer>
-                        </>
-                    )}
-                </MainEventsContainer>
-
-                {allEvents.some((event) => formatDate(todayDate) > formatDate(new Date(event.validationDate))) && (
-                    <PastEventsContainer>
-                        <EventsHeading>Past Events</EventsHeading>
-                        {allEvents.map(
-                            (event, id) =>
-                                formatDate(todayDate) > formatDate(new Date(event.validationDate)) && (
-                                    <PastEvents
-                                        key={id}
-                                        title={event.title}
-                                        image={event.image}
-                                        venue={event.venue}
-                                        location={event.location}
-                                        url={event.url}
-                                        date={event.date}
-                                        content={event.content}
-                                    />
-                                ),
-                        )}
-                    </PastEventsContainer>
+        <EventsContainer>
+            <MainEventsContainer>
+                {allEvents.some((event) => formatDate(todayDate) === formatDate(new Date(event.validationDate))) && (
+                    <>
+                        <EventsHeading>Today Events</EventsHeading>
+                        <OnGoingEventsContainer>
+                            {allEvents.map(
+                                (event, id) =>
+                                    formatDate(todayDate) === formatDate(new Date(event.validationDate)) && (
+                                        <OnGoingEvents
+                                            key={id}
+                                            title={event.title}
+                                            image={event.image}
+                                            venue={event.venue}
+                                            location={event.location}
+                                            url={event.url}
+                                            date={event.date}
+                                            content={event.content}
+                                        />
+                                    ),
+                            )}
+                        </OnGoingEventsContainer>
+                    </>
                 )}
-            </EventsContainer>
-        </Section>
+
+                {allEvents.some((event) => formatDate(todayDate) < formatDate(new Date(event.validationDate))) && (
+                    <>
+                        <EventsHeading>Up Coming Events</EventsHeading>
+                        <UpComingEventsContainer>
+                            {allEvents.map(
+                                (event, id) =>
+                                    formatDate(todayDate) < formatDate(new Date(event.validationDate)) && (
+                                        <UpComingEvents
+                                            key={id}
+                                            title={event.title}
+                                            image={event.image}
+                                            venue={event.venue}
+                                            location={event.location}
+                                            url={event.url}
+                                            date={event.date}
+                                            content={event.content}
+                                        />
+                                    ),
+                            )}
+                        </UpComingEventsContainer>
+                    </>
+                )}
+            </MainEventsContainer>
+
+            {allEvents.some((event) => formatDate(todayDate) > formatDate(new Date(event.validationDate))) && (
+                <PastEventsContainer>
+                    <EventsHeading>Past Events</EventsHeading>
+                    {allEvents.map(
+                        (event, id) =>
+                            formatDate(todayDate) > formatDate(new Date(event.validationDate)) && (
+                                <PastEvents
+                                    key={id}
+                                    title={event.title}
+                                    image={event.image}
+                                    venue={event.venue}
+                                    location={event.location}
+                                    url={event.url}
+                                    date={event.date}
+                                    content={event.content}
+                                />
+                            ),
+                    )}
+                </PastEventsContainer>
+            )}
+        </EventsContainer>
     );
 };
 
