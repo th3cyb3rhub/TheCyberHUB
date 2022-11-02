@@ -1,3 +1,12 @@
+## [0.25.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.7...v0.25.8) (2022-11-02)
+
+
+### Bug Fixes
+
+* navbar ([#285](https://github.com/thecyberworld/thecyberhub.org/issues/285)) ([870b7d4](https://github.com/thecyberworld/thecyberhub.org/commit/870b7d43efed266e97796cfe0291f7793b41e866))
+
+
+
 ## [0.25.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.6...v0.25.7) (2022-11-01)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * issues appearing in the console ([#280](https://github.com/thecyberworld/thecyberhub.org/issues/280)) ([ed5b43a](https://github.com/thecyberworld/thecyberhub.org/commit/ed5b43ab45d4d171deef3e69d402b680d27db15e))
-
-
-
-## [0.25.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.2...v0.25.3) (2022-10-30)
-
-
-### Bug Fixes
-
-* upgrade react-spinners from 0.13.5 to 0.13.6 ([#279](https://github.com/thecyberworld/thecyberhub.org/issues/279)) ([4574ab0](https://github.com/thecyberworld/thecyberhub.org/commit/4574ab0ffaaf87445af139cbef34aefc7124e2cd))
 
 
 
