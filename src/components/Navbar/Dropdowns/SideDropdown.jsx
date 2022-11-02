@@ -12,7 +12,6 @@ export default function SideDropdown(props) {
 
     const Item = styled.ul`
         height: 32px;
-
         &:hover {
             cursor: pointer;
         }

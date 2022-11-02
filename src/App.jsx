@@ -57,7 +57,6 @@ const App = () => {
     // };
 
     const [isOpen, setIsOpen] = useState(false);
-    // eslint-disable-next-line no-unused-vars
     const toggle = () => setIsOpen(!isOpen);
 
     return (
@@ -67,11 +66,8 @@ const App = () => {
             ) : (
                 <Container>
                     <>
-                        {/* ❌No need of this code❌
                         <Sidebar isOpen={isOpen} toggle={toggle} />
                         <Navbar toggle={toggle} />
-                        ❌❌ */}
-                        <Navbars />
                     </>
 
                     <ScrollToTop>

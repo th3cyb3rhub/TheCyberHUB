@@ -10,18 +10,12 @@ export const DropdownContainer = styled.div`
     position: absolute;
     top: 80px;
     left: 0;
-
     transition: all 0.2s ease-in-out;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));
     backdrop-filter: blur(100px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(3, 3, 3, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-
-    @media screen and (max-width: 875px) {
-        position: relative;
-        top: 0px;
-    }
 `;
 
 export const DropdownItemsContainer = styled.div`
@@ -41,7 +35,6 @@ export const DropdownItemContainer = styled.div`
     position: relative;
     margin: 1rem;
     width: 200px;
-
     &:hover {
         cursor: pointer;
     }

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable spaced-comment */
 import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
 import { animateScroll as scroll } from "react-scroll";
@@ -81,34 +79,36 @@ const Navbar = ({ isOpen, toggle }) => {
                         <NavMenu>
                             {[
                                 {
-                                    to: "learn",
+                                    to: null,
                                     title: (
                                         <>
                                             <p onClick={() => onClickLearn()}>Learn</p>
                                             <DropdownIcon onClick={() => onClickLearn()} />
                                         </>
                                     ),
+                                    dropdown: "learn",
                                 },
                                 {
-                                    to: "resources",
+                                    to: null,
                                     title: (
                                         <>
                                             <p onClick={() => onClickResources()}>Resources</p>
                                             <DropdownIcon onClick={() => onClickResources()} />
                                         </>
                                     ),
+                                    dropdown: "resources",
                                 },
-                                { to: "events", title: "Events" },
-                                { to: "projects", title: "Projects" },
-                                { to: "community", title: "Community" },
-                            ].map(({ to, title }) => (
+                                { to: "events", title: "Events", dropdown: null },
+                                { to: "projects", title: "Projects", dropdown: null },
+                                { to: "community", title: "Community", dropdown: null },
+                            ].map(({ to, title, dropdown }) => (
                                 <NavItem
-                                    onMouseEnter={() => dropHandler(to)}
-                                    onMouseLeave={() => dropHandler(to)}
+                                    onMouseEnter={() => dropHandler(dropdown)}
+                                    onMouseLeave={() => dropHandler(dropdown)}
                                     key={to}
                                 >
                                     <NavLinks to={to}>{title}</NavLinks>
-                                    {to === "learn" && learnClick && drop && (
+                                    {dropdown === "learn" && learnClick && drop && (
                                         <Dropdown
                                             isLearn={true}
                                             toggle={setOnClosed}
@@ -116,7 +116,7 @@ const Navbar = ({ isOpen, toggle }) => {
                                             isOpen={isOpen}
                                         />
                                     )}
-                                    {to === "resources" && resourcesClick && drop && (
+                                    {dropdown === "resources" && resourcesClick && drop && (
                                         <Dropdown
                                             isResources={true}
                                             toggle={setOnClosed}
@@ -132,13 +132,13 @@ const Navbar = ({ isOpen, toggle }) => {
                             <GlowingButton to={"CyberGames"}>
                                 <i> Cyber Games </i>
                             </GlowingButton>
-                            {/*<RedirectButton href={"https://twitter.com/intent/tweet?text=Hi%20Everyone,%20%0D%0AFound%20the%20best%20website%20to%20learn%20Cybersecurity%20for%20free%20by%20@thecyberw0rld%20community.%20%0D%0A%0D%0AWebsite:%20https://thecyberhub.org%20%0D%0AResources:%20https://thecyberhub.org/resources%20%0D%0A%0D%0AMore%20features%20are%20on%20the%20way...%20%0D%0Afollow%20@thecyberw0rld%20for%20getting%20updates%20and%20for%20cyber%20security%20content."} rel="noopener" target="_blank" smooth={true} duration={500} spy={true} exact="true" offset={-80}>*/}
-                            {/*    <FaTwitter/>*/}
-                            {/*    <Text> Share </Text>*/}
-                            {/*</RedirectButton>*/}
-                            {/*<FilledButton to="register">*/}
+                            {/* <RedirectButton href={"https://twitter.com/intent/tweet?text=Hi%20Everyone,%20%0D%0AFound%20the%20best%20website%20to%20learn%20Cybersecurity%20for%20free%20by%20@thecyberw0rld%20community.%20%0D%0A%0D%0AWebsite:%20https://thecyberhub.org%20%0D%0AResources:%20https://thecyberhub.org/resources%20%0D%0A%0D%0AMore%20features%20are%20on%20the%20way...%20%0D%0Afollow%20@thecyberw0rld%20for%20getting%20updates%20and%20for%20cyber%20security%20content."} rel="noopener" target="_blank" smooth={true} duration={500} spy={true} exact="true" offset={-80}> */}
+                            {/*    <FaTwitter/> */}
+                            {/*    <Text> Share </Text> */}
+                            {/* </RedirectButton> */}
+                            {/* <FilledButton to="register"> */}
                             {/*    Register                                                                */}
-                            {/*</FilledButton>*/}
+                            {/* </FilledButton> */}
                         </NavBtn>
                     </NavbarContainer>
                 </Nav>

@@ -21,7 +21,6 @@ export const Nav = styled.nav`
     position: sticky;
     top: 0;
     z-index: 10;
-
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
     }
@@ -35,7 +34,6 @@ export const NavbarContainer = styled.div`
     width: 100%;
     padding: 0 24px;
     max-width: 1100px;
-
     @media screen and (max-width: 940px) {
         padding: 0 5px;
     }
@@ -64,7 +62,6 @@ export const NavLogo = styled.img`
     margin-left: 5px;
     font-weight: bold;
     text-decoration: none;
-
     @media screen and (max-width: 880px) {
         margin: 0;
         padding: 0;
@@ -72,7 +69,6 @@ export const NavLogo = styled.img`
     @media screen and (max-width: 500px) {
         margin: 0 0 0 0;
     }
-
     @media screen and (max-width: 350px) {
         margin: 0 -20px 0 0;
     }
@@ -93,7 +89,6 @@ export const NavLogo = styled.img`
 
 export const MobileIcon = styled.div`
     display: none;
-
     @media screen and (max-width: 850px) {
         //
         display: block;
@@ -106,12 +101,10 @@ export const MobileIcon = styled.div`
         color: #fff;
         margin-top: 10px;
     }
-
     @media screen and (max-width: 340px) {
         display: inline-flex;
         justify-content: center;
         text-align: center;
-
         margin-top: 60px;
         width: 30%;
     }
@@ -126,23 +119,13 @@ export const NavMenu = styled.div`
     list-style: none;
     text-align: center;
     margin: 0 1rem;
-    position: relative;
-
     @media screen and (max-width: 875px) {
         margin: 0px;
         padding: 0;
     }
     @media screen and (max-width: 850px) {
-        position: absolute;
-        border: 2px solid red;
-        width: 100vw;
-        height: 100vh;
-        z-index: 299;
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        /* display: none; */
-        justify-content: center;
-        flex-direction: column;
+        //
+        display: none;
     }
 `;
 
@@ -158,7 +141,6 @@ export const NavLinks = styled(LinkRouter)`
     padding: 0 1rem;
     height: 100%;
     cursor: pointer;
-
     &.active {
         border-bottom: 3px solid #20c20e;
     }
@@ -171,7 +153,6 @@ export const NavLinkRouter = styled.a`
     padding: 0 1rem;
     height: 100%;
     cursor: pointer;
-
     &.active {
         border-bottom: 3px solid #20c20e;
     }
@@ -180,7 +161,6 @@ export const NavLinkRouter = styled.a`
 export const NavBtn = styled.nav`
     display: flex;
     align-items: center;
-
     @media screen and (max-width: 850px) {
         //
         display: none;
@@ -200,7 +180,6 @@ export const NavBtnLink = styled.a`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-
     &:hover {
         transition: all 0.2s ease-in-out;
         background: transparent;
@@ -208,7 +187,6 @@ export const NavBtnLink = styled.a`
         border-color: #343434;
         font-size: 18px;
     }
-
     @media screen and (max-width: 890px) {
         padding: 2px;
     }
