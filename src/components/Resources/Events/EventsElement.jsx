@@ -1,15 +1,23 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const EventsContainer = styled.div`
-    margin-top: 100px;
+    max-width: 1100px;
+    margin: 100px auto;
     padding: 0 24px;
-    color: #cecac3;
     display: flex;
     text-align: center;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: flex-start;
     justify-content: center;
+    align-items: flex-start;
+
+    color: #cecac3;
+`;
+
+export const RouterLink = styled(Link)`
+    color: inherit;
+    text-decoration: none;
 `;
 
 export const MainEventsContainer = styled.div`

@@ -5,7 +5,6 @@ export const Section = styled.div`
     margin: 100px auto;
     padding: 0 24px;
     color: #cecac3;
-    max-width: 1100px;
     @media screen and (max-width: 760px) {
         text-align: center;
     }

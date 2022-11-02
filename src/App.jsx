@@ -24,6 +24,7 @@ import {
     Quiz,
     InterviewQuestions,
     Events,
+    Event,
     Community,
     About,
     CTF,
@@ -101,8 +102,11 @@ const App = () => {
                             </Route>
 
                             <Route exact path={"/resources/*"}>
-                                <Route index path={"roadmaps"} element={<Roadmaps />} />
-                                <Route path={"events"} element={<Events />} />
+                                <Route path={"events"}>
+                                    <Route index element={<Events />} />
+                                    <Route path={":title"} element={<Event />} />
+                                </Route>
+
                                 <Route path={"jobs"} element={<Jobs />} />
                                 <Route path={"quiz"} element={<Quiz />} />
                                 <Route path={"interviewQuestions"} element={<InterviewQuestions />} />

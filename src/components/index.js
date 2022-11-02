@@ -17,6 +17,7 @@ export { default as Resources } from "./Resources/Resources";
 export { default as WriteUps } from "./Resources/WriteUps/WriteUps";
 export { default as CyberNews } from "./Resources/CyberNews/CyberNews";
 export { default as Events } from "./Resources/Events/Events";
+export { default as Event } from "./Resources/Events/Event";
 
 // //
 export { default as CyberGames } from "./CyberGames/CyberGames";

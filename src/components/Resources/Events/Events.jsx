@@ -11,7 +11,8 @@ import {
     OnGoingEventsContainer,
     UpComingEventsContainer,
     PastEventsContainer,
-} from "./EventsElement";
+ RouterLink } from "./EventsElement";
+import { encodeURL } from "../../Learn/Blogs/util";
 
 function padTo2Digits(num) {
     return num.toString().padStart(2, "0");
@@ -22,11 +23,11 @@ function formatDate(date) {
 }
 
 const Events = () => {
+    const allEvents = [...EventsData, ...CTFData].sort(
+        (a, b) => new Date(a.validationDate) - new Date(b.validationDate),
+    );
+
     const todayDate = new Date(Date());
-
-    const allEvents = [...EventsData, ...CTFData];
-
-    allEvents.map((event) => console.log(event.date));
 
     return (
         <EventsContainer>
@@ -58,21 +59,20 @@ const Events = () => {
                     <>
                         <EventsHeading>Up Coming Events</EventsHeading>
                         <UpComingEventsContainer>
-                            {allEvents.map(
-                                (event, id) =>
-                                    formatDate(todayDate) < formatDate(new Date(event.validationDate)) && (
-                                        <UpComingEvents
-                                            key={id}
-                                            title={event.title}
-                                            image={event.image}
-                                            venue={event.venue}
-                                            location={event.location}
-                                            url={event.url}
-                                            date={event.date}
-                                            content={event.content}
-                                        />
-                                    ),
-                            )}
+                            {allEvents.map((event, id) => (
+                                <RouterLink key={id} to={{ pathname: `${encodeURL(event.title)}` }}>
+                                    <UpComingEvents
+                                        key={id}
+                                        title={event.title}
+                                        image={event.image}
+                                        venue={event.venue}
+                                        location={event.location}
+                                        url={event.url}
+                                        date={event.date}
+                                        content={event.content}
+                                    />
+                                </RouterLink>
+                            ))}
                         </UpComingEventsContainer>
                     </>
                 )}

@@ -13,7 +13,6 @@ import {
     AllRoadmaps,
     Container,
     RouterLink,
-    // RoadmapsFooter,
     RedirectLink,
     RoadmapSectionHeading,
     RoadmapDetails,
@@ -24,15 +23,15 @@ import {
 
 const Roadmap = () => {
     const { title } = useParams();
-    let SelectedRoadmap = RoadmapsData.find(
+    const SelectedRoadmap = RoadmapsData.find(
         (roadmap) => encodeURL(roadmap.title).toLowerCase() === title.toLowerCase(),
     );
 
     return (
         <RoadmapContainer>
             <h1>{SelectedRoadmap.title}</h1>
-            {/*<p>{SelectedRoadmap.desc}</p>*/}
-            {/*<p>{SelectedRoadmap.details.section}</p>*/}
+            {/* <p>{SelectedRoadmap.desc}</p> */}
+            {/* <p>{SelectedRoadmap.details.section}</p> */}
 
             <RoadmapDetailsContainer>
                 {SelectedRoadmap.details.map((resources, id) => {

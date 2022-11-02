@@ -6,6 +6,8 @@ export function encodeURL(title) {
             encoded += title[i];
         } else if (title[i] >= "A" && title[i] <= "Z") {
             encoded += title[i];
+        } else if (title[i] >= "0" && title[i] <= "9") {
+            encoded += title[i];
         } else if (title[i] === " ") {
             encoded += title[i];
         }

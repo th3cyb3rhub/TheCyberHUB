@@ -79,7 +79,6 @@ const Navbar = ({ isOpen, toggle }) => {
                         <NavMenu>
                             {[
                                 {
-                                    to: null,
                                     title: (
                                         <>
                                             <p onClick={() => onClickLearn()}>Learn</p>
@@ -89,7 +88,6 @@ const Navbar = ({ isOpen, toggle }) => {
                                     dropdown: "learn",
                                 },
                                 {
-                                    to: null,
                                     title: (
                                         <>
                                             <p onClick={() => onClickResources()}>Resources</p>
@@ -98,14 +96,14 @@ const Navbar = ({ isOpen, toggle }) => {
                                     ),
                                     dropdown: "resources",
                                 },
-                                { to: "events", title: "Events", dropdown: null },
-                                { to: "projects", title: "Projects", dropdown: null },
-                                { to: "community", title: "Community", dropdown: null },
+                                { to: "events", title: "Events", dropdown: "events" },
+                                { to: "projects", title: "Projects", dropdown: "projects" },
+                                { to: "community", title: "Community", dropdown: "community" },
                             ].map(({ to, title, dropdown }) => (
                                 <NavItem
                                     onMouseEnter={() => dropHandler(dropdown)}
                                     onMouseLeave={() => dropHandler(dropdown)}
-                                    key={to}
+                                    key={dropdown}
                                 >
                                     <NavLinks to={to}>{title}</NavLinks>
                                     {dropdown === "learn" && learnClick && drop && (

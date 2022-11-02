@@ -60,7 +60,6 @@ const Sidebar = (props) => {
                     <SidebarMenu>
                         {[
                             {
-                                to: null,
                                 title: (
                                     <>
                                         <p onClick={() => onClickLearn()}>Learn</p>
@@ -70,7 +69,6 @@ const Sidebar = (props) => {
                                 dropdown: "learn",
                             },
                             {
-                                to: null,
                                 title: (
                                     <>
                                         <p onClick={() => onClickResources()}>Resources</p>
@@ -79,11 +77,11 @@ const Sidebar = (props) => {
                                 ),
                                 dropdown: "resources",
                             },
-                            { to: "events", title: "Events", dropdown: null },
-                            { to: "projects", title: "Projects", dropdown: null },
-                            { to: "community", title: "Community", dropdown: null },
+                            { to: "events", title: "Events", dropdown: "events" },
+                            { to: "projects", title: "Projects", dropdown: "projects" },
+                            { to: "community", title: "Community", dropdown: "community" },
                         ].map(({ to, title, dropdown }) => (
-                            <NavItem onClick={() => dropHandler(dropdown)} key={to}>
+                            <NavItem onClick={() => dropHandler(dropdown)} key={dropdown}>
                                 <SidebarLink to={to} onClick={to && toggle}>
                                     {title}
                                 </SidebarLink>
