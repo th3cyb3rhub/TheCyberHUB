@@ -1,3 +1,12 @@
+## [0.25.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.8...v0.25.9) (2022-11-08)
+
+
+### Bug Fixes
+
+* upgrade react-icons from 4.4.0 to 4.6.0 ([#288](https://github.com/thecyberworld/thecyberhub.org/issues/288)) ([52baf9f](https://github.com/thecyberworld/thecyberhub.org/commit/52baf9ff6560d30713e26b27e9db6ed44ce46d5b))
+
+
+
 ## [0.25.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.7...v0.25.8) (2022-11-02)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Sidebar dropwown not working [#274](https://github.com/thecyberworld/thecyberhub.org/issues/274)  ([c66105d](https://github.com/thecyberworld/thecyberhub.org/commit/c66105d3aa0cd7c0f17805940859dce94e5b2609))
-
-
-
-## [0.25.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.3...v0.25.4) (2022-11-01)
-
-
-### Bug Fixes
-
-* issues appearing in the console ([#280](https://github.com/thecyberworld/thecyberhub.org/issues/280)) ([ed5b43a](https://github.com/thecyberworld/thecyberhub.org/commit/ed5b43ab45d4d171deef3e69d402b680d27db15e))
 
 
 
