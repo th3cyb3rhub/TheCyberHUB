@@ -2,19 +2,23 @@ import styled from "styled-components";
 import { Link as LinkRouter } from "react-router-dom";
 
 export const DropdownContainer = styled.div`
-    border-radius: 0;
-    background: transparent;
     width: 100%;
     height: auto;
-    padding: 1rem;
     position: absolute;
     top: 80px;
     left: 0;
+
+    color: white;
+    background: #fff;
+    margin: 10px 10px 10px 5px;
+    overflow: hidden;
+    padding: 10px;
     transition: all 0.2s ease-in-out;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(100px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(3, 3, 3, 0.18);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 `;
 

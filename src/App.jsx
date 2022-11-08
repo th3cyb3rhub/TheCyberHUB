@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import "./App.css";
 import {
     Route,
@@ -10,7 +9,6 @@ import {
 import Homepage from "./pages/Homepage";
 import ScrollToTop from "./components/ScrollToTop";
 import Registration from "./pages/Registration";
-
 import {
     Navbar,
     Sidebar,
@@ -32,8 +30,7 @@ import {
     OSINTGame,
     Footer,
 } from "./components";
-
-import OpenSourceProjects from "./components/OpenSourceProjects/OpenSourceProjects";
+import OpensourceProjects from "./components/OpensourceProjects/OpensourceProjects";
 import Spinner from "./components/MixComponents/Spinner/Spinner";
 import AllBlogs from "./components/Learn/Blogs/Blogs";
 import ViewBlog from "./components/Learn/Blogs/ViewBlog";
@@ -76,7 +73,7 @@ const App = () => {
                             <Route exact path={"/events"} element={<Events />} />
                             <Route exact path={"/community"} element={<Community />} />
                             <Route exact path={"/about"} element={<About />} />
-                            <Route exact path={"/projects/*"} element={<OpenSourceProjects />} />
+                            <Route exact path={"/projects"} element={<OpensourceProjects />} />
 
                             <Route exact path={"/CyberGames"} element={<CyberGames />} />
                             <Route exact path={"/CyberGames/CTF"} element={<CTF />} />

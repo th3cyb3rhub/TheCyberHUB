@@ -1,4 +1,4 @@
-const OspData = [
+const OpensourceProjectsData = [
     {
         id: 1,
         title: "thecyberhub.org",
@@ -10,7 +10,7 @@ const OspData = [
         id: 2,
         title: "thecyberhub-app",
         link: "https://github.com/thecyberworld/thecyberhub-app",
-        content: "Thecyberhub app of @thecyberworld community.",
+        content: "Thecyberhub mobile app.",
         tags: ["React Native", "Website"],
     },
     {
@@ -29,4 +29,4 @@ const OspData = [
     },
 ];
 
-export default OspData;
+export default OpensourceProjectsData;

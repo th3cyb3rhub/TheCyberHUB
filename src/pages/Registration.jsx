@@ -5,9 +5,10 @@ import { Learn2CodePromotion } from "../components/Registration/Learn2CodePromot
 import { CustomInputGroup } from "../components/MixComponents/InputField/CustomInputField";
 import { RegistrationFormContainer } from "../components/Registration/Form";
 import { PrimaryFilledButton } from "../components/MixComponents/Buttons/ButtonElements";
-import { FaEnvelope } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+// import { FaEnvelope } from "react-icons/fa";
+// import { FaLock } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
+import { BsCardText, MdTitle } from "react-icons/all";
 
 const Registration = () => {
     const handleSubmit = (e) => {
@@ -46,13 +47,13 @@ const Registration = () => {
                         </CustomInputGroup>
                         <CustomInputGroup>
                             <span>
-                                <FaEnvelope />
+                                <MdTitle />
                             </span>
                             <input type="text" placeholder="Email" aria-label="Email" autoComplete={false} />
                         </CustomInputGroup>
                         <CustomInputGroup>
                             <span>
-                                <FaLock />
+                                <BsCardText />
                             </span>
                             <input type="password" placeholder="Password" aria-label="Password" autoComplete={false} />
                         </CustomInputGroup>
