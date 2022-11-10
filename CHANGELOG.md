@@ -1,3 +1,12 @@
+## [0.25.10](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.9...v0.25.10) (2022-11-10)
+
+
+### Bug Fixes
+
+* upgrade react-scroll from 1.8.7 to 1.8.8 ([#293](https://github.com/thecyberworld/thecyberhub.org/issues/293)) ([f35625c](https://github.com/thecyberworld/thecyberhub.org/commit/f35625cf276698cdc5dd4f0ea6d2610aefaf032b))
+
+
+
 ## [0.25.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.8...v0.25.9) (2022-11-08)
 
 
@@ -31,15 +40,6 @@
 ### Reverts
 
 * Revert "fix: Sidebar dropwown not working #274" (#282) ([895443d](https://github.com/thecyberworld/thecyberhub.org/commit/895443d2d55d9c0107a9bb7cb1c60293bb992580)), closes [#274](https://github.com/thecyberworld/thecyberhub.org/issues/274) [#282](https://github.com/thecyberworld/thecyberhub.org/issues/282)
-
-
-
-## [0.25.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.4...v0.25.5) (2022-11-01)
-
-
-### Bug Fixes
-
-* Sidebar dropwown not working [#274](https://github.com/thecyberworld/thecyberhub.org/issues/274)  ([c66105d](https://github.com/thecyberworld/thecyberhub.org/commit/c66105d3aa0cd7c0f17805940859dce94e5b2609))
 
 
 
