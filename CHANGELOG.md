@@ -1,3 +1,12 @@
+## [0.26.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.1...v0.26.2) (2022-11-11)
+
+
+### Bug Fixes
+
+* community design ([#299](https://github.com/thecyberworld/thecyberhub.org/issues/299)) ([671a1f6](https://github.com/thecyberworld/thecyberhub.org/commit/671a1f6752270911293c15d03ea9549f0035fe1b))
+
+
+
 ## [0.26.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.0...v0.26.1) (2022-11-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * upgrade react-icons from 4.4.0 to 4.6.0 ([#288](https://github.com/thecyberworld/thecyberhub.org/issues/288)) ([52baf9f](https://github.com/thecyberworld/thecyberhub.org/commit/52baf9ff6560d30713e26b27e9db6ed44ce46d5b))
-
-
-
-## [0.25.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.7...v0.25.8) (2022-11-02)
-
-
-### Bug Fixes
-
-* navbar ([#285](https://github.com/thecyberworld/thecyberhub.org/issues/285)) ([870b7d4](https://github.com/thecyberworld/thecyberhub.org/commit/870b7d43efed266e97796cfe0291f7793b41e866))
 
 
 
