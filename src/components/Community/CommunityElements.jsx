@@ -4,12 +4,11 @@ import bgImage from "../../assets/images/WebsiteLogo/thecyberworld-green01.png";
 export const Header = styled.header`
     color: #cecac3;
     background: url(${bgImage}) no-repeat;
-    background-size: 25%;
-    background-position: 50% 20%;
+    background-size: 20%;
+    background-position: 50% 10%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     position: relative;
 `;
 
@@ -18,10 +17,11 @@ export const Overlay = styled.div`
     height: 100%;
     position: absolute;
     background: #010606;
-    opacity: 0.8;
+    opacity: 0.9;
 `;
 
 export const Container = styled.div`
+    margin: 200px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,7 +49,7 @@ export const Paragraph = styled.p`
 `;
 
 export const Button = styled.button`
-    background-color: #364eb0;
+    background-color: #23272a;
     border: none;
     border-radius: 0.3rem;
     color: white;
@@ -64,6 +64,7 @@ export const Button = styled.button`
     }
 
     &:hover {
-        background-color: hsl(235, calc(3 * 85.6%), 64.7%);
+        scale: 1.1;
+        transition: all 0.2s ease-in-out;
     }
 `;

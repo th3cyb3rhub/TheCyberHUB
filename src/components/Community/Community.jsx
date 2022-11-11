@@ -16,7 +16,7 @@ const Community = () => {
                 <a href="https://discord.gg/QHBPq6xP5p" target="blanck">
                     <Button>
                         <IconContext.Provider value={{ size: "2em", style: { margin: "0 0.2rem" } }}>
-                            <FaDiscord />
+                            <FaDiscord style={{ color: "#7289da" }} />
                         </IconContext.Provider>
                         <span>Join our Discord Channel</span>
                     </Button>
