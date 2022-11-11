@@ -1,3 +1,12 @@
+## [0.26.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.0...v0.26.1) (2022-11-11)
+
+
+### Bug Fixes
+
+* exents and navbar ([#295](https://github.com/thecyberworld/thecyberhub.org/issues/295)) ([4ff3660](https://github.com/thecyberworld/thecyberhub.org/commit/4ff36605eb74a244b12af5428aa9deccf941d830))
+
+
+
 # [0.26.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.10...v0.26.0) (2022-11-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * navbar ([#285](https://github.com/thecyberworld/thecyberhub.org/issues/285)) ([870b7d4](https://github.com/thecyberworld/thecyberhub.org/commit/870b7d43efed266e97796cfe0291f7793b41e866))
-
-
-
-## [0.25.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.6...v0.25.7) (2022-11-01)
-
-
-### Bug Fixes
-
-* Navbars with the Desptop version ([#283](https://github.com/thecyberworld/thecyberhub.org/issues/283)) ([61127e7](https://github.com/thecyberworld/thecyberhub.org/commit/61127e7fc7cd0d5ce2042018fb48857a902fb7b7))
 
 
 
