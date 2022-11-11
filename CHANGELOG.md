@@ -1,3 +1,12 @@
+# [0.26.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.10...v0.26.0) (2022-11-11)
+
+
+### Features
+
+* add single event page ([#294](https://github.com/thecyberworld/thecyberhub.org/issues/294)) ([b808be2](https://github.com/thecyberworld/thecyberhub.org/commit/b808be288cbe3454d798a9fa8def3b759cc4a79c))
+
+
+
 ## [0.25.10](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.9...v0.25.10) (2022-11-10)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Navbars with the Desptop version ([#283](https://github.com/thecyberworld/thecyberhub.org/issues/283)) ([61127e7](https://github.com/thecyberworld/thecyberhub.org/commit/61127e7fc7cd0d5ce2042018fb48857a902fb7b7))
-
-
-
-## [0.25.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.5...v0.25.6) (2022-11-01)
-
-
-### Reverts
-
-* Revert "fix: Sidebar dropwown not working #274" (#282) ([895443d](https://github.com/thecyberworld/thecyberhub.org/commit/895443d2d55d9c0107a9bb7cb1c60293bb992580)), closes [#274](https://github.com/thecyberworld/thecyberhub.org/issues/274) [#282](https://github.com/thecyberworld/thecyberhub.org/issues/282)
 
 
 
