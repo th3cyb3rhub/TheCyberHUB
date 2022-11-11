@@ -21,7 +21,7 @@ export const PrimaryFilledButton = styled.button`
     align-items: center;
     transition: all 0.2s ease-in-out;
     color: black;
-    width: ${({ width }) => (width ? width : "auto")};
+    width: ${({ width }) => (width || "auto")};
 
     &:hover {
         transition: all 0.2s ease-in-out;
@@ -43,10 +43,8 @@ export const IconsSpacing2 = styled.span`
 `;
 export const GlowingButton = styled(LinkRouter)`
     text-decoration: none;
-    border-radius: 5px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #343434;
+    border-radius: 2px;
+    border: #343434 1px solid;
     background: transparent;
     white-space: nowrap;
     padding: ${({ big }) => (big ? "14px 30px" : "12px 25px")};
@@ -62,12 +60,13 @@ export const GlowingButton = styled(LinkRouter)`
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: transparent;
-        border-color: #343434;
-        scale: 1.1;
-        font-size: 16px;
+        background: white;
+        color: #000;
+        border: 1px solid #20c20e;
+        //scale: 1.1;
     }
 `;
+
 export const Button = styled(ScrollLink)`
     margin: 10px;
     margin-right: 20px; //border-radius: 50px;

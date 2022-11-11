@@ -3,13 +3,13 @@ import { Link as LinkRouter } from "react-router-dom";
 
 export const DropdownContainer = styled.div`
     border-radius: 0;
-    background: transparent;
     width: 100%;
     height: auto;
     padding: 1rem;
     position: absolute;
     top: 80px;
     left: 0;
+    background: transparent;
     transition: all 0.2s ease-in-out;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));
     backdrop-filter: blur(100px);
@@ -43,6 +43,12 @@ export const DropdownItemContainer = styled.div`
 
 export const DropdownItem = styled.h2`
     text-align: start;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        transform: scale(1.05);
+        border-bottom: 3px solid #20c20e;
+    }
 `;
 
 export const DropdownDesc = styled.p`

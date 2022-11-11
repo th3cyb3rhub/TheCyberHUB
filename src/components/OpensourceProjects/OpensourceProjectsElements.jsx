@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import projectImage from "../../assets/images/projects-bg.png";
+
 const whiteColor = "whitesmoke";
 // const greenColor = "#41e541";
 export const ProjectsContainer = styled.div`
@@ -7,8 +8,8 @@ export const ProjectsContainer = styled.div`
     text-align: center;
     margin: 100px auto;
     padding: 0 24px;
-
     width: 100%;
+    max-width: 70em;
 `;
 
 export const Projects = styled.div`
@@ -26,29 +27,36 @@ export const Project = styled.div`
     height: 100%;
     opacity: 1.8;
 
-    width: 30rem;
+    width: 21rem;
+    background: #171717;
     max-width: 400px;
     border-radius: 10px;
-    margin: 20px 20px;
-    padding: 15px 20px;
-    border: 1px solid #181818;
-    transition: 260ms all;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #262626;
     background-size: cover;
-    background: url(${projectImage}) center;
+    // background: url(${projectImage}) center;
+
+    transition: all 0.2s ease-in-out;
+    background: linear-gradient(135deg, rgba(75, 75, 75, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
     &:hover {
         transform: scale(1.05);
         border-color: #545454;
-        background-color: rgba(32, 194, 14, 0.1);
     }
 `;
 
 export const ContainerHeading = styled.h1`
-    margin: 10px 0;
+    margin: 20px 0 30px 0;
     padding: 10px 0;
     text-align: center;
 `;
 export const ProjectsTitleH1 = styled.h1`
+    color: #4cc23e;
+    margin: 10px 0;
     font-size: 1.8rem;
     font-weight: 600;
 `;
@@ -96,6 +104,11 @@ export const ProjectsTag = styled.div`
     font-size: 0.9rem;
     font-weight: 600;
     transition: 260ms all;
+
+    &:hover {
+        transform: scale(1.05);
+        border-color: #545454;
+    }
 `;
 
 export const SpinnerDesign = styled.div`

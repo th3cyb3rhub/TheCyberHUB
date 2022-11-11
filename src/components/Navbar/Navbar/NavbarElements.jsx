@@ -90,7 +90,6 @@ export const NavLogo = styled.img`
 export const MobileIcon = styled.div`
     display: none;
     @media screen and (max-width: 780px) {
-        //
         display: block;
         position: absolute;
         top: 0;
@@ -137,9 +136,16 @@ export const NavLinks = styled(LinkRouter)`
     padding: 0 1rem;
     height: 100%;
     cursor: pointer;
-    &.active {
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        transform: scale(1.05);
         border-bottom: 3px solid #20c20e;
     }
+
+    //&.active {
+    //    border-bottom: 3px solid #20c20e;
+    //}
 `;
 export const NavLinkRouter = styled.a`
     color: #fff;
@@ -149,6 +155,7 @@ export const NavLinkRouter = styled.a`
     padding: 0 1rem;
     height: 100%;
     cursor: pointer;
+
     &.active {
         border-bottom: 3px solid #20c20e;
     }
@@ -176,6 +183,7 @@ export const NavBtnLink = styled.a`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+
     &:hover {
         transition: all 0.2s ease-in-out;
         background: transparent;
@@ -183,6 +191,7 @@ export const NavBtnLink = styled.a`
         border-color: #343434;
         font-size: 18px;
     }
+
     @media screen and (max-width: 890px) {
         padding: 2px;
     }
