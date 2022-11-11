@@ -6,7 +6,7 @@ export const OnGoingEventsContainer = styled.div`
     justify-content: left;
     text-align: left;
     height: auto;
-    width: 70em;
+    width: 715px;
     border: 1px solid #ffffff0d;
     border-radius: 10px;
     background-color: #0d1117;

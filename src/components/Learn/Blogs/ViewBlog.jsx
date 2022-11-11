@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Section } from "../../Resources/WriteUps/WriteUpsElements";
 import image from "./img.webp";
 
 import blogs from "./BlogsData";
@@ -9,19 +8,22 @@ import { encodeURL } from "./util";
 import { Tag, Tags } from "./BlogCard";
 
 const ViewBlogComponent = styled.div`
+    width: 80%;
+    margin: 100px auto;
     display: flex;
     flex-direction: column;
-    padding: 50px 300px;
+    max-width: 800px;
     padding-top: 0;
     align-items: center;
     justify-content: space-between;
     font-family: "Montserrat", sans-serif;
+    color: #cecac3;
 
     * {
-        margin: 10px 0;
+        margin: 10px auto;
     }
-
     p {
+        font-family: "Roboto Mono", monospace;
         text-align: left;
         padding: 0 50px;
         white-space: pre-line;
@@ -30,14 +32,17 @@ const ViewBlogComponent = styled.div`
 
     img {
         margin-top: 0;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 5px;
     }
 `;
 
 const ViewBlog = () => {
     const { title } = useParams();
-    let searchedBlog = blogs.find((blog) => encodeURL(blog.title).toLowerCase() === title.toLowerCase());
+    const searchedBlog = blogs.find((blog) => encodeURL(blog.title).toLowerCase() === title.toLowerCase());
     return (
-        <Section>
+        <>
             <ViewBlogComponent>
                 <img className="viewImg" src={image} alt="Blog Image" />
                 <h1>{searchedBlog.title}</h1>
@@ -51,7 +56,7 @@ const ViewBlog = () => {
                     <Tag key={index}>{tag}</Tag>
                 ))}
             </Tags>
-        </Section>
+        </>
     );
 };
 

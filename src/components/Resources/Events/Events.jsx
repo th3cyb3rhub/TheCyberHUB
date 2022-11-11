@@ -11,7 +11,8 @@ import {
     OnGoingEventsContainer,
     UpComingEventsContainer,
     PastEventsContainer,
- RouterLink } from "./EventsElement";
+    RouterLink,
+} from "./EventsElement";
 import { encodeURL } from "../../Learn/Blogs/util";
 
 function padTo2Digits(num) {
@@ -39,16 +40,18 @@ const Events = () => {
                             {allEvents.map(
                                 (event, id) =>
                                     formatDate(todayDate) === formatDate(new Date(event.validationDate)) && (
-                                        <OnGoingEvents
-                                            key={id}
-                                            title={event.title}
-                                            image={event.image}
-                                            venue={event.venue}
-                                            location={event.location}
-                                            url={event.url}
-                                            date={event.date}
-                                            content={event.content}
-                                        />
+                                        <RouterLink key={id} to={{ pathname: `${encodeURL(event.title)}` }}>
+                                            <OnGoingEvents
+                                                key={id}
+                                                title={event.title}
+                                                image={event.image}
+                                                venue={event.venue}
+                                                location={event.location}
+                                                url={event.url}
+                                                date={event.date}
+                                                content={event.content}
+                                            />
+                                        </RouterLink>
                                     ),
                             )}
                         </OnGoingEventsContainer>
@@ -84,16 +87,18 @@ const Events = () => {
                     {allEvents.map(
                         (event, id) =>
                             formatDate(todayDate) > formatDate(new Date(event.validationDate)) && (
-                                <PastEvents
-                                    key={id}
-                                    title={event.title}
-                                    image={event.image}
-                                    venue={event.venue}
-                                    location={event.location}
-                                    url={event.url}
-                                    date={event.date}
-                                    content={event.content}
-                                />
+                                <RouterLink key={id} to={{ pathname: `${encodeURL(event.title)}` }}>
+                                    <PastEvents
+                                        key={id}
+                                        title={event.title}
+                                        image={event.image}
+                                        venue={event.venue}
+                                        location={event.location}
+                                        url={event.url}
+                                        date={event.date}
+                                        content={event.content}
+                                    />
+                                </RouterLink>
                             ),
                     )}
                 </PastEventsContainer>

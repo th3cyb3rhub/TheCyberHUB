@@ -78,6 +78,7 @@ export const EventsSubHeading = styled.h4`
 `;
 
 export const EventsImage = styled.img`
+    text-align: center;
     height: 100%;
     width: auto;
     margin-bottom: 10px;
@@ -102,45 +103,56 @@ export const PastEventsContainer = styled.div`
     }
 `;
 
-export const ViewEventComponent = styled.div`
+export const EventComponent = styled.div`
+    width: 80%;
+    margin: 100px auto;
     display: flex;
     flex-direction: column;
     max-width: 800px;
-    margin: 0 auto;
     padding-top: 0;
     align-items: center;
     justify-content: space-between;
     font-family: "Montserrat", sans-serif;
+    color: #cecac3;
 
     * {
-        margin: 10px 0;
-    }
-
-    p {
-        text-align: left;
-        padding: 0 50px;
-        white-space: pre-line;
-        font-size: 20px;
-    }
-
-    img {
-        margin-top: 0;
-        width: 100%;
-        object-fit: contain;
-    }
-    & .imageVenueWrapper {
-        min-height: 200px;
-        height: fit-content;
-        position: relative;
-        width: 100%;
-        & .venue {
-            position: absolute;
-            padding: 8px 20px;
-            background-color: #eeeeee;
-            color: #333333;
-            right: 0;
-            bottom: 0;
-            white-space: nowrap;
-        }
+        margin: 10px auto;
     }
 `;
+
+export const EventHeaderImageContainer = styled.div`
+    min-height: 200px;
+    height: fit-content;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+`;
+
+export const EventHeaderImage = styled.img`
+    margin-top: 0;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+`;
+
+export const EventVenue = styled.div`
+    position: absolute;
+    padding: 8px 20px;
+    background-color: #eeeeee;
+    color: #333333;
+    right: 0;
+    bottom: 0;
+    white-space: nowrap;
+`;
+
+export const EventTitle = styled.h1``;
+
+export const EventContent = styled.p`
+    font-family: "Roboto Mono", monospace;
+    text-align: left;
+    padding: 0 50px 0 10px;
+    white-space: pre-line;
+    font-size: 20px;
+`;
+export const EventDate = styled.h3``;

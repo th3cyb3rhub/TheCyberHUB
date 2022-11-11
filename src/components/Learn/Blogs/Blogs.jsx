@@ -15,6 +15,7 @@ const AllBlogsComponent = styled.div`
     justify-content: center;
 
     a {
+        text-decoration: none;
         color: #cecac3;
     }
 `;
