@@ -12,6 +12,7 @@
 
 ![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![image](https://img.shields.io/badge/CSS3-20232A?style=for-the-badge&logo=css3&logoColor=white)
+![image](https://img.shields.io/badge/styled--components-20232A?style=for-the-badge&logo=styled-components&logoColor=white)
 
 </div>
 
