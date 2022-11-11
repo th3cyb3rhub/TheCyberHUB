@@ -101,3 +101,46 @@ export const PastEventsContainer = styled.div`
         width: auto;
     }
 `;
+
+export const ViewEventComponent = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 0;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Montserrat", sans-serif;
+
+    * {
+        margin: 10px 0;
+    }
+
+    p {
+        text-align: left;
+        padding: 0 50px;
+        white-space: pre-line;
+        font-size: 20px;
+    }
+
+    img {
+        margin-top: 0;
+        width: 100%;
+        object-fit: contain;
+    }
+    & .imageVenueWrapper {
+        min-height: 200px;
+        height: fit-content;
+        position: relative;
+        width: 100%;
+        & .venue {
+            position: absolute;
+            padding: 8px 20px;
+            background-color: #eeeeee;
+            color: #333333;
+            right: 0;
+            bottom: 0;
+            white-space: nowrap;
+        }
+    }
+`;

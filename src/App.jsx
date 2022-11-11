@@ -70,7 +70,10 @@ const App = () => {
                         <Routes>
                             <Route index exact path={"/"} element={<Homepage />} />
 
-                            <Route exact path={"/events"} element={<Events />} />
+                            <Route path={"/events/*"}>
+                                <Route index element={<Events />} />
+                                <Route path={":slug"} element={<Event />} />
+                            </Route>
                             <Route exact path={"/community"} element={<Community />} />
                             <Route exact path={"/about"} element={<About />} />
                             <Route exact path={"/projects"} element={<OpensourceProjects />} />

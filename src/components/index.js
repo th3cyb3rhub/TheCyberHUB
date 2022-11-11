@@ -4,6 +4,7 @@ export { default as Sidebar } from "./Navbar/Sidebar/Sidebar";
 export { default as Hero } from "./Homepage/Hero/Hero";
 export { default as Info } from "./Homepage/Info/Info";
 export { default as Socials } from "./Homepage/Socials/Socials";
+export { default as Community } from "./Community/Community";
 
 // Learn //
 export { default as Learn } from "./Learn/Learn";
@@ -17,13 +18,12 @@ export { default as Resources } from "./Resources/Resources";
 export { default as WriteUps } from "./Resources/WriteUps/WriteUps";
 export { default as CyberNews } from "./Resources/CyberNews/CyberNews";
 export { default as Events } from "./Resources/Events/Events";
-export { default as Event } from "./Resources/Events/Event";
+export { default as Event } from "./Resources/Events/ViewEvent/Event";
 
 // //
 export { default as CyberGames } from "./CyberGames/CyberGames";
 export { default as OSINTGame } from "./CyberGames/OSINTGame/OSINTGame";
 export { default as CTF } from "./CyberGames/CTF/CTF";
-export { default as Community } from "./Community/Community";
 export { default as About } from "./About/About";
 
 // Prep //
