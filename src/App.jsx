@@ -5,7 +5,6 @@ import {
     Routes,
     // useLocation
 } from "react-router-dom";
-
 import Homepage from "./pages/Homepage";
 import ScrollToTop from "./components/ScrollToTop";
 import Registration from "./pages/Registration";

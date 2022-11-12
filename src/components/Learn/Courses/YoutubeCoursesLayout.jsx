@@ -7,10 +7,10 @@ import { Container, MainContent } from "./YouTubeVideosElements";
 const FreeYoutubeCoursesLayout = () => {
     return (
         <Container>
+            <YoutubeCoursesSidebar />
             <MainContent>
                 <Outlet />
             </MainContent>
-            <YoutubeCoursesSidebar />
         </Container>
     );
 };

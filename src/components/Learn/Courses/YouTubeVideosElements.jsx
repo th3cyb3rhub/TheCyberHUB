@@ -92,7 +92,12 @@ export const FreeCoursesP = styled.p`
 
 export const Container = styled.div`
     display: flex;
-    padding-top: 150px;
+    margin-top: 75px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
 
     @media screen and (max-width: 768px) {
         flex-direction: column-reverse;
@@ -110,25 +115,30 @@ export const MainContent = styled.div`
 
 export const SideBar = styled.div`
     background: #080a10;
-    flex: 0.2;
-    height: fit-content;
-    margin: 0 16px;
-    position: sticky;
-    top: 150px;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row;
+    min-width: auto;
+    max-width: 60em;
+    width: 100%;
 
     @media screen and (max-width: 768px) {
-        flex: 1;
-        position: unset;
+        flex-direction: column;
+        max-width: fit-content;
     }
 `;
 
 export const HeadingContainer = styled.div`
     align-items: center;
-    display: flex;
-    padding: 16px;
+    padding: 15px;
     pointer-events: none;
-
+    display: none;
+    //
     @media screen and (max-width: 768px) {
+        display: flex;
         box-shadow: 0 0 4px rgb(255 255 255 / 15%);
         cursor: pointer;
         pointer-events: unset;
@@ -137,11 +147,10 @@ export const HeadingContainer = styled.div`
 
 export const IconContainer = styled.div`
     color: white;
-    display: none;
-
-    @media screen and (max-width: 768px) {
-        display: flex;
-    }
+    //display: none;
+    //@media screen and (max-width: 768px) {
+    display: flex;
+    //}
 
     svg {
         height: 24px;
@@ -161,23 +170,43 @@ export const SideBarHeading = styled.h1`
 `;
 
 export const Content = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row;
     list-style: none;
-    height: ${({ visible }) => (visible ? "215px" : 0)};
     opacity: ${({ visible }) => (visible ? 1 : 0)};
     overflow: hidden;
-    padding: ${({ visible }) => (visible ? "10px 0" : 0)};
-    transition: all 0.35s ease;
+    // padding: ${({ visible }) => (visible ? "10px 10px" : 0)};
+    //transition: all .2s ease-in-out;
+    @media screen and (max-width: 768px) {
+        // padding: ${({ visible }) => (visible ? "10px 10px" : 0)};
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        text-align: start;
+        flex-direction: column;
+        cursor: pointer;
+        pointer-events: unset;
+    }
 `;
 
 export const ListContent = styled.li`
-    padding: 10px 16px;
+    padding: 10px 20px;
     text-align: start;
 
     ${({ isActive }) =>
         isActive &&
         css`
-            box-shadow: inset 10px 0 0 -7px #20c20e;
+            //box-shadow: inset 10px 0 0 -7px #20c20e;
+            background: #000000;
+            border-bottom: 2px solid #20c20e;
         `}
+    &:hover {
+        background: #000000;
+        border-bottom: 2px solid #20c20e;
+    }
 `;
 
 export const Link = styled(RouterLink)`
@@ -189,7 +218,6 @@ export const Link = styled(RouterLink)`
         css`
             color: #20c20e;
         `}
-
     &:hover {
         color: #20c20e;
     }
