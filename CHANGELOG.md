@@ -1,3 +1,12 @@
+# [0.27.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.2...v0.27.0) (2022-11-13)
+
+
+### Features
+
+* footer improvements ([#301](https://github.com/thecyberworld/thecyberhub.org/issues/301)) ([6610281](https://github.com/thecyberworld/thecyberhub.org/commit/6610281b22a4eeda33af3c4d9acf4213a614a2b5))
+
+
+
 ## [0.26.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.1...v0.26.2) (2022-11-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * upgrade react-scroll from 1.8.7 to 1.8.8 ([#293](https://github.com/thecyberworld/thecyberhub.org/issues/293)) ([f35625c](https://github.com/thecyberworld/thecyberhub.org/commit/f35625cf276698cdc5dd4f0ea6d2610aefaf032b))
-
-
-
-## [0.25.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.8...v0.25.9) (2022-11-08)
-
-
-### Bug Fixes
-
-* upgrade react-icons from 4.4.0 to 4.6.0 ([#288](https://github.com/thecyberworld/thecyberhub.org/issues/288)) ([52baf9f](https://github.com/thecyberworld/thecyberhub.org/commit/52baf9ff6560d30713e26b27e9db6ed44ce46d5b))
 
 
 
