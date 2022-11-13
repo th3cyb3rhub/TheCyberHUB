@@ -1,3 +1,12 @@
+## [0.27.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.0...v0.27.1) (2022-11-13)
+
+
+### Bug Fixes
+
+* CTF data ([#302](https://github.com/thecyberworld/thecyberhub.org/issues/302)) ([b2f475e](https://github.com/thecyberworld/thecyberhub.org/commit/b2f475ea17353d190849787c0fe85858a53e61f3))
+
+
+
 # [0.27.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.2...v0.27.0) (2022-11-13)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add single event page ([#294](https://github.com/thecyberworld/thecyberhub.org/issues/294)) ([b808be2](https://github.com/thecyberworld/thecyberhub.org/commit/b808be288cbe3454d798a9fa8def3b759cc4a79c))
-
-
-
-## [0.25.10](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.9...v0.25.10) (2022-11-10)
-
-
-### Bug Fixes
-
-* upgrade react-scroll from 1.8.7 to 1.8.8 ([#293](https://github.com/thecyberworld/thecyberhub.org/issues/293)) ([f35625c](https://github.com/thecyberworld/thecyberhub.org/commit/f35625cf276698cdc5dd4f0ea6d2610aefaf032b))
 
 
 
