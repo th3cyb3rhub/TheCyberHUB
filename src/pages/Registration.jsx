@@ -1,9 +1,9 @@
 import React from "react";
-import { Container } from "../components/Registration";
-import { CenterCard } from "../components/Registration/CenterCard";
-import { Learn2CodePromotion } from "../components/Registration/Learn2CodePromotion";
+import { Container } from "../components/Homepage/Registration";
+import { CenterCard } from "../components/Homepage/Registration/CenterCard";
+import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2CodePromotion";
 import { CustomInputGroup } from "../components/MixComponents/InputField/CustomInputField";
-import { RegistrationFormContainer } from "../components/Registration/Form";
+import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
 import { PrimaryFilledButton } from "../components/MixComponents/Buttons/ButtonElements";
 // import { FaEnvelope } from "react-icons/fa";
 // import { FaLock } from "react-icons/fa";

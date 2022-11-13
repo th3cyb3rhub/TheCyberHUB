@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CybersecurityRegImage from "../../assets/images/Registeration/CybersecurityRegPage.png";
+import CybersecurityRegImage from "../../../assets/images/Registeration/CybersecurityRegPage.png";
 
 export const Learn2CodePromotion = styled.div`
     width: 100%;

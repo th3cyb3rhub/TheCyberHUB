@@ -74,7 +74,8 @@ export const FooterScrollLink = styled(ScrollLink)`
     font-size: 14px;
 
     &:hover {
-        color: #20c20e;
+        color: #1fbd3a;
+        scale: 1.1;
         transition: 0.3s ease-out;
     }
 `;
@@ -86,7 +87,8 @@ export const FooterRedirectLink = styled.a`
     font-size: 14px;
 
     &:hover {
-        color: #20c20e;
+        color: #1fbd3a;
+        scale: 1.1;
         transition: 0.3s ease-out;
     }
 `;
@@ -151,7 +153,7 @@ export const FooterSocialLinksTwitter = styled.a`
 
     &:hover {
         color: #1d9bf0;
-        font-size: 15px;
+        scale: 1.2;
         transition: 0.3s ease-out;
     }
 `;
@@ -163,7 +165,7 @@ export const FooterSocialLinksGithub = styled.a`
 
     &:hover {
         color: #afafaf;
-        font-size: 15px;
+        scale: 1.2;
         transition: 0.3s ease-out;
     }
 `;
@@ -175,7 +177,7 @@ export const FooterSocialLinksDiscord = styled.a`
 
     &:hover {
         color: #5865f2;
-        font-size: 15px;
+        scale: 1.2;
         transition: 0.3s ease-out;
     }
 `;
@@ -187,7 +189,7 @@ export const FooterSocialLinksLinktree = styled.a`
 
     &:hover {
         color: #1fbd3a;
-        font-size: 15px;
+        scale: 1.2;
         transition: 0.3s ease-out;
     }
 `;

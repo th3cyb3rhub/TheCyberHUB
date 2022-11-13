@@ -25,8 +25,16 @@ import {
 } from "./FooterElements";
 
 import { FaTwitter, FaGithub, FaInstagram, FaDiscord } from "react-icons/fa";
-
 import { animateScroll as scroll } from "react-scroll";
+
+const SocialLinks = {
+    github: "https://www.github.com/thecyberworld",
+    instagram: "https://www.instagram.com/thecyberw0rld",
+    twitter: "https://www.twitter.com/thecyberw0rld",
+    discord: "https://discord.gg/QHBPq6xP5p",
+    linktree: "https://linktr.ee/thecyberworld",
+    youtube: "https://www.youtube.com/c/thecyberworld",
+};
 
 const toggleHome = () => {
     scroll.scrollToTop();
@@ -68,39 +76,44 @@ const Footer = () => {
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
-                            <FooterSocialLinksTwitter href="https://www.twitter.com/thecyberw0rld" target={"_blank"}>
+                            <FooterSocialLinksTwitter href={SocialLinks.twitter} target={"_blank"}>
                                 Twitter
                             </FooterSocialLinksTwitter>
-                            <FooterSocialLinksGithub href="https://www.github.com/thecyberworld" target={"_blank"}>
+                            <FooterSocialLinksGithub href={SocialLinks.github} target={"_blank"}>
                                 GitHub
                             </FooterSocialLinksGithub>
-                            <FooterSocialLinksDiscord href="https://discord.gg/QHBPq6xP5p" target={"_blank"}>
+                            <FooterSocialLinksDiscord href={SocialLinks.discord} target={"_blank"}>
                                 Discord
                             </FooterSocialLinksDiscord>
-                            <FooterSocialLinksLinktree href="https://www.linktree.com/thecyberw0rld" target={"_blank"}>
+                            <FooterSocialLinksLinktree href={SocialLinks.linktree} target={"_blank"}>
                                 All Community Links
                             </FooterSocialLinksLinktree>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Free Courses </FooterLinkTitle>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
+                            <FooterRedirectLink
+                                href={
+                                    "https://www.youtube.com/watch?v=ONUk5S6_QwM&list=PLvqoeHbXvQCvuevuaaTS_ZKkkUG6tm1-O"
+                                }
+                                target={"_blank"}
+                            >
                                 Intro to Linux
-                            </FooterRedirectLink>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
-                                Cyber Tools
-                            </FooterRedirectLink>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
-                                Agency
-                            </FooterRedirectLink>
-                            <FooterRedirectLink href="https://www.youtube.com/c/thecyberworld" target={"_blank"}>
-                                Influence
                             </FooterRedirectLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
-                            <FooterLinkTitle> Videos </FooterLinkTitle>
-                            <FooterRouterLink to="#"> About Community </FooterRouterLink>
-                            <FooterRouterLink to="#"> How to Join Community </FooterRouterLink>
-                            <FooterRouterLink to="#"> How to Contribute to the Community </FooterRouterLink>
+                            <FooterLinkTitle> Videos (coming soon) </FooterLinkTitle>
+                            <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
+                                {" "}
+                                About Community{" "}
+                            </FooterRedirectLink>
+                            <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
+                                {" "}
+                                How to Join Community{" "}
+                            </FooterRedirectLink>
+                            <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
+                                {" "}
+                                How to Contribute to the Community{" "}
+                            </FooterRedirectLink>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
                 </FooterLinksContainer>
@@ -111,29 +124,17 @@ const Footer = () => {
                         </SocialLogo>
                         <WebsiteRights> © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
                         <SocialIcons>
-                            <SocialIconLinkTwitter
-                                href="https://www.twitter.com/thecyberw0rld"
-                                target="_blank"
-                                aria-label="Twitter"
-                            >
+                            <SocialIconLinkTwitter href={SocialLinks.twitter} target="_blank" aria-label="Twitter">
                                 <FaTwitter />
                             </SocialIconLinkTwitter>
-                            <SocialIconLinkGithub
-                                href="https://www.github.com/thecyberworld"
-                                target="_blank"
-                                aria-label="Github"
-                            >
+                            <SocialIconLinkGithub href={SocialLinks.github} target="_blank" aria-label="Github">
                                 <FaGithub />
                             </SocialIconLinkGithub>
-                            <SocialIconLinkDiscord
-                                href="https://discord.gg/QHBPq6xP5p"
-                                target="_blank"
-                                aria-label="Discord"
-                            >
+                            <SocialIconLinkDiscord href={SocialLinks.discord} target="_blank" aria-label="Discord">
                                 <FaDiscord />
                             </SocialIconLinkDiscord>
                             <SocialIconLinkInstagram
-                                href="https://www.instagram.com/thecyberw0rld"
+                                href={SocialLinks.instagram}
                                 target="_blank"
                                 aria-label="Instagram"
                             >

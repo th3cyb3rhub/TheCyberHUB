@@ -17,7 +17,7 @@ import {
 // import { GlowingButton } from "../../MixComponents/Buttons/ButtonElements";
 
 import Dropdown from "../Dropdowns/Dropdown";
-import logo from "../../../assets/images/WebsiteLogo/ThecyberhubLogo.png";
+import logo from "../../../../assets/images/WebsiteLogo/ThecyberhubLogo.png";
 
 const Navbar = ({ isOpen, toggle }) => {
     const [scrollNav, setScrollNav] = useState(false);
