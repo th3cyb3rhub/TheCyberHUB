@@ -1,3 +1,12 @@
+## [0.27.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.2...v0.27.3) (2022-11-15)
+
+
+### Bug Fixes
+
+* responsive ([#308](https://github.com/thecyberworld/thecyberhub.org/issues/308)) ([e5ba4a2](https://github.com/thecyberworld/thecyberhub.org/commit/e5ba4a2a5dd62b4d09ff42b8ada4e829da641249))
+
+
+
 ## [0.27.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.1...v0.27.2) (2022-11-15)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * community design ([#299](https://github.com/thecyberworld/thecyberhub.org/issues/299)) ([671a1f6](https://github.com/thecyberworld/thecyberhub.org/commit/671a1f6752270911293c15d03ea9549f0035fe1b))
-
-
-
-## [0.26.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.0...v0.26.1) (2022-11-11)
-
-
-### Bug Fixes
-
-* exents and navbar ([#295](https://github.com/thecyberworld/thecyberhub.org/issues/295)) ([4ff3660](https://github.com/thecyberworld/thecyberhub.org/commit/4ff36605eb74a244b12af5428aa9deccf941d830))
 
 
 
