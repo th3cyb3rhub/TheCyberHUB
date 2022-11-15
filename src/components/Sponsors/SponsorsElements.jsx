@@ -31,7 +31,6 @@ export const SponsorsP = styled.p`
 `;
 
 export const SponsorsLink = styled.a`
-    border: #4cc23e 1px solid;
     font-family: "Roboto Mono", monospace;
     display: flex;
     justify-content: center;

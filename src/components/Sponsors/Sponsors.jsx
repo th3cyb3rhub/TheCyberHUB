@@ -12,7 +12,8 @@ const Sponsors = () => {
                 Our websites and bots are running on the servers. <br />
                 We also organize CTF weekly and provide prizes to the winners, and much more <br />
                 <br />
-                Sponsors will help us recover server costs as well prize costs.
+                Sponsors will help us recover server costs as well prize costs. <br />
+                If you like our work and want to support us, you can sponsor us on BuyMeACoffee. <br />
             </SponsorsP>
             <SponsorsLink href="https://www.buymeacoffee.com/thecyberw0rld" target={"_blank"}>
                 <BuyMeACoffeeImage
