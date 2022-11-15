@@ -10,7 +10,7 @@ const Sponsors = () => {
                 to provide the best cyber security resources to everyone for free. <br /> <br />
                 <br />
                 Our websites and bots are running on the servers. <br />
-                We also organize CTF weekly and provide prizes to the winners, <br />
+                We also organize CTF weekly and provide prizes to the winners, and much more <br />
                 <br />
                 Sponsors will help us recover server costs as well prize costs.
             </SponsorsP>
