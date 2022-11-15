@@ -1,3 +1,12 @@
+## [0.27.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.1...v0.27.2) (2022-11-15)
+
+
+### Bug Fixes
+
+* sponsors page issues ([#304](https://github.com/thecyberworld/thecyberhub.org/issues/304)) ([3168e15](https://github.com/thecyberworld/thecyberhub.org/commit/3168e1594d12e06680629106d83ef910f0b4f09b))
+
+
+
 ## [0.27.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.0...v0.27.1) (2022-11-13)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * exents and navbar ([#295](https://github.com/thecyberworld/thecyberhub.org/issues/295)) ([4ff3660](https://github.com/thecyberworld/thecyberhub.org/commit/4ff36605eb74a244b12af5428aa9deccf941d830))
-
-
-
-# [0.26.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.25.10...v0.26.0) (2022-11-11)
-
-
-### Features
-
-* add single event page ([#294](https://github.com/thecyberworld/thecyberhub.org/issues/294)) ([b808be2](https://github.com/thecyberworld/thecyberhub.org/commit/b808be288cbe3454d798a9fa8def3b759cc4a79c))
 
 
 
