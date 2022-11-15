@@ -52,7 +52,7 @@ const Roadmap = () => {
                 })}
             </RoadmapDetailsContainer>
 
-            <hr style={{ width: "65em" }} />
+            {/* <hr/> */}
 
             <Roadmaps>
                 <Container>
@@ -61,6 +61,7 @@ const Roadmap = () => {
                         <AllRoadmaps>All Roadmaps</AllRoadmaps>
                     </RouterLink>
                 </Container>
+
                 {RoadmapsData.map((roadmap, id) => {
                     return (
                         <RouterLink key={id} to={{ pathname: `../` + `${encodeURL(roadmap.title)}` }}>

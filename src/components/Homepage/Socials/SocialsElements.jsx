@@ -117,7 +117,7 @@ export const SocialsCard = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 20px 20px 10px 20px;
+    padding: 10px 20px 0 20px;
     transition: all 0.2s ease-in-out;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
     backdrop-filter: blur(10px);
@@ -127,7 +127,7 @@ export const SocialsCard = styled.div`
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
     &:hover {
-        transform: scale(1.02);
+        transform: scale(1.05);
         transition: all 0.2s ease-in-out;
         cursor: pointer;
     }

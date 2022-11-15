@@ -25,14 +25,14 @@ export const RoadmapDetails = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45em;
     color: white;
     margin: 15px 0;
+    width: 100%;
 `;
 
 export const RoadmapContentHeading = styled.p`
     min-width: 20px;
-    color: #91dc56;
+    color: #faf089;
     font-size: 18px;
     width: 100%;
 `;
@@ -47,6 +47,23 @@ export const RoadmapDetailsCard = styled.div`
     padding: 5px 15px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+
+    &:hover {
+        scale: 1.05;
+        border: #faf089 1px solid;
+        color: #faf089;
+        transition: all 0.3s ease-in-out;
+    }
+
+    @media screen and (max-width: 600px) {
+        width: 25em;
+    }
+    @media screen and (max-width: 500px) {
+        width: 20em;
+    }
+    @media screen and (max-width: 350px) {
+        width: 100%;
+    }
 `;
 export const RoadmapSectionHeading = styled.h3`
     display: flex;
@@ -75,13 +92,19 @@ export const RoadmapsFooter = styled.div`
 `;
 
 export const Roadmaps = styled.div`
-    width: 65em;
+    max-width: 65em;
+    width: 100%;
     color: white;
     background: #0a0a0a;
     padding: 0 50px;
     padding-bottom: 20px;
     margin: 50px 0;
     display: inline;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding: 0 10px;
+    }
 `;
 
 export const Container = styled.div`
@@ -90,18 +113,25 @@ export const Container = styled.div`
     justify-content: space-between;
 `;
 
-export const RelatedRoadmaps = styled.div`
+export const RelatedRoadmaps = styled.button`
     width: auto;
     background: #0a0a0a;
-    border: #dadada 1px solid;
+    border: #343434 1px solid;
     border-radius: 3px;
     display: flex;
     margin: -15px 0 20px 0;
-    padding: 5px 15px;
-    color: #d9d9d9;
+    padding: 10px 15px;
+    color: #ececec;
 `;
 
-export const AllRoadmaps = styled(RelatedRoadmaps)``;
+export const AllRoadmaps = styled(RelatedRoadmaps)`
+    cursor: pointer;
+
+    &:hover {
+        scale: 1.1;
+        transition: all 0.3s ease-in-out;
+    }
+`;
 
 export const RoadmapInlineCard = styled.div`
     text-decoration: none;
@@ -113,6 +143,12 @@ export const RoadmapInlineCard = styled.div`
     padding: 5px 15px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+
+    &:hover {
+        scale: 1.02;
+        color: #faf089;
+        transition: all 0.3s ease-in-out;
+    }
 `;
 
 export const RouterLink = styled(Link)`
@@ -124,7 +160,7 @@ export const RedirectLink = styled.a`
 export const RoadmapsHeading = styled.p`
     width: 40%;
     min-width: 20px;
-    color: #91dc56;
+    color: #faf089;
     font-size: 18px;
 `;
 

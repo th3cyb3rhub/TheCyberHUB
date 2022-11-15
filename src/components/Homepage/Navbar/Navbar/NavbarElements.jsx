@@ -89,7 +89,7 @@ export const NavLogo = styled.img`
 
 export const MobileIcon = styled.div`
     display: none;
-    @media screen and (max-width: 780px) {
+    @media screen and (max-width: 900px) {
         display: block;
         position: absolute;
         top: 0;
@@ -119,7 +119,7 @@ export const NavMenu = styled.div`
     text-align: center;
     margin: 0 1rem;
 
-    @media screen and (max-width: 780px) {
+    @media screen and (max-width: 900px) {
         display: none;
     }
 `;
