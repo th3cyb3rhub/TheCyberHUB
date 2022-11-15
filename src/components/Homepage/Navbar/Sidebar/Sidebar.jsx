@@ -80,6 +80,7 @@ const Sidebar = (props) => {
                             { to: "events", title: "Events", dropdown: "events" },
                             { to: "projects", title: "Projects", dropdown: "projects" },
                             { to: "community", title: "Community", dropdown: "community" },
+                            { to: "sponsors", title: "Sponsors", dropdown: "sponsors" },
                         ].map(({ to, title, dropdown }) => (
                             <NavItem onClick={() => dropHandler(dropdown)} key={dropdown}>
                                 <SidebarLink to={to} onClick={to && toggle}>

@@ -28,6 +28,7 @@ import {
     CyberGames,
     OSINTGame,
     Footer,
+    Sponsors,
 } from "./components";
 import OpensourceProjects from "./components/OpensourceProjects/OpensourceProjects";
 import Spinner from "./components/MixComponents/Spinner/Spinner";
@@ -74,6 +75,7 @@ const App = () => {
                                 <Route path={":slug"} element={<Event />} />
                             </Route>
                             <Route exact path={"/community"} element={<Community />} />
+                            <Route exact path={"/sponsors"} element={<Sponsors />} />
                             <Route exact path={"/about"} element={<About />} />
                             <Route exact path={"/projects"} element={<OpensourceProjects />} />
 
