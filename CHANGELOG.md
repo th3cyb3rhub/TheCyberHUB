@@ -1,3 +1,12 @@
+## [0.27.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.4...v0.27.5) (2022-11-18)
+
+
+### Bug Fixes
+
+* roadmaps home link ([#310](https://github.com/thecyberworld/thecyberhub.org/issues/310)) ([6cf4455](https://github.com/thecyberworld/thecyberhub.org/commit/6cf44552b6bacd43c8b1f99ef918116c97095b37))
+
+
+
 ## [0.27.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.3...v0.27.4) (2022-11-18)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * CTF data ([#302](https://github.com/thecyberworld/thecyberhub.org/issues/302)) ([b2f475e](https://github.com/thecyberworld/thecyberhub.org/commit/b2f475ea17353d190849787c0fe85858a53e61f3))
-
-
-
-# [0.27.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.26.2...v0.27.0) (2022-11-13)
-
-
-### Features
-
-* footer improvements ([#301](https://github.com/thecyberworld/thecyberhub.org/issues/301)) ([6610281](https://github.com/thecyberworld/thecyberhub.org/commit/6610281b22a4eeda33af3c4d9acf4213a614a2b5))
 
 
 
