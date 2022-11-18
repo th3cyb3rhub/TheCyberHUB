@@ -52,7 +52,7 @@ export const ResourcesData = {
     id: "resources",
     idTo: "resources",
     buttonType: "router",
-    link: "/resources",
+    link: "/learn/roadmaps",
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
