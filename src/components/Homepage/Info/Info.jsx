@@ -46,19 +46,16 @@ const InfoSection = ({
                                 <TopLine> {topLine} </TopLine>
                                 <Heading lightText={lightText}> {headline} </Heading>
                                 <Subtitle darkText={darkText}> {description} </Subtitle>
-
                                 <BtnWrap>
                                     {buttonType === "router" && (
-                                        // <Link to='/resources'>
                                         <RouterButton
-                                            to="/resources"
+                                            to={link}
                                             primary={primary ? "true" : ""}
                                             dark={dark ? 1 : 0}
                                             dark2={dark2 ? 1 : 0}
                                         >
                                             {buttonLabel}
                                         </RouterButton>
-                                        // </Link>
                                     )}
                                     {buttonType === "scroll" && (
                                         <Button
