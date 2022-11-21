@@ -72,7 +72,7 @@ This project needs a ⭐️ from you. Don't forget to leave a star ⭐️
 
 ---
 
-## 📨 Contact Us
+## 📨 Follow / Contact Us
 
 <a href="https://discord.gg/QHBPq6xP5p" ><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
 <a href="https://www.github.com/thecyberworld" ><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="Github" /></a>
