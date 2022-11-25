@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { BsDot, BiCircle } from "react-icons/all";
 
 export const RoadmapContainer = styled.div`
     margin: 100px auto;
@@ -11,12 +12,25 @@ export const RoadmapContainer = styled.div`
     align-items: center;
 `;
 
+export const DotIcon = styled(BsDot)`
+    margin: 3.5px 5px 0 0;
+    font-size: 20px;
+    color: #d9d9d9;
+`;
+export const CircleIcon = styled(BiCircle)`
+    margin: 10px 10px 0 0;
+    font-size: 6px;
+`;
+export const HrLine = styled.hr`
+    width: ;
+    color: #2a2a2a;
+`;
+
 export const RoadmapDetailsContainer = styled.div`
-    margin-bottom: 100px;
+    margin: 50px 0 100px 150px;
     display: flex;
     flex-direction: column;
     color: #d9d9d9;
-    width: 100%;
     justify-content: center;
     align-items: center;
 `;
@@ -24,56 +38,68 @@ export const RoadmapDetailsContainer = styled.div`
 export const RoadmapDetails = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    color: white;
+    align-items: flex-start;
+    color: #d9d9d9;
     margin: 15px 0;
     width: 100%;
 `;
 
 export const RoadmapContentHeading = styled.p`
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    align-items: start;
+    margin: 5px auto;
+    margin-left: 50px;
     min-width: 20px;
-    color: #faf089;
-    font-size: 18px;
     width: 100%;
+    color: #d9d9d9;
+    font-size: 18px;
 `;
 export const RoadmapDetailsCard = styled.div`
-    width: 30em;
-    text-decoration: none;
-    background: #0a0a0a;
-    border: #383838 1px solid;
-    border-radius: 3px;
     display: flex;
-    margin: 0 0 5px 0;
-    padding: 5px 15px;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    align-items: start;
 
-    &:hover {
-        scale: 1.05;
-        border: #faf089 1px solid;
-        color: #faf089;
-        transition: all 0.3s ease-in-out;
-    }
-
-    @media screen and (max-width: 600px) {
-        width: 25em;
-    }
-    @media screen and (max-width: 500px) {
-        width: 20em;
-    }
-    @media screen and (max-width: 350px) {
-        width: 100%;
-    }
+    //width: 30em;
+    //text-decoration: none;
+    //background: #0a0a0a;
+    //border: #383838 1px solid;
+    //border-radius: 3px;
+    //display: flex;
+    //margin: 0 0 5px 0;
+    //padding: 5px 15px;
+    //transition: all 0.3s ease-in-out;
+    //cursor: pointer;
+    //
+    //&:hover {
+    //    scale: 1.05;
+    //    border: #faf089 1px solid;
+    //    color: #faf089;
+    //    transition: all 0.3s ease-in-out;
+    //}
+    //
+    //@media screen and (max-width: 600px) {
+    //    width: 25em;
+    //}
+    //@media screen and (max-width: 500px) {
+    //    width: 20em;
+    //}
+    //@media screen and (max-width: 350px) {
+    //    width: 100%;
+    //}
 `;
 export const RoadmapSectionHeading = styled.h3`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
+    align-items: start;
+
     color: #d9d9d9;
     width: 100%;
     margin: 15px auto;
-    font-size: 1.5rem;
     font-weight: 500;
     letter-spacing: 0.1rem;
 `;
@@ -91,7 +117,7 @@ export const RoadmapsFooter = styled.div`
     background: #151515;
 `;
 
-export const Roadmaps = styled.div`
+export const RoadmapsContainer = styled.div`
     max-width: 65em;
     width: 100%;
     color: white;
@@ -155,12 +181,12 @@ export const RouterLink = styled(Link)`
     text-decoration: none;
 `;
 export const RedirectLink = styled.a`
-    text-decoration: none;
+    text-decoration: dashed underline #faf089; ;
 `;
 export const RoadmapsHeading = styled.p`
     width: 40%;
     min-width: 20px;
-    color: #faf089;
+    color: greenyellow;
     font-size: 18px;
 `;
 

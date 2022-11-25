@@ -35,3 +35,9 @@ export { default as Jobs } from "./Resources/Jobs/Jobs";
 export { default as Contribute } from "./MixComponents/Contribute/Contribute";
 export { default as Footer } from "./Homepage/Footer/Footer";
 export { default as ComingSoon } from "./MixComponents/ComingSoon";
+
+export { default as OpensourceProjects } from "./OpensourceProjects/OpensourceProjects";
+export { default as Spinner } from "./MixComponents/Spinner/Spinner";
+export { default as AllBlogs } from "./Learn/Blogs/Blogs";
+export { default as ViewBlog } from "./Learn/Blogs/ViewBlog";
+export { default as Roadmap } from "./Learn/Roadmaps/Roadmap";

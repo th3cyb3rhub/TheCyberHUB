@@ -20,7 +20,7 @@ export const ChannelHeading = styled.h5`
 //
 // .paddingTop{
 //     padding: 150px 0 60px 0;
-//     background: #010606;
+//     background: #000000;
 // }
 //
 // .h1_Courses{
@@ -36,7 +36,7 @@ export const ChannelHeading = styled.h5`
 //     flex-direction: column;
 //     justify-content: center;
 //     align-items: center;
-//     background: #010606;
+//     background: #000000;
 // }
 //
 // .container {

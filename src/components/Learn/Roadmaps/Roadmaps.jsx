@@ -4,7 +4,7 @@ import {
     RoadmapHeading,
     RoadmapDesc,
     Overlay,
-    RoadmapContainer,
+    RoadmapsContainer,
     OverlayDetails,
 } from "./RoadmapsElements";
 
@@ -12,32 +12,32 @@ import RoadmapsData from "./RoadmapsData";
 import { encodeURL } from "../Blogs/util";
 import { RouterLink } from "./RoadmapElements";
 
+const Colors = ["greenyellow", "cornflowerblue", "darkorange", "darkgray", "mediumpurple"];
+
 const Roadmaps = () => {
     return (
         <>
-            <RoadmapContainer>
-                {RoadmapsData.map((roadmap, id) => {
+            <RoadmapsContainer>
+                {RoadmapsData?.map((roadmap, id) => {
                     return (
-                        <RouterLink key={id} to={{ pathname: `${encodeURL(roadmap.title)}` }}>
-                            {roadmap.details.map((resources) => {
+                        <RouterLink key={id} to={{ pathname: `${encodeURL(roadmap?.title)}` }}>
+                            {roadmap.details.map((resources, id) => {
                                 return (
-                                    <>
-                                        {resources.section === "Coming Soon" && (
-                                            <Overlay key={id}>
-                                                <OverlayDetails>{resources.section}</OverlayDetails>
-                                            </Overlay>
+                                    <Overlay key={id}>
+                                        {resources?.section === "Coming Soon" && (
+                                            <OverlayDetails>{resources?.section}</OverlayDetails>
                                         )}
-                                    </>
+                                    </Overlay>
                                 );
                             })}
-                            <RoadmapCard key={id}>
-                                <RoadmapHeading> {roadmap.title} </RoadmapHeading>
-                                <RoadmapDesc> {roadmap.desc} </RoadmapDesc>
+                            <RoadmapCard>
+                                <RoadmapHeading style={{ color: `${Colors[id]}` }}> {roadmap?.title} </RoadmapHeading>
+                                <RoadmapDesc> {roadmap?.desc} </RoadmapDesc>
                             </RoadmapCard>
                         </RouterLink>
                     );
                 })}
-            </RoadmapContainer>
+            </RoadmapsContainer>
         </>
     );
 };

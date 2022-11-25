@@ -8,8 +8,7 @@ import VersionControlSvg from "../../../assets/images/undraw_version_control_re_
 import { FaGithub } from "react-icons/fa";
 // import { GoPrimitiveDot } from "react-icons/go";
 
-import { IconsSpacing } from "../../MixComponents/Buttons/ButtonElements";
-import { IconsSpacing2 } from "../../MixComponents/Buttons/ButtonElements";
+import { IconsSpacing , IconsSpacing2 } from "../../MixComponents/Buttons/ButtonElements";
 import { BsFillPlayFill } from "react-icons/bs";
 import { DotSymbol } from "./InfoElements";
 
@@ -83,8 +82,8 @@ export const ResourcesData = {
 export const communityData = {
     id: "community",
     idTo: "join",
-    buttonType: "scroll",
-    link: "joinUs",
+    buttonType: "router",
+    link: "/community",
     link2: "https://www.linktree.com/thecyberworld",
     lightBg: false,
     lightText: true,

@@ -77,7 +77,7 @@ export const SidebarRoute = styled(RouterLink)`
     background: #20c20e;
     white-space: nowrap;
     padding: 16px 64px;
-    color: #010606;
+    color: #000000;
     font-size: 16px;
     outline: none;
     border: none;
@@ -88,6 +88,6 @@ export const SidebarRoute = styled(RouterLink)`
     &:hover {
         transition: all 0.2s ease-in-out;
         background: #fff;
-        color: #010606;
+        color: #000000;
     }
 `;

@@ -39,7 +39,7 @@ export default function CategoriesButtons({
     const buttonsArrayMobile = CategoriesButtonData.map((data, i) => {
         const styles = {
             background: data.type === categoryToShow ? "#cecac3" : "",
-            color: data.type === categoryToShow ? "#010606" : "",
+            color: data.type === categoryToShow ? "#000000" : "",
         };
 
         return (

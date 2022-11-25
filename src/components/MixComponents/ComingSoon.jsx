@@ -5,7 +5,7 @@ const ComingSoon = () => {
     return (
         <div
             style={{
-                background: "#010606FF",
+                background: "#000000",
                 color: "#fff",
                 textAlign: "center",
                 padding: "0 0 200px 0",

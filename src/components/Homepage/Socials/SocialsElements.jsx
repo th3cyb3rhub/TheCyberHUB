@@ -78,7 +78,7 @@ export const SocialsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #010606;
+    background: #000000;
 
     @media screen and (max-width: 768px) {
         height: 1100px;

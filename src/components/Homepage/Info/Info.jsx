@@ -18,6 +18,7 @@ import {
 const InfoSection = ({
     id,
     idTo,
+    idTo2,
     buttonType,
     link,
     lightBg,
@@ -75,7 +76,7 @@ const InfoSection = ({
 
                                     {buttonLabel2 && buttonType === "scroll" && (
                                         <Button
-                                            to={idTo}
+                                            to={idTo2}
                                             smooth={true}
                                             duration={500}
                                             spy={true}

@@ -4,21 +4,16 @@ import { useParams } from "react-router-dom";
 import RoadmapsData from "./RoadmapsData";
 import { encodeURL } from "../Blogs/util";
 import {
-    Roadmaps,
-    RelatedRoadmaps,
     RoadmapContainer,
-    RoadmapsHeading,
-    RoadmapsDesc,
-    RoadmapInlineCard,
-    AllRoadmaps,
-    Container,
-    RouterLink,
     RedirectLink,
     RoadmapSectionHeading,
     RoadmapDetails,
     RoadmapDetailsCard,
     RoadmapContentHeading,
     RoadmapDetailsContainer,
+    DotIcon,
+    CircleIcon,
+    HrLine,
 } from "./RoadmapElements";
 
 const Roadmap = () => {
@@ -34,45 +29,47 @@ const Roadmap = () => {
             {/* <p>{SelectedRoadmap.details.section}</p> */}
 
             <RoadmapDetailsContainer>
-                {SelectedRoadmap.details.map((resources, id) => {
-                    return (
-                        <RoadmapDetails key={id}>
-                            <RoadmapSectionHeading>{resources.section}</RoadmapSectionHeading>
-                            {resources.resources.map((resource, id) => {
-                                return (
-                                    <RedirectLink key={id} href={resource.url} target={"_blank"}>
-                                        <RoadmapDetailsCard>
-                                            <RoadmapContentHeading>{resource.title}</RoadmapContentHeading>
-                                        </RoadmapDetailsCard>
-                                    </RedirectLink>
-                                );
-                            })}
-                        </RoadmapDetails>
-                    );
-                })}
+                {SelectedRoadmap?.details.map((resources, id) => (
+                    <RoadmapDetails key={id}>
+                        <RoadmapSectionHeading>
+                            {" "}
+                            <DotIcon /> {resources.section}
+                        </RoadmapSectionHeading>
+                        {resources?.resources.map((resource, id) => {
+                            return (
+                                <RedirectLink key={id} href={resource.url} target={"_blank"}>
+                                    <RoadmapDetailsCard>
+                                        <RoadmapContentHeading>
+                                            <CircleIcon /> {resource.title}
+                                        </RoadmapContentHeading>
+                                    </RoadmapDetailsCard>
+                                </RedirectLink>
+                            );
+                        })}
+                        {/* <HrLine/> */}
+                    </RoadmapDetails>
+                ))}
             </RoadmapDetailsContainer>
 
-            {/* <hr/> */}
+            <HrLine />
 
-            <Roadmaps>
-                <Container>
-                    <RelatedRoadmaps>Related Roadmaps</RelatedRoadmaps>
-                    <RouterLink to={"/learn/roadmaps"}>
-                        <AllRoadmaps>All Roadmaps</AllRoadmaps>
-                    </RouterLink>
-                </Container>
-
-                {RoadmapsData.map((roadmap, id) => {
-                    return (
-                        <RouterLink key={id} to={{ pathname: `../` + `${encodeURL(roadmap.title)}` }}>
-                            <RoadmapInlineCard key={id}>
-                                <RoadmapsHeading>{roadmap.title} </RoadmapsHeading>
-                                <RoadmapsDesc>{roadmap.desc} </RoadmapsDesc>
-                            </RoadmapInlineCard>
-                        </RouterLink>
-                    );
-                })}
-            </Roadmaps>
+            {/* <RoadmapsContainer> */}
+            {/*    <Container> */}
+            {/*        <RelatedRoadmaps>Related Roadmaps</RelatedRoadmaps> */}
+            {/*        <RouterLink to={"/learn/roadmaps"}> */}
+            {/*            <AllRoadmaps>All Roadmaps</AllRoadmaps> */}
+            {/*        </RouterLink> */}
+            {/*    </Container> */}
+            {/*    <Roadmaps /> */}
+            {/*    /!*{RoadmapsData.map((roadmap, id) => (*!/ */}
+            {/*    /!*    <RouterLink key={id} to={{ pathname: `../` + `${encodeURL(roadmap.title)}` }}>*!/ */}
+            {/*    /!*        <RoadmapInlineCard key={id}>*!/ */}
+            {/*    /!*            <RoadmapsHeading>{roadmap.title} </RoadmapsHeading>*!/ */}
+            {/*    /!*            <RoadmapsDesc>{roadmap.desc} </RoadmapsDesc>*!/ */}
+            {/*    /!*        </RoadmapInlineCard>*!/ */}
+            {/*    /!*    </RouterLink>*!/ */}
+            {/*    /!*))}*!/ */}
+            {/* </RoadmapsContainer> */}
         </RoadmapContainer>
     );
 };

@@ -29,12 +29,12 @@ import {
     OSINTGame,
     Footer,
     Sponsors,
+    OpensourceProjects,
+    Spinner,
+    AllBlogs,
+    ViewBlog,
+    Roadmap,
 } from "./components";
-import OpensourceProjects from "./components/OpensourceProjects/OpensourceProjects";
-import Spinner from "./components/MixComponents/Spinner/Spinner";
-import AllBlogs from "./components/Learn/Blogs/Blogs";
-import ViewBlog from "./components/Learn/Blogs/ViewBlog";
-import Roadmap from "./components/Learn/Roadmaps/Roadmap";
 import { Container } from "./components/MixComponents/Layout/LayoutElements";
 
 const App = () => {
@@ -117,9 +117,9 @@ const App = () => {
                             <Route exact path={"/register"} element={<Registration />}></Route>
                         </Routes>
                     </ScrollToTop>
-                    {/* {showFooter() &&
-                    } */}
+                    {/* {showFooter() && */}
                     <Footer />
+                    {/* } */}
                 </Container>
             )}
         </div>

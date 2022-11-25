@@ -14,7 +14,7 @@ export const DotSymbol = styled(GoPrimitiveSquare)`
 
 export const InfoContainer = styled.div`
     color: #fff;
-    background: ${({ lightBg }) => (lightBg ? "#f9f9f9" : "#010606")};
+    background: ${({ lightBg }) => (lightBg ? "#f9f9f9" : "#000000")};
 
     @media screen and (max-width: 768px) {
         padding: 100px 0;
@@ -81,7 +81,7 @@ export const Heading = styled.h1`
     font-size: 48px;
     line-height: 1.1;
     font-weight: 600;
-    color: ${({ lightText }) => (lightText ? "#f7f8fa" : "#010606")};
+    color: ${({ lightText }) => (lightText ? "#f7f8fa" : "#000000")};
 
     @media screen and (max-width: 480px) {
         font-size: 32px;
@@ -93,7 +93,7 @@ export const Subtitle = styled.p`
     margin-bottom: 35px;
     font-size: 18px;
     line-height: 24px;
-    color: ${({ darkText }) => (darkText ? "#010606" : "#fff")};
+    color: ${({ darkText }) => (darkText ? "#000000" : "#fff")};
 `;
 
 export const BtnWrap = styled.div`

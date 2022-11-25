@@ -39,7 +39,7 @@ export const ImageBg = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background: #010606;
+    background: #000000;
 `;
 
 export const VideoBg = styled.video`
@@ -47,7 +47,7 @@ export const VideoBg = styled.video`
     height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
-    background: #010606;
+    background: #000000;
 `;
 
 export const HeroContent = styled.div`

@@ -36,7 +36,7 @@ export const OverlayDetails = styled.div`
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 `;
 
-export const RoadmapContainer = styled.div`
+export const RoadmapsContainer = styled.div`
     max-width: 65em;
     margin: 150px auto;
     display: flex;
@@ -72,7 +72,6 @@ export const RoadmapCard = styled.div`
 `;
 
 export const RoadmapHeading = styled.h4`
-    color: #faf089;
     padding: 5px 20px 0 5px;
 `;
 
