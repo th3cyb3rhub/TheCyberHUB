@@ -1,3 +1,12 @@
+## [0.27.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.5...v0.27.6) (2022-12-06)
+
+
+### Bug Fixes
+
+* Sidebar Fixed ([#313](https://github.com/thecyberworld/thecyberhub.org/issues/313)) ([f40db6e](https://github.com/thecyberworld/thecyberhub.org/commit/f40db6e4b518490af31062d14ef88f36f52eadbe))
+
+
+
 ## [0.27.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.4...v0.27.5) (2022-11-18)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * sponsors page issues ([#304](https://github.com/thecyberworld/thecyberhub.org/issues/304)) ([3168e15](https://github.com/thecyberworld/thecyberhub.org/commit/3168e1594d12e06680629106d83ef910f0b4f09b))
-
-
-
-## [0.27.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.0...v0.27.1) (2022-11-13)
-
-
-### Bug Fixes
-
-* CTF data ([#302](https://github.com/thecyberworld/thecyberhub.org/issues/302)) ([b2f475e](https://github.com/thecyberworld/thecyberhub.org/commit/b2f475ea17353d190849787c0fe85858a53e61f3))
 
 
 
