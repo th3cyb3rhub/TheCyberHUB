@@ -15,6 +15,7 @@ import { RedirectButton } from "../../../MixComponents/Buttons/ButtonElements";
 
 const Sidebar = (props) => {
     const { isOpen, toggle } = props;
+
     const [drop, setDrop] = useState(false);
     const [resourcesClick, setResourcesClick] = useState(true);
     const [learnClick, setLearnClick] = useState(true);
@@ -47,14 +48,16 @@ const Sidebar = (props) => {
                 setLearnClick(false);
                 setResourcesClick(true);
             }
-        } else setDrop(false);
+        } else {
+            setDrop(false);
+        }
     };
 
     return (
         toggle && (
             <SidebarContainer isOpen={isOpen}>
                 <Icon onClick={toggle}>
-                    <CloseIcon />
+                    <CloseIcon onClick={() => setDrop(false)} />
                 </Icon>
                 <SidebarWrapper>
                     <SidebarMenu>
@@ -87,15 +90,19 @@ const Sidebar = (props) => {
                                     {title}
                                 </SidebarLink>
                                 {dropdown === "learn" && learnClick && drop && (
-                                    <Dropdown isLearn={true} toggle={setOnClosed} closed={onClosed} isOpen={isOpen} />
+                                    <>
+                                        <Dropdown isLearn={true} toggle={toggle} closed={onClosed} isOpen={isOpen} />
+                                    </>
                                 )}
                                 {dropdown === "resources" && resourcesClick && drop && (
-                                    <Dropdown
-                                        isResources={true}
-                                        toggle={setOnClosed}
-                                        closed={onClosed}
-                                        isOpen={isOpen}
-                                    />
+                                    <>
+                                        <Dropdown
+                                            isResources={true}
+                                            toggle={toggle}
+                                            closed={onClosed}
+                                            isOpen={isOpen}
+                                        />
+                                    </>
                                 )}
                             </NavItem>
                         ))}
@@ -112,3 +119,5 @@ const Sidebar = (props) => {
 };
 
 export default Sidebar;
+
+

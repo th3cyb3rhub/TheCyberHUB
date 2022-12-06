@@ -24,6 +24,12 @@ export const SidebarContainer = styled.nav`
 
 export const CloseIcon = styled(FaTimes)`
     color: #fff;
+
+    &:hover {
+        scale: 1.2;
+        color: #20c20e;
+        transition: 0.2s ease-in-out;
+    }
 `;
 
 export const Icon = styled.div`
