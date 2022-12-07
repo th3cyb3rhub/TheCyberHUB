@@ -124,7 +124,7 @@ export const NavMenu = styled.div`
     }
 `;
 
-export const NavItem = styled.li`
+export const NavItem = styled.p`
     height: 80px;
 `;
 

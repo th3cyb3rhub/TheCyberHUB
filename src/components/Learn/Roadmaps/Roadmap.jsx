@@ -32,20 +32,17 @@ const Roadmap = () => {
                 {SelectedRoadmap?.details.map((resources, id) => (
                     <RoadmapDetails key={id}>
                         <RoadmapSectionHeading>
-                            {" "}
                             <DotIcon /> {resources.section}
                         </RoadmapSectionHeading>
-                        {resources?.resources.map((resource, id) => {
-                            return (
-                                <RedirectLink key={id} href={resource.url} target={"_blank"}>
-                                    <RoadmapDetailsCard>
-                                        <RoadmapContentHeading>
-                                            <CircleIcon /> {resource.title}
-                                        </RoadmapContentHeading>
-                                    </RoadmapDetailsCard>
-                                </RedirectLink>
-                            );
-                        })}
+                        {resources?.resources.map((resource, id) => (
+                            <RedirectLink key={id} href={resource.url} target={"_blank"}>
+                                <RoadmapDetailsCard>
+                                    <RoadmapContentHeading>
+                                        <CircleIcon /> {resource.title}
+                                    </RoadmapContentHeading>
+                                </RoadmapDetailsCard>
+                            </RedirectLink>
+                        ))}
                         {/* <HrLine/> */}
                     </RoadmapDetails>
                 ))}

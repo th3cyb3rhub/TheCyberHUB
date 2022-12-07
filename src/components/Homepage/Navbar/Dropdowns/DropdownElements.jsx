@@ -40,6 +40,14 @@ export const DropdownItemsContainer = styled.div`
     height: auto;
     margin: 0 auto;
     margin-bottom: 1rem;
+
+    @media screen and (max-width: 900px) {
+        height: max-content;
+        background: #000000;
+        backdrop-filter: blur(1000px);
+        -webkit-backdrop-filter: blur(1000px);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
 `;
 
 export const DropdownItemContainer = styled.div`
