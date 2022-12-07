@@ -1,3 +1,12 @@
+## [0.27.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.6...v0.27.7) (2022-12-07)
+
+
+### Bug Fixes
+
+* design of roadmap ([#316](https://github.com/thecyberworld/thecyberhub.org/issues/316)) ([711895e](https://github.com/thecyberworld/thecyberhub.org/commit/711895e7e31cb4fddce55ce02855009b1219dd5c))
+
+
+
 ## [0.27.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.5...v0.27.6) (2022-12-06)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * responsive ([#308](https://github.com/thecyberworld/thecyberhub.org/issues/308)) ([e5ba4a2](https://github.com/thecyberworld/thecyberhub.org/commit/e5ba4a2a5dd62b4d09ff42b8ada4e829da641249))
-
-
-
-## [0.27.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.1...v0.27.2) (2022-11-15)
-
-
-### Bug Fixes
-
-* sponsors page issues ([#304](https://github.com/thecyberworld/thecyberhub.org/issues/304)) ([3168e15](https://github.com/thecyberworld/thecyberhub.org/commit/3168e1594d12e06680629106d83ef910f0b4f09b))
 
 
 
