@@ -39,7 +39,6 @@ export const RoadmapDetails = styled.div`
     align-items: flex-start;
     color: #d9d9d9;
     margin: 15px 0;
-    border: 1px solid #ff0000;
 `;
 
 export const RoadmapContentHeading = styled.p`
