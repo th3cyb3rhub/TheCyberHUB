@@ -10,7 +10,6 @@ export const RoadmapContainer = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ff0000;
 `;
 
 export const DotIcon = styled(BsDot)`
@@ -32,8 +31,6 @@ export const RoadmapDetailsContainer = styled.div`
     flex-direction: column;
     color: #d9d9d9;
     justify-content: center;
-    align-items: start;
-    border: 1px solid #ff0000;
 `;
 
 export const RoadmapDetails = styled.div`
@@ -94,13 +91,15 @@ export const RoadmapDetailsCard = styled.div`
     //    width: 100%;
     //}
 `;
+
 export const RoadmapSectionHeading = styled.h3`
     display: flex;
     justify-content: flex-start;
     text-align: left;
-    align-items: start;
+    //align-items: self-start;
 
     color: #d9d9d9;
+    //width: 100%;
     width: auto;
     margin: 15px auto;
     font-weight: 500;
