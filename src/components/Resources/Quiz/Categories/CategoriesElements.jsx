@@ -114,7 +114,7 @@ export const QuestionButton = styled.button`
     border: 1px solid #545454;
     border-bottom-width: 2px;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.1s ease;
 
     &:hover {
         background-color: rgb(95, 232, 49);

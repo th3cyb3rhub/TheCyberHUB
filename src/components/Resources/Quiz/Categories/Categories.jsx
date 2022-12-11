@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
     AnswerSection,
     QuestionButton,
@@ -12,14 +12,17 @@ import {
     ScoreInfo,
     ScoreSection,
 } from "./CategoriesElements";
+import {
+    CBQQuestions,
+    PhishingQuestions,
+    PSQQuestions,
+    RansomwareQuestions,
+    SRAQQuestions,
+    TSSQQuestions,
+    VSQQuestions,
+} from "../CategoriesData";
 import CategoriesButtons from "./CategoriesButtons";
-import CBQ from "./CBQ/CBQ";
-import Phishing from "./Phishing/Phishing";
-import PSQ from "./PSQ/PSQ";
-import Ransomware from "./Ransomware/Ransomeware";
-import SRAQ from "./SRAQ/SRAQ";
-import TSSQ from "./TSSQ/TSSQ";
-import VSQ from "./VSQ/VSQ";
+import RenderProgressIndicator from "../../../../utils/components/RenderProgressIndicator";
 
 export default function Categories() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -63,28 +66,25 @@ export default function Categories() {
         setShowDropdown(false);
     }, [showDropdown]);
 
-    const styles = {
-        AnswerSection: AnswerSection,
-        QuestionButton: QuestionButton,
-        QuestionCount: QuestionCount,
-        QuestionSection: QuestionSection,
-        QuestionText: QuestionText,
-        QuizBody: QuizBody,
-        QuizSection: QuizSection,
-        ResetButton: ResetButton,
-        ScoreInfo: ScoreInfo,
-        ScoreSection: ScoreSection,
-    };
+    const [questions, setQuestions] = useState(CBQQuestions);
 
-    const statesAndFunctions = {
-        currentQuestion: currentQuestion,
-        showScore: showScore,
-        score: score,
-        scoreList: scoreList,
-        handleAnswerButtonClick: handleAnswerButtonClick,
-        handleResetButton: handleResetButton,
-    };
-
+    useEffect(() => {
+        if (categoryToShow == "CBQ") {
+            setQuestions(CBQQuestions);
+        } else if (categoryToShow == "Phishing") {
+            setQuestions(PhishingQuestions);
+        } else if (categoryToShow == "PSQ") {
+            setQuestions(PSQQuestions);
+        } else if (categoryToShow == "Ransomware") {
+            setQuestions(RansomwareQuestions);
+        } else if (categoryToShow == "SRAQ") {
+            setQuestions(SRAQQuestions);
+        } else if (categoryToShow == "TSSQ") {
+            setQuestions(TSSQQuestions);
+        } else if (categoryToShow == "VSQ") {
+            setQuestions(VSQQuestions);
+        }
+    });
     return (
         <section>
             <CategoriesButtons
@@ -96,13 +96,36 @@ export default function Categories() {
                 closeDropdown={closeDropdown}
                 showDropdown={showDropdown}
             />
-            {categoryToShow === "CBQ" && <CBQ {...styles} {...statesAndFunctions} />}
-            {categoryToShow === "Phishing" && <Phishing {...styles} {...statesAndFunctions} />}
-            {categoryToShow === "PSQ" && <PSQ {...styles} {...statesAndFunctions} />}
-            {categoryToShow === "Ransomware" && <Ransomware {...styles} {...statesAndFunctions} />}
-            {categoryToShow === "SRAQ" && <SRAQ {...styles} {...statesAndFunctions} />}
-            {categoryToShow === "TSSQ" && <TSSQ {...styles} {...statesAndFunctions} />}
-            {categoryToShow === "VSQ" && <VSQ {...styles} {...statesAndFunctions} />}
+            <QuizSection>
+                {showScore ? (
+                    <ScoreSection>
+                        <ScoreInfo>
+                            You scored {score} out of {questions.length}
+                        </ScoreInfo>
+                        <ResetButton onClick={() => handleResetButton(score)}>Start again</ResetButton>
+                    </ScoreSection>
+                ) : (
+                    <QuizBody>
+                        <QuestionSection>
+                            <QuestionCount>
+                                <RenderProgressIndicator questionsArray={questions} currentQuestion={currentQuestion} />
+                                <span>Question {currentQuestion + 1}</span>
+                            </QuestionCount>
+                            <QuestionText>{questions[currentQuestion].questionText}</QuestionText>
+                        </QuestionSection>
+                        <AnswerSection>
+                            {questions[currentQuestion].answerOptions.map((answerOption, i) => (
+                                <QuestionButton
+                                    key={i}
+                                    onClick={() => handleAnswerButtonClick(answerOption.isCorrect, questions.length)}
+                                >
+                                    {answerOption.answerText}
+                                </QuestionButton>
+                            ))}
+                        </AnswerSection>
+                    </QuizBody>
+                )}
+            </QuizSection>
         </section>
     );
 }
