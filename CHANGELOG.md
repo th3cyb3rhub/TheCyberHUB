@@ -1,3 +1,12 @@
+## [0.27.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.7...v0.27.8) (2022-12-11)
+
+
+### Bug Fixes
+
+* refactor: eliminate repetition in quiz category components ([#319](https://github.com/thecyberworld/thecyberhub.org/issues/319)) ([46ea9c6](https://github.com/thecyberworld/thecyberhub.org/commit/46ea9c6bfb1198ce8626f98f9d17b6feacdcdb7c))
+
+
+
 ## [0.27.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.6...v0.27.7) (2022-12-07)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * roadmaps home link  ([a12b5bc](https://github.com/thecyberworld/thecyberhub.org/commit/a12b5bc2233fde72850e1965db8fd49cdd5b3b95))
-
-
-
-## [0.27.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.2...v0.27.3) (2022-11-15)
-
-
-### Bug Fixes
-
-* responsive ([#308](https://github.com/thecyberworld/thecyberhub.org/issues/308)) ([e5ba4a2](https://github.com/thecyberworld/thecyberhub.org/commit/e5ba4a2a5dd62b4d09ff42b8ada4e829da641249))
 
 
 
