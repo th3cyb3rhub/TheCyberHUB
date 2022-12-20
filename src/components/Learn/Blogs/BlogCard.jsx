@@ -58,7 +58,6 @@ export const Tags = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 10px 0;
     padding: 10px 0;
 `;
 
@@ -92,12 +91,12 @@ const BlogCard = (props) => {
                         {props.date} • {props.author}
                     </h6>
                 </BlogsContainerTitle>
-                <div>
-                    {props.content.slice(0, 200)}
-                    {props.content.length > 200 ? "..." : ""}
-                </div>
+                {/* <div> */}
+                {/*    {props.content.slice(0, 200)} */}
+                {/*    {props.content.length > 200 ? "..." : ""} */}
+                {/* </div> */}
                 <Tags>
-                    {/*tags:*/}
+                    {/* tags: */}
                     {props.tags.map((tag, index) => (
                         <Tag key={index}>{tag}</Tag>
                     ))}
