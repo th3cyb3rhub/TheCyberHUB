@@ -1,3 +1,12 @@
+## [0.27.10](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.9...v0.27.10) (2022-12-26)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#327](https://github.com/thecyberworld/thecyberhub.org/issues/327)) ([8acdce0](https://github.com/thecyberworld/thecyberhub.org/commit/8acdce0b256e73b97df1ead06b6ad0b8e510e8da))
+
+
+
 ## [0.27.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.8...v0.27.9) (2022-12-20)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Sidebar Fixed ([#313](https://github.com/thecyberworld/thecyberhub.org/issues/313)) ([f40db6e](https://github.com/thecyberworld/thecyberhub.org/commit/f40db6e4b518490af31062d14ef88f36f52eadbe))
-
-
-
-## [0.27.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.4...v0.27.5) (2022-11-18)
-
-
-### Bug Fixes
-
-* roadmaps home link ([#310](https://github.com/thecyberworld/thecyberhub.org/issues/310)) ([6cf4455](https://github.com/thecyberworld/thecyberhub.org/commit/6cf44552b6bacd43c8b1f99ef918116c97095b37))
 
 
 
