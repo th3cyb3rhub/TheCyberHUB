@@ -92,7 +92,7 @@ export const SocialsContainer = styled.div`
 export const SocialsWrapper = styled.div`
     font-size: 80px;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 25px auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: flex-start;

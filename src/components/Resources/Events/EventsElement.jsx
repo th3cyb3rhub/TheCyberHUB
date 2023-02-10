@@ -2,17 +2,19 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const EventsContainer = styled.div`
-    max-width: 1100px;
-    margin: 100px auto;
+    max-width: 1500px;
     padding: 0 24px;
     display: flex;
+    margin-top: 25px;
     text-align: center;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-
     color: #cecac3;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 export const RouterLink = styled(Link)`
@@ -21,8 +23,8 @@ export const RouterLink = styled(Link)`
 `;
 
 export const MainEventsContainer = styled.div`
-    width: 70%;
-
+    width: 55%;
+    margin-bottom: 25px;
     @media screen and (max-width: 768px) {
         width: 100%;
     }
@@ -45,23 +47,44 @@ export const EventLocation = styled.div`
     margin-bottom: 5px;
 `;
 export const OnGoingEventsContainer = styled.div`
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
-    align-items: self-start;
-    justify-content: start;
+    flex-direction: column;
+`;
+
+export const UpComingEventsSection = styled.div`
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
 `;
 
 export const UpComingEventsContainer = styled.div`
-    display: inline-flex;
+    display: grid;
+    margin: 0 0 0 25px;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    @media screen and (max-width: 768px) {
+        margin: 0;
+    }
 `;
 
 export const EventsHeading = styled.h1`
+    background: #0c0c0c;
     margin: 0 0 20px 0;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
 `;
 
 export const EventsHeadingMedium = styled.h2`
@@ -91,12 +114,11 @@ export const EventLink = styled.a`
 
 export const EventsHeader = styled.div``;
 export const PastEventsContainer = styled.div`
-    width: 30%;
+    width: 100%;
     height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 25px;
 
     @media screen and (max-width: 768px) {
         width: auto;

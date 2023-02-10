@@ -2,7 +2,15 @@ import styled from "styled-components";
 
 import { Button, Header } from "../../Community/CommunityElements";
 import { FaChevronDown } from "react-icons/fa";
+import { IoMdArrowRoundBack } from "react-icons/all";
+import { Link } from "react-router-dom";
 
+export const RouterLink = styled(Link)`
+    text-decoration: none;
+    &:hover {
+        transform: scale(1.1);
+    }
+`;
 export const ScrollButton = styled(Button)`
     outline: 2px solid #363636;
     transition: 260ms all;
@@ -12,20 +20,22 @@ export const ScrollButton = styled(Button)`
         outline-color: #545454;
         outline-offset: 2px;
     }
-`;
 
-export const JobIntroHeader = styled(Header)`
-    height: 100vh;
-`;
+    & > span {
+        &:hover {
+            color: #1a1c1d;
+        }
 
-export const JobsDropdownIcon = styled(FaChevronDown)`
-    margin: 2px 0 0 5px;
-    font-size: 11px;
+        @media only screen and (max-width: 800px) {
+            font-size: 15px;
+        }
+    }
 `;
 
 export const JobSection = styled.section`
-    margin: 100px 20px;
     color: #cecac3;
+    max-width: 1400px;
+    width: 100%;
 
     & div.grid {
         padding: 0.2rem;
@@ -38,20 +48,93 @@ export const JobSection = styled.section`
     }
 `;
 
+export const JobIntroHeader = styled(Header)`
+    color: #cecac3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 25px;
+    height: 600px;
+`;
+
+export const JobsDropdownIcon = styled(FaChevronDown)`
+    margin: 2px 0 0 5px;
+    font-size: 11px;
+`;
+
+export const JobsDetailContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    @media only screen and (max-width: 1000px) {
+        flex-direction: column;
+    }
+`;
+
+export const BackArrow = styled(IoMdArrowRoundBack)`
+    background: linear-gradient(to right, #ffb933, #54f843);
+    border-radius: 50%;
+    color: #ffffff;
+    padding: 5px;
+    font-size: 30px;
+
+    cursor: pointer;
+    transition: 260ms all;
+
+    &:hover {
+        background: linear-gradient(to right, #ffb933, #54f843);
+        outline-color: #545454;
+        outline-offset: 2px;
+        scale: 1.1;
+    }
+
+    @media only screen and (min-width: 1000px) {
+        display: none;
+    }
+`;
+
+export const JobsCardSection = styled.div`
+    padding: 5px;
+    display: flex;
+    min-width: 30%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+    cursor: pointer;
+    &.active {
+        max-height: 1000px;
+        overflow-y: scroll;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        max-height: 800px;
+    }
+`;
+
+export const JobsDetailSection = styled.div`
+    padding: 5px;
+    min-width: 65%;
+    @media only screen and (max-width: 1000px) {
+        min-width: 100%;
+    }
+`;
+
 export const JobContainer = styled.div`
     background-color: rgba(32, 194, 14, 0.04);
-    //width: 20em;
-    width: 27em;
-
-    min-height: 500px;
+    width: 100%;
+    max-width: 440px;
+    min-height: 450px;
     margin: 10px;
     outline: 1px solid #2a2a2a;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
-    padding: 1.2rem;
     row-gap: 0.8rem;
-
+    padding: 15px 10px 10px 20px;
     transition: 260ms all;
 
     &:hover {
@@ -65,6 +148,7 @@ export const JobHero = styled.div`
     justify-content: space-between;
     align-items: start;
 `;
+
 export const JobHeader = styled.div`
     display: flex;
     flex-direction: column;
@@ -81,7 +165,7 @@ export const JobTitle = styled.h2`
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 1.3rem;
+    font-size: 18px;
     font-weight: bolder;
     letter-spacing: 0.1rem;
 `;
@@ -90,6 +174,7 @@ export const JobRole = styled.div`
     display: flex;
     column-gap: 0.5rem;
 `;
+
 export const JobRoleTitle = styled.span`
     font-weight: 500;
     letter-spacing: 0.1rem;
@@ -111,6 +196,7 @@ export const JobLocation = styled.div`
 export const JobDetails = styled.div`
     display: flex;
     flex-wrap: wrap;
+    font-size: 13px;
     gap: 0.9rem;
     justify-content: start;
 
@@ -149,13 +235,14 @@ export const JobDetails = styled.div`
     }
 
     & div.badge span {
-        font-size: smaller;
+        font-size: 15px;
         font-weight: bolder;
     }
 `;
 
 export const JobReq = styled.div`
-    padding: 0 1rem;
+    font-size: 13px;
+    margin: 15px 0;
 
     & > ul {
         font-weight: 400;
@@ -166,6 +253,10 @@ export const JobReq = styled.div`
     & li::marker {
         color: #20c20e;
     }
+`;
+
+export const JobDescSection = styled.div`
+    margin-top: 10px;
 `;
 
 export const JobTimeline = styled(JobDetails)`

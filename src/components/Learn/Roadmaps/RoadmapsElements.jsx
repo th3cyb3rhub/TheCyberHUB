@@ -5,10 +5,6 @@ export const ResourcesListSection = styled.div`
     color: #cecac3;
     width: 27rem;
     margin: 150px auto;
-
-    @media screen and (max-width: 600px) {
-        width: 20rem;
-    }
 `;
 
 export const Overlay = styled.div`

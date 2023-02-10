@@ -6,11 +6,10 @@ export const PastEventsContainer = styled.div`
     justify-content: center;
     text-align: center;
     height: auto;
-    width: 20em;
-    border: 1px solid #ffffff0d;
-    border-radius: 10px;
-    background-color: #0d1117;
-    margin: 0 0 20px 0;
+    width: 100%;
+    //border: 1px solid #ffffff0d;
+    border-radius: 5px;
+    background-color: #0c0c0c;
     padding: 15px 15px;
     @media screen and (max-width: 768px) {
         width: 100%;

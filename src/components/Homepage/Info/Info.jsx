@@ -1,36 +1,38 @@
 import React from "react";
-import { Button, ButtonLink, RouterButton, OpenSourceButton } from "../../MixComponents/Buttons/ButtonElements";
+import { RedirectButton, RouterButton, ScrollButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 import {
-    InfoContainer,
-    InfoWrapper,
-    InfoRow,
+    BtnWrap,
     Column1,
     Column2,
+    Heading,
+    Img,
+    ImgWrap,
+    InfoContainer,
+    InfoRow,
+    InfoWrapper,
+    Subtitle,
     TextWrapper,
     TopLine,
-    Heading,
-    Subtitle,
-    BtnWrap,
-    ImgWrap,
-    Img,
+    YouTubeVideoContainer,
+    YouTubeVideoIFrame,
 } from "./InfoElements";
 
 const InfoSection = ({
     id,
-    idTo,
-    idTo2,
-    buttonType,
-    link,
+    buttonType1,
+    buttonType2,
+    link1,
+    link2,
     lightBg,
     lightText,
     topLine,
     headline,
     description,
-    buttonLabel,
+    buttonLabel1,
     buttonLabel2,
-    buttonLabelNew,
     imgStart,
     img,
+    video,
     alt,
     dark,
     dark2,
@@ -48,19 +50,19 @@ const InfoSection = ({
                                 <Heading lightText={lightText}> {headline} </Heading>
                                 <Subtitle darkText={darkText}> {description} </Subtitle>
                                 <BtnWrap>
-                                    {buttonType === "router" && (
+                                    {buttonType1 === "router" && (
                                         <RouterButton
-                                            to={link}
+                                            to={link1}
                                             primary={primary ? "true" : ""}
                                             dark={dark ? 1 : 0}
                                             dark2={dark2 ? 1 : 0}
                                         >
-                                            {buttonLabel}
+                                            {buttonLabel1}
                                         </RouterButton>
                                     )}
-                                    {buttonType === "scroll" && (
-                                        <Button
-                                            to={idTo}
+                                    {buttonType1 === "scroll" && (
+                                        <ScrollButton
+                                            to={link1}
                                             smooth={true}
                                             duration={500}
                                             spy={true}
@@ -70,13 +72,32 @@ const InfoSection = ({
                                             dark={dark ? 1 : 0}
                                             dark2={dark2 ? 1 : 0}
                                         >
-                                            {buttonLabel}
-                                        </Button>
+                                            {buttonLabel1}
+                                        </ScrollButton>
                                     )}
-
-                                    {buttonLabel2 && buttonType === "scroll" && (
-                                        <Button
-                                            to={idTo2}
+                                    {buttonType1 === "redirect" && (
+                                        <RedirectButton
+                                            href={link1}
+                                            primary={primary ? "true" : ""}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
+                                        >
+                                            {buttonLabel1}
+                                        </RedirectButton>
+                                    )}
+                                    {buttonType2 === "router" && (
+                                        <RouterButton
+                                            to={link2}
+                                            primary={primary ? "true" : ""}
+                                            dark={dark ? 1 : 0}
+                                            dark2={dark2 ? 1 : 0}
+                                        >
+                                            {buttonLabel2}
+                                        </RouterButton>
+                                    )}
+                                    {buttonType2 === "scroll" && (
+                                        <ScrollButton
+                                            to={link2}
                                             smooth={true}
                                             duration={500}
                                             spy={true}
@@ -87,37 +108,37 @@ const InfoSection = ({
                                             dark2={dark2 ? 1 : 0}
                                         >
                                             {buttonLabel2}
-                                        </Button>
+                                        </ScrollButton>
                                     )}
-
-                                    {buttonLabelNew && buttonType === "scroll" && (
-                                        <OpenSourceButton
-                                            to={"projects"}
+                                    {buttonType2 === "redirect" && (
+                                        <RedirectButton
+                                            href={link2}
                                             primary={primary ? "true" : ""}
                                             dark={dark ? 1 : 0}
                                             dark2={dark2 ? 1 : 0}
                                         >
-                                            {buttonLabelNew}
-                                        </OpenSourceButton>
-                                    )}
-
-                                    {buttonType === "link" && (
-                                        <ButtonLink
-                                            href={link}
-                                            primary={primary ? "true" : ""}
-                                            dark={dark ? 1 : 0}
-                                            dark2={dark2 ? 1 : 0}
-                                        >
-                                            {buttonLabel}
-                                        </ButtonLink>
+                                            {buttonLabel2}
+                                        </RedirectButton>
                                     )}
                                 </BtnWrap>
                             </TextWrapper>
                         </Column1>
                         <Column2>
-                            <ImgWrap>
-                                <Img src={img} alt={alt} />
-                            </ImgWrap>
+                            {img ? (
+                                <ImgWrap>
+                                    <Img src={img} alt={alt} />
+                                </ImgWrap>
+                            ) : (
+                                <YouTubeVideoContainer>
+                                    <YouTubeVideoIFrame
+                                        src="https://www.youtube.com/embed/r5CDqVnWFFQ"
+                                        title="Community Introduction | Thecyberworld"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowFullScreen
+                                    ></YouTubeVideoIFrame>
+                                </YouTubeVideoContainer>
+                            )}
                         </Column2>
                     </InfoRow>
                 </InfoWrapper>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const UpComingEventsContainer = styled.div`
-    width: 348px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -9,10 +9,9 @@ export const UpComingEventsContainer = styled.div`
     height: auto;
     border: 1px solid #ffffff0d;
     border-radius: 10px;
-    background-color: #0d1117;
-    margin: 0 20px 20px 0;
+    background-color: #0c0c0c;
     padding: 15px 20px;
-
+    margin: 0 0 25px 0;
     @media screen and (max-width: 768px) {
         margin: 0 0 20px 0;
         width: 100%;

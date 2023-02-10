@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
 import {
-    HeroContainer,
+    ArrowForward,
+    ArrowRight,
     HeroBg,
-    VideoBg,
+    HeroBtnWrapper,
+    HeroContainer,
     HeroContent,
     HeroH1,
     HeroP,
-    HeroBtnWrapper,
-    ArrowForward,
-    ArrowRight,
+    VideoBg,
 } from "./HeroElements";
-import { Button } from "../../MixComponents/Buttons/ButtonElements";
+
+import { ScrollButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 import Video from "../../../assets/video/thecyberhubBackgroundVideo.mp4";
 
 const Hero = () => {
@@ -20,15 +21,10 @@ const Hero = () => {
     const onHover = () => {
         setHover(!hover);
     };
-    // const [loading, setLoading] = useState(false);
-    // useEffect(() => {setLoading(true);setTimeout(() => {setLoading(false);}, 2000);}, []);
 
     return (
         <HeroContainer id={"home"}>
             <HeroBg>
-                {/*{loading  &&*/}
-                {/*    <ImageBg src={Image}/>*/}
-                {/*}*/}
                 <VideoBg autoPlay loop muted src={Video} type={"video/mp4"} />
             </HeroBg>
 
@@ -37,7 +33,7 @@ const Hero = () => {
                 <HeroP> Cyber Security is a field that is growing at an exponential rate. </HeroP>
 
                 <HeroBtnWrapper>
-                    <Button
+                    <ScrollButton
                         to={"about"}
                         onMouseEnter={onHover}
                         onMouseLeave={onHover}
@@ -50,7 +46,7 @@ const Hero = () => {
                         offset={-80}
                     >
                         Get Started {hover ? <ArrowForward /> : <ArrowRight />}
-                    </Button>
+                    </ScrollButton>
                 </HeroBtnWrapper>
             </HeroContent>
         </HeroContainer>

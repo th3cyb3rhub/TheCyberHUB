@@ -6,10 +6,10 @@ const RoadmapsData = [
         desc: "Step by step guide to learn Cyber Security",
         details: [
             {
-                section: "Essential Skills",
+                section: "Essential SkillLevel",
                 resources: [
                     {
-                        title: "Basic IT Skills",
+                        title: "Basic IT SkillLevel",
                         url: "https://www.professormesser.com/free-a-plus-training/220-1001/220-1000-training-course/",
                     },
                 ],

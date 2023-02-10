@@ -7,5 +7,9 @@ export const Container = styled.div`
     width: 100%;
     background: black;
     overflow: auto;
-    padding: 0 50px;
+    padding: 25px;
+
+    @media screen and (max-width: 500px) {
+        padding: 10px;
+    }
 `;

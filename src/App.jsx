@@ -1,86 +1,140 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import {
-    Route,
-    Routes,
-    // useLocation
-} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { Route, Routes, useLocation } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import ScrollToTop from "./components/ScrollToTop";
-import Registration from "./pages/Registration";
+// import Register from "./pages/Register";
 import {
-    Navbar,
-    Sidebar,
-    Courses,
-    CourseDetail,
-    CoursesLayout,
-    Roadmaps,
-    CyberNews,
-    Jobs,
-    Quiz,
-    InterviewQuestions,
-    Events,
-    Event,
-    Community,
     About,
+    Blogs,
+    CertificateCard,
+    Community,
+    CreateBlog,
     CTF,
     CyberGames,
-    OSINTGame,
+    Event,
+    Events,
     Footer,
-    Sponsors,
+    InterviewQuestions,
+    Jobs,
+    LearningPath,
+    Navbar,
+    NotFound,
     OpensourceProjects,
-    Spinner,
-    AllBlogs,
-    ViewBlog,
+    OSINTGame,
+    Quiz,
     Roadmap,
+    Roadmaps,
+    Sidebar,
+    SingleBlog,
+    Sponsors,
+    Tags,
 } from "./components";
-import { Container } from "./components/MixComponents/Layout/LayoutElements";
+
+import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
+import Tools from "./components/Beta/Tools/Tools";
+import BreachCheck from "./components/Beta/Tools/BreachCheck/BreachCheck";
+import EmailNotVerified from "./components/Dashboard/EmailNotVerified";
+import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
+import { useSelector } from "react-redux";
+// import ContactForm from "./components/ContactForm/ContactForm";
 
 const App = () => {
-    const [loading, setLoading] = useState(false);
-    // const { pathname } = useLocation();
+    const [isLoading, setIsLoading] = useState(false);
+    const [showWebsite, setShowWebsite] = useState(false);
+    const { pathname } = useLocation();
 
     useEffect(() => {
-        setLoading(true);
+        setIsLoading(true);
+        setShowWebsite(false);
+
         setTimeout(() => {
-            setLoading(false);
-        }, 3000);
+            setIsLoading(false);
+        }, 0);
+        setTimeout(() => {
+            setShowWebsite(true);
+        }, 0);
     }, []);
 
-    // const showFooter = () => {
-    //     return pathname !== "/register";
-    // };
+    const showFooter = () => {
+        const register = pathname !== "/register";
+        const login = pathname !== "/login";
+        if (register === false) {
+            return register;
+        } else return login;
+    };
 
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
-    return (
-        <div>
-            {loading ? (
-                <Spinner />
-            ) : (
+    const { user } = useSelector((state) => state.auth);
+    if (isLoading) return <Spinner />;
+    if (showWebsite)
+        return (
+            <div>
                 <Container>
-                    <>
-                        <Sidebar isOpen={isOpen} toggle={toggle} />
-                        <Navbar toggle={toggle} />
-                    </>
-
+                    {showFooter() && (
+                        <>
+                            <Sidebar isOpen={isOpen} toggle={toggle} />
+                            <Navbar toggle={toggle} />
+                        </>
+                    )}
+                    {user ? <EmailNotVerified user={user} /> : null}
                     <ScrollToTop>
                         <Routes>
                             <Route index exact path={"/"} element={<Homepage />} />
+
+                            <Route path={"/tools/*"}>
+                                <Route index element={<Tools />} />
+                                <Route path={"breachCheck"} element={<BreachCheck />} />
+                            </Route>
+
+                            <Route path={"/blogs"}>
+                                <Route index element={<Blogs />} />
+                                <Route exact path={"tags"} element={<Tags />} />
+                                <Route exact path={":title"} element={<SingleBlog />} />
+                                <Route element={<NotFound />} />
+                            </Route>
+
+                            {/* <Route exact path={"/dashboard"} element={<Dashboard />} /> */}
+                            {/* <Route exact path={"/contact"} element={<ContactForm />} /> */}
+                            {/* <Route exact path={"/login"} element={<Login />} /> */}
+                            {/* <Route exact path={"/register"} element={<Register />} /> */}
+                            {/* <Route exact path={"/profile"} element={<Profile />} /> */}
+                            {/* <Route exact path={"/profile/edit"} element={<EditProfile />} /> */}
+
+                            {/* <Route path={"/dashboard/*"}> */}
+                            {/*    <Route index element={<Dashboard />} /> */}
+                            {/*    <Route path={"goals"} element={<GoalSetter />} /> */}
+                            {/*    <Route path={"blogs"}> */}
+                            {/*        <Route index element={<UserBlogs />} /> */}
+                            {/*        <Route exact path={"create"} element={<CreateBlog />} /> */}
+                            {/*        <Route exact path={"edit/:title"} element={<EditBlog />} /> */}
+                            {/*    </Route> */}
+                            {/* </Route> */}
 
                             <Route path={"/events/*"}>
                                 <Route index element={<Events />} />
                                 <Route path={":slug"} element={<Event />} />
                             </Route>
                             <Route exact path={"/community"} element={<Community />} />
-                            <Route exact path={"/sponsors"} element={<Sponsors />} />
+                            <Route exact path={"/support"} element={<Sponsors />} />
                             <Route exact path={"/about"} element={<About />} />
                             <Route exact path={"/projects"} element={<OpensourceProjects />} />
 
+                            <Route exact path={"/ctf"}>
+                                <Route index element={<CTF />} />
+                                {/* <Route path={"certificate"} element={<CertificatePage />} /> */}
+                                <Route path={"certificate/:id"} element={<CertificateCard />} />
+                            </Route>
+
                             <Route exact path={"/CyberGames"} element={<CyberGames />} />
                             <Route exact path={"/CTF"} element={<CTF />} />
-                            <Route exact path={"/OSINTGame"} element={<OSINTGame />} />
+                            <Route exact path={"/OSINT"} element={<OSINTGame />} />
+                            <Route exact path={"/learning-path"} element={<LearningPath />} />
 
                             <Route>
                                 <Route path={"/roadmaps"}>
@@ -88,16 +142,14 @@ const App = () => {
                                     <Route path={":title"} element={<Roadmap />} />
                                 </Route>
 
-                                <Route path={"/courses"} element={<CoursesLayout />}>
-                                    <Route index element={<Courses />} />
-                                    <Route path={":id"} element={<CourseDetail />} />
-                                </Route>
+                                {/* <Route path={"/courses"} element={<CoursesLayout />}> */}
+                                {/*    <Route index element={<Courses />} /> */}
+                                {/*    <Route path={":id"} element={<CourseDetail />} /> */}
+                                {/* </Route> */}
 
-                                <Route path={"/blogs"}>
-                                    <Route index element={<AllBlogs />} />
-                                    <Route exact path={":title"} element={<ViewBlog />} />
-                                </Route>
+                                {/* <Route exact path={"/blogs"} element={<Blogs />} /> */}
                             </Route>
+                            <Route exact path={"/create-blog"} element={<CreateBlog />} />
 
                             <Route>
                                 <Route path={"/events"}>
@@ -108,19 +160,17 @@ const App = () => {
                                 <Route path={"/jobs"} element={<Jobs />} />
                                 <Route path={"/quiz"} element={<Quiz />} />
                                 <Route path={"/interviewQuestions"} element={<InterviewQuestions />} />
-                                <Route path={"/cyberNews"} element={<CyberNews />} />
+                                {/* <Route path={"/cyberNews"} element={<CyberNews />} /> */}
                             </Route>
-
-                            <Route exact path={"/register"} element={<Registration />}></Route>
+                            {/* <Route element={<NotFound />} /> */}
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </ScrollToTop>
-                    {/* {showFooter() && */}
-                    <Footer />
-                    {/* } */}
+                    {showFooter() && <Footer />}
                 </Container>
-            )}
-        </div>
-    );
+                <ToastContainer />
+            </div>
+        );
 };
 
 export default App;

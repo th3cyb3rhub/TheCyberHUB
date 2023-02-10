@@ -17,7 +17,6 @@ import {
     HR,
     Image,
     ImageSection,
-    MarginTop,
     Paragraph,
     CyberNewsBody,
 } from "./CyberNewsElements";
@@ -30,9 +29,9 @@ const CyberNews = ({ simplified }) => {
     const [skip, setSkip] = useState(2);
     const [hasMore, setHasMore] = useState(true);
     const currNewsCount = simplified ? 6 : 12;
-    const [newsCategory, setNewsCategory] = useState(`cybersecurity`);
+    // const [newsCategory, setNewsCategory] = useState(`cybersecurity`);
     const initialNewsQueryParams = {
-        newsCategory,
+        // newsCategory,
         count: currNewsCount,
     };
     const { data: cyberNews } = useGetCyberNewsQuery(initialNewsQueryParams);
@@ -45,7 +44,7 @@ const CyberNews = ({ simplified }) => {
         setSkip(skip + 1);
         try {
             const newNews = await getCyberNewsTrigger({
-                newsCategory,
+                // newsCategory,
                 count: currNewsCount * skip,
             });
             const newNewsArray = [...newNews.data.value];
@@ -81,14 +80,11 @@ const CyberNews = ({ simplified }) => {
                 {cyberNews.value.map((news, i) => (
                     <div key={i}>
                         <CyberNewsBody>
-                            <MarginTop />
-
                             <ContentBody>
                                 <Content>
                                     <Link href={news.url} target={"_blank"} rel={"noreferrer"}>
                                         <Heading>{news.name}</Heading>
                                     </Link>
-                                    <MarginTop />
                                     <Paragraph>
                                         {news.description > 100
                                             ? `${news.description.substring(0, 100)} ...`
@@ -99,10 +95,6 @@ const CyberNews = ({ simplified }) => {
                                     <Image src={news?.image?.thumbnail?.contentUrl || demoImage} alt={"news image"} />
                                 </ImageSection>
                             </ContentBody>
-
-                            <MarginTop />
-                            <MarginTop />
-
                             <ContentFooter>
                                 <AuthorSection>
                                     <AuthorImage
@@ -113,18 +105,8 @@ const CyberNews = ({ simplified }) => {
                                     <Date>{moment(news.datePublished).startOf("ss").fromNow()}</Date>
                                 </AuthorSection>
                             </ContentFooter>
-
-                            <MarginTop />
-                            <MarginTop />
-
                             <HR />
                         </CyberNewsBody>
-
-                        <MarginTop />
-                        <MarginTop />
-                        <MarginTop />
-                        <MarginTop />
-                        <MarginTop />
                     </div>
                 ))}
             </InfiniteScroll>

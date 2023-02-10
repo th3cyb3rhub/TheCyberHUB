@@ -2,7 +2,7 @@ import React from "react";
 
 import { useParams } from "react-router-dom";
 import RoadmapsData from "./RoadmapsData";
-import { encodeURL } from "../Blogs/util";
+import { encodeURL } from "../../Blogs/util";
 import {
     RoadmapContainer,
     RedirectLink,
@@ -35,7 +35,11 @@ const Roadmap = () => {
                             <DotIcon /> {resources.section}
                         </RoadmapSectionHeading>
                         {resources?.resources.map((resource, id) => (
-                            <RedirectLink key={id} href={resource.url} target={"_blank"}>
+                            <RedirectLink
+                                key={id}
+                                href={resource.url !== "Coming Soon" ? resource.url : null}
+                                target={"_blank"}
+                            >
                                 <RoadmapDetailsCard>
                                     <RoadmapContentHeading>
                                         <CircleIcon /> {resource.title}

@@ -1,30 +1,30 @@
 import React from "react";
 import {
     FooterContainer,
-    FooterWrap,
+    FooterLinkItems,
     FooterLinksContainer,
     FooterLinksWrapper,
-    FooterLinkItems,
     FooterLinkTitle,
+    FooterRedirectLink,
     FooterRouterLink,
     FooterScrollLink,
-    FooterRedirectLink,
+    FooterSocialLinksDiscord,
+    FooterSocialLinksGithub,
+    FooterSocialLinksLinktree,
+    FooterSocialLinksTwitter,
+    FooterWrap,
+    SocialIconLinkDiscord,
+    SocialIconLinkGithub,
+    SocialIconLinkInstagram,
+    SocialIconLinkTwitter,
+    SocialIcons,
+    SocialLogo,
     SocialMedia,
     SocialMediaWrap,
-    SocialLogo,
     WebsiteRights,
-    SocialIcons,
-    SocialIconLinkTwitter,
-    SocialIconLinkGithub,
-    SocialIconLinkDiscord,
-    SocialIconLinkInstagram,
-    FooterSocialLinksTwitter,
-    FooterSocialLinksGithub,
-    FooterSocialLinksDiscord,
-    FooterSocialLinksLinktree,
 } from "./FooterElements";
 
-import { FaTwitter, FaGithub, FaInstagram, FaDiscord } from "react-icons/fa";
+import { FaDiscord, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 
 const SocialLinks = {
@@ -68,11 +68,14 @@ const Footer = () => {
                             ))}
                         </FooterLinkItems>
                         <FooterLinkItems>
-                            <FooterLinkTitle>Contact Us</FooterLinkTitle>
-                            <FooterRouterLink to="#">Contact</FooterRouterLink>
-                            <FooterRouterLink to="#">Feedback</FooterRouterLink>
-                            <FooterRouterLink to="#">Support (Discord)</FooterRouterLink>
-                            <FooterRouterLink to="#">Sponsorships</FooterRouterLink>
+                            <FooterLinkTitle>Community</FooterLinkTitle>
+                            <FooterRouterLink to="/jobs">Internship</FooterRouterLink>
+                            <FooterRouterLink to="/contact">Contact</FooterRouterLink>
+                            <FooterRouterLink to="/contact">Feedback</FooterRouterLink>
+                            <FooterSocialLinksDiscord to={SocialLinks.discord}>
+                                Support (Discord)
+                            </FooterSocialLinksDiscord>
+                            <FooterRouterLink to="/support">Support</FooterRouterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
@@ -91,28 +94,20 @@ const Footer = () => {
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Free Courses </FooterLinkTitle>
-                            <FooterRedirectLink
-                                href={
-                                    "https://www.youtube.com/watch?v=ONUk5S6_QwM&list=PLvqoeHbXvQCvuevuaaTS_ZKkkUG6tm1-O"
-                                }
-                                target={"_blank"}
-                            >
-                                Intro to Linux
+                            <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
+                                Complete Cyber Security Course
                             </FooterRedirectLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Videos (coming soon) </FooterLinkTitle>
                             <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
-                                {" "}
-                                About Community{" "}
+                                About Community
                             </FooterRedirectLink>
                             <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
-                                {" "}
-                                How to Join Community{" "}
+                                How to Join Community
                             </FooterRedirectLink>
                             <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
-                                {" "}
-                                How to Contribute to the Community{" "}
+                                How to Contribute to the Community
                             </FooterRedirectLink>
                         </FooterLinkItems>
                     </FooterLinksWrapper>

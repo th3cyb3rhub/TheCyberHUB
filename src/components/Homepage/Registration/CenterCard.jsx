@@ -10,4 +10,13 @@ export const CenterCard = styled.div`
     border-radius: 7px;
     display: grid;
     grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "left right";
+    @media (max-width: 1124px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.1fr 1fr;
+        grid-template-areas:
+            "left"
+            "right";
+    }
 `;

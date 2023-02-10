@@ -21,20 +21,26 @@ export const Learn2CodePromotion = styled.div`
 
         & .brand-logo {
             font-weight: 600;
+            color: #33e33c;
+            font-size: 30px;
         }
 
         & .leading-title {
             margin: 40px 0 20px;
             font-size: 50px;
             width: min-content;
-        }
 
-        & .nav-links {
-            display: flex;
-            list-style: none;
-            margin-top: auto;
-            justify-content: space-between;
-            width: 64%;
+            @media screen and (max-width: 500px) {
+                font-size: 40px;
+            }
+
+            & .nav-links {
+                display: flex;
+                list-style: none;
+                margin-top: auto;
+                justify-content: space-between;
+                width: 64%;
+            }
         }
     }
 `;

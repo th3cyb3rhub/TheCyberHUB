@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import bgImage from "../../assets/images/WebsiteLogo/thecyberworld-green01.png";
+import { FaDiscord } from "react-icons/fa";
 
 export const Header = styled.header`
     color: #cecac3;
@@ -10,6 +11,7 @@ export const Header = styled.header`
     justify-content: center;
     align-items: center;
     position: relative;
+    margin: 25px;
 `;
 
 export const Overlay = styled.div`
@@ -27,6 +29,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1;
+    max-width: 1400px;
 
     & > a {
         text-decoration: none;
@@ -39,6 +42,11 @@ export const Heading = styled.h1`
     font-weight: 300;
     margin: 0.5rem 0;
     text-align: center;
+
+    @media screen and (max-width: 800px) {
+        text-align: start;
+        font-size: 2rem;
+    }
 `;
 
 export const Paragraph = styled.p`
@@ -46,25 +54,54 @@ export const Paragraph = styled.p`
     font-weight: 300;
     margin: 0.5rem 0 2rem;
     text-align: center;
+    max-width: 1100px;
+
+    @media screen and (max-width: 800px) {
+        font-size: 1rem;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+`;
+
+export const DiscordLink = styled.a`
+    @media screen and (max-width: 500px) {
+        width: 100%;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+        transition: all 0.3s ease-in-out;
+    }
+`;
+
+export const DiscordButton = styled(FaDiscord)`
+    color: #5865f2;
+    font-size: 45px;
+    margin: 0 10px;
 `;
 
 export const Button = styled.button`
-    background-color: #23272a;
-    border: none;
-    border-radius: 0.3rem;
+    background-color: #151515;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
     color: white;
     cursor: pointer;
     font-weight: bold;
     display: flex;
     align-items: center;
     padding: 0.5rem;
+    width: 100%;
+    //font-family: "Roboto Mono", monospace;
+    font-family: "Poppins", sans-serif;
 
     & > span {
-        margin: 0 0.2rem;
-    }
+        margin: 0 10px;
+        font-size: 18px;
+        color: #dadada;
 
-    &:hover {
-        scale: 1.1;
-        transition: all 0.2s ease-in-out;
+        @media screen and (max-width: 480px) {
+            font-size: 18px;
+            margin: 0 10px 0 0;
+        }
     }
 `;

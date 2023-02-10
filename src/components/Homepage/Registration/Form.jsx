@@ -5,7 +5,15 @@ export const RegistrationFormContainer = styled.form`
     height: 100%;
     padding: 43px 14%;
     max-width: fit-content;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media screen and (max-width: 1200px) {
+        padding: 50px 10%;
+    }
+    @media screen and (max-width: 500px) {
+        padding: 25px;
+    }
     & .registration__promotion__h1 {
         color: white;
         font-size: 25px;

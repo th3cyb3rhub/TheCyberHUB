@@ -1,7 +1,6 @@
 import React from "react";
 import {
     SocialsContainer,
-    SocialsH1,
     SocialsWrapper,
     SocialsCard,
     SocialIconDiscord,
@@ -23,11 +22,12 @@ import {
     FaTwitter,
     FaYoutube,
 } from "react-icons/fa";
+import { H1 } from "../../ContactForm/ContactFormElements";
 
 const Socials = () => {
     return (
         <SocialsContainer id="join">
-            <SocialsH1>Join</SocialsH1>
+            <H1>{"Join Us".toUpperCase()}</H1>
             <SocialsWrapper>
                 <SocialsCard>
                     <SocialIconDiscord href="https://discord.gg/QHBPq6xP5p" target="_blank" aria-label="Discord">
@@ -64,7 +64,7 @@ const Socials = () => {
                 </SocialsCard>
                 <SocialsCard>
                     <SocialIconLinkedin
-                        href="https://linkedin.com/company/thecyberworld"
+                        href="https://linkedin.com/company/thecyberw0rld"
                         target="_blank"
                         aria-label="Linkedin"
                     >

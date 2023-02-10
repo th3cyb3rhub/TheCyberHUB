@@ -1,26 +1,36 @@
 import React from "react";
-import { Header, Overlay, Container, Heading, Paragraph, Button } from "./CommunityElements";
-import { IconContext } from "react-icons";
-import { FaDiscord } from "react-icons/fa";
+import {
+    Button,
+    Container,
+    DiscordButton,
+    DiscordLink,
+    Header,
+    Heading,
+    Overlay,
+    Paragraph,
+} from "./CommunityElements";
 
 const Community = () => {
     return (
         <Header>
             <Overlay></Overlay>
             <Container>
-                <Heading>Loved by thousands of hackers</Heading>
+                <Heading>
+                    Empowering the Next Generation of <br />
+                    Cybersecurity Experts
+                </Heading>
                 <Paragraph>
-                    Community goal is to help new folks to get started with open-source and cyber-security. <br />
-                    We build open-source projects for hackers and developers
+                    Our community aims to assist new individuals in getting started with open-source and cybersecurity
+                    through creating cybersecurity courses and developing open-source projects for both hackers and
+                    beginners. <br />
+                    We are loved by thousands of hackers..
                 </Paragraph>
-                <a href="https://discord.gg/QHBPq6xP5p" target="blanck">
+                <DiscordLink href="https://discord.gg/thecyberworld-799183504759324672" target="blanck">
                     <Button>
-                        <IconContext.Provider value={{ size: "2em", style: { margin: "0 0.2rem" } }}>
-                            <FaDiscord style={{ color: "#7289da" }} />
-                        </IconContext.Provider>
-                        <span>Join our Discord Channel</span>
+                        <DiscordButton />
+                        <span>Join our Community on Discord</span>
                     </Button>
-                </a>
+                </DiscordLink>
             </Container>
         </Header>
     );
