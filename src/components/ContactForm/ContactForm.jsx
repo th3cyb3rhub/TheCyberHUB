@@ -135,9 +135,6 @@ const ContactForm = () => {
                 .then(error2 === false ? setIsSuccess(true) : setIsSuccess(false));
         }
     };
-    console.log("error" + error);
-    console.log("error2" + error2);
-    console.log("isSuccess" + isSuccess);
 
     return (
         <ContactFormContainer id={"contactUs"}>
