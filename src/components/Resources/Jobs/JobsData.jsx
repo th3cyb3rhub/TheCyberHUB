@@ -1,6 +1,7 @@
 import React from "react";
 import { FaBolt, FaBriefcase, FaCircle, FaMoneyCheckAlt, FaStar, FaTelegramPlane } from "react-icons/fa";
 import { RouterLink } from "./JobsElements";
+import { MdWork } from "react-icons/all";
 
 const iconSize = 15;
 
@@ -21,6 +22,13 @@ export const JobsData = [
                 item: (
                     <>
                         <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
                     </>
                 ),
             },
@@ -113,6 +121,13 @@ export const JobsData = [
             {
                 item: (
                     <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
                         <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
                     </>
                 ),
@@ -190,6 +205,13 @@ export const JobsData = [
                 item: (
                     <>
                         <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
                     </>
                 ),
             },
@@ -282,6 +304,13 @@ export const JobsData = [
             {
                 item: (
                     <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
                         <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
                     </>
                 ),
@@ -360,6 +389,13 @@ export const JobsData = [
                 item: (
                     <>
                         <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
                     </>
                 ),
             },
@@ -450,6 +486,13 @@ export const JobsData = [
             {
                 item: (
                     <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
                         <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
                     </>
                 ),
@@ -529,6 +572,13 @@ export const JobsData = [
                 item: (
                     <>
                         <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
                     </>
                 ),
             },

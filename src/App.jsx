@@ -40,6 +40,7 @@ import BreachCheck from "./components/Beta/Tools/BreachCheck/BreachCheck";
 import EmailNotVerified from "./components/Dashboard/EmailNotVerified";
 import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
 import { useSelector } from "react-redux";
+import ContactForm from "./components/ContactForm/ContactForm";
 // import ContactForm from "./components/ContactForm/ContactForm";
 
 const App = () => {
@@ -100,7 +101,7 @@ const App = () => {
                             </Route>
 
                             {/* <Route exact path={"/dashboard"} element={<Dashboard />} /> */}
-                            {/* <Route exact path={"/contact"} element={<ContactForm />} /> */}
+                            <Route exact path={"/contact"} element={<ContactForm />} />
                             {/* <Route exact path={"/login"} element={<Login />} /> */}
                             {/* <Route exact path={"/register"} element={<Register />} /> */}
                             {/* <Route exact path={"/profile"} element={<Profile />} /> */}
