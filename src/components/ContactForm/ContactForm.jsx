@@ -58,6 +58,7 @@ const ContactForm = () => {
 
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [error2, setError2] = useState(false);
     const handleChange = (event) => {
         setFormData({
             ...formData,
@@ -67,6 +68,9 @@ const ContactForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setError(false);
+        setError2(false);
+        setIsSuccess(false);
         const filledFormData = {
             name,
             email,
@@ -84,24 +88,20 @@ const ContactForm = () => {
 
         if (name.length === 0) {
             setError("Please fill all of the fields");
-            
         } else if (email.length === 0) {
             setError("Please fill all of the fields");
-            
         } else if (reason.length === 0) {
             setError("Please fill all of the fields");
-            
         } else if (message.length === 0) {
             setError("Please fill all of the fields");
-            
         } else if (
             (reason === "pentest" && reasonType.length === 0) ||
             (reason === "internship" && reasonType.length === 0)
         ) {
             setError("Please fill all of the fields");
-            
         } else {
             // https://dev.api.thecyberhub.org/api/form/submit
+            // http://localhost:5000/api/form/submit
             fetch("https://dev.api.thecyberhub.org/api/form/submit", {
                 method: "POST",
                 headers: {
@@ -110,10 +110,7 @@ const ContactForm = () => {
                 body: JSON.stringify(filledFormData),
             })
                 .then((res) => res.json())
-                .then((data) => data.message === "Something went wrong. Please try again later." && setError(true))
-                .then(console.log("Submit Successfully"))
-                .then(setIsSuccess(true))
-                .then(setError(false))
+                .then((data) => data.message === "Something went wrong. Please try again later." && setError2(true))
                 .then(
                     setFormData({
                         name: "",
@@ -130,11 +127,17 @@ const ContactForm = () => {
                     }),
                 )
                 .catch((err) => {
-                    setError(true);
+                    setError2(true);
                     console.log(err);
-                });
+                    setIsSuccess(false);
+                })
+                .then(console.log("Submit Successfully"))
+                .then(error2 === false ? setIsSuccess(true) : setIsSuccess(false));
         }
     };
+    console.log("error" + error);
+    console.log("error2" + error2);
+    console.log("isSuccess" + isSuccess);
 
     return (
         <ContactFormContainer id={"contactUs"}>
@@ -377,8 +380,11 @@ const ContactForm = () => {
                     ) : null}
 
                     {error && !isSuccess && <ErrorMessage>{"Please fill all of the fields"}</ErrorMessage>}
+                    {error2 && !isSuccess && (
+                        <ErrorMessage>{"Server Error - Please contact us on discord"}</ErrorMessage>
+                    )}
                 </ContactFormSection>
-                {isSuccess ? <GlowingButton>Submit Successfully</GlowingButton> : null}
+                {isSuccess && !error ? <GlowingButton>Submit Successfully</GlowingButton> : null}
             </ContactFormCard>
         </ContactFormContainer>
     );

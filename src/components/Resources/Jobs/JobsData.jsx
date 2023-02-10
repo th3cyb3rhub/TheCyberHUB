@@ -13,7 +13,7 @@ export const JobsData = [
         jobRoleTitle: "Business Development Intern",
         jobRating: (
             <>
-                4 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -69,6 +69,13 @@ export const JobsData = [
                     <b> Contact us </b>{" "}
                 </RouterLink>{" "}
                 form.
+                <br />
+                <br />
+                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+                experience in this field. After three months of hard work and dedication, you will receive swags as a
+                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+                skills while working with us.
                 <br />
                 <br />
                 Our company is committed to diversity and equal opportunity and does not discriminate based on race,
@@ -155,10 +162,16 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
                     <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                </RouterLink>
                 form.
+                <br />
+                <br />
+                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+                experience in this field. After three months of hard work and dedication, you will receive swags as a
+                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+                skills while working with us.
                 <br />
                 <br />
                 Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
@@ -196,7 +209,7 @@ export const JobsData = [
         jobRoleTitle: "Content Creator",
         jobRating: (
             <>
-                4.5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -249,6 +262,13 @@ export const JobsData = [
                     <b> Contact us </b>{" "}
                 </RouterLink>{" "}
                 form.
+                <br />
+                <br />
+                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+                experience in this field. After three months of hard work and dedication, you will receive swags as a
+                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+                skills while working with us.
                 <br />
                 <br />
                 Our company is committed to diversity and equal opportunity and does not discriminate based on race,
@@ -335,7 +355,6 @@ export const JobsData = [
                 This is a unique opportunity for individuals interested in building a career in web development. <br />
                 <br />
                 <br />
-                <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
@@ -343,6 +362,13 @@ export const JobsData = [
                     <b> Contact us </b>{" "}
                 </RouterLink>{" "}
                 form.
+                <br />
+                <br />
+                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+                experience in this field. After three months of hard work and dedication, you will receive swags as a
+                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+                skills while working with us.
                 <br />
                 <br />
                 Our company is committed to diversity and equal opportunity and does not discriminate based on race,
@@ -433,6 +459,13 @@ export const JobsData = [
                     <b> Contact us </b>{" "}
                 </RouterLink>{" "}
                 form.
+                <br />
+                <br />
+                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+                experience in this field. After three months of hard work and dedication, you will receive swags as a
+                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+                skills while working with us.
                 <br />
                 <br />
                 Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
@@ -526,6 +559,13 @@ export const JobsData = [
                 form.
                 <br />
                 <br />
+                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+                experience in this field. After three months of hard work and dedication, you will receive swags as a
+                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+                skills while working with us.
+                <br />
+                <br />
                 Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
@@ -563,7 +603,7 @@ export const JobsData = [
         jobRoleTitle: "React Native Android Developer Intern",
         jobRating: (
             <>
-                4 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -618,6 +658,13 @@ export const JobsData = [
                     <b> Contact us </b>{" "}
                 </RouterLink>{" "}
                 form.
+                <br />
+                <br />
+                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+                experience in this field. After three months of hard work and dedication, you will receive swags as a
+                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+                skills while working with us.
                 <br />
                 <br />
                 Our company is committed to diversity and equal opportunity and does not discriminate based on race,
