@@ -10,11 +10,38 @@ export const CertificateContainer = styled.div`
     align-items: center;
     color: #fff;
 `;
+export const LogoSection = styled.div`
+    padding: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+`;
+export const TCWLogo = styled.img`
+    width: 50px;
+    height: 50px;
+`;
+export const TCWText = styled.p`
+    margin: 0 10px;
+    font-size: 1.5rem;
+`;
+
+export const CertificateContent = styled.div`
+    padding: 0 5rem 1rem;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    color: whitesmoke;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
 
 export const CertificateComponent = styled.div`
     margin: 50px;
-    width: 60em;
-    padding: 1rem 5rem;
+    width: 70em;
+    //padding: 1rem 5rem;
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
     color: whitesmoke;
@@ -28,7 +55,7 @@ export const CertificateComponent = styled.div`
     justify-content: center;
 
     .certificate-word {
-        margin-top: 4rem;
+        margin: 2rem 0;
         font-weight: 500;
         font-size: 4rem;
     }
@@ -46,16 +73,28 @@ export const CertificateComponent = styled.div`
     }
 
     .full-name {
-        padding: 1rem 2rem 0.5rem 2rem;
+        padding: 0 2rem 0.5rem 2rem;
         margin-top: 3rem;
         font-weight: 300;
         font-size: 2rem;
         border-bottom: 2px solid #ccc;
+        display: flex;
+        align-items: center;
+    }
+    .small-text {
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+    }
+    .ctf {
+        margin-top: 1rem;
+        font-size: 1.5rem;
     }
 
     .description {
         margin-top: 3rem;
+        font-size: 1.5rem;
         max-width: 50vw;
+        font-weight: 300;
     }
 `;
 
