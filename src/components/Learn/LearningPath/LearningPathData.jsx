@@ -6,10 +6,10 @@ const LearningPathData = [
         id: 1,
         weeks: [
             {
-                week: "Complete Cyber Security Course",
+                week: "",
                 days: [
                     {
-                        day: "Cyber Security",
+                        day: "Community",
                         contents: [
                             {
                                 id: "123123123123",
@@ -27,38 +27,14 @@ const LearningPathData = [
                                 ),
                                 flag: "python",
                             },
-                            {
-                                heading: "What is Cybersecurity",
-                                content: (
-                                    <div>
-                                        <IFrameVideo
-                                            src="https://www.youtube.com/embed/eWRfhZUzrAc"
-                                            title="Python for Beginners – Full Course [Programming Tutorial]"
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                        ></IFrameVideo>
-                                    </div>
-                                ),
-                            },
                         ],
                     },
                     {
-                        day: "Linux",
+                        day: "Cyber Security",
                         contents: [
                             {
-                                heading: "Introduction to Linux",
-                                content: (
-                                    <div>
-                                        <IFrameVideo
-                                            src="https://www.youtube.com/embed/lZAoFs75_cs"
-                                            title="Linux for Ethical Hackers (Kali Linux Tutorial)"
-                                            frameBorder="0"
-                                            allow="accelerometer;  autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                        ></IFrameVideo>
-                                    </div>
-                                ),
+                                heading: "Cybersecurity Introduction",
+                                content: <div>Will be updated soon</div>,
                             },
                         ],
                     },

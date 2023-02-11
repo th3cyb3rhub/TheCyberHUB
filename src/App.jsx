@@ -135,7 +135,7 @@ const App = () => {
                             <Route exact path={"/CyberGames"} element={<CyberGames />} />
                             <Route exact path={"/CTF"} element={<CTF />} />
                             <Route exact path={"/OSINT"} element={<OSINTGame />} />
-                            <Route exact path={"/learning-path"} element={<LearningPath />} />
+                            <Route exact path={"/freeCourse"} element={<LearningPath />} />
 
                             <Route>
                                 <Route path={"/roadmaps"}>

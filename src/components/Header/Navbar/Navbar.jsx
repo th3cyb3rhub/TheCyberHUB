@@ -72,6 +72,7 @@ const Navbar = ({ isOpen, toggle }) => {
                     </NavLogoRouter>
                     <NavMenu>
                         {[
+                            { to: "freeCourse", title: "Free Course", dropdown: "support" },
                             // {
                             //     title: (
                             //         <>
@@ -90,10 +91,10 @@ const Navbar = ({ isOpen, toggle }) => {
                                 ),
                                 dropdown: "resources",
                             },
-                            // { to: "blogs", title: "Blogs", dropdown: "blogs" },
                             { to: "jobs", title: "Jobs", dropdown: "jobs" },
                             { to: "community", title: "Community", dropdown: "community" },
                             { to: "support", title: "Support", dropdown: "support" },
+                            // { to: "blogs", title: "Blogs", dropdown: "blogs" },
                         ].map(({ to, title, dropdown }) => (
                             <NavItem
                                 onMouseEnter={() => dropHandler(dropdown)}

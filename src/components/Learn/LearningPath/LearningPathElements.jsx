@@ -1,20 +1,87 @@
 import styled from "styled-components";
+import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/all";
 
 export const LearningPathContainer = styled.div`
     display: flex;
     flex-direction: row;
-    width: 1300px;
-    margin-top: 50px;
-    border: #2a2a2a 1px solid;
-    padding: 50px;
+    justify-content: center;
+    max-width: 1500px;
+    //border: #2a2a2a 1px solid;
     @media (max-width: 780px) {
         flex-direction: column;
     }
 `;
 
+export const SectionHeading = styled.p`
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+`;
+
+export const NavigationButtonSection = styled.div`
+    margin: 0 25px;
+`;
+
+export const LearningPathWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-width: 1300px;
+    width: 100%;
+`;
+
+export const BackArrow = styled(IoMdArrowRoundBack)`
+    background: #33e33c;
+    border-radius: 50%;
+    color: #ffffff;
+    padding: 5px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 260ms all;
+
+    &:hover {
+        background: linear-gradient(to right, #ffb933, #54f843);
+        outline-color: #545454;
+        outline-offset: 2px;
+        scale: 1.1;
+    }
+
+    //@media only screen and (min-width: 1200px) {
+    //    display: none;
+    //}
+`;
+export const ForwardArrow = styled(IoMdArrowRoundForward)`
+    background: #33e33c;
+    border-radius: 50%;
+    color: #ffffff;
+    padding: 5px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 260ms all;
+
+    &:hover {
+        background: linear-gradient(to right, #ffb933, #54f843);
+        outline-color: #545454;
+        outline-offset: 2px;
+        scale: 1.1;
+    }
+
+    //@media only screen and (min-width: 1200px) {
+    //    display: none;
+    //}
+`;
+
 export const IFrameVideo = styled.iframe`
     width: 100%;
-    height: 500px;
+    height: 450px;
+
+    @media (max-width: 767px) {
+        height: 300px;
+    }
+
+    @media (min-width: 768px) {
+        height: 500px;
+    }
 `;
 
 export const LeftContainer = styled.div`
@@ -22,8 +89,9 @@ export const LeftContainer = styled.div`
     justify-content: flex-start;
     text-align: start;
     flex-direction: column;
-    width: 30%;
-
+    padding: 25px;
+    width: 100%;
+    max-width: 350px;
     @media (max-width: 1100px) {
         width: 100%;
     }
@@ -35,8 +103,11 @@ export const TopicBox = styled.div`
     justify-content: space-between;
     background: #212121;
     height: 50px;
+    width: 100%;
+    min-width: 300px;
     border-radius: 5px;
     margin-bottom: 10px;
+    padding: 0 5px;
     cursor: pointer;
     ${(props) =>
         props.isSelected &&
@@ -76,7 +147,6 @@ export const Checkbox = styled.input`
 `;
 export const ContentNavigation = styled.div`
     display: flex;
-    width: 100%;
 `;
 
 export const RightContainer = styled.div`
@@ -84,15 +154,18 @@ export const RightContainer = styled.div`
     justify-content: center;
     text-align: center;
     flex-direction: column;
-    width: 70%;
-
+    width: 100%;
     @media (max-width: 1100px) {
         width: 100%;
     }
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+    //width: 800px;
+`;
 export const ContentList = styled.div`
+    width: 100%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
 `;
