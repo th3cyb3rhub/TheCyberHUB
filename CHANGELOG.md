@@ -1,3 +1,12 @@
+# [0.29.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.28.2...v0.29.0) (2023-02-11)
+
+
+### Features
+
+* courses ([f898f9d](https://github.com/thecyberworld/thecyberhub.org/commit/f898f9d19cbca0c1290fbb1366887fbf554d2f29))
+
+
+
 ## [0.28.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.28.1...v0.28.2) (2023-02-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * package.json & package-lock.json to reduce vulnerabilities ([#327](https://github.com/thecyberworld/thecyberhub.org/issues/327)) ([8acdce0](https://github.com/thecyberworld/thecyberhub.org/commit/8acdce0b256e73b97df1ead06b6ad0b8e510e8da))
-
-
-
-## [0.27.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.8...v0.27.9) (2022-12-20)
-
-
-### Bug Fixes
-
-* path ([#324](https://github.com/thecyberworld/thecyberhub.org/issues/324)) ([14b243f](https://github.com/thecyberworld/thecyberhub.org/commit/14b243fc49c915c319d11a78fff2b2d19731a387))
 
 
 
