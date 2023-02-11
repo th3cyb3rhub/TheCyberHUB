@@ -109,6 +109,24 @@ export const NavItem = styled.div`
     height: 80px;
 `;
 
+export const SidebarRedirectLink = styled.a`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: 8px;
+    text-decoration: none;
+    list-style: none;
+    transition: 0.2s ease-in-out;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+        color: #20c20e;
+        transition: 0.2s ease-in-out;
+    }
+`;
+
 export const NavLinks = styled(LinkRouter)`
     color: #fff;
     display: flex;
@@ -128,7 +146,7 @@ export const NavLinks = styled(LinkRouter)`
         border-bottom: 3px solid #20c20e;
     }
 `;
-export const NavLinkRouter = styled.a`
+export const NavRedirectLink = styled.a`
     color: #fff;
     display: flex;
     align-items: center;

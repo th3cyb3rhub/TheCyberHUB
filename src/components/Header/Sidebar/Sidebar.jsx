@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Dropdown from "../Dropdowns/Dropdown";
-import { DropdownIcon, NavItem } from "../Navbar/NavbarElements";
+import { DropdownIcon, NavItem, SidebarRedirectLink } from "../Navbar/NavbarElements";
 
 import {
     SidebarContainer,
@@ -11,7 +11,6 @@ import {
     SidebarMenu,
     SideBtnWrap,
 } from "./SidebarElements";
-import { RedirectButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 
 const Sidebar = (props) => {
     const { isOpen, toggle } = props;
@@ -71,6 +70,7 @@ const Sidebar = (props) => {
                             //     ),
                             //     dropdown: "learn",
                             // },
+                            { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
                             {
                                 title: (
                                     <>
@@ -99,9 +99,9 @@ const Sidebar = (props) => {
                         ))}
                     </SidebarMenu>
                     <SideBtnWrap>
-                        <RedirectButton href={"https://discord.gg/QHBPq6xP5p"} target={"_blank"}>
-                            Join Community
-                        </RedirectButton>
+                        <SidebarRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}>
+                            Our Services
+                        </SidebarRedirectLink>
                     </SideBtnWrap>
                 </SidebarWrapper>
             </SidebarContainer>

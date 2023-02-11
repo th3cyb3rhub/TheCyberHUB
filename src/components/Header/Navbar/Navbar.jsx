@@ -11,6 +11,7 @@ import {
     NavLogo,
     NavLogoRouter,
     NavMenu,
+    NavRedirectLink,
 } from "./NavbarElements";
 
 import Dropdown from "../Dropdowns/Dropdown";
@@ -72,7 +73,6 @@ const Navbar = ({ isOpen, toggle }) => {
                     </NavLogoRouter>
                     <NavMenu>
                         {[
-                            { to: "freeCourse", title: "Free Course", dropdown: "support" },
                             // {
                             //     title: (
                             //         <>
@@ -82,6 +82,7 @@ const Navbar = ({ isOpen, toggle }) => {
                             //     ),
                             //     dropdown: "learn",
                             // },
+                            { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
                             {
                                 title: (
                                     <>
@@ -116,7 +117,12 @@ const Navbar = ({ isOpen, toggle }) => {
                             </NavItem>
                         ))}
                         {/* <RouterButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterButtonLink> */}
+                        <NavRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}>
+                            {" "}
+                            Our Services{" "}
+                        </NavRedirectLink>
                     </NavMenu>
+
                     {/* <UserOptions /> */}
                 </NavbarContainer>
 
