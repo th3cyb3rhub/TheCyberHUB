@@ -1,3 +1,12 @@
+# [0.31.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.30.0...v0.31.0) (2023-02-11)
+
+
+### Features
+
+* new cert design ([#373](https://github.com/thecyberworld/thecyberhub.org/issues/373)) ([8f2c4c5](https://github.com/thecyberworld/thecyberhub.org/commit/8f2c4c55bfbf52939580392e7505f2d2ee8c97f5))
+
+
+
 # [0.30.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.29.0...v0.30.0) (2023-02-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * improvements ([#366](https://github.com/thecyberworld/thecyberhub.org/issues/366)) ([d04d854](https://github.com/thecyberworld/thecyberhub.org/commit/d04d8540ebdb892d3b27a52b48680ae7654eb5a1))
-
-
-
-# [0.28.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.27.10...v0.28.0) (2023-02-10)
-
-
-### Features
-
-* community, blogs, support, jobs much more ([#364](https://github.com/thecyberworld/thecyberhub.org/issues/364)) ([f8f8e81](https://github.com/thecyberworld/thecyberhub.org/commit/f8f8e8143e45fa15dcdec757ee652c625b403784)), closes [#320](https://github.com/thecyberworld/thecyberhub.org/issues/320) [#320](https://github.com/thecyberworld/thecyberhub.org/issues/320) [#322](https://github.com/thecyberworld/thecyberhub.org/issues/322) [#326](https://github.com/thecyberworld/thecyberhub.org/issues/326) [#328](https://github.com/thecyberworld/thecyberhub.org/issues/328) [#331](https://github.com/thecyberworld/thecyberhub.org/issues/331) [#332](https://github.com/thecyberworld/thecyberhub.org/issues/332) [#333](https://github.com/thecyberworld/thecyberhub.org/issues/333) [#337](https://github.com/thecyberworld/thecyberhub.org/issues/337) [#340](https://github.com/thecyberworld/thecyberhub.org/issues/340) [#341](https://github.com/thecyberworld/thecyberhub.org/issues/341) [#342](https://github.com/thecyberworld/thecyberhub.org/issues/342) [#343](https://github.com/thecyberworld/thecyberhub.org/issues/343) [#352](https://github.com/thecyberworld/thecyberhub.org/issues/352) [#353](https://github.com/thecyberworld/thecyberhub.org/issues/353) [#354](https://github.com/thecyberworld/thecyberhub.org/issues/354) [#344](https://github.com/thecyberworld/thecyberhub.org/issues/344) [#355](https://github.com/thecyberworld/thecyberhub.org/issues/355) [#356](https://github.com/thecyberworld/thecyberhub.org/issues/356) [#357](https://github.com/thecyberworld/thecyberhub.org/issues/357) [#358](https://github.com/thecyberworld/thecyberhub.org/issues/358) [#361](https://github.com/thecyberworld/thecyberhub.org/issues/361) [#362](https://github.com/thecyberworld/thecyberhub.org/issues/362)
 
 
 
