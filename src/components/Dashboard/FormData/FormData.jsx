@@ -4,94 +4,99 @@ import { JobsCardSection, JobsDetailContainer, JobsDetailSection } from "./Jobs/
 import Job from "./Jobs/Job";
 import JobDetailsPage from "./Jobs/JobDetailsPage";
 import { useSelector } from "react-redux";
+import { Wrapper } from "../Profile/ProfileElements";
+import { NotFound } from "../../index";
+// import {useNavigate} from "react-router-dom";
+import { getApiUrl } from "../../../features/apiUrl";
+import SendEmail from "./SendEmail";
 
 const FormData = () => {
+    // const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    if (user.username === "kabir0x23" || user.username === "0xFTW") {
-        const [formData, setFormData] = useState([]);
-        const [errorMessage, setErrorMessage] = useState();
-        const [detailsVisible, setDetailsVisible] = useState(false);
-        const [selectedJob, setSelectedJob] = useState(null);
+    if (!user) {
+        return <NotFound />;
+    } else if (user.username !== "kabir0x23" && user.username !== "0xFTW") {
+        return <NotFound />;
+    }
+    // useEffect(() => {
+    //     if (user && user.username !== "kabir0x23") {
+    //         navigate("/");
+    //     }
+    //     if (user && user.username !== "0xFTW") {
+    //         navigate("/");
+    //     }
+    // }, [user, navigate]);
 
-        useEffect(() => {
-            const token = localStorage.getItem("token");
-            fetch("http://localhost:5000/api/form/getFromData", {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
+    const [formData, setFormData] = useState([]);
+    const [errorMessage, setErrorMessage] = useState();
+    const [detailsVisible, setDetailsVisible] = useState(false);
+    const [selectedJob, setSelectedJob] = useState(null);
+
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem("user")).token;
+        // https://dev.api.thecyberhub.org
+        fetch(getApiUrl("api/form/getFormData"), {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setFormData(data);
             })
-                .then((res) => res.json())
-                .then((data) => {
-                    setFormData(data);
-                })
-                .catch((err) => {
-                    console.error(err);
-                    setErrorMessage(err.message);
-                });
-        }, []);
-        const [showPentest, setShowPentest] = useState(false);
+            .catch((err) => {
+                console.error(err);
+                setErrorMessage(err.message);
+            });
+    }, []);
 
-        const [showInternship, setShowInternship] = useState(false);
-        const [showFeedback, setShowFeedback] = useState(false);
-        const [showOthers, setShowOthers] = useState(false);
+    const [showPentest, setShowPentest] = useState(false);
 
-        const handleShowState = (stateName) => {
-            if (stateName === "showPentest") {
-                setShowPentest(true);
-                setShowInternship(false);
-                setShowFeedback(false);
-                setShowOthers(false);
-            } else if (stateName === "showInternship") {
-                setShowPentest(false);
-                setShowInternship(true);
-                setShowFeedback(false);
-                setShowOthers(false);
-            } else if (stateName === "showFeedback") {
-                setShowPentest(false);
-                setShowInternship(false);
-                setShowFeedback(true);
-                setShowOthers(false);
-            } else if (stateName === "showOthers") {
-                setShowPentest(false);
-                setShowInternship(false);
-                setShowFeedback(false);
-                setShowOthers(true);
-            }
-        };
+    const [showInternship, setShowInternship] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
+    const [showOthers, setShowOthers] = useState(false);
 
-        console.log(errorMessage);
+    const handleShowState = (stateName) => {
+        if (stateName === "showPentest") {
+            setShowPentest(true);
+            setShowInternship(false);
+            setShowFeedback(false);
+            setShowOthers(false);
+            setDetailsVisible(false);
+        } else if (stateName === "showInternship") {
+            setShowPentest(false);
+            setShowInternship(true);
+            setShowFeedback(false);
+            setShowOthers(false);
+            setDetailsVisible(false);
+        } else if (stateName === "showFeedback") {
+            setShowPentest(false);
+            setShowInternship(false);
+            setShowFeedback(true);
+            setShowOthers(false);
+            setDetailsVisible(false);
+        } else if (stateName === "showOthers") {
+            setShowPentest(false);
+            setShowInternship(false);
+            setShowFeedback(false);
+            setShowOthers(true);
+            setDetailsVisible(false);
+        }
+    };
 
-        return (
+    return (
+        <Wrapper>
             <FormDataContainer>
+                {errorMessage && <p>{errorMessage}</p>}
                 <FormTypesContainer>
-                    <FormType onClick={() => handleShowState("showPentest")}>Pentests</FormType>
+                    <FormType onClick={() => handleShowState("showPentest")}>Services</FormType>
                     <FormType onClick={() => handleShowState("showInternship")}>Internships</FormType>
                     <FormType onClick={() => handleShowState("showFeedback")}>Feedback</FormType>
                     <FormType onClick={() => handleShowState("showOthers")}>Others</FormType>
                 </FormTypesContainer>
-                {/* {showPentest && ( */}
-                {/*    <FormTypesContainer> */}
-                {/*        <FormType onClick={() => handleShowState('WebApplicationPentest')}>Web Application Pentest</FormType> */}
-                {/*        <FormType onClick={() => handleShowState('APIPentest')}>API Pentest</FormType> */}
-                {/*        <FormType onClick={() => handleShowState('MobileApplicationPentest')}>Mobile Application Pentest</FormType> */}
-                {/*        <FormType onClick={() => handleShowState('CloudPentest')}>Cloud Pentest</FormType> */}
-                {/*        <FormType onClick={() => handleShowState('IOTandOTPentest')}>IOT and OT Pentest</FormType> */}
-                {/*        <FormType onClick={() => handleShowState('NetworkPentest')}>Network Pentest</FormType> */}
-                {/*    </FormTypesContainer> */}
-                {/* )} */}
-                {/* {showInternship && ( */}
-                {/*    <FormTypesContainer> */}
-                {/*        <FormType onClick={() => handleShowState('Business Development/Sales/Marketing Internship')}>Business Development/Sales/Marketing Internship </FormType> */}
-                {/*        <FormType onClick={() => handleShowState('MERN Stack Internship')}>MERN Stack Internship </FormType> */}
-                {/*        <FormType onClick={() => handleShowState('Content Creator Internship')}>Content Creator Internship </FormType> */}
-                {/*        <FormType onClick={() => handleShowState('Next.js Internship')}>Next.js Internship </FormType> */}
-                {/*        <FormType onClick={() => handleShowState('Penetration Testing Internship')}>Penetration Testing Internship </FormType> */}
-                {/*        <FormType onClick={() => handleShowState('SOC Analyst Internship')}>SOC Analyst Internship </FormType> */}
-                {/*    </FormTypesContainer> */}
-                {/* )} */}
-                <FromDataSection></FromDataSection>
+                <FromDataSection>{showPentest ? <SendEmail /> : null}</FromDataSection>
                 <JobsDetailContainer id="jobs">
                     {window.innerWidth > 1000 ? (
                         <>
@@ -176,10 +181,8 @@ const FormData = () => {
                     )}
                 </JobsDetailContainer>
             </FormDataContainer>
-        );
-    } else {
-        return <div>Dashboard</div>;
-    }
+        </Wrapper>
+    );
 };
 
 export default FormData;

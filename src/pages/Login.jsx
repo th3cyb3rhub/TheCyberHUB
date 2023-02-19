@@ -33,7 +33,7 @@ const Login = () => {
     const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
     useEffect(() => {
         if (isSuccess || user) {
-            navigate("/dashboard");
+            navigate("/");
         }
         if (isError) {
             if (message === "Request failed with status code 429") {

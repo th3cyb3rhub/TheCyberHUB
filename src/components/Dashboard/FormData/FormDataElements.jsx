@@ -18,23 +18,15 @@ export const FormDataCard = styled.div`
 `;
 
 export const FromDataSection = styled.div`
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 25px;
-    padding: 25px;
-
-    @media screen and (max-width: 768px) {
-        grid-template-columns: 1fr;
-    }
+    width: 100%;
 `;
 
 export const FormTypesContainer = styled.div``;
 
 export const FormType = styled.button`
-    background: #1a1c1d;
-    color: #666666;
-    border: 1px solid #666666;
+    background: #080a10;
+    color: #b9b9b9;
+    border: 1px solid #111111;
     padding: 10px 20px;
     margin: 10px;
     border-radius: 5px;

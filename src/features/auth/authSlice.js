@@ -10,6 +10,7 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: "",
+    logout: false,
 };
 
 // Register user
@@ -79,6 +80,7 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.user = action.payload;
+                state.logout = false;
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false;
@@ -88,6 +90,7 @@ export const authSlice = createSlice({
             })
             .addCase(logout.fulfilled, (state) => {
                 state.user = null;
+                state.logout = true;
             })
             .addCase(updateUser.pending, (state) => {
                 state.isLoading = true;

@@ -91,6 +91,8 @@ export const ContentReactMarkdown = styled(ReactMarkdown)`
 
   h2 {
     font-size: 1.5em;
+    border-bottom: 1px #2a2a2a solid;
+    margin-top: 1em;
   }
 
   h3 {

@@ -1,9 +1,18 @@
-const getApiUrl = (props) => {
-    if (import.meta.env.VITE_WEB_ENV === "production") {
-        return `${import.meta.env.VITE_API_URL}/${props}`;
+// const apiUrl = import.meta.env.VITE_API_URL;
+// const cdnUrl = import.meta.env.VITE_CDN_URL;
+// const webEnv = import.meta.env.VITE_WEB_ENV;
+const apiUrl = "https://dev.api.thecyberhub.org";
+const cdnUrl = "https://thecyberhub.nyc3.cdn.digitaloceanspaces.com";
+const localUrl = "http://localhost:5000";
+
+export const webEnv = "production";
+
+export const getApiUrl = (props) => {
+    if (webEnv === "production") {
+        return `${apiUrl}/${props}`;
     } else {
-        return `http://localhost:5000/${props}`;
+        return `${localUrl}/${props}`;
     }
 };
 
-export default getApiUrl;
+export const getCDNUrl = cdnUrl;

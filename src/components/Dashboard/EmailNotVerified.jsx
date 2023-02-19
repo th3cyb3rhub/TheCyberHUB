@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { EmailNotVerifiedContainer, EmailNotVerifiedText, ResendButton } from "./EmailNotVerifiedElements";
 import axios from "axios";
+import { getApiUrl } from "../../features/apiUrl";
+import { useUserData } from "./checkUserVerified";
 
 const EmailNotVerified = ({ user }) => {
     if (!user) {
@@ -11,7 +13,6 @@ const EmailNotVerified = ({ user }) => {
     const [scrollNav, setScrollNav] = useState(false);
     const [timeLeft, setTimeLeft] = useState(60);
     const [isCounting, setIsCounting] = useState(false);
-    const [userData, setUserData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -22,23 +23,7 @@ const EmailNotVerified = ({ user }) => {
         }, 2000);
     }, []);
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/user`, {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                });
-
-                setUserData(response.data);
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        fetchUserData();
-    }, [user.token]);
+    const userVerified = useUserData({ user }).isVerified;
 
     useEffect(() => {
         let intervalId = null;
@@ -57,17 +42,12 @@ const EmailNotVerified = ({ user }) => {
         return () => clearInterval(intervalId);
     }, [isCounting]);
 
-    let APIURL = "http://localhost:5000";
-    if (import.meta.env.VITE_API_URL === "production") {
-        APIURL = import.meta.env.VITE_API_URL;
-    } else APIURL = "http://localhost:5000";
-
     const resendEmail = () => {
         setTimeLeft(60);
         setIsCounting(true);
         axios
             .post(
-                `${APIURL}/account/resend-verification-email`,
+                getApiUrl("account/resend-verification-email"),
                 {},
                 {
                     headers: {
@@ -98,7 +78,7 @@ const EmailNotVerified = ({ user }) => {
 
     return (
         <EmailNotVerifiedContainer scrollNav={scrollNav}>
-            {!isLoading && !userData.isVerified ? (
+            {!isLoading && !userVerified ? (
                 <EmailNotVerifiedText>
                     Email Verification link has been sent, please verify it.
                     {!isCounting ? (
@@ -108,9 +88,7 @@ const EmailNotVerified = ({ user }) => {
                     )}
                     {message && <div style={{ color: "cornflowerblue" }}>{message}</div>}
                 </EmailNotVerifiedText>
-            ) : (
-                <></>
-            )}
+            ) : null}
         </EmailNotVerifiedContainer>
     );
 };

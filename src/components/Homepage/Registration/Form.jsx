@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const RegistrationFormContainer = styled.form`
     width: 100%;
     height: 100%;
-    padding: 43px 14%;
+    padding: 43px 10%;
     max-width: fit-content;
     display: flex;
     flex-direction: column;
@@ -30,13 +30,13 @@ export const RegistrationFormContainer = styled.form`
 
     & .registration__inputfields {
         display: grid;
-        row-gap: 23px;
+        row-gap: 20px;
     }
 
     & .registration__ctas {
         margin-top: 20px;
         display: grid;
-        row-gap: 43px;
+        row-gap: 20px;
 
         & .registration__tandc {
             display: flex;

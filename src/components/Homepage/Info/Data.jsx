@@ -1,15 +1,21 @@
 import React from "react";
-import contributeSvg from "../../../assets/images/open-source-contribution.svg";
-// import communitySvg from "../../../assets/images/undraw_public_discussion_re_w9up.svg";
-import ResourcesSvg from "../../../assets/images/undraw_firmware_re_fgdy.svg";
-import logoThecyberworld from "../../../assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png";
-import VersionControlSvg from "../../../assets/images/undraw_version_control_re_mg66.svg";
+import { getCDNUrl } from "../../../features/apiUrl";
 
 import { FaGithub } from "react-icons/fa";
 // import { GoPrimitiveDot } from "react-icons/go";
 import { IconsSpacing, IconsSpacing2 } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { BsFillPlayFill } from "react-icons/bs";
 import { List, ListContainer, ListContent, ListIcon } from "../../Resources/Jobs/JobDetailsElements";
+
+import contributeSvg from "../../../assets/images/open-source-contribution.svg";
+import ResourcesSvg from "../../../assets/images/undraw_firmware_re_fgdy.svg";
+import VersionControlSvg from "../../../assets/images/undraw_version_control_re_mg66.svg";
+// import communitySvg from "../../../assets/images/undraw_public_discussion_re_w9up.svg`;
+// import logoThecyberworld from "../../../assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png";
+// const contributeSvg  = `${getCDNUrl}/assets/images/open-source-contribution.svg`;
+// const ResourcesSvg  = `${getCDNUrl}/assets/images/undraw_firmware_re_fgdy.svg`;
+// const VersionControlSvg  = `${getCDNUrl}/assets/images/undraw_version_control_re_mg66.svg`;
+const logoThecyberworld = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 export const aboutData = {
     id: "about",
@@ -56,7 +62,7 @@ export const aboutData = {
     buttonType2: "scroll",
     imgStart: false,
     img: logoThecyberworld,
-    alt: "Car",
+    alt: "Thecyberworld Community Logo",
     dark: true,
     primary: true,
     darkText: false,
@@ -87,7 +93,7 @@ export const ResourcesData = {
     ),
     imgStart: true,
     img: ResourcesSvg,
-    alt: "ResourcesSvg",
+    alt: "Free Cyber Security Course SVG",
     dark: true,
     primary: true,
     darkText: false,
@@ -116,7 +122,7 @@ export const communityData = {
     imgStart: true,
     // img: communitySvg,
     video: true,
-    alt: "Secure data",
+    alt: "Community Video",
     dark: true,
     primary: true,
     darkText: false,
@@ -151,7 +157,7 @@ export const contributeData = {
     buttonType2: "router",
     imgStart: false,
     img: contributeSvg,
-    alt: "Secure data",
+    alt: "Opensource contribution SVG",
     dark: true,
     primary: true,
     darkText: false,

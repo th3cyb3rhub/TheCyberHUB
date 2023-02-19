@@ -11,6 +11,7 @@ import {
     SidebarMenu,
     SideBtnWrap,
 } from "./SidebarElements";
+import { RouterButtonLink } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 
 const Sidebar = (props) => {
     const { isOpen, toggle } = props;
@@ -80,8 +81,8 @@ const Sidebar = (props) => {
                                 ),
                                 dropdown: "resources",
                             },
-                            // { to: "blogs", title: "Blogs", dropdown: "blogs" },
-                            { to: "jobs", title: "Jobs", dropdown: "jobs" },
+                            { to: "blogs", title: "Blogs", dropdown: "blogs" },
+                            // { to: "jobs", title: "Jobs", dropdown: "jobs" },
                             { to: "community", title: "Community", dropdown: "community" },
                             { to: "support", title: "Support", dropdown: "support" },
                         ].map(({ to, title, dropdown }) => (
@@ -102,6 +103,7 @@ const Sidebar = (props) => {
                         <SidebarRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}>
                             Our Services
                         </SidebarRedirectLink>
+                        <RouterButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterButtonLink>
                     </SideBtnWrap>
                 </SidebarWrapper>
             </SidebarContainer>

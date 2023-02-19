@@ -33,14 +33,13 @@ const NavItem = (props) => {
 const DropdownMenu = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
     const onLogout = () => {
         dispatch(logout());
         dispatch(reset());
         navigate("/");
     };
-
-    const { user } = useSelector((state) => state.auth);
 
     const DropdownItem = (props) => {
         return (

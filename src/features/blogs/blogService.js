@@ -1,5 +1,5 @@
 import axios from "axios";
-import getApiUrl from "../apiUrl";
+import { getApiUrl } from "../apiUrl";
 
 const API_URL = getApiUrl("api/blogs/");
 const addComment = async (blogId, commentData, token) => {

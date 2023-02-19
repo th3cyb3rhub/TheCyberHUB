@@ -8,7 +8,7 @@ import { updateUser } from "../../../features/auth/authSlice";
 import { AddImage } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import axios from "axios";
 import { getUserDetails } from "../../../features/userDetails/userDetailSlice";
-import getApiUrl from "../../../features/apiUrl";
+import { getApiUrl, getCDNUrl } from "../../../features/apiUrl";
 import { CircleSpinner } from "react-spinners-kit";
 
 const EditProfile = () => {
@@ -135,7 +135,7 @@ const EditProfile = () => {
 
     if (profilePicture === dummyPicture) {
         profilePictureUrl = profilePicture;
-    } else profilePictureUrl = `${import.meta.env.VITE_CDN_URL}/profile_pictures/${profilePicture}`;
+    } else profilePictureUrl = `${getCDNUrl}/profile_pictures/${profilePicture}`;
 
     return (
         <Wrapper>

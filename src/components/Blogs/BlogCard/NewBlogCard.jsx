@@ -22,9 +22,10 @@ import { AiFillDelete, BiEdit } from "react-icons/all";
 import { deleteBlog } from "../../../features/blogs/blogSlice";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getCDNUrl } from "../../../features/apiUrl";
 
 const image = "https://user-images.githubusercontent.com/44284877/210166161-ad2f71a7-df74-43b9-8330-af9740d9e8ba.png";
-const API_URL = import.meta.env.VITE_CDN_URL;
+const API_URL = getCDNUrl;
 
 const NewBlogCard = ({ blog }) => {
     const coverImage = blog?.coverImage;
@@ -39,7 +40,7 @@ const NewBlogCard = ({ blog }) => {
                 <SubSection>
                     <RouterLink to={{ pathname: `/blogs/${encodeURL(blog.title)}-by-${blog.username}` }}>
                         <Title> {blog.title} </Title>
-                        <Description> {blog.content.slice(0, 80)} </Description>
+                        <Description> {blog.content.slice(0, 125)} </Description>
                     </RouterLink>
                 </SubSection>
                 <DetailsSection>

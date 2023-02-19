@@ -67,6 +67,8 @@ export const SidebarLink = styled(RouterLink)`
 export const SideBtnWrap = styled.div`
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 `;
 export const SidebarMenu = styled.div`
     // display: grid;

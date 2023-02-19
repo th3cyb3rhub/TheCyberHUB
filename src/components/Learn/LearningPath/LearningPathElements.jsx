@@ -19,6 +19,32 @@ export const SectionHeading = styled.p`
     justify-content: center;
 `;
 
+export const LoginToAccess = styled.p`
+    margin: 100px 25px 25px;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    color: #989898;
+`;
+
+export const NavigationButtonContainer = styled.div`
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 420px) {
+        flex-direction: column;
+        align-items: center;
+    }
+`;
+
+export const ButtonText = styled.p`
+    margin: 25px 25px;
+    padding: 5px 25px;
+    font-size: 20px;
+`;
+
 export const NavigationButtonSection = styled.div`
     margin: 0 25px;
 `;
@@ -174,8 +200,8 @@ export const Weeks = styled.div``;
 
 export const Week = styled.h2``;
 export const Days = styled.div`
+    margin: 25px 0;
     display: ${(props) => (props.isWrapped ? "none" : "block")};
-
     transition: all 0.5s ease-in-out;
 `;
 

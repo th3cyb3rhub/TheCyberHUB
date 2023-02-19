@@ -12,12 +12,16 @@ import {
     NavLogoRouter,
     NavMenu,
     NavRedirectLink,
+    NavUsersDetailsSection,
 } from "./NavbarElements";
 
 import Dropdown from "../Dropdowns/Dropdown";
-import logo from "../../../assets/images/WebsiteLogo/ThecyberhubLogo.png";
-// import UserOptions from "../UserOptions/UserOptions";
+import UserOptions from "../UserOptions/UserOptions";
 import { FaBars } from "react-icons/all";
+import { RouterButtonLink } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+import Exp from "../Exp";
+import { getCDNUrl } from "../../../features/apiUrl";
+const logo = `${getCDNUrl}/assets/images/WebsiteLogo/ThecyberhubLogo.png`;
 // import { RouterButtonLink } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 const Navbar = ({ isOpen, toggle }) => {
     const [scrollNav, setScrollNav] = useState(false);
@@ -83,6 +87,7 @@ const Navbar = ({ isOpen, toggle }) => {
                             //     dropdown: "learn",
                             // },
                             { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
+                            { to: "blogs", title: "Blogs", dropdown: "blogs" },
                             {
                                 title: (
                                     <>
@@ -92,10 +97,8 @@ const Navbar = ({ isOpen, toggle }) => {
                                 ),
                                 dropdown: "resources",
                             },
-                            { to: "jobs", title: "Jobs", dropdown: "jobs" },
-                            { to: "community", title: "Community", dropdown: "community" },
+                            // { to: "community", title: "Community", dropdown: "community" },
                             { to: "support", title: "Support", dropdown: "support" },
-                            // { to: "blogs", title: "Blogs", dropdown: "blogs" },
                         ].map(({ to, title, dropdown }) => (
                             <NavItem
                                 onMouseEnter={() => dropHandler(dropdown)}
@@ -116,14 +119,15 @@ const Navbar = ({ isOpen, toggle }) => {
                                 )}
                             </NavItem>
                         ))}
-                        {/* <RouterButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterButtonLink> */}
                         <NavRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}>
-                            {" "}
-                            Our Services{" "}
+                            Our Services
                         </NavRedirectLink>
+                        <RouterButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterButtonLink>
                     </NavMenu>
-
-                    {/* <UserOptions /> */}
+                    <NavUsersDetailsSection>
+                        <Exp />
+                        <UserOptions />
+                    </NavUsersDetailsSection>
                 </NavbarContainer>
 
                 {/* <Streak /> */}

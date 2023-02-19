@@ -66,6 +66,8 @@ const Footer = () => {
                                     {title}
                                 </FooterScrollLink>
                             ))}
+                            <FooterRouterLink to={"terms-conditions"}>Terms & Conditions</FooterRouterLink>
+                            <FooterRouterLink to={"privacy-policy"}>Privacy Policy</FooterRouterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle>Community</FooterLinkTitle>

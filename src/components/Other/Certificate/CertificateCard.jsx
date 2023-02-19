@@ -19,7 +19,7 @@ import JsPDF from "jspdf";
 import { AiFillFileImage, VscFilePdf } from "react-icons/all";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 
-import TCWlogo from "../../../assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png";
+const TCWlogo = `{getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();

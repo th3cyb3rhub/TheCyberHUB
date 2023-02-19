@@ -1,5 +1,6 @@
 import React from "react";
 import { JobContainer, JobHero, JobLocation, JobRole, JobRoleTitle, JobTitle } from "./JobsElements";
+import { Detail2, DetailsText } from "./JobDetailsElements";
 
 export default function Job(props) {
     return (
@@ -20,6 +21,11 @@ export default function Job(props) {
                 <span> | </span>
                 <span>{props.createdAt.split("T")[1]}</span>
             </JobLocation>
+            <Detail2>
+                <DetailsText>Chkd: {props?.checked ? <>true</> : <>false</>} </DetailsText>
+                <DetailsText>Rjkt: {props?.rejected ? <>true</> : <>false</>} </DetailsText>
+                <DetailsText>Mail: {props?.emailSent ? <>true</> : <>false</>} </DetailsText>
+            </Detail2>
         </JobContainer>
     );
 }

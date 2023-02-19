@@ -27,6 +27,9 @@ import {
     ResumeIcon,
     WebIcon,
 } from "./ContactFormElements.jsx";
+import { getApiUrl } from "../../features/apiUrl";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -85,7 +88,6 @@ const ContactForm = () => {
             contextHeading,
             submissionFrom: "thecyberhub.org",
         };
-
         if (name.length === 0) {
             setError("Please fill all of the fields");
         } else if (email.length === 0) {
@@ -99,40 +101,39 @@ const ContactForm = () => {
             (reason === "internship" && reasonType.length === 0)
         ) {
             setError("Please fill all of the fields");
+        } else if (reason === "internship" && resume.length === 0) {
+            setError("Please include the resume link");
         } else {
-            // https://dev.api.thecyberhub.org/api/form/submit
-            // http://localhost:5000/api/form/submit
-            fetch("https://dev.api.thecyberhub.org/api/form/submit", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(filledFormData),
-            })
-                .then((res) => res.json())
-                .then((data) => data.message === "Something went wrong. Please try again later." && setError2(true))
-                .then(
-                    setFormData({
-                        name: "",
-                        email: "",
-                        company: "",
-                        website: "",
-                        pentestBefore: "",
-                        reason: "",
-                        phoneNumber: "",
-                        reasonType: "",
-                        resume: "",
-                        message: "",
-                        contextHeading: "",
-                    }),
-                )
-                .catch((err) => {
-                    setError2(true);
-                    console.log(err);
-                    setIsSuccess(false);
+            axios
+                .post(getApiUrl("api/form/submit"), filledFormData, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 })
-                .then(console.log("Submit Successfully"))
-                .then(error2 === false ? setIsSuccess(true) : setIsSuccess(false));
+                .then((response) => {
+                    if (response.data.message === "Form submitted successfully") {
+                        setIsSuccess(true);
+                        setError(false);
+                        setError2(false);
+                    }
+                    console.log(response.data.message);
+                    if (response.data.message === "Something went wrong. Please try again later.") {
+                        setError2(true);
+                        setIsSuccess(false);
+                    }
+                })
+                .catch((error) => {
+                    if (error.message === "Network Error") {
+                        setError2(true);
+                        setIsSuccess(false);
+                    } else if (error.response.status === 429) {
+                        toast.error("Please wait 1 Minute before submitting again");
+                        setIsSuccess(false);
+                    } else {
+                        setError2(true);
+                        setIsSuccess(false);
+                    }
+                });
         }
     };
 
@@ -290,23 +291,23 @@ const ContactForm = () => {
                                     <ContactFormSelectOption value="Business Development Sales Marketing Internship">
                                         Business Development | Sales | Marketing Internship
                                     </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="MERN Stack Internship">
-                                        MERN Stack Internship
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Content Creator Internship">
-                                        Content Creator Internship
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Next.js Internship">
-                                        Next.js Internship
-                                    </ContactFormSelectOption>
                                     <ContactFormSelectOption value="Penetration Testing Internship">
                                         Penetration Testing Internship
                                     </ContactFormSelectOption>
                                     <ContactFormSelectOption value="SOC Analyst Internship">
                                         SOC Analyst Internship
                                     </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="React Native Android Developer Internship">
-                                        React Native Android Developer Internship
+                                    <ContactFormSelectOption value="Content Creator Internship">
+                                        Content Creator Internship
+                                    </ContactFormSelectOption>
+                                    <ContactFormSelectOption value="MERN Stack Internship">
+                                        MERN Stack Internship
+                                    </ContactFormSelectOption>
+                                    <ContactFormSelectOption value="Next.js Developer Internship">
+                                        Next.js Developer Internship
+                                    </ContactFormSelectOption>
+                                    <ContactFormSelectOption value="React Native Developer Internship">
+                                        React Native Developer Internship
                                     </ContactFormSelectOption>
                                 </ContactFormSelect>
                             </CoverLeft>
@@ -321,7 +322,9 @@ const ContactForm = () => {
                                         id="resume"
                                         value={formData.resume}
                                         onChange={handleChange}
-                                        placeholder={"Please share your resume link here (You can upload on drive)"}
+                                        placeholder={
+                                            "Resume link (You can upload on drive and make the link accessible)"
+                                        }
                                     />
                                 </CoverLeft>
                             </Cover>

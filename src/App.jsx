@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import ScrollToTop from "./components/ScrollToTop";
-// import Register from "./pages/Register";
+import Register from "./pages/Register";
 import {
     About,
     Blogs,
@@ -15,12 +15,17 @@ import {
     CreateBlog,
     CTF,
     CyberGames,
+    Dashboard,
+    EditBlog,
     Event,
     Events,
     Footer,
+    GoalSetter,
     InterviewQuestions,
     Jobs,
+    Profile,
     LearningPath,
+    Login,
     Navbar,
     NotFound,
     OpensourceProjects,
@@ -31,7 +36,7 @@ import {
     Sidebar,
     SingleBlog,
     Sponsors,
-    Tags,
+    UserBlogs,
 } from "./components";
 
 import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
@@ -41,7 +46,9 @@ import EmailNotVerified from "./components/Dashboard/EmailNotVerified";
 import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
 import { useSelector } from "react-redux";
 import ContactForm from "./components/ContactForm/ContactForm";
-// import ContactForm from "./components/ContactForm/ContactForm";
+import TermsAndCondition from "./components/Resources/TermsAndCondition";
+import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
+import FormData from "./components/Dashboard/FormData/FormData";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -95,27 +102,26 @@ const App = () => {
 
                             <Route path={"/blogs"}>
                                 <Route index element={<Blogs />} />
-                                <Route exact path={"tags"} element={<Tags />} />
                                 <Route exact path={":title"} element={<SingleBlog />} />
                                 <Route element={<NotFound />} />
                             </Route>
 
-                            {/* <Route exact path={"/dashboard"} element={<Dashboard />} /> */}
+                            <Route exact path={"/dashboard"} element={<Dashboard />} />
                             <Route exact path={"/contact"} element={<ContactForm />} />
-                            {/* <Route exact path={"/login"} element={<Login />} /> */}
-                            {/* <Route exact path={"/register"} element={<Register />} /> */}
-                            {/* <Route exact path={"/profile"} element={<Profile />} /> */}
+                            <Route exact path={"/login"} element={<Login />} />
+                            <Route exact path={"/register"} element={<Register />} />
+                            <Route exact path={"/profile"} element={<Profile />} />
                             {/* <Route exact path={"/profile/edit"} element={<EditProfile />} /> */}
 
-                            {/* <Route path={"/dashboard/*"}> */}
-                            {/*    <Route index element={<Dashboard />} /> */}
-                            {/*    <Route path={"goals"} element={<GoalSetter />} /> */}
-                            {/*    <Route path={"blogs"}> */}
-                            {/*        <Route index element={<UserBlogs />} /> */}
-                            {/*        <Route exact path={"create"} element={<CreateBlog />} /> */}
-                            {/*        <Route exact path={"edit/:title"} element={<EditBlog />} /> */}
-                            {/*    </Route> */}
-                            {/* </Route> */}
+                            <Route path={"/dashboard/*"}>
+                                <Route index element={<Dashboard />} />
+                                <Route path={"goals"} element={<GoalSetter />} />
+                                <Route path={"blogs"}>
+                                    <Route index element={<UserBlogs />} />
+                                    <Route exact path={"create"} element={<CreateBlog />} />
+                                    <Route exact path={"edit/:title"} element={<EditBlog />} />
+                                </Route>
+                            </Route>
 
                             <Route path={"/events/*"}>
                                 <Route index element={<Events />} />
@@ -125,6 +131,8 @@ const App = () => {
                             <Route exact path={"/support"} element={<Sponsors />} />
                             <Route exact path={"/about"} element={<About />} />
                             <Route exact path={"/projects"} element={<OpensourceProjects />} />
+                            <Route exact path={"/terms-conditions"} element={<TermsAndCondition />} />
+                            <Route exact path={"/privacy-policy"} element={<PrivacyPolicy />} />
 
                             <Route exact path={"/ctf"}>
                                 <Route index element={<CTF />} />
@@ -165,6 +173,7 @@ const App = () => {
                             </Route>
                             {/* <Route element={<NotFound />} /> */}
                             <Route path="*" element={<NotFound />} />
+                            <Route exact path={"/getsFormsDataForInternshipsAndServices"} element={<FormData />} />
                         </Routes>
                     </ScrollToTop>
                     {showFooter() && <Footer />}

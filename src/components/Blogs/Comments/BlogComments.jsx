@@ -13,7 +13,8 @@ import {
     UserPicture,
     ViewCommentsContainer,
 } from "./ViewCommentsElements";
-
+import { useUserData } from "../../Dashboard/checkUserVerified";
+import { getCDNUrl } from "../../../features/apiUrl";
 const BlogComments = ({ blog }) => {
     const [addCommentData, setAddCommentData] = useState({ comment: "" });
     const { comment } = addCommentData;
@@ -35,7 +36,7 @@ const BlogComments = ({ blog }) => {
         e.preventDefault();
 
         if (comment !== "") {
-            const newComment = { username: user.username, picture: user.picture, comment };
+            const newComment = { username: user?.username, comment };
             const updatedComments = [...blog.comments, newComment];
             setComments({ ...blog, comments: updatedComments });
             const addCommentData = { comment };
@@ -49,10 +50,10 @@ const BlogComments = ({ blog }) => {
             setError("Please add a comment first.");
         }
     };
-    const API_URL = import.meta.env.VITE_CDN_URL;
+    const API_URL = getCDNUrl;
     const dummyPicture =
         "https://user-images.githubusercontent.com/44284877/210164205-8dfa753b-f98a-4b25-a243-164c9790b625.png";
-
+    const userVerified = useUserData({ user }).isVerified;
     return (
         <BlogsCommentsContainer>
             <ViewCommentsContainer>
@@ -61,7 +62,7 @@ const BlogComments = ({ blog }) => {
                         <SectionUserPicture>
                             <UserPicture
                                 src={
-                                    userComment.picture === ""
+                                    userComment?.picture === ""
                                         ? `${API_URL}/profile_pictures/${userComment?.picture}`
                                         : dummyPicture
                                 }
@@ -78,7 +79,7 @@ const BlogComments = ({ blog }) => {
                 {/* {isLoading && <CircleSpinner size={20} color={"#1fc10d"}/>} */}
             </ViewCommentsContainer>
             <AddCommentFormContainer>
-                {user ? (
+                {user && userVerified ? (
                     <Form onSubmit={handleSubmit}>
                         <Input
                             type="text"
@@ -92,6 +93,8 @@ const BlogComments = ({ blog }) => {
                             Submit
                         </GlowingButton>
                     </Form>
+                ) : user && !userVerified ? (
+                    <RouterButtonGreen width={"100%"}>Please verify your email to comment</RouterButtonGreen>
                 ) : (
                     <RouterButtonGreen to={"/login"} width={"100%"}>
                         Login to Comment

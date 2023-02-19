@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import bgImage from "../../../assets/images/certificate-bg.png";
 import { GlowingButton } from "../MixComponents/Buttons/ButtonElements";
+import { getCDNUrl } from "../../../features/apiUrl";
+const bgImage = `${getCDNUrl}/assets/images/certificate-bg.png`;
 
 export const CertificateContainer = styled.div`
     margin-top: 40px;

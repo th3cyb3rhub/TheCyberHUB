@@ -98,18 +98,24 @@ export const FooterDetailsSection = styled.div`
 export const Title = styled.h3`
     word-wrap: break-word;
     @media screen and (max-width: 600px) {
-        font-size: 12px;
+        font-size: 13px;
     }
 `;
 
 export const Description = styled.p`
     word-wrap: break-word;
     @media screen and (max-width: 600px) {
-        font-size: 8px;
+        font-size: 11px;
+    }
+    @media screen and (max-width: 460px) {
+        display: none;
     }
 `;
 export const Username = styled.p`
     padding: 0 5px 0 0;
+    @media screen and (max-width: 600px) {
+        font-size: 10px;
+    }
 `;
 export const Date = styled.p`
     font-size: 10px;
@@ -138,7 +144,7 @@ export const Category = styled.p`
     }
 
     @media screen and (max-width: 600px) {
-        font-size: 9px;
+        font-size: 10px;
     }
 `;
 

@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { DotSymbol } from "../../../Homepage/Info/InfoElements";
 
 export const JobDetailsContainer = styled.div`
-    background-color: rgba(32, 194, 14, 0.04);
+    color: #a4a4a4;
+    background: #080a10;
     width: 100%;
     margin: 10px;
     outline: 1px solid #2a2a2a;
@@ -173,4 +174,25 @@ export const JobDetailsTimeline = styled(JobDetails)`
     & span.remote {
         font-weight: 600;
     }
+`;
+
+export const Detail1 = styled.div`
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+`;
+
+export const Detail2 = styled.div`
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+`;
+
+export const DetailsText = styled.p`
+    background: #0f121e;
+    border-radius: 5px;
+    color: #c2bbbb;
+    margin: 10px;
+    padding: 10px;
 `;

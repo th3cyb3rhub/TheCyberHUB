@@ -20,7 +20,7 @@ import {
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
 import { Button, PreviewIcon, PreviewSection } from "../../../Beta/Forum/ForumSubPageElements";
 import { toast } from "react-toastify";
-import getApiUrl from "../../../../features/apiUrl";
+import { getApiUrl } from "../../../../features/apiUrl";
 import axios from "axios";
 
 const EditBlog = () => {

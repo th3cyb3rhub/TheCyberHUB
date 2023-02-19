@@ -61,6 +61,7 @@ export const Cover = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+    gap: 5px;
 
     @media (max-width: 500px) {
         flex-direction: column;
@@ -77,7 +78,6 @@ export const CoverLeft = styled.div`
     padding: 15px;
     border-radius: 2px;
     margin: 5px 0;
-    margin-right: 5px;
 
     @media (max-width: 500px) {
         margin-right: 0;

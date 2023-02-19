@@ -20,17 +20,24 @@ import {
 import NotFound from "../../../NotFound";
 import PreviewMarkdown from "./PreviewMarkdown";
 import BlogComments from "../Comments/BlogComments";
+import { toast } from "react-toastify";
+import { CircleSpinner } from "react-spinners-kit";
+import { getCDNUrl } from "../../../features/apiUrl";
 
 const ViewBlog = () => {
     const { title } = useParams();
 
-    const { blogs, isError, message } = useSelector((state) => state.blogs);
+    const { blogs, isLoading, isError, message } = useSelector((state) => state.blogs);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (isError) {
             console.log(message);
+            if (message === "AxiosError: Request failed with status code 429") {
+                toast("You have reached the maximum number of requests. Please try again later.", { type: "error" });
+            }
         }
+
         dispatch(getAllBlogs());
         return () => {
             dispatch(reset());
@@ -43,7 +50,15 @@ const ViewBlog = () => {
             title.toLowerCase().includes(blog.username),
     );
 
+    if (isLoading) {
+        return (
+            <>
+                <CircleSpinner size={100} color="#20c20e" loading={isLoading} />
+            </>
+        );
+    }
     if (!blog) return <NotFound />;
+
     const blogUnFormattedDate = new Date(blog?.createdAt);
     const blogCreatedAt = new Intl.DateTimeFormat("en-US", {
         month: "short",
@@ -51,7 +66,7 @@ const ViewBlog = () => {
         year: "numeric",
     }).format(blogUnFormattedDate);
 
-    const API_URL = import.meta.env.VITE_CDN_URL;
+    const API_URL = getCDNUrl;
     const coverImage = blog?.coverImage;
     const coverImageUrl = `${API_URL}/blog_images/${coverImage}`;
 
@@ -80,7 +95,7 @@ const ViewBlog = () => {
                     {blog?.tags.map((tag, id) => (tag.length !== 0 ? <Tag key={id}>{tag.slice(0, 40)}</Tag> : <></>))}
                 </TagsSection>
                 <CommentContainer>
-                    <BlogComments blog={blog} />
+                    <BlogComments blog={blog} isError={isError} message={message} />
                     {/* <ViewComments comments={blog?.comments} /> */}
                     {/* <AddCommentForm blog_id={blog?._id} isLoading={isLoading} /> */}
                 </CommentContainer>

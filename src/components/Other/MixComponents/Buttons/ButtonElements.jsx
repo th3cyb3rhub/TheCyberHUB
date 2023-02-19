@@ -227,7 +227,7 @@ export const RouterButtonGreen = styled(RouterLink)`
         transition: all 0.2s ease-in-out;
         background: #20c20e;
         color: black;
-        scale: 1.1;
+        scale: 1.02;
         border-color: #343434;
         // font-size: 18px;
     }

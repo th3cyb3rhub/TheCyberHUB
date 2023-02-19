@@ -32,6 +32,11 @@ export const ScrollButton = styled(Button)`
     }
 `;
 
+export const ResumeLink = styled.a`
+    color: white;
+    margin: 0 10px;
+`;
+
 export const JobSection = styled.section`
     color: #cecac3;
     max-width: 1400px;
@@ -124,19 +129,18 @@ export const JobsDetailSection = styled.div`
 `;
 
 export const JobContainer = styled.div`
-    background-color: rgba(32, 194, 14, 0.04);
+    color: #a4a4a4;
+    background: #080a10;
     width: 100%;
     max-width: 440px;
     max-height: 300px;
     margin: 10px;
     outline: 1px solid #2a2a2a;
-    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
     padding: 15px 10px 10px 20px;
     transition: 260ms all;
-    color: #2f2f2f;
 
     &:hover {
         outline-color: #545454;
@@ -162,10 +166,11 @@ export const JobHeader = styled.div`
 `;
 
 export const JobTitle = styled.h2`
-    background: linear-gradient(to right, #b1faa9, #f6dbaa);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #33e33c;
+    //background: linear-gradient(to right, #b1faa9, #f6dbaa);
+    //background-clip: text;
+    //-webkit-background-clip: text;
+    //-webkit-text-fill-color: transparent;
     font-size: 18px;
     font-weight: bolder;
     letter-spacing: 0.1rem;
@@ -242,7 +247,7 @@ export const JobDetails = styled.div`
 `;
 
 export const JobReq = styled.div`
-    font-size: 13px;
+    font-size: 18px;
     margin: 15px 0;
 
     & > ul {

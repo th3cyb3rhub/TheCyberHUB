@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import getApiUrl from "../../features/apiUrl";
+import { getApiUrl } from "../../features/apiUrl";
 import axios from "axios";
 
 export const handlePasteEvent = async (e, setImageUrl, setBlogData) => {

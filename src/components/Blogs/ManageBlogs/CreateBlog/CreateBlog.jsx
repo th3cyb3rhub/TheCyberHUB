@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 import PreviewBlogContent from "../../PreviewBlogContent";
 import { Button, PreviewIcon, PreviewSection } from "../../../Beta/Forum/ForumSubPageElements";
-import getApiUrl from "../../../../features/apiUrl";
+import { getApiUrl } from "../../../../features/apiUrl";
 import BlogPostForm from "../BlogPostForm";
 import { toast } from "react-toastify";
 
@@ -28,6 +28,7 @@ const CreateBlog = () => {
     const { blogs } = useSelector((state) => state.blogs);
     const { isSuccess, isLoading, isError, message } = useSelector((state) => state.blogs);
     const [preview, setPreview] = useState(false); // added state variable for preview
+    const [errorMessage, setErrorMessage] = useState("");
     const onPreview = () => setPreview(true);
     const closePreview = () => setPreview(false);
 
@@ -83,7 +84,13 @@ const CreateBlog = () => {
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
             }));
         } catch (err) {
-            console.error(err.message);
+            if (err.message === "Request failed with status code 429") {
+                setErrorMessage("You are uploading images too fast. Please wait a few seconds and try again.");
+                errorMessage && toast.error(errorMessage);
+                if (errorMessage === "") {
+                    toast("You are uploading images too fast. Please wait a few seconds and try again.");
+                }
+            }
         }
     };
     const handlePaste = async (e) => {
@@ -125,7 +132,13 @@ const CreateBlog = () => {
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
             }));
         } catch (err) {
-            console.error(err.message);
+            if (err.message === "Request failed with status code 429") {
+                setErrorMessage("You are uploading images too fast. Please wait a few seconds and try again.");
+                errorMessage && toast.error(errorMessage);
+                if (errorMessage === "") {
+                    toast("You are uploading images too fast. Please wait a few seconds and try again.");
+                }
+            }
         }
     };
 
@@ -214,7 +227,13 @@ const CreateBlog = () => {
                 const API_URL = getApiUrl("api/upload");
                 await axios.post(API_URL, formData);
             } catch (err) {
-                console.error(err);
+                if (err.message === "Request failed with status code 429") {
+                    setErrorMessage("You are uploading images too fast. Please wait a few seconds and try again.");
+                    errorMessage && toast.error(errorMessage);
+                    if (errorMessage === "") {
+                        toast("You are uploading images too fast. Please wait a few seconds and try again.");
+                    }
+                }
             }
 
             setBlogData({ title: "", content: "", coverImage: "", tags: [] });
@@ -282,6 +301,7 @@ const CreateBlog = () => {
                         handleDrop={handleDrop}
                         handleDragOver={handleDragOver}
                         handlePaste={handlePaste}
+                        user={user}
                     />
                 )}
             </CreateBlogContainer>

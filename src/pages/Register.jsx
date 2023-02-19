@@ -25,9 +25,10 @@ const Register = () => {
         email: "",
         password: "",
         password2: "",
+        termsAndConditions: "",
     });
 
-    const { name, username, email, password, password2 } = formData;
+    const { name, username, email, password, password2, termsAndConditions } = formData;
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const Register = () => {
             toast.error(message);
         }
         if (isSuccess || user) {
-            navigate("/dashboard");
+            navigate("/");
         }
         dispatch(reset());
     }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -68,14 +69,22 @@ const Register = () => {
         const domain = email.split("@")[1];
         if (password !== password2) {
             toast.error("Passwords do not match");
-        } else if (password.length < 8) {
-            toast.error("Password must be at least 8 characters");
+        } else if (password.length < 8 || password.length > 32) {
+            toast.error("Password must be between 8 and 32 characters");
+        } else if (username.length < 2 || username.length > 20) {
+            toast.error("Username must be between 2 and 20 characters");
+        } else if (name.length < 1 || name.length > 20) {
+            toast.error("Name must be between 1 and 20 characters");
+        } else if (/[^a-zA-Z0-9]+/.test(username)) {
+            toast.error("Username must only contain letters and numbers");
         } else if (domain === undefined) {
             toast.error("Please enter a valid email");
         } else if (whitelistedDomains.indexOf(domain) === -1) {
             toast.error(`Sorry, ${domain} email domain is not allowed`);
+        } else if (!termsAndConditions) {
+            toast.error("You must agree to the terms and conditions");
         } else {
-            const userData = { name, username, email, password };
+            const userData = { name, username, email, password, termsAndConditions };
             dispatch(register(userData));
         }
     };
@@ -168,7 +177,24 @@ const Register = () => {
                             />
                         </CustomInputGroup>
                     </div>
+
                     <div className="registration__ctas">
+                        <div className="registration__tandc">
+                            <input
+                                role="checkbox"
+                                type="checkbox"
+                                id={"termsAndConditions"}
+                                name={"termsAndConditions"}
+                                onChange={(e) => setFormData({ ...formData, termsAndConditions: e.target.checked })}
+                                value={termsAndConditions}
+                            />
+                            <div>
+                                I agree to all statements included in
+                                <RouterLink to={"/terms-conditions"}>
+                                    <span style={{ color: "#20c20e" }}>Terms of Use</span>
+                                </RouterLink>
+                            </div>
+                        </div>
                         {!isLoading ? (
                             <GlowingButton width={"100%"} type="submit">
                                 Start Hacking
