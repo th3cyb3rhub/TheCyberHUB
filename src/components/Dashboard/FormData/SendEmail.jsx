@@ -10,18 +10,20 @@ import {
     CoverRight,
     EmailIcon,
     ErrorMessage,
+    GlowingButton,
     MessageIcon,
     OrgIcon,
 } from "../../ContactForm/ContactFormElements";
 import { toast } from "react-toastify";
 
-const SendEmail = (pops) => {
+const SendEmail = () => {
     const [emailData, setEmailData] = useState({
         email: "",
         subject: "",
         message: "",
     });
     const [isSuccess, setIsSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
     const handleChange = (e) => {
         setEmailData({
@@ -33,19 +35,32 @@ const SendEmail = (pops) => {
         e.preventDefault();
         setError(false);
         setIsSuccess(false);
-
+        setIsLoading(true);
         const token = JSON.parse(localStorage.getItem("user")).token;
         axios
-            .post(getApiUrl("api/form/sendEmail"), emailData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
+            .post(
+                getApiUrl("api/form/sendEmail"),
+                {
+                    ...emailData,
+                    message: emailData.message.replace(/\n/g, "<br>"),
                 },
-            })
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                },
+            )
             .then((response) => {
                 if (response.data.message === "Email sent successfully") {
                     setIsSuccess(true);
+                    setEmailData({
+                        email: "",
+                        subject: "",
+                        message: "",
+                    });
                     setError(false);
+                    setIsLoading(false);
                 }
                 toast.success(response.data.message);
                 console.log(response.data.message);
@@ -66,20 +81,13 @@ const SendEmail = (pops) => {
                     setIsSuccess(false);
                 }
             });
-        if (isSuccess && !error) {
-            setEmailData({
-                email: "",
-                subject: "",
-                message: "",
-            });
-        }
     };
 
     return (
         <div>
             <ContactFormSection onSubmit={handleSubmit}>
                 <CoverRight>
-                    <ContactFormLabel htmlFor="name">
+                    <ContactFormLabel htmlFor="email">
                         <EmailIcon />
                     </ContactFormLabel>
                     <ContactFormInput
@@ -92,7 +100,7 @@ const SendEmail = (pops) => {
                     />
                 </CoverRight>
                 <CoverRight>
-                    <ContactFormLabel htmlFor="name">
+                    <ContactFormLabel htmlFor="subject">
                         <OrgIcon />
                     </ContactFormLabel>
                     <ContactFormInput
@@ -105,7 +113,7 @@ const SendEmail = (pops) => {
                     />
                 </CoverRight>
                 <CoverRight>
-                    <ContactFormLabel htmlFor="name">
+                    <ContactFormLabel htmlFor="message">
                         <MessageIcon />
                     </ContactFormLabel>
                     <ContactFormTextArea
@@ -114,18 +122,18 @@ const SendEmail = (pops) => {
                         id="message"
                         value={emailData.message}
                         onChange={handleChange}
-                        placeholder={"Subject"}
+                        placeholder={"message"}
                     />
                 </CoverRight>
-                {/* {!isSuccess ? ( */}
-                <ContactFormSubmit type="submit" value="submit" placeholder={"Submit"}>
-                    Submit
-                </ContactFormSubmit>
-                {/* ) : null} */}
+                {!isLoading ? (
+                    <ContactFormSubmit type="submit" value="submit" placeholder={"Submit"}>
+                        Submit
+                    </ContactFormSubmit>
+                ) : null}
 
                 {error && !isSuccess && <ErrorMessage>{"Server Error - Please contact us on discord"}</ErrorMessage>}
             </ContactFormSection>
-            {/* {isSuccess && !error ? <GlowingButton>Submit Successfully</GlowingButton> : null} */}
+            {isLoading ? <GlowingButton /> : null}
         </div>
     );
 };
