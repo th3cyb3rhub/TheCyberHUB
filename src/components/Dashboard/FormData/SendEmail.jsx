@@ -10,11 +10,12 @@ import {
     CoverRight,
     EmailIcon,
     ErrorMessage,
-    GlowingButton,
     MessageIcon,
     OrgIcon,
 } from "../../ContactForm/ContactFormElements";
 import { toast } from "react-toastify";
+import { LoadingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
+import { CircleSpinner } from "react-spinners-kit";
 
 const SendEmail = () => {
     const [emailData, setEmailData] = useState({
@@ -133,7 +134,11 @@ const SendEmail = () => {
 
                 {error && !isSuccess && <ErrorMessage>{"Server Error - Please contact us on discord"}</ErrorMessage>}
             </ContactFormSection>
-            {isLoading ? <GlowingButton /> : null}
+            {isLoading ? (
+                <LoadingButton width={"100%"}>
+                    <CircleSpinner size={20} color={"#131313"} />
+                </LoadingButton>
+            ) : null}
         </div>
     );
 };

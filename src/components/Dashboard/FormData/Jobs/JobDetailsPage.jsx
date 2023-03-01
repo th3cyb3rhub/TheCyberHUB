@@ -16,17 +16,11 @@ export default function JobDetailsPage(props) {
                     {props?.reason === "feedback" && <JobTitle>{props?.contextHeading}</JobTitle>}
                 </JobHeader>
             </JobHero>
-
             <DetailsText>
                 <span>{props.createdAt.split("T")[0]}</span>
                 <span> - </span>
                 <span>{props.createdAt.split("T")[1].split(".")[0]}</span>
             </DetailsText>
-            <Detail2>
-                <DetailsText>Checked: {props?.checked ? <>true</> : <>false</>} </DetailsText>
-                <DetailsText>Rejected: {props?.rejected ? <>true</> : <>false</>} </DetailsText>
-                <DetailsText>Email Sent: {props?.emailSent ? <>true</> : <>false</>} </DetailsText>
-            </Detail2>
             <Detail1>
                 <Detail2>
                     <DetailsText> {props?.name} </DetailsText>
@@ -42,9 +36,20 @@ export default function JobDetailsPage(props) {
                 </Detail2>
                 <DetailsText>{props.message}</DetailsText>
             </Detail1>
-            <hr />
-            <CheckValues id={props._id} checked={props.checked} rejected={props.rejected} emailSent={props.emailSent} />
-            <hr />
+            <hr style={{ color: "#0f121e" }} />
+            <CheckValues
+                id={props._id}
+                resumePending={props.resumePending}
+                checked={props.checked}
+                rejected={props.rejected}
+                rejectedReason={props.rejectedReason}
+                hired={props.hired}
+                accepted={props.accepted}
+                email={props.email}
+                name={props.name}
+                reasonType={props.reasonType}
+            />
+            <hr style={{ color: "#0f121e" }} />
             <SendEmail
                 email={props?.email}
                 name={props?.name}

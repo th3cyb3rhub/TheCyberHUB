@@ -89,11 +89,11 @@ const ContactForm = () => {
             submissionFrom: "thecyberhub.org",
         };
         if (name.length === 0) {
-            setError("Please fill all of the fields");
+            setError("Please add your name");
         } else if (email.length === 0) {
-            setError("Please fill all of the fields");
+            setError("Please add your email");
         } else if (reason.length === 0) {
-            setError("Please fill all of the fields");
+            setError("Please select a reason");
         } else if (message.length === 0) {
             setError("Please fill all of the fields");
         } else if (
@@ -103,6 +103,8 @@ const ContactForm = () => {
             setError("Please fill all of the fields");
         } else if (reason === "internship" && resume.length === 0) {
             setError("Please include the resume link");
+        } else if ((reason === "internship" && message.length < 200) || message.length > 1000) {
+            toast("Please write a cover letter of length 200 - 1000 characters");
         } else {
             axios
                 .post(getApiUrl("api/form/submit"), filledFormData, {
@@ -113,6 +115,19 @@ const ContactForm = () => {
                 .then((response) => {
                     if (response.data.message === "Form submitted successfully") {
                         setIsSuccess(true);
+                        setFormData({
+                            name: "",
+                            email: "",
+                            company: "",
+                            website: "",
+                            pentestBefore: "",
+                            reason: "",
+                            phoneNumber: "",
+                            reasonType: "",
+                            contextHeading: "",
+                            resume: "",
+                            message: "",
+                        });
                         setError(false);
                         setError2(false);
                     }
@@ -370,7 +385,7 @@ const ContactForm = () => {
                             id="message"
                             value={formData.message}
                             onChange={handleChange}
-                            placeholder={reason === "internship" ? "Cover Letter " : "Message"}
+                            placeholder={reason === "internship" ? "Cover Letter (200 - 1000 length) " : "Message"}
                         />
                     </CoverLeft>
                     {!isSuccess ? (

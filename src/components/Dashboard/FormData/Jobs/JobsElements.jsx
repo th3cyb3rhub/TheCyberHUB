@@ -133,7 +133,7 @@ export const JobContainer = styled.div`
     background: #080a10;
     width: 100%;
     max-width: 440px;
-    max-height: 300px;
+    max-height: 100%;
     margin: 10px;
     outline: 1px solid #2a2a2a;
     display: flex;

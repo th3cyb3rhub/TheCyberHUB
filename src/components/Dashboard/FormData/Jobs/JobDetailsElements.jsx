@@ -186,6 +186,9 @@ export const Detail1 = styled.div`
 export const Detail2 = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     border-radius: 5px;
 `;
 
