@@ -26,7 +26,8 @@ const CreateBlog = () => {
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
     const { blogs } = useSelector((state) => state.blogs);
-    const { isSuccess, isLoading, isError, message } = useSelector((state) => state.blogs);
+    const { isLoading, isError, message } = useSelector((state) => state.blogs);
+    const [isSuccess, setInSuccess] = useState(false);
     const [preview, setPreview] = useState(false); // added state variable for preview
     const [errorMessage, setErrorMessage] = useState("");
     const onPreview = () => setPreview(true);
@@ -218,6 +219,7 @@ const CreateBlog = () => {
         if (title !== "" && content !== "" && file && tags.length !== 0) {
             const blogData = { title: title.trim(), content, coverImage: file.name, tags: multipleTags };
             dispatch(createBlog(blogData));
+            setInSuccess(true);
 
             const formData = new FormData();
             formData.append("file", file);

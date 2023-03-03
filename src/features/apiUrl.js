@@ -7,6 +7,12 @@ const localUrl = "http://localhost:5000";
 
 // export const webEnv = "local";
 export const webEnv = "production";
+// let webEnv;
+// if (window.location.hostname === "localhost") {
+//     webEnv = "local";
+// } else if (window.location.hostname === "thecyberhub.org") {
+//     webEnv = "production";
+// }
 
 export const getApiUrl = (props) => {
     if (webEnv === "production") {

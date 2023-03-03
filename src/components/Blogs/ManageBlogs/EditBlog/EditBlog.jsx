@@ -26,7 +26,8 @@ import axios from "axios";
 const EditBlog = () => {
     const dispatch = useDispatch();
     const { blogs, isError, message } = useSelector((state) => state.blogs);
-    const [preview, setPreview] = useState(false); // added state variable for preview
+    const [preview, setPreview] = useState(false);
+
     const navigate = useNavigate();
     const [blogData, setBlogData] = useState({
         title: "",
