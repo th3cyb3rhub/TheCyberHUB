@@ -497,105 +497,105 @@ export const JobsData = [
             directory: "remote",
         },
     },
-    {
-        id: "SOC Analyst Internship",
-        status: "new",
-        jobTitle: "SOC Analyst Internship",
-        jobRoleTitle: "SOC Analyst",
-        jobRating: (
-            <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
-            </>
-        ),
-        jobLocation: "Remote",
-        jobDetails: [
-            {
-                item: (
-                    <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
-                    </>
-                ),
-            },
-            {
-                item: (
-                    <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
-                    </>
-                ),
-            },
-            {
-                item: (
-                    <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
-                    </>
-                ),
-            },
-        ],
-        jobDetails2: [
-            <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
-            </>,
-            <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
-            </>,
-        ],
-        jobDesc1: (
-            <p>
-                Join the team at Thecyberworld as a SOC Analyst Intern and help protect businesses against cyber
-                threats.
-            </p>
-        ),
-        jobDesc2: (
-            <p>
-                This is an excellent opportunity for individuals interested in the field of cyber security.
-                <br />
-                <br />
-                If you&apos;re eager to learn and make a difference,
-                <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
-                form.
-                <br />
-                <br />
-                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-                experience in this field. After three months of hard work and dedication, you will receive swags as a
-                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-                skills while working with us.
-                <br />
-                <br />
-                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
-                religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
-                disability status.
-            </p>
-        ),
-        jobReq: [
-            "Strong understanding of cyber security concepts and technologies",
-            "Familiarity with security information and event management (SIEM) tools",
-            "Good understanding of network protocols and network security",
-            "Knowledge of incident response procedures and methodologies",
-            "Strong written and verbal communication skills",
-            "Ability to work in a fast-paced and dynamic environment",
-        ],
-        jobRes: [
-            "Assist in identifying and analyzing security threats and incidents",
-            "Collaborate with the SOC team in incident response and threat mitigation efforts",
-            "Assist in the implementation of security solutions and technologies",
-            "Contribute to the continuous improvement of the SOC processes and procedures",
-            "Gain hands-on experience in the field of cyber security",
-        ],
-        jobTimeline: {
-            datePosted: "Posted 3 days ago",
-            separator: (
-                <>
-                    <FaCircle />
-                </>
-            ),
-            directory: "remote",
-        },
-    },
+    // {
+    //     id: "SOC Analyst Internship",
+    //     status: "new",
+    //     jobTitle: "SOC Analyst Internship",
+    //     jobRoleTitle: "SOC Analyst",
+    //     jobRating: (
+    //         <>
+    //             5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //         </>
+    //     ),
+    //     jobLocation: "Remote",
+    //     jobDetails: [
+    //         {
+    //             item: (
+    //                 <>
+    //                     <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+    //                 </>
+    //             ),
+    //         },
+    //         {
+    //             item: (
+    //                 <>
+    //                     <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
+    //                 </>
+    //             ),
+    //         },
+    //         {
+    //             item: (
+    //                 <>
+    //                     <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+    //                 </>
+    //             ),
+    //         },
+    //     ],
+    //     jobDetails2: [
+    //         <>
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+    //         </>,
+    //         <>
+    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+    //         </>,
+    //     ],
+    //     jobDesc1: (
+    //         <p>
+    //             Join the team at Thecyberworld as a SOC Analyst Intern and help protect businesses against cyber
+    //             threats.
+    //         </p>
+    //     ),
+    //     jobDesc2: (
+    //         <p>
+    //             This is an excellent opportunity for individuals interested in the field of cyber security.
+    //             <br />
+    //             <br />
+    //             If you&apos;re eager to learn and make a difference,
+    //             <br /> Submit your resume and cover letter through our
+    //             <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+    //                 {" "}
+    //                 <b> Contact us </b>{" "}
+    //             </RouterLink>{" "}
+    //             form.
+    //             <br />
+    //             <br />
+    //             We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
+    //             experience in this field. After three months of hard work and dedication, you will receive swags as a
+    //             token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+    //             and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+    //             skills while working with us.
+    //             <br />
+    //             <br />
+    //             Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+    //             religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
+    //             disability status.
+    //         </p>
+    //     ),
+    //     jobReq: [
+    //         "Strong understanding of cyber security concepts and technologies",
+    //         "Familiarity with security information and event management (SIEM) tools",
+    //         "Good understanding of network protocols and network security",
+    //         "Knowledge of incident response procedures and methodologies",
+    //         "Strong written and verbal communication skills",
+    //         "Ability to work in a fast-paced and dynamic environment",
+    //     ],
+    //     jobRes: [
+    //         "Assist in identifying and analyzing security threats and incidents",
+    //         "Collaborate with the SOC team in incident response and threat mitigation efforts",
+    //         "Assist in the implementation of security solutions and technologies",
+    //         "Contribute to the continuous improvement of the SOC processes and procedures",
+    //         "Gain hands-on experience in the field of cyber security",
+    //     ],
+    //     jobTimeline: {
+    //         datePosted: "Posted 3 days ago",
+    //         separator: (
+    //             <>
+    //                 <FaCircle />
+    //             </>
+    //         ),
+    //         directory: "remote",
+    //     },
+    // },
     {
         id: "React Native Android Developer Internship",
         status: "new",
