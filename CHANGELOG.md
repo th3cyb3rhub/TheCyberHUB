@@ -1,3 +1,12 @@
+## [0.31.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.0...v0.31.1) (2023-03-04)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#380](https://github.com/thecyberworld/thecyberhub.org/issues/380)) ([56ff888](https://github.com/thecyberworld/thecyberhub.org/commit/56ff88841eae46f86942fc950d9e94f0d34bc261))
+
+
+
 # [0.31.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.30.0...v0.31.0) (2023-02-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * 404 ([96a2f0f](https://github.com/thecyberworld/thecyberhub.org/commit/96a2f0ff6454d2997e5250ca7be796b3c757ab1f))
-
-
-
-## [0.28.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.28.0...v0.28.1) (2023-02-10)
-
-
-### Bug Fixes
-
-* improvements ([#366](https://github.com/thecyberworld/thecyberhub.org/issues/366)) ([d04d854](https://github.com/thecyberworld/thecyberhub.org/commit/d04d8540ebdb892d3b27a52b48680ae7654eb5a1))
 
 
 
