@@ -37,7 +37,7 @@
     "react-transition-group": "^4.4.5",
     "remark-gfm": "^3.0.1",
     "sass": "^1.55.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
