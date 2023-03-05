@@ -1,3 +1,12 @@
+## [0.31.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.1...v0.31.2) (2023-03-05)
+
+
+### Reverts
+
+* Revert "fix: package.json & package-lock.json to reduce vulnerabilities (#380)" (#381) ([d05d23c](https://github.com/thecyberworld/thecyberhub.org/commit/d05d23c3bb8eb54656f1b25189e6366894bd48cf)), closes [#380](https://github.com/thecyberworld/thecyberhub.org/issues/380) [#381](https://github.com/thecyberworld/thecyberhub.org/issues/381)
+
+
+
 ## [0.31.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.0...v0.31.1) (2023-03-04)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * courses ([f898f9d](https://github.com/thecyberworld/thecyberhub.org/commit/f898f9d19cbca0c1290fbb1366887fbf554d2f29))
-
-
-
-## [0.28.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.28.1...v0.28.2) (2023-02-11)
-
-
-### Bug Fixes
-
-* 404 ([96a2f0f](https://github.com/thecyberworld/thecyberhub.org/commit/96a2f0ff6454d2997e5250ca7be796b3c757ab1f))
 
 
 
