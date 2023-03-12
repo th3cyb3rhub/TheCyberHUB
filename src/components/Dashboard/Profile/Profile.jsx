@@ -1,11 +1,22 @@
 import React, { useEffect } from "react";
-import { ProfileContainer, UserImage, Wrapper } from "./ProfileElements";
+import {
+    HeaderContainer,
+    HeaderSection,
+    ProfileContainer,
+    ProfileDetailsSection,
+    ProfileUserDetailsContainer,
+    UserBanner,
+    UserImage,
+    UserInfo,
+    Wrapper,
+} from "./ProfileElements";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails, reset } from "../../../features/userDetails/userDetailSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { CircleSpinner } from "react-spinners-kit";
 import ComingSoon from "../../Other/MixComponents/ComingSoon";
 import { getCDNUrl, webEnv } from "../../../features/apiUrl";
+import { BsFillGearFill } from "react-icons/bs";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -26,24 +37,55 @@ const Profile = () => {
         "https://user-images.githubusercontent.com/44284877/210164205-8dfa753b-f98a-4b25-a243-164c9790b625.png";
     const profilePictureUrl = user?.picture === "" ? dummyPicture : `${API_URL}/blog_images/${profilePicture}`;
 
-    if (webEnv === "production") {
+    if (webEnv !== "production") {
         return <ComingSoon />;
     }
+    console.log(user?.picture);
     return (
         <Wrapper>
             <ProfileContainer>
-                <section className="heading">
-                    <h1>Welcome {user && user?.name}</h1>
-                </section>
-                <Link style={{ color: "whitesmoke" }} to={"edit"}>
-                    Edit profile
-                </Link>
-                <h1> Profile Details </h1>
-                {isLoading && <CircleSpinner size={20} color={"#1fc10d"} />}
-                Name: {user?.name} <br />
-                <UserImage src={profilePictureUrl} />
-                Username: {user?.username} <br />
-                Email: {user?.email} <br />
+                <HeaderContainer>
+                    <HeaderSection className="heading">
+                        <Link
+                            style={{
+                                color: "whitesmoke",
+                                display: "flex",
+                                flex: 1,
+                                justifyContent: "flex-end",
+                                marginRight: 10,
+                            }}
+                            to={"edit"}
+                        >
+                            <BsFillGearFill style={{ zIndex: 2 }} size={25} />
+                        </Link>
+                    </HeaderSection>
+
+                    {/* Change background image to working user's image - using static images */}
+                    <UserBanner
+                        src={
+                            "https://thecyberhub.nyc3.cdn.digitaloceanspaces.com/assets/images/Registeration/CybersecurityRegPage.png"
+                        }
+                    />
+                    <UserImage src={user?.picture || profilePictureUrl} />
+                </HeaderContainer>
+                <ProfileDetailsSection>
+                    <ProfileUserDetailsContainer>
+                        <h3
+                            style={{
+                                marginInline: "2%",
+                            }}
+                        >
+                            Profile Details
+                        </h3>
+                        {isLoading && <CircleSpinner size={20} color={"#1fc10d"} />}
+
+                        <UserInfo>
+                            <h5>Name: {user?.name}</h5>
+                            <h5>Email: {user?.email}</h5>
+                            <h5>Username: {user?.username}</h5> <br />
+                        </UserInfo>
+                    </ProfileUserDetailsContainer>
+                </ProfileDetailsSection>
             </ProfileContainer>
         </Wrapper>
     );

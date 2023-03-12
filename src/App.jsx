@@ -37,6 +37,7 @@ import {
     SingleBlog,
     Sponsors,
     UserBlogs,
+    EditProfile,
 } from "./components";
 
 import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
@@ -111,7 +112,7 @@ const App = () => {
                             <Route exact path={"/login"} element={<Login />} />
                             <Route exact path={"/register"} element={<Register />} />
                             <Route exact path={"/profile"} element={<Profile />} />
-                            {/* <Route exact path={"/profile/edit"} element={<EditProfile />} /> */}
+                            <Route exact path={"/profile/edit"} element={<EditProfile />} />
 
                             <Route path={"/dashboard/*"}>
                                 <Route index element={<Dashboard />} />

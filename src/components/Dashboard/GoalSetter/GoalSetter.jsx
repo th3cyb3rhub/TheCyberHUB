@@ -7,6 +7,8 @@ import { getGoals, reset } from "../../../features/goals/goalSlice";
 import "./GoalSetter.css";
 import { Wrapper } from "../Profile/ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
+import { GoalsContainer } from "./old/GoalElements";
+
 const GoalSetter = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -31,19 +33,21 @@ const GoalSetter = () => {
     return (
         <Wrapper>
             {isLoading && <CircleSpinner size={20} color={"#1fc10d"} />}
-            <GoalForm />
+            <GoalsContainer>
+                <GoalForm />
 
-            <section className={"content"}>
-                {goals.length > 0 ? (
-                    <div className={"goals"}>
-                        {goals.map((goal) => (
-                            <GoalItem key={goal._id} goal={goal} />
-                        ))}
-                    </div>
-                ) : (
-                    <h3> You have not set any goals</h3>
-                )}
-            </section>
+                <section className={"content"}>
+                    {goals.length > 0 ? (
+                        <div className={"goals"}>
+                            {goals.map((goal) => (
+                                <GoalItem key={goal._id} goal={goal} />
+                            ))}
+                        </div>
+                    ) : (
+                        <h3> You have not set any goals</h3>
+                    )}
+                </section>
+            </GoalsContainer>
         </Wrapper>
     );
 };

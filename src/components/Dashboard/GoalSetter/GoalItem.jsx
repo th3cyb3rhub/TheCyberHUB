@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteGoal } from "../../../features/goals/goalSlice.js";
+import { GoalText } from "./old/GoalElements";
 
 const GoalItem = ({ goal }) => {
     const dispatch = useDispatch();
@@ -8,7 +9,7 @@ const GoalItem = ({ goal }) => {
     return (
         <div className={"goal"}>
             <div>
-                <h2>{goal.text}</h2>
+                <GoalText>{goal.text}</GoalText>
                 <hr />
                 <div>
                     {new Intl.DateTimeFormat("en-US", {

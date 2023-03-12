@@ -88,7 +88,7 @@ h3 {
 
 .goals {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     color: #1a1c1d;
 }
@@ -98,6 +98,7 @@ h3 {
     margin: 5px;
     padding: 20px 10px;
     position: relative;
+    max-width: 250px;
 }
 
 .goal .close {

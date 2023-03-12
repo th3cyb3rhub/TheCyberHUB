@@ -6,6 +6,10 @@ export const GoalsContainer = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
+    max-width: 1500px;
     width: 100%;
-    color: whitesmoke;
+`;
+
+export const GoalText = styled.h3`
+    word-wrap: break-word;
 `;

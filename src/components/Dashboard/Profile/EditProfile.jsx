@@ -8,10 +8,14 @@ import { updateUser } from "../../../features/auth/authSlice";
 import { AddImage } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import axios from "axios";
 import { getUserDetails } from "../../../features/userDetails/userDetailSlice";
-import { getApiUrl, getCDNUrl } from "../../../features/apiUrl";
+import { getApiUrl, getCDNUrl, webEnv } from "../../../features/apiUrl";
 import { CircleSpinner } from "react-spinners-kit";
+import ComingSoon from "../../Other/MixComponents/ComingSoon";
 
 const EditProfile = () => {
+    if (webEnv === "production") {
+        return <ComingSoon />;
+    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
