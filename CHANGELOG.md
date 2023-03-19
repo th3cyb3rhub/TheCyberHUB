@@ -1,3 +1,12 @@
+## [0.31.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.2...v0.31.3) (2023-03-19)
+
+
+### Bug Fixes
+
+* auto close user option dropdown ([#385](https://github.com/thecyberworld/thecyberhub.org/issues/385)) ([#386](https://github.com/thecyberworld/thecyberhub.org/issues/386)) ([691ac4c](https://github.com/thecyberworld/thecyberhub.org/commit/691ac4c6cd198f19218c2f6dd6ac33896ae53263))
+
+
+
 ## [0.31.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.1...v0.31.2) (2023-03-05)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * security courses ([#371](https://github.com/thecyberworld/thecyberhub.org/issues/371)) ([8915665](https://github.com/thecyberworld/thecyberhub.org/commit/8915665b17d09d3d7ef26800d13e29e1e17609c3))
-
-
-
-# [0.29.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.28.2...v0.29.0) (2023-02-11)
-
-
-### Features
-
-* courses ([f898f9d](https://github.com/thecyberworld/thecyberhub.org/commit/f898f9d19cbca0c1290fbb1366887fbf554d2f29))
 
 
 
