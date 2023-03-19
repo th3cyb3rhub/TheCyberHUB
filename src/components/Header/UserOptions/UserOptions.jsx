@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./UserOptions.css";
 
 import {
@@ -20,8 +20,16 @@ import { useNavigate } from "react-router-dom";
 
 const NavItem = (props) => {
     const [open, setOpen] = useState(false);
+    const userRef = useRef(null);
+    const handleClose = (e) => {
+        if (userRef.current && !userRef.current?.contains(e.target)) {
+            setOpen(false);
+        }
+    };
+    window.addEventListener("scroll", () => setOpen(false));
+    window.addEventListener("click", handleClose);
     return (
-        <li className={"nav-item"}>
+        <li ref={userRef} className={"nav-item"}>
             <a className={"icon-button"} onClick={() => setOpen(!open)}>
                 {props.text} {props.icon}
             </a>
