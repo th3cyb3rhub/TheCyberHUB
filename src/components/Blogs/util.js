@@ -1,17 +1,7 @@
 export function encodeURL(title) {
-    let encoded = "";
-
-    for (let i = 0; i < title.length; i++) {
-        if (title[i] >= "a" && title[i] <= "z") {
-            encoded += title[i];
-        } else if (title[i] >= "A" && title[i] <= "Z") {
-            encoded += title[i];
-        } else if (title[i] >= "0" && title[i] <= "9") {
-            encoded += title[i];
-        } else if (title[i] === " ") {
-            encoded += title[i];
-        }
-    }
-
-    return encoded.split(" ").join("-").toLowerCase();
+    return title
+        .replace(/[^a-zA-Z0-9\s]/g, "")
+        .split(" ")
+        .join("-")
+        .toLowerCase();
 }

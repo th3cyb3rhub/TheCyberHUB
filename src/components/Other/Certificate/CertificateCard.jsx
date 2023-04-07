@@ -18,8 +18,10 @@ import html2canvas from "html2canvas";
 import JsPDF from "jspdf";
 import { AiFillFileImage, VscFilePdf } from "react-icons/all";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import Logo from "../../../assets/images/Thecyberworld_logo_outlined.png";
 
-const TCWlogo = `{getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+// import {getCDNUrl} from "../../../features/apiUrl";
+// const TCWlogo = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();
@@ -48,26 +50,35 @@ const CertificateCard = () => {
     }, []);
 
     const downloadCertificatePDF = () => {
-        html2canvas(document.querySelector("#certificate"), { scale: 5 }).then((canvas) => {
-            const pdf = new JsPDF("l", "pt", [canvas.width, canvas.height]);
-            pdf.addImage(canvas, "JPEG", 0, 0, canvas.width, canvas.height);
-            pdf.save(`${certificate.ctf.split(" ").join("")}-${certificate.kind}-certificate.pdf`);
-        });
+        html2canvas(document.querySelector("#certificate"), { scale: 5 })
+            .then((canvas) => {
+                const pdf = new JsPDF("l", "pt", [canvas.width, canvas.height]);
+                pdf.addImage(canvas, "JPEG", 0, 0, canvas.width, canvas.height);
+                pdf.save(`${certificate.ctf.split(" ").join("")}-${certificate.kind}-certificate.pdf`);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
     const downloadCertificateImage = () => {
-        html2canvas(document.querySelector("#certificate"), { scale: 5 }).then((canvas) => {
-            canvas.toBlob(
-                (blob) => {
-                    const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);
-                    link.download = `${certificate.ctf.split(" ").join("")}-${certificate.kind}-certificate.jpeg`;
-                    link.click();
-                },
-                "image/jpeg",
-                1,
-            );
-        });
+        html2canvas(document.querySelector("#certificate"), { scale: 5 })
+            .then((canvas) => {
+                canvas.toBlob(
+                    (blob) => {
+                        const link = document.createElement("a");
+                        link.href = URL.createObjectURL(blob);
+                        link.download = `${certificate.ctf.split(" ").join("")}-${certificate.kind}-certificate.jpeg`;
+                        link.click();
+                    },
+                    "image/jpeg",
+                    1,
+                );
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
+
     return (
         <Wrapper>
             <CertificateContainer>
@@ -92,11 +103,11 @@ const CertificateCard = () => {
 
                         <CertificateComponent id="certificate">
                             <LogoSection>
-                                <TCWLogo src={TCWlogo} />
+                                <TCWLogo src={Logo} />
                                 <TCWText> Thecyberworld </TCWText>
-                                <TCWText> ThecyberHUB.org </TCWText>
+                                <TCWText> TheCyberHUB.org </TCWText>
                                 <TCWText> thecyber-sec.com </TCWText>
-                                <TCWLogo src={TCWlogo} />
+                                <TCWLogo src={Logo} />
                             </LogoSection>
                             <CertificateContent>
                                 <div className="certificate-word">Certificate of achievement</div>

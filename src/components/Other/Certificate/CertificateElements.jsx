@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { GlowingButton } from "../MixComponents/Buttons/ButtonElements";
-import { getCDNUrl } from "../../../features/apiUrl";
-const bgImage = `${getCDNUrl}/assets/images/certificate-bg.png`;
+import bgImage from "../../../assets/images/certificate-bg.png";
+
+// import {getCDNUrl} from "../../../features/apiUrl";
+// const bgImage = `${getCDNUrl}/assets/images/certificate-bg.png`;
 
 export const CertificateContainer = styled.div`
     margin-top: 40px;
@@ -46,6 +48,7 @@ export const CertificateComponent = styled.div`
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
     color: whitesmoke;
+    //background: #0e0e0e;
     background-image: url(${bgImage});
     background-repeat: no-repeat;
     background-size: cover;
@@ -82,10 +85,12 @@ export const CertificateComponent = styled.div`
         display: flex;
         align-items: center;
     }
+
     .small-text {
         font-size: 1.5rem;
         margin: 0 0.5rem;
     }
+
     .ctf {
         margin-top: 1rem;
         font-size: 1.5rem;
@@ -145,6 +150,7 @@ export const DownloadCertificateSection = styled.div`
     width: 100%;
     align-items: center;
     text-align: center;
+
     & > p {
         margin: 5px;
         font-size: 20px;

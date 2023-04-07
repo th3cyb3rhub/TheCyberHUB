@@ -14,8 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails, reset } from "../../../features/userDetails/userDetailSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { CircleSpinner } from "react-spinners-kit";
-import ComingSoon from "../../Other/MixComponents/ComingSoon";
-import { getCDNUrl, webEnv } from "../../../features/apiUrl";
+import { getCDNUrl } from "../../../features/apiUrl";
 import { BsFillGearFill } from "react-icons/bs";
 
 const Profile = () => {
@@ -37,9 +36,6 @@ const Profile = () => {
         "https://user-images.githubusercontent.com/44284877/210164205-8dfa753b-f98a-4b25-a243-164c9790b625.png";
     const profilePictureUrl = user?.picture === "" ? dummyPicture : `${API_URL}/blog_images/${profilePicture}`;
 
-    if (webEnv !== "production") {
-        return <ComingSoon />;
-    }
     console.log(user?.picture);
     return (
         <Wrapper>

@@ -12,8 +12,7 @@ const VerifyToAccess = () => {
                         textAlign: "center",
                     }}
                 >
-                    {" "}
-                    Please Verify Your Email To Access This Page{" "}
+                    Please Verify Your Email To Access This Page
                 </p>
             </div>
         </Wrapper>
