@@ -17,19 +17,20 @@ import {
     CyberGames,
     Dashboard,
     EditBlog,
+    EditProfile,
     Event,
     Events,
     Footer,
     GoalSetter,
     InterviewQuestions,
     Jobs,
-    Profile,
     LearningPath,
     Login,
     Navbar,
     NotFound,
     OpensourceProjects,
     OSINTGame,
+    Profile,
     Quiz,
     Roadmap,
     Roadmaps,
@@ -37,7 +38,6 @@ import {
     SingleBlog,
     Sponsors,
     UserBlogs,
-    EditProfile,
 } from "./components";
 
 import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
@@ -50,6 +50,7 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import TermsAndCondition from "./components/Resources/TermsAndCondition";
 import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
 import FormData from "./components/Dashboard/FormData/FormData";
+import SubdomainFinder from "./components/Beta/Tools/SubdomainFinder/SubdomainFinder";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -62,10 +63,10 @@ const App = () => {
 
         setTimeout(() => {
             setIsLoading(false);
-        }, 0);
+        }, 5000);
         setTimeout(() => {
             setShowWebsite(true);
-        }, 0);
+        }, 3000);
     }, []);
 
     const showFooter = () => {
@@ -78,8 +79,8 @@ const App = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-
     const { user } = useSelector((state) => state.auth);
+
     if (isLoading) return <Spinner />;
     if (showWebsite)
         return (
@@ -99,6 +100,7 @@ const App = () => {
                             <Route path={"/tools/*"}>
                                 <Route index element={<Tools />} />
                                 <Route path={"breachCheck"} element={<BreachCheck />} />
+                                <Route path={"subdomainFinder"} element={<SubdomainFinder />} />
                             </Route>
 
                             <Route path={"/blogs"}>

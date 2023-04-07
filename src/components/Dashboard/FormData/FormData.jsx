@@ -13,16 +13,12 @@ import SendEmail from "./SendEmail";
 const FormData = () => {
     // const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    if (!user) {
-        return <NotFound />;
-    } else if (user.username !== "kabir0x23" && user.username !== "0xFTW") {
+    console.log(user.userType);
+    if (!user || user.userType === "user" || user.userType !== "admin") {
         return <NotFound />;
     }
     // useEffect(() => {
-    //     if (user && user.username !== "kabir0x23") {
-    //         navigate("/");
-    //     }
-    //     if (user && user.username !== "0xFTW") {
+    //     if (user && user.userType !== "admin") {
     //         navigate("/");
     //     }
     // }, [user, navigate]);

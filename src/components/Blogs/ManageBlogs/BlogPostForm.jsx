@@ -27,7 +27,7 @@ const BlogPostForm = (props) => {
                             }
                         }}
                         placeholder="Title"
-                        maxlength="100"
+                        maxLength="100"
                     />
                     <TextArea
                         name="content"

@@ -94,11 +94,9 @@ const ContactForm = () => {
             setError("Please add your email");
         } else if (reason.length === 0) {
             setError("Please select a reason");
-        } else if (message.length === 0) {
-            setError("Please fill all of the fields");
         } else if (
-            (reason === "pentest" && reasonType.length === 0) ||
-            (reason === "internship" && reasonType.length === 0)
+            message.length === 0 ||
+            ((reason === "pentest" || reason === "internship") && reasonType.length === 0)
         ) {
             setError("Please fill all of the fields");
         } else if (reason === "internship" && resume.length === 0) {

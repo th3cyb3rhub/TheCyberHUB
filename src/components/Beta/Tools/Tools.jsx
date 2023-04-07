@@ -6,8 +6,8 @@ const Tools = () => {
     return (
         <Wrapper>
             <ContainerTools>
-                <RouterLink to={"breachCheck"}>
-                    <CardTools>Breach Check</CardTools>
+                <RouterLink to={"subdomainFinder"}>
+                    <CardTools>Subdomain Finder</CardTools>
                 </RouterLink>
                 <RouterLink to={"./"}>
                     <CardTools>Coming Soon</CardTools>

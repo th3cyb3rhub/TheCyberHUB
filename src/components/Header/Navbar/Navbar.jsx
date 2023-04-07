@@ -11,7 +11,6 @@ import {
     NavLogo,
     NavLogoRouter,
     NavMenu,
-    NavRedirectLink,
     NavUsersDetailsSection,
 } from "./NavbarElements";
 
@@ -19,7 +18,6 @@ import Dropdown from "../Dropdowns/Dropdown";
 import UserOptions from "../UserOptions/UserOptions";
 import { FaBars } from "react-icons/all";
 import { RouterButtonLink } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
-import Exp from "../Exp";
 import { getCDNUrl } from "../../../features/apiUrl";
 const logo = `${getCDNUrl}/assets/images/WebsiteLogo/ThecyberhubLogo.png`;
 // import { RouterButtonLink } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
@@ -87,6 +85,7 @@ const Navbar = ({ isOpen, toggle }) => {
                             //     dropdown: "learn",
                             // },
                             { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
+                            { to: "tools", title: "Tools", dropdown: "tools" },
                             { to: "blogs", title: "Blogs", dropdown: "blogs" },
                             {
                                 title: (
@@ -119,13 +118,13 @@ const Navbar = ({ isOpen, toggle }) => {
                                 )}
                             </NavItem>
                         ))}
-                        <NavRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}>
-                            Our Services
-                        </NavRedirectLink>
+                        {/* <NavRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}> */}
+                        {/*    Our Services */}
+                        {/* </NavRedirectLink> */}
                         <RouterButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterButtonLink>
                     </NavMenu>
                     <NavUsersDetailsSection>
-                        <Exp />
+                        {/* <Exp /> */}
                         <UserOptions />
                     </NavUsersDetailsSection>
                 </NavbarContainer>
