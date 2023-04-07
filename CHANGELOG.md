@@ -1,3 +1,12 @@
+# [0.32.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.3...v0.32.0) (2023-04-07)
+
+
+### Features
+
+* subdomain finder tool ([#387](https://github.com/thecyberworld/thecyberhub.org/issues/387)) ([#388](https://github.com/thecyberworld/thecyberhub.org/issues/388)) ([6d126fe](https://github.com/thecyberworld/thecyberhub.org/commit/6d126fe6015897ce5de7f2d09d67197f4e0549f6))
+
+
+
 ## [0.31.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.2...v0.31.3) (2023-03-19)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * new cert design ([#373](https://github.com/thecyberworld/thecyberhub.org/issues/373)) ([8f2c4c5](https://github.com/thecyberworld/thecyberhub.org/commit/8f2c4c55bfbf52939580392e7505f2d2ee8c97f5))
-
-
-
-# [0.30.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.29.0...v0.30.0) (2023-02-11)
-
-
-### Features
-
-* security courses ([#371](https://github.com/thecyberworld/thecyberhub.org/issues/371)) ([8915665](https://github.com/thecyberworld/thecyberhub.org/commit/8915665b17d09d3d7ef26800d13e29e1e17609c3))
 
 
 
