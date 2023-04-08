@@ -8,6 +8,8 @@ export const BlogImageContainer = styled.div`
 `;
 export const BlogImage = styled.img`
     border-radius: 5px;
+    max-height: 550px;
+    justify-self: center;
 `;
 
 export const BlogTitle = styled.h1`

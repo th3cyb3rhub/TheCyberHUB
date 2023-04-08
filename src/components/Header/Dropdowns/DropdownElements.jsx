@@ -28,6 +28,10 @@ export const DropdownContainer = styled.div`
     -webkit-backdrop-filter: blur(10px);
     //border: 1px solid rgba(3, 3, 3, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    @media screen and (max-width: 768px) {
+        top: 0;
+    }
 `;
 
 export const DropdownItemsContainer = styled.div`
@@ -41,7 +45,7 @@ export const DropdownItemsContainer = styled.div`
     margin: 0 auto;
     margin-bottom: 1rem;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 768px) {
         height: max-content;
         background: #000000;
         backdrop-filter: blur(1000px);
@@ -59,6 +63,10 @@ export const DropdownItemContainer = styled.div`
     &:hover {
         cursor: pointer;
     }
+
+    @media screen and (max-width: 768px) {
+        max-width: 40%;
+    }
 `;
 
 export const DropdownItem = styled.h2`
@@ -69,12 +77,18 @@ export const DropdownItem = styled.h2`
         transform: scale(1.05);
         border-bottom: 3px solid #20c20e;
     }
+    @media screen and (max-width: 768px) {
+        font-size: 1.1rem;
+    }
 `;
 
 export const DropdownDesc = styled.p`
     margin-top: 10px;
     text-align: start;
     color: #ababab;
+    @media screen and (max-width: 768px) {
+        font-size: 0.8rem;
+    }
 `;
 
 export const DropdownRouterLink = styled(LinkRouter)`

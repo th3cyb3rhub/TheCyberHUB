@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Dropdown from "../Dropdowns/Dropdown";
-import { DropdownIcon, NavItem, SidebarRedirectLink } from "../Navbar/NavbarElements";
+import { DropdownIcon, NavItem } from "../Navbar/NavbarElements";
 
 import {
     SidebarContainer,
@@ -72,6 +72,8 @@ const Sidebar = (props) => {
                             //     dropdown: "learn",
                             // },
                             { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
+                            { to: "blogs", title: "Blogs", dropdown: "blogs" },
+                            { to: "tools", title: "Tools", dropdown: "tools" },
                             {
                                 title: (
                                     <>
@@ -81,7 +83,6 @@ const Sidebar = (props) => {
                                 ),
                                 dropdown: "resources",
                             },
-                            { to: "blogs", title: "Blogs", dropdown: "blogs" },
                             // { to: "jobs", title: "Jobs", dropdown: "jobs" },
                             { to: "community", title: "Community", dropdown: "community" },
                             { to: "support", title: "Support", dropdown: "support" },
@@ -100,9 +101,9 @@ const Sidebar = (props) => {
                         ))}
                     </SidebarMenu>
                     <SideBtnWrap>
-                        <SidebarRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}>
-                            Our Services
-                        </SidebarRedirectLink>
+                        {/*    <SidebarRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}> */}
+                        {/*        Our Services */}
+                        {/*    </SidebarRedirectLink> */}
                         <RouterButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterButtonLink>
                     </SideBtnWrap>
                 </SidebarWrapper>

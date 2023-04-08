@@ -29,8 +29,8 @@ export default function Dropdown({ isOpen, toggle, closed, isResources, isLearn,
     return (
         closed && (
             <DropdownContainer isOpen={isOpen}>
+                <SideCloseIcon />
                 <DropdownItemsContainer>
-                    <SideCloseIcon />
                     {/* {isLearn === true && */}
                     {/*    learn.map((i, id) => ( */}
                     {/*        <DropdownItemContainer key={id}> */}

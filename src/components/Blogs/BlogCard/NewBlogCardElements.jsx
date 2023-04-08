@@ -56,6 +56,8 @@ export const EditBlogSection = styled.div`
 export const BlogImage = styled.img`
     width: 100%;
     max-width: 300px;
+    max-height: 160px;
+    justify-self: center;
 `;
 export const MainSection = styled.div`
     display: flex;
