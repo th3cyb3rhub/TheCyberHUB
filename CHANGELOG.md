@@ -1,3 +1,12 @@
+## [0.32.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.1...v0.32.2) (2023-04-08)
+
+
+### Bug Fixes
+
+* sidebar, dropdown and blogs design ([afdac94](https://github.com/thecyberworld/thecyberhub.org/commit/afdac94d3d5a2924d9ee79071f31f5bee26b32b9))
+
+
+
 ## [0.32.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.0...v0.32.1) (2023-04-08)
 
 
@@ -31,15 +40,6 @@
 ### Reverts
 
 * Revert "fix: package.json & package-lock.json to reduce vulnerabilities (#380)" (#381) ([d05d23c](https://github.com/thecyberworld/thecyberhub.org/commit/d05d23c3bb8eb54656f1b25189e6366894bd48cf)), closes [#380](https://github.com/thecyberworld/thecyberhub.org/issues/380) [#381](https://github.com/thecyberworld/thecyberhub.org/issues/381)
-
-
-
-## [0.31.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.0...v0.31.1) (2023-03-04)
-
-
-### Bug Fixes
-
-* package.json & package-lock.json to reduce vulnerabilities ([#380](https://github.com/thecyberworld/thecyberhub.org/issues/380)) ([56ff888](https://github.com/thecyberworld/thecyberhub.org/commit/56ff88841eae46f86942fc950d9e94f0d34bc261))
 
 
 
