@@ -11,18 +11,37 @@ export const Title = styled.h1`
     margin-top: 0;
     margin-bottom: 1rem;
     background: transparent;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
 `;
 
 export const Form = styled.form`
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 export const Input = styled.input`
     padding: 0.5rem;
+    padding-left: 1.7rem;
     font-size: 1.3rem;
     min-width: 300px;
+    flex: 1;
+    @media (max-width: 768px) {
+        padding-left: 0.5rem;
+        min-width: auto;
+        width: 100%;
+    }
 `;
 
 export const Button = styled.button`
@@ -33,6 +52,7 @@ export const Button = styled.button`
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    border-radius: 2px;
 
     &:hover {
         background-color: greenyellow;
@@ -40,18 +60,37 @@ export const Button = styled.button`
         scale: 1.1;
         transition: all 0.2s ease-in-out;
     }
+    @media (max-width: 768px) {
+        width: 100%;
+
+        &:hover {
+            background-color: greenyellow;
+            color: #363636;
+            scale: 1.01;
+            transition: all 0.2s ease-in-out;
+        }
+    }
 `;
 
 export const SubdomainList = styled.ul`
-    list-style: none;
-    padding: 15px 30px;
-    margin-top: 2rem;
-    background: #0e0e0e;
+  list-style: none;
+  padding: 15px 30px;
+  margin-top: 2rem;
+  background: #0e0e0e;
+  border-radius: 10px;
+  @media (max-width: 768px) {
+    padding: 15px 10px;
 `;
 
 export const SubdomainItem = styled.li`
     font-size: 1rem;
     line-height: 1.5;
+    word-wrap: normal;
+    word-break: break-all;
+
+    @media (max-width: 768px) {
+        font-size: 0.8rem;
+    }
 `;
 
 export const CopyButtonSection = styled.div`
@@ -74,6 +113,8 @@ export const DownloadButton = styled(CgSoftwareDownload)`
 
 export const SubdomainFinderSpinner = styled.div`
     margin: 100px 0;
+    width: 100%;
+    max-width: 1000px;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -83,4 +124,8 @@ export const SubdomainFinderSpinner = styled.div`
     -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
     padding: 50px;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
 `;
