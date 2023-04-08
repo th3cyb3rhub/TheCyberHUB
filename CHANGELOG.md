@@ -1,3 +1,12 @@
+# [0.33.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.2...v0.33.0) (2023-04-08)
+
+
+### Features
+
+* subdomain finder tool ([#387](https://github.com/thecyberworld/thecyberhub.org/issues/387)) ([f957513](https://github.com/thecyberworld/thecyberhub.org/commit/f95751368a7757de045dd54e5739e994cd4a95d9))
+
+
+
 ## [0.32.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.1...v0.32.2) (2023-04-08)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * auto close user option dropdown ([#385](https://github.com/thecyberworld/thecyberhub.org/issues/385)) ([#386](https://github.com/thecyberworld/thecyberhub.org/issues/386)) ([691ac4c](https://github.com/thecyberworld/thecyberhub.org/commit/691ac4c6cd198f19218c2f6dd6ac33896ae53263))
-
-
-
-## [0.31.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.1...v0.31.2) (2023-03-05)
-
-
-### Reverts
-
-* Revert "fix: package.json & package-lock.json to reduce vulnerabilities (#380)" (#381) ([d05d23c](https://github.com/thecyberworld/thecyberhub.org/commit/d05d23c3bb8eb54656f1b25189e6366894bd48cf)), closes [#380](https://github.com/thecyberworld/thecyberhub.org/issues/380) [#381](https://github.com/thecyberworld/thecyberhub.org/issues/381)
 
 
 
