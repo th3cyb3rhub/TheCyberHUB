@@ -1,3 +1,12 @@
+## [0.32.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.0...v0.32.1) (2023-04-08)
+
+
+### Bug Fixes
+
+* subfinder design ([#389](https://github.com/thecyberworld/thecyberhub.org/issues/389)) ([39dfd79](https://github.com/thecyberworld/thecyberhub.org/commit/39dfd7946a9fc6e233a6ae11619375a4598273d7))
+
+
+
 # [0.32.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.3...v0.32.0) (2023-04-07)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * package.json & package-lock.json to reduce vulnerabilities ([#380](https://github.com/thecyberworld/thecyberhub.org/issues/380)) ([56ff888](https://github.com/thecyberworld/thecyberhub.org/commit/56ff88841eae46f86942fc950d9e94f0d34bc261))
-
-
-
-# [0.31.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.30.0...v0.31.0) (2023-02-11)
-
-
-### Features
-
-* new cert design ([#373](https://github.com/thecyberworld/thecyberhub.org/issues/373)) ([8f2c4c5](https://github.com/thecyberworld/thecyberhub.org/commit/8f2c4c55bfbf52939580392e7505f2d2ee8c97f5))
 
 
 
