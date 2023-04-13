@@ -17,7 +17,6 @@ import {
     CyberGames,
     Dashboard,
     EditBlog,
-    EditProfile,
     Event,
     Events,
     Footer,
@@ -30,7 +29,6 @@ import {
     NotFound,
     OpensourceProjects,
     OSINTGame,
-    Profile,
     Quiz,
     Roadmap,
     Roadmaps,
@@ -51,6 +49,7 @@ import TermsAndCondition from "./components/Resources/TermsAndCondition";
 import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
 import FormData from "./components/Dashboard/FormData/FormData";
 import SubdomainFinder from "./components/Beta/Tools/SubdomainFinder/SubdomainFinder";
+import UserProfile from "./components/Dashboard/Profile/UserProfile";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -113,8 +112,8 @@ const App = () => {
                             <Route exact path={"/contact"} element={<ContactForm />} />
                             <Route exact path={"/login"} element={<Login />} />
                             <Route exact path={"/register"} element={<Register />} />
-                            <Route exact path={"/profile"} element={<Profile />} />
-                            <Route exact path={"/profile/edit"} element={<EditProfile />} />
+                            <Route exact path={"/:username"} element={<UserProfile />} />
+                            {/* <Route exact path={"/profile/edit"} element={<EditProfile />} /> */}
 
                             <Route path={"/dashboard/*"}>
                                 <Route index element={<Dashboard />} />

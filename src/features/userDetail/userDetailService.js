@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getApiUrl } from "../apiUrl";
 
-const API_URL = getApiUrl("api/userDetails/");
+const API_URL = getApiUrl("api/userDetail/");
 
 // Create new userDetail
 const createUserDetail = async (userDetailData, token) => {
@@ -16,15 +16,9 @@ const createUserDetail = async (userDetailData, token) => {
     return response.data;
 };
 
-// Get user userDetails
-const getUserDetails = async (token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
-    const response = await axios.get(API_URL, config);
+// Get user userDetail
+const getUserDetail = async (username) => {
+    const response = await axios.get(API_URL + username);
 
     return response.data;
 };
@@ -42,10 +36,22 @@ const deleteUserDetail = async (userDetailId, token) => {
     return response.data;
 };
 
+// Update user userDetail
+const updateUserDetail = async (id, userData, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.put(API_URL + id, userData, config);
+    return response.data;
+};
+
 const userDetailService = {
     createUserDetail,
-    getUserDetails,
+    getUserDetail,
     deleteUserDetail,
+    updateUserDetail,
 };
 
 export default userDetailService;

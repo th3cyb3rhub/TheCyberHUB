@@ -30,7 +30,7 @@ const FormData = () => {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("user")).token;
-        // https://dev.api.thecyberhub.org
+        // https://api.thecyberhub.org
         fetch(getApiUrl("api/form/getFormData"), {
             method: "GET",
             headers: {

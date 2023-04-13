@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails, reset } from "../../../features/userDetails/userDetailSlice";
+import { getUserDetail, reset } from "../../../features/userDetail/userDetailSlice";
 import { StreakContainer, StreakIcon, Streaks } from "./StreakElements";
 import { CircleSpinner } from "react-spinners-kit";
 
 const Streak = () => {
     const { user } = useSelector((state) => state.auth);
-    const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetails);
+    const { userDetail, isLoading, isError, message } = useSelector((state) => state.userDetail);
 
     const dispatch = useDispatch();
 
@@ -14,7 +14,7 @@ const Streak = () => {
         if (isError) {
             console.log(message);
         }
-        if (user) dispatch(getUserDetails());
+        if (user) dispatch(getUserDetail());
         return () => dispatch(reset());
     }, [isError, message, dispatch, user]);
 
@@ -28,7 +28,7 @@ const Streak = () => {
         );
     }
 
-    const userData = userDetails.find((userDetails) => user._id === userDetails.user) || null;
+    const userData = userDetail.find((userDetail) => user._id === userDetail.user) || null;
     if (!userData) {
         return null;
     }

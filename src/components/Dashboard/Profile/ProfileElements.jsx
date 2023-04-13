@@ -10,7 +10,24 @@ export const ProfileContainer = styled.div`
     width: 100%;
 `;
 
+export const HR = styled.hr`
+    width: 90%;
+    border: 1px solid #171717;
+    height: 1px;
+    margin: 5px;
+`;
+
 export const Heading = styled.h3``;
+
+export const AboutSection = styled.div`
+    margin: 10px 0 25px;
+    padding: 5px;
+
+    width: 100%;
+
+    .about-me {
+    }
+`;
 
 export const Wrapper = styled.div`
     margin: 100px auto;
@@ -25,10 +42,7 @@ export const Wrapper = styled.div`
     @media screen and (max-width: 760px) {
     }
 `;
-export const ProfileUserDetailsContainer = styled.div`
-    border: 5px solid #111111;
-    padding: 25px;
-`;
+
 export const BlogPostContainer = styled.div`
     margin: 2%;
     display: flex;
@@ -41,8 +55,10 @@ export const ProfileDetailsSection = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    margin-top: 10px;
-    padding: 5px;
+
+    @media screen and (max-width: 760px) {
+        flex-direction: column;
+    }
 `;
 
 export const CommentContainer = styled.div`
@@ -88,7 +104,7 @@ export const UserBanner = styled.img`
     object-fit: cover;
     height: 100%;
     max-height: 250px;
-    margin-top: -100px;
+    margin-top: -30px;
     @media screen and (max-width: 760px) {
         max-height: 150px;
     }
@@ -98,10 +114,14 @@ export const UserInfo = styled.div``;
 export const HeaderSection = styled.div`
     display: flex;
     flex-direction: row;
+    width: 99%;
+    justify-content: flex-end;
 `;
+
 export const HeaderContainer = styled.div`
     max-width: 1500px;
     width: 100%;
+    display: table-column;
 `;
 
 export const SkillLevelContainer = styled.div`

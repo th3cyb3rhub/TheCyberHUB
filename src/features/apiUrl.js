@@ -1,7 +1,8 @@
 // const apiUrl = import.meta.env.VITE_API_URL;
 // const cdnUrl = import.meta.env.VITE_CDN_URL;
 // const webEnv = import.meta.env.VITE_WEB_ENV;
-const apiUrl = "https://dev.api.thecyberhub.org";
+// const apiUrl = "https://dev.api.thecyberhub.org";
+const apiUrl = "https://api.thecyberhub.org";
 const cdnUrl = "https://thecyberhub.nyc3.cdn.digitaloceanspaces.com";
 const localUrl = "http://localhost:5000";
 

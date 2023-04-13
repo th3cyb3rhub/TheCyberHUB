@@ -72,8 +72,8 @@ const DropdownMenu = () => {
                     </>
                 ) : (
                     <>
-                        <DropdownItem to={"/profile"} leftIcon={<FaUserCircle />}>
-                            Profile
+                        <DropdownItem to={`/@${user.username}`} leftIcon={<FaUserCircle />}>
+                            Public Profile
                         </DropdownItem>
                         <DropdownItem to={"/dashboard"} leftIcon={<MdDashboard />}>
                             Dashboard

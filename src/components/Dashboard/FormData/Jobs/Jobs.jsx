@@ -14,7 +14,7 @@ import {
 
 import Job from "./Job";
 import { JobsData } from "./JobsData";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "../../Dashboard/UserProfile/ProfileElements";
 import JobDetailsPage from "./JobDetailsPage";
 
 const Jobs = () => {

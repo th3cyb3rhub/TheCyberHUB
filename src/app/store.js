@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import goalReducer from "../features/goals/goalSlice";
 import blogReducer from "../features/blogs/blogSlice";
-import userDetailReducer from "../features/userDetails/userDetailSlice";
+import userDetailReducer from "../features/userDetail/userDetailSlice";
 
 // import { cyberNewsApi } from "../services/cyberNewsApi";
 
@@ -11,7 +11,7 @@ export default configureStore({
         auth: authReducer,
         goals: goalReducer,
         blogs: blogReducer,
-        userDetails: userDetailReducer,
+        userDetail: userDetailReducer,
         // [cyberNewsApi.reducerPath]: cyberNewsApi.reducer,
     },
 });
