@@ -1,7 +1,14 @@
 import React from "react";
 import { CyberProfilesContainer, CyberProfilesHeading } from "./CyberProfilesElements";
 
-const CyberProfiles = ({ isEdit }) => {
+const CyberProfiles = ({ cyberProfiles, userDetailData, setUserDetailData, isEdit }) => {
+    // const onChange = (e) => {
+    //     const value = e.target.value;
+    //     setUserDetailData((prevState) => ({
+    //         ...prevState,
+    //         aboutMe: value,
+    //     }));
+    // };
     const THMUsername = "kabir0x23";
     const THMBadgeURL = `https://tryhackme-badges.s3.amazonaws.com/${THMUsername}.png`;
     const THMProfileURL = `https://tryhackme.com/p/${THMUsername}`;

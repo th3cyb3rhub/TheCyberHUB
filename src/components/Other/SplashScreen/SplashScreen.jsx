@@ -9,7 +9,7 @@ import {
 } from "./SplashScreenElements";
 import { TextGreenBG } from "../Support/SponsorsElements";
 import { getCDNUrl } from "../../../features/apiUrl";
-const logo = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+const logo = `${getCDNUrl}/images/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const SplashScreen = () => {
     const [showLogo, setShowLogo] = useState(true);

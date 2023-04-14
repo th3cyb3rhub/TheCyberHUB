@@ -44,11 +44,7 @@ const ViewBlog = () => {
         };
     }, [dispatch, isError, message]);
 
-    const blog = blogs.find(
-        (blog) =>
-            `${encodeURL(blog.title)}-by-${blog.username}`.toLowerCase() === title.toLowerCase() &&
-            title.toLowerCase().includes(blog.username),
-    );
+    const blog = blogs.find((blog) => `${encodeURL(blog.title)}`.toLowerCase() === title.toLowerCase());
 
     if (isLoading) {
         return (
@@ -68,7 +64,7 @@ const ViewBlog = () => {
 
     const API_URL = getCDNUrl;
     const coverImage = blog?.coverImage;
-    const coverImageUrl = `${API_URL}/blog_images/${coverImage}`;
+    const coverImageUrl = `${API_URL}/images/blog/${coverImage}`;
 
     return (
         <>
@@ -76,7 +72,10 @@ const ViewBlog = () => {
                 <meta property="og:title" content={blog?.title} />
                 <meta property="og:description" content={blog?.description} />
                 <meta property="og:image" content={coverImageUrl} />
-                <meta property="og:url" content={`https://dev.thecyberhub.org/blogs/${encodeURL(blog?.title)}`} />
+                <meta
+                    property="og:url"
+                    content={`https://thecyberhub.org/blogs/@${blog.username}/${encodeURL(blog?.title)}`}
+                />
             </Helmet>
             <ContainerViewBlog>
                 <ViewBlogHeader>

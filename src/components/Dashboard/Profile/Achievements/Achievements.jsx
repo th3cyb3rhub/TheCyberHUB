@@ -86,8 +86,16 @@ const Achievements = ({ achievements, setUserDetailData, isEdit }) => {
                     {!isEdit &&
                         achievements?.length > 0 &&
                         achievements[0]?.achievement?.map((title, titleIndex) => (
-                            <AchievementLink key={titleIndex} href={title?.achievementName} target="_blank">
-                                <IconDot /> {title?.achievementLink}
+                            <AchievementLink
+                                key={titleIndex}
+                                href={
+                                    title?.achievementLink.startsWith("http")
+                                        ? title?.achievementLink
+                                        : "https://" + title?.achievementLink
+                                }
+                                target="_blank"
+                            >
+                                <IconDot /> {title?.achievementName}
                             </AchievementLink>
                         ))}
                 </AchievementItem>

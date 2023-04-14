@@ -40,7 +40,7 @@ export const handlePasteEvent = async (e, setImageUrl, setBlogData) => {
         formData.append("key", `blog_images/${fileName}`);
         const API_URL = getApiUrl("api/upload");
         await axios.post(API_URL, formData);
-        const newImageUrl = `https://thecyberhub.nyc3.cdn.digitaloceanspaces.com/blog_images/${fileName}`;
+        const newImageUrl = `https://thecyberhubstorage.blob.core.windows.net/images/blog${fileName}`;
         setImageUrl(newImageUrl);
         setBlogData((prevState) => ({
             ...prevState,

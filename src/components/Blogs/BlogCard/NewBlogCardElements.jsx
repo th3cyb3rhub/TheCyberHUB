@@ -53,11 +53,12 @@ export const EditBlogSection = styled.div`
     display: flex;
     justify-content: end;
 `;
-export const BlogImage = styled.img`
+export const BlogCardImage = styled.img`
     width: 100%;
     max-width: 300px;
     max-height: 160px;
     justify-self: center;
+    word-wrap: break-word;
 `;
 export const MainSection = styled.div`
     display: flex;

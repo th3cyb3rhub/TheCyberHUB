@@ -46,7 +46,7 @@ const BlogCard = ({ blog }) => {
     const API_URL = getCDNUrl;
 
     const coverImage = blog?.coverImage;
-    const coverImageUrl = `${API_URL}/blog_images/${coverImage}`;
+    const coverImageUrl = `${API_URL}/images/blog/${coverImage}`;
 
     return (
         <BlogsContainer>

@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 import PreviewBlogContent from "../../PreviewBlogContent";
 import { Button, PreviewIcon, PreviewSection } from "../../../Beta/Forum/ForumSubPageElements";
-import { getApiUrl } from "../../../../features/apiUrl";
+import { getApiUrl, getCDNUrl } from "../../../../features/apiUrl";
 import BlogPostForm from "../BlogPostForm";
 import { toast } from "react-toastify";
 
@@ -75,11 +75,12 @@ const CreateBlog = () => {
             const currentDateTimeNumber = new Date().getTime();
             const fileName = `${currentDateTimeNumber}.${file && file.type.split("/")[1]}`;
             const formData = new FormData();
-            formData.append("file", file);
-            formData.append("key", `blog_images/${fileName}`);
+            formData.append("image", file);
+            formData.append("folderName", "images/blog");
+            formData.append("fileName", `${fileName}`);
             const API_URL = getApiUrl("api/upload");
             await axios.post(API_URL, formData);
-            const newImageUrl = `https://thecyberhub.nyc3.cdn.digitaloceanspaces.com/blog_images/${fileName}`;
+            const newImageUrl = `${getCDNUrl}/images/blog/${fileName}`;
             setBlogData((prevState) => ({
                 ...prevState,
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
@@ -123,11 +124,12 @@ const CreateBlog = () => {
             const currentDateTimeNumber = new Date().getTime();
             const fileName = `${currentDateTimeNumber}.${file && file.type.split("/")[1]}`;
             const formData = new FormData();
-            formData.append("file", file);
-            formData.append("key", `blog_images/${fileName}`);
+            formData.append("image", file);
+            formData.append("folderName", "images/blog");
+            formData.append("fileName", `${fileName}`);
             const API_URL = getApiUrl("api/upload");
             await axios.post(API_URL, formData);
-            const newImageUrl = `https://thecyberhub.nyc3.cdn.digitaloceanspaces.com/blog_images/${fileName}`;
+            const newImageUrl = `${getCDNUrl}/images/blog/${fileName}`;
             setBlogData((prevState) => ({
                 ...prevState,
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
@@ -222,8 +224,9 @@ const CreateBlog = () => {
             setInSuccess(true);
 
             const formData = new FormData();
-            formData.append("file", file);
-            formData.append("key", `blog_images/${file.name}`);
+            formData.append("image", file);
+            formData.append("folderName", "images/blog");
+            formData.append("fileName", `${fileName}`);
 
             try {
                 const API_URL = getApiUrl("api/upload");

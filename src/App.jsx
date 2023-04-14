@@ -100,19 +100,22 @@ const App = () => {
                                 <Route index element={<Tools />} />
                                 <Route path={"breachCheck"} element={<BreachCheck />} />
                                 <Route path={"subdomainFinder"} element={<SubdomainFinder />} />
+                                <Route path={"*"} element={<NotFound />} />
+                                <Route element={<NotFound />} />
                             </Route>
 
                             <Route path={"/blogs"}>
                                 <Route index element={<Blogs />} />
-                                <Route exact path={":title"} element={<SingleBlog />} />
-                                <Route element={<NotFound />} />
+                                <Route exact path={":username/:title"} element={<SingleBlog />} />
+                                {/* <Route element={<NotFound />} /> */}
+                                <Route path={"*"} element={<NotFound />} />
                             </Route>
 
                             <Route exact path={"/dashboard"} element={<Dashboard />} />
                             <Route exact path={"/contact"} element={<ContactForm />} />
                             <Route exact path={"/login"} element={<Login />} />
                             <Route exact path={"/register"} element={<Register />} />
-                            <Route exact path={"/:username"} element={<UserProfile />} />
+                            <Route exact path={"/@:username"} element={<UserProfile />} />
                             {/* <Route exact path={"/profile/edit"} element={<EditProfile />} /> */}
 
                             <Route path={"/dashboard/*"}>
@@ -122,12 +125,15 @@ const App = () => {
                                     <Route index element={<UserBlogs />} />
                                     <Route exact path={"create"} element={<CreateBlog />} />
                                     <Route exact path={"edit/:title"} element={<EditBlog />} />
+                                    <Route path={"*"} element={<NotFound />} />
                                 </Route>
+                                <Route path={"*"} element={<NotFound />} />
                             </Route>
 
                             <Route path={"/events/*"}>
                                 <Route index element={<Events />} />
                                 <Route path={":slug"} element={<Event />} />
+                                <Route path={"*"} element={<NotFound />} />
                             </Route>
                             <Route exact path={"/community"} element={<Community />} />
                             <Route exact path={"/support"} element={<Sponsors />} />
@@ -140,6 +146,7 @@ const App = () => {
                                 <Route index element={<CTF />} />
                                 {/* <Route path={"certificate"} element={<CertificatePage />} /> */}
                                 <Route path={"certificate/:id"} element={<CertificateCard />} />
+                                <Route path={"*"} element={<NotFound />} />
                             </Route>
 
                             <Route exact path={"/CyberGames"} element={<CyberGames />} />
@@ -151,6 +158,7 @@ const App = () => {
                                 <Route path={"/roadmaps"}>
                                     <Route index element={<Roadmaps />} />
                                     <Route path={":title"} element={<Roadmap />} />
+                                    <Route path={"*"} element={<NotFound />} />
                                 </Route>
 
                                 {/* <Route path={"/courses"} element={<CoursesLayout />}> */}
@@ -166,6 +174,7 @@ const App = () => {
                                 <Route path={"/events"}>
                                     <Route index element={<Events />} />
                                     <Route path={":title"} element={<Event />} />
+                                    <Route path={"*"} element={<NotFound />} />
                                 </Route>
 
                                 <Route path={"/jobs"} element={<Jobs />} />
@@ -174,7 +183,7 @@ const App = () => {
                                 {/* <Route path={"/cyberNews"} element={<CyberNews />} /> */}
                             </Route>
                             {/* <Route element={<NotFound />} /> */}
-                            <Route path="*" element={<NotFound />} />
+                            <Route path={"*"} element={<NotFound />} />
                             <Route exact path={"/getsFormsDataForInternshipsAndServices"} element={<FormData />} />
                         </Routes>
                     </ScrollToTop>

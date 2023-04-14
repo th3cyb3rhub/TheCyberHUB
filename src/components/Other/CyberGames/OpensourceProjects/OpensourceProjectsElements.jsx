@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { getCDNUrl } from "../../../../features/apiUrl";
-const projectImage = `${getCDNUrl}/assets/images/projects-bg.png`;
+const projectImage = `${getCDNUrl}/images/assets/images/projects-bg.png`;
 
 const whiteColor = "whitesmoke";
 // const greenColor = "#41e541";

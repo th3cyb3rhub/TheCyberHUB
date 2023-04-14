@@ -28,19 +28,25 @@ const UserProfile = () => {
         if (isError) console.log(message);
         dispatch(getUserDetail(username));
 
-        if (user && userDetail && !userDetail.name && !userDetail.username) {
-            const userDetailData = { name: user.name, username: user.username };
-            dispatch(updateUserDetail({ id: user._id, userData: userDetailData }));
-        }
-
-        if ((user && userDetail.socialLinks === []) || userDetail.socialLinks?.length === 0) {
-            const userDetailData = { socialLinks: SocialLinksTemplate };
-            dispatch(updateUserDetail({ id: user._id, userData: userDetailData }));
-        }
         return () => dispatch(reset());
     }, [isError, message, dispatch, navigate]);
 
-    const { aboutMe, bio, skills, achievements, socialLinks, projects } = userDetail;
+    if (user && userDetail && user._id === userDetail.user && !userDetail.name && !userDetail.username) {
+        const userNameAndUsername = { name: user.name, username: user.username };
+        dispatch(updateUserDetail({ id: user._id, userData: userNameAndUsername }));
+    }
+
+    if (
+        user &&
+        userDetail &&
+        user._id === userDetail.user &&
+        (userDetail.socialLinks === [] || userDetail.socialLinks?.length === 0)
+    ) {
+        const userSocialLinksTemplateUpdate = { socialLinks: SocialLinksTemplate };
+        dispatch(updateUserDetail({ id: user._id, userData: userSocialLinksTemplateUpdate }));
+    }
+
+    const { aboutMe, bio, skills, achievements, cyberProfiles, socialLinks, projects } = userDetail;
 
     const getInitialUserDetailData = () => ({
         bio: bio || "",
@@ -49,12 +55,10 @@ const UserProfile = () => {
         achievements: achievements || [],
         socialLinks: socialLinks || [],
         projects: projects || [],
+        cyberProfiles: cyberProfiles || [],
     });
 
     const [userDetailData, setUserDetailData] = useState(getInitialUserDetailData());
-
-    console.log("socialLinks", socialLinks);
-    console.log("userDetailData.socialLinks", userDetailData.socialLinks);
 
     useEffect(() => {
         setUserDetailData(getInitialUserDetailData());
@@ -63,7 +67,7 @@ const UserProfile = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (user) {
+        if (user && userDetail && user._id === userDetail.user) {
             await dispatch(updateUserDetail({ id: userDetail.user, userData: userDetailData }));
             setIsEdit(false);
         }
@@ -80,7 +84,13 @@ const UserProfile = () => {
     return (
         <Wrapper>
             <ProfileContainer>
-                <ProfileHeader user={user} isEdit={isEdit} setIsEdit={setIsEdit} onSubmit={onSubmit} />
+                <ProfileHeader
+                    user={user}
+                    userDetail={userDetail}
+                    isEdit={isEdit}
+                    setIsEdit={setIsEdit}
+                    onSubmit={onSubmit}
+                />
                 <ProfileDetailsSection>
                     <UserLinks
                         userDetail={userDetail}

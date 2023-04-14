@@ -11,7 +11,7 @@ const ProfileHeader = ({ user, userDetail, isEdit, setIsEdit, onSubmit }) => {
     const profilePictureUrl =
         userDetail?.publicProfile === "" || !userDetail?.publicProfile
             ? dummyPicture
-            : `${API_URL}/blog_images/${profilePicture}`;
+            : `${API_URL}/images/blog/${profilePicture}`;
 
     const handleSave = (e) => {
         onSubmit(e);
@@ -19,17 +19,13 @@ const ProfileHeader = ({ user, userDetail, isEdit, setIsEdit, onSubmit }) => {
 
     return (
         <HeaderContainer>
-            {user && (
+            {user && userDetail && user._id === userDetail.user && (
                 <HeaderSection>
                     <TiEdit onClick={() => setIsEdit(!isEdit)} style={{ zIndex: 2, cursor: "pointer" }} size={25} />
                     <IoMdSave onClick={handleSave} style={{ zIndex: 2, cursor: "pointer" }} size={25} />
                 </HeaderSection>
             )}
-            <UserBanner
-                src={
-                    "https://thecyberhub.nyc3.cdn.digitaloceanspaces.com/assets/images/Registeration/CybersecurityRegPage.png"
-                }
-            />
+            <UserBanner src={getCDNUrl + "/images/assets/images/Registeration/CybersecurityRegPage.png"} />
             <UserImage src={userDetail?.picture || profilePictureUrl} />
         </HeaderContainer>
     );

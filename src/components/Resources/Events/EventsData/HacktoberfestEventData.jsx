@@ -1,7 +1,7 @@
 import React from "react";
 import { ListContent, List, Link } from "../../../Learn/Roadmaps/RoadmapsElements";
 import { getCDNUrl } from "../../../../features/apiUrl";
-const HacktoberfestXthecyberworld = `${getCDNUrl}/assets/images/Events/HacktoberfestXthecyberworld.png`;
+const HacktoberfestXthecyberworld = `${getCDNUrl}/images/assets/images/Events/HacktoberfestXthecyberworld.png`;
 
 const HacktoberfestEventData = [
     {
@@ -15,7 +15,12 @@ const HacktoberfestEventData = [
                     Discord
                 </a>
                 ,
-                <a style={{ color: "white" }} href={"https://github.com/thecyberworld/"} target={"_blank"} rel="noreferrer">
+                <a
+                    style={{ color: "white" }}
+                    href={"https://github.com/thecyberworld/"}
+                    target={"_blank"}
+                    rel="noreferrer"
+                >
                     GitHub
                 </a>
                 ,

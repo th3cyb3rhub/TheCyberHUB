@@ -21,7 +21,7 @@ import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import Logo from "../../../assets/images/Thecyberworld_logo_outlined.png";
 
 // import {getCDNUrl} from "../../../features/apiUrl";
-// const TCWlogo = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+// const TCWlogo = `${getCDNUrl}/images/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();

@@ -25,7 +25,7 @@ const ViewComments = (props) => {
                         <UserPicture
                             src={
                                 userComment?.picture !== undefined
-                                    ? `${API_URL}/blog_images/${userComment?.picture}`
+                                    ? `${API_URL}/images/blog/${userComment?.picture}`
                                     : dummyPicture
                             }
                             alt={userComment?.picture}

@@ -10,6 +10,7 @@ export const BlogImage = styled.img`
     border-radius: 5px;
     max-height: 550px;
     justify-self: center;
+    word-wrap: break-word;
 `;
 
 export const BlogTitle = styled.h1`

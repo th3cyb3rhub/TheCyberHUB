@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    BlogImage,
+    BlogCardImage,
     BlogImageSection,
     ButtonDelete,
     ButtonEdit,
@@ -29,7 +29,7 @@ const API_URL = getCDNUrl;
 
 const NewBlogCard = ({ blog }) => {
     const coverImage = blog?.coverImage;
-    const coverImageUrl = `${API_URL}/blog_images/${coverImage}` || image;
+    const coverImageUrl = `${API_URL}/images/blog/${coverImage}` || image;
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { pathname } = useLocation();
@@ -38,7 +38,7 @@ const NewBlogCard = ({ blog }) => {
         <ContainerCard>
             <MainSection>
                 <SubSection>
-                    <RouterLink to={{ pathname: `/blogs/${encodeURL(blog.title)}-by-${blog.username}` }}>
+                    <RouterLink to={{ pathname: `/blogs/@${blog.username}/${encodeURL(blog.title)}` }}>
                         <Title> {blog.title} </Title>
                         <Description> {blog.content.slice(0, 125)} </Description>
                     </RouterLink>
@@ -62,7 +62,7 @@ const NewBlogCard = ({ blog }) => {
                                 </ButtonDelete>
                             ) : null}
                         </EditBlogSection>
-                        <BlogImage src={coverImageUrl || image} alt={blog.coverImage} width="100%" height="auto" />
+                        <BlogCardImage src={coverImageUrl || image} alt={blog.coverImage} width="100%" height="auto" />
                     </BlogImageSection>
                 </DetailsSection>
             </MainSection>

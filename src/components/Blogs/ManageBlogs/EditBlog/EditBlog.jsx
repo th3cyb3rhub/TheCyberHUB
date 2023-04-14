@@ -89,7 +89,7 @@ const EditBlog = () => {
             formData.append("key", `blog_images/${fileName}`);
             const API_URL = getApiUrl("api/upload");
             await axios.post(API_URL, formData);
-            const newImageUrl = `https://thecyberhub.nyc3.cdn.digitaloceanspaces.com/blog_images/${fileName}`;
+            const newImageUrl = `https://thecyberhubstorage.blob.core.windows.net/images/blog${fileName}`;
             setBlogData((prevState) => ({
                 ...prevState,
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
@@ -132,7 +132,7 @@ const EditBlog = () => {
             formData.append("key", `blog_images/${fileName}`);
             const API_URL = getApiUrl("api/upload");
             await axios.post(API_URL, formData);
-            const newImageUrl = `https://thecyberhub.nyc3.cdn.digitaloceanspaces.com/blog_images/${fileName}`;
+            const newImageUrl = `https://thecyberhubstorage.blob.core.windows.net/images/blog${fileName}`;
             setBlogData((prevState) => ({
                 ...prevState,
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,

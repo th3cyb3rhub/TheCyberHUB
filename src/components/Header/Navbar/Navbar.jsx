@@ -19,7 +19,7 @@ import UserOptions from "../UserOptions/UserOptions";
 import { FaBars } from "react-icons/all";
 import { RouterButtonLink } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import { getCDNUrl } from "../../../features/apiUrl";
-const logo = `${getCDNUrl}/assets/images/WebsiteLogo/ThecyberhubLogo.png`;
+const logo = `${getCDNUrl}/images/assets/images/WebsiteLogo/ThecyberhubLogo.png`;
 // import { RouterButtonLink } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 const Navbar = ({ isOpen, toggle }) => {
     const [scrollNav, setScrollNav] = useState(false);

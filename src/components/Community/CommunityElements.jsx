@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { getCDNUrl } from "../../features/apiUrl";
 import { FaDiscord } from "react-icons/fa";
-const bgImage = `${getCDNUrl}/assets/images/WebsiteLogo/thecyberworld-green01.png`;
+const bgImage = `${getCDNUrl}/images/assets/images/WebsiteLogo/thecyberworld-green01.png`;
 
 export const Header = styled.header`
     color: #cecac3;
