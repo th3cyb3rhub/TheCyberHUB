@@ -7,8 +7,8 @@ const apiUrl = "https://api.thecyberhub.org";
 const cdnUrl = "https://thecyberhubstorage.blob.core.windows.net";
 const localUrl = "http://localhost:5000";
 
-export const webEnv = "local";
-// export const webEnv = "production";
+// export const webEnv = "local";
+export const webEnv = "production";
 
 // let webEnv;
 // if (window.location.hostname === "localhost") {
