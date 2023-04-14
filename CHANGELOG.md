@@ -1,3 +1,12 @@
+## [0.34.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.34.0...v0.34.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* errors ([#395](https://github.com/thecyberworld/thecyberhub.org/issues/395)) ([ecbccd0](https://github.com/thecyberworld/thecyberhub.org/commit/ecbccd034562af1959ed33f49459c34f00155942))
+
+
+
 # [0.34.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.33.0...v0.34.0) (2023-04-13)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * subfinder design ([#389](https://github.com/thecyberworld/thecyberhub.org/issues/389)) ([39dfd79](https://github.com/thecyberworld/thecyberhub.org/commit/39dfd7946a9fc6e233a6ae11619375a4598273d7))
-
-
-
-# [0.32.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.31.3...v0.32.0) (2023-04-07)
-
-
-### Features
-
-* subdomain finder tool ([#387](https://github.com/thecyberworld/thecyberhub.org/issues/387)) ([#388](https://github.com/thecyberworld/thecyberhub.org/issues/388)) ([6d126fe](https://github.com/thecyberworld/thecyberhub.org/commit/6d126fe6015897ce5de7f2d09d67197f4e0549f6))
 
 
 
