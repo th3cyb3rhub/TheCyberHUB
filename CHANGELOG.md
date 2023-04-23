@@ -1,3 +1,12 @@
+# [0.37.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.36.0...v0.37.0) (2023-04-23)
+
+
+### Features
+
+* CTF ([#406](https://github.com/thecyberworld/thecyberhub.org/issues/406)) ([9cd0be0](https://github.com/thecyberworld/thecyberhub.org/commit/9cd0be020787006028a722f56072210d77f09cb8)), closes [#403](https://github.com/thecyberworld/thecyberhub.org/issues/403) [#404](https://github.com/thecyberworld/thecyberhub.org/issues/404)
+
+
+
 # [0.36.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.35.1...v0.36.0) (2023-04-23)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * errors ([#395](https://github.com/thecyberworld/thecyberhub.org/issues/395)) ([ecbccd0](https://github.com/thecyberworld/thecyberhub.org/commit/ecbccd034562af1959ed33f49459c34f00155942))
-
-
-
-# [0.34.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.33.0...v0.34.0) (2023-04-13)
-
-
-### Features
-
-* user profile  ([#394](https://github.com/thecyberworld/thecyberhub.org/issues/394)) ([032c64a](https://github.com/thecyberworld/thecyberhub.org/commit/032c64aae08210d6f2770197ba149c3a31e98160)), closes [#392](https://github.com/thecyberworld/thecyberhub.org/issues/392) [#393](https://github.com/thecyberworld/thecyberhub.org/issues/393)
 
 
 
