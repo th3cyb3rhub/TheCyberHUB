@@ -1,3 +1,12 @@
+# [0.35.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.34.1...v0.35.0) (2023-04-23)
+
+
+### Features
+
+* CTF ([#401](https://github.com/thecyberworld/thecyberhub.org/issues/401)) ([eb28b07](https://github.com/thecyberworld/thecyberhub.org/commit/eb28b0700961546369ee1e4f01a2bfb007d8535a))
+
+
+
 ## [0.34.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.34.0...v0.34.1) (2023-04-14)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * sidebar, dropdown and blogs design ([afdac94](https://github.com/thecyberworld/thecyberhub.org/commit/afdac94d3d5a2924d9ee79071f31f5bee26b32b9))
-
-
-
-## [0.32.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.0...v0.32.1) (2023-04-08)
-
-
-### Bug Fixes
-
-* subfinder design ([#389](https://github.com/thecyberworld/thecyberhub.org/issues/389)) ([39dfd79](https://github.com/thecyberworld/thecyberhub.org/commit/39dfd7946a9fc6e233a6ae11619375a4598273d7))
 
 
 
