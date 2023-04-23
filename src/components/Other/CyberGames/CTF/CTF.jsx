@@ -52,12 +52,15 @@ const CTF = () => {
     const [filteredCTFs, setFilteredCTFs] = useState(ctf);
 
     useEffect(() => {
-        const filteredCTFs = ctf?.filter((challenge) => {
-            const nameMatches = challenge.challengeName.toLowerCase().includes(searchTerm.toLowerCase());
-            const difficultyMatches = selectedDifficulty === "all" || challenge.difficulty === selectedDifficulty;
-            const typeMatches = selectedType === "all" || challenge.type === selectedType;
-            return nameMatches && difficultyMatches && typeMatches;
-        });
+        const filteredCTFs = Array.isArray(ctf)
+            ? ctf.filter((challenge) => {
+                  const nameMatches = challenge?.challengeName?.toLowerCase().includes(searchTerm?.toLowerCase());
+                  const difficultyMatches =
+                      selectedDifficulty === "all" || challenge?.difficulty === selectedDifficulty;
+                  const typeMatches = selectedType === "all" || challenge?.type === selectedType;
+                  return nameMatches && difficultyMatches && typeMatches;
+              })
+            : [];
         setFilteredCTFs(filteredCTFs);
     }, [ctf, searchTerm, selectedDifficulty, selectedType]);
 
@@ -118,29 +121,29 @@ const CTF = () => {
 
                 <CTFCards>
                     {filteredCTFs?.map((challenge, index) => (
-                        <CTFLink to={`/ctf/${challenge._id}`} key={index}>
+                        <CTFLink to={`/ctf/${challenge?._id}`} key={index}>
                             <CTFCard>
                                 <CTFCardHeader>
-                                    {challenge.challengeName}
+                                    {challenge?.challengeName}
                                     {user &&
                                         userDetail?.solved?.map((ctf, index) =>
-                                            challenge._id === ctf.ctfId && ctf?.isCompleted === true ? (
+                                            challenge?._id === ctf?.ctfId && ctf?.isCompleted === true ? (
                                                 <FcCheckmark key={index} color="green" size={25} />
                                             ) : null,
                                         )}
                                 </CTFCardHeader>
 
                                 <CTFCardBody>
-                                    <CTFCardSubtitle>{challenge.subtitle}</CTFCardSubtitle>
+                                    <CTFCardSubtitle>{challenge?.subtitle}</CTFCardSubtitle>
                                 </CTFCardBody>
 
                                 <CTFCardFooter>
                                     <CTFTags>
-                                        {challenge.tags.map((tag, index) => (
+                                        {challenge?.tags.map((tag, index) => (
                                             <CTFTag key={index}>{tag}</CTFTag>
                                         ))}
                                     </CTFTags>
-                                    <CTFType>{challenge.difficulty}</CTFType>
+                                    <CTFType>{challenge?.difficulty}</CTFType>
                                 </CTFCardFooter>
                             </CTFCard>
                         </CTFLink>

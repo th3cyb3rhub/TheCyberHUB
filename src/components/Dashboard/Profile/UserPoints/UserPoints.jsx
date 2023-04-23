@@ -65,8 +65,8 @@ const UserPoints = ({ userDetail, allUserDetail, blogs }) => {
 };
 
 function getUserRank(userDetail, allDetails) {
-    const sortedDetails = allDetails?.slice().sort((a, b) => b.exp - a.exp);
-    const userIndex = sortedDetails.findIndex((detail) => detail?.user === userDetail?.user);
+    const sortedDetails = Array.from(allDetails).sort((a, b) => b.exp - a.exp);
+    const userIndex = sortedDetails.findIndex((detail) => detail.user === userDetail.user);
     const userRank = userIndex !== -1 ? userIndex + 1 : null;
     return userRank;
 }

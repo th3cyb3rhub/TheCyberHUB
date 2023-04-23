@@ -51,12 +51,12 @@ const Leaderboard = () => {
                             </LeaderboardTableRow>
                             {userDetails &&
                                 [...userDetails]
-                                    .sort((a, b) => b.exp - a.exp)
+                                    .sort((a, b) => (b?.exp || 0) - (a?.exp || 0))
                                     .map((user, index) => (
                                         <LeaderboardTableRow key={index}>
                                             <LeaderboardTableData>{index + 1}</LeaderboardTableData>
                                             <LeaderboardTableData>{user?.username}</LeaderboardTableData>
-                                            <LeaderboardTableData>{user.exp ? user.exp : 0}</LeaderboardTableData>
+                                            <LeaderboardTableData>{user?.exp || 0}</LeaderboardTableData>
                                         </LeaderboardTableRow>
                                     ))}
                         </tbody>
