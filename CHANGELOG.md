@@ -1,3 +1,12 @@
+# [0.36.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.35.1...v0.36.0) (2023-04-23)
+
+
+### Features
+
+* ctf ([#405](https://github.com/thecyberworld/thecyberhub.org/issues/405)) ([066b40e](https://github.com/thecyberworld/thecyberhub.org/commit/066b40efc7ffc270eb3546667d9fe992bf9dbcc8)), closes [#403](https://github.com/thecyberworld/thecyberhub.org/issues/403) [#404](https://github.com/thecyberworld/thecyberhub.org/issues/404)
+
+
+
 ## [0.35.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.35.0...v0.35.1) (2023-04-23)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * user profile  ([#394](https://github.com/thecyberworld/thecyberhub.org/issues/394)) ([032c64a](https://github.com/thecyberworld/thecyberhub.org/commit/032c64aae08210d6f2770197ba149c3a31e98160)), closes [#392](https://github.com/thecyberworld/thecyberhub.org/issues/392) [#393](https://github.com/thecyberworld/thecyberhub.org/issues/393)
-
-
-
-# [0.33.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.2...v0.33.0) (2023-04-08)
-
-
-### Features
-
-* subdomain finder tool ([#387](https://github.com/thecyberworld/thecyberhub.org/issues/387)) ([f957513](https://github.com/thecyberworld/thecyberhub.org/commit/f95751368a7757de045dd54e5739e994cd4a95d9))
 
 
 
