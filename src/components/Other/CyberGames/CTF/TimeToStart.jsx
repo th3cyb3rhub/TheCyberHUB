@@ -20,10 +20,10 @@ const TimeToStart = ({ ctfDate }) => {
     }, [ctfDate]);
 
     return (
-        <h1>
+        <h2>
             CTF will start in {timeRemaining.hours} hours {timeRemaining.minutes} minutes {timeRemaining.seconds}{" "}
             seconds
-        </h1>
+        </h2>
     );
 };
 

@@ -7,6 +7,7 @@ import {
     InterviewsQuestionsCard,
     InterviewsQuestionsHeading,
     InterviewsQuestionsTitle,
+    SingleQuestion,
 } from "./InterviewQuestionsElements";
 import InterviewsQuestionsData from "./InterviewQuestionsData";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
@@ -46,7 +47,7 @@ const InterviewQuestions = () => {
                                                     key={index}
                                                 >
                                                     {/* {index + 1} */}
-                                                    {resources.question}
+                                                    <SingleQuestion> {">"} </SingleQuestion> {resources.question}
                                                 </InterviewsQuestionsTitle>
                                             );
                                         })}
@@ -62,7 +63,6 @@ const InterviewQuestions = () => {
                             <InterviewsQuestionsHeading>
                                 {selectedQuestion && <h4>{selectedQuestion}</h4>}
                             </InterviewsQuestionsHeading>
-
                             {selectedAnswer && selectedAnswer.length > 0 ? <p>{selectedAnswer}</p> : "Coming soon"}
                         </AnswerContainer>
                     )
@@ -80,7 +80,7 @@ const InterviewQuestions = () => {
                                                     key={index}
                                                 >
                                                     {/* {index + 1} */}
-                                                    {resources.question}
+                                                    <SingleQuestion> {">"} </SingleQuestion> {resources.question}
                                                 </InterviewsQuestionsTitle>
                                             );
                                         })}

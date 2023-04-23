@@ -41,14 +41,26 @@ export const InterviewsQuestionsHeading = styled.h2`
     font-size: 25px;
     width: 100%;
 `;
+
+export const SingleQuestion = styled.p`
+    margin: 0 10px;
+    color: #17f31e;
+    font-size: 1rem;
+    &:hover {
+        color: #0a0a0a;
+    }
+`;
 export const InterviewsQuestionsTitle = styled.div`
     //border: #4cc23e 1px solid;
     border-radius: 3px;
+    width: 100%;
+    background: #131313;
     display: flex;
     margin: 0 0 5px 0;
     padding: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+
     &:hover {
         background: #17f31e;
         color: #0a0a0a;

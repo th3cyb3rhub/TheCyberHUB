@@ -28,9 +28,12 @@ import {
 import { FcCheckmark } from "react-icons/all";
 // import {Heading2} from "../../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import { getUserDetail } from "../../../../features/userDetail/userDetailSlice";
+// import {useLocation} from "react-router-dom";
+import { encodeURL } from "../../../Blogs/util";
 
 const CTF = () => {
     const dispatch = useDispatch();
+    // const { pathname } = useLocation();
     const { user } = useSelector((state) => state.auth);
     const {
         userDetail,
@@ -121,7 +124,7 @@ const CTF = () => {
 
                 <CTFCards>
                     {filteredCTFs?.map((challenge, index) => (
-                        <CTFLink to={`/ctf/${challenge?._id}`} key={index}>
+                        <CTFLink to={{ pathname: `/ctf/${encodeURL(challenge.challengeName)}` }} key={index}>
                             <CTFCard>
                                 <CTFCardHeader>
                                     {challenge?.challengeName}
@@ -139,9 +142,9 @@ const CTF = () => {
 
                                 <CTFCardFooter>
                                     <CTFTags>
-                                        {challenge?.tags.map((tag, index) => (
-                                            <CTFTag key={index}>{tag}</CTFTag>
-                                        ))}
+                                        {challenge?.tags.map(
+                                            (tag, index) => tag.length > 0 && <CTFTag key={index}>{tag}</CTFTag>,
+                                        )}
                                     </CTFTags>
                                     <CTFType>{challenge?.difficulty}</CTFType>
                                 </CTFCardFooter>

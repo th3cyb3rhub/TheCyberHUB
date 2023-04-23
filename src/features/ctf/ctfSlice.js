@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ctfService from "./ctfService";
+import { userDetailSlice } from "../userDetail/userDetailSlice";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -116,6 +117,7 @@ export const ctfSlice = createSlice({
                 // Update state as needed after successful registration
                 state.isLoading = false;
                 state.error = null;
+                // state.ctf = action.payload;
             })
             .addCase(registerCTF.rejected, (state, action) => {
                 state.isLoading = false;
@@ -135,5 +137,6 @@ export const ctfSlice = createSlice({
             });
     },
 });
+export const { reset } = userDetailSlice.actions;
 
 export default ctfSlice.reducer;
