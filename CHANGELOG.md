@@ -1,3 +1,12 @@
+## [0.35.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.35.0...v0.35.1) (2023-04-23)
+
+
+### Reverts
+
+* Revert "feat: CTF (#401)" (#402) ([23ddc01](https://github.com/thecyberworld/thecyberhub.org/commit/23ddc01998b08b6b89f000734fb00bbe25509d2d)), closes [#401](https://github.com/thecyberworld/thecyberhub.org/issues/401) [#402](https://github.com/thecyberworld/thecyberhub.org/issues/402)
+
+
+
 # [0.35.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.34.1...v0.35.0) (2023-04-23)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * subdomain finder tool ([#387](https://github.com/thecyberworld/thecyberhub.org/issues/387)) ([f957513](https://github.com/thecyberworld/thecyberhub.org/commit/f95751368a7757de045dd54e5739e994cd4a95d9))
-
-
-
-## [0.32.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.32.1...v0.32.2) (2023-04-08)
-
-
-### Bug Fixes
-
-* sidebar, dropdown and blogs design ([afdac94](https://github.com/thecyberworld/thecyberhub.org/commit/afdac94d3d5a2924d9ee79071f31f5bee26b32b9))
 
 
 
