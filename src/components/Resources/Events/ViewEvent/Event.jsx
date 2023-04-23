@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
-import CTFData from "../../../Other/CyberGames/CTF/CTFData";
+import CTFDataOld from "../../../Other/CyberGames/CTF/CTFDataOld";
 import { encodeURL } from "../../../Blogs/util";
 // import EventsData from "../EventsData/EventsData";
 import {
@@ -15,7 +15,7 @@ import {
 
 const Event = () => {
     const { title } = useParams();
-    const event = [...CTFData].find((event) => encodeURL(event?.title) === title);
+    const event = [...CTFDataOld].find((event) => encodeURL(event?.title) === title);
 
     return (
         <EventComponent>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link as LinkRouter } from "react-router-dom";
+import { Link, Link as LinkRouter } from "react-router-dom";
 import { AiFillCaretDown, AiFillCaretRight } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 
@@ -27,8 +27,8 @@ export const Nav = styled.nav`
     align-items: center;
     font-size: 1rem;
     position: sticky;
-    top: 0;
     z-index: 10;
+    top: 0;
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
     }
@@ -37,15 +37,19 @@ export const Nav = styled.nav`
 export const NavbarContainer = styled.div`
     margin: 0 10px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     height: 80px;
     z-index: 1;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1500px;
 `;
 
 export const NavUsersDetailsSection = styled.div`
     display: flex;
+    justify-content: end;
+    min-width: 200px;
+    background: transparent;
 `;
 export const NavLogoRouter = styled(LinkRouter)`
     display: flex;
@@ -70,8 +74,9 @@ export const NavLogo = styled.img`
         margin: 0 0 0 0;
     }
 
-    @media screen and (max-width: 400px) {
-        height: 50px;
+    @media screen and (max-width: 450px) {
+        margin: 0 0 0 0;
+        height: 45px;
     }
 `;
 
@@ -102,8 +107,6 @@ export const NavMenu = styled.div`
     align-items: center;
     list-style: none;
     text-align: center;
-    margin: 0 1rem;
-    width: 70%;
 
     @media screen and (max-width: 900px) {
         display: none;
@@ -201,6 +204,49 @@ export const NavBtnLink = styled.a`
         padding: 2px;
     }
 `;
+
+export const NavButtonsSection = styled.div`
+    display: flex;
+    justify-content: space-between;
+    @media screen and (max-width: 785px) {
+        display: none;
+    }
+`;
+
+export const RouterNavLeaderboardButtonLink = styled(Link)`
+    height: fit-content;
+    background: #111111;
+    border-radius: 5px;
+    color: #0bff0b;
+    padding: 5px 15px;
+    margin: 5px 15px;
+    @media screen and (max-width: 600px) {
+        font-size: 12px;
+    }
+
+    @media screen and (max-width: 1150px) {
+        display: none;
+    }
+    @media screen and (max-width: 900px) {
+        display: initial;
+    }
+
+    &:hover {
+        transition: 0.1s ease-in-out;
+        scale: 1.1;
+    }
+`;
+
+export const RouterNavCreateButtonLink = styled(RouterNavLeaderboardButtonLink)`
+    @media screen and (max-width: 1250px) {
+        display: none;
+    }
+
+    @media screen and (max-width: 900px) {
+        display: initial;
+    }
+`;
+
 // export const NavBtnLink = styled.a`
 //   border-radius: 50px;
 //   background: #20c20e;

@@ -12,7 +12,7 @@ export const SponsorsContainer = styled.div`
     color: #fff;
 `;
 
-export const SponsorsH1 = styled.p`
+export const SponsorsH1 = styled.div`
     display: flex;
     text-align: center;
     align-items: center;

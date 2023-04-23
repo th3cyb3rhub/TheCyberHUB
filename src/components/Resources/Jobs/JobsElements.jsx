@@ -34,7 +34,7 @@ export const ScrollButton = styled(Button)`
 
 export const JobSection = styled.section`
     color: #cecac3;
-    max-width: 1400px;
+    max-width: 1500px;
     width: 100%;
 
     & div.grid {

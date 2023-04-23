@@ -1,26 +1,39 @@
 import React, { useEffect } from "react";
 import { ExpContainer, ExpIcon, ExpText } from "./ExpElemenets";
 import { useDispatch, useSelector } from "react-redux";
-import { getBlogs, reset } from "../../features/blogs/blogSlice";
+import { getUserDetail, reset } from "../../features/userDetail/userDetailSlice";
+import { CircleSpinner } from "react-spinners-kit";
+
+export const getStreak = (userDetail) => {
+    const ActivityDates = userDetail?.solved?.map((ctf) => ctf?.flags?.map((flag) => flag?.date)).flat() || [];
+    const visitTimestamps = userDetail?.visitTimestamps || [];
+    const allDates = [...ActivityDates, ...visitTimestamps];
+    const dates = allDates.map((date) => date && date.split("T")[0]);
+    const streak = [...new Set(dates)].length || 1;
+    return streak;
+};
 
 const Exp = () => {
     const dispatch = useDispatch();
-    const { blogs } = useSelector((state) => state.blogs);
-    const { user } = useSelector((state) => state.auth);
+    const {
+        userDetail,
+        isLoading,
+        // isError, message
+    } = useSelector((state) => state.userDetail);
 
     useEffect(() => {
-        if (user) {
-            dispatch(getBlogs());
-        }
+        dispatch(getUserDetail);
         return () => dispatch(reset());
     }, [dispatch]);
 
-    const userBlogs = blogs.filter((blog) => blog.username === user?.username);
+    const exp = userDetail?.exp || 0;
+
+    if (isLoading) return <CircleSpinner size={20} color="#09ff1b" loading={isLoading} />;
 
     return (
         <ExpContainer>
-            <ExpText> {user ? userBlogs.length * 50 : 0} </ExpText>
-            <ExpIcon />
+            <ExpText> {exp} XP </ExpText> --
+            <ExpText> {getStreak(userDetail)} </ExpText> <ExpIcon />
         </ExpContainer>
     );
 };

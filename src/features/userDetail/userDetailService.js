@@ -23,6 +23,15 @@ const getUserDetail = async (username) => {
     return response.data;
 };
 
+const getAllUserDetails = async () => {
+    try {
+        const response = await axios.get(API_URL + "get/all");
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 // Delete user userDetail
 const deleteUserDetail = async (userDetailId, token) => {
     const config = {
@@ -52,6 +61,7 @@ const userDetailService = {
     getUserDetail,
     deleteUserDetail,
     updateUserDetail,
+    getAllUserDetails,
 };
 
 export default userDetailService;

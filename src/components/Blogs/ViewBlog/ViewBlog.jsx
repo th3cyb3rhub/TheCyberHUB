@@ -22,7 +22,8 @@ import PreviewMarkdown from "./PreviewMarkdown";
 import BlogComments from "../Comments/BlogComments";
 import { toast } from "react-toastify";
 import { CircleSpinner } from "react-spinners-kit";
-import { getCDNUrl } from "../../../features/apiUrl";
+import { getCDNUrlContent } from "../../../features/apiUrl";
+import { RouterLink } from "../../Beta/Tools/ToolsElements";
 
 const ViewBlog = () => {
     const { title } = useParams();
@@ -62,7 +63,7 @@ const ViewBlog = () => {
         year: "numeric",
     }).format(blogUnFormattedDate);
 
-    const API_URL = getCDNUrl;
+    const API_URL = getCDNUrlContent;
     const coverImage = blog?.coverImage;
     const coverImageUrl = `${API_URL}/images/blog/${coverImage}`;
 
@@ -84,7 +85,7 @@ const ViewBlog = () => {
                     </BlogImageContainer>
                     <BlogTitle> {blog?.title} </BlogTitle>
                     <UsernameAndDate>
-                        @{blog?.username} | {blogCreatedAt}
+                        <RouterLink to={`/@${blog?.username}`}>@{blog?.username}</RouterLink> • {blogCreatedAt}
                     </UsernameAndDate>
                     <ContentSection>
                         <PreviewMarkdown content={blog?.content} />

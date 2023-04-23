@@ -74,6 +74,7 @@ const Sidebar = (props) => {
                             { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
                             { to: "blogs", title: "Blogs", dropdown: "blogs" },
                             { to: "tools", title: "Tools", dropdown: "tools" },
+                            { to: "ctf", title: "CTF", dropdown: "ctf" },
                             {
                                 title: (
                                     <>
@@ -83,8 +84,6 @@ const Sidebar = (props) => {
                                 ),
                                 dropdown: "resources",
                             },
-                            // { to: "jobs", title: "Jobs", dropdown: "jobs" },
-                            { to: "community", title: "Community", dropdown: "community" },
                             { to: "support", title: "Support", dropdown: "support" },
                         ].map(({ to, title, dropdown }) => (
                             <NavItem onClick={() => dropHandler(dropdown)} key={dropdown}>
@@ -104,6 +103,7 @@ const Sidebar = (props) => {
                         {/*    <SidebarRedirectLink target={"_blank"} href={"https://thecyber-sec.com"}> */}
                         {/*        Our Services */}
                         {/*    </SidebarRedirectLink> */}
+                        <RouterButtonLink to={"/leaderboard"}> Leaderboard </RouterButtonLink>
                         <RouterButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterButtonLink>
                     </SideBtnWrap>
                 </SidebarWrapper>

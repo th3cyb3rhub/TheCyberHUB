@@ -1,6 +1,6 @@
 import React from "react";
 import EventsData from "./EventsData/EventsData";
-import CTFData from "../../Other/CyberGames/CTF/CTFData";
+import CTFDataOld from "../../Other/CyberGames/CTF/CTFDataOld";
 import PastEvents from "./PastEvents/PastEvents";
 import OnGoingEvents from "./OnGoingEvents/OnGoingEvents";
 import UpComingEvents from "./UpComingEvents/UpComingEvents";
@@ -26,7 +26,7 @@ function formatDate(date) {
 }
 
 const Events = () => {
-    const allEvents = [...EventsData, ...CTFData].sort(
+    const allEvents = [...EventsData, ...CTFDataOld].sort(
         (a, b) => new Date(a.validationDate) - new Date(b.validationDate),
     );
 

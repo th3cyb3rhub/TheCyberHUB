@@ -98,14 +98,14 @@ export const FooterDetailsSection = styled.div`
     padding: 5px 5px 5px 0;
 `;
 
-export const Title = styled.h3`
+export const Title = styled.div`
     word-wrap: break-word;
     @media screen and (max-width: 600px) {
         font-size: 13px;
     }
 `;
 
-export const Description = styled.p`
+export const Description = styled.div`
     word-wrap: break-word;
     @media screen and (max-width: 600px) {
         font-size: 11px;
@@ -124,7 +124,7 @@ export const Date = styled.p`
     font-size: 10px;
     margin: 0 5px 0 0;
 `;
-export const Categories = styled.p`
+export const Categories = styled.div`
     margin-left: 25px;
     display: flex;
     flex-wrap: wrap;

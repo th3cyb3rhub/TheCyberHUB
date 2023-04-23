@@ -76,21 +76,19 @@ const EmailNotVerified = ({ user }) => {
         return () => window.removeEventListener("scroll", changeNav);
     }, []);
 
-    return (
+    return !isLoading && !userVerified ? (
         <EmailNotVerifiedContainer scrollNav={scrollNav}>
-            {!isLoading && !userVerified ? (
-                <EmailNotVerifiedText>
-                    Email Verification link has been sent, please verify it.
-                    {!isCounting ? (
-                        <ResendButton onClick={resendEmail}> Resend </ResendButton>
-                    ) : (
-                        <ResendButton> Retry after {timeLeft >= 0 ? timeLeft : 0} </ResendButton>
-                    )}
-                    {message && <div style={{ color: "cornflowerblue" }}>{message}</div>}
-                </EmailNotVerifiedText>
-            ) : null}
+            <EmailNotVerifiedText>
+                Email Verification link has been sent, please verify it.
+                {!isCounting ? (
+                    <ResendButton onClick={resendEmail}> Resend </ResendButton>
+                ) : (
+                    <ResendButton> Retry after {timeLeft >= 0 ? timeLeft : 0} </ResendButton>
+                )}
+                {message && <div style={{ color: "cornflowerblue" }}>{message}</div>}
+            </EmailNotVerifiedText>
         </EmailNotVerifiedContainer>
-    );
+    ) : null;
 };
 
 export default EmailNotVerified;

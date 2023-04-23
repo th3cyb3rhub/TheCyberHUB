@@ -58,17 +58,17 @@ const FreeCourse = () => {
                     <>
                         <LeftContainer>
                             <ContentNavigation>
-                                {LearningPathData.map((data) => (
-                                    <ContentList key={data.id}>
-                                        {data?.weeks.map((week) => (
-                                            <Weeks key={week.week}>
+                                {LearningPathData.map((data, index) => (
+                                    <ContentList key={index}>
+                                        {data?.weeks.map((week, index) => (
+                                            <Weeks key={index}>
                                                 <h2>{week.week}</h2>
-                                                {week?.days.map((days) => (
-                                                    <Days key={days.id}>
+                                                {week?.days.map((days, index) => (
+                                                    <Days key={index}>
                                                         <h3>{days.day}</h3>
-                                                        {days.contents.map((content) => (
+                                                        {days.contents.map((content, index) => (
                                                             <TopicBox
-                                                                key={content.id}
+                                                                key={index}
                                                                 onClick={() => handleHeadingClick(content.heading)}
                                                                 isSelected={content.heading === selectedContent}
                                                             >

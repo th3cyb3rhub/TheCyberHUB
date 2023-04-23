@@ -72,7 +72,7 @@ const SkillSet = ({ skills, setUserDetailData, isEdit }) => {
                                 </RemoveButton>
                             </AchievementLink>
                         ))}
-                    {isEdit && updatedSkills.length >= 0 && (
+                    {isEdit && updatedSkills.length > 0 && (
                         <AddButtonSection onClick={handleAddTitle}>
                             <IconAdd />
                         </AddButtonSection>

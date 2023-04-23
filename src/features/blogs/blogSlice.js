@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import blogService from "./blogService";
 
 const initialState = {
@@ -50,7 +50,6 @@ export const getAllBlogs = createAsyncThunk("blogs/getAllBlogs", async (_, thunk
     try {
         return await blogService.getAllBlogs();
     } catch (error) {
-        console.error(error);
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
         return thunkAPI.rejectWithValue(message);
@@ -168,6 +167,11 @@ export const blogSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.blogs = action.payload;
+            })
+            .addCase(getAllBlogs.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
             })
             .addCase(deleteBlog.pending, (state) => {
                 state.isLoading = true;

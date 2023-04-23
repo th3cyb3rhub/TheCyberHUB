@@ -63,7 +63,9 @@ export const Container = styled.div`
     align-items: center;
     flex-direction: column;
 `;
-export const Heading2 = styled.h2``;
+export const Heading2 = styled.h2`
+    color: #fff;
+`;
 export const Heading3 = styled.h3``;
 export const ImageSelected = styled.p`
     //margin-left: 25px;
@@ -175,11 +177,13 @@ export const Submit = styled.button`
 `;
 
 export const RouterButtonLink = styled(Link)`
-    background: #1a1c1d;
+    height: fit-content;
+    background: #111111;
     border-radius: 5px;
     color: #0bff0b;
     padding: 5px 15px;
     margin: 5px 15px;
+
     @media screen and (max-width: 600px) {
         font-size: 12px;
     }

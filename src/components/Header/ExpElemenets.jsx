@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GiMineExplosion } from "react-icons/all";
+import { MdOutlineLocalFireDepartment } from "react-icons/all";
 
 export const ExpContainer = styled.div`
     display: flex;
@@ -16,10 +16,10 @@ export const ExpContainer = styled.div`
     }
 `;
 
-export const ExpIcon = styled(GiMineExplosion)`
+export const ExpIcon = styled(MdOutlineLocalFireDepartment)`
     color: #09ff1b;
-    margin: 0 10px;
-    font-size: 1.5rem;
+    margin: 0 5px;
+    font-size: 1.2rem;
 `;
 export const ExpText = styled.p`
     color: #09ff1b;

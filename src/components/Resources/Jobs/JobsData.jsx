@@ -305,7 +305,7 @@ export const JobsData = [
     {
         id: "Next.js Internship",
         status: "new",
-        jobTitle: "Next.js Internship for Web Extension Development",
+        jobTitle: "Next.js Internship",
         jobRoleTitle: "Next.js Developer",
         jobRating: (
             <>

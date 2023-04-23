@@ -10,7 +10,7 @@ import {
     JobDetailsReq,
     JobDetailsRole,
     JobDetailsRoleTitle,
-    JobDetailsTimeline,
+    // JobDetailsTimeline,
     JobDetailsTitle,
     List,
     ListContainer,
@@ -77,13 +77,13 @@ export default function JobDetailsPage(props) {
                 </ListContainer>
             </JobDetailsReq>
             <JobDescSection>{props.jobDesc2}</JobDescSection>
-            <JobDetailsTimeline>
-                <span>{props.jobTimeline.datePosted}</span>
-                <span className="dot">{props.jobTimeline.separator}</span>
-                <span>
-                    From <span className="remote">{props.jobTimeline.directory}</span>
-                </span>
-            </JobDetailsTimeline>
+            {/* <JobDetailsTimeline> */}
+            {/*    <span>{props.jobTimeline.datePosted}</span> */}
+            {/*    <span className="dot">{props.jobTimeline.separator}</span> */}
+            {/*    <span> */}
+            {/*        From <span className="remote">{props.jobTimeline.directory}</span> */}
+            {/*    </span> */}
+            {/* </JobDetailsTimeline> */}
         </JobDetailsContainer>
     );
 }

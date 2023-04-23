@@ -2,21 +2,22 @@
 // const cdnUrl = import.meta.env.VITE_CDN_URL;
 // const webEnv = import.meta.env.VITE_WEB_ENV;
 // const apiUrl = "https://dev.api.thecyberhub.org";
-const apiUrl = "https://api.thecyberhub.org";
+const apiUrl = import.meta.env.VITE_API_URL || "https://api.thecyberhub.org";
 // const apiUrl = "https://api-thecyberhub-org.azurewebsites.net";
 // const cdnUrl = "https://thecyberhub.nyc3.cdn.digitaloceanspaces.com";
 const cdnUrl = "https://thecyberhubstorage.blob.core.windows.net";
 const localUrl = "http://localhost:5000";
 
-// export const webEnv = "local";
-export const webEnv = "production";
+export const webEnv = import.meta.env.VITE_WEB_ENV || "production";
 
-// let webEnv;
-// if (window.location.hostname === "localhost") {
-//     webEnv = "local";
-// } else if (window.location.hostname === "thecyberhub.org") {
-//     webEnv = "production";
-// }
+let cdnUrlContent;
+if (webEnv === "localhost" || webEnv === "development") {
+    cdnUrlContent = "https://thecyberhubstorage.blob.core.windows.net/development";
+} else if (webEnv === "security") {
+    cdnUrlContent = "https://thecyberhubstorage.blob.core.windows.net/security";
+} else {
+    cdnUrlContent = "https://thecyberhubstorage.blob.core.windows.net";
+}
 
 export const getApiUrl = (props) => {
     if (webEnv === "production") {
@@ -27,3 +28,4 @@ export const getApiUrl = (props) => {
 };
 
 export const getCDNUrl = cdnUrl;
+export const getCDNUrlContent = cdnUrlContent;

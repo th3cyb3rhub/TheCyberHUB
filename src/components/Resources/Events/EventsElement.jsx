@@ -95,7 +95,7 @@ export const EventsHeadingMedium = styled.h2`
 export const EventsHeadingSmall = styled.h3`
     margin: 0 0 10px 0;
 `;
-export const EventsSubHeading = styled.h4`
+export const EventsSubHeading = styled.div`
     margin: 5px 0 10px 0;
     color: #777777;
 `;

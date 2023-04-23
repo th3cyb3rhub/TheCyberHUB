@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createBlog } from "../../../../features/blogs/blogSlice";
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
-import { useNavigate } from "react-router-dom";
 import { reset } from "../../../../features/goals/goalSlice";
 import {
     AddCoverImageSection,
@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 import PreviewBlogContent from "../../PreviewBlogContent";
 import { Button, PreviewIcon, PreviewSection } from "../../../Beta/Forum/ForumSubPageElements";
-import { getApiUrl, getCDNUrl } from "../../../../features/apiUrl";
+import { getApiUrl, getCDNUrlContent } from "../../../../features/apiUrl";
 import BlogPostForm from "../BlogPostForm";
 import { toast } from "react-toastify";
 
@@ -80,7 +80,7 @@ const CreateBlog = () => {
             formData.append("fileName", `${fileName}`);
             const API_URL = getApiUrl("api/upload");
             await axios.post(API_URL, formData);
-            const newImageUrl = `${getCDNUrl}/images/blog/${fileName}`;
+            const newImageUrl = `${getCDNUrlContent}/images/blog/${fileName}`;
             setBlogData((prevState) => ({
                 ...prevState,
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
@@ -129,7 +129,7 @@ const CreateBlog = () => {
             formData.append("fileName", `${fileName}`);
             const API_URL = getApiUrl("api/upload");
             await axios.post(API_URL, formData);
-            const newImageUrl = `${getCDNUrl}/images/blog/${fileName}`;
+            const newImageUrl = `${getCDNUrlContent}/images/blog/${fileName}`;
             setBlogData((prevState) => ({
                 ...prevState,
                 content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
@@ -149,23 +149,23 @@ const CreateBlog = () => {
         const value = e.target.value;
         // if (e.target.name === "tags") value = value.split(",").map((tag) => tag.trim());
 
-        if (file) {
-            if (e.target.name === "title") {
-                const newFile = new File(
-                    [file],
-                    `${
-                        value &&
-                        value
-                            .toLowerCase()
-                            .replace(/ +/g, "_")
-                            .replace(/[^a-zA-Z0-9]/g, "_")
-                            .replace(/_+/g, "_")
-                    }_by_${user.username}.${file && file.type.split("/")[1]}`,
-                    { type: file && file.type },
-                );
-                setFile(newFile);
-            }
-        }
+        // if (file) {
+        //     if (e.target.name === "title") {
+        //         const newFile = new File(
+        //             [file],
+        //             `${
+        //                 value &&
+        //                 value
+        //                     .toLowerCase()
+        //                     .replace(/ +/g, "_")
+        //                     .replace(/[^a-zA-Z0-9]/g, "_")
+        //                     .replace(/_+/g, "_")
+        //             }_by_${user.username}.${file && file.type.split("/")[1]}`,
+        //             { type: file && file.type },
+        //         );
+        //         setFile(newFile);
+        //     }
+        // }
         setBlogData((prevState) => ({
             ...prevState,
             [e.target.name]: value,
@@ -173,7 +173,9 @@ const CreateBlog = () => {
     };
     const onFileChange = (e) => {
         const file = e.target.files[0];
-        setFileName(file.name);
+        const currentDateTimeNumber = new Date().getTime();
+        const fileName = `${currentDateTimeNumber}.${file && file.type.split("/")[1]}`;
+        setFileName(fileName);
         if (!file) return;
         if (!file.type.startsWith("image/")) {
             toast.error("Invalid file type. Only images are allowed.");
@@ -185,19 +187,8 @@ const CreateBlog = () => {
         }
         const reader = new FileReader();
         reader.onloadend = () => {
-            const newFile = new File(
-                [reader.result],
-                `${
-                    title &&
-                    title
-                        .trim()
-                        .toLowerCase()
-                        .replace(/ +/g, "_")
-                        .replace(/[^a-zA-Z0-9]/g, "_")
-                        .replace(/_+/g, "_")
-                }_by_${user.username}.${file && file.type.split("/")[1]}`,
-                { type: file && file.type },
-            );
+            setFile();
+            const newFile = new File([reader.result], fileName, { type: file && file.type });
             setFile(newFile);
         };
         reader.readAsArrayBuffer(file);
@@ -207,6 +198,9 @@ const CreateBlog = () => {
     };
     const onSubmit = async (e) => {
         e.preventDefault();
+        const ImageName = file.name.split(".")[0];
+        const ImageExt = file.name.split(".")[1];
+        const ImageNameWithExt = `${ImageName}cover.${ImageExt}`;
 
         if (title !== " ") {
             const blog = blogs.find((blog) => blog.username === user.username && blog.title === title);
@@ -219,14 +213,14 @@ const CreateBlog = () => {
         let multipleTags = tags.split(",");
         multipleTags = multipleTags.map((tag) => tag.trim());
         if (title !== "" && content !== "" && file && tags.length !== 0) {
-            const blogData = { title: title.trim(), content, coverImage: file.name, tags: multipleTags };
+            const blogData = { title: title.trim(), content, coverImage: ImageNameWithExt, tags: multipleTags };
             dispatch(createBlog(blogData));
             setInSuccess(true);
 
             const formData = new FormData();
             formData.append("image", file);
             formData.append("folderName", "images/blog");
-            formData.append("fileName", `${fileName}`);
+            formData.append("fileName", `${ImageNameWithExt}`);
 
             try {
                 const API_URL = getApiUrl("api/upload");

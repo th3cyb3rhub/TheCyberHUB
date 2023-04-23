@@ -43,29 +43,36 @@ import Tools from "./components/Beta/Tools/Tools";
 import BreachCheck from "./components/Beta/Tools/BreachCheck/BreachCheck";
 import EmailNotVerified from "./components/Dashboard/EmailNotVerified";
 import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ContactForm from "./components/ContactForm/ContactForm";
 import TermsAndCondition from "./components/Resources/TermsAndCondition";
 import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
 import FormData from "./components/Dashboard/FormData/FormData";
 import SubdomainFinder from "./components/Beta/Tools/SubdomainFinder/SubdomainFinder";
 import UserProfile from "./components/Dashboard/Profile/UserProfile";
+import SingleCTF from "./components/Other/CyberGames/CTF/SingleCTF/SingleCTF";
+import { updateUserDetail } from "./features/userDetail/userDetailSlice";
+import CreateCTF from "./components/Other/CyberGames/CTF/CreateCTF";
+import Leaderboard from "./components/Other/CyberGames/Leaderboard/Leaderboard";
 
 const App = () => {
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [showWebsite, setShowWebsite] = useState(false);
     const { pathname } = useLocation();
 
     useEffect(() => {
-        setIsLoading(true);
-        setShowWebsite(false);
-
-        setTimeout(() => {
+        const timeout1 = setTimeout(() => {
             setIsLoading(false);
         }, 5000);
-        setTimeout(() => {
+        const timeout2 = setTimeout(() => {
             setShowWebsite(true);
         }, 3000);
+
+        return () => {
+            clearTimeout(timeout1);
+            clearTimeout(timeout2);
+        };
     }, []);
 
     const showFooter = () => {
@@ -78,12 +85,18 @@ const App = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+
     const { user } = useSelector((state) => state.auth);
+    useEffect(() => {
+        if (user) {
+            dispatch(updateUserDetail({ id: user._id, userData: { visitTimestamps: new Date() } }));
+        }
+    }, [dispatch]);
 
     if (isLoading) return <Spinner />;
     if (showWebsite)
         return (
-            <div>
+            <>
                 <Container>
                     {showFooter() && (
                         <>
@@ -115,6 +128,8 @@ const App = () => {
                             <Route exact path={"/contact"} element={<ContactForm />} />
                             <Route exact path={"/login"} element={<Login />} />
                             <Route exact path={"/register"} element={<Register />} />
+                            <Route exact path={"/leaderboard"} element={<Leaderboard />} />
+
                             <Route exact path={"/@:username"} element={<UserProfile />} />
                             {/* <Route exact path={"/profile/edit"} element={<EditProfile />} /> */}
 
@@ -135,6 +150,11 @@ const App = () => {
                                 <Route path={":slug"} element={<Event />} />
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
+                            <Route path={"/CTF/*"}>
+                                <Route index element={<CTF />} />
+                                <Route path={":ctfId"} element={<SingleCTF />} />
+                                <Route path={"*"} element={<NotFound />} />
+                            </Route>
                             <Route exact path={"/community"} element={<Community />} />
                             <Route exact path={"/support"} element={<Sponsors />} />
                             <Route exact path={"/about"} element={<About />} />
@@ -144,13 +164,13 @@ const App = () => {
 
                             <Route exact path={"/ctf"}>
                                 <Route index element={<CTF />} />
+                                <Route path={"create"} element={<CreateCTF />} />
                                 {/* <Route path={"certificate"} element={<CertificatePage />} /> */}
                                 <Route path={"certificate/:id"} element={<CertificateCard />} />
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
 
                             <Route exact path={"/CyberGames"} element={<CyberGames />} />
-                            <Route exact path={"/CTF"} element={<CTF />} />
                             <Route exact path={"/OSINT"} element={<OSINTGame />} />
                             <Route exact path={"/freeCourse"} element={<LearningPath />} />
 
@@ -190,7 +210,7 @@ const App = () => {
                     {showFooter() && <Footer />}
                 </Container>
                 <ToastContainer />
-            </div>
+            </>
         );
 };
 
