@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { EmailNotVerifiedContainer, EmailNotVerifiedText, ResendButton } from "./EmailNotVerifiedElements";
 import axios from "axios";
 import { getApiUrl } from "../../features/apiUrl";
-import { useUserData } from "./checkUserVerified";
+// import { useUserData } from "./checkUserVerified";
 
 const EmailNotVerified = ({ user }) => {
     if (!user) {
@@ -23,7 +23,7 @@ const EmailNotVerified = ({ user }) => {
         }, 2000);
     }, []);
 
-    const userVerified = useUserData({ user }).isVerified;
+    const userVerified = user.isVerified;
 
     useEffect(() => {
         let intervalId = null;

@@ -31,7 +31,7 @@ export const InterviewsQuestionsCard = styled.div`
     background: #0a0a0a;
     border: #383838 1px solid;
     border-radius: 3px;
-    padding: 5px 15px;
+    padding: 10px 15px;
     transition: all 0.3s ease-in-out;
 `;
 
@@ -41,11 +41,18 @@ export const InterviewsQuestionsHeading = styled.h2`
     font-size: 25px;
     width: 100%;
 `;
+export const InterviewsAnswerQuestionsHeading = styled.h2`
+    margin: 10px 0px;
+    color: #17f31e;
+    font-size: 25px;
+    width: 100%;
+`;
 
 export const SingleQuestion = styled.p`
     margin: 0 10px;
     color: #17f31e;
     font-size: 1rem;
+
     &:hover {
         color: #0a0a0a;
     }
@@ -60,6 +67,7 @@ export const InterviewsQuestionsTitle = styled.div`
     padding: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    color: #e1e1e1;
 
     &:hover {
         background: #17f31e;
@@ -74,11 +82,11 @@ export const AnswerContainer = styled.div`
     justify-content: start;
     text-align: left;
     width: 100%;
-    color: white;
+    color: #cccccc;
     background: #0a0a0a;
     border: #383838 1px solid;
     border-radius: 3px;
-    padding: 5px 15px;
+    padding: 10px 15px;
     transition: all 0.3s ease-in-out;
     position: sticky;
     height: auto;

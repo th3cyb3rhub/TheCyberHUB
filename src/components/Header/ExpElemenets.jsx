@@ -3,13 +3,19 @@ import { MdOutlineLocalFireDepartment } from "react-icons/all";
 
 export const ExpContainer = styled.div`
     display: flex;
-    align-items: center;
     justify-content: flex-end;
+    align-items: center;
     background: transparent;
+    width: 100%;
+    max-width: 100px;
+    gap: 15px;
+
     @media screen and (max-width: 900px) {
-        margin-right: 30px;
     }
     @media screen and (max-width: 768px) {
+    }
+    @media screen and (max-width: 400px) {
+        font-size: 12px;
     }
     @media screen and (max-width: 350px) {
         display: none;
@@ -20,7 +26,27 @@ export const ExpIcon = styled(MdOutlineLocalFireDepartment)`
     color: #09ff1b;
     margin: 0 5px;
     font-size: 1.2rem;
+    @media screen and (max-width: 400px) {
+        font-size: 12px;
+    }
 `;
-export const ExpText = styled.p`
+export const ExpText = styled.div`
     color: #09ff1b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+`;
+export const StreakText = styled.div`
+    color: #09ff1b;
+    display: flex;
+    align-items: center;
+`;
+
+export const SideOptionsContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: transparent;
 `;

@@ -35,7 +35,7 @@ export const Nav = styled.nav`
 `;
 
 export const NavbarContainer = styled.div`
-    margin: 0 10px;
+    //margin: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,9 +47,14 @@ export const NavbarContainer = styled.div`
 
 export const NavUsersDetailsSection = styled.div`
     display: flex;
-    justify-content: end;
-    min-width: 200px;
+    align-items: center;
+    justify-content: flex-end;
     background: transparent;
+
+    //width: 100%;
+    @media screen and (max-width: 450px) {
+        //max-width: 125px;
+    }
 `;
 export const NavLogoRouter = styled(LinkRouter)`
     display: flex;
@@ -60,11 +65,13 @@ export const NavLogoRouter = styled(LinkRouter)`
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
+    //min-width: 200px;
 `;
 
 export const NavLogo = styled.img`
-    height: 60px;
+    height: 50px;
     cursor: pointer;
+    max-width: 250px;
 
     @media screen and (max-width: 880px) {
         margin: 0;
@@ -82,23 +89,25 @@ export const NavLogo = styled.img`
 
 export const MobileIcon = styled.div`
     display: none;
+
     @media screen and (max-width: 900px) {
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(-100%, 60%);
+        display: flex;
+        //display: block;
+        //position: absolute;
+        //top: 0;
+        //right: 0;
+        //transform: translate(-100%, 60%);
         font-size: 1.5rem;
         cursor: pointer;
         color: #fff;
-        margin-top: 3px;
-        margin-right: 35px;
+        //margin-top: 3px;
+        //margin-right: 35px;
     }
     @media screen and (max-width: 340px) {
-        display: inline-flex;
-        justify-content: center;
-        text-align: center;
-        margin-top: 60px;
+        //display: inline-flex;
+        //justify-content: center;
+        //text-align: center;
+        //margin-top: 60px;
     }
 `;
 

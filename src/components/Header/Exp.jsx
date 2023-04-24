@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ExpContainer, ExpIcon, ExpText } from "./ExpElemenets";
+import { ExpContainer, ExpIcon, ExpText, StreakText } from "./ExpElemenets";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetail, reset } from "../../features/userDetail/userDetailSlice";
 import { CircleSpinner } from "react-spinners-kit";
@@ -32,8 +32,11 @@ const Exp = () => {
 
     return (
         <ExpContainer>
-            <ExpText> {exp} XP </ExpText> --
-            <ExpText> {getStreak(userDetail)} </ExpText> <ExpIcon />
+            <ExpText> {exp} XP </ExpText>
+            <StreakText>
+                {" "}
+                {getStreak(userDetail)} <ExpIcon />{" "}
+            </StreakText>
         </ExpContainer>
     );
 };

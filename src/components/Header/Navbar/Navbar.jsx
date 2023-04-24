@@ -19,6 +19,7 @@ import Dropdown from "../Dropdowns/Dropdown";
 import UserOptions from "../UserOptions/UserOptions";
 import { FaBars } from "react-icons/all";
 import { getCDNUrl } from "../../../features/apiUrl";
+import { SideOptionsContainer } from "../ExpElemenets";
 import Exp from "../Exp";
 
 const logo = `${getCDNUrl}/images/assets/images/WebsiteLogo/ThecyberhubLogo.png`;
@@ -64,9 +65,6 @@ const Navbar = ({ isOpen, toggle }) => {
     return (
         <Nav onMouseLeave={() => setDrop(false)} scrollNav={scrollNav}>
             <NavbarContainer>
-                <MobileIcon onClick={toggle}>
-                    <FaBars />
-                </MobileIcon>
                 <NavLogoRouter to={"/"} onClick={toggleHome}>
                     <NavLogo src={logo} />
                 </NavLogoRouter>
@@ -107,7 +105,13 @@ const Navbar = ({ isOpen, toggle }) => {
                 </NavButtonsSection>
                 <NavUsersDetailsSection>
                     <Exp />
-                    <UserOptions />
+                    <SideOptionsContainer>
+                        <MobileIcon onClick={toggle}>
+                            {" "}
+                            <FaBars />{" "}
+                        </MobileIcon>
+                        <UserOptions />
+                    </SideOptionsContainer>
                 </NavUsersDetailsSection>
             </NavbarContainer>
         </Nav>

@@ -42,32 +42,34 @@ const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
                 <p>{message}</p>
             ) : (
                 <LeaderboardTable>
-                    <LeaderboardTableRow>
-                        <LeaderboardTableHeader>Flags</LeaderboardTableHeader>
-                        {flags?.map((flag, index) => (
-                            <LeaderboardTableData key={index}>{index + 1}</LeaderboardTableData>
-                        ))}
-                    </LeaderboardTableRow>
-                    {userDetails &&
-                        userDetails?.map(
-                            (user, index) =>
-                                getRegisteredUsers.includes(user.username) && (
-                                    <LeaderboardTableRow key={index}>
-                                        <LeaderboardTableHeader>{user?.username}</LeaderboardTableHeader>
-                                        {flags?.map((flag, index) => (
-                                            <LeaderboardTableData key={index}>
-                                                {user.solved.some(
-                                                    (f) =>
-                                                        f.ctfId === ctfId &&
-                                                        f.flags.some((sf) => sf.flagId === flag._id),
-                                                )
-                                                    ? "✔"
-                                                    : "✘"}
-                                            </LeaderboardTableData>
-                                        ))}
-                                    </LeaderboardTableRow>
-                                ),
-                        )}
+                    <tbody>
+                        <LeaderboardTableRow>
+                            <LeaderboardTableHeader>Flags</LeaderboardTableHeader>
+                            {flags?.map((flag, index) => (
+                                <LeaderboardTableData key={index}>{index + 1}</LeaderboardTableData>
+                            ))}
+                        </LeaderboardTableRow>
+                        {userDetails &&
+                            userDetails?.map(
+                                (user, index) =>
+                                    getRegisteredUsers.includes(user.username) && (
+                                        <LeaderboardTableRow key={index}>
+                                            <LeaderboardTableHeader>{user?.username}</LeaderboardTableHeader>
+                                            {flags?.map((flag, index) => (
+                                                <LeaderboardTableData key={index}>
+                                                    {user.solved.some(
+                                                        (solved) =>
+                                                            solved.ctfId === ctfId &&
+                                                            solved.flags.some((flags) => flags.flagId === flag._id),
+                                                    )
+                                                        ? "✔"
+                                                        : "✘"}
+                                                </LeaderboardTableData>
+                                            ))}
+                                        </LeaderboardTableRow>
+                                    ),
+                            )}
+                    </tbody>
                 </LeaderboardTable>
             )}
         </LeaderboardContainer>

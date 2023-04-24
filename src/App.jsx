@@ -7,6 +7,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import ScrollToTop from "./components/ScrollToTop";
 import Register from "./pages/Register";
+
 import {
     About,
     Blogs,
@@ -54,25 +55,21 @@ import SingleCTF from "./components/Other/CyberGames/CTF/SingleCTF/SingleCTF";
 import { updateUserDetail } from "./features/userDetail/userDetailSlice";
 import CreateCTF from "./components/Other/CyberGames/CTF/CreateCTF";
 import Leaderboard from "./components/Other/CyberGames/Leaderboard/Leaderboard";
+import checkTimestamps from "./features/checkTimestamps";
 
 const App = () => {
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [showWebsite, setShowWebsite] = useState(false);
     const { pathname } = useLocation();
 
     useEffect(() => {
-        const timeout1 = setTimeout(() => {
+        setTimeout(() => {
             setIsLoading(false);
         }, 5000);
-        const timeout2 = setTimeout(() => {
+        setTimeout(() => {
             setShowWebsite(true);
         }, 3000);
-
-        return () => {
-            clearTimeout(timeout1);
-            clearTimeout(timeout2);
-        };
     }, []);
 
     const showFooter = () => {
@@ -87,9 +84,21 @@ const App = () => {
     const toggle = () => setIsOpen(!isOpen);
 
     const { user } = useSelector((state) => state.auth);
+
+    const TodayDate = new Date().toISOString();
+    let userTimestamps;
+    if (user) {
+        userTimestamps = checkTimestamps({ user });
+    }
+
     useEffect(() => {
         if (user) {
-            dispatch(updateUserDetail({ id: user._id, userData: { visitTimestamps: new Date() } }));
+            const checkTodayTimestamp = userTimestamps?.map(
+                (timestamp) => timestamp.split("T")[0] === TodayDate.split("T")[0],
+            );
+            if (!checkTodayTimestamp?.includes(true)) {
+                dispatch(updateUserDetail({ id: user._id, userData: { visitTimestamps: TodayDate } }));
+            }
         }
     }, [dispatch]);
 
@@ -104,7 +113,7 @@ const App = () => {
                             <Navbar toggle={toggle} />
                         </>
                     )}
-                    {user ? <EmailNotVerified user={user} /> : null}
+                    {user && !user.isVerified ? <EmailNotVerified user={user} /> : null}
                     <ScrollToTop>
                         <Routes>
                             <Route index exact path={"/"} element={<Homepage />} />

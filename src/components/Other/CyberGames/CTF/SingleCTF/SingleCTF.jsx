@@ -135,13 +135,12 @@ const SingleCTF = () => {
                                                 : challenge?.likes.length}
                                         </LikesContainer>
                                         <ViewsContainer>
-                                            {" "}
                                             <AiFillEye /> {uniqueIds.length}{" "}
                                         </ViewsContainer>
                                     </LikesAndViewsContainer>
                                     <CTFLeaderboard
                                         registeredUsers={registeredUsers}
-                                        ctfId={ctfId}
+                                        ctfId={challenge?._id}
                                         flags={challenge?.flags}
                                     />
                                     {/* <Team team={teams[0]} isTeamEdit={isTeamEdit}/> */}

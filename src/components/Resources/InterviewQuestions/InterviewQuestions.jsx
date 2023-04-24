@@ -4,6 +4,7 @@ import {
     BackArrowSection,
     InterviewQuestionContainer,
     InterviewQuestionSection,
+    InterviewsAnswerQuestionsHeading,
     InterviewsQuestionsCard,
     InterviewsQuestionsHeading,
     InterviewsQuestionsTitle,
@@ -92,9 +93,9 @@ const InterviewQuestions = () => {
                             <BackArrowSection>
                                 <BackArrow onClick={handleIsShown} />
                             </BackArrowSection>
-                            <InterviewsQuestionsHeading>
+                            <InterviewsAnswerQuestionsHeading>
                                 {selectedQuestion && <h4>{selectedQuestion}</h4>}
-                            </InterviewsQuestionsHeading>
+                            </InterviewsAnswerQuestionsHeading>
                             {selectedAnswer && selectedAnswer.length > 0 ? <p>{selectedAnswer}</p> : "Coming soon"}
                         </AnswerContainer>
                     </>
