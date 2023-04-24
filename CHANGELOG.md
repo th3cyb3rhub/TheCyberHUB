@@ -1,3 +1,12 @@
+## [0.37.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.37.0...v0.37.1) (2023-04-24)
+
+
+### Bug Fixes
+
+* Minor Updates abour ctf and design of interview questions ([#410](https://github.com/thecyberworld/thecyberhub.org/issues/410)) ([df5009e](https://github.com/thecyberworld/thecyberhub.org/commit/df5009e536c434778a04fe92f92842cdfc57ecb2))
+
+
+
 # [0.37.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.36.0...v0.37.0) (2023-04-23)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * CTF ([#401](https://github.com/thecyberworld/thecyberhub.org/issues/401)) ([eb28b07](https://github.com/thecyberworld/thecyberhub.org/commit/eb28b0700961546369ee1e4f01a2bfb007d8535a))
-
-
-
-## [0.34.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.34.0...v0.34.1) (2023-04-14)
-
-
-### Bug Fixes
-
-* errors ([#395](https://github.com/thecyberworld/thecyberhub.org/issues/395)) ([ecbccd0](https://github.com/thecyberworld/thecyberhub.org/commit/ecbccd034562af1959ed33f49459c34f00155942))
 
 
 
