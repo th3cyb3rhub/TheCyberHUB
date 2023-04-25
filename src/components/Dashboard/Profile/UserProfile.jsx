@@ -23,7 +23,6 @@ import { NotFound } from "../../index";
 import UserPoints from "./UserPoints/UserPoints";
 
 const UserProfile = () => {
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { userDetail, userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
@@ -87,18 +86,18 @@ const UserProfile = () => {
         }
     };
 
-    if (isLoading) {
+    if (userDetail.username === "" && userDetail.name === "") {
         return (
             <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} />
+                <NotFound />
             </Wrapper>
         );
     }
 
-    if (userDetail && userDetail.username === "" && userDetail.name === "" && userDetail.aboutMe === "") {
+    if (isLoading) {
         return (
             <Wrapper>
-                <NotFound />
+                <CircleSpinner size={20} color={"#1fc10d"} />
             </Wrapper>
         );
     }

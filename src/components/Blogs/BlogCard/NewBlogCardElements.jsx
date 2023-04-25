@@ -59,6 +59,14 @@ export const BlogCardImage = styled.img`
     max-height: 160px;
     justify-self: center;
     word-wrap: break-word;
+    font-size: 15px;
+
+    @media screen and (max-width: 700px) {
+        font-size: 12px;
+    }
+    @media screen and (max-width: 400px) {
+        font-size: 8px;
+    }
 `;
 export const MainSection = styled.div`
     display: flex;
@@ -95,18 +103,28 @@ export const FooterDetailsSection = styled.div`
     display: flex;
     align-items: end;
     justify-content: space-between;
-    padding: 5px 5px 5px 0;
+    padding: 5px 5px 15px 0;
 `;
 
 export const Title = styled.div`
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+
     word-wrap: break-word;
-    @media screen and (max-width: 600px) {
-        font-size: 13px;
+    @media screen and (max-width: 760px) {
+        font-size: 16px;
+    }
+    @media screen and (max-width: 760px) {
+        font-size: 12px;
     }
 `;
 
 export const Description = styled.div`
     word-wrap: break-word;
+    @media screen and (max-width: 760px) {
+        font-size: 14px;
+    }
     @media screen and (max-width: 600px) {
         font-size: 11px;
     }

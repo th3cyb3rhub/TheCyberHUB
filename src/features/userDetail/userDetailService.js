@@ -3,7 +3,6 @@ import { getApiUrl } from "../apiUrl";
 
 const API_URL = getApiUrl("api/userDetail/");
 
-// Create new userDetail
 const createUserDetail = async (userDetailData, token) => {
     const config = {
         headers: {
@@ -17,7 +16,6 @@ const createUserDetail = async (userDetailData, token) => {
 // Get user userDetail
 const getUserDetail = async (username) => {
     const response = await axios.get(API_URL + username);
-
     return response.data;
 };
 
@@ -37,9 +35,7 @@ const deleteUserDetail = async (userDetailId, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-
     const response = await axios.delete(API_URL + userDetailId, config);
-
     return response.data;
 };
 
