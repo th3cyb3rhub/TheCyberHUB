@@ -54,7 +54,6 @@ const InternshipCycle = ({
     internshipStartTime,
 }) => {
     const currentDate = new Date().toISOString();
-    // const currentDate = "2023-06-01T00:00:00.000Z"
     const openDate = applicationOpenDate;
     const closeDate = applicationCloseDate;
     const internCloseDate = internshipStartTime;
