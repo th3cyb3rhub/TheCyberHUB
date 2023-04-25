@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { JobContainer, JobHero, JobLocation, JobRole, JobRoleTitle, JobTitle } from "./JobsElements";
-import { Detail2 } from "./JobDetailsElements";
-import { Button, ButtonGreen } from "../CheckValuesElements";
+import { Detail2, StatusButtonNoWidth } from "./JobDetailsElements";
+// import { Button, ButtonGreen } from "../CheckValuesElements";
 
 export default function Job(props) {
     const [values, setValues] = React.useState({
@@ -44,11 +44,31 @@ export default function Job(props) {
                 <span>{props.createdAt.split("T")[1]}</span>
             </JobLocation>
             <Detail2>
-                {!props.checked ? <Button> Checked </Button> : <ButtonGreen> Checked </ButtonGreen>}
-                {!props.accepted ? <Button> Accepted </Button> : <ButtonGreen> Accepted </ButtonGreen>}
-                {!props.hired ? <Button> Hired </Button> : <ButtonGreen> Hired </ButtonGreen>}
-                {!props.resumePending ? <Button> Resume </Button> : <ButtonGreen> Resume </ButtonGreen>}
-                {!props.rejected ? <Button> Rejected </Button> : <ButtonGreen> Rejected </ButtonGreen>}{" "}
+                {!props.checked ? (
+                    <StatusButtonNoWidth> Checked </StatusButtonNoWidth>
+                ) : (
+                    <StatusButtonNoWidth style={{ color: "orange" }}> Checked </StatusButtonNoWidth>
+                )}
+                {!props.accepted ? (
+                    <StatusButtonNoWidth> Accepted </StatusButtonNoWidth>
+                ) : (
+                    <StatusButtonNoWidth style={{ color: "orange" }}> Accepted </StatusButtonNoWidth>
+                )}
+                {!props.hired ? (
+                    <StatusButtonNoWidth> Hired </StatusButtonNoWidth>
+                ) : (
+                    <StatusButtonNoWidth style={{ color: "orange" }}> Hired </StatusButtonNoWidth>
+                )}
+                {!props.resumePending ? (
+                    <StatusButtonNoWidth> Resume </StatusButtonNoWidth>
+                ) : (
+                    <StatusButtonNoWidth style={{ color: "orange" }}> Resume </StatusButtonNoWidth>
+                )}
+                {!props.rejected ? (
+                    <StatusButtonNoWidth> Rejected </StatusButtonNoWidth>
+                ) : (
+                    <StatusButtonNoWidth style={{ color: "orange" }}> Rejected </StatusButtonNoWidth>
+                )}
             </Detail2>
         </JobContainer>
     );

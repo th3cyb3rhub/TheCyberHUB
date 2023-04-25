@@ -27,11 +27,6 @@ export const CTFHeader = styled.div`
 export const CTFHeading = styled.h1`
     font-size: 5rem;
     font-style: oblique;
-
-    ::selection {
-        background-color: #17f31e;
-        color: #000;
-    }
 `;
 
 export const GetCertificateContainer = styled.div`
@@ -96,6 +91,10 @@ export const CTFCards = styled.div`
     grid-gap: 20px;
     padding: 20px;
     box-sizing: border-box;
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 `;
 export const CTFCard = styled.div`
     background: #131313;
@@ -153,7 +152,7 @@ export const CTFTags = styled.div`
     font-size: 150%;
     flex-wrap: wrap;
     word-wrap: break-word;
-    max-width: 1000px;
+    //max-width: 1000px;
     gap: 10px;
 
     @media screen and (max-width: 600px) {
@@ -169,7 +168,7 @@ export const CTFType = styled.div`
     justify-content: center;
     align-items: center;
     height: 100%;
-    max-width: 400px;
+    //max-width: 400px;
     font-size: 16px;
     background: #0c1921;
     border: #1a1c1d 1px solid;
@@ -200,7 +199,9 @@ export const CTFTag = styled.div`
     }
 `;
 
-export const CTFLink = styled(Link)``;
+export const CTFLink = styled(Link)`
+    width: 100%;
+`;
 
 export const SearchContainer = styled.div`
     display: flex;

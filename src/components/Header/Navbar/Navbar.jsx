@@ -71,9 +71,9 @@ const Navbar = ({ isOpen, toggle }) => {
                 <NavMenu>
                     {[
                         { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
+                        { to: "ctf", title: "CTF", dropdown: "ctf" },
                         { to: "tools", title: "Tools", dropdown: "tools" },
                         { to: "blogs", title: "Blogs", dropdown: "blogs" },
-                        { to: "ctf", title: "CTF", dropdown: "ctf" },
                         {
                             title: (
                                 <>
@@ -83,6 +83,7 @@ const Navbar = ({ isOpen, toggle }) => {
                             ),
                             dropdown: "resources",
                         },
+                        { to: "internship", title: "Internship", dropdown: "Internship" },
                     ].map(({ to, title, dropdown }) => (
                         <NavItem
                             onMouseEnter={() => dropHandler(dropdown)}
@@ -107,8 +108,7 @@ const Navbar = ({ isOpen, toggle }) => {
                     <Exp />
                     <SideOptionsContainer>
                         <MobileIcon onClick={toggle}>
-                            {" "}
-                            <FaBars />{" "}
+                            <FaBars />
                         </MobileIcon>
                         <UserOptions />
                     </SideOptionsContainer>

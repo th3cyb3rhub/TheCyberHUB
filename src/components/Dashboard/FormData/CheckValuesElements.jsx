@@ -10,12 +10,11 @@ export const Checkbox = styled.input`
 export const Label = styled.label``;
 
 export const Button = styled.button`
-    background: #1a1c1d;
+    background: #131313;
     color: #f4f4f4;
-    border: 1px solid #1a1c1d;
-    border-radius: 3px;
+    border: 1px solid #262626;
+    border-radius: 6px;
     font-size: 16px;
-    width: 120px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -28,11 +27,11 @@ export const Button = styled.button`
 `;
 
 export const ButtonGreen = styled.button`
-    background: #20c20e;
+    background: #ff8100;
     color: #1a1c1d;
     font-weight: 600;
     border: 1px solid #1a1c1d;
-    border-radius: 3px;
+    border-radius: 5px;
     font-size: 16px;
     margin: 5px;
     width: 120px;

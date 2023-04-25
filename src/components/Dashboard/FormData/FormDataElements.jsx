@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 export const FormDataContainer = styled.div`
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 30px;
     position: relative;
+    padding: 5px;
     z-index: 1;
     color: #666666;
+    width: 100%;
 `;
 
 export const FormDataCard = styled.div`

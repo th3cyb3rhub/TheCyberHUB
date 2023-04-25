@@ -184,12 +184,18 @@ export const Detail1 = styled.div`
 `;
 
 export const Detail2 = styled.div`
-    display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    box-sizing: border-box;
+`;
+
+export const StatusButtonNoWidth = styled.button`
+    background: #0f121e;
+    border: 1px solid #111111;
+    padding: 5px 0;
+    font-size: 15px;
+    color: #c2bbbb;
 `;
 
 export const DetailsText = styled.p`

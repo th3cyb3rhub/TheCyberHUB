@@ -64,6 +64,7 @@ export const JobsDropdownIcon = styled(FaChevronDown)`
 `;
 
 export const JobsDetailContainer = styled.div`
+    margin-top: 55px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -96,28 +97,35 @@ export const BackArrow = styled(IoMdArrowRoundBack)`
 `;
 
 export const JobsCardSection = styled.div`
-    padding: 5px;
-    display: flex;
-    min-width: 30%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 0.6rem;
+    color: #d7d7d7;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
+    grid-gap: 25px;
+    //padding: 20px;
+    box-sizing: border-box;
     cursor: pointer;
+    padding: 5px;
+
     &.active {
         max-height: 1000px;
-        overflow-y: scroll;
+        //overflow-y: scroll;
     }
 
     @media only screen and (max-width: 1000px) {
         max-height: 800px;
     }
+    @media only screen and (max-width: 400px) {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+    }
 `;
 
 export const JobsDetailSection = styled.div`
     padding: 5px;
-    min-width: 65%;
+    min-width: 60%;
     @media only screen and (max-width: 1000px) {
         min-width: 100%;
     }
@@ -126,9 +134,9 @@ export const JobsDetailSection = styled.div`
 export const JobContainer = styled.div`
     background-color: rgba(32, 194, 14, 0.04);
     width: 100%;
-    max-width: 440px;
-    min-height: 450px;
-    margin: 10px;
+    //max-width: 440px;
+    //min-height: 450px;
+    //margin: 10px;
     outline: 1px solid #2a2a2a;
     border-radius: 0.5rem;
     display: flex;
@@ -156,15 +164,16 @@ export const JobHeader = styled.div`
     align-items: start;
 
     & span.status {
-        color: orange;
+        color: greenyellow;
     }
 `;
 
 export const JobTitle = styled.h2`
-    background: linear-gradient(to right, #b1faa9, #f6dbaa);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: orange;
+    //background: linear-gradient(to right, #b1faa9, #f6dbaa);
+    //background-clip: text;
+    //-webkit-background-clip: text;
+    //-webkit-text-fill-color: transparent;
     font-size: 18px;
     font-weight: bolder;
     letter-spacing: 0.1rem;

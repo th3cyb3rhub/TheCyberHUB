@@ -67,8 +67,7 @@ const CyberNews = ({ simplified }) => {
     return (
         <CyberNewsSection>
             <SectionHeading style={{ textAlign: "center", margin: "-80px 0 50px 0" }}>
-                {" "}
-                Latest Security NEWS{" "}
+                Latest Security NEWS
             </SectionHeading>
             <InfiniteScroll
                 dataLength={cyberNews.value.length}

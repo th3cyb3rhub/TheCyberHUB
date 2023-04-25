@@ -10,6 +10,7 @@ import {
     LeaderboardTableRow,
     RefreshButton,
 } from "./CTFLeaderboardElements";
+import { RouterLink } from "../../../../Beta/Tools/ToolsElements";
 
 const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
@@ -54,7 +55,9 @@ const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
                                 (user, index) =>
                                     getRegisteredUsers.includes(user.username) && (
                                         <LeaderboardTableRow key={index}>
-                                            <LeaderboardTableHeader>{user?.username}</LeaderboardTableHeader>
+                                            <LeaderboardTableHeader>
+                                                <RouterLink to={`/@${user?.username}`}>@{user?.username}</RouterLink>
+                                            </LeaderboardTableHeader>
                                             {flags?.map((flag, index) => (
                                                 <LeaderboardTableData key={index}>
                                                     {user.solved.some(

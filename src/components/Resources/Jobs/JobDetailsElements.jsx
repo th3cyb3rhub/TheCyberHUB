@@ -35,15 +35,17 @@ export const JobDetailsHeader = styled.div`
     align-items: start;
 
     & span.status {
-        color: orange;
+        color: greenyellow;
     }
 `;
 
 export const JobDetailsTitle = styled.h2`
-    background: linear-gradient(to right, #b1faa9, #f6dbaa);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: orange;
+
+    //background: linear-gradient(to right, #b1faa9, #f6dbaa);
+    //background-clip: text;
+    //-webkit-background-clip: text;
+    //-webkit-text-fill-color: transparent;
     font-size: 18px;
     font-weight: bolder;
     letter-spacing: 0.1rem;

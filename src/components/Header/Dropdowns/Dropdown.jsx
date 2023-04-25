@@ -17,12 +17,12 @@ export default function Dropdown({ isOpen, toggle, closed, isResources, isLearn,
 
     const resources = [
         // { title: "Cyber Security Complete Course", to: "/learning-path", desc: "Learn everything about Cyber Security" },
-        { title: "Community", to: "/community", desc: "Join our community" },
-        { title: "Jobs", to: "/jobs", desc: "Find your dream job" },
-        { title: "Events", to: "/events", desc: "Find Cybersecurity Events" },
-        { title: "Quiz", to: "/quiz", desc: "Test your knowledge" },
-        { title: "Interview Questions", to: "/interviewQuestions", desc: "Prepare for your interview" },
         { title: "Roadmap", to: "/roadmaps", desc: "Guide to becoming a cybersecurity professional" },
+        { title: "Interview Questions", to: "/interviewQuestions", desc: "Prepare for your interview" },
+        { title: "Quiz", to: "/quiz", desc: "Test your knowledge" },
+        { title: "Community", to: "/community", desc: "Join our community" },
+        { title: "Events", to: "/events", desc: "Find Cybersecurity Events" },
+        { title: "Support", to: "/support", desc: "Support us" },
         // {title: "News", to: "/cyberNews", desc: "Stay up to date with the latest news"},
     ];
 

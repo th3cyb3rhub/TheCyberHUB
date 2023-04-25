@@ -26,6 +26,9 @@ import { useNavigate } from "react-router-dom";
 const FreeCourse = () => {
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
+    const selectFirstHeading = () => {
+        return LearningPathData[0].weeks[0].days[0].contents[0].heading;
+    };
     const [selectedHeading, setSelectedHeading] = useState(null);
     const [selectedContent, setSelectedContent] = useState(null);
     const [showNavigation, setShowNavigation] = useState(true);
@@ -34,6 +37,7 @@ const FreeCourse = () => {
         if (!user) {
             navigate("/");
         }
+        setSelectedHeading(selectFirstHeading);
     }, [user, navigate]);
 
     const handleHeadingClick = (heading) => {

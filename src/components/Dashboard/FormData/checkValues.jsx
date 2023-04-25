@@ -214,7 +214,7 @@ TheCyberSEC Team`,
                             placeholder="Rejected Reason"
                             value={values.rejectedReason}
                             onChange={(e) => setValues({ rejectedReason: e.target.value })}
-                        />{" "}
+                        />
                     </>
                 ) : (
                     <DetailsText>{props.rejectedReason}</DetailsText>

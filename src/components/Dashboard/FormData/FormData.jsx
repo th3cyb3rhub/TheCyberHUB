@@ -13,15 +13,9 @@ import SendEmail from "./SendEmail";
 const FormData = () => {
     // const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    console.log(user.userType);
-    if (!user || user.userType === "user" || user.userType !== "admin") {
+    if (!user || user?.userType === "user" || (user?.userType !== "admin" && user?.userType !== "team")) {
         return <NotFound />;
     }
-    // useEffect(() => {
-    //     if (user && user.userType !== "admin") {
-    //         navigate("/");
-    //     }
-    // }, [user, navigate]);
 
     const [formData, setFormData] = useState([]);
     const [errorMessage, setErrorMessage] = useState();
@@ -143,14 +137,7 @@ const FormData = () => {
                                 onClick={() => {
                                     setDetailsVisible(!detailsVisible);
                                 }}
-                                style={
-                                    detailsVisible
-                                        ? { display: "none" }
-                                        : {
-                                              overflowY: "scroll",
-                                              height: "100%",
-                                          }
-                                }
+                                style={detailsVisible ? { display: "none" } : { overflowY: "scroll", height: "100%" }}
                             >
                                 {formData.map((data) => (
                                     <Job

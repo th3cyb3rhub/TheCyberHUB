@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     AnswerContainer,
     BackArrowSection,
@@ -15,8 +15,16 @@ import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import { BackArrow } from "../Jobs/JobsElements";
 
 const InterviewQuestions = () => {
-    const [selectedQuestion, setSelectedQuestion] = useState(null);
-    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const firstQuestion = InterviewsQuestionsData[0].details[0].question;
+    const firstAnswer = InterviewsQuestionsData[0].details[0].answer;
+
+    const [selectedQuestion, setSelectedQuestion] = useState(firstQuestion);
+    const [selectedAnswer, setSelectedAnswer] = useState(firstAnswer);
+
+    useEffect(() => {
+        setSelectedQuestion(firstQuestion);
+        setSelectedAnswer(firstAnswer);
+    }, [firstQuestion, firstAnswer]);
 
     const [isShown, setIsShown] = useState(true);
     const handleIsShown = () => {
@@ -62,7 +70,7 @@ const InterviewQuestions = () => {
                                 <BackArrow onClick={handleIsShown} />
                             </BackArrowSection>
                             <InterviewsQuestionsHeading>
-                                {selectedQuestion && <h4>{selectedQuestion}</h4>}
+                                {selectedQuestion && <p>{selectedQuestion}</p>}
                             </InterviewsQuestionsHeading>
                             {selectedAnswer && selectedAnswer.length > 0 ? <p>{selectedAnswer}</p> : "Coming soon"}
                         </AnswerContainer>

@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     AnswerSection,
     QuestionButton,
@@ -69,19 +68,19 @@ export default function Categories() {
     const [questions, setQuestions] = useState(CBQQuestions);
 
     useEffect(() => {
-        if (categoryToShow == "CBQ") {
+        if (categoryToShow === "CBQ") {
             setQuestions(CBQQuestions);
-        } else if (categoryToShow == "Phishing") {
+        } else if (categoryToShow === "Phishing") {
             setQuestions(PhishingQuestions);
-        } else if (categoryToShow == "PSQ") {
+        } else if (categoryToShow === "PSQ") {
             setQuestions(PSQQuestions);
-        } else if (categoryToShow == "Ransomware") {
+        } else if (categoryToShow === "Ransomware") {
             setQuestions(RansomwareQuestions);
-        } else if (categoryToShow == "SRAQ") {
+        } else if (categoryToShow === "SRAQ") {
             setQuestions(SRAQQuestions);
-        } else if (categoryToShow == "TSSQ") {
+        } else if (categoryToShow === "TSSQ") {
             setQuestions(TSSQQuestions);
-        } else if (categoryToShow == "VSQ") {
+        } else if (categoryToShow === "VSQ") {
             setQuestions(VSQQuestions);
         }
     });

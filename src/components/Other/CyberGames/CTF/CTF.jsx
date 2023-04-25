@@ -123,34 +123,44 @@ const CTF = () => {
                 </SearchContainer>
 
                 <CTFCards>
-                    {filteredCTFs?.map((challenge, index) => (
-                        <CTFLink to={{ pathname: `/ctf/${encodeURL(challenge.challengeName)}` }} key={index}>
-                            <CTFCard>
-                                <CTFCardHeader>
-                                    {challenge?.challengeName}
-                                    {user &&
-                                        userDetail?.solved?.map((ctf, index) =>
-                                            challenge?._id === ctf?.ctfId && ctf?.isCompleted === true ? (
-                                                <FcCheckmark key={index} color="green" size={25} />
-                                            ) : null,
-                                        )}
-                                </CTFCardHeader>
+                    {filteredCTFs
+                        ?.slice()
+                        .reverse()
+                        .map((challenge, index) => (
+                            <CTFLink to={{ pathname: `/ctf/${encodeURL(challenge.challengeName)}` }} key={index}>
+                                <CTFCard>
+                                    <CTFCardHeader>
+                                        {challenge?.challengeName}
+                                        {user &&
+                                            userDetail?.solved?.map((ctf, index) =>
+                                                challenge?._id === ctf?.ctfId && ctf?.isCompleted === true ? (
+                                                    <FcCheckmark key={index} color="green" size={25} />
+                                                ) : null,
+                                            )}
+                                    </CTFCardHeader>
 
-                                <CTFCardBody>
-                                    <CTFCardSubtitle>{challenge?.subtitle}</CTFCardSubtitle>
-                                </CTFCardBody>
+                                    <CTFCardBody>
+                                        <CTFCardSubtitle>{challenge?.subtitle}</CTFCardSubtitle>
+                                    </CTFCardBody>
 
-                                <CTFCardFooter>
-                                    <CTFTags>
-                                        {challenge?.tags.map(
-                                            (tag, index) => tag.length > 0 && <CTFTag key={index}>{tag}</CTFTag>,
-                                        )}
-                                    </CTFTags>
-                                    <CTFType>{challenge?.difficulty}</CTFType>
-                                </CTFCardFooter>
-                            </CTFCard>
-                        </CTFLink>
-                    ))}
+                                    <CTFCardFooter>
+                                        <CTFTags>
+                                            {challenge?.tags
+                                                .slice(0, 3)
+                                                .map(
+                                                    (tag, index) =>
+                                                        tag.length > 0 && <CTFTag key={index}>{tag}</CTFTag>,
+                                                )}
+
+                                            {challenge?.tags.length > 3 && (
+                                                <CTFTag key={index}> + {challenge.tags.length - 3}</CTFTag>
+                                            )}
+                                        </CTFTags>
+                                        <CTFType>{challenge?.difficulty}</CTFType>
+                                    </CTFCardFooter>
+                                </CTFCard>
+                            </CTFLink>
+                        ))}
                 </CTFCards>
             </CTFContainer>
         </Wrapper>

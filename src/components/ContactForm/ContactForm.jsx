@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     ContactFormCard,
     ContactFormContainer,
@@ -27,9 +27,12 @@ import {
     ResumeIcon,
     WebIcon,
 } from "./ContactFormElements.jsx";
+
 import { getApiUrl } from "../../features/apiUrl";
 import axios from "axios";
 import { toast } from "react-toastify";
+import InternshipProgramData from "../Resources/Jobs/Internship/InternshipProgramData";
+import { JobsData } from "../Resources/Jobs/JobsData";
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -62,6 +65,43 @@ const ContactForm = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [error2, setError2] = useState(false);
+
+    const [isOpened, setIsOpened] = useState(false);
+    const [isClosed, setIsClosed] = useState(false);
+
+    // const [internshipMessage, setInternshipMessage] = useState('');
+    // // const currentDate = new Date().toISOString();
+
+    useEffect(() => {
+        InternshipProgramData.some(({ applicationOpenDate, applicationCloseDate, internshipStartTime }) => {
+            const currentDate = new Date().toISOString();
+            // const currentDate = "2023-08-01T00:00:00.000Z"
+            // const currentDate = "2023-09-21T00:00:00.000Z"
+            // const currentDate = "2023-10-01T00:00:00.000Z"
+            const isBetweenDates = (currentDate, startDate, endDate) =>
+                currentDate >= startDate && currentDate <= endDate;
+
+            const openDate = applicationOpenDate;
+            const closeDate = applicationCloseDate;
+            const internCloseDate = internshipStartTime;
+
+            const isBetween = isBetweenDates(currentDate, openDate, closeDate);
+            const isClosed = isBetweenDates(currentDate, closeDate, internCloseDate);
+
+            if (isBetween) {
+                setIsOpened(true);
+                setIsClosed(false);
+                // setInternshipMessage('Applications are currently open!');
+            }
+            if (isClosed) {
+                setIsOpened(false);
+                setIsClosed(true);
+                // setInternshipMessage('Applications are currently closed.');
+            }
+            return null;
+        });
+    }, [InternshipProgramData]);
+
     const handleChange = (event) => {
         setFormData({
             ...formData,
@@ -101,14 +141,13 @@ const ContactForm = () => {
             setError("Please fill all of the fields");
         } else if (reason === "internship" && resume.length === 0) {
             setError("Please include the resume link");
-        } else if ((reason === "internship" && message.length < 200) || message.length > 1000) {
-            toast("Please write a cover letter of length 200 - 1000 characters");
+            // }
+            // else if ((reason === "internship" && message.length < 200) || message.length > 1000) {
+            //     toast("Please write a cover letter of length 200 - 1000 characters");
         } else {
             axios
                 .post(getApiUrl("api/form/submit"), filledFormData, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
+                    headers: { "Content-Type": "application/json" },
                 })
                 .then((response) => {
                     if (response.data.message === "Form submitted successfully") {
@@ -129,7 +168,6 @@ const ContactForm = () => {
                         setError(false);
                         setError2(false);
                     }
-                    console.log(response.data.message);
                     if (response.data.message === "Something went wrong. Please try again later.") {
                         setError2(true);
                         setIsSuccess(false);
@@ -152,7 +190,11 @@ const ContactForm = () => {
 
     return (
         <ContactFormContainer id={"contactUs"}>
-            <H1> {"Contact us".toUpperCase()} </H1>
+            {isOpened ? (
+                <H1> {"Applications are currently open!".toUpperCase()} </H1>
+            ) : (
+                <H1> {"Applications are currently closed.".toUpperCase()} </H1>
+            )}
             <ContentP>Internship and Services Opportunities</ContentP>
             <ContactFormCard>
                 <ContactFormSection onSubmit={handleSubmit}>
@@ -191,7 +233,10 @@ const ContactForm = () => {
                         </ContactFormLabel>
                         <ContactFormSelect name="reason" id="reason" value={formData.reason} onChange={handleChange}>
                             <ContactFormSelectOption value="">Select a reason</ContactFormSelectOption>
-                            <ContactFormSelectOption value="internship">Internship</ContactFormSelectOption>
+                            <ContactFormSelectOption value="internship">
+                                Internship {isOpened ? "(Applications Now Open!)" : null}{" "}
+                                {isClosed ? "(Applications Closed)" : null}
+                            </ContactFormSelectOption>
                             <ContactFormSelectOption value="pentest">Pentest Service</ContactFormSelectOption>
                             <ContactFormSelectOption value="feedback">Feedback</ContactFormSelectOption>
                             <ContactFormSelectOption value="other">Other</ContactFormSelectOption>
@@ -201,7 +246,7 @@ const ContactForm = () => {
                         <>
                             <CoverLeft>
                                 <ContactFormLabel htmlFor="reasonType">
-                                    <PentestIcon />{" "}
+                                    <PentestIcon />
                                 </ContactFormLabel>
                                 <ContactFormSelect
                                     name="reasonType"
@@ -269,7 +314,7 @@ const ContactForm = () => {
                                         id="pentestBefore"
                                         value={formData.pentestBefore}
                                         onChange={handleChange}
-                                        placeholder={"Have you performed any pentests previously?"}
+                                        placeholder={"Have you performed any pentest previously?"}
                                     />
                                 </CoverLeft>
                                 <CoverRight>
@@ -288,7 +333,7 @@ const ContactForm = () => {
                             </Cover>
                         </>
                     )}
-                    {reason === "internship" && (
+                    {isOpened && reason === "internship" && (
                         <>
                             <CoverLeft>
                                 <ContactFormLabel htmlFor="reasonType">
@@ -301,27 +346,15 @@ const ContactForm = () => {
                                     onChange={handleChange}
                                 >
                                     <ContactFormSelectOption value="">Select an Internship</ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Business Development Sales Marketing Internship">
-                                        Business Development | Sales | Marketing Internship
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Penetration Testing Internship">
-                                        Penetration Testing Internship
-                                    </ContactFormSelectOption>
+                                    {JobsData.map((job, id) => (
+                                        <ContactFormSelectOption value={job.id} key={id}>
+                                            {job.id}
+                                        </ContactFormSelectOption>
+                                    ))}
+
                                     {/* <ContactFormSelectOption value="SOC Analyst Internship"> */}
                                     {/*    SOC Analyst Internship */}
                                     {/* </ContactFormSelectOption> */}
-                                    <ContactFormSelectOption value="Content Creator Internship">
-                                        Content Creator Internship
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="MERN Stack Internship">
-                                        MERN Stack Internship
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Next.js Developer Internship">
-                                        Next.js Developer Internship
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="React Native Developer Internship">
-                                        React Native Developer Internship
-                                    </ContactFormSelectOption>
                                 </ContactFormSelect>
                             </CoverLeft>
                             <Cover>
@@ -336,13 +369,30 @@ const ContactForm = () => {
                                         value={formData.resume}
                                         onChange={handleChange}
                                         placeholder={
-                                            "Resume link (You can upload on drive and make the link accessible)"
+                                            "Resume link (You can upload in drive and make sure the link is accessible)"
                                         }
                                     />
                                 </CoverLeft>
                             </Cover>
                         </>
                     )}
+                    {!isOpened && reason === "internship" && (
+                        <CoverLeft>
+                            <ContactFormLabel htmlFor="reasonType">
+                                <InternshipIcon />
+                            </ContactFormLabel>
+                            <ContactFormInput
+                                type="text"
+                                name="resume"
+                                id="resume"
+                                value={
+                                    "Please wait for the next internship opening, for more info checkout our Internship page"
+                                }
+                                onChange={handleChange}
+                            />
+                        </CoverLeft>
+                    )}
+
                     {reason === "feedback" && (
                         <CoverLeft>
                             <ContactFormLabel htmlFor="contextHeading">
@@ -373,23 +423,27 @@ const ContactForm = () => {
                             />
                         </CoverLeft>
                     )}
-                    <CoverLeft>
-                        <ContactFormLabel htmlFor="message">
-                            <MessageIcon />
-                        </ContactFormLabel>
-                        <ContactFormTextArea
-                            type="text"
-                            name="message"
-                            id="message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            placeholder={reason === "internship" ? "Cover Letter (200 - 1000 length) " : "Message"}
-                        />
-                    </CoverLeft>
+                    {isClosed && reason === "internship" ? null : (
+                        <CoverLeft>
+                            <ContactFormLabel htmlFor="message">
+                                <MessageIcon />
+                            </ContactFormLabel>
+                            <ContactFormTextArea
+                                type="text"
+                                name="message"
+                                id="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                placeholder={reason === "internship" ? "Cover Letter (Optional) " : "Message"}
+                            />
+                        </CoverLeft>
+                    )}
                     {!isSuccess ? (
-                        <ContactFormSubmit type="submit" value="submit" placeholder={"Submit"}>
-                            Submit
-                        </ContactFormSubmit>
+                        !isOpened && reason === "internship" ? null : (
+                            <ContactFormSubmit type="submit" value="submit" placeholder={"Submit"}>
+                                Submit
+                            </ContactFormSubmit>
+                        )
                     ) : null}
 
                     {error && !isSuccess && <ErrorMessage>{"Please fill all of the fields"}</ErrorMessage>}

@@ -57,9 +57,8 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
@@ -140,9 +139,8 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
@@ -223,9 +221,8 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
@@ -310,9 +307,8 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
@@ -393,9 +389,8 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
@@ -477,9 +472,8 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
@@ -564,9 +558,8 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />

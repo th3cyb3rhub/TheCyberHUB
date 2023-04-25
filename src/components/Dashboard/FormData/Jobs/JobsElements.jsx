@@ -101,22 +101,23 @@ export const BackArrow = styled(IoMdArrowRoundBack)`
 `;
 
 export const JobsCardSection = styled.div`
+    background: #090909;
+    width: 100%;
+    border-radius: 5px;
+    color: #d7d7d7;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 25px;
     padding: 5px;
-    display: flex;
-    min-width: 30%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    max-height: 100%;
-    cursor: pointer;
+    box-sizing: border-box;
+
     &.active {
         max-height: 1000px;
-        overflow-y: scroll;
+        //overflow-y: scroll;
     }
 
-    @media only screen and (max-width: 1000px) {
-        max-height: 800px;
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
     }
 `;
 
@@ -132,17 +133,17 @@ export const JobContainer = styled.div`
     color: #a4a4a4;
     background: #080a10;
     width: 100%;
-    max-width: 440px;
-    max-height: 100%;
-    margin: 10px;
     outline: 1px solid #2a2a2a;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
     padding: 15px 10px 10px 20px;
     transition: 260ms all;
+    cursor: pointer;
 
     &:hover {
+        scale: 1.01;
         outline-color: #545454;
         outline-offset: 2px;
     }
@@ -161,12 +162,12 @@ export const JobHeader = styled.div`
     align-items: start;
 
     & span.status {
-        color: orange;
+        color: greenyellow;
     }
 `;
 
 export const JobTitle = styled.h2`
-    color: #33e33c;
+    color: orange;
     //background: linear-gradient(to right, #b1faa9, #f6dbaa);
     //background-clip: text;
     //-webkit-background-clip: text;

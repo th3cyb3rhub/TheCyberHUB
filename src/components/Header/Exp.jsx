@@ -34,8 +34,7 @@ const Exp = () => {
         <ExpContainer>
             <ExpText> {exp} XP </ExpText>
             <StreakText>
-                {" "}
-                {getStreak(userDetail)} <ExpIcon />{" "}
+                {getStreak(userDetail)} <ExpIcon />
             </StreakText>
         </ExpContainer>
     );

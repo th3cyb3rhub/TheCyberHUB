@@ -6,12 +6,11 @@ import { Wrapper } from "../components/Dashboard/Profile/ProfileElements";
 import DashboardItems from "../components/Dashboard/DashboardItems";
 import { DashboardContainer } from "../components/Dashboard/DashboardElements";
 import VerifyToAccess from "../components/Dashboard/VerifyToAccess";
-import { useUserData } from "../components/Dashboard/checkUserVerified";
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    const userVerified = useUserData({ user }).isVerified;
+    const userVerified = user?.isVerified;
 
     useEffect(() => {
         if (!user) {

@@ -29,6 +29,8 @@ export const Nav = styled.nav`
     position: sticky;
     z-index: 10;
     top: 0;
+    padding: 0 5px;
+
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
     }
@@ -65,6 +67,12 @@ export const NavLogoRouter = styled(LinkRouter)`
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
+    padding: 0 20px;
+
+    @media screen and (max-width: 500px) {
+        padding: 0 5px;
+    }
+
     //min-width: 200px;
 `;
 

@@ -63,3 +63,5 @@ export const RefreshButton = styled(MdRefresh)`
     font-size: 30px;
     margin: 0 10px;
 `;
+
+export const FirstPlace = styled.div``;

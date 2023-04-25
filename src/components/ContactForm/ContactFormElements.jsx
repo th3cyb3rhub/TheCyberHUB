@@ -20,7 +20,7 @@ export const H1 = styled.h1`
     //color: black;
     color: #ffffff;
     &:hover {
-        background: #20c20e;
+        background: #17f31e;
         color: black;
         transition: all 0.2s ease-in-out;
     }
@@ -34,14 +34,20 @@ export const ContentH = styled.h1`
 `;
 
 export const ContentP = styled.p`
-    font-family: "Space Mono", monospace;
+    background: #090909;
+    font-family: "Fira Code Medium", monospace;
     text-align: center;
-    color: #c4c4c4;
+    color: #d7d7d7;
     margin: 5px 0 0 0;
     width: 100%;
-    max-width: 800px;
-    font-size: 25px;
+    max-width: 1100px;
+    padding: 15px;
+    font-size: 30px;
     align-items: center;
+
+    @media (max-width: 500px) {
+        font-size: 20px;
+    }
 `;
 
 export const ContactFormContainer = styled.div`
@@ -72,9 +78,9 @@ export const CoverLeft = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: start;
+    align-items: center;
     width: 100%;
-    background: #151515;
+    background: #101010;
     padding: 15px;
     border-radius: 2px;
     margin: 5px 0;
@@ -85,12 +91,13 @@ export const CoverLeft = styled.div`
 `;
 
 export const CoverRight = styled.div`
+    font-family: "Poppins", sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: start;
     width: 100%;
-    background: #151515;
+    background: #101010;
     padding: 15px;
     border-radius: 2px;
     margin: 5px 0;
@@ -161,10 +168,17 @@ export const ContactFormSection = styled.form`
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 800px;
+    max-width: 1100px;
+    background: #090909;
+    padding: 25px;
+
+    @media (max-width: 500px) {
+        padding: 5px;
+    }
 `;
 
 export const ContactFormInput = styled.input`
+    font-family: "Poppins", sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -172,10 +186,17 @@ export const ContactFormInput = styled.input`
     border-radius: 5px;
     background: transparent;
     border: transparent;
-    color: #fff;
+    color: #c2c2c2;
     width: 100%;
     text-underline-offset: 5px;
-    font-size: 15px;
+    font-size: 20px;
+
+    @media (max-width: 900px) {
+        font-size: 17px;
+    }
+    @media (max-width: 500px) {
+        font-size: 15px;
+    }
 
     ::placeholder {
         color: #fff;
@@ -193,27 +214,50 @@ export const ContactFormInput = styled.input`
 `;
 
 export const ContactFormSelect = styled.select`
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: #151515;
+    background: #101010;
     border: none;
     color: #c4c4c4;
     width: 100%;
+
+    @media (max-width: 900px) {
+        font-size: 17px;
+    }
+    @media (max-width: 500px) {
+        font-size: 15px;
+    }
 `;
 export const ContactFormSelectOption = styled.option`
-    font-size: 15px;
+    font-size: 20px;
     color: #c4c4c4;
     padding: 25px;
     margin: 25px;
+
+    @media (max-width: 900px) {
+        font-size: 17px;
+    }
+    @media (max-width: 500px) {
+        font-size: 15px;
+    }
 `;
 
 export const ContactFormLabel = styled.label`
-    font-size: 15px;
+    font-size: 20px;
+    @media (max-width: 900px) {
+        font-size: 17px;
+    }
+    @media (max-width: 500px) {
+        font-size: 15px;
+    }
 `;
 
 export const ContactFormTextArea = styled.textarea`
+    font-family: "Poppins", sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -224,7 +268,14 @@ export const ContactFormTextArea = styled.textarea`
     color: #fff;
     width: 100%;
     height: 150px;
-    font-size: 17px;
+    font-size: 20px;
+
+    @media (max-width: 900px) {
+        font-size: 17px;
+    }
+    @media (max-width: 500px) {
+        font-size: 15px;
+    }
 
     ::placeholder {
         color: #fff;
@@ -243,7 +294,7 @@ export const ContactFormTextArea = styled.textarea`
 
 export const ContactFormSubmit = styled.button`
     padding: 10px;
-    background: #151515;
+    background: #101010;
     border: transparent;
     color: whitesmoke;
     border-radius: 5px;

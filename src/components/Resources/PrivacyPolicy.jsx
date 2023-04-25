@@ -64,14 +64,12 @@ const PrivacyPolicy = () => {
                 </TermsDescription>
                 <TermsHeading>Information Protection:</TermsHeading>
                 <TermsDescription>
-                    {" "}
                     We implement appropriate technical and organizational measures to protect your information from
                     unauthorized access, disclosure, alteration, and destruction.
                 </TermsDescription>
 
                 <TermsHeading>Changes to this Privacy Policy:</TermsHeading>
                 <TermsDescription>
-                    {" "}
                     We may update this Privacy Policy from time to time to reflect changes in our practices or
                     applicable laws. When we make changes, we will update the &quot;Last Updated&quot; date at the top
                     of this Privacy Policy.
@@ -79,7 +77,6 @@ const PrivacyPolicy = () => {
 
                 <TermsHeading>Contact Us:</TermsHeading>
                 <TermsDescription>
-                    {" "}
                     If you have any questions or concerns about our Privacy Policy, please contact us at
                     <RouterLink to={"/contact"}>Contact Us</RouterLink>
                     <br />

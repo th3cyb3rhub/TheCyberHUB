@@ -7,10 +7,10 @@ const iconSize = 15;
 
 export const JobsData = [
     {
-        id: "Business Development Internship",
+        id: "Penetration Testing Internship",
         status: "new",
-        jobTitle: "Business Development Internship",
-        jobRoleTitle: "Business Development Intern",
+        jobTitle: "Penetration Testing Internship",
+        jobRoleTitle: "Penetration Tester",
         jobRating: (
             <>
                 5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
@@ -18,13 +18,6 @@ export const JobsData = [
         ),
         jobLocation: "Remote",
         jobDetails: [
-            {
-                item: (
-                    <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
-                    </>
-                ),
-            },
             {
                 item: (
                     <>
@@ -35,107 +28,15 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
                     </>
                 ),
             },
-        ],
-        jobDetails2: [
-            <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
-            </>,
-            <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
-            </>,
-        ],
-        jobDesc1: (
-            <p>
-                Our company is seeking highly motivated interns for business development projects in the field of cyber
-                security.
-            </p>
-        ),
-        jobDesc2: (
-            <p>
-                This is a unique opportunity for individuals interested in building a career in business development.
-                Your role will be to analyze and research companies to determine their need for cyber security services.
-                If a company is not currently utilizing these services, you will then be responsible for scheduling a
-                meeting and presenting our services to them.
-                <br />
-                <br />
-                If you&apos;re eager to learn and make a difference,
-                <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
-                form.
-                <br />
-                <br />
-                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-                experience in this field. After three months of hard work and dedication, you will receive swags as a
-                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-                skills while working with us.
-                <br />
-                <br />
-                Our company is committed to diversity and equal opportunity and does not discriminate based on race,
-                religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
-                disability status.
-            </p>
-        ),
-        jobReq: [
-            "Strong research and analytical skills",
-            "Excellent written and verbal communication skills",
-            "Familiarity with business development techniques",
-            "Passion for technology and cyber security",
-            "Ability to work independently and as a team",
-        ],
-        jobRes: [
-            "Conduct research and analysis on companies to determine their need for cyber security services",
-            "Schedule and attend meetings with potential clients to present our services",
-            "Contribute to the growth and success of the company through business development efforts",
-            "Gain valuable experience and knowledge in the field of business development",
-        ],
-        jobTimeline: {
-            datePosted: "Posted 2 days ago",
-            separator: (
-                <>
-                    <FaCircle />
-                </>
-            ),
-            directory: "remote",
-        },
-    },
-    {
-        id: "MERN Stack Internship",
-        status: "new",
-        jobTitle: "MERN Stack Internship",
-        jobRoleTitle: "MERN Stack Developer",
-        jobRating: (
-            <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
-            </>
-        ),
-        jobLocation: "Remote",
-        jobDetails: [
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
-                    </>
-                ),
-            },
-            {
-                item: (
-                    <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
-                    </>
-                ),
-            },
-            {
-                item: (
-                    <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
                     </>
                 ),
             },
@@ -150,28 +51,40 @@ export const JobsData = [
         ],
         jobDesc1: (
             <p>
-                Thecyberworld is a leading cyber security company seeking highly motivated interns for exciting projects
-                in the field.
+                We are seeking a highly motivated intern to join our penetration testing team to work on exciting
+                projects in the field.
             </p>
         ),
         jobDesc2: (
             <p>
-                This is a unique opportunity for individuals interested in building a career in cyber security.
+                This is a unique opportunity for individuals interested in building a career in penetration testing.
+                <br />
+                <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
                 <br />
                 <br />
                 If you&apos;re eager to learn and make a difference,
-                <br /> Submit your resume and cover letter through our
+                <br />
+                Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    <b> Contact us </b>{" "}
+                    <b> Contact us </b>
                 </RouterLink>
                 form.
-                <br />
-                <br />
-                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-                experience in this field. After three months of hard work and dedication, you will receive swags as a
-                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-                skills while working with us.
                 <br />
                 <br />
                 Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
@@ -180,17 +93,21 @@ export const JobsData = [
             </p>
         ),
         jobReq: [
-            "Strong knowledge of MONGODB, Express.js, Node.js, React.js, JavaScript, HTML, and CSS",
-            "Good understanding of Redux and open-source technologies (a plus)",
+            "Strong knowledge of ethical hacking techniques and tools",
+            "Good understanding of computer networks, web application security, and penetration testing methodologies, including OWASP Top 10",
+            "Experience with penetration testing tools, such as Burp Suite, Nmap, Metasploit, and Kali Linux",
+            "CTF experience is a plus",
+            "Ability to work independently and as part of a team",
             "Excellent problem-solving skills",
             "Strong written and verbal communication skills",
             "Passion for technology and cyber security",
         ],
         jobRes: [
-            "Collaborate with team on development and implementation of cyber security projects",
-            "Utilize skills in MONGODB, Express.js, Node.js, React.js, JavaScript, HTML, and CSS to improve systems and processes",
-            "Gain hands-on experience in the field of cyber security",
-            "Familiarize yourself with Redux and open-source technologies",
+            "Collaborate with team on penetration testing projects",
+            "Utilize knowledge of ethical hacking techniques and tools to improve systems and processes",
+            "Gain hands-on experience in the field of penetration testing",
+            "Perform security assessments on web applications and computer networks",
+            "Prepare detailed reports on findings and recommend remediation strategies",
         ],
         jobTimeline: {
             datePosted: "Posted 3 days ago",
@@ -217,21 +134,22 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
                     </>
                 ),
             },
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
                     </>
                 ),
             },
@@ -255,23 +173,34 @@ export const JobsData = [
                 This is a unique opportunity for individuals interested in building a career in content creation.
                 <br />
                 <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
+                <br />
+                <br />
                 If you&apos;re eager to learn and make a difference,
-                <br /> Submit your resume and cover letter through our
+                <br />
+                Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
-                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-                experience in this field. After three months of hard work and dedication, you will receive swags as a
-                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-                skills while working with us.
-                <br />
-                <br />
-                Our company is committed to diversity and equal opportunity and does not discriminate based on race,
+                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>
@@ -303,6 +232,115 @@ export const JobsData = [
         },
     },
     {
+        id: "MERN Stack Internship",
+        status: "new",
+        jobTitle: "MERN Stack Internship",
+        jobRoleTitle: "MERN Stack Developer",
+        jobRating: (
+            <>
+                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+            </>
+        ),
+        jobLocation: "Remote",
+        jobDetails: [
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                    </>
+                ),
+            },
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            {
+                item: (
+                    <>
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                    </>
+                ),
+            },
+        ],
+        jobDetails2: [
+            <>
+                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+            </>,
+            <>
+                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+            </>,
+        ],
+        jobDesc1: (
+            <p>
+                Thecyberworld is a leading cyber security company seeking highly motivated interns for exciting projects
+                in the field.
+            </p>
+        ),
+        jobDesc2: (
+            <p>
+                This is a unique opportunity for individuals interested in building a career in web development.
+                <br />
+                <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
+                <br />
+                <br />
+                If you&apos;re eager to learn and make a difference,
+                <br />
+                Submit your resume and cover letter through our
+                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                    <b> Contact us </b>
+                </RouterLink>
+                form.
+                <br />
+                <br />
+                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
+                disability status.
+            </p>
+        ),
+        jobReq: [
+            "Strong knowledge of MONGODB, Express.js, Node.js, React.js, JavaScript, HTML, and CSS",
+            "Good understanding of Redux and open-source technologies (a plus)",
+            "Excellent problem-solving skills",
+            "Strong written and verbal communication skills",
+            "Passion for technology and cyber security",
+        ],
+        jobRes: [
+            "Collaborate with team on development and implementation of cyber security projects",
+            "Utilize skills in MONGODB, Express.js, Node.js, React.js, JavaScript, HTML, and CSS to improve systems and processes",
+            "Gain hands-on experience in the field of cyber security",
+            "Familiarize yourself with Redux and open-source technologies",
+        ],
+        jobTimeline: {
+            datePosted: "Posted 3 days ago",
+            separator: (
+                <>
+                    <FaCircle />
+                </>
+            ),
+            directory: "remote",
+        },
+    },
+    {
         id: "Next.js Internship",
         status: "new",
         jobTitle: "Next.js Internship",
@@ -317,21 +355,22 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
                     </>
                 ),
             },
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
                     </>
                 ),
             },
@@ -352,39 +391,50 @@ export const JobsData = [
         ),
         jobDesc2: (
             <p>
-                This is a unique opportunity for individuals interested in building a career in web development. <br />
+                This is a unique opportunity for individuals interested in building a career in web development.
+                <br />
+                <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
                 <br />
                 <br />
                 If you&apos;re eager to learn and make a difference,
-                <br /> Submit your resume and cover letter through our
+                <br />
+                Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
-                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-                experience in this field. After three months of hard work and dedication, you will receive swags as a
-                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-                skills while working with us.
-                <br />
-                <br />
-                Our company is committed to diversity and equal opportunity and does not discriminate based on race,
+                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>
         ),
         jobReq: [
             "Strong knowledge of Next.js and TypeScript",
-            "Good understanding of web extension development",
+            "Good understanding of web development",
             "Excellent problem-solving skills",
             "Strong written and verbal communication skills",
             "Passion for technology and web development",
         ],
         jobRes: [
-            "Collaborate with team on development of web extensions using Next.js and TypeScript",
+            "Collaborate with team on development of website using Next.js and TypeScript",
             "Utilize skills in Next.js and TypeScript to improve systems and processes",
             "Gain hands-on experience in web extension development",
             "Contribute to the design, development and implementation of web extensions",
@@ -400,203 +450,6 @@ export const JobsData = [
         },
     },
     {
-        id: "Penetration Testing Internship",
-        status: "new",
-        jobTitle: "Penetration Testing Internship",
-        jobRoleTitle: "Penetration Tester",
-        jobRating: (
-            <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
-            </>
-        ),
-        jobLocation: "Remote",
-        jobDetails: [
-            {
-                item: (
-                    <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
-                    </>
-                ),
-            },
-            {
-                item: (
-                    <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
-                    </>
-                ),
-            },
-            {
-                item: (
-                    <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
-                    </>
-                ),
-            },
-        ],
-        jobDetails2: [
-            <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
-            </>,
-            <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
-            </>,
-        ],
-        jobDesc1: (
-            <p>
-                We are seeking a highly motivated intern to join our penetration testing team to work on exciting
-                projects in the field.
-            </p>
-        ),
-        jobDesc2: (
-            <p>
-                This is a unique opportunity for individuals interested in building a career in penetration testing.
-                <br />
-                <br />
-                If you&apos;re eager to learn and make a difference,
-                <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
-                form.
-                <br />
-                <br />
-                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-                experience in this field. After three months of hard work and dedication, you will receive swags as a
-                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-                skills while working with us.
-                <br />
-                <br />
-                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
-                religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
-                disability status.
-            </p>
-        ),
-        jobReq: [
-            "Strong knowledge of ethical hacking techniques and tools",
-            "Good understanding of computer networks, web application security, and penetration testing methodologies",
-            "Excellent problem-solving skills",
-            "Strong written and verbal communication skills",
-            "Passion for technology and cyber security",
-        ],
-        jobRes: [
-            "Collaborate with team on penetration testing projects",
-            "Utilize knowledge of ethical hacking techniques and tools to improve systems and processes",
-            "Gain hands-on experience in the field of penetration testing",
-            "Perform security assessments on web applications and computer networks",
-            "Prepare detailed reports on findings and recommend remediation strategies",
-        ],
-        jobTimeline: {
-            datePosted: "Posted 3 days ago",
-            separator: (
-                <>
-                    <FaCircle />
-                </>
-            ),
-            directory: "remote",
-        },
-    },
-    // {
-    //     id: "SOC Analyst Internship",
-    //     status: "new",
-    //     jobTitle: "SOC Analyst Internship",
-    //     jobRoleTitle: "SOC Analyst",
-    //     jobRating: (
-    //         <>
-    //             5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
-    //         </>
-    //     ),
-    //     jobLocation: "Remote",
-    //     jobDetails: [
-    //         {
-    //             item: (
-    //                 <>
-    //                     <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
-    //                 </>
-    //             ),
-    //         },
-    //         {
-    //             item: (
-    //                 <>
-    //                     <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
-    //                 </>
-    //             ),
-    //         },
-    //         {
-    //             item: (
-    //                 <>
-    //                     <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
-    //                 </>
-    //             ),
-    //         },
-    //     ],
-    //     jobDetails2: [
-    //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
-    //         </>,
-    //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
-    //         </>,
-    //     ],
-    //     jobDesc1: (
-    //         <p>
-    //             Join the team at Thecyberworld as a SOC Analyst Intern and help protect businesses against cyber
-    //             threats.
-    //         </p>
-    //     ),
-    //     jobDesc2: (
-    //         <p>
-    //             This is an excellent opportunity for individuals interested in the field of cyber security.
-    //             <br />
-    //             <br />
-    //             If you&apos;re eager to learn and make a difference,
-    //             <br /> Submit your resume and cover letter through our
-    //             <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-    //                 {" "}
-    //                 <b> Contact us </b>{" "}
-    //             </RouterLink>{" "}
-    //             form.
-    //             <br />
-    //             <br />
-    //             We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-    //             experience in this field. After three months of hard work and dedication, you will receive swags as a
-    //             token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-    //             and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-    //             skills while working with us.
-    //             <br />
-    //             <br />
-    //             Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
-    //             religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
-    //             disability status.
-    //         </p>
-    //     ),
-    //     jobReq: [
-    //         "Strong understanding of cyber security concepts and technologies",
-    //         "Familiarity with security information and event management (SIEM) tools",
-    //         "Good understanding of network protocols and network security",
-    //         "Knowledge of incident response procedures and methodologies",
-    //         "Strong written and verbal communication skills",
-    //         "Ability to work in a fast-paced and dynamic environment",
-    //     ],
-    //     jobRes: [
-    //         "Assist in identifying and analyzing security threats and incidents",
-    //         "Collaborate with the SOC team in incident response and threat mitigation efforts",
-    //         "Assist in the implementation of security solutions and technologies",
-    //         "Contribute to the continuous improvement of the SOC processes and procedures",
-    //         "Gain hands-on experience in the field of cyber security",
-    //     ],
-    //     jobTimeline: {
-    //         datePosted: "Posted 3 days ago",
-    //         separator: (
-    //             <>
-    //                 <FaCircle />
-    //             </>
-    //         ),
-    //         directory: "remote",
-    //     },
-    // },
-    {
         id: "React Native Android Developer Internship",
         status: "new",
         jobTitle: "React Native Android Developer Internship",
@@ -611,21 +464,22 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 2 Openings
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
                     </>
                 ),
             },
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
                     </>
                 ),
             },
@@ -651,23 +505,34 @@ export const JobsData = [
                 website to life on the Android platform.
                 <br />
                 <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
+                <br />
+                <br />
                 If you&apos;re eager to learn and make a difference,
-                <br /> Submit your resume and cover letter through our
+                <br />
+                Submit your resume and cover letter through our
                 <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
-                    {" "}
-                    <b> Contact us </b>{" "}
-                </RouterLink>{" "}
+                    <b> Contact us </b>
+                </RouterLink>
                 form.
                 <br />
                 <br />
-                We are thrilled to offer an unpaid internship opportunity aimed at providing you with valuable
-                experience in this field. After three months of hard work and dedication, you will receive swags as a
-                token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
-                and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
-                skills while working with us.
-                <br />
-                <br />
-                Our company is committed to diversity and equal opportunity and does not discriminate based on race,
+                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>
@@ -684,6 +549,338 @@ export const JobsData = [
             "Gain hands-on experience in the field of mobile development",
             "Collaborate with development team to bring the website to life on the Android platform",
             "Contribute to the growth and success of the company through your development efforts",
+        ],
+        jobTimeline: {
+            datePosted: "Posted 2 days ago",
+            separator: (
+                <>
+                    <FaCircle />
+                </>
+            ),
+            directory: "remote",
+        },
+    },
+    {
+        id: "Graphic Design Internship",
+        status: "new",
+        jobTitle: "Graphic Design Internship",
+        jobRoleTitle: "Graphic Design Intern",
+        jobRating: (
+            <>
+                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+            </>
+        ),
+        jobLocation: "On-site/Remote",
+        jobDetails: [
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                    </>
+                ),
+            },
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            {
+                item: (
+                    <>
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                    </>
+                ),
+            },
+        ],
+        jobDetails2: [
+            <>
+                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume and
+                Portfolio
+            </>,
+            <>
+                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+            </>,
+        ],
+        jobDesc1: (
+            <p>
+                We are seeking a highly motivated Graphic Design Intern with a passion for creating visual content and
+                communicating messages to a target audience. The ideal candidate will be proficient in industry-standard
+                design software and tools such as Adobe Creative Suite, Sketch, and InVision, and have an eye for detail
+                and design aesthetics.
+            </p>
+        ),
+        jobDesc2: (
+            <p>
+                As a Graphic Design Intern, you will work closely with our design team on real-world design projects.
+                This is an excellent opportunity to gain hands-on experience in the field of graphic design while
+                building your portfolio of work.
+                <br />
+                <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
+                <br />
+                <br />
+                If you&apos;re eager to learn and make a difference,
+                <br />
+                Submit your resume and cover letter through our
+                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                    <b> Contact us </b>
+                </RouterLink>
+                form.
+                <br />
+                <br />
+                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
+                disability status.
+            </p>
+        ),
+        jobReq: [
+            "Proficiency in industry-standard design software and tools",
+            "Strong eye for design aesthetics",
+            "Excellent communication and collaboration skills",
+            "Ability to work independently and as part of a team",
+        ],
+        jobRes: [
+            "Collaborate with design team on real-world design projects",
+            "Create visually appealing and effective designs for clients across various industries",
+            "Build your portfolio of work and gain hands-on experience in the field of graphic design",
+            "Contribute to the growth and success of the company through your design efforts",
+        ],
+        jobTimeline: {
+            datePosted: "Posted 1 week ago",
+            separator: (
+                <>
+                    <FaCircle />
+                </>
+            ),
+            directory: "on-site/remote",
+        },
+    },
+    {
+        id: "UI/UX Design Internship",
+        status: "new",
+        jobTitle: "UI/UX Design Internship",
+        jobRoleTitle: "UI/UX Design Intern",
+        jobRating: (
+            <>
+                4.5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+            </>
+        ),
+        jobLocation: "Remote",
+        jobDetails: [
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                    </>
+                ),
+            },
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            {
+                item: (
+                    <>
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                    </>
+                ),
+            },
+        ],
+        jobDetails2: [
+            <>
+                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
+            </>,
+            <>
+                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+            </>,
+        ],
+        jobDesc1: (
+            <p>
+                Our company is looking for a UI/UX Design Intern who is passionate about creating innovative and
+                engaging digital experiences. As an intern, you will have the opportunity to work on real-world design
+                projects and learn from a team of experienced designers and developers.
+            </p>
+        ),
+        jobDesc2: (
+            <p>
+                You will be responsible for working with our development team to design and create user interfaces for
+                web and mobile applications. You will also collaborate with our marketing and product teams to create
+                visual designs and prototypes for new features and product enhancements.
+                <br /> <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
+                <br />
+                <br />
+                If you&apos;re eager to learn and make a difference,
+                <br />
+                Submit your resume and cover letter through our
+                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                    <b> Contact us </b>
+                </RouterLink>
+                form.
+                <br />
+                <br />
+                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
+                disability status.
+            </p>
+        ),
+        jobReq: [
+            "Strong design skills and knowledge of design principles",
+            "Experience with design tools such as Sketch, Figma, or Adobe Creative Suite",
+            "Excellent communication and collaboration skills",
+            "Ability to work independently and manage multiple projects",
+        ],
+        jobRes: [
+            "Design and create user interfaces for web and mobile applications",
+            "Collaborate with development, marketing, and product teams to create visual designs and prototypes",
+            "Learn from experienced designers and developers and gain hands-on experience in the field",
+            "Contribute to the growth and success of the company through your design efforts",
+        ],
+        jobTimeline: {
+            datePosted: "Posted 1 day ago",
+            separator: (
+                <>
+                    <FaCircle />
+                </>
+            ),
+            directory: "remote",
+        },
+    },
+    {
+        id: "Business Development Internship",
+        status: "new",
+        jobTitle: "Business Development Internship",
+        jobRoleTitle: "Business Development Intern",
+        jobRating: (
+            <>
+                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+            </>
+        ),
+        jobLocation: "Remote",
+        jobDetails: [
+            {
+                item: (
+                    <>
+                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                    </>
+                ),
+            },
+            {
+                item: (
+                    <>
+                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                    </>
+                ),
+            },
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            {
+                item: (
+                    <>
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                    </>
+                ),
+            },
+        ],
+        jobDetails2: [
+            <>
+                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
+            </>,
+            <>
+                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+            </>,
+        ],
+        jobDesc1: (
+            <p>
+                Our company is seeking highly motivated interns for business development projects in the field of cyber
+                security.
+            </p>
+        ),
+        jobDesc2: (
+            <p>
+                This is a unique opportunity for individuals interested in building a career in business development.
+                <br />
+                <br />
+                We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
+                real-world experience in the field. Although this is an{" "}
+                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                valuable experience for you.
+                {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
+                <br />
+                <br />
+                This internship is an excellent chance to gain practical experience, develop your skills, and build your
+                professional network. You&apos;ll work alongside experienced professionals who are dedicated to helping
+                you succeed. Plus, we&apos;ll provide training and support to ensure you&apos;re equipped with the tools
+                and knowledge you need to excel in your role.
+                <br />
+                <br />
+                By joining our internship program, you&apos;ll gain invaluable experience and set yourself up for
+                success in your future career. Apply today and take the first step towards an exciting and rewarding
+                career!
+                <br />
+                <br />
+                If you&apos;re eager to learn and make a difference,
+                <br />
+                Submit your resume and cover letter through our
+                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                    <b> Contact us </b>
+                </RouterLink>
+                form.
+                <br />
+                <br />
+                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
+                disability status.
+            </p>
+        ),
+        jobReq: [
+            "Strong research and analytical skills",
+            "Excellent written and verbal communication skills",
+            "Familiarity with business development techniques",
+            "Passion for technology and cyber security",
+            "Ability to work independently and as a team",
+        ],
+        jobRes: [
+            "Conduct research and analysis on companies to determine their need for cyber security services",
+            "Schedule and attend meetings with potential clients to present our services",
+            "Contribute to the growth and success of the company through business development efforts",
+            "Gain valuable experience and knowledge in the field of business development",
         ],
         jobTimeline: {
             datePosted: "Posted 2 days ago",
@@ -1026,6 +1223,105 @@ export const JobsData = [
     //     ],
     //     jobTimeline: {
     //         datePosted: "Hiring ongoing",
+    //         separator: (
+    //             <>
+    //                 <FaCircle />
+    //             </>
+    //         ),
+    //         directory: "remote",
+    //     },
+    // },
+    // {
+    //     id: "SOC Analyst Internship",
+    //     status: "new",
+    //     jobTitle: "SOC Analyst Internship",
+    //     jobRoleTitle: "SOC Analyst",
+    //     jobRating: (
+    //         <>
+    //             5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //         </>
+    //     ),
+    //     jobLocation: "Remote",
+    //     jobDetails: [
+    //         {
+    //             item: (
+    //                 <>
+    //                     <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+    //                 </>
+    //             ),
+    //         },
+    //         {
+    //             item: (
+    //                 <>
+    //                     <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+    //                 </>
+    //             ),
+    //         },
+    //         {
+    //             item: (
+    //                 <>
+    //                     <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+    //                 </>
+    //             ),
+    //         },
+    //     ],
+    //     jobDetails2: [
+    //         <>
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+    //         </>,
+    //         <>
+    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+    //         </>,
+    //     ],
+    //     jobDesc1: (
+    //         <p>
+    //             Join the team at Thecyberworld as a SOC Analyst Intern and help protect businesses against cyber
+    //             threats.
+    //         </p>
+    //     ),
+    //     jobDesc2: (
+    //         <p>
+    //             This is an excellent opportunity for individuals interested in the field of cyber security.
+    //             <br />
+    //             <br />
+    //             If you&apos;re eager to learn and make a difference,
+    //             <br /> Submit your resume and cover letter through our
+    //             <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+    //
+    //                 <b> Contact us </b>
+    //             </RouterLink>
+    //             form.
+    //             <br />
+    //             <br />
+    //             We are thrilled to offer an <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship opportunity aimed at providing you with valuable
+    //             experience in this field. After three months of hard work and dedication, you will receive swags as a
+    //             token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
+    //             and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your
+    //             skills while working with us.
+    //             <br />
+    //             <br />
+    //             Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+    //             religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
+    //             disability status.
+    //         </p>
+    //     ),
+    //     jobReq: [
+    //         "Strong understanding of cyber security concepts and technologies",
+    //         "Familiarity with security information and event management (SIEM) tools",
+    //         "Good understanding of network protocols and network security",
+    //         "Knowledge of incident response procedures and methodologies",
+    //         "Strong written and verbal communication skills",
+    //         "Ability to work in a fast-paced and dynamic environment",
+    //     ],
+    //     jobRes: [
+    //         "Assist in identifying and analyzing security threats and incidents",
+    //         "Collaborate with the SOC team in incident response and threat mitigation efforts",
+    //         "Assist in the implementation of security solutions and technologies",
+    //         "Contribute to the continuous improvement of the SOC processes and procedures",
+    //         "Gain hands-on experience in the field of cyber security",
+    //     ],
+    //     jobTimeline: {
+    //         datePosted: "Posted 3 days ago",
     //         separator: (
     //             <>
     //                 <FaCircle />

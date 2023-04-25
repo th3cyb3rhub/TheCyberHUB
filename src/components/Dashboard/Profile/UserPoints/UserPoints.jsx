@@ -22,7 +22,7 @@ const UserPoints = ({ userDetail, allUserDetail, blogs }) => {
                 {/* {getUserRank(userDetail, allUserDetail) === 1 ? ( */}
                 {/* <CgCrown/> */}
                 {/* ) : (null)} */}
-                <CgCrown style={{ fontSize: "20px" }} />
+                <CgCrown style={{ color: "#17f31e", fontSize: "20px" }} />
                 <h4> {getUserRank(userDetail, allUserDetail)} </h4>
                 <h5>Rank</h5>
                 {/* {allUserDetail.length} */}
@@ -65,8 +65,8 @@ const UserPoints = ({ userDetail, allUserDetail, blogs }) => {
 };
 
 function getUserRank(userDetail, allDetails) {
-    const sortedDetails = Array.from(allDetails).sort((a, b) => b.exp - a.exp);
-    const userIndex = sortedDetails.findIndex((detail) => detail.user === userDetail.user);
+    const sortedDetails = Array?.from(allDetails).sort((a, b) => (b?.exp || 0) - (a?.exp || 0));
+    const userIndex = sortedDetails?.findIndex((detail) => detail?.user === userDetail?.user);
     const userRank = userIndex !== -1 ? userIndex + 1 : null;
     return userRank;
 }

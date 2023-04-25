@@ -72,9 +72,10 @@ const Sidebar = (props) => {
                             //     dropdown: "learn",
                             // },
                             { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
-                            { to: "blogs", title: "Blogs", dropdown: "blogs" },
                             { to: "tools", title: "Tools", dropdown: "tools" },
+                            { to: "blogs", title: "Blogs", dropdown: "blogs" },
                             { to: "ctf", title: "CTF", dropdown: "ctf" },
+                            { to: "internship", title: "Internship", dropdown: "Internship" },
                             {
                                 title: (
                                     <>
@@ -84,7 +85,6 @@ const Sidebar = (props) => {
                                 ),
                                 dropdown: "resources",
                             },
-                            { to: "support", title: "Support", dropdown: "support" },
                         ].map(({ to, title, dropdown }) => (
                             <NavItem onClick={() => dropHandler(dropdown)} key={dropdown}>
                                 <SidebarLink to={to} onClick={to && toggle}>

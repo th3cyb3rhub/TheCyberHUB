@@ -104,7 +104,7 @@ const SingleCTF = () => {
                                         <ChallengeDescription>{challenge?.challengeDescription}</ChallengeDescription>
                                         {challenge?.machineLink ? (
                                             <CTFMachineLink href={challenge?.machineLink} target="_blank">
-                                                Machine Link: start the machine from here and submit the flags below{" "}
+                                                Machine Link: start the machine from here and submit the flags below
                                             </CTFMachineLink>
                                         ) : null}
                                         {challenge?.downloadableResources.map(
@@ -135,7 +135,7 @@ const SingleCTF = () => {
                                                 : challenge?.likes.length}
                                         </LikesContainer>
                                         <ViewsContainer>
-                                            <AiFillEye /> {uniqueIds.length}{" "}
+                                            <AiFillEye /> {uniqueIds.length}
                                         </ViewsContainer>
                                     </LikesAndViewsContainer>
                                     <CTFLeaderboard

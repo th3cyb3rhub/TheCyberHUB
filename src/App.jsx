@@ -44,7 +44,7 @@ import Tools from "./components/Beta/Tools/Tools";
 import BreachCheck from "./components/Beta/Tools/BreachCheck/BreachCheck";
 import EmailNotVerified from "./components/Dashboard/EmailNotVerified";
 import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ContactForm from "./components/ContactForm/ContactForm";
 import TermsAndCondition from "./components/Resources/TermsAndCondition";
 import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
@@ -52,13 +52,12 @@ import FormData from "./components/Dashboard/FormData/FormData";
 import SubdomainFinder from "./components/Beta/Tools/SubdomainFinder/SubdomainFinder";
 import UserProfile from "./components/Dashboard/Profile/UserProfile";
 import SingleCTF from "./components/Other/CyberGames/CTF/SingleCTF/SingleCTF";
-import { updateUserDetail } from "./features/userDetail/userDetailSlice";
 import CreateCTF from "./components/Other/CyberGames/CTF/CreateCTF";
 import Leaderboard from "./components/Other/CyberGames/Leaderboard/Leaderboard";
-import checkTimestamps from "./features/checkTimestamps";
+import UserTimestamps from "./features/UserTimestamps";
+import InternshipResponse from "./components/Dashboard/FormData/InternshipResponse";
 
 const App = () => {
-    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [showWebsite, setShowWebsite] = useState(false);
     const { pathname } = useLocation();
@@ -85,27 +84,11 @@ const App = () => {
 
     const { user } = useSelector((state) => state.auth);
 
-    const TodayDate = new Date().toISOString();
-    let userTimestamps;
-    if (user) {
-        userTimestamps = checkTimestamps({ user });
-    }
-
-    useEffect(() => {
-        if (user) {
-            const checkTodayTimestamp = userTimestamps?.map(
-                (timestamp) => timestamp.split("T")[0] === TodayDate.split("T")[0],
-            );
-            if (!checkTodayTimestamp?.includes(true)) {
-                dispatch(updateUserDetail({ id: user._id, userData: { visitTimestamps: TodayDate } }));
-            }
-        }
-    }, [dispatch]);
-
     if (isLoading) return <Spinner />;
     if (showWebsite)
         return (
             <>
+                {user && <UserTimestamps user={user} />}
                 <Container>
                     {showFooter() && (
                         <>
@@ -189,13 +172,6 @@ const App = () => {
                                     <Route path={":title"} element={<Roadmap />} />
                                     <Route path={"*"} element={<NotFound />} />
                                 </Route>
-
-                                {/* <Route path={"/courses"} element={<CoursesLayout />}> */}
-                                {/*    <Route index element={<Courses />} /> */}
-                                {/*    <Route path={":id"} element={<CourseDetail />} /> */}
-                                {/* </Route> */}
-
-                                {/* <Route exact path={"/blogs"} element={<Blogs />} /> */}
                             </Route>
                             <Route exact path={"/create-blog"} element={<CreateBlog />} />
 
@@ -206,14 +182,19 @@ const App = () => {
                                     <Route path={"*"} element={<NotFound />} />
                                 </Route>
 
-                                <Route path={"/jobs"} element={<Jobs />} />
+                                <Route path={"/internship"} element={<Jobs />} />
                                 <Route path={"/quiz"} element={<Quiz />} />
                                 <Route path={"/interviewQuestions"} element={<InterviewQuestions />} />
                                 {/* <Route path={"/cyberNews"} element={<CyberNews />} /> */}
                             </Route>
                             {/* <Route element={<NotFound />} /> */}
                             <Route path={"*"} element={<NotFound />} />
-                            <Route exact path={"/getsFormsDataForInternshipsAndServices"} element={<FormData />} />
+                            <Route exact path={"/contactFormResponses"} element={<FormData />} />
+                            <Route
+                                exact
+                                path={"/contactFormResponses/internshipResponse"}
+                                element={<InternshipResponse />}
+                            />
                         </Routes>
                     </ScrollToTop>
                     {showFooter() && <Footer />}

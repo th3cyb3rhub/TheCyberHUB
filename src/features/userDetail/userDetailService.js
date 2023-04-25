@@ -10,9 +10,7 @@ const createUserDetail = async (userDetailData, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-
     const response = await axios.post(API_URL, userDetailData, config);
-
     return response.data;
 };
 

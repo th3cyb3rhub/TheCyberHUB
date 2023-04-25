@@ -30,11 +30,12 @@ const UserProfile = () => {
     const { blogs } = useSelector((state) => state.blogs);
     const [isEdit, setIsEdit] = useState(false);
 
-    let { username } = useParams();
-    username = username.split("@").join("");
+    const { username } = useParams();
 
     useEffect(() => {
-        if (isError) console.log(message);
+        if (isError) {
+            console.log(message);
+        }
 
         dispatch(getUserDetail(username));
         dispatch(getAllBlogs());
@@ -98,7 +99,6 @@ const UserProfile = () => {
         return (
             <Wrapper>
                 <NotFound />
-                {/* <NotFound/> */}
             </Wrapper>
         );
     }

@@ -11,7 +11,7 @@ export const LeaderboardContainer = styled.div`
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    background: #0c0c0c;
+    background: #090909;
 `;
 
 export const LeaderboardHeader = styled.div`
@@ -35,14 +35,19 @@ export const LeaderboardTableRow = styled.tr`
 `;
 
 export const LeaderboardTableHeader = styled.th`
-    background-color: #070707;
+    background-color: #101010;
     border: 1px solid #181818;
+    color: #d3d3d3;
+    border-radius: 5px;
     padding: 12px;
     text-align: left;
 `;
 
 export const LeaderboardTableData = styled.td`
+    background-color: #131313;
     border: 1px solid #181818;
+    color: #d3d3d3;
+    border-radius: 5px;
     padding: 5px;
     text-align: center;
 `;

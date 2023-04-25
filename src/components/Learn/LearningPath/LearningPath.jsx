@@ -4,13 +4,12 @@ import { ButtonText, LoginToAccess, NavigationButtonContainer } from "./Learning
 import { useSelector } from "react-redux";
 import FreeCourse from "./FreeCourse";
 import { RouterLink } from "../../Header/UserOptions/UserOptionsElements";
-import { useUserData } from "../../Dashboard/checkUserVerified";
 import VerifyToAccess from "../../Dashboard/VerifyToAccess";
 
 const LearningPath = () => {
     const { user } = useSelector((state) => state.auth);
 
-    const userVerified = useUserData({ user }).isVerified;
+    const userVerified = user?.isVerified;
 
     if (!user) {
         return (

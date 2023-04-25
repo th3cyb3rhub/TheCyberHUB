@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserDetails, reset } from "../../../../features/userDetail/userDetailSlice";
 import {
+    FirstPlace,
     LeaderboardContainer,
     LeaderboardHeader,
     LeaderboardTable,
@@ -11,6 +12,8 @@ import {
     RefreshButton,
 } from "./LeaderboardElements";
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
+import { RouterLink } from "../../../Beta/Tools/ToolsElements";
+import { CgCrown } from "react-icons/all";
 
 const Leaderboard = () => {
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
@@ -55,7 +58,19 @@ const Leaderboard = () => {
                                     .map((user, index) => (
                                         <LeaderboardTableRow key={index}>
                                             <LeaderboardTableData>{index + 1}</LeaderboardTableData>
-                                            <LeaderboardTableData>{user?.username}</LeaderboardTableData>
+                                            <LeaderboardTableData>
+                                                <FirstPlace>
+                                                    {index === 0 && (
+                                                        <CgCrown
+                                                            style={{
+                                                                color: "#17f31e",
+                                                                fontSize: "50px",
+                                                            }}
+                                                        />
+                                                    )}
+                                                </FirstPlace>
+                                                <RouterLink to={`/@${user?.username}`}>{user?.username}</RouterLink>
+                                            </LeaderboardTableData>
                                             <LeaderboardTableData>{user?.exp || 0}</LeaderboardTableData>
                                         </LeaderboardTableRow>
                                     ))}

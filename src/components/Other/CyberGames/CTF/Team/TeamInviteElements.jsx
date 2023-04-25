@@ -43,10 +43,12 @@ export const TeamContainer = styled.div`
     //position: sticky;
     //z-index: 10;
     //top: 150px;
-    min-width: 350px;
+    min-width: 400px;
     width: auto;
     gap: 25px;
-    @media screen and (max-width: 960px) {
+    @media screen and (max-width: 800px) {
+        min-width: 100%;
+        width: 100%;
         transition: 0.8s all ease;
     }
 `;

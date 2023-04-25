@@ -1,21 +1,12 @@
 import React, { useState } from "react";
-import { Link as ScrollLink } from "react-scroll";
 
-import { Container, Heading, Overlay, Paragraph } from "../../Community/CommunityElements";
-import {
-    JobIntroHeader,
-    JobsCardSection,
-    JobsDetailContainer,
-    JobsDetailSection,
-    JobsDropdownIcon,
-    JobSection,
-    ScrollButton,
-} from "./JobsElements";
+import { JobsCardSection, JobsDetailContainer, JobsDetailSection, JobSection } from "./JobsElements";
 
 import Job from "./Job";
 import { JobsData } from "./JobsData";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import JobDetailsPage from "./JobDetailsPage";
+import InternshipProgram from "./Internship/InternshipProgram";
 
 const Jobs = () => {
     const [detailsVisible, setDetailsVisible] = useState(false);
@@ -23,32 +14,8 @@ const Jobs = () => {
 
     return (
         <Wrapper>
+            <InternshipProgram />
             <JobSection>
-                {/* {!detailsVisible ? (<> */}
-                <JobIntroHeader>
-                    <Overlay />
-                    <Container>
-                        <Heading>
-                            Searching for a job? <br /> Look no further!
-                        </Heading>
-                        <Paragraph>
-                            Explore job opportunities across various fields with our comprehensive job board. <br />
-                            Improve your skills and gain real-world experience through our unpaid internship program.
-                            <br />
-                            Performance-based incentives and perks await you after three months, including swag and
-                            more!
-                        </Paragraph>
-                        <ScrollLink to={"jobs"} smooth={true} duration={600} spy={true} exact={"true"} offset={-80}>
-                            <ScrollButton>
-                                <span>Find A Job</span>
-                                <JobsDropdownIcon />
-                            </ScrollButton>
-                        </ScrollLink>
-                    </Container>
-                </JobIntroHeader>
-
-                {/* </>) : (null)} */}
-
                 <JobsDetailContainer id="jobs">
                     {window.innerWidth > 1000 ? (
                         <>
@@ -103,7 +70,7 @@ const Jobs = () => {
                                 ))}
                             </JobsCardSection>
                             {detailsVisible ? (
-                                <JobsDetailSection style={{ float: "right", width: "30%" }}>
+                                <JobsDetailSection style={{ float: "right", width: "35%" }}>
                                     {selectedJob ? (
                                         <JobDetailsPage
                                             key={selectedJob.id}

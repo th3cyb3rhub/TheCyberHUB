@@ -152,7 +152,7 @@ export const challenges = [
                 framework for understanding and designing communication protocols and networks. It allows different
                 vendors and systems to communicate with each other by adhering to the same set of rules and standards.
                 However, it should be noted that the OSI model is a theoretical framework and not a strict
-                implementation, as real-world networks often use a combination of protocols from different layers.{" "}
+                implementation, as real-world networks often use a combination of protocols from different layers.
             </p>
         ),
     },

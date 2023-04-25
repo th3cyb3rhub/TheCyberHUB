@@ -5,7 +5,7 @@ export const QuizSection = styled.div`
     margin: 40px auto;
     color: white;
     font-weight: 600;
-    background-color: #111111;
+    background: #090909;
     width: auto;
     max-width: calc(70rem - 75px);
     height: min-content;
@@ -103,15 +103,16 @@ export const AnswerSection = styled.div`
 `;
 
 export const QuestionButton = styled.button`
+    font-family: "Poppins", sans-serif;
     text-align: left;
     width: auto;
-    font-size: 14px;
+    font-size: 15px;
     color: #cecac3;
-    background-color: #1a1a1a;
+    background: #101010;
     border-radius: 5px;
-    padding: 15px;
+    padding: 10px;
     margin: 7px 0;
-    border: 1px solid #545454;
+    border: 1px solid #232323;
     border-bottom-width: 2px;
     cursor: pointer;
     transition: 0.1s ease;
@@ -169,14 +170,13 @@ export const MobileCategories = styled(CategoriesSection)`
 
 export const CategoriesButton = styled.button`
     background-color: transparent;
-    border: 1px solid rgba(62, 62, 62, 0.76);
+    border: 1px solid #232323;
     color: #cecac3;
     cursor: pointer;
     font-weight: bold;
     margin: 0 10px;
     padding: 10px;
     border-radius: 4px;
-    border-color: #343434;
     letter-spacing: -0.03rem;
     transition: 0.3s ease;
 
