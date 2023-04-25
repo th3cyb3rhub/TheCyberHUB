@@ -1,3 +1,12 @@
+## [0.38.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.38.0...v0.38.1) (2023-04-25)
+
+
+### Bug Fixes
+
+* blogs heading ([#414](https://github.com/thecyberworld/thecyberhub.org/issues/414)) ([5105bcc](https://github.com/thecyberworld/thecyberhub.org/commit/5105bcc7bc08fe3585fc74c8aabe7d0e56af5a78))
+
+
+
 # [0.38.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.37.1...v0.38.0) (2023-04-25)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * ctf ([#405](https://github.com/thecyberworld/thecyberhub.org/issues/405)) ([066b40e](https://github.com/thecyberworld/thecyberhub.org/commit/066b40efc7ffc270eb3546667d9fe992bf9dbcc8)), closes [#403](https://github.com/thecyberworld/thecyberhub.org/issues/403) [#404](https://github.com/thecyberworld/thecyberhub.org/issues/404)
-
-
-
-## [0.35.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.35.0...v0.35.1) (2023-04-23)
-
-
-### Reverts
-
-* Revert "feat: CTF (#401)" (#402) ([23ddc01](https://github.com/thecyberworld/thecyberhub.org/commit/23ddc01998b08b6b89f000734fb00bbe25509d2d)), closes [#401](https://github.com/thecyberworld/thecyberhub.org/issues/401) [#402](https://github.com/thecyberworld/thecyberhub.org/issues/402)
 
 
 
