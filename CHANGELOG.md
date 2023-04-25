@@ -1,3 +1,12 @@
+# [0.38.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.37.1...v0.38.0) (2023-04-25)
+
+
+### Features
+
+* new internship page ([#411](https://github.com/thecyberworld/thecyberhub.org/issues/411)) ([fe10617](https://github.com/thecyberworld/thecyberhub.org/commit/fe10617da512cc347bd58bff0eca046bb4d8c2dd))
+
+
+
 ## [0.37.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.37.0...v0.37.1) (2023-04-24)
 
 
@@ -31,15 +40,6 @@
 ### Reverts
 
 * Revert "feat: CTF (#401)" (#402) ([23ddc01](https://github.com/thecyberworld/thecyberhub.org/commit/23ddc01998b08b6b89f000734fb00bbe25509d2d)), closes [#401](https://github.com/thecyberworld/thecyberhub.org/issues/401) [#402](https://github.com/thecyberworld/thecyberhub.org/issues/402)
-
-
-
-# [0.35.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.34.1...v0.35.0) (2023-04-23)
-
-
-### Features
-
-* CTF ([#401](https://github.com/thecyberworld/thecyberhub.org/issues/401)) ([eb28b07](https://github.com/thecyberworld/thecyberhub.org/commit/eb28b0700961546369ee1e4f01a2bfb007d8535a))
 
 
 
