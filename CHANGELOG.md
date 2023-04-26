@@ -1,3 +1,12 @@
+# [0.39.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.38.1...v0.39.0) (2023-04-26)
+
+
+### Features
+
+* security page ([#415](https://github.com/thecyberworld/thecyberhub.org/issues/415)) ([6c50dd0](https://github.com/thecyberworld/thecyberhub.org/commit/6c50dd0fab66f94cbf66f9d0e25f88f34d068293))
+
+
+
 ## [0.38.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.38.0...v0.38.1) (2023-04-25)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * CTF ([#406](https://github.com/thecyberworld/thecyberhub.org/issues/406)) ([9cd0be0](https://github.com/thecyberworld/thecyberhub.org/commit/9cd0be020787006028a722f56072210d77f09cb8)), closes [#403](https://github.com/thecyberworld/thecyberhub.org/issues/403) [#404](https://github.com/thecyberworld/thecyberhub.org/issues/404)
-
-
-
-# [0.36.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.35.1...v0.36.0) (2023-04-23)
-
-
-### Features
-
-* ctf ([#405](https://github.com/thecyberworld/thecyberhub.org/issues/405)) ([066b40e](https://github.com/thecyberworld/thecyberhub.org/commit/066b40efc7ffc270eb3546667d9fe992bf9dbcc8)), closes [#403](https://github.com/thecyberworld/thecyberhub.org/issues/403) [#404](https://github.com/thecyberworld/thecyberhub.org/issues/404)
 
 
 
