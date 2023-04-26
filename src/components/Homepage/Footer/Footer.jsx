@@ -80,6 +80,15 @@ const Footer = () => {
                             <FooterRouterLink to="/support">Support</FooterRouterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
+                            <FooterLinkTitle>Security</FooterLinkTitle>
+                            <FooterRouterLink to="/security"> Security </FooterRouterLink>
+                            <FooterRouterLink to="/security/rules-of-engagement">
+                                {" "}
+                                Rules of Engagement{" "}
+                            </FooterRouterLink>
+                            <FooterRouterLink to="/security/hall-of-fame"> Hall of Fame </FooterRouterLink>
+                        </FooterLinkItems>
+                        <FooterLinkItems>
                             <FooterLinkTitle> Social Media </FooterLinkTitle>
                             <FooterSocialLinksTwitter href={SocialLinks.twitter} target={"_blank"}>
                                 Twitter
@@ -93,12 +102,6 @@ const Footer = () => {
                             <FooterSocialLinksLinktree href={SocialLinks.linktree} target={"_blank"}>
                                 All Community Links
                             </FooterSocialLinksLinktree>
-                        </FooterLinkItems>
-                        <FooterLinkItems>
-                            <FooterLinkTitle> Free Courses </FooterLinkTitle>
-                            <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
-                                Complete Cyber Security Course
-                            </FooterRedirectLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle> Videos (coming soon) </FooterLinkTitle>

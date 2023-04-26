@@ -39,7 +39,6 @@ export const InterviewsQuestionsHeading = styled.h2`
     margin: 10px 5px;
     color: #17f31e;
     font-size: 25px;
-    width: 100%;
 `;
 export const InterviewsAnswerQuestionsHeading = styled.h2`
     margin: 10px 0px;

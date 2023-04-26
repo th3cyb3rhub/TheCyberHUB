@@ -56,6 +56,9 @@ import CreateCTF from "./components/Other/CyberGames/CTF/CreateCTF";
 import Leaderboard from "./components/Other/CyberGames/Leaderboard/Leaderboard";
 import UserTimestamps from "./features/UserTimestamps";
 import InternshipResponse from "./components/Dashboard/FormData/InternshipResponse";
+import Security from "./components/Security/Security";
+import HallOfFame from "./components/Security/HallOfFame";
+import RulesOfEngagement from "./components/Security/RulesOfEngagement";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -181,12 +184,18 @@ const App = () => {
                                     <Route path={":title"} element={<Event />} />
                                     <Route path={"*"} element={<NotFound />} />
                                 </Route>
-
-                                <Route path={"/internship"} element={<Jobs />} />
-                                <Route path={"/quiz"} element={<Quiz />} />
-                                <Route path={"/interviewQuestions"} element={<InterviewQuestions />} />
-                                {/* <Route path={"/cyberNews"} element={<CyberNews />} /> */}
                             </Route>
+
+                            <Route>
+                                <Route path={"/security"} element={<Security />} />
+                                <Route path={"/security/hall-of-fame"} element={<HallOfFame />} />
+                                <Route path={"/security/rules-of-engagement"} element={<RulesOfEngagement />} />
+                            </Route>
+
+                            <Route path={"/internship"} element={<Jobs />} />
+                            <Route path={"/quiz"} element={<Quiz />} />
+                            <Route path={"/interviewQuestions"} element={<InterviewQuestions />} />
+                            {/* <Route path={"/cyberNews"} element={<CyberNews />} /> */}
                             {/* <Route element={<NotFound />} /> */}
                             <Route path={"*"} element={<NotFound />} />
                             <Route exact path={"/contactFormResponses"} element={<FormData />} />

@@ -12,7 +12,6 @@ import {
     NavLogoRouter,
     NavMenu,
     NavUsersDetailsSection,
-    RouterNavCreateButtonLink,
     RouterNavLeaderboardButtonLink,
 } from "./NavbarElements";
 import Dropdown from "../Dropdowns/Dropdown";
@@ -102,7 +101,6 @@ const Navbar = ({ isOpen, toggle }) => {
                 </NavMenu>
                 <NavButtonsSection>
                     <RouterNavLeaderboardButtonLink to={"/leaderboard"}> Leaderboard </RouterNavLeaderboardButtonLink>
-                    <RouterNavCreateButtonLink to={"/dashboard/blogs/create"}> Create Blog </RouterNavCreateButtonLink>
                 </NavButtonsSection>
                 <NavUsersDetailsSection>
                     <Exp />

@@ -1,22 +1,91 @@
 import React from "react";
+import {
+    HallOfFameContainer,
+    HallOfFameList,
+    HallOfFameMonth,
+    HallOfFameMonthSection,
+    HallOfFameName,
+    HallOfFameYear,
+    HallOfFameYearSection,
+} from "./HallOfFameElements";
+import { Wrapper } from "../Dashboard/Profile/ProfileElements";
+import { DotSymbol } from "../Other/Support/SponsorsElements";
+import SecurityNavigation from "./SecurityNavigation";
 
 const HallOfFame = () => {
     const entries = [
-        { name: "John Doe", description: "Discovered SQL injection vulnerability" },
-        { name: "Jane Smith", description: "Reported cross-site scripting (XSS) vulnerability" },
+        {
+            year: 2023,
+            months: [
+                {
+                    month: "January",
+                    list: [
+                        {
+                            name: "Yash singh chauhan",
+                            username: "0xFTW",
+                            vulnerability: "NoSQL Injection on Login Page",
+                            profile: "https://thecyberhub.org/@0xFTW",
+                        },
+                        {
+                            name: "Yash singh chauhan",
+                            username: "0xFTW",
+                            vulnerability: "Rate Limit",
+                            profile: "https://thecyberhub.org/@0xFTW",
+                        },
+                        {
+                            name: "Kabir",
+                            username: "kabir0x23",
+                            vulnerability: "XSS on Contact Forms",
+                            profile: "https://thecyberhub.org/@kabir0x23",
+                        },
+                    ],
+                },
+            ],
+        },
     ];
 
     return (
-        <div>
-            <h1>Hall of Fame</h1>
-            <ul>
-                {entries.map((entry, index) => (
-                    <li key={index}>
-                        <strong>{entry.name}</strong> - {entry.description}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Wrapper>
+            <HallOfFameContainer>
+                <SecurityNavigation heading={"Hall of Fame"} />
+                <HallOfFameList>
+                    {entries
+                        .slice()
+                        .reverse()
+                        .map((item, index) => (
+                            <HallOfFameYearSection key={index}>
+                                <HallOfFameYear>{item.year}</HallOfFameYear>
+                                {item.months
+                                    .slice()
+                                    .reverse()
+                                    .map((item, index) => (
+                                        <HallOfFameMonthSection key={index}>
+                                            <HallOfFameMonth>{item.month}</HallOfFameMonth>
+                                            <ul>
+                                                {item.list.map((item, index) => (
+                                                    <HallOfFameName key={index}>
+                                                        <DotSymbol />
+                                                        {item.name}{" "}
+                                                        <a
+                                                            style={{ color: "greenyellow" }}
+                                                            href={item.profile}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                        >
+                                                            {" "}
+                                                            [@{item.username}]
+                                                        </a>{" "}
+                                                        - {item.vulnerability}
+                                                    </HallOfFameName>
+                                                ))}
+                                            </ul>
+                                        </HallOfFameMonthSection>
+                                    ))}
+                            </HallOfFameYearSection>
+                        ))}
+                </HallOfFameList>
+            </HallOfFameContainer>
+        </Wrapper>
     );
 };
 
