@@ -53,4 +53,4 @@ jobs:
           app-name: 'thecyberhub-org'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0091A2EE3F384F8F8DB272D022C92BAE }}
-          package: dist
+          package: .
