@@ -1,3 +1,12 @@
+## [0.39.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.1...v0.39.2) (2023-04-27)
+
+
+### Bug Fixes
+
+* workflow ([e4e99aa](https://github.com/thecyberworld/thecyberhub.org/commit/e4e99aaa56b51f3ff58d1833b0a7a28bb14f7784))
+
+
+
 ## [0.39.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.0...v0.39.1) (2023-04-27)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * new internship page ([#411](https://github.com/thecyberworld/thecyberhub.org/issues/411)) ([fe10617](https://github.com/thecyberworld/thecyberhub.org/commit/fe10617da512cc347bd58bff0eca046bb4d8c2dd))
-
-
-
-## [0.37.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.37.0...v0.37.1) (2023-04-24)
-
-
-### Bug Fixes
-
-* Minor Updates abour ctf and design of interview questions ([#410](https://github.com/thecyberworld/thecyberhub.org/issues/410)) ([df5009e](https://github.com/thecyberworld/thecyberhub.org/commit/df5009e536c434778a04fe92f92842cdfc57ecb2))
 
 
 
