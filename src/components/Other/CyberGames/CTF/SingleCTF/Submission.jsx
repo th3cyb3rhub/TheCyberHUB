@@ -112,17 +112,21 @@ const Submission = ({ ctfId, flags, user }) => {
                         ) : (
                             <FlagSubmit onClick={() => handleFlagSubmit(flag._id)}> Submit </FlagSubmit>
                         )}
-                        {hintFlagId === flag._id ? <ShowFlagHint>{flag.hint}</ShowFlagHint> : null}
-                        {solvedFlags?.includes(flag._id) ? null : (
-                            <FlagHintButton onClick={() => handleToggleHint(flag._id)}>
-                                {hintFlagId === flag._id ? (
-                                    "Hide Hint"
-                                ) : (
-                                    <>
-                                        <TbBulb /> Hint
-                                    </>
+                        {flag.hint === "" ? null : (
+                            <>
+                                {hintFlagId === flag._id ? <ShowFlagHint>{flag.hint}</ShowFlagHint> : null}
+                                {solvedFlags?.includes(flag._id) ? null : (
+                                    <FlagHintButton onClick={() => handleToggleHint(flag._id)}>
+                                        {hintFlagId === flag._id ? (
+                                            "Hide Hint"
+                                        ) : (
+                                            <>
+                                                <TbBulb /> Hint
+                                            </>
+                                        )}
+                                    </FlagHintButton>
                                 )}
-                            </FlagHintButton>
+                            </>
                         )}
                     </SubmissionFlagSection>
                 </SubmissionSection>
