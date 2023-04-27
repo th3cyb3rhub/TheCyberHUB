@@ -10,9 +10,9 @@ const SecurityNavigation = ({ heading }) => {
             </InternshipHeader>
 
             <NavigationContainer>
-                <NavigationLink to="/security">Security</NavigationLink>
-                <NavigationLink to="/security/rules-of-engagement">Rules of Engagement</NavigationLink>
-                <NavigationLink to="/security/hall-of-fame">Hall of Fame</NavigationLink>
+                <NavigationLink to="/security"> Security </NavigationLink>
+                <NavigationLink to="/security/rules-of-engagement"> Rules of Engagement </NavigationLink>
+                <NavigationLink to="/security/hall-of-fame"> Hall of Fame </NavigationLink>
             </NavigationContainer>
         </>
     );

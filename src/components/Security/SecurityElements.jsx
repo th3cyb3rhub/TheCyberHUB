@@ -8,8 +8,11 @@ export const NavigationContainer = styled.div`
     gap: 25px;
     padding: 0px 50px 50px;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 600px) {
         flex-direction: column;
+        background: #090909;
+        width: 100%;
+        padding: 25px;
     }
 `;
 
@@ -18,15 +21,23 @@ export const NavigationLink = styled(Link)`
     text-decoration: none;
     font-size: 1.5rem;
 
-    @media screen and (max-width: 768px) {
-        font-size: 1rem;
-    }
-
     transition: all 0.2s ease-in-out;
+
     &:hover {
         cursor: pointer;
         transition: all 0.2s ease-in-out;
         color: greenyellow;
+        scale: 1.05;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 1rem;
+    }
+
+    @media screen and (max-width: 600px) {
+        &:hover {
+            transform: translateX(10px);
+        }
     }
 `;
 
@@ -57,6 +68,11 @@ export const SecurityContentList = styled.div`
     padding: 50px;
     gap: 25px;
     background: #090909;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1.5rem;
+        padding: 25px;
+    }
 `;
 
 export const SecurityHeading = styled.h1`
@@ -72,6 +88,13 @@ export const SecuritySubheading = styled.h2`
     align-items: center;
     text-align: start;
     white-space: pre-line;
+
+    @media screen and (max-width: 780px) {
+        font-size: 1.5rem;
+    }
+    @media screen and (max-width: 500px) {
+        font-size: 1.3rem;
+    }
 `;
 
 export const SecurityText = styled.p`
@@ -79,4 +102,8 @@ export const SecurityText = styled.p`
     line-height: 1.5;
     max-width: 800px;
     text-align: start;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1rem;
+    }
 `;

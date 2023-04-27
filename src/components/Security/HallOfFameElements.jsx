@@ -19,6 +19,9 @@ export const HallOfFameList = styled.ul`
     padding: 0 25px 25px;
     border-radius: 10px;
     gap: 25px;
+    @media screen and (max-width: 768px) {
+        padding: 0 10px 25px;
+    }
 `;
 
 export const HallOfFameYearSection = styled.div`
@@ -31,6 +34,9 @@ export const HallOfFameMonthSection = styled.div`
     background: #101010;
     border-radius: 10px;
     gap: 25px;
+    @media screen and (max-width: 768px) {
+        padding: 10px 5px 10px 15px;
+    }
 `;
 
 export const HallOfFameYear = styled.h1`
@@ -43,6 +49,9 @@ export const HallOfFameMonth = styled.h3``;
 
 export const HallOfFameName = styled.li`
     padding: 0 25px;
+    @media screen and (max-width: 768px) {
+        padding: 0 5px;
+    }
 `;
 
 export const HallOfFameUsername = styled.li``;

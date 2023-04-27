@@ -110,4 +110,7 @@ export const InternshipHeading = styled.h1`
     @media screen and (max-width: 768px) {
         font-size: 3rem;
     }
+    @media screen and (max-width: 500px) {
+        font-size: 2rem;
+    }
 `;
