@@ -82,20 +82,18 @@ const UserProfile = () => {
         }
     };
 
-    console.log(userDetail);
+    if (isLoading) {
+        return (
+            <Wrapper>
+                <CircleSpinner size={20} color={"#1fc10d"} />
+            </Wrapper>
+        );
+    }
 
     if (userDetail?.length === 0 || userDetail === "Request failed with status code 404") {
         return (
             <Wrapper>
                 <NotFound />
-            </Wrapper>
-        );
-    }
-
-    if (isLoading) {
-        return (
-            <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} />
             </Wrapper>
         );
     }
