@@ -114,7 +114,6 @@ const ContactForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setIsLoading(true);
         setError(false);
         setError2(false);
         setIsSuccess(false);
@@ -149,6 +148,7 @@ const ContactForm = () => {
             // else if ((reason === "internship" && message.length < 200) || message.length > 1000) {
             //     toast("Please write a cover letter of length 200 - 1000 characters");
         } else {
+            setIsLoading(true);
             axios
                 .post(getApiUrl("api/form/submit"), filledFormData, {
                     headers: { "Content-Type": "application/json" },
@@ -174,6 +174,7 @@ const ContactForm = () => {
                         setError2(false);
                     }
                     if (response.data.message === "Something went wrong. Please try again later.") {
+                        setIsLoading(false);
                         setError2(true);
                         setIsSuccess(false);
                     }
@@ -181,11 +182,14 @@ const ContactForm = () => {
                 .catch((error) => {
                     if (error.message === "Network Error") {
                         setError2(true);
+                        setIsLoading(false);
                         setIsSuccess(false);
                     } else if (error.response.status === 429) {
                         toast.error("Please wait 1 Minute before submitting again");
+                        setIsLoading(false);
                         setIsSuccess(false);
                     } else {
+                        setIsLoading(false);
                         setError2(true);
                         setIsSuccess(false);
                     }
