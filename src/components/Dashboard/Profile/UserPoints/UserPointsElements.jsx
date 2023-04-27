@@ -15,15 +15,12 @@ export const UserPointsContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    margin: 10px 0;
     font-size: 1.5rem;
     font-weight: 500;
     text-align: center;
 `;
 
-export const RankContainer = styled.div`
-    gap: -10px;
-`;
+export const RankContainer = styled.div``;
 
 export const UserExpContainer = styled.div``;
 

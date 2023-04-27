@@ -8,6 +8,7 @@ export const ProfileContainer = styled.div`
     margin: 0 auto;
     max-width: 1500px;
     width: 100%;
+    gap: 10px;
 `;
 
 export const HR = styled.hr`
@@ -20,11 +21,11 @@ export const HR = styled.hr`
 export const Heading = styled.h3``;
 
 export const AboutSection = styled.div`
-    margin: 10px 0 25px;
-    padding: 5px;
-
     width: 100%;
 
+    background: #090909;
+    padding: 10px;
+    border-radius: 5px;
     .about-me {
     }
 `;
@@ -55,6 +56,7 @@ export const ProfileDetailsSection = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    gap: 10px;
 
     @media screen and (max-width: 760px) {
         flex-direction: column;
@@ -103,11 +105,8 @@ export const UserBanner = styled.img`
     width: 100%;
     object-fit: cover;
     height: 100%;
-    max-height: 250px;
+    max-height: 150px;
     margin-top: -30px;
-    @media screen and (max-width: 760px) {
-        max-height: 150px;
-    }
 `;
 export const UserInfo = styled.div``;
 

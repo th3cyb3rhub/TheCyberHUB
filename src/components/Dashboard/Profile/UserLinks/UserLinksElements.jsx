@@ -1,8 +1,9 @@
 import styled from "styled-components";
 export const UserLinksContainer = styled.div`
-    border: 2px solid #111111;
+    border: 2px solid #0e0e0e;
+    background: #090909;
+    border-radius: 5px;
     padding: 15px;
-    margin: 0 5px 0 0;
     min-width: 280px;
     max-width: 280px;
     @media screen and (max-width: 760px) {
@@ -58,6 +59,10 @@ export const UserFollowersAndFollowing = styled.div`
 
 export const UserBio = styled.div`
     margin: 10px 0;
+    background: #0e0e0e;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 13px;
     .bio {
         display: flex;
         flex-direction: row;

@@ -26,6 +26,7 @@ const UserProfile = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { userDetail, userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
+
     const { blogs } = useSelector((state) => state.blogs);
     const [isEdit, setIsEdit] = useState(false);
 
@@ -36,27 +37,22 @@ const UserProfile = () => {
             console.log(message);
         }
 
+        if (user && user?.username === username && userDetail.length === 0) {
+            const userNameAndUsername = { name: user?.name, username: user?.username };
+            dispatch(updateUserDetail({ id: user?._id, userData: userNameAndUsername }));
+        }
+
+        if (user && user?.username === username && userDetail?.socialLinks?.length === 0) {
+            const userSocialLinksTemplateUpdate = { socialLinks: SocialLinksTemplate };
+            dispatch(updateUserDetail({ id: user?._id, userData: userSocialLinksTemplateUpdate }));
+        }
+
         dispatch(getUserDetail(username));
         dispatch(getAllBlogs());
         dispatch(getAllUserDetails());
 
         return () => dispatch(reset());
     }, [isError, message, dispatch, username]);
-
-    if (user && userDetail && user?._id === userDetail.user && !userDetail.name && !userDetail.username) {
-        const userNameAndUsername = { name: user && user?.name, username: user && user?.username };
-        dispatch(updateUserDetail({ id: user?._id, userData: userNameAndUsername }));
-    }
-
-    if (
-        user &&
-        userDetail &&
-        user?._id === userDetail.user &&
-        (userDetail.socialLinks === [] || userDetail.socialLinks?.length === 0)
-    ) {
-        const userSocialLinksTemplateUpdate = { socialLinks: SocialLinksTemplate };
-        dispatch(updateUserDetail({ id: user?._id, userData: userSocialLinksTemplateUpdate }));
-    }
 
     const { aboutMe, bio, skills, achievements, cyberProfiles, socialLinks, projects } = userDetail;
 
@@ -68,7 +64,7 @@ const UserProfile = () => {
         socialLinks: socialLinks || [],
         projects: projects || [],
         cyberProfiles: cyberProfiles || [],
-        solved: userDetail.solved || [],
+        solved: userDetail?.solved || [],
     });
 
     const [userDetailData, setUserDetailData] = useState(getInitialUserDetailData());
@@ -80,13 +76,15 @@ const UserProfile = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (user && userDetail && user?._id === userDetail.user) {
-            await dispatch(updateUserDetail({ id: userDetail.user, userData: userDetailData }));
+        if (user && userDetail && user?._id === userDetail?.user) {
+            await dispatch(updateUserDetail({ id: userDetail?.user, userData: userDetailData }));
             setIsEdit(false);
         }
     };
 
-    if (userDetail.username === "" && userDetail.name === "") {
+    console.log(userDetail);
+
+    if (userDetail?.length === 0 || userDetail === "Request failed with status code 404") {
         return (
             <Wrapper>
                 <NotFound />
@@ -117,15 +115,15 @@ const UserProfile = () => {
                         userDetail={userDetail}
                         socialLinks={socialLinks}
                         bio={bio}
-                        location={userDetail.location}
-                        workOrg={userDetail.workOrg}
+                        location={userDetail?.location}
+                        workOrg={userDetail?.workOrg}
                         isEdit={isEdit}
                         userDetailData={userDetailData}
                         setUserDetailData={setUserDetailData}
                     />
                     <UserDetailsContainer>
                         <UserPoints userDetail={userDetail} allUserDetail={userDetails} blogs={blogs} />
-                        {aboutMe && aboutMe.length === 0 && user?._id !== userDetail.user ? null : (
+                        {aboutMe && aboutMe.length === 0 && user?._id !== userDetail?.user ? null : (
                             <AboutMe
                                 isEdit={isEdit}
                                 aboutMe={aboutMe}
@@ -133,7 +131,7 @@ const UserProfile = () => {
                                 setUserDetailData={setUserDetailData}
                             />
                         )}
-                        {skills && skills.length === 0 && user?._id !== userDetail.user ? null : (
+                        {skills && skills.length === 0 && user?._id !== userDetail?.user ? null : (
                             <SkillSet
                                 isEdit={isEdit}
                                 skills={skills}
@@ -141,7 +139,7 @@ const UserProfile = () => {
                                 setUserDetailData={setUserDetailData}
                             />
                         )}
-                        {projects && projects.length === 0 && user?._id !== userDetail.user ? null : (
+                        {projects && projects.length === 0 && user?._id !== userDetail?.user ? null : (
                             <UserProjects
                                 isEdit={isEdit}
                                 projects={projects}
@@ -149,7 +147,7 @@ const UserProfile = () => {
                                 setUserDetailData={setUserDetailData}
                             />
                         )}
-                        {achievements && achievements.length === 0 && user?._id !== userDetail.user ? null : (
+                        {achievements && achievements.length === 0 && user?._id !== userDetail?.user ? null : (
                             <Achievements
                                 isEdit={isEdit}
                                 achievements={achievements}

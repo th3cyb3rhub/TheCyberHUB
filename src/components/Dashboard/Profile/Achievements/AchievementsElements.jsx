@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { BsDot } from "react-icons/all";
 
 export const AchievementsContainer = styled.div`
-    padding: 25px 10px;
-    margin-bottom: 25px;
-    background: #080808;
+    background: #090909;
+    padding: 10px;
+    border-radius: 5px;
 `;
 
-export const AchievementHeading = styled.h2``;
+export const AchievementHeading = styled.h3``;
 
 export const AchievementList = styled.ul`
     display: flex;

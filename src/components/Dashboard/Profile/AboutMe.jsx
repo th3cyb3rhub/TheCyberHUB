@@ -1,6 +1,7 @@
 import React from "react";
 import { AboutSection } from "./ProfileElements";
 import styled from "styled-components";
+import { AchievementHeading } from "./Achievements/AchievementsElements";
 
 const AboutMe = ({ aboutMe, userDetailData, setUserDetailData, isEdit }) => {
     const onChange = (e) => {
@@ -13,7 +14,7 @@ const AboutMe = ({ aboutMe, userDetailData, setUserDetailData, isEdit }) => {
 
     return (
         <AboutSection>
-            <h3>About Me</h3>
+            <AchievementHeading>About Me</AchievementHeading>
             {isEdit ? (
                 <AboutTextArea
                     isEdit={isEdit} // Pass down the isEdit prop to AboutTextArea

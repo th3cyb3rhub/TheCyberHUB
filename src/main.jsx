@@ -12,7 +12,7 @@ export const webEnv = import.meta.env.VITE_WEB_ENV || "production";
 
 ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-        {webEnv === "security" ? (
+        {webEnv === "security" || webEnv === "development" ? (
             <HashRouter>
                 <Provider store={store}>
                     <App />

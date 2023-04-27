@@ -7,12 +7,10 @@ export const SkillSetContainer = styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    background: #080808;
 
+    background: #090909;
+    padding: 10px;
     border-radius: 5px;
-
-    margin: 10px 0;
-    padding: 5px;
 `;
 
 export const SkillSetCategory = styled.div`
@@ -76,6 +74,9 @@ export const AddSkillInput = styled.input`
 `;
 export const UserDetailsContainer = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 `;
 
 export const SkillLevel = styled.p``;

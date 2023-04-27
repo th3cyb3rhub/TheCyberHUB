@@ -6,7 +6,8 @@ export const ActivityGraphContainer = styled.div`
     justify-content: center;
     align-items: center;
     background: #0e0e0e;
-    padding: 1rem;
+    padding: 10px;
+    border-radius: 5px;
 
     .react-calendar-heatmap text {
         font-size: 10px;
@@ -64,8 +65,8 @@ export const ActivityGraphContainer = styled.div`
     }
 
     /*
- * Gitlab color scale
- */
+* Gitlab color scale
+*/
 
     .react-calendar-heatmap .color-gitlab-0 {
         fill: #ededed;
