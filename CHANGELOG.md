@@ -1,3 +1,12 @@
+## [0.39.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.3...v0.39.4) (2023-04-27)
+
+
+### Bug Fixes
+
+* loading in user profile ([8f1a7c4](https://github.com/thecyberworld/thecyberhub.org/commit/8f1a7c4b56c7d71324bd4f982b993873485b641c))
+
+
+
 ## [0.39.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.2...v0.39.3) (2023-04-27)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * security page ([#415](https://github.com/thecyberworld/thecyberhub.org/issues/415)) ([6c50dd0](https://github.com/thecyberworld/thecyberhub.org/commit/6c50dd0fab66f94cbf66f9d0e25f88f34d068293))
-
-
-
-## [0.38.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.38.0...v0.38.1) (2023-04-25)
-
-
-### Bug Fixes
-
-* blogs heading ([#414](https://github.com/thecyberworld/thecyberhub.org/issues/414)) ([5105bcc](https://github.com/thecyberworld/thecyberhub.org/commit/5105bcc7bc08fe3585fc74c8aabe7d0e56af5a78))
 
 
 
