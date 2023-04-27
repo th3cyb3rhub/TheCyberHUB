@@ -8,23 +8,22 @@ import "./index.css";
 import store from "./app/store";
 
 const rootElement = document.getElementById("root");
-
 export const webEnv = import.meta.env.VITE_WEB_ENV || "production";
 
 ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-        {webEnv === "production" ? (
-            <BrowserRouter>
-                <Provider store={store}>
-                    <App />
-                </Provider>
-            </BrowserRouter>
-        ) : (
+        {webEnv === "security" ? (
             <HashRouter>
                 <Provider store={store}>
                     <App />
                 </Provider>
             </HashRouter>
+        ) : (
+            <BrowserRouter>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+            </BrowserRouter>
         )}
     </React.StrictMode>,
 );

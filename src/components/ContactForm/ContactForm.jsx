@@ -33,6 +33,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import InternshipProgramData from "../Resources/Jobs/Internship/InternshipProgramData";
 import { JobsData } from "../Resources/Jobs/JobsData";
+import { LoadingButton } from "../Other/MixComponents/Buttons/ButtonElements";
+import { CircleSpinner } from "react-spinners-kit";
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -63,6 +65,7 @@ const ContactForm = () => {
     } = formData;
 
     const [isSuccess, setIsSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
     const [error2, setError2] = useState(false);
 
@@ -111,6 +114,7 @@ const ContactForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true);
         setError(false);
         setError2(false);
         setIsSuccess(false);
@@ -151,6 +155,7 @@ const ContactForm = () => {
                 })
                 .then((response) => {
                     if (response.data.message === "Form submitted successfully") {
+                        setIsLoading(false);
                         setIsSuccess(true);
                         setFormData({
                             name: "",
@@ -439,13 +444,16 @@ const ContactForm = () => {
                         </CoverLeft>
                     )}
                     {!isSuccess ? (
-                        !isOpened && reason === "internship" ? null : (
+                        !isOpened && reason === "internship" ? null : !isLoading ? (
                             <ContactFormSubmit type="submit" value="submit" placeholder={"Submit"}>
                                 Submit
                             </ContactFormSubmit>
+                        ) : (
+                            <LoadingButton width={"100%"}>
+                                <CircleSpinner size={20} color={"#131313"} />
+                            </LoadingButton>
                         )
                     ) : null}
-
                     {error && !isSuccess && <ErrorMessage>{"Please fill all of the fields"}</ErrorMessage>}
                     {error2 && !isSuccess && (
                         <ErrorMessage>{"Server Error - Please contact us on discord"}</ErrorMessage>
