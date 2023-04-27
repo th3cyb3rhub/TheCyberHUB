@@ -1,3 +1,12 @@
+## [0.39.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.2...v0.39.3) (2023-04-27)
+
+
+### Bug Fixes
+
+* loading in user profile ([d82381c](https://github.com/thecyberworld/thecyberhub.org/commit/d82381cc7d99b73d52a5ca5040b0fdfad73a2410))
+
+
+
 ## [0.39.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.1...v0.39.2) (2023-04-27)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * blogs heading ([#414](https://github.com/thecyberworld/thecyberhub.org/issues/414)) ([5105bcc](https://github.com/thecyberworld/thecyberhub.org/commit/5105bcc7bc08fe3585fc74c8aabe7d0e56af5a78))
-
-
-
-# [0.38.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.37.1...v0.38.0) (2023-04-25)
-
-
-### Features
-
-* new internship page ([#411](https://github.com/thecyberworld/thecyberhub.org/issues/411)) ([fe10617](https://github.com/thecyberworld/thecyberhub.org/commit/fe10617da512cc347bd58bff0eca046bb4d8c2dd))
 
 
 
