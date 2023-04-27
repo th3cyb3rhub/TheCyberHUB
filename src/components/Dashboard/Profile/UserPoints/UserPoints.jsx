@@ -14,18 +14,14 @@ import { ExpIcon } from "../../../Header/ExpElemenets";
 const UserPoints = ({ userDetail, allUserDetail, blogs }) => {
     const isCompleted = userDetail?.solved?.map((ctf) => (ctf?.isCompleted ? 1 : 0));
     const roomCompleted = isCompleted?.reduce((a, b) => a + b, 0);
-    const blogCount = blogs?.filter((blog) => blog?.username === userDetail?.username).length;
+    const blogCount = blogs?.filter((blog) => blog?.username === userDetail?.username)?.length;
 
     return (
         <UserPointsContainer>
             <RankContainer>
-                {/* {getUserRank(userDetail, allUserDetail) === 1 ? ( */}
-                {/* <CgCrown/> */}
-                {/* ) : (null)} */}
                 <CgCrown style={{ color: "#17f31e", fontSize: "20px" }} />
                 <h4> {getUserRank(userDetail, allUserDetail)} </h4>
                 <h5>Rank</h5>
-                {/* {allUserDetail.length} */}
             </RankContainer>
 
             <UserExpContainer>
@@ -65,7 +61,7 @@ const UserPoints = ({ userDetail, allUserDetail, blogs }) => {
 };
 
 function getUserRank(userDetail, allDetails) {
-    const sortedDetails = Array?.from(allDetails).sort((a, b) => (b?.exp || 0) - (a?.exp || 0));
+    const sortedDetails = Array?.from(allDetails)?.sort((a, b) => (b?.exp || 0) - (a?.exp || 0));
     const userIndex = sortedDetails?.findIndex((detail) => detail?.user === userDetail?.user);
     const userRank = userIndex !== -1 ? userIndex + 1 : null;
     return userRank;

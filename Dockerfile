@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm i
+RUN npm install
 
 # Copy the entire project to the container
 COPY . .
@@ -16,8 +16,11 @@ COPY . .
 # Build the application for production
 RUN npm run build
 
-# Expose the port that the application will run on
-EXPOSE 3000
+# Install http-server package
+RUN npm install -g http-server
 
-# Start the application in production mode
-CMD ["npm", "run", "dev"]
+# Expose the port that the application will run on
+EXPOSE 8080
+
+# Start the application using http-server
+CMD ["http-server", "dist"]
