@@ -111,7 +111,7 @@ const Submission = ({ ctfId, flags, user }) => {
         <SubmissionContainer>
             {flags?.map((flag) => (
                 <SubmissionSection key={flag._id}>
-                    <FlagQues> {flag.flag} </FlagQues>
+                    <FlagQues> {flag.ques} </FlagQues>
                     <SubmissionFlagSection>
                         {solvedFlags?.includes(flag?._id) ? (
                             <FlagSolved> {getValueWithFlagId(flag._id) || enteredAns[flag._id] || ""} </FlagSolved>
@@ -131,7 +131,6 @@ const Submission = ({ ctfId, flags, user }) => {
                                 onClick={() => handleFlagSubmit(flag._id)}
                                 style={{ color: buttonColor === "#f77000" && "#f77000" }}
                             >
-                                {" "}
                                 {buttonColor === "#f77000" ? "Wrong Answer" : "Submit"}
                             </FlagSubmit>
                         )}
