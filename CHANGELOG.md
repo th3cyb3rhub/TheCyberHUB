@@ -1,3 +1,12 @@
+# [0.41.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.40.0...v0.41.0) (2023-04-28)
+
+
+### Features
+
+* new ctf design ([f58aee3](https://github.com/thecyberworld/thecyberhub.org/commit/f58aee34aeccd1b252ebdc0fa5fc2a67c701613e))
+
+
+
 # [0.40.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.4...v0.40.0) (2023-04-28)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * workflow ([e4e99aa](https://github.com/thecyberworld/thecyberhub.org/commit/e4e99aaa56b51f3ff58d1833b0a7a28bb14f7784))
-
-
-
-## [0.39.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.0...v0.39.1) (2023-04-27)
-
-
-### Bug Fixes
-
-* layout of security page ([#416](https://github.com/thecyberworld/thecyberhub.org/issues/416)) ([d90ac0f](https://github.com/thecyberworld/thecyberhub.org/commit/d90ac0febf61e04178a44eb081bc009acdd1e139))
 
 
 
