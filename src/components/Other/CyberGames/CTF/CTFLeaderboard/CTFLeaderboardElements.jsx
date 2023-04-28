@@ -23,6 +23,29 @@ export const LeaderboardHeader = styled.div`
     padding: 0 25px;
 `;
 
+export const PlayersContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 450px;
+    // scrollable
+    overflow-y: auto;
+    // small scroll bar width
+    scrollbar-width: thin;
+    scrollbar-color: #4a4a4a #090909;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #090909;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #4a4a4a;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #4a4a4a;
+    }
+`;
 export const LeaderboardTable = styled.table`
     border-collapse: collapse;
     width: 100%;

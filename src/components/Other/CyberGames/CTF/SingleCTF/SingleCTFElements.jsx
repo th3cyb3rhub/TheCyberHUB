@@ -95,7 +95,7 @@ export const SingleCTFSection = styled.div`
     width: 100%;
     gap: 25px;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 860px) {
         flex-direction: column;
     }
 `;

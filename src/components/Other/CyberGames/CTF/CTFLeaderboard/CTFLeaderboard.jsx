@@ -9,6 +9,7 @@ import {
     LeaderboardTableHeader,
     LeaderboardTableHeaderIndex,
     LeaderboardTableRow,
+    PlayersContainer,
     RefreshButton,
 } from "./CTFLeaderboardElements";
 import { RouterLink } from "../../../../Beta/Tools/ToolsElements";
@@ -43,59 +44,61 @@ const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
             ) : isError ? (
                 <p>{message}</p>
             ) : (
-                <LeaderboardTable>
-                    <tbody>
-                        <LeaderboardTableRow>
-                            <LeaderboardTableHeader></LeaderboardTableHeader>
-                            <LeaderboardTableHeader>Flags</LeaderboardTableHeader>
-                            {flags?.map((flag, index) => (
-                                <LeaderboardTableData key={index}>{index + 1}</LeaderboardTableData>
-                            ))}
-                        </LeaderboardTableRow>
-                        {userDetails &&
-                            userDetails
-                                .filter((user) => getRegisteredUsers.includes(user.username))
-                                .sort((a, b) => {
-                                    const aFlagsCount = a.solved.reduce(
-                                        (count, solved) => count + solved.flags.length,
-                                        0,
-                                    );
-                                    const bFlagsCount = b.solved.reduce(
-                                        (count, solved) => count + solved.flags.length,
-                                        0,
-                                    );
-                                    if (bFlagsCount !== aFlagsCount) {
-                                        return bFlagsCount - aFlagsCount;
-                                    } else {
-                                        return a.username.localeCompare(b.username);
-                                    }
-                                })
-                                .map((user, index) => (
-                                    <LeaderboardTableRow key={index}>
-                                        <LeaderboardTableHeaderIndex>
-                                            {/* {index <= 10 ? (0) : null} */}
-                                            {index + 1}
-                                        </LeaderboardTableHeaderIndex>
-                                        <LeaderboardTableHeader>
-                                            <RouterLink to={`/@${user?.username}`} style={{ color: "inherit" }}>
-                                                {user?.username}
-                                            </RouterLink>
-                                        </LeaderboardTableHeader>
-                                        {flags?.map((flag, index) => (
-                                            <LeaderboardTableData key={index}>
-                                                {user.solved.some(
-                                                    (solved) =>
-                                                        solved.ctfId === ctfId &&
-                                                        solved.flags.some((flags) => flags.flagId === flag._id),
-                                                )
-                                                    ? "✔"
-                                                    : ""}
-                                            </LeaderboardTableData>
-                                        ))}
-                                    </LeaderboardTableRow>
+                <PlayersContainer>
+                    <LeaderboardTable>
+                        <tbody>
+                            <LeaderboardTableRow>
+                                <LeaderboardTableHeader></LeaderboardTableHeader>
+                                <LeaderboardTableHeader>Flags</LeaderboardTableHeader>
+                                {flags?.map((flag, index) => (
+                                    <LeaderboardTableData key={index}>{index + 1}</LeaderboardTableData>
                                 ))}
-                    </tbody>
-                </LeaderboardTable>
+                            </LeaderboardTableRow>
+                            {userDetails &&
+                                userDetails
+                                    .filter((user) => getRegisteredUsers.includes(user.username))
+                                    .sort((a, b) => {
+                                        const aFlagsCount = a.solved.reduce(
+                                            (count, solved) => count + solved.flags.length,
+                                            0,
+                                        );
+                                        const bFlagsCount = b.solved.reduce(
+                                            (count, solved) => count + solved.flags.length,
+                                            0,
+                                        );
+                                        if (bFlagsCount !== aFlagsCount) {
+                                            return bFlagsCount - aFlagsCount;
+                                        } else {
+                                            return a.username.localeCompare(b.username);
+                                        }
+                                    })
+                                    .map((user, index) => (
+                                        <LeaderboardTableRow key={index}>
+                                            <LeaderboardTableHeaderIndex>
+                                                {/* {index <= 10 ? (0) : null} */}
+                                                {index + 1}
+                                            </LeaderboardTableHeaderIndex>
+                                            <LeaderboardTableHeader>
+                                                <RouterLink to={`/@${user?.username}`} style={{ color: "inherit" }}>
+                                                    {user?.username}
+                                                </RouterLink>
+                                            </LeaderboardTableHeader>
+                                            {flags?.map((flag, index) => (
+                                                <LeaderboardTableData key={index}>
+                                                    {user.solved.some(
+                                                        (solved) =>
+                                                            solved.ctfId === ctfId &&
+                                                            solved.flags.some((flags) => flags.flagId === flag._id),
+                                                    )
+                                                        ? "✔"
+                                                        : ""}
+                                                </LeaderboardTableData>
+                                            ))}
+                                        </LeaderboardTableRow>
+                                    ))}
+                        </tbody>
+                    </LeaderboardTable>
+                </PlayersContainer>
             )}
         </LeaderboardContainer>
     );

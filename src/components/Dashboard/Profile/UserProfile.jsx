@@ -21,6 +21,7 @@ import ActivityGraph from "./ActivityGraph/ActivityGraph";
 import UserProjects from "./UserProjects/UserProjects";
 import { NotFound } from "../../index";
 import UserPoints from "./UserPoints/UserPoints";
+import MyCtfCertificates from "./MyCtfCertificates";
 
 const UserProfile = () => {
     const dispatch = useDispatch();
@@ -153,6 +154,7 @@ const UserProfile = () => {
                                 setUserDetailData={setUserDetailData}
                             />
                         )}
+                        <MyCtfCertificates ctfCertificates={userDetail?.ctfCertificates} />
                         <ActivityGraph userDetailData={userDetailData} userDetail={userDetail} />
                     </UserDetailsContainer>
                 </ProfileDetailsSection>

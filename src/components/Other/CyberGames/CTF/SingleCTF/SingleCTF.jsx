@@ -26,13 +26,22 @@ import TimeToStart from "../TimeToStart";
 import CTFLeaderboard from "../CTFLeaderboard/CTFLeaderboard";
 import { AiFillEye, AiFillLike, AiOutlineCloudDownload } from "react-icons/all";
 import { encodeURL } from "../../../../Blogs/util";
+import createCtfCertificate from "../../../Certificate/createCtfCertificate";
+import { getUserDetail } from "../../../../../features/userDetail/userDetailSlice";
+import GetCertificate from "./GetCertificate";
 
 const SingleCTF = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { ctf } = useSelector((state) => state.ctf);
     const { user } = useSelector((state) => state.auth);
-
+    const {
+        userDetail,
+        isLoading: userDetailIsLoading,
+        // isError, message
+    } = useSelector((state) => state.userDetail);
+    const [isCompleted, setIsCompleted] = useState(false);
+    const [isCertExisted, setIsCertExisted] = useState(false);
     const [isLikedTemp, setIsLikedTemp] = useState(false);
     const [isLikedTempNumber, setIsLikedNumber] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);
@@ -54,6 +63,7 @@ const SingleCTF = () => {
         if (!user) {
             navigate("/login");
         }
+        dispatch(getUserDetail(user.username));
 
         dispatch(getAllCTFs());
         if (!isViewed && user) {
@@ -78,6 +88,20 @@ const SingleCTF = () => {
             setIsLikedNumber(challenge?.likes.length + 1);
         }
     };
+
+    if (!isCertExisted && isCompleted) {
+        createCtfCertificate({
+            ctf: challenge?.challengeName,
+            ctfId: challenge?._id,
+            ctfDate: challenge?.startTime,
+            userId: user?._id,
+            username: user?.username,
+            fullName: user?.name,
+            email: user?.email,
+        }).then((r) => {
+            setIsCertExisted(true);
+        });
+    }
 
     return (
         <Wrapper>
@@ -121,7 +145,15 @@ const SingleCTF = () => {
                                                     ),
                                             )}
                                     </ChallengeContainer>
-                                    <Submission ctfId={challenge?._id} flags={challenge?.flags} user={user} />
+                                    <Submission
+                                        ctfId={challenge?._id}
+                                        flags={challenge?.flags}
+                                        user={user}
+                                        setIsCompleted={setIsCompleted}
+                                        setIsCertExisted={setIsCertExisted}
+                                        userDetailIsLoading={userDetailIsLoading}
+                                        userDetail={userDetail}
+                                    />
                                 </CTFSection>
                                 <TeamContainer>
                                     <LikesAndViewsContainer>
@@ -139,6 +171,15 @@ const SingleCTF = () => {
                                             <AiFillEye /> {uniqueIds.length}
                                         </ViewsContainer>
                                     </LikesAndViewsContainer>
+
+                                    <GetCertificate
+                                        challenge={userDetail?.challenge}
+                                        user={user}
+                                        ctfCertificates={userDetail}
+                                        ctfId={challenge?._id}
+                                        isCertExisted={isCertExisted}
+                                    />
+
                                     <CTFLeaderboard
                                         registeredUsers={registeredUsers}
                                         ctfId={challenge?._id}

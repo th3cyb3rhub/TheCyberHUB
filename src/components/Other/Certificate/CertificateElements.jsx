@@ -61,7 +61,7 @@ export const CertificateComponent = styled.div`
     .certificate-word {
         margin: 2rem 0;
         font-weight: 500;
-        font-size: 4rem;
+        font-size: 3.5rem;
     }
 
     .achievement-word {
@@ -91,6 +91,12 @@ export const CertificateComponent = styled.div`
         margin: 0 0.5rem;
     }
 
+    .username {
+        text-transform: initial;
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+    }
+
     .ctf {
         margin-top: 1rem;
         font-size: 1.5rem;
@@ -98,9 +104,10 @@ export const CertificateComponent = styled.div`
 
     .description {
         margin-top: 3rem;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         max-width: 50vw;
         font-weight: 300;
+        text-align: center;
     }
 `;
 
@@ -127,6 +134,7 @@ export const CertificateFooter = styled.div`
     }
 
     .certificate-id {
+        text-transform: initial;
         text-align: center;
         margin-left: 40px;
         margin-top: 40px;

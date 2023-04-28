@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import {Link} from 'react-router-dom';
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
 import { getAllCTFs } from "../../../../features/ctf/ctfSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,14 +25,11 @@ import {
     Select,
 } from "./CTFElements";
 import { FcCheckmark } from "react-icons/all";
-// import {Heading2} from "../../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import { getUserDetail } from "../../../../features/userDetail/userDetailSlice";
-// import {useLocation} from "react-router-dom";
 import { encodeURL } from "../../../Blogs/util";
 
 const CTF = () => {
     const dispatch = useDispatch();
-    // const { pathname } = useLocation();
     const { user } = useSelector((state) => state.auth);
     const {
         userDetail,

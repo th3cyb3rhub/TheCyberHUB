@@ -19,20 +19,21 @@ import JsPDF from "jspdf";
 import { AiFillFileImage, VscFilePdf } from "react-icons/all";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import Logo from "../../../assets/images/Thecyberworld_logo_outlined.png";
+import { CircleSpinner } from "react-spinners-kit";
 
 // import {getCDNUrl} from "../../../features/apiUrl";
 // const TCWlogo = `${getCDNUrl}/images/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();
-    const baseUrl = "https://thecyberhub-next.vercel.app/api/";
+    const baseUrl = "http://localhost:5000/api/ctfCertificate/getCtfCertificate/";
 
     const { id } = useParams();
     const certificateId = id;
 
     useEffect(() => {
         async function fetchCertificate() {
-            const res = await axios.get(baseUrl + "get-certificate?id=" + certificateId);
+            const res = await axios.get(baseUrl + certificateId);
             const data = await res.data;
             setCertificate(data);
         }
@@ -79,6 +80,14 @@ const CertificateCard = () => {
             });
     };
 
+    if (loading) {
+        return (
+            <Wrapper>
+                <CircleSpinner size={30} color="#17f31e" loading={loading} />
+            </Wrapper>
+        );
+    }
+
     return (
         <Wrapper>
             <CertificateContainer>
@@ -113,21 +122,21 @@ const CertificateCard = () => {
                                 <div className="certificate-word">Certificate of achievement</div>
                                 <div className="presented-word">This certificate is presented to</div>
                                 <div className="full-name">
-                                    {certificate.fullName}
-                                    <span className="small-text">({certificate.username.toLowerCase()})</span>
+                                    {certificate.fullName}{" "}
+                                    <span className="username">({certificate.username.toLowerCase()})</span>
                                 </div>
                                 <div className="ctf">
                                     for {getKindText(certificate.kind)} - {certificate.ctf}
                                 </div>
-                                <div className="description">{certificate.description}</div>
+                                <div className="description">{`Congratulations on successfully completing ${certificate.ctf} and demonstrating your skills in cybersecurity.`}</div>
 
                                 <CertificateFooter>
                                     <div className="date-block">
-                                        <div className="date">{certificate.issueDate}</div>
+                                        <div className="date">{certificate.issueDate.split("T")[0]}</div>
                                         <div className="date-word">Date</div>
                                     </div>
                                     <div className="certificate-id">
-                                        <p>Id: {certificate.id}</p>
+                                        <p>Id: {certificate._id}</p>
                                     </div>
                                     <div className="signature-block">
                                         <div className="signature">thecyberworld</div>
@@ -139,7 +148,7 @@ const CertificateCard = () => {
                     </>
                 ) : // )
                 loading ? (
-                    " "
+                    <CircleSpinner size={30} color="#686769" loading={loading} />
                 ) : (
                     <InvalidCertificate>
                         <h4>Invalid certificate id</h4>

@@ -10,24 +10,17 @@ import {
     SubmissionFlagSection,
     SubmissionSection,
 } from "./SubmissionElements";
-import { TbBulb } from "react-icons/all";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserDetail, updateUserDetail } from "../../../../../features/userDetail/userDetailSlice";
+import {
+    // FcCheckmark,
+    TbBulb,
+} from "react-icons/all";
+import { useDispatch } from "react-redux";
+import { updateUserDetail } from "../../../../../features/userDetail/userDetailSlice";
 import { CircleSpinner } from "react-spinners-kit";
 
-const Submission = ({ ctfId, flags, user }) => {
+const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIsCompleted, setIsCertExisted }) => {
     const dispatch = useDispatch();
-    const {
-        userDetail,
-        isLoading,
-        // isError, message
-    } = useSelector((state) => state.userDetail);
-
-    useEffect(() => {
-        dispatch(getUserDetail(user.username));
-    }, [dispatch, user.username]);
-
-    const [buttonColor, setButtonColor] = useState("blue");
+    const [buttonColor, setButtonColor] = useState("#131313");
 
     const handleButtonClick = () => {
         setButtonColor("#f77000");
@@ -44,7 +37,26 @@ const Submission = ({ ctfId, flags, user }) => {
         }
         return [];
     };
+
     const [solvedFlags, setSolvedFlags] = useState(getSolvedFlags() || []);
+    useEffect(() => {
+        // if (userDetail && userDetail.solved && userDetail.solved.find((ctf) => ctf.ctfId === ctfId)) {
+        //     setIsCompleted(true);
+        // }
+        if (user && userDetail?.solved) {
+            userDetail?.solved?.map((ctf, index) =>
+                ctfId === ctf?.ctfId && ctf?.isCompleted === true ? setIsCompleted(true) : null,
+            );
+        }
+
+        // if (solvedFlags.length === flags.length) {
+        //     setIsCompleted(true);
+        // }
+        if (userDetail && userDetail.ctfCertificates && userDetail.ctfCertificates.find((ctf) => ctf.ctfId === ctfId)) {
+            setIsCertExisted(true);
+        }
+    }, [userDetail, ctfId, flags, solvedFlags, setIsCompleted, setIsCertExisted]);
+
     const [enteredAns, setEnteredAns] = useState({});
     const [hintFlagId, setHintFlagId] = useState(null);
     const [solved, setSolved] = useState(userDetail.solved || []);
@@ -58,10 +70,6 @@ const Submission = ({ ctfId, flags, user }) => {
             setSolved(solved);
         }
     }, [userDetail, ctfId]);
-
-    if (isLoading) {
-        return <CircleSpinner size={30} color="#09ff1b" loading={isLoading} />;
-    }
 
     const handleFlagSubmit = (flagId) => {
         handleButtonClick();
@@ -106,6 +114,10 @@ const Submission = ({ ctfId, flags, user }) => {
             setHintFlagId(flagId);
         }
     };
+
+    if (userDetailIsLoading) {
+        return <CircleSpinner size={30} color="#09ff1b" loading={userDetailIsLoading} />;
+    }
 
     return (
         <SubmissionContainer>
