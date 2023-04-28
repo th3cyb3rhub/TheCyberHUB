@@ -85,7 +85,6 @@ TheCyberSEC Team`,
         });
     }, [props.id]);
 
-    console.log(values);
     const handleButtonClick = async (buttonName) => {
         setIsLoading(true);
         try {

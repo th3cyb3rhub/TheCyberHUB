@@ -10,19 +10,20 @@ export const getStreak = (userDetail) => {
     const allDates = [...ActivityDates, ...visitTimestamps];
     const dates = allDates.map((date) => date && date.split("T")[0]);
     const streak = [...new Set(dates)].length || 1;
-    return streak;
+    return streak - 1;
 };
 
 const Exp = () => {
     const dispatch = useDispatch();
-    const {
-        userDetail,
-        isLoading,
-        // isError, message
-    } = useSelector((state) => state.userDetail);
+    const { user } = useSelector((state) => state.auth);
+
+    const { userDetail, isLoading } = useSelector((state) => state.userDetail);
 
     useEffect(() => {
-        dispatch(getUserDetail);
+        if (user) {
+            dispatch(getUserDetail(user.username));
+        }
+
         return () => dispatch(reset());
     }, [dispatch]);
 

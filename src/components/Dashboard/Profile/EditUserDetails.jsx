@@ -26,7 +26,6 @@ const EditUserDetails = ({ user }) => {
             dispatch(getUserDetail());
         }
     }, [dispatch, isError, user, navigate, message]);
-    console.log("name: " + userDetail.name);
 
     if (isLoading) {
         return <CircleSpinner size={20} color={"#1fc10d"} />;

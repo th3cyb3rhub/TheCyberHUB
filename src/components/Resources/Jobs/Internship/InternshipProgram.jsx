@@ -60,10 +60,6 @@ const InternshipCycle = ({
     const isBetweenDates = currentDate >= openDate && currentDate <= closeDate;
     const appClosed = currentDate >= closeDate && currentDate <= internCloseDate;
 
-    const appWillOpenIn = currentDate < openDate;
-
-    console.log(appWillOpenIn);
-
     return (
         <InternshipCard isBetweenDates={isBetweenDates} appClosed={appClosed}>
             {isBetweenDates ? (

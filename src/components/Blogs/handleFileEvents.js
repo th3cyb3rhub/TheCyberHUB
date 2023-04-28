@@ -13,19 +13,16 @@ export const handlePasteEvent = async (e, setImageUrl, setBlogData) => {
             break;
         }
     }
-    console.log(file.type);
     if (!file) return;
     if (!file.type.startsWith("image/")) {
         toast.error("Invalid file type. Only images are allowed.");
         return;
     }
-    console.log(file.type);
     if (file.type !== ("image/jpeg" || "image/png" || "image/jpg")) {
         console.log(file.type);
         toast.error("Invalid file type. Only png and jpg are allowed.");
         return;
     }
-    console.log(file.type);
 
     const maxFileSize = 1000000; // 1000KB
     if (file.size > maxFileSize) {

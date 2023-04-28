@@ -107,18 +107,19 @@ const SingleCTF = () => {
                                                 Machine Link: start the machine from here and submit the flags below
                                             </CTFMachineLink>
                                         ) : null}
-                                        {challenge?.downloadableResources.map(
-                                            (resource, index) =>
-                                                resource.resourceName && (
-                                                    <CTFMachineLink
-                                                        href={resource.resourceLink}
-                                                        target="_blank"
-                                                        key={index}
-                                                    >
-                                                        {resource.resourceName} <AiOutlineCloudDownload />
-                                                    </CTFMachineLink>
-                                                ),
-                                        )}
+                                        {challenge?.downloadableResources &&
+                                            challenge?.downloadableResources.map(
+                                                (resource, index) =>
+                                                    resource?.resourceName && (
+                                                        <CTFMachineLink
+                                                            href={resource?.resourceLink}
+                                                            target="_blank"
+                                                            key={index}
+                                                        >
+                                                            {resource?.resourceName} <AiOutlineCloudDownload />
+                                                        </CTFMachineLink>
+                                                    ),
+                                            )}
                                     </ChallengeContainer>
                                     <Submission ctfId={challenge?._id} flags={challenge?.flags} user={user} />
                                 </CTFSection>

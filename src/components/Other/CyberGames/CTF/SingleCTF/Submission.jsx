@@ -23,6 +23,19 @@ const Submission = ({ ctfId, flags, user }) => {
         // isError, message
     } = useSelector((state) => state.userDetail);
 
+    useEffect(() => {
+        dispatch(getUserDetail(user.username));
+    }, [dispatch, user.username]);
+
+    const [buttonColor, setButtonColor] = useState("blue");
+
+    const handleButtonClick = () => {
+        setButtonColor("#f77000");
+        setTimeout(() => {
+            setButtonColor("#131313");
+        }, 1000); // change back to blue after 1 second
+    };
+
     const getSolvedFlags = () => {
         const solved = userDetail?.solved || [];
         const ctfIndex = solved.findIndex((ctf) => ctf.ctfId === ctfId);
@@ -37,18 +50,21 @@ const Submission = ({ ctfId, flags, user }) => {
     const [solved, setSolved] = useState(userDetail.solved || []);
 
     useEffect(() => {
-        dispatch(getUserDetail(user.username));
         if (userDetail) {
-            setSolvedFlags(getSolvedFlags() || []);
-            setSolved(userDetail.solved || []);
+            const solved = userDetail.solved || [];
+            const ctfIndex = solved.findIndex((ctf) => ctf.ctfId === ctfId);
+            const solvedFlags = ctfIndex !== -1 ? solved[ctfIndex].flags?.map((flag) => flag?.flagId) : [];
+            setSolvedFlags(solvedFlags);
+            setSolved(solved);
         }
-    }, [dispatch]);
+    }, [userDetail, ctfId]);
 
     if (isLoading) {
         return <CircleSpinner size={30} color="#09ff1b" loading={isLoading} />;
     }
 
     const handleFlagSubmit = (flagId) => {
+        handleButtonClick();
         const flag = flags?.find((flag) => flag?._id === flagId);
         if (
             flag &&
@@ -90,11 +106,12 @@ const Submission = ({ ctfId, flags, user }) => {
             setHintFlagId(flagId);
         }
     };
+
     return (
         <SubmissionContainer>
             {flags?.map((flag) => (
                 <SubmissionSection key={flag._id}>
-                    <FlagQues>{flag.ques}</FlagQues>
+                    <FlagQues> {flag.flag} </FlagQues>
                     <SubmissionFlagSection>
                         {solvedFlags?.includes(flag?._id) ? (
                             <FlagSolved> {getValueWithFlagId(flag._id) || enteredAns[flag._id] || ""} </FlagSolved>
@@ -110,7 +127,13 @@ const Submission = ({ ctfId, flags, user }) => {
                         {solvedFlags?.includes(flag._id) ? (
                             <FlagSubmit> Solved </FlagSubmit>
                         ) : (
-                            <FlagSubmit onClick={() => handleFlagSubmit(flag._id)}> Submit </FlagSubmit>
+                            <FlagSubmit
+                                onClick={() => handleFlagSubmit(flag._id)}
+                                style={{ color: buttonColor === "#f77000" && "#f77000" }}
+                            >
+                                {" "}
+                                {buttonColor === "#f77000" ? "Wrong Answer" : "Submit"}
+                            </FlagSubmit>
                         )}
                         {flag.hint === "" ? null : (
                             <>

@@ -11,6 +11,7 @@ export const FormDataContainer = styled.div`
     z-index: 1;
     color: #666666;
     width: 100%;
+    max-width: 1500px;
 `;
 
 export const FormDataCard = styled.div`

@@ -11,16 +11,28 @@ export const SingleCTFContainer = styled.div`
 
 export const ChallengeContainer = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 5px;
 `;
 
 export const ChallengeName = styled.h2`
     background: #0c0c0c;
     padding: 15px 25px;
+    white-space: pre-line;
+    border-radius: 5px;
+    color: #f4f4f4;
 `;
 export const ChallengeDescription = styled.p`
     background: #0c0c0c;
-    padding: 25px 25px;
+    padding: 15px;
     white-space: pre-line;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 5px;
 `;
 
 export const CTFRegistration = styled.div``;
@@ -54,7 +66,13 @@ export const CTFMachineLink = styled.a`
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease-in-out;
-    margin: 10px 0;
+    border-radius: 5px;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        color: greenyellow;
+        scale: 1.01;
+    }
 `;
 
 export const CTFSection = styled.div`
@@ -64,6 +82,9 @@ export const CTFSection = styled.div`
     flex-direction: column;
     width: 100%;
     max-width: 1000px;
+    gap: 25px;
+    background: #090909;
+    padding: 5px;
 `;
 
 export const SingleCTFSection = styled.div`
@@ -72,7 +93,7 @@ export const SingleCTFSection = styled.div`
     align-items: start;
     justify-content: space-between;
     width: 100%;
-    gap: 50px;
+    gap: 25px;
 
     @media screen and (max-width: 800px) {
         flex-direction: column;

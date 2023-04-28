@@ -26,21 +26,26 @@ export const LeaderboardHeader = styled.div`
 export const LeaderboardTable = styled.table`
     border-collapse: collapse;
     width: 100%;
+    border-radius: 5px;
 `;
 export const LeaderboardTableRow = styled.tr`
     background-color: #181818;
     color: #dadada;
     text-align: left;
     padding: 8px;
+    border-radius: 5px;
 `;
 
 export const LeaderboardTableHeader = styled.th`
     background-color: #101010;
     border: 1px solid #181818;
-    color: #d3d3d3;
+    color: #bdbdbd;
     border-radius: 5px;
-    padding: 12px;
+    padding: 10px;
     text-align: left;
+`;
+export const LeaderboardTableHeaderIndex = styled(LeaderboardTableHeader)`
+    padding: 10px 0px 10px 15px;
 `;
 
 export const LeaderboardTableData = styled.td`

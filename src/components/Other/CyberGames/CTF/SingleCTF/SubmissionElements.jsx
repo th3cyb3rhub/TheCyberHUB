@@ -2,19 +2,22 @@ import styled from "styled-components";
 
 export const SubmissionContainer = styled.div`
     background: #0c0c0c;
-    padding: 25px;
-    margin: 25px;
+    padding: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    gap: 25px;
+    gap: 15px;
+    border-radius: 5px;
 `;
 
 export const SubmissionFlagSection = styled.div`
     display: flex;
     gap: 5px;
+    @media screen and (max-width: 500px) {
+        flex-direction: column;
+    }
 `;
 
 export const SubmissionSection = styled.div`
@@ -22,34 +25,47 @@ export const SubmissionSection = styled.div`
     flex-direction: column;
     gap: 5px;
     width: 100%;
+    background: #0c0c0c;
+    padding: 15px;
+    border-radius: 5px;
+    border: #1a1c1d 1px solid;
 `;
 
 export const FlagQues = styled.div`
     width: 80%;
     color: #d3d3d3;
     font-size: 14px;
+    padding: 10px 5px;
     font-family: "Poppins", sans-serif;
 `;
 
 export const FlagAns = styled.input`
+    background: #131313;
+    border-radius: 5px;
+    border: #1a1c1d 1px solid;
+    color: #d3d3d3;
     width: 100%;
-    padding: 5px 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
 `;
 
 export const FlagSolved = styled.p`
-    color: #646464;
-    background: #f5f5f5;
-    border-radius: 3px;
+    background: #131313;
+    border-radius: 5px;
+    border: #1a1c1d 1px solid;
+    color: #d3d3d3;
     width: 100%;
+    padding: 10px;
     font-size: 13px;
-    padding: 5px 12px;
+    font-family: "Poppins", sans-serif;
 `;
 
 export const FlagSubmit = styled.button`
-    background: #7cff2f;
+    background: #131313;
+    color: #7cff2f;
     white-space: nowrap;
     padding: 5px 10px;
-    color: #010606;
     font-size: 14px;
     outline: none;
     border: none;
@@ -57,25 +73,31 @@ export const FlagSubmit = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
     text-decoration: none;
     border-radius: 3px;
 
     &:hover {
-        transition: all 0.2s ease-in-out;
-        scale: 1.05;
+        transition: all 0.3s ease-in-out;
+        scale: 1.07;
     }
 `;
 
 export const FlagHintButton = styled(FlagSubmit)`
-    background: #ff8100;
+    background: #131313;
+    color: #ff8100;
 `;
 
 export const ShowFlagHint = styled.div`
-    background: #ffffff;
-    border-radius: 3px;
-    color: #646464;
+    background: #131313;
+    border-radius: 5px;
+    border: #1a1c1d 1px solid;
+    color: #d3d3d3;
+    display: flex;
+    align-items: center;
+
     width: 100%;
-    font-size: 13px;
-    padding: 5px 12px;
+    padding: 8px;
+    font-size: 12px;
+    font-family: "Poppins", sans-serif;
 `;
