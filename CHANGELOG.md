@@ -1,3 +1,12 @@
+## [0.42.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.1...v0.42.2) (2023-04-29)
+
+
+### Bug Fixes
+
+* minor bugs ([dcee288](https://github.com/thecyberworld/thecyberhub.org/commit/dcee2883d16f652a53e4a58951295a2bd279af52))
+
+
+
 ## [0.42.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.0...v0.42.1) (2023-04-29)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * new ctf design ([678b4a4](https://github.com/thecyberworld/thecyberhub.org/commit/678b4a47dc1ec13fae789869cffbee6cf4b92987))
-
-
-
-## [0.39.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.3...v0.39.4) (2023-04-27)
-
-
-### Bug Fixes
-
-* loading in user profile ([8f1a7c4](https://github.com/thecyberworld/thecyberhub.org/commit/8f1a7c4b56c7d71324bd4f982b993873485b641c))
 
 
 
