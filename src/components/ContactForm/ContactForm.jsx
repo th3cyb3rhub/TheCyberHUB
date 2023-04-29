@@ -243,7 +243,7 @@ const ContactForm = () => {
                         <ContactFormSelect name="reason" id="reason" value={formData.reason} onChange={handleChange}>
                             <ContactFormSelectOption value="">Select a reason</ContactFormSelectOption>
                             <ContactFormSelectOption value="internship">
-                                Internship {isOpened ? "(Applications Now Open!)" : null}{" "}
+                                Internship {isOpened ? "(Applications Now Open!)" : null}
                                 {isClosed ? "(Applications Closed)" : null}
                             </ContactFormSelectOption>
                             <ContactFormSelectOption value="pentest">Pentest Service</ContactFormSelectOption>

@@ -82,10 +82,7 @@ const Footer = () => {
                         <FooterLinkItems>
                             <FooterLinkTitle>Security</FooterLinkTitle>
                             <FooterRouterLink to="/security"> Security </FooterRouterLink>
-                            <FooterRouterLink to="/security/rules-of-engagement">
-                                {" "}
-                                Rules of Engagement{" "}
-                            </FooterRouterLink>
+                            <FooterRouterLink to="/security/rules-of-engagement">Rules of Engagement</FooterRouterLink>
                             <FooterRouterLink to="/security/hall-of-fame"> Hall of Fame </FooterRouterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>

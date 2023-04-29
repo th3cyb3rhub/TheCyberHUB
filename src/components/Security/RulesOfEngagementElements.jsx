@@ -43,4 +43,7 @@ export const ROEDescription = styled.p`
     text-align: start;
     width: 100%;
     max-width: 800px;
+    @media screen and (max-width: 400px) {
+        font-size: 14px;
+    }
 `;

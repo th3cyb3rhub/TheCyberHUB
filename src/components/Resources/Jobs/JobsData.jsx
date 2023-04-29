@@ -61,7 +61,7 @@ export const JobsData = [
                 <br />
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
@@ -174,7 +174,7 @@ export const JobsData = [
                 <br />
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
@@ -286,7 +286,7 @@ export const JobsData = [
                 <br />
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
@@ -395,7 +395,7 @@ export const JobsData = [
                 <br />
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
@@ -506,7 +506,7 @@ export const JobsData = [
                 <br />
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
@@ -620,7 +620,7 @@ export const JobsData = [
                 <br />
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
@@ -730,7 +730,7 @@ export const JobsData = [
                 visual designs and prototypes for new features and product enhancements.
                 <br /> <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
@@ -838,7 +838,7 @@ export const JobsData = [
                 <br />
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
-                real-world experience in the field. Although this is an{" "}
+                real-world experience in the field. Although this is an
                 <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}

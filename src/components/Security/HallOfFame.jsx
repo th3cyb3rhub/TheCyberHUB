@@ -66,16 +66,15 @@ const HallOfFame = () => {
                                                 {item.list.map((item, index) => (
                                                     <HallOfFameName key={index}>
                                                         <DotSymbol />
-                                                        {item.name}{" "}
+                                                        {item.name}
                                                         <a
                                                             style={{ color: "greenyellow" }}
                                                             href={item.profile}
                                                             target="_blank"
                                                             rel="noreferrer"
                                                         >
-                                                            {" "}
                                                             [@{item.username}]
-                                                        </a>{" "}
+                                                        </a>
                                                         - {item.vulnerability}
                                                     </HallOfFameName>
                                                 ))}

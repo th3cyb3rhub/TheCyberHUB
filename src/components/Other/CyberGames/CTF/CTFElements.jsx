@@ -22,11 +22,26 @@ export const CTFHeader = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    @media screen and (max-width: 768px) {
+        padding: 10px;
+        min-height: 200px;
+    }
+    @media screen and (max-width: 520px) {
+        padding: 10px;
+        min-height: 100px;
+    }
 `;
 
 export const CTFHeading = styled.h1`
     font-size: 5rem;
     font-style: oblique;
+    @media screen and (max-width: 768px) {
+        font-size: 3rem;
+    }
+    @media screen and (max-width: 520px) {
+        font-size: 2rem;
+    }
 `;
 
 export const GetCertificateContainer = styled.div`
@@ -226,6 +241,10 @@ export const SearchDifficulty = styled.div`
     background: #131313;
     border-radius: 4px;
     padding: 0 0 0 10px;
+
+    @media screen and (max-width: 380px) {
+        width: 100%;
+    }
 `;
 export const Select = styled.select`
     border: 1px solid gray;
@@ -233,6 +252,10 @@ export const Select = styled.select`
     font-size: 16px;
     width: 200px;
     border-radius: 4px;
+
+    @media screen and (max-width: 380px) {
+        width: 100%;
+    }
 `;
 
 // Option Component
@@ -247,6 +270,9 @@ export const SearchInput = styled.input`
     font-size: 16px;
     width: 200px;
     border-radius: 4px;
+    @media screen and (max-width: 380px) {
+        width: 100%;
+    }
 `;
 export const SearchBox = styled.div`
     display: flex;
@@ -257,6 +283,9 @@ export const SearchBox = styled.div`
     background: #131313;
     border-radius: 4px;
     padding: 0 0 0 10px;
+    @media screen and (max-width: 380px) {
+        width: 100%;
+    }
 `;
 
 export const SearchIcon = styled(FcSearch)`

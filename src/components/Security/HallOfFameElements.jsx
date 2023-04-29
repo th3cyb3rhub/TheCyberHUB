@@ -52,6 +52,9 @@ export const HallOfFameName = styled.li`
     @media screen and (max-width: 768px) {
         padding: 0 5px;
     }
+    @media screen and (max-width: 400px) {
+        font-size: 12px;
+    }
 `;
 
 export const HallOfFameUsername = styled.li``;

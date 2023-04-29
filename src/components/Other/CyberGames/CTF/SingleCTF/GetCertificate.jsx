@@ -25,7 +25,6 @@ const GetCertificate = ({ userDetail, ctfId, isCompleted, isCertExisted }) => {
             ) : (
                 <div>
                     <h1>
-                        {" "}
                         Get Your Certificate
                         {/* <RefreshButton onClick={handleRefresh}/> */}
                     </h1>

@@ -37,8 +37,7 @@ const Blogs = () => {
                             to={"/dashboard/blogs/create"}
                             style={{ margin: "0 auto", marginBottom: "2rem", display: "initial" }}
                         >
-                            {" "}
-                            Create Blog{" "}
+                            Create Blog
                         </RouterNavCreateButtonLink>
                         <MiddleContainer>
                             <AllBlogs>

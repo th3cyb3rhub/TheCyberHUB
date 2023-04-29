@@ -4,16 +4,12 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log(process.env.VITE_API_URL);
-
 let apiUrl;
 if (process.env.VITE_API_URL) {
     apiUrl = process.env.VITE_API_URL;
 } else {
     apiUrl = "https://api.thecyberhub.org";
 }
-
-console.log("config", apiUrl);
 
 export default defineConfig({
     server: {
@@ -37,9 +33,9 @@ export default defineConfig({
     //     port: 8080
     // },
     plugins: [react()],
-  build: {
+    build: {
         rollupOptions: {
-            external: ["node:path"]
-        }
-    }
+            external: ["node:path"],
+        },
+    },
 });

@@ -16,9 +16,8 @@ const RulesOfEngagement = () => {
             title: `Scope of Testing`,
             description: (
                 <>
-                    {" "}
                     Security testing should only be conducted on <br />
-                    <DotSymbol />{" "}
+                    <DotSymbol />
                     <a
                         style={{ color: "greenyellow" }}
                         href="https://security.thecyberhub.org"
@@ -26,9 +25,9 @@ const RulesOfEngagement = () => {
                         rel="noreferrer"
                     >
                         security.thecyberhub.org
-                    </a>{" "}
+                    </a>
                     <br />
-                    <DotSymbol />{" "}
+                    <DotSymbol />
                     <a
                         style={{ color: "greenyellow" }}
                         href="https://security.api.thecyberhub.org"
@@ -36,17 +35,17 @@ const RulesOfEngagement = () => {
                         rel="noreferrer"
                     >
                         security.api.thecyberhub.org
-                    </a>{" "}
+                    </a>
                     <br />
-                    <DotSymbol />{" "}
+                    <DotSymbol />
                     <a
                         style={{ color: "greenyellow" }}
-                        href="https://thecyber-sec.com"
+                        href="https://security.thecyber-sec.com"
                         target="_blank"
                         rel="noreferrer"
                     >
-                        thecyber-sec.com
-                    </a>{" "}
+                        security.thecyber-sec.com
+                    </a>
                     <br /> <br />
                     Testing should not be conducted on any other domains or IP addresses owned by TheCyberHUB without
                     explicit prior written consent. <br /> <br />
@@ -59,14 +58,13 @@ const RulesOfEngagement = () => {
             title: `Out of Scope Domains`,
             description: (
                 <>
-                    {" "}
                     The following domains are out of scope for security testing: <br />
-                    <DotSymbol />{" "}
+                    <DotSymbol />
                     <a style={{ color: "greenyellow" }} href="https://thecyberhub.org" target="_blank" rel="noreferrer">
                         thecyberhub.org
-                    </a>{" "}
+                    </a>
                     <br />
-                    <DotSymbol />{" "}
+                    <DotSymbol />
                     <a
                         style={{ color: "greenyellow" }}
                         href="https://api.thecyberhub.org"
@@ -74,9 +72,9 @@ const RulesOfEngagement = () => {
                         rel="noreferrer"
                     >
                         api.thecyberhub.org
-                    </a>{" "}
+                    </a>
                     <br />
-                    <DotSymbol />{" "}
+                    <DotSymbol />
                     <a
                         style={{ color: "greenyellow" }}
                         href="https://dev.thecyberhub.org"
@@ -84,9 +82,9 @@ const RulesOfEngagement = () => {
                         rel="noreferrer"
                     >
                         dev.thecyberhub.org
-                    </a>{" "}
+                    </a>
                     <br />
-                    <DotSymbol />{" "}
+                    <DotSymbol />
                     <a
                         style={{ color: "greenyellow" }}
                         href="https://dev.api.thecyberhub.org"
@@ -94,7 +92,17 @@ const RulesOfEngagement = () => {
                         rel="noreferrer"
                     >
                         dev.api.thecyberhub.org
-                    </a>{" "}
+                    </a>
+                    <br />
+                    <DotSymbol />
+                    <a
+                        style={{ color: "greenyellow" }}
+                        href="https://thecyber-sec.com"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        thecyber-sec.com
+                    </a>
                     <br />
                 </>
             ),
@@ -103,7 +111,6 @@ const RulesOfEngagement = () => {
             title: `Reporting Vulnerabilities`,
             description: (
                 <>
-                    {" "}
                     If you discover a vulnerability during your testing, please report it immediately to
                     <span style={{ color: "greenyellow", margin: "0px 5px" }}> security@thecyber-sec.com. </span> Please
                     do not disclose any information about the vulnerability to others until it has been remediated.

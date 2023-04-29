@@ -32,8 +32,7 @@ const Security = () => {
                 heading: "Contact Information",
                 text: (
                     <>
-                        {" "}
-                        If you have discovered a security vulnerability, please contact us at{" "}
+                        If you have discovered a security vulnerability, please contact us at
                         <span style={{ color: "greenyellow", margin: "0px 5px" }}> security@thecyber-sec.com. </span> We
                         will do our best to respond to your report in a timely manner.
                     </>

@@ -23,7 +23,7 @@ const MyCtfCertificates = ({ ctfCertificates }) => {
                               <CtfCertificateCard key={index}>
                                   <CtfName>{certificate.ctf}</CtfName>
                                   <CtfKind>
-                                      {certificate.kind} on <CtfDate>{certificate.issueDate.split("T")[0]}</CtfDate>{" "}
+                                      {certificate.kind} on <CtfDate>{certificate.issueDate.split("T")[0]}</CtfDate>
                                   </CtfKind>
                               </CtfCertificateCard>
                           </Link>

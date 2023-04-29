@@ -122,7 +122,7 @@ const CertificateCard = () => {
                                 <div className="certificate-word">Certificate of achievement</div>
                                 <div className="presented-word">This certificate is presented to</div>
                                 <div className="full-name">
-                                    {certificate.fullName}{" "}
+                                    {certificate.fullName}
                                     <span className="username">({certificate.username.toLowerCase()})</span>
                                 </div>
                                 <div className="ctf">

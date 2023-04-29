@@ -99,7 +99,6 @@ const InternshipResponse = () => {
                                 >
                                     {reasonType}
                                     <span>
-                                        {" "}
                                         ({filteredData.filter((data) => data.reasonType === reasonType).length})
                                     </span>
                                 </InternshipButton>
@@ -144,7 +143,6 @@ const InternshipResponse = () => {
                                         detailsVisible ? { display: "none" } : { overflowY: "scroll", height: "100%" }
                                     }
                                 >
-                                    {" "}
                                     {filteredFormData.map((data) => (
                                         <Job
                                             key={data.id}
