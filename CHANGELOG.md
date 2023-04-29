@@ -1,3 +1,12 @@
+# [0.42.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.41.0...v0.42.0) (2023-04-28)
+
+
+### Features
+
+* certificates design ([5c3b8fa](https://github.com/thecyberworld/thecyberhub.org/commit/5c3b8faca45a105812a30d47c839280a011b0ba7))
+
+
+
 # [0.41.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.40.0...v0.41.0) (2023-04-28)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * loading in user profile ([d82381c](https://github.com/thecyberworld/thecyberhub.org/commit/d82381cc7d99b73d52a5ca5040b0fdfad73a2410))
-
-
-
-## [0.39.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.1...v0.39.2) (2023-04-27)
-
-
-### Bug Fixes
-
-* workflow ([e4e99aa](https://github.com/thecyberworld/thecyberhub.org/commit/e4e99aaa56b51f3ff58d1833b0a7a28bb14f7784))
 
 
 
