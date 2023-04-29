@@ -98,7 +98,7 @@ export const CTFCards = styled.div`
     background: #090909;
     width: 100%;
     height: 100%;
-    min-height: 500px;
+    //min-height: 500px;
     border-radius: 0.6rem;
     color: #d7d7d7;
     display: grid;
@@ -109,6 +109,9 @@ export const CTFCards = styled.div`
 
     @media screen and (max-width: 768px) {
         grid-template-columns: 1fr;
+    }
+    @media screen and (max-width: 500px) {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 `;
 export const CTFCard = styled.div`
@@ -209,6 +212,7 @@ export const CTFTag = styled.div`
     flex-wrap: wrap;
     word-wrap: break-word;
     max-width: 400px;
+
     &:hover {
         transform: scale(1.03);
     }

@@ -42,6 +42,9 @@ export const CtfCertificateCard = styled.div`
 `;
 
 export const CtfName = styled.h1`
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
     @media screen and (max-width: 620px) {
         font-size: 25px;
     }

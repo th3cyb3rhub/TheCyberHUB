@@ -29,14 +29,24 @@ const Exp = () => {
 
     const exp = userDetail?.exp || 0;
 
-    if (isLoading) return <CircleSpinner size={20} color="#09ff1b" loading={isLoading} />;
+    if (isLoading) {
+        return (
+            <ExpContainer>
+                <CircleSpinner size={20} color="#09ff1b" loading={isLoading} />;
+            </ExpContainer>
+        );
+    }
 
     return (
         <ExpContainer>
-            <ExpText> {exp} XP </ExpText>
-            <StreakText>
-                {getStreak(userDetail)} <ExpIcon />
-            </StreakText>
+            {userDetail && (
+                <>
+                    <ExpText> {exp} XP </ExpText>
+                    <StreakText>
+                        {getStreak(userDetail)} <ExpIcon />
+                    </StreakText>
+                </>
+            )}
         </ExpContainer>
     );
 };

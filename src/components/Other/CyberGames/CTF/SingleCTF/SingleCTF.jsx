@@ -63,7 +63,9 @@ const SingleCTF = () => {
         if (!user) {
             navigate("/login");
         }
-        dispatch(getUserDetail(user.username));
+        if (user) {
+            dispatch(getUserDetail(user?.username));
+        }
 
         dispatch(getAllCTFs());
         if (!isViewed && user) {

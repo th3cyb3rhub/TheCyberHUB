@@ -6,11 +6,11 @@ import {
     RouterButtonGreen,
 } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
-import { useUserData } from "../../Dashboard/checkUserVerified";
+// import { useUserData } from "../../Dashboard/checkUserVerified";
 
 const BlogPostForm = (props) => {
     const user = props.user;
-    const userVerified = useUserData({ user }).isVerified;
+    const userVerified = user?.isVerified;
 
     return (
         <SectionCreateBlog>

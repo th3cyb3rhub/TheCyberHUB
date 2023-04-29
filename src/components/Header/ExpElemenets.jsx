@@ -7,14 +7,11 @@ export const ExpContainer = styled.div`
     align-items: center;
     background: transparent;
     width: 100%;
-    min-width: 100px;
+    min-width: 175px;
     gap: 15px;
+
     @media screen and (max-width: 1350px) {
         min-width: initial;
-    }
-    @media screen and (max-width: 900px) {
-    }
-    @media screen and (max-width: 768px) {
     }
     @media screen and (max-width: 400px) {
         font-size: 12px;

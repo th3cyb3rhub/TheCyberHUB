@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, reset } from "../../../../features/userDetail/userDetailSlice";
+import { getAllUserDetails, getUserDetail, reset } from "../../../../features/userDetail/userDetailSlice";
 import {
     FirstPlace,
     LeaderboardContainer,
@@ -16,6 +16,7 @@ import { RouterLink } from "../../../Beta/Tools/ToolsElements";
 import { CgCrown } from "react-icons/all";
 
 const Leaderboard = () => {
+    const { user } = useSelector((state) => state.auth);
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
     const dispatch = useDispatch();
 
@@ -23,6 +24,10 @@ const Leaderboard = () => {
         if (isError) {
             console.log(message);
         }
+        if (user) {
+            dispatch(getUserDetail(user?.username));
+        }
+
         dispatch(getAllUserDetails());
 
         return () => {
