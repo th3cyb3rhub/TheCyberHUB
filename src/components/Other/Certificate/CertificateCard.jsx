@@ -20,20 +20,20 @@ import { AiFillFileImage, VscFilePdf } from "react-icons/all";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import Logo from "../../../assets/images/Thecyberworld_logo_outlined.png";
 import { CircleSpinner } from "react-spinners-kit";
+import { getApiUrl } from "../../../features/apiUrl";
 
 // import {getCDNUrl} from "../../../features/apiUrl";
 // const TCWlogo = `${getCDNUrl}/images/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();
-    const baseUrl = "http://localhost:5000/api/ctfCertificate/getCtfCertificate/";
 
     const { id } = useParams();
     const certificateId = id;
 
     useEffect(() => {
         async function fetchCertificate() {
-            const res = await axios.get(baseUrl + certificateId);
+            const res = await axios.get(getApiUrl("api/ctfCertificate/getCtfCertificate/") + certificateId);
             const data = await res.data;
             setCertificate(data);
         }
