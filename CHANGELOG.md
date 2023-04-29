@@ -1,3 +1,12 @@
+## [0.42.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.0...v0.42.1) (2023-04-29)
+
+
+### Bug Fixes
+
+* minor changes ([efcf6ff](https://github.com/thecyberworld/thecyberhub.org/commit/efcf6ffa27f5926f40ec487e34508d93a844046c))
+
+
+
 # [0.42.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.41.0...v0.42.0) (2023-04-28)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * loading in user profile ([8f1a7c4](https://github.com/thecyberworld/thecyberhub.org/commit/8f1a7c4b56c7d71324bd4f982b993873485b641c))
-
-
-
-## [0.39.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.39.2...v0.39.3) (2023-04-27)
-
-
-### Bug Fixes
-
-* loading in user profile ([d82381c](https://github.com/thecyberworld/thecyberhub.org/commit/d82381cc7d99b73d52a5ca5040b0fdfad73a2410))
 
 
 
