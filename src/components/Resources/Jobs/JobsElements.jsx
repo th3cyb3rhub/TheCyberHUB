@@ -7,7 +7,10 @@ import { Link } from "react-router-dom";
 
 export const RouterLink = styled(Link)`
     text-decoration: none;
+    transition: 0.3s ease-in-out;
+
     &:hover {
+        transition: 0.3s ease-in-out;
         transform: scale(1.1);
     }
 `;

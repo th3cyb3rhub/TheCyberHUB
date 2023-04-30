@@ -109,6 +109,26 @@ export const JobsData = [
             "Perform security assessments on web applications and computer networks",
             "Prepare detailed reports on findings and recommend remediation strategies",
         ],
+        jobResources: {
+            title: "Resources",
+            resources: [
+                {
+                    id: "Cyber Security beginner",
+                    title: "Cyber Security beginner",
+                    link: "/roadmaps/cyber-security-beginner",
+                },
+                {
+                    id: "Bug Hunting",
+                    title: "Bug Hunting Roadmap",
+                    link: "/roadmaps/bug-hunting",
+                },
+                {
+                    id: "Penetration and Vulnerability Testing",
+                    title: "Penetration and Vulnerability Testing Roadmap",
+                    link: "/roadmaps/penetration-and-vulnerability-tester",
+                },
+            ],
+        },
         jobTimeline: {
             datePosted: "Posted 3 days ago",
             separator: (
@@ -330,6 +350,16 @@ export const JobsData = [
             "Gain hands-on experience in the field of cyber security",
             "Familiarize yourself with Redux and open-source technologies",
         ],
+        jobResources: {
+            title: "Resources",
+            resources: [
+                {
+                    id: "",
+                    title: "MERN Stack Roadmap",
+                    link: "/roadmaps/mern-stack-roadmap",
+                },
+            ],
+        },
         jobTimeline: {
             datePosted: "Posted 3 days ago",
             separator: (
@@ -439,6 +469,16 @@ export const JobsData = [
             "Gain hands-on experience in web extension development",
             "Contribute to the design, development and implementation of web extensions",
         ],
+        jobResources: {
+            title: "Resources",
+            resources: [
+                {
+                    id: "3",
+                    title: "Next JS Roadmap",
+                    link: "/roadmaps/next-js-roadmap",
+                },
+            ],
+        },
         jobTimeline: {
             datePosted: "Posted 3 days ago",
             separator: (
@@ -550,6 +590,16 @@ export const JobsData = [
             "Collaborate with development team to bring the website to life on the Android platform",
             "Contribute to the growth and success of the company through your development efforts",
         ],
+        jobResources: {
+            title: "Resources",
+            resources: [
+                {
+                    id: "3",
+                    title: "React Native Roadmap",
+                    link: "/roadmaps/react-native-roadmap",
+                },
+            ],
+        },
         jobTimeline: {
             datePosted: "Posted 2 days ago",
             separator: (

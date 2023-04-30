@@ -19,31 +19,25 @@ import { DotSymbol } from "../../Homepage/Info/InfoElements";
 
 const Roadmap = () => {
     const { title } = useParams();
-    const SelectedRoadmap = RoadmapsData.find(
-        (roadmap) => encodeURL(roadmap.title).toLowerCase() === title.toLowerCase(),
+    const SelectedRoadmap = RoadmapsData?.find(
+        (roadmap) => encodeURL(roadmap?.title).toLowerCase() === title.toLowerCase(),
     );
 
     return (
         <RoadmapContainer>
             <RoadmapHeadingSection>
-                <RoadmapHeading> {SelectedRoadmap.title} </RoadmapHeading>
+                <RoadmapHeading> {SelectedRoadmap?.title} </RoadmapHeading>
             </RoadmapHeadingSection>
-
-            {/* <p>{SelectedRoadmap.desc}</p> */}
-            {/* <p>{SelectedRoadmap.details.section}</p> */}
 
             <RoadmapDetailsContainer>
                 {SelectedRoadmap?.details.map((resources, id) => (
                     <RoadmapDetails key={id}>
-                        <RoadmapSectionHeading> {resources.section} </RoadmapSectionHeading>
+                        <RoadmapSectionHeading> {resources?.section} </RoadmapSectionHeading>
                         {resources?.resources.map((resource, id) => (
                             <RoadmapDetailsCard key={id}>
                                 <DotSymbol />
-                                <RedirectLink
-                                    href={resource.url !== "Coming Soon" ? resource.url : null}
-                                    target={"_blank"}
-                                >
-                                    <RoadmapContentHeading>{resource.title}</RoadmapContentHeading>
+                                <RedirectLink href={resource?.url} target={"_blank"}>
+                                    <RoadmapContentHeading>{resource?.title}</RoadmapContentHeading>
                                 </RedirectLink>
                             </RoadmapDetailsCard>
                         ))}

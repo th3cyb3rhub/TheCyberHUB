@@ -93,7 +93,6 @@ const FreeCourse = () => {
                                         ))}
                                     </ContentList>
                                 ))}
-                                {/* <HLine/> */}
                             </ContentNavigation>
                         </LeftContainer>
                         <VLine />

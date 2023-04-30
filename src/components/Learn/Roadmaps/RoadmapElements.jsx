@@ -29,7 +29,9 @@ export const HrLine = styled.hr`
 `;
 
 export const RoadmapHeadingSection = styled.div`
-    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    padding: 70px 25px;
     width: 100%;
 `;
 export const RoadmapHeading = styled.h1`
@@ -38,10 +40,11 @@ export const RoadmapHeading = styled.h1`
     justify-content: center;
     text-align: center;
     align-items: center;
-    color: darkorange;
+    color: #090909;
+    background: #f79200;
     font-size: 40px;
-    padding: 50px;
-    background: #090909;
+    padding: 25px 0;
+    //background: #090909;
     width: 100%;
     border-radius: 5px;
 
@@ -147,7 +150,7 @@ export const RoadmapSectionHeading = styled.h2`
     justify-content: center;
     text-align: center;
     width: 100%;
-    color: darkorange;
+    color: #ffa317;
     font-size: 30px;
     font-weight: bold;
     letter-spacing: 0.1rem;

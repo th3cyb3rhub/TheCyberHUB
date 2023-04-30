@@ -10,14 +10,13 @@ import {
     JobDetailsReq,
     JobDetailsRole,
     JobDetailsRoleTitle,
-    // JobDetailsTimeline,
     JobDetailsTitle,
     List,
     ListContainer,
     ListContent,
     ListIcon,
 } from "./JobDetailsElements";
-import { BackArrow } from "./JobsElements";
+import { BackArrow, RouterLink } from "./JobsElements";
 
 export default function JobDetailsPage(props) {
     return (
@@ -76,6 +75,26 @@ export default function JobDetailsPage(props) {
                     ))}
                 </ListContainer>
             </JobDetailsReq>
+            {props?.jobResources ? (
+                <JobDetailsReq>
+                    <h3> Learning Resources and Roadmap: </h3> <br />
+                    <p>
+                        {" "}
+                        Complete below resources before applying{" "}
+                        {props.jobTitle === "Penetration Testing Internship" ? "(at least 1)" : null}{" "}
+                    </p>
+                    <ListContainer>
+                        {props?.jobResources?.resources.map((item, id) => (
+                            <List key={id}>
+                                <ListIcon />
+                                <RouterLink to={item?.link}>
+                                    <ListContent> {item?.title} </ListContent>
+                                </RouterLink>
+                            </List>
+                        ))}
+                    </ListContainer>
+                </JobDetailsReq>
+            ) : null}
             <JobDescSection>{props.jobDesc2}</JobDescSection>
             {/* <JobDetailsTimeline> */}
             {/*    <span>{props.jobTimeline.datePosted}</span> */}

@@ -156,7 +156,9 @@ export const ListContent = styled.p`
     font-family: "Poppins", sans-serif;
     text-align: left;
     font-size: 15px;
+    color: #f4f4f4;
 `;
+
 export const JobDetailsTimeline = styled(JobDetails)`
     color: #20c20e;
     column-gap: 0.4rem;
