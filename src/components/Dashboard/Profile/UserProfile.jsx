@@ -39,13 +39,12 @@ const UserProfile = () => {
         }
 
         if (user && user?.username === username && userDetail.length === 0) {
-            const userNameAndUsername = { name: user?.name, username: user?.username };
+            const userNameAndUsername = {
+                name: user?.name,
+                username: user?.username,
+                socialLinks: SocialLinksTemplate,
+            };
             dispatch(updateUserDetail({ id: user?._id, userData: userNameAndUsername }));
-        }
-
-        if (user && user?.username === username && userDetail?.socialLinks?.length === 0) {
-            const userSocialLinksTemplateUpdate = { socialLinks: SocialLinksTemplate };
-            dispatch(updateUserDetail({ id: user?._id, userData: userSocialLinksTemplateUpdate }));
         }
 
         dispatch(getUserDetail(username));

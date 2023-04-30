@@ -58,7 +58,7 @@ const SkillSet = ({ skills, setUserDetailData, isEdit }) => {
                         skills?.length > 0 &&
                         skills[0]?.skill?.map((skill, index) => <SkillName key={index}>{skill?.skillName}</SkillName>)}
                     {isEdit &&
-                        updatedSkills?.length > 0 &&
+                        updatedSkills?.length >= 0 &&
                         updatedSkills[0]?.skill?.map((title, titleIndex) => (
                             <AchievementLink key={titleIndex}>
                                 <AddSkillInput
@@ -72,7 +72,7 @@ const SkillSet = ({ skills, setUserDetailData, isEdit }) => {
                                 </RemoveButton>
                             </AchievementLink>
                         ))}
-                    {isEdit && updatedSkills.length > 0 && (
+                    {isEdit && updatedSkills.length >= 0 && (
                         <AddButtonSection onClick={handleAddTitle}>
                             <IconAdd />
                         </AddButtonSection>
