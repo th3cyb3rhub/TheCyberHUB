@@ -33,12 +33,18 @@ const UserProfile = () => {
 
     const { username } = useParams();
 
+    const [isMe, setIsMe] = useState(false);
+
     useEffect(() => {
         if (isError) {
             console.log(message);
         }
 
-        if (user && user?.username === username && userDetail.length === 0) {
+        if (user && user?.username === username) {
+            setIsMe(true);
+        }
+
+        if (isMe && user && user?.username === username && userDetail?.length === 0) {
             const userNameAndUsername = {
                 name: user?.name,
                 username: user?.username,
@@ -76,7 +82,7 @@ const UserProfile = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (user && userDetail && user?._id === userDetail?.user) {
+        if (isMe && user && userDetail && user?._id === userDetail?.user) {
             await dispatch(updateUserDetail({ id: userDetail?.user, userData: userDetailData }));
             setIsEdit(false);
         }
@@ -90,7 +96,11 @@ const UserProfile = () => {
         );
     }
 
-    if (userDetail?.length === 0 || userDetail === "Request failed with status code 404") {
+    if (
+        userDetail?.length === 0 ||
+        userDetail === "Request failed with status code 404" ||
+        message === "Request failed with status code 500"
+    ) {
         return (
             <Wrapper>
                 <NotFound />
@@ -121,7 +131,7 @@ const UserProfile = () => {
                     />
                     <UserDetailsContainer>
                         <UserPoints userDetail={userDetail} allUserDetail={userDetails} blogs={blogs} />
-                        {aboutMe && aboutMe.length === 0 && user?._id !== userDetail?.user ? null : (
+                        {aboutMe && aboutMe?.length === 0 && user?._id !== userDetail?.user ? null : (
                             <AboutMe
                                 isEdit={isEdit}
                                 aboutMe={aboutMe}
@@ -129,7 +139,7 @@ const UserProfile = () => {
                                 setUserDetailData={setUserDetailData}
                             />
                         )}
-                        {skills && skills.length === 0 && user?._id !== userDetail?.user ? null : (
+                        {skills && skills?.length === 0 && user?._id !== userDetail?.user ? null : (
                             <SkillSet
                                 isEdit={isEdit}
                                 skills={skills}
@@ -137,7 +147,7 @@ const UserProfile = () => {
                                 setUserDetailData={setUserDetailData}
                             />
                         )}
-                        {projects && projects.length === 0 && user?._id !== userDetail?.user ? null : (
+                        {projects && projects?.length === 0 && user?._id !== userDetail?.user ? null : (
                             <UserProjects
                                 isEdit={isEdit}
                                 projects={projects}
@@ -145,7 +155,7 @@ const UserProfile = () => {
                                 setUserDetailData={setUserDetailData}
                             />
                         )}
-                        {achievements && achievements.length === 0 && user?._id !== userDetail?.user ? null : (
+                        {achievements && achievements?.length === 0 && user?._id !== userDetail?.user ? null : (
                             <Achievements
                                 isEdit={isEdit}
                                 achievements={achievements}

@@ -25,7 +25,7 @@ export const createUserDetail = createAsyncThunk("userDetail/create", async (use
 // Get user userDetail
 export const getUserDetail = createAsyncThunk("userDetail/getUserDetail", async (username) => {
     try {
-        return await userDetailService.getUserDetail(username); // Pass the username and token to the API call
+        return await userDetailService.getUserDetail(username);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
