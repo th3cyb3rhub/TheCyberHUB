@@ -10,6 +10,8 @@ export const RoadmapContainer = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
+    max-width: 1000px;
+    gap: 50px;
 `;
 
 export const DotIcon = styled(BsDot)`
@@ -26,11 +28,41 @@ export const HrLine = styled.hr`
     color: #2a2a2a;
 `;
 
+export const RoadmapHeadingSection = styled.div`
+    padding: 25px;
+    width: 100%;
+`;
+export const RoadmapHeading = styled.h1`
+    font-family: "Fira Code", monospace;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    color: darkorange;
+    font-size: 40px;
+    padding: 50px;
+    background: #090909;
+    width: 100%;
+    border-radius: 5px;
+
+    @media screen and (max-width: 720px) {
+        font-size: 30px;
+    }
+
+    @media screen and (max-width: 480px) {
+        padding: 50px 15px;
+    }
+`;
 export const RoadmapDetailsContainer = styled.div`
     display: flex;
     flex-direction: column;
     color: #d9d9d9;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    padding: 25px;
+    gap: 25px;
 `;
 
 export const RoadmapDetails = styled.div`
@@ -38,29 +70,47 @@ export const RoadmapDetails = styled.div`
     flex-direction: column;
     align-items: flex-start;
     color: #d9d9d9;
-    margin: 15px 0;
+    background: #090909;
+    width: 100%;
+    border-radius: 5px;
+    padding: 25px;
 `;
 
 export const RoadmapContentHeading = styled.p`
+    font-family: "Fira Code", monospace;
     display: flex;
     justify-content: flex-start;
     text-align: left;
-    align-items: start;
-    margin: 5px auto;
-    margin-left: 50px;
-    min-width: 20px;
-    width: auto;
-    color: #d9d9d9;
-    font-size: 18px;
+    align-items: center;
+    color: #c7c7c7;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #121212;
+    margin: 5px;
+    padding: 5px 5px 5px 15px;
+    width: 100%;
+
+    &:hover {
+        color: greenyellow;
+        transition: all 0.3s ease-in-out;
+        scale: 1.02;
+        background: #222222;
+    }
+
+    @media screen and (max-width: 500px) {
+        font-size: 17px;
+    }
 `;
 
 export const RoadmapDetailsCard = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     text-align: left;
-    align-items: start;
+    align-items: center;
     width: 100%;
+    gap: 10px;
 
     //width: 30em;
     //text-decoration: none;
@@ -91,18 +141,21 @@ export const RoadmapDetailsCard = styled.div`
     //}
 `;
 
-export const RoadmapSectionHeading = styled.h3`
+export const RoadmapSectionHeading = styled.h2`
+    font-family: "Fira Code", monospace;
     display: flex;
-    justify-content: flex-start;
-    text-align: left;
-    //align-items: self-start;
-
-    color: #d9d9d9;
-    //width: 100%;
-    width: auto;
-    margin: 15px auto;
-    font-weight: 500;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    color: darkorange;
+    font-size: 30px;
+    font-weight: bold;
     letter-spacing: 0.1rem;
+    margin: 0 0 25px 0;
+
+    @media screen and (max-width: 500px) {
+        font-size: 17px;
+    }
 `;
 
 export const RoadmapDesc = styled.p`
@@ -183,7 +236,8 @@ export const RouterLink = styled(Link)`
 `;
 
 export const RedirectLink = styled.a`
-    text-decoration: dashed underline #faf089;
+    // buttom margin 5x for undeline
+    width: 100%;
 `;
 
 export const RoadmapsHeading = styled.p`

@@ -3,7 +3,7 @@ const RoadmapsData = [
         id: 1,
         title: "Cyber Security Beginner",
         level: "Beginner",
-        desc: "Step by step guide to learn Cyber Security",
+        desc: "Step by step guide to learn Cyber Security from scratch",
         details: [
             {
                 section: "Essential SkillLevel",
@@ -11,6 +11,10 @@ const RoadmapsData = [
                     {
                         title: "Basic IT SkillLevel",
                         url: "https://www.professormesser.com/free-a-plus-training/220-1001/220-1000-training-course/",
+                    },
+                    {
+                        title: "Linux Essentials for Ethical Hackers",
+                        url: "https://www.youtube.com/watch?v=1hvVcEhcbLM&t=12602s&pp=ygUSbGludXggIGZvciBoY2FrcmVz",
                     },
                 ],
             },
@@ -24,10 +28,6 @@ const RoadmapsData = [
                     {
                         title: "Network-plus n10-007",
                         url: "https://www.professormesser.com/network-plus/n10-007/n10-007-training-course/",
-                    },
-                    {
-                        title: "NetCad Packet Tracer",
-                        url: "https://www.netacad.com/courses/packet-tracer",
                     },
                 ],
             },
@@ -82,6 +82,52 @@ const RoadmapsData = [
                     },
                 ],
             },
+            {
+                section: "Books",
+                resources: [
+                    {
+                        title: "Bug Bounty Bootcamp: The Guide to Finding and Reporting Web Vulnerabilities",
+                        url: "https://amzn.to/3LEmZPi",
+                    },
+                    {
+                        title: "Hacking: The Art of Exploitation",
+                        url: "https://amzn.to/428G6WX",
+                    },
+                    {
+                        title: "Metasploit: The Penetration Tester's Guide",
+                        url: "https://amzn.to/3HqkQUC",
+                    },
+                    {
+                        title: "Black Hat Python: Python Programming for Hackers and Pentesters",
+                        url: "https://amzn.to/3LGaYJ7",
+                    },
+                    {
+                        title: "Black Hat Python, 2nd Edition: Python Programming for Hackers and Pentesters",
+                        url: "https://amzn.to/3ne0xTB",
+                    },
+                ],
+            },
+            {
+                section: "Important for Improving skills",
+                resources: [
+                    {
+                        title: "PortSwigger Academy",
+                        url: "https://portswigger.net/web-security/learning-path",
+                    },
+                    {
+                        title: "TryHackMe",
+                        url: "https://tryhackme.com/",
+                    },
+                    {
+                        title: "TheCyberCTF",
+                        url: "https://thecyberhub.org/ctf",
+                    },
+                    {
+                        title: "VulnHub",
+                        url: "https://www.vulnhub.com/",
+                    },
+                ],
+            },
             // {
             //     section: "Bug Hunting",
             //     resources: [
@@ -115,6 +161,23 @@ const RoadmapsData = [
             //         },
             //     ],
             // },
+        ],
+    },
+    {
+        id: 8,
+        title: "Penetration & Vulnerability Tester",
+        level: "Mid",
+        desc: "Step by step guide to becoming a Penetration & Vulnerability Tester",
+        details: [
+            {
+                section: "Coming Soon",
+                resources: [
+                    {
+                        title: "Coming Soon",
+                        url: "Coming Soon",
+                    },
+                ],
+            },
         ],
     },
     // {
@@ -219,23 +282,7 @@ const RoadmapsData = [
             },
         ],
     },
-    {
-        id: 8,
-        title: "Penetration & Vulnerability Tester",
-        level: "Mid",
-        desc: "Step by step guide to becoming a Penetration & Vulnerability Tester",
-        details: [
-            {
-                section: "Coming Soon",
-                resources: [
-                    {
-                        title: "Coming Soon",
-                        url: "Coming Soon",
-                    },
-                ],
-            },
-        ],
-    },
+
     // {
     //     id: 9,
     //     title: "Cybersecurity Manager",

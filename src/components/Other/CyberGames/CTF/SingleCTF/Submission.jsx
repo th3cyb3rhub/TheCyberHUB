@@ -116,7 +116,7 @@ const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIs
     };
 
     if (userDetailIsLoading) {
-        return <CircleSpinner size={30} color="#09ff1b" loading={userDetailIsLoading} />;
+        return <CircleSpinner size={30} color="#09ff1b" />;
     }
 
     return (

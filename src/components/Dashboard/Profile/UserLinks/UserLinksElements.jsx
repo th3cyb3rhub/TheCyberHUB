@@ -18,7 +18,6 @@ export const UserInfo = styled.div`
     flex-direction: column;
 
     .name {
-        height: 35px;
         font-size: 1.7rem;
     }
 

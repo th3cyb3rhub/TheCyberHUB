@@ -4,17 +4,18 @@ import { useParams } from "react-router-dom";
 import RoadmapsData from "./RoadmapsData";
 import { encodeURL } from "../../Blogs/util";
 import {
-    RoadmapContainer,
+    HrLine,
     RedirectLink,
-    RoadmapSectionHeading,
+    RoadmapContainer,
+    RoadmapContentHeading,
     RoadmapDetails,
     RoadmapDetailsCard,
-    RoadmapContentHeading,
     RoadmapDetailsContainer,
-    DotIcon,
-    CircleIcon,
-    HrLine,
+    RoadmapHeading,
+    RoadmapHeadingSection,
+    RoadmapSectionHeading,
 } from "./RoadmapElements";
+import { DotSymbol } from "../../Homepage/Info/InfoElements";
 
 const Roadmap = () => {
     const { title } = useParams();
@@ -24,28 +25,27 @@ const Roadmap = () => {
 
     return (
         <RoadmapContainer>
-            <h1>{SelectedRoadmap.title}</h1>
+            <RoadmapHeadingSection>
+                <RoadmapHeading> {SelectedRoadmap.title} </RoadmapHeading>
+            </RoadmapHeadingSection>
+
             {/* <p>{SelectedRoadmap.desc}</p> */}
             {/* <p>{SelectedRoadmap.details.section}</p> */}
 
             <RoadmapDetailsContainer>
                 {SelectedRoadmap?.details.map((resources, id) => (
                     <RoadmapDetails key={id}>
-                        <RoadmapSectionHeading>
-                            <DotIcon /> {resources.section}
-                        </RoadmapSectionHeading>
+                        <RoadmapSectionHeading> {resources.section} </RoadmapSectionHeading>
                         {resources?.resources.map((resource, id) => (
-                            <RedirectLink
-                                key={id}
-                                href={resource.url !== "Coming Soon" ? resource.url : null}
-                                target={"_blank"}
-                            >
-                                <RoadmapDetailsCard>
-                                    <RoadmapContentHeading>
-                                        <CircleIcon /> {resource.title}
-                                    </RoadmapContentHeading>
-                                </RoadmapDetailsCard>
-                            </RedirectLink>
+                            <RoadmapDetailsCard key={id}>
+                                <DotSymbol />
+                                <RedirectLink
+                                    href={resource.url !== "Coming Soon" ? resource.url : null}
+                                    target={"_blank"}
+                                >
+                                    <RoadmapContentHeading>{resource.title}</RoadmapContentHeading>
+                                </RedirectLink>
+                            </RoadmapDetailsCard>
                         ))}
                         {/* <HrLine/> */}
                     </RoadmapDetails>

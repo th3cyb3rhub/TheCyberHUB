@@ -33,26 +33,34 @@ export const OverlayDetails = styled.div`
 `;
 
 export const RoadmapsContainer = styled.div`
-    max-width: 65em;
-    margin: 150px auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    //flex-wrap: wrap;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    text-align: center;
+    align-items: center;
+    max-width: 1350px;
+    width: 100%;
+    margin: 100px 0 0 0;
+`;
+
+export const RoadmapCardsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 `;
 
 export const RoadmapCard = styled.div`
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: start;
     text-align: start;
 
-    width: 20em;
-    height: 5em;
+    width: 25em;
+    height: auto;
     background-color: #120e18;
     border: 1px solid #2a2a2a;
     border-radius: 10px;
@@ -67,13 +75,13 @@ export const RoadmapCard = styled.div`
     }
 `;
 
-export const RoadmapHeading = styled.h4`
+export const RoadmapHeading = styled.h3`
     padding: 5px 20px 0 5px;
 `;
 
 export const RoadmapDesc = styled.p`
     padding: 5px 20px 0 5px;
-    font-size: 12px;
+    font-size: 15px;
     color: #ffffff;
 `;
 
