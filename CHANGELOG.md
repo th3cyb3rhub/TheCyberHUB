@@ -1,3 +1,12 @@
+# [0.43.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.3...v0.43.0) (2023-04-30)
+
+
+### Features
+
+* roadmap updates ([c5ec46c](https://github.com/thecyberworld/thecyberhub.org/commit/c5ec46ccad1d7c94b53bc276122e02f6604a3bb0))
+
+
+
 ## [0.42.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.2...v0.42.3) (2023-04-29)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * certificates design ([5c3b8fa](https://github.com/thecyberworld/thecyberhub.org/commit/5c3b8faca45a105812a30d47c839280a011b0ba7))
-
-
-
-# [0.41.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.40.0...v0.41.0) (2023-04-28)
-
-
-### Features
-
-* new ctf design ([f58aee3](https://github.com/thecyberworld/thecyberhub.org/commit/f58aee34aeccd1b252ebdc0fa5fc2a67c701613e))
 
 
 
