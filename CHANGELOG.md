@@ -1,3 +1,12 @@
+## [0.44.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.0...v0.44.1) (2023-04-30)
+
+
+### Bug Fixes
+
+* minor issues ([eb95f36](https://github.com/thecyberworld/thecyberhub.org/commit/eb95f3655fa23d27de1ba033cba16302f39b293d))
+
+
+
 # [0.44.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.43.0...v0.44.0) (2023-04-30)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * minor bugs ([dcee288](https://github.com/thecyberworld/thecyberhub.org/commit/dcee2883d16f652a53e4a58951295a2bd279af52))
-
-
-
-## [0.42.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.0...v0.42.1) (2023-04-29)
-
-
-### Bug Fixes
-
-* minor changes ([efcf6ff](https://github.com/thecyberworld/thecyberhub.org/commit/efcf6ffa27f5926f40ec487e34508d93a844046c))
 
 
 
