@@ -44,6 +44,7 @@ export const updateUser = createAsyncThunk("user/update", async ({ userData }, t
         return thunkAPI.rejectWithValue(message);
     }
 });
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,

@@ -4,36 +4,43 @@ import { CenterCard } from "../components/Homepage/Registration/CenterCard";
 import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2CodePromotion";
 import { CustomInputGroup } from "../components/Other/MixComponents/InputField/CustomInputField";
 import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
-import {
-    GlowingButton,
-    LoadingButton,
-    RouterButtonGreen,
-} from "../components/Other/MixComponents/Buttons/ButtonElements";
-import { FaUserCircle } from "react-icons/fa";
+import { GlowingButton, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
 import { CgPassword } from "react-icons/all";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login, reset } from "../features/auth/authSlice";
+import { reset, resetPasswordWithToken } from "../features/resetPassword/resetPasswordSlice";
 import { CircleSpinner } from "react-spinners-kit";
 import { RouterLink } from "../components/Resources/Events/EventsElement";
 
-const Login = () => {
+const ResetPassword = () => {
     const [formData, setFormData] = useState({
-        username: "",
         password: "",
+        confirmPassword: "",
     });
 
-    const { username, password } = formData;
+    const [setError, setSetError] = useState(false);
+    const [isPasswordReset, setIsPasswordReset] = useState(false);
+
+    const { password, confirmPassword } = formData;
+
+    const { token } = useParams();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+    const { isLoading, isError, isSuccess, message } = useSelector((state) => state.resetPassword);
     useEffect(() => {
-        if (isSuccess || user) {
-            navigate("/");
+        if (isSuccess === true) {
+            setIsPasswordReset(true);
+            navigate("/login");
+        }
+        if (isError === true) {
+            setSetError(true);
+        }
+        if (message === "Invalid token") {
+            setSetError(true);
         }
         if (isError) {
             if (message === "Request failed with status code 429") {
@@ -41,8 +48,10 @@ const Login = () => {
             } else toast.error(message);
         }
 
-        dispatch(reset());
-    }, [user, isError, isSuccess, message, navigate, dispatch]);
+        return () => {
+            dispatch(reset());
+        };
+    }, [isError, isSuccess, message, navigate, dispatch]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -54,12 +63,14 @@ const Login = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (username !== "" && password !== "") {
-            const userData = {
-                username,
-                password,
-            };
-            dispatch(login(userData));
+        if (password !== confirmPassword) {
+            toast.error("Passwords do not match");
+        } else {
+            dispatch(resetPasswordWithToken({ token, password }));
+            setFormData({
+                password: "",
+                confirmPassword: "",
+            });
         }
     };
 
@@ -72,36 +83,14 @@ const Login = () => {
                             Thecyberhub
                         </RouterLink>
                         <h1 className="leading-title">Learn Cybersecurity For Free</h1>
-                        {/* <ul className="nav-links"> */}
-                        {/*    <li>Home</li> */}
-                        {/*    <li>Tour</li> */}
-                        {/*    <li>Courses</li> */}
-                        {/*    <li>Articles</li> */}
-                        {/*    <li>Blog</li> */}
-                        {/* </ul> */}
                     </div>
                 </Learn2CodePromotion>
                 <RegistrationFormContainer onSubmit={onSubmit}>
-                    <h1 className="registration__promotion__h1">Join over 25 million learners from around the globe</h1>
                     <p className="registration__promotion__p">
                         Master Cybersecurity. This path will prepare you to build you base strong in cyber security
                     </p>
+                    <h1 className="registration__promotion__h1">Reset Password</h1>
                     <div className="registration__inputfields">
-                        <CustomInputGroup>
-                            <span>
-                                <FaUserCircle />
-                            </span>
-                            <input
-                                type="text"
-                                id={"username"}
-                                name={"username"}
-                                value={username}
-                                placeholder="Username"
-                                onChange={onChange}
-                                aria-label="Username"
-                                autoComplete={false}
-                            />
-                        </CustomInputGroup>
                         <CustomInputGroup>
                             <span>
                                 <CgPassword />
@@ -114,34 +103,41 @@ const Login = () => {
                                 placeholder="Password"
                                 onChange={onChange}
                                 aria-label="Password"
-                                autoComplete={false}
+                                autoComplete={null}
+                            />
+                        </CustomInputGroup>
+                        <CustomInputGroup>
+                            <span>
+                                <CgPassword />
+                            </span>
+                            <input
+                                type="password"
+                                id={"confirmPassword"}
+                                name={"confirmPassword"}
+                                value={confirmPassword}
+                                placeholder="Confirm Password"
+                                onChange={onChange}
+                                aria-label="Password"
+                                autoComplete={null}
                             />
                         </CustomInputGroup>
                     </div>
-                    <RouterLink to={"/forgetPassword"}>
-                        <p style={{ color: "white", margin: "15px 0 0 0" }}>Forgot Password?</p>
-                    </RouterLink>
                     <div className="registration__ctas">
-                        {/* <div className="registration__tandc"> */}
-                        {/*    <input role="checkbox" type="checkbox" autoComplete="" /> */}
-                        {/*    <div> */}
-                        {/*        I agree to all statements included in */}
-                        {/*        <span role="link">Terms of Use</span> */}
-                        {/*    </div> */}
-                        {/* </div> */}
-
                         {!isLoading ? (
-                            <GlowingButton width={"100%"} type="submit">
-                                Start Hacking
-                            </GlowingButton>
+                            isPasswordReset ? (
+                                <p style={{ color: "white" }}>Password Reset Successful</p>
+                            ) : setError ? (
+                                <p style={{ color: "white" }}>Invalid Token</p>
+                            ) : (
+                                <GlowingButton width={"100%"} type="submit">
+                                    Save Password
+                                </GlowingButton>
+                            )
                         ) : (
-                            <LoadingButton width={"100%"} type="submit">
+                            <LoadingButton width={"100%"}>
                                 <CircleSpinner size={20} color={"#131313"} />
                             </LoadingButton>
                         )}
-                        <RouterButtonGreen to={"/register"} width={"100%"}>
-                            Register
-                        </RouterButtonGreen>
                     </div>
                 </RegistrationFormContainer>
             </CenterCard>
@@ -149,4 +145,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default ResetPassword;

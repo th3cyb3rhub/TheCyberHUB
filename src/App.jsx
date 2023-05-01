@@ -59,6 +59,8 @@ import InternshipResponse from "./components/Dashboard/FormData/InternshipRespon
 import Security from "./components/Security/Security";
 import HallOfFame from "./components/Security/HallOfFame";
 import RulesOfEngagement from "./components/Security/RulesOfEngagement";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -77,9 +79,10 @@ const App = () => {
     const showFooter = () => {
         const register = pathname !== "/register";
         const login = pathname !== "/login";
-        if (register === false) {
-            return register;
-        } else return login;
+        const forgetPassword = pathname !== "/forgetPassword";
+        const resetPassword = pathname !== "/resetPassword/:token";
+
+        return register && login && forgetPassword && resetPassword;
     };
 
     const [isOpen, setIsOpen] = useState(false);
@@ -122,6 +125,8 @@ const App = () => {
                             <Route exact path={"/dashboard"} element={<Dashboard />} />
                             <Route exact path={"/contact"} element={<ContactForm />} />
                             <Route exact path={"/login"} element={<Login />} />
+                            <Route exact path={"/forgetPassword"} element={<ForgotPassword />} />
+                            <Route exact path={"/resetPassword/:token"} element={<ResetPassword />} />
                             <Route exact path={"/register"} element={<Register />} />
                             <Route exact path={"/leaderboard"} element={<Leaderboard />} />
 
