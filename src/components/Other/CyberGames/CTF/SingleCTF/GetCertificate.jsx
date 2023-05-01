@@ -5,20 +5,26 @@ import { GetCertificateContainer } from "./GetCertificateElements";
 // import {getUserDetail} from "../../../../../features/userDetail/userDetailSlice";
 // import {useDispatch, useSelector} from "react-redux";
 
-const GetCertificate = ({ userDetail, ctfId, isCompleted, isCertExisted }) => {
-    const ctfCertificates = userDetail?.ctfCertificates;
+const GetCertificate = ({ ctfCertificates, ctfId, user, isCompleted, isCertExisted }) => {
     // const dispatch = useDispatch();
     // const {user} = useSelector((state) => state.auth);
     // const handleRefresh = () => {
     //     dispatch(getUserDetail(user.username));
     // };
+    const certificateId = ctfCertificates?.find((cert) => cert.ctfId === ctfId)?.ctfCertificateId;
+    let redirectUrlParams = `/@${user}`;
+    if (certificateId === undefined) {
+        redirectUrlParams = `/@${user.username}`;
+    } else {
+        redirectUrlParams = `/CTF/certificate/${certificateId}`;
+    }
     return (
         <GetCertificateContainer>
             {isCertExisted || (ctfCertificates && ctfCertificates.find((ctf) => ctf.ctfId === ctfId)) ? (
                 <div>
-                    <h1>Congratulations!</h1>
-                    <h3>You have completed this CTF!</h3>
-                    <Link to={`/CTF/certificate/${ctfId}`}>
+                    <h2 style={{ color: "#bdbdbd" }}>Congratulations!</h2>
+                    <h3 style={{ color: "#bdbdbd" }}>You have completed this CTF!</h3>
+                    <Link to={redirectUrlParams}>
                         <h4 style={{ color: "greenyellow" }}>Click here to get your Certificate</h4>
                     </Link>
                 </div>

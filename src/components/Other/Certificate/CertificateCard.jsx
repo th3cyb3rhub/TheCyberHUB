@@ -27,27 +27,21 @@ import { getApiUrl } from "../../../features/apiUrl";
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     const { id } = useParams();
     const certificateId = id;
 
     useEffect(() => {
+        setIsLoading(true);
         async function fetchCertificate() {
             const res = await axios.get(getApiUrl("api/ctfCertificate/getCtfCertificate/") + certificateId);
             const data = await res.data;
             setCertificate(data);
+            setIsLoading(false);
         }
 
         fetchCertificate();
-    }, []);
-
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 5000);
     }, []);
 
     const downloadCertificatePDF = () => {
@@ -80,10 +74,10 @@ const CertificateCard = () => {
             });
     };
 
-    if (loading) {
+    if (isLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={30} color="#17f31e" loading={loading} />
+                <CircleSpinner size={30} color="#17f31e" loading={isLoading} />
             </Wrapper>
         );
     }
@@ -147,8 +141,8 @@ const CertificateCard = () => {
                         </CertificateComponent>
                     </>
                 ) : // )
-                loading ? (
-                    <CircleSpinner size={30} color="#686769" loading={loading} />
+                isLoading ? (
+                    <CircleSpinner size={30} color="#686769" loading={isLoading} />
                 ) : (
                     <InvalidCertificate>
                         <h4>Invalid certificate id</h4>
