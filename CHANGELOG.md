@@ -1,3 +1,12 @@
+# [0.45.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.3...v0.45.0) (2023-05-01)
+
+
+### Features
+
+* password reset ([085e215](https://github.com/thecyberworld/thecyberhub.org/commit/085e2158385b54d3da0e67381de7564d39469fae))
+
+
+
 ## [0.44.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.2...v0.44.3) (2023-05-01)
 
 
@@ -32,15 +41,6 @@
 ### Features
 
 * roadmap updates ([c6da284](https://github.com/thecyberworld/thecyberhub.org/commit/c6da284a1d620ea9c8ddfb4ff3b3b4e41fdad7b5))
-
-
-
-# [0.43.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.3...v0.43.0) (2023-04-30)
-
-
-### Features
-
-* roadmap updates ([c5ec46c](https://github.com/thecyberworld/thecyberhub.org/commit/c5ec46ccad1d7c94b53bc276122e02f6604a3bb0))
 
 
 
