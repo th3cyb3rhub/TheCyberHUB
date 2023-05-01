@@ -34,11 +34,17 @@ const CertificateCard = () => {
 
     useEffect(() => {
         setIsLoading(true);
+
         async function fetchCertificate() {
-            const res = await axios.get(getApiUrl("api/ctfCertificate/getCtfCertificate/") + certificateId);
-            const data = await res.data;
-            setCertificate(data);
-            setIsLoading(false);
+            try {
+                const res = await axios.get(getApiUrl("api/ctfCertificate/getCtfCertificate/") + certificateId);
+                const data = await res.data;
+                setCertificate(data);
+                setIsLoading(false);
+            } catch (err) {
+                // console.log(err);
+                setIsLoading(false);
+            }
         }
 
         fetchCertificate();
