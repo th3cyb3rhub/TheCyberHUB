@@ -1,3 +1,12 @@
+## [0.44.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.2...v0.44.3) (2023-05-01)
+
+
+### Bug Fixes
+
+* ctf certificate issue ([ce4253b](https://github.com/thecyberworld/thecyberhub.org/commit/ce4253b820cc39690d118c1b4eb1713cc3547a74))
+
+
+
 ## [0.44.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.1...v0.44.2) (2023-05-01)
 
 
@@ -32,15 +41,6 @@
 ### Features
 
 * roadmap updates ([c5ec46c](https://github.com/thecyberworld/thecyberhub.org/commit/c5ec46ccad1d7c94b53bc276122e02f6604a3bb0))
-
-
-
-## [0.42.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.42.2...v0.42.3) (2023-04-29)
-
-
-### Bug Fixes
-
-* minor bugs ([e1810b0](https://github.com/thecyberworld/thecyberhub.org/commit/e1810b06d7c84b56a257f2c7b422e4722bdb2249))
 
 
 
