@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { TbCrown } from "react-icons/all";
 
 export const UserPointsContainer = styled.div`
     background: #090909;
@@ -21,6 +22,25 @@ export const UserPointsContainer = styled.div`
 `;
 
 export const RankContainer = styled.div``;
+
+export const RankNumberContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`;
+
+export const RankNumber = styled.p`
+    // color: ${(props) => (props.userRank === 1 ? "#17f31e" : "#d7d7d7")};
+    margin-bottom: ${(props) => (props.userRank === 1 ? "-5px" : "")};
+    font-weight: 600;
+`;
+
+export const RankCgCrown = styled(TbCrown)`
+    margin-bottom: -10px;
+    color: #17f31e;
+    font-size: 30px;
+`;
 
 export const UserExpContainer = styled.div``;
 

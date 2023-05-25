@@ -28,15 +28,22 @@ import {
     WebIcon,
 } from "./ContactFormElements.jsx";
 
-import { getApiUrl } from "../../features/apiUrl";
+import { getApiUrl } from "../../../features/apiUrl";
 import axios from "axios";
 import { toast } from "react-toastify";
-import InternshipProgramData from "../Resources/Jobs/Internship/InternshipProgramData";
-import { JobsData } from "../Resources/Jobs/JobsData";
-import { LoadingButton } from "../Other/MixComponents/Buttons/ButtonElements";
+import InternshipProgramData from "../../Resources/Jobs/Internship/InternshipProgramData";
+import { JobsData } from "../../Resources/Jobs/JobsData";
+import { LoadingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
+import apiStatus from "../../../features/apiStatus";
+import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
 
 const ContactForm = () => {
+    const { isApiLoading, isApiWorking } = apiStatus();
+    const path = window.location.pathname;
+    const lastEndpoint = path.substring(path.lastIndexOf("/") + 1);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -196,6 +203,18 @@ const ContactForm = () => {
                 });
         }
     };
+
+    if (isApiLoading) {
+        return lastEndpoint === "contact" ? (
+            <Wrapper>
+                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isApiLoading} />
+            </Wrapper>
+        ) : null;
+    }
+
+    if (!isApiWorking) {
+        return lastEndpoint === "contact" ? <UnderMaintenance /> : null;
+    }
 
     return (
         <ContactFormContainer id={"contactUs"}>

@@ -22,7 +22,7 @@ import {
     FaTwitter,
     FaYoutube,
 } from "react-icons/fa";
-import { H1 } from "../../ContactForm/ContactFormElements";
+import { H1 } from "../ContactForm/ContactFormElements";
 
 const Socials = () => {
     return (

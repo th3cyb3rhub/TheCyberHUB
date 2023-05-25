@@ -4,7 +4,7 @@ export { default as Sidebar } from "./Header/Sidebar/Sidebar";
 export { default as Hero } from "./Homepage/Hero/Hero";
 export { default as Info } from "./Homepage/Info/Info";
 export { default as Socials } from "./Homepage/Socials/Socials";
-export { default as Community } from "./Community/Community";
+export { default as Community } from "./Other/Community/Community";
 export { default as Sponsors } from "./Other/Support/Sponsors";
 
 // Learn //
@@ -43,7 +43,7 @@ export { default as Roadmap } from "./Learn/Roadmaps/Roadmap";
 export { default as Dashboard } from "../pages/Dashboard";
 export { default as Login } from "../pages/Login";
 export { default as UserProfile } from "../components/Dashboard/Profile/UserProfile";
-export { default as LearningPath } from "./Learn/LearningPath/LearningPath";
+export { default as LearningPath } from "./Resources/LearningPath/LearningPath";
 export { default as CreateBlog } from "./Blogs/ManageBlogs/CreateBlog/CreateBlog";
 export { default as GoalSetter } from "../components/Dashboard/GoalSetter/GoalSetter";
 export { default as UserBlogs } from "./Dashboard/Blogs/UserBlogs";

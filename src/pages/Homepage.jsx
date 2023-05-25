@@ -1,7 +1,7 @@
 import React from "react";
 import { Hero, Info, Socials } from "../components";
 import { aboutData, ResourcesData, communityData, contributeData } from "../components/Homepage/Info/Data";
-import ContactForm from "../components/ContactForm/ContactForm";
+import ContactForm from "../components/Homepage/ContactForm/ContactForm";
 
 const Homepage = () => {
     return (

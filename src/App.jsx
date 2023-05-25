@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { Route, Routes, useLocation } from "react-router-dom";
 import Homepage from "./pages/Homepage";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/Other/ScrollToTop";
 import Register from "./pages/Register";
-
 import {
     About,
     Blogs,
@@ -38,14 +36,13 @@ import {
     Sponsors,
     UserBlogs,
 } from "./components";
-
 import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
 import Tools from "./components/Beta/Tools/Tools";
 import BreachCheck from "./components/Beta/Tools/BreachCheck/BreachCheck";
 import EmailNotVerified from "./components/Dashboard/EmailNotVerified";
 import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
 import { useSelector } from "react-redux";
-import ContactForm from "./components/ContactForm/ContactForm";
+import ContactForm from "./components/Homepage/ContactForm/ContactForm";
 import TermsAndCondition from "./components/Resources/TermsAndCondition";
 import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
 import FormData from "./components/Dashboard/FormData/FormData";
@@ -56,24 +53,41 @@ import CreateCTF from "./components/Other/CyberGames/CTF/CreateCTF";
 import Leaderboard from "./components/Other/CyberGames/Leaderboard/Leaderboard";
 import UserTimestamps from "./features/UserTimestamps";
 import InternshipResponse from "./components/Dashboard/FormData/InternshipResponse";
-import Security from "./components/Security/Security";
-import HallOfFame from "./components/Security/HallOfFame";
-import RulesOfEngagement from "./components/Security/RulesOfEngagement";
+import Security from "./components/Other/Security/Security";
+import HallOfFame from "./components/Other/Security/HallOfFame";
+import RulesOfEngagement from "./components/Other/Security/RulesOfEngagement";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { useUserData } from "./components/Dashboard/checkUserVerified";
+import EditPublicProfile from "./components/Dashboard/Profile/EditPublicProfile/EditPublicProfile";
+import TagsPage from "./components/TagsPage/TagsPage";
+import TagPage from "./components/TagsPage/TagPage";
+import Social from "./components/Social/Social";
+// import PortScanner from "./components/Beta/Tools/PortScanner/PortScanner";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showWebsite, setShowWebsite] = useState(false);
     const { pathname } = useLocation();
 
+    const hostname = window.location.hostname;
+
     useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 5000);
-        setTimeout(() => {
-            setShowWebsite(true);
-        }, 3000);
+        if (hostname === "localhost") {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 0);
+            setTimeout(() => {
+                setShowWebsite(true);
+            }, 0);
+        } else {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 5000);
+            setTimeout(() => {
+                setShowWebsite(true);
+            }, 3000);
+        }
     }, []);
 
     const showFooter = () => {
@@ -89,8 +103,10 @@ const App = () => {
     const toggle = () => setIsOpen(!isOpen);
 
     const { user } = useSelector((state) => state.auth);
+    const userVerified = useUserData({ user }).isVerified;
 
     if (isLoading) return <Spinner />;
+
     if (showWebsite)
         return (
             <>
@@ -102,7 +118,7 @@ const App = () => {
                             <Navbar toggle={toggle} />
                         </>
                     )}
-                    {user && !user.isVerified ? <EmailNotVerified user={user} /> : null}
+                    {user && !userVerified ? <EmailNotVerified user={user} /> : null}
                     <ScrollToTop>
                         <Routes>
                             <Route index exact path={"/"} element={<Homepage />} />
@@ -111,12 +127,20 @@ const App = () => {
                                 <Route index element={<Tools />} />
                                 <Route path={"breachCheck"} element={<BreachCheck />} />
                                 <Route path={"subdomainFinder"} element={<SubdomainFinder />} />
+                                {/* <Route path={"portScanner"} element={<PortScanner/>}/> */}
                                 <Route path={"*"} element={<NotFound />} />
                                 <Route element={<NotFound />} />
                             </Route>
 
                             <Route path={"/blogs"}>
                                 <Route index element={<Blogs />} />
+                                <Route exact path={":username/:title"} element={<SingleBlog />} />
+                                {/* <Route element={<NotFound />} /> */}
+                                <Route path={"*"} element={<NotFound />} />
+                            </Route>
+
+                            <Route path={"/social"}>
+                                <Route index element={<Social />} />
                                 <Route exact path={":username/:title"} element={<SingleBlog />} />
                                 {/* <Route element={<NotFound />} /> */}
                                 <Route path={"*"} element={<NotFound />} />
@@ -130,8 +154,10 @@ const App = () => {
                             <Route exact path={"/register"} element={<Register />} />
                             <Route exact path={"/leaderboard"} element={<Leaderboard />} />
 
-                            <Route exact path={"/@:username"} element={<UserProfile />} />
-                            {/* <Route exact path={"/profile/edit"} element={<EditProfile />} /> */}
+                            <Route>
+                                <Route exact path={"/@:username"} element={<UserProfile />} />
+                                <Route exact path={"/edit/@:username"} element={<EditPublicProfile />} />
+                            </Route>
 
                             <Route path={"/dashboard/*"}>
                                 <Route index element={<Dashboard />} />
@@ -181,14 +207,19 @@ const App = () => {
                                     <Route path={"*"} element={<NotFound />} />
                                 </Route>
                             </Route>
+
                             <Route exact path={"/create-blog"} element={<CreateBlog />} />
 
-                            <Route>
-                                <Route path={"/events"}>
-                                    <Route index element={<Events />} />
-                                    <Route path={":title"} element={<Event />} />
-                                    <Route path={"*"} element={<NotFound />} />
-                                </Route>
+                            <Route path={"/events"}>
+                                <Route index element={<Events />} />
+                                <Route path={":title"} element={<Event />} />
+                                <Route path={"*"} element={<NotFound />} />
+                            </Route>
+
+                            <Route path={"/tags"}>
+                                <Route index element={<TagsPage />} />
+                                <Route path={":tag"} element={<TagPage />} />
+                                <Route path={"*"} element={<NotFound />} />
                             </Route>
 
                             <Route>

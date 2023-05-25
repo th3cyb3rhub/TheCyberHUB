@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { Wrapper } from "../Profile/ProfileElements";
-import { AllBlogs, BlogsComponent, MiddleContainer } from "../../Blogs/BlogsElements";
+import { AllBlogs, BlogsContainer, MiddleContainer } from "../../Blogs/BlogsElements";
 import LoadingBlogCard from "../../Blogs/BlogCard/LoadingBlogCard";
 import NewBlogCard from "../../Blogs/BlogCard/NewBlogCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ const UserBlogs = () => {
     }, [dispatch, isError, message]);
     return (
         <Wrapper>
-            <BlogsComponent>
+            <BlogsContainer>
                 {isLoading ? (
                     <MiddleContainer>
                         <AllBlogs>
@@ -44,7 +44,7 @@ const UserBlogs = () => {
                         </AllBlogs>
                     </MiddleContainer>
                 )}
-            </BlogsComponent>
+            </BlogsContainer>
         </Wrapper>
     );
 };

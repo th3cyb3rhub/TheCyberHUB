@@ -6,6 +6,9 @@ export const UserLinksContainer = styled.div`
     padding: 15px;
     min-width: 280px;
     max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     @media screen and (max-width: 760px) {
         width: 100%;
         min-width: initial;
@@ -57,7 +60,6 @@ export const UserFollowersAndFollowing = styled.div`
 `;
 
 export const UserBio = styled.div`
-    margin: 10px 0;
     background: #0e0e0e;
     padding: 10px;
     border-radius: 5px;

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { EmailNotVerifiedContainer, EmailNotVerifiedText, ResendButton } from "./EmailNotVerifiedElements";
 import axios from "axios";
 import { getApiUrl } from "../../features/apiUrl";
-// import { useUserData } from "./checkUserVerified";
+import { useUserData } from "./checkUserVerified";
+import apiStatus from "../../features/apiStatus";
 
 const EmailNotVerified = ({ user }) => {
-    if (!user) {
-        return null;
-    }
+    const { isApiLoading, isApiWorking } = apiStatus();
 
     const [message, setMessage] = useState("");
     const [scrollNav, setScrollNav] = useState(false);
@@ -20,10 +19,10 @@ const EmailNotVerified = ({ user }) => {
 
         setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 5000);
     }, []);
 
-    const userVerified = user.isVerified;
+    const userVerified = useUserData({ user }).isVerified;
 
     useEffect(() => {
         let intervalId = null;
@@ -75,6 +74,14 @@ const EmailNotVerified = ({ user }) => {
         window.addEventListener("scroll", changeNav);
         return () => window.removeEventListener("scroll", changeNav);
     }, []);
+
+    if (useUserData({ user }) === "Network Error") return null;
+
+    if (isApiLoading || isLoading) return null;
+
+    if (!user || !isApiWorking) {
+        return null;
+    }
 
     return !isLoading && !userVerified ? (
         <EmailNotVerifiedContainer scrollNav={scrollNav}>

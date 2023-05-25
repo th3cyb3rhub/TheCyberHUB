@@ -23,7 +23,7 @@ import { CircleSpinner } from "react-spinners-kit";
 import { getApiUrl } from "../../../features/apiUrl";
 
 // import {getCDNUrl} from "../../../features/apiUrl";
-// const TCWlogo = `${getCDNUrl}/images/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+// const TCWlogo = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();

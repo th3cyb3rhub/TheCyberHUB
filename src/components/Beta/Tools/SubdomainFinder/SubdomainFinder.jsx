@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
     Button,
@@ -9,19 +9,26 @@ import {
     Input,
     SubdomainFinderSpinner,
     SubdomainItem,
+    SubdomainLink,
     SubdomainList,
     Title,
 } from "./SubdomainFinderElements";
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
 import { getApiUrl } from "../../../../features/apiUrl";
+import apiStatus from "../../../../features/apiStatus";
+import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
+import { IoEarthSharp } from "react-icons/all";
 
 const SubdomainFinder = () => {
+    const { isApiLoading, isApiWorking } = apiStatus();
     const [domainName, setDomainName] = useState("");
     const [subdomains, setSubdomains] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [isCopied, setIsCopied] = useState(false);
+    const [isDownloaded, setIsDownloaded] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,7 +42,7 @@ const SubdomainFinder = () => {
             return;
         }
         try {
-            const response = await axios.post(getApiUrl("api/tools/subdomainFinder"), { domainName });
+            const response = await axios.post(getApiUrl("api/tool/subdomainFinder"), { domainName });
             setSubdomains(response?.data?.subdomains);
             setIsLoading(false);
         } catch (error) {
@@ -50,7 +57,10 @@ const SubdomainFinder = () => {
         navigator.clipboard
             .writeText(subdomainsText)
             .then(() => {
-                console.log(`Copied to clipboard:\n${subdomainsText}`);
+                setIsCopied(true);
+                setTimeout(() => {
+                    setIsCopied(false);
+                }, 1000);
             })
             .catch((error) => {
                 console.error("Failed to copy to clipboard:", error);
@@ -66,12 +76,35 @@ const SubdomainFinder = () => {
         document.body.appendChild(element); // Append the element to the DOM
         element.click(); // Simulate a click on the element to trigger the download
         document.body.removeChild(element); // Remove the element from the DOM
+        setIsDownloaded(true);
+        setTimeout(() => {
+            setIsDownloaded(false);
+        }, 1000);
     };
+    const [isLoading2, setIsLoading2] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading2(false);
+        }, 100);
+    }, []);
+    if (isLoading2 || isApiLoading) {
+        return (
+            <Wrapper>
+                <CircleSpinner size={25} color={"#1fc10d"} isLoading={isLoading2 || isApiLoading} />
+            </Wrapper>
+        );
+    }
+
+    if (!isApiWorking) return <UnderMaintenance />;
 
     return (
         <Wrapper>
             <SubdomainFinderSpinner>
-                <Title>Subdomain Finder</Title>
+                <Title>
+                    {" "}
+                    <IoEarthSharp> </IoEarthSharp> Subdomain Finder
+                </Title>
                 <Form onSubmit={handleSubmit}>
                     <Input
                         type="text"
@@ -89,11 +122,20 @@ const SubdomainFinder = () => {
                     <SubdomainList>
                         {subdomains.length} subdomains found for {domainName}
                         <CopyButtonSection>
-                            <CopyButton onClick={() => handleCopyToClipboard(subdomains)} />
+                            {isDownloaded && <p>Downloaded!</p>}
+                            {isCopied && <p>Copied!</p>}
                             <DownloadButton onClick={handleDownloadTxtFile} />
+                            <CopyButton onClick={() => handleCopyToClipboard(subdomains)} />
                         </CopyButtonSection>
                         {subdomains.map((subdomain, index) => (
-                            <SubdomainItem key={index}>{subdomain}</SubdomainItem>
+                            <SubdomainItem key={index}>
+                                <SubdomainLink
+                                    href={subdomain.includes("http") ? subdomain : `http://${subdomain}`}
+                                    target={"_blank"}
+                                >
+                                    {subdomain}
+                                </SubdomainLink>
+                            </SubdomainItem>
                         ))}
                     </SubdomainList>
                 )}

@@ -40,7 +40,7 @@ export const PreviewMarkdownHeading = styled.h1`
     padding: 25px 50px 15px;
 `;
 
-export const TagsSection = styled.div`
+export const Tags = styled.div`
     padding: 25px 50px;
     display: flex;
     font-size: 150%;
@@ -120,6 +120,7 @@ export const ContentReactMarkdown = styled(ReactMarkdown)`
     word-break: break-word;
     background-color: #1d1f21;
     border-radius: 5px;
+    padding: 5px 10px;
     overflow-wrap: break-word;
   }
 
@@ -157,9 +158,17 @@ export const ContentReactMarkdown = styled(ReactMarkdown)`
   }
 
   img {
-    margin-top: 0;
+    margin: 5px 0 50px 0;
+    padding: 0;
+    width: 100%;
     object-fit: contain;
     border-radius: 5px;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: #333;
   }
 
   @media screen and (max-width: 600px) {
@@ -247,12 +256,31 @@ export const ContentReactMarkdown = styled(ReactMarkdown)`
       object-fit: contain;
       border-radius: 5px;
     }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #333;
+    }
 `;
 
 export const ContentSection = styled.div`
     background: #111111;
     width: 100%;
     margin: 5px auto;
+`;
+
+export const ViewBlogContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+
+    @media screen and (max-width: 720px) {
+        flex-direction: column;
+    }
 `;
 
 export const ContainerViewBlog = styled.div`

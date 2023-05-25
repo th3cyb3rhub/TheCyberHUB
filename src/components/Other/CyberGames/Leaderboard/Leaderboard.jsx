@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserDetails, getUserDetail, reset } from "../../../../features/userDetail/userDetailSlice";
 import {
-    FirstPlace,
     LeaderboardContainer,
     LeaderboardHeader,
     LeaderboardTable,
@@ -10,12 +9,18 @@ import {
     LeaderboardTableHeader,
     LeaderboardTableRow,
     RefreshButton,
+    TopPlayerSection,
+    Username,
 } from "./LeaderboardElements";
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
 import { RouterLink } from "../../../Beta/Tools/ToolsElements";
-import { CgCrown } from "react-icons/all";
+import { RankCgCrown } from "../../../Dashboard/Profile/UserPoints/UserPointsElements";
+import UnderMaintenance from "../../UnderMaintenance/UnderMaintenance";
+import { CircleSpinner } from "react-spinners-kit";
+import apiStatus from "../../../../features/apiStatus";
 
 const Leaderboard = () => {
+    const { isApiLoading, isApiWorking } = apiStatus();
     const { user } = useSelector((state) => state.auth);
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
     const dispatch = useDispatch();
@@ -38,6 +43,16 @@ const Leaderboard = () => {
     const handleRefresh = () => {
         dispatch(getAllUserDetails());
     };
+
+    if (isLoading || isApiLoading) {
+        return (
+            <Wrapper>
+                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isLoading || isApiLoading} />
+            </Wrapper>
+        );
+    }
+
+    if (!isApiWorking) return <UnderMaintenance />;
 
     return (
         <Wrapper>
@@ -65,17 +80,13 @@ const Leaderboard = () => {
                                         <LeaderboardTableRow key={index}>
                                             <LeaderboardTableData>{index + 1}</LeaderboardTableData>
                                             <LeaderboardTableData>
-                                                <FirstPlace>
-                                                    {index === 0 && (
-                                                        <CgCrown
-                                                            style={{
-                                                                color: "#17f31e",
-                                                                fontSize: "50px",
-                                                            }}
-                                                        />
-                                                    )}
-                                                </FirstPlace>
-                                                <RouterLink to={`/@${user?.username}`}>{user?.username}</RouterLink>
+                                                <TopPlayerSection>
+                                                    {index === 0 ? <RankCgCrown style={{ margin: "0" }} /> : null}
+                                                    <RouterLink to={`/@${user?.username}`}>
+                                                        <Username>{user?.username}</Username>
+                                                    </RouterLink>
+                                                    {index === 0 ? <RankCgCrown style={{ margin: "0" }} /> : null}
+                                                </TopPlayerSection>
                                             </LeaderboardTableData>
                                             <LeaderboardTableData>{user?.exp || 0}</LeaderboardTableData>
                                         </LeaderboardTableRow>

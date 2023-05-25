@@ -1,21 +1,22 @@
 import { getUserDetail } from "./userDetail/userDetailSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import apiStatus from "./apiStatus";
 
 const checkTimestamps = ({ user }) => {
+    const { isApiLoading, isApiWorking } = apiStatus();
     const dispatch = useDispatch();
+    const { userDetail, isLoading } = useSelector((state) => state.userDetail);
 
     useEffect(() => {
         dispatch(getUserDetail(user.username));
     }, [dispatch, user.username]);
 
-    const { userDetail, loading } = useSelector((state) => state.userDetail);
-
-    if (loading) {
-        return "loading";
+    if (isApiLoading || isLoading) {
+        return null;
     }
 
-    if (!userDetail) {
+    if (!isApiWorking || !userDetail) {
         return null;
     }
 

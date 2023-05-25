@@ -114,7 +114,7 @@ export const CTFCards = styled.div`
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 `;
-export const CTFCard = styled.div`
+export const CTFCardContainer = styled.div`
     background: #131313;
     border-radius: 0.6rem;
     border: 2px solid #1c1c1c;

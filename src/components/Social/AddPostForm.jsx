@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonSection, Form, PostFormButton, PostFormTextarea } from "./AddPostElements";
-import { AddImage } from "../../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+import { AddImage } from "../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 
 const AddPostForm = () => {
     return (

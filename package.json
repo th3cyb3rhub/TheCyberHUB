@@ -12,8 +12,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.1",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.1",
+    "date-fns": "^2.30.0",
     "dotenv": "^16.0.3",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
@@ -23,6 +25,7 @@
     "react-calendar-heatmap": "^1.9.0",
     "react-chartjs-2": "^5.2.0",
     "react-chatbot-kit": "^2.1.2",
+    "react-day-picker": "^8.7.1",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-helmet": "^6.1.0",

@@ -24,7 +24,7 @@ export const TheCyberCTFCertificates = styled.h3`
 
 export const CtfCertificateCards = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
     gap: 10px;
 `;
 export const CtfCertificateCard = styled.div`
@@ -45,9 +45,7 @@ export const CtfName = styled.h1`
     overflow-wrap: break-word;
     word-wrap: break-word;
 
-    @media screen and (max-width: 620px) {
-        font-size: 25px;
-    }
+    font-size: 25px;
 `;
 export const CtfKind = styled.div`
     font-size: 15px;

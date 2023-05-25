@@ -1,37 +1,33 @@
 import React from "react";
-import { ExploreContainer, ExploreHeading, LeftBlogSidebarContainer } from "./LeftBlogSidebarElements";
-import {
-    AiTwotoneFlag,
-    BsChevronDoubleRight,
-    BsFillBookmarksFill,
-    CgFeed,
-    MdNoteAlt,
-    MdOutlineTravelExplore,
-} from "react-icons/all";
+import { ExploreContainer, ExploreHeading, LeftBlogSidebarContainer, RouterLink } from "./LeftBlogSidebarElements";
+import { AiTwotoneFlag, MdOutlineTravelExplore } from "react-icons/all";
 
 const LeftBlogSidebar = () => {
     return (
         <LeftBlogSidebarContainer>
-            {"// Dummy //"}
             <ExploreContainer>
-                <ExploreHeading>
-                    <CgFeed /> My Feed
-                </ExploreHeading>
-                <ExploreHeading>
-                    <MdOutlineTravelExplore /> Explore
-                </ExploreHeading>
-                <ExploreHeading>
-                    <MdNoteAlt /> Drafts
-                </ExploreHeading>
-                <ExploreHeading>
-                    <BsFillBookmarksFill /> Bookmarks
-                </ExploreHeading>
-                <ExploreHeading>
-                    <AiTwotoneFlag /> CTF
-                </ExploreHeading>
-                <ExploreHeading>
-                    <BsChevronDoubleRight /> More
-                </ExploreHeading>
+                {/* <ExploreHeading> */}
+                {/*    <CgFeed/> My Feed */}
+                {/* </ExploreHeading> */}
+                <RouterLink to={"/tags"}>
+                    <ExploreHeading>
+                        <MdOutlineTravelExplore /> Explore
+                    </ExploreHeading>
+                </RouterLink>
+                {/* <ExploreHeading> */}
+                {/*    <MdNoteAlt/> Drafts */}
+                {/* </ExploreHeading> */}
+                {/* <ExploreHeading> */}
+                {/*    <BsFillBookmarksFill/> Bookmarks */}
+                {/* </ExploreHeading> */}
+                <RouterLink to={"/ctf"}>
+                    <ExploreHeading>
+                        <AiTwotoneFlag /> CTF
+                    </ExploreHeading>
+                </RouterLink>
+                {/* <ExploreHeading> */}
+                {/*    <BsChevronDoubleRight/> More */}
+                {/* </ExploreHeading> */}
             </ExploreContainer>
         </LeftBlogSidebarContainer>
     );

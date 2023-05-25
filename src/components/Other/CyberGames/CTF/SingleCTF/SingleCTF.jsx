@@ -29,11 +29,15 @@ import { encodeURL } from "../../../../Blogs/util";
 import createCtfCertificate from "../../../Certificate/createCtfCertificate";
 import { getUserDetail } from "../../../../../features/userDetail/userDetailSlice";
 import GetCertificate from "./GetCertificate";
+import apiStatus from "../../../../../features/apiStatus";
+import { CircleSpinner } from "react-spinners-kit";
+import UnderMaintenance from "../../../UnderMaintenance/UnderMaintenance";
 
 const SingleCTF = () => {
+    const { isApiLoading, isApiWorking } = apiStatus();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { ctf } = useSelector((state) => state.ctf);
+    const { ctf, isLoading: isCtfLoading } = useSelector((state) => state.ctf);
     const { user } = useSelector((state) => state.auth);
     const {
         userDetail,
@@ -104,6 +108,15 @@ const SingleCTF = () => {
             setIsCertExisted(true);
         });
     }
+    if (isCtfLoading || isApiLoading) {
+        return (
+            <Wrapper>
+                <CircleSpinner size={25} color={"#1fc10d"} isLoading={isCtfLoading || isApiLoading} />
+            </Wrapper>
+        );
+    }
+
+    if (!isApiWorking) return <UnderMaintenance />;
 
     return (
         <Wrapper>

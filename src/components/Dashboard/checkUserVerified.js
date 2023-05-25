@@ -4,6 +4,7 @@ import { getApiUrl } from "../../features/apiUrl";
 
 export const useUserData = ({ user }) => {
     const [userData, setUserData] = useState({});
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         if (!user) {
@@ -11,19 +12,23 @@ export const useUserData = ({ user }) => {
         } else if (user.token) {
             const fetchUserData = async () => {
                 try {
-                    const response = await axios.get(getApiUrl("api/users/user"), {
+                    const response = await axios.get(getApiUrl("api/users/getUser"), {
                         headers: {
                             Authorization: `Bearer ${user.token}`,
                         },
                     });
                     setUserData(response.data);
                 } catch (err) {
-                    console.error(err);
+                    setMessage(err.message);
                 }
             };
             fetchUserData();
         }
     }, [user && user.token]);
+
+    if (message === "Network Error") {
+        return message;
+    }
 
     return userData;
 };

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Button, Header } from "../../Community/CommunityElements";
+import { Button, Header } from "../../Other/Community/CommunityElements";
 import { FaChevronDown } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/all";
 import { Link } from "react-router-dom";

@@ -20,6 +20,7 @@ import { Button, PreviewIcon, PreviewSection } from "../../../Beta/Forum/ForumSu
 import { getApiUrl, getCDNUrlContent } from "../../../../features/apiUrl";
 import BlogPostForm from "../BlogPostForm";
 import { toast } from "react-toastify";
+import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
 
 const CreateBlog = () => {
     const dispatch = useDispatch();
@@ -241,6 +242,10 @@ const CreateBlog = () => {
             toast.error("Please fill all the fields");
         }
     };
+
+    if (user) {
+        return <UnderMaintenance />;
+    }
 
     return (
         <Wrapper>

@@ -5,17 +5,24 @@ export const ContainerCard = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 700px;
     text-align: start;
-    margin: 10px;
-    border-radius: 5px;
     background: #111111;
+    justify-content: space-between;
+    border-radius: 15px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        scale: 1.03;
+        transition: 0.3s ease-in-out;
+    }
 `;
 
 export const BlogImageSection = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: end;
+    border-radius: 15px 15px 0 0;
+    width: 100%;
 `;
 
 export const ButtonEdit = styled.button`
@@ -55,32 +62,22 @@ export const EditBlogSection = styled.div`
 `;
 export const BlogCardImage = styled.img`
     width: 100%;
-    max-width: 300px;
-    max-height: 160px;
-    justify-self: center;
-    word-wrap: break-word;
-    font-size: 15px;
+    height: auto; /* Specify the desired fixed height for the image */
+    object-fit: contain; /* Adjust the value based on your requirement */
 
-    @media screen and (max-width: 700px) {
-        font-size: 12px;
-    }
-    @media screen and (max-width: 400px) {
-        font-size: 8px;
-    }
+    display: block;
+    margin: 0 auto;
+    border-radius: 15px 15px 0 0;
 `;
 export const MainSection = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-
-    @media screen and (max-width: 600px) {
-    }
+    gap: 15px;
 `;
 
 export const SubSection = styled.div`
-    padding: 25px 25px 15px 25px;
-    max-width: 60%;
-
+    padding: 25px;
     @media screen and (max-width: 600px) {
         padding: 10px 10px 15px 15px;
     }
@@ -91,7 +88,7 @@ export const DetailsSection = styled.div`
     flex-direction: column;
     text-align: start;
     width: 100%;
-    max-width: 40%;
+    border-radius: 15px;
 `;
 
 export const HeaderDetailsSection = styled.div`

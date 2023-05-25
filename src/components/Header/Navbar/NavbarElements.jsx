@@ -1,20 +1,9 @@
 import styled from "styled-components";
 import { Link, Link as LinkRouter } from "react-router-dom";
-import { AiFillCaretDown, AiFillCaretRight } from "react-icons/ai";
-import { FaUser } from "react-icons/fa";
+import { AiFillCaretDown } from "react-icons/ai";
+import { TbCrown } from "react-icons/all";
 
-export const UserIcon = styled(FaUser)`
-    border: #2f80ed 1px solid;
-    padding: 5px;
-    background: #646464;
-    font-size: 40px;
-    border-radius: 100%;
-`;
 export const DropdownIcon = styled(AiFillCaretDown)`
-    margin: 5px 0 0 5px;
-`;
-
-export const SideDropdownIcon = styled(AiFillCaretRight)`
     margin: 5px 0 0 5px;
 `;
 
@@ -37,7 +26,6 @@ export const Nav = styled.nav`
 `;
 
 export const NavbarContainer = styled.div`
-    //margin: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -52,11 +40,7 @@ export const NavUsersDetailsSection = styled.div`
     align-items: center;
     justify-content: flex-end;
     background: transparent;
-
-    //width: 100%;
-    @media screen and (max-width: 450px) {
-        //max-width: 125px;
-    }
+    gap: 5px;
 `;
 export const NavLogoRouter = styled(LinkRouter)`
     display: flex;
@@ -72,8 +56,6 @@ export const NavLogoRouter = styled(LinkRouter)`
     @media screen and (max-width: 500px) {
         padding: 0 5px;
     }
-
-    //min-width: 200px;
 `;
 
 export const NavLogo = styled.img`
@@ -98,24 +80,12 @@ export const NavLogo = styled.img`
 export const MobileIcon = styled.div`
     display: none;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 780px) {
         display: flex;
-        //display: block;
-        //position: absolute;
-        //top: 0;
-        //right: 0;
-        //transform: translate(-100%, 60%);
+        align-items: center;
         font-size: 1.5rem;
         cursor: pointer;
         color: #fff;
-        //margin-top: 3px;
-        //margin-right: 35px;
-    }
-    @media screen and (max-width: 340px) {
-        //display: inline-flex;
-        //justify-content: center;
-        //text-align: center;
-        //margin-top: 60px;
     }
 `;
 
@@ -124,8 +94,30 @@ export const NavMenu = styled.div`
     align-items: center;
     list-style: none;
     text-align: center;
+    gap: 5px;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 870px) {
+        gap: 0;
+    }
+    @media screen and (max-width: 780px) {
+        display: none;
+    }
+`;
+export const NavMenu2 = styled.div`
+    display: flex;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+    gap: 5px;
+
+    @media screen and (max-width: 1110px) {
+        display: none;
+    }
+
+    @media screen and (max-width: 780px) {
+        display: initial;
+    }
+    @media screen and (max-width: 600px) {
         display: none;
     }
 `;
@@ -134,32 +126,18 @@ export const NavItem = styled.div`
     height: 80px;
 `;
 
-export const SidebarRedirectLink = styled.a`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    padding: 8px;
-    text-decoration: none;
-    list-style: none;
-    transition: 0.2s ease-in-out;
-    color: #fff;
-    cursor: pointer;
-
-    &:hover {
-        color: #20c20e;
-        transition: 0.2s ease-in-out;
-    }
-`;
-
-export const NavLinks = styled(LinkRouter)`
+export const NavLink = styled(LinkRouter)`
     color: #fff;
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0 1rem;
+    padding: 0 0.8rem;
     height: 100%;
     cursor: pointer;
+
+    @media screen and (max-width: 870px) {
+        padding: 0 0.5rem;
+    }
 
     &:hover {
         transition: all 0.2s ease-in-out;
@@ -171,117 +149,66 @@ export const NavLinks = styled(LinkRouter)`
         border-bottom: 3px solid #20c20e;
     }
 `;
-export const NavRedirectLink = styled.a`
-    color: #fff;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 0 1rem;
-    height: 100%;
-    cursor: pointer;
-
-    &.active {
-        border-bottom: 3px solid #20c20e;
-    }
-`;
-
-export const NavBtn = styled.nav`
-    display: flex;
-    align-items: flex-end;
-    justify-content: end;
-    @media screen and (max-width: 980px) {
-        //
-        display: none;
-    }
-`;
-
-export const NavBtnLink = styled.a`
-    border-width: 2px;
-    border-style: solid;
-    border-color: #343434;
-    background: transparent;
-    white-space: nowrap;
-    padding: 10px 22px;
-    color: #ffffff;
-    font-size: 16px;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
-
-    &:hover {
-        transition: all 0.2s ease-in-out;
-        background: transparent;
-        color: #20c20e;
-        border-color: #343434;
-        font-size: 18px;
-    }
-
-    @media screen and (max-width: 890px) {
-        padding: 2px;
-    }
-`;
-
 export const NavButtonsSection = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+
     @media screen and (max-width: 785px) {
         display: none;
     }
 `;
 
 export const RouterNavLeaderboardButtonLink = styled(Link)`
+    color: #fff;
+    display: flex;
+    gap: 5px;
+    transition: 0.2s ease-in-out;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        transform: scale(1.05);
+        border-bottom: 3px solid #20c20e;
+    }
+
+    &.active {
+        border-bottom: 3px solid #20c20e;
+    }
+`;
+
+export const CrownIcon = styled(TbCrown)`
+    color: #17f31e;
+    font-size: 30px;
+`;
+
+export const RouterNavCreateButtonLink = styled(Link)`
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    display: initial;
     height: fit-content;
     background: #111111;
     border-radius: 5px;
     color: #0bff0b;
     padding: 5px 15px;
-    margin: 5px 15px;
+    transition: 0.2s ease-in-out;
+
     @media screen and (max-width: 600px) {
         font-size: 12px;
     }
 
-    @media screen and (max-width: 1150px) {
-        display: none;
-    }
-    @media screen and (max-width: 900px) {
-        display: initial;
-    }
+    //@media screen and (max-width: 1150px) {
+    //  display: none;
+    //}
+    //@media screen and (max-width: 900px) {
+    //  display: initial;
+    //}
 
     &:hover {
-        transition: 0.1s ease-in-out;
+        transition: 0.2s ease-in-out;
         scale: 1.1;
     }
 `;
-
-export const RouterNavCreateButtonLink = styled(RouterNavLeaderboardButtonLink)`
-    @media screen and (max-width: 1250px) {
-        display: none;
-    }
-
-    @media screen and (max-width: 900px) {
-        display: initial;
-    }
-`;
-
-// export const NavBtnLink = styled.a`
-//   border-radius: 50px;
-//   background: #20c20e;
-//   white-space: nowrap;
-//   padding: 10px 22px;
-//   color: #000000;
-//   font-size: 16px;
-//   outline: none;
-//   border: none;
-//   cursor: pointer;
-//   transition: all 0.2s ease-in-out;
-//   text-decoration: none;
-//
-//   &:hover {
-//     transition: all 0.2s ease-in-out;
-//     background: #fff;
-//     color: #000000;
-//
-//
-//   }
-// `

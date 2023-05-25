@@ -7,7 +7,7 @@ import {
     Categories,
     Category,
     ContainerCard,
-    Description,
+    // Description,
     DetailsSection,
     EditBlogSection,
     FooterDetailsSection,
@@ -29,20 +29,14 @@ const API_URL = getCDNUrlContent;
 
 const NewBlogCard = ({ blog }) => {
     const coverImage = blog?.coverImage;
-    const coverImageUrl = `${API_URL}/images/blog/${coverImage}` || image;
+    const coverImageUrl = `${API_URL}/blog/${coverImage}` || image;
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { pathname } = useLocation();
 
     return (
         <ContainerCard>
-            <MainSection>
-                <SubSection>
-                    <RouterLink to={{ pathname: `/blogs/@${blog.username}/${encodeURL(blog.title)}` }}>
-                        <Title> {blog.title} </Title>
-                        <Description> {blog.content.slice(0, 125)} </Description>
-                    </RouterLink>
-                </SubSection>
+            <span>
                 <DetailsSection>
                     <BlogImageSection>
                         <EditBlogSection>
@@ -62,10 +56,20 @@ const NewBlogCard = ({ blog }) => {
                                 </ButtonDelete>
                             ) : null}
                         </EditBlogSection>
-                        <BlogCardImage src={coverImageUrl || image} alt={blog.coverImage} width="100%" height="auto" />
+                        <RouterLink to={{ pathname: `/blogs/@${blog.username}/${encodeURL(blog.title)}` }}>
+                            <BlogCardImage src={coverImageUrl || image} alt={blog.title} />
+                        </RouterLink>
                     </BlogImageSection>
                 </DetailsSection>
-            </MainSection>
+                <MainSection>
+                    <SubSection>
+                        <RouterLink to={{ pathname: `/blogs/@${blog.username}/${encodeURL(blog.title)}` }}>
+                            <Title> {blog.title} </Title>
+                            {/* <Description> {blog.content.slice(0, 125)} </Description> */}
+                        </RouterLink>
+                    </SubSection>
+                </MainSection>
+            </span>
             <FooterDetailsSection>
                 <Categories>
                     {blog.tags

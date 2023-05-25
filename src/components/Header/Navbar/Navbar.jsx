@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { animateScroll as scroll } from "react-scroll";
 import {
+    CrownIcon,
     DropdownIcon,
     MobileIcon,
     Nav,
     NavbarContainer,
-    NavButtonsSection,
     NavItem,
-    NavLinks,
+    NavLink,
     NavLogo,
     NavLogoRouter,
     NavMenu,
+    NavMenu2,
     NavUsersDetailsSection,
     RouterNavLeaderboardButtonLink,
 } from "./NavbarElements";
@@ -20,29 +21,23 @@ import { FaBars } from "react-icons/all";
 import { getCDNUrl } from "../../../features/apiUrl";
 import { SideOptionsContainer } from "../ExpElemenets";
 import Exp from "../Exp";
+import { useLocation } from "react-router-dom";
 
-const logo = `${getCDNUrl}/images/assets/images/WebsiteLogo/ThecyberhubLogo.png`;
+const logo = `${getCDNUrl}/assets/images/WebsiteLogo/ThecyberhubLogo.png`;
 const Navbar = ({ isOpen, toggle }) => {
     const [scrollNav, setScrollNav] = useState(false);
     const [drop, setDrop] = useState(false);
     const [resourcesClick, setResourcesClick] = useState(true);
-    const [learnClick, setLearnClick] = useState(true);
     const [onClosed, setOnClosed] = useState(true);
-
+    const location = useLocation();
     const onClickResources = () => {
         if (drop) setResourcesClick(false);
     };
 
     const dropHandler = (title) => {
-        if (title === "learn") {
-            setDrop(true);
-            setLearnClick(true);
-            setResourcesClick(false);
-            setOnClosed(true);
-        } else if (title === "resources") {
+        if (title === "resources") {
             setDrop(true);
             setResourcesClick(true);
-            setLearnClick(false);
             setOnClosed(true);
         } else setDrop(false);
     };
@@ -73,6 +68,7 @@ const Navbar = ({ isOpen, toggle }) => {
                         { to: "ctf", title: "CTF", dropdown: "ctf" },
                         { to: "tools", title: "Tools", dropdown: "tools" },
                         { to: "blogs", title: "Blogs", dropdown: "blogs" },
+                        // {to: "social", title: "Social", dropdown: "social"},
                         {
                             title: (
                                 <>
@@ -89,19 +85,26 @@ const Navbar = ({ isOpen, toggle }) => {
                             onMouseLeave={() => dropHandler(dropdown)}
                             key={dropdown}
                         >
-                            <NavLinks to={to}>{title}</NavLinks>
-                            {dropdown === "learn" && learnClick && drop && (
-                                <Dropdown isLearn={true} toggle={setOnClosed} closed={onClosed} isOpen={isOpen} />
-                            )}
+                            <NavLink to={to} className={location.pathname === `/${to}` ? "active" : ""}>
+                                {title}
+                            </NavLink>
                             {dropdown === "resources" && resourcesClick && drop && (
                                 <Dropdown isResources={true} toggle={setOnClosed} closed={onClosed} isOpen={isOpen} />
                             )}
                         </NavItem>
                     ))}
                 </NavMenu>
-                <NavButtonsSection>
-                    <RouterNavLeaderboardButtonLink to={"/leaderboard"}> Leaderboard </RouterNavLeaderboardButtonLink>
-                </NavButtonsSection>
+                <NavMenu2>
+                    <NavItem>
+                        <RouterNavLeaderboardButtonLink
+                            to={"/leaderboard"}
+                            className={location.pathname === `/${"leaderboard"}` ? "active" : ""}
+                        >
+                            <CrownIcon style={{ fontSize: "1.5rem" }} />
+                            <span> Leaderboard </span>
+                        </RouterNavLeaderboardButtonLink>
+                    </NavItem>
+                </NavMenu2>
                 <NavUsersDetailsSection>
                     <Exp />
                     <SideOptionsContainer>

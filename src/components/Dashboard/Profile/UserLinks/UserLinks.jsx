@@ -1,74 +1,25 @@
 import React from "react";
-import { EditUserBioTextarea, UserBio, UserInfo, UserLinksContainer } from "./UserLinksElements";
-import {
-    EditSocialUsername,
-    SocialLink,
-    SocialUsername,
-    UserSocialLinksContainer,
-} from "../UserSocialLinks/UserSocialLinksElements";
+import { UserBio, UserInfo, UserLinksContainer } from "./UserLinksElements";
+import { SocialLink, SocialUsername, UserSocialLinksContainer } from "../UserSocialLinks/UserSocialLinksElements";
 import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter, IoEarth } from "react-icons/all";
+import Follow from "../Follow/Follow";
 
-const UserLinks = ({ userDetail, socialLinks, isEdit, userDetailData, setUserDetailData, bio }) => {
-    const updateUserLinks = (index, field, value) => {
-        const updatedSocialLinksData = [...userDetailData.socialLinks]; // create a new array reference
-        updatedSocialLinksData[index] = {
-            ...updatedSocialLinksData[index],
-            [field]: value,
-        };
-        setUserDetailData({ ...userDetailData, socialLinks: updatedSocialLinksData }); // update the state with the new array
-    };
-
-    const handleBioChange = (e) => {
-        const value = e.target.value;
-        setUserDetailData({ ...userDetailData, bio: value });
-    };
-
-    const getIconComponent = (iconName) => {
-        switch (iconName) {
-            case "FaInstagram":
-                return <FaInstagram />;
-            case "FaTwitter":
-                return <FaTwitter />;
-            case "FaLinkedin":
-                return <FaLinkedin />;
-            case "FaGithub":
-                return <FaGithub />;
-            case "FaMedium":
-                return <FaMedium />;
-            case "IoEarth":
-                return <IoEarth />;
-            default:
-                return null;
-        }
-    };
-
+const UserLinks = ({ userDetail, userDetails }) => {
     return (
         <UserLinksContainer>
             <UserInfo>
                 <span className={"name"}>{userDetail?.name}</span>
                 <span className={"username"}>@{userDetail?.username}</span>
             </UserInfo>
+            {userDetail?.user && <Follow userDetail={userDetail} userDetails={userDetails} />}
 
             <UserBio>
-                {isEdit ? (
-                    <EditUserBioTextarea
-                        placeholder="bio..."
-                        name="bio"
-                        id="bio"
-                        cols="30"
-                        rows="10"
-                        defaultValue={bio}
-                        onChange={handleBioChange}
-                    />
-                ) : (
-                    <p className={"bio"}>{bio}</p>
-                )}
+                <p className={"bio"}>{userDetail?.bio}</p>
             </UserBio>
 
             <UserSocialLinksContainer>
-                {!isEdit &&
-                    userDetailData?.socialLinks &&
-                    userDetailData?.socialLinks?.map((item, index) => (
+                {userDetail?.socialLinks &&
+                    userDetail?.socialLinks?.map((item, index) => (
                         <SocialLink key={index}>
                             {item?.profileUsername && item?.websiteLink && (
                                 <>
@@ -95,26 +46,27 @@ const UserLinks = ({ userDetail, socialLinks, isEdit, userDetailData, setUserDet
                             )}
                         </SocialLink>
                     ))}
-
-                {isEdit &&
-                    userDetailData?.socialLinks?.map((item, index) => (
-                        <SocialLink key={index}>
-                            {getIconComponent(item.icon)}
-                            <EditSocialUsername
-                                type="text"
-                                name={`profileUsername${index}`}
-                                id={`profileUsername${index}`}
-                                defaultValue={item?.profileUsername}
-                                onChange={(e) => {
-                                    const value = e.target.value;
-                                    updateUserLinks(index, "profileUsername", value);
-                                }}
-                            />
-                        </SocialLink>
-                    ))}
             </UserSocialLinksContainer>
         </UserLinksContainer>
     );
 };
 
+const getIconComponent = (iconName) => {
+    switch (iconName) {
+        case "FaInstagram":
+            return <FaInstagram />;
+        case "FaTwitter":
+            return <FaTwitter />;
+        case "FaLinkedin":
+            return <FaLinkedin />;
+        case "FaGithub":
+            return <FaGithub />;
+        case "FaMedium":
+            return <FaMedium />;
+        case "IoEarth":
+            return <IoEarth />;
+        default:
+            return null;
+    }
+};
 export default UserLinks;

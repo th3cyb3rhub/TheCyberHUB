@@ -10,10 +10,7 @@ import {
     SubmissionFlagSection,
     SubmissionSection,
 } from "./SubmissionElements";
-import {
-    // FcCheckmark,
-    TbBulb,
-} from "react-icons/all";
+import { TbBulb } from "react-icons/all";
 import { useDispatch } from "react-redux";
 import { updateUserDetail } from "../../../../../features/userDetail/userDetailSlice";
 import { CircleSpinner } from "react-spinners-kit";
@@ -115,9 +112,9 @@ const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIs
         }
     };
 
-    if (userDetailIsLoading) {
-        return <CircleSpinner size={30} color="#09ff1b" />;
-    }
+    // if (userDetailIsLoading) {
+    //     return <CircleSpinner size={30} color="#09ff1b"/>;
+    // }
 
     return (
         <SubmissionContainer>
@@ -143,7 +140,13 @@ const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIs
                                 onClick={() => handleFlagSubmit(flag._id)}
                                 style={{ color: buttonColor === "#f77000" && "#f77000" }}
                             >
-                                {buttonColor === "#f77000" ? "Wrong Answer" : "Submit"}
+                                {userDetailIsLoading ? (
+                                    <CircleSpinner size={20} color="#09ff1b" />
+                                ) : buttonColor === "#f77000" ? (
+                                    "Wrong Answer"
+                                ) : (
+                                    "Submit"
+                                )}
                             </FlagSubmit>
                         )}
                         {flag.hint === "" ? null : (

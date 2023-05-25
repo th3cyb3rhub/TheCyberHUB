@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentSection, PreviewMarkdownHeading, Tag, TagsSection } from "./ViewBlog/ViewBlogElements";
+import { ContentSection, PreviewMarkdownHeading, Tag, Tags } from "./ViewBlog/ViewBlogElements";
 import PreviewMarkdown from "./ViewBlog/PreviewMarkdown";
 import { useLocation } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const PreviewBlogContent = (props) => {
             <ContentSection>
                 <PreviewMarkdown content={props.content} />
             </ContentSection>
-            <TagsSection>
+            <Tags>
                 {pathname === "/dashboard/blogs/create"
                     ? props.tags.length !== 0 && props.tags[0] !== ""
                         ? props.tags.split(/,\s*/).map((tag, id) => <Tag key={id}>{tag}</Tag>)
@@ -19,7 +19,7 @@ const PreviewBlogContent = (props) => {
                     : props?.tags?.length !== 0 && props?.tags[0] !== ""
                     ? props.tags.map((tag, id) => <Tag key={id}>{tag}</Tag>)
                     : "Please add some Tags"}
-            </TagsSection>
+            </Tags>
         </div>
     );
 };

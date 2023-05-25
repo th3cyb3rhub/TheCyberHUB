@@ -12,10 +12,10 @@ import ResourcesSvg from "../../../assets/images/undraw_firmware_re_fgdy.svg";
 import VersionControlSvg from "../../../assets/images/undraw_version_control_re_mg66.svg";
 // import communitySvg from "../../../assets/images/undraw_public_discussion_re_w9up.svg`;
 // import logoThecyberworld from "../../../assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png";
-// const contributeSvg  = `${getCDNUrl}/images/assets/images/open-source-contribution.svg`;
-// const ResourcesSvg  = `${getCDNUrl}/images/assets/images/undraw_firmware_re_fgdy.svg`;
-// const VersionControlSvg  = `${getCDNUrl}/images/assets/images/undraw_version_control_re_mg66.svg`;
-const logoThecyberworld = `${getCDNUrl}/images/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+// const contributeSvg  = `${getCDNUrl}/assets/images/open-source-contribution.svg`;
+// const ResourcesSvg  = `${getCDNUrl}/assets/images/undraw_firmware_re_fgdy.svg`;
+// const VersionControlSvg  = `${getCDNUrl}/assets/images/undraw_version_control_re_mg66.svg`;
+const logoThecyberworld = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 export const aboutData = {
     id: "about",

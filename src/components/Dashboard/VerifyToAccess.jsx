@@ -7,9 +7,9 @@ const VerifyToAccess = () => {
             <div>
                 <p
                     style={{
-                        fontFamily: "Roboto Mono, monospace",
                         color: "#dadada",
                         textAlign: "center",
+                        fontSize: "1.5rem",
                     }}
                 >
                     Please Verify Your Email To Access This Page

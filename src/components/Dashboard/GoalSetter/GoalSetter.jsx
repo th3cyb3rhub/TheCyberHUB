@@ -8,17 +8,18 @@ import "./GoalSetter.css";
 import { Wrapper } from "../Profile/ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
 import { GoalsContainer } from "./old/GoalElements";
+import apiStatus from "../../../features/apiStatus";
+import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
 
 const GoalSetter = () => {
+    const { isApiLoading, isApiWorking } = apiStatus();
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
-    const { goals, isLoading, isError, message } = useSelector((state) => state.goals);
+    const { goals, message } = useSelector((state) => state.goals);
 
     useEffect(() => {
-        if (isError) {
-            console.log(message);
-        }
         if (!user) {
             navigate("/login");
         } else {
@@ -28,19 +29,29 @@ const GoalSetter = () => {
         return () => {
             dispatch(reset());
         };
-    }, [user, navigate, dispatch, isError, message]);
+    }, [user, navigate, dispatch, message]);
+
+    if (isApiLoading) {
+        return (
+            <Wrapper>
+                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isApiLoading} />
+            </Wrapper>
+        );
+    }
+
+    if (!isApiWorking) {
+        return <UnderMaintenance />;
+    }
 
     return (
         <Wrapper>
-            {isLoading && <CircleSpinner size={20} color={"#1fc10d"} />}
             <GoalsContainer>
                 <GoalForm />
-
                 <section className={"content"}>
-                    {goals.length > 0 ? (
+                    {goals?.length > 0 ? (
                         <div className={"goals"}>
-                            {goals.map((goal) => (
-                                <GoalItem key={goal._id} goal={goal} />
+                            {goals?.map((goal) => (
+                                <GoalItem key={goal?._id} goal={goal} />
                             ))}
                         </div>
                     ) : (

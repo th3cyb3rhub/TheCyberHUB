@@ -15,6 +15,7 @@ import {
 } from "./ViewCommentsElements";
 // import { useUserData } from "../../Dashboard/checkUserVerified";
 import { getCDNUrl } from "../../../features/apiUrl";
+import { useUserData } from "../../Dashboard/checkUserVerified";
 const BlogComments = ({ blog }) => {
     const [addCommentData, setAddCommentData] = useState({ comment: "" });
     const { comment } = addCommentData;
@@ -53,7 +54,8 @@ const BlogComments = ({ blog }) => {
     const API_URL = getCDNUrl;
     const dummyPicture =
         "https://user-images.githubusercontent.com/44284877/210164205-8dfa753b-f98a-4b25-a243-164c9790b625.png";
-    const userVerified = user?.isVerified;
+    const userVerified = useUserData({ user }).isVerified;
+
     return (
         <BlogsCommentsContainer>
             <ViewCommentsContainer>

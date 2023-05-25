@@ -51,6 +51,7 @@ export const ContentP = styled.p`
 `;
 
 export const ContactFormContainer = styled.div`
+    color: #fff;
     margin: 100px 0 50px;
     display: flex;
     flex-direction: column;

@@ -5,6 +5,7 @@ import blogReducer from "../features/blogs/blogSlice";
 import userDetailReducer from "../features/userDetail/userDetailSlice";
 import ctfReducer from "../features/ctf/ctfSlice";
 import resetPasswordReducer from "../features/resetPassword/resetPasswordSlice";
+import followReducer from "../features/follow/followSlice";
 
 // import { cyberNewsApi } from "../services/cyberNewsApi";
 
@@ -16,6 +17,7 @@ export default configureStore({
         userDetail: userDetailReducer,
         ctf: ctfReducer,
         resetPassword: resetPasswordReducer,
+        followData: followReducer,
         // [cyberNewsApi.reducerPath]: cyberNewsApi.reducer,
     },
 });

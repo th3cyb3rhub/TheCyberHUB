@@ -30,6 +30,29 @@ export const AboutSection = styled.div`
     }
 `;
 
+export const SaveButton = styled.button`
+    padding: 5px 25px;
+    z-index: 2;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+    background: #0c0c0c;
+    color: #f4f4f4;
+    border-radius: 20px;
+    border: 2px solid #171717;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: #212121;
+        border: 2px solid #090909;
+        scale: 1.1;
+        transition: all 0.2s ease-in-out;
+    }
+`;
+
 export const Wrapper = styled.div`
     margin: 100px auto;
     width: 100%;

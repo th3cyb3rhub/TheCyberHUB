@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import {
     SecurityContainer,
     SecurityContentList,

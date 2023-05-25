@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import {
     ROEDescription,
     ROEHeading,
@@ -7,7 +7,7 @@ import {
     RulesOfEngagementContentList,
     RulesOfEngagementContentSection,
 } from "./RulesOfEngagementElements";
-import { DotSymbol } from "../Other/Support/SponsorsElements";
+import { DotSymbol } from "../Support/SponsorsElements";
 import SecurityNavigation from "./SecurityNavigation";
 
 const RulesOfEngagement = () => {

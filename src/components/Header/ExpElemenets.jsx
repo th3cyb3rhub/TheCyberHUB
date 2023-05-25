@@ -6,8 +6,7 @@ export const ExpContainer = styled.div`
     justify-content: flex-end;
     align-items: center;
     background: transparent;
-    width: 100%;
-    min-width: 175px;
+    width: 120px;
     gap: 15px;
 
     @media screen and (max-width: 1350px) {
@@ -16,7 +15,16 @@ export const ExpContainer = styled.div`
     @media screen and (max-width: 400px) {
         font-size: 12px;
     }
-    @media screen and (max-width: 350px) {
+    @media screen and (max-width: 970px) {
+        display: none;
+    }
+    @media screen and (max-width: 780px) {
+        display: flex;
+    }
+    @media screen and (max-width: 450px) {
+        width: auto;
+    }
+    @media screen and (max-width: 360px) {
         display: none;
     }
 `;
@@ -36,10 +44,9 @@ export const ExpText = styled.div`
     justify-content: end;
     text-align: right;
     width: 100%;
-    min-width: 75px;
-    @media screen and (max-width: 1350px) {
-        display: none;
-    }
+    //@media screen and (max-width: 1350px) {
+    //    display: none;
+    //}
     @media screen and (max-width: 900px) {
         display: initial;
     }

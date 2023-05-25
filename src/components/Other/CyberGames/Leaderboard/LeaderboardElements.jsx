@@ -64,4 +64,28 @@ export const RefreshButton = styled(MdRefresh)`
     margin: 0 10px;
 `;
 
+export const TopPlayerSection = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+`;
+
 export const FirstPlace = styled.div``;
+
+export const Username = styled.p`
+    font-size: 1rem;
+    font-weight: 550;
+    color: #d5d5d5;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        color: #fff;
+        scale: 1.01;
+    }
+`;

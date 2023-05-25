@@ -30,6 +30,11 @@ const LoadingBlogCard = () => {
         <ContainerCard>
             <LoadingBlogContainer>
                 <MainSection>
+                    <DetailsSection>
+                        <BlogImageSection>
+                            <LoadingImageAnimation height={150} />
+                        </BlogImageSection>
+                    </DetailsSection>
                     <SubSection>
                         <Title>
                             <LoadingLineAnimation height={12} />
@@ -37,15 +42,7 @@ const LoadingBlogCard = () => {
                         <Description>
                             <LoadingLineAnimation height={10} />
                         </Description>
-                        <Description>
-                            <LoadingLineAnimation height={10} />
-                        </Description>
                     </SubSection>
-                    <DetailsSection>
-                        <BlogImageSection>
-                            <LoadingImageAnimation height={150} />
-                        </BlogImageSection>
-                    </DetailsSection>
                 </MainSection>
             </LoadingBlogContainer>
         </ContainerCard>

@@ -3,19 +3,11 @@ import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
 import { getAllCTFs } from "../../../../features/ctf/ctfSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    CTFCard,
-    CTFCardBody,
-    CTFCardFooter,
-    CTFCardHeader,
     CTFCards,
-    CTFCardSubtitle,
     CTFContainer,
     CTFHeader,
     CTFHeading,
     CTFLink,
-    CTFTag,
-    CTFTags,
-    CTFType,
     Option,
     SearchBox,
     SearchContainer,
@@ -24,16 +16,22 @@ import {
     SearchInput,
     Select,
 } from "./CTFElements";
-import { FcCheckmark } from "react-icons/all";
+// import { FcCheckmark } from "react-icons/all";
 import { getUserDetail } from "../../../../features/userDetail/userDetailSlice";
 import { encodeURL } from "../../../Blogs/util";
+import { CircleSpinner } from "react-spinners-kit";
+import UnderMaintenance from "../../UnderMaintenance/UnderMaintenance";
+import apiStatus from "../../../../features/apiStatus";
+import CtfCard from "./CtfCard";
 
 const CTF = () => {
+    const { isApiLoading, isApiWorking } = apiStatus();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
+    const { ctf, isLoading: isCtfLoading } = useSelector((state) => state.ctf);
     const {
         userDetail,
-        // isLoading,
+        isLoading: isUserDetailLoading,
         // isError, message
     } = useSelector((state) => state.userDetail);
 
@@ -43,7 +41,6 @@ const CTF = () => {
             dispatch(getUserDetail(user.username));
         }
     }, [dispatch]);
-    const { ctf } = useSelector((state) => state.ctf);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDifficulty, setSelectedDifficulty] = useState("all");
@@ -74,6 +71,20 @@ const CTF = () => {
     const handleDifficultySelect = (event) => {
         setSelectedDifficulty(event.target.value);
     };
+
+    if (isApiLoading || isCtfLoading || isUserDetailLoading) {
+        return (
+            <Wrapper>
+                <CircleSpinner
+                    size={20}
+                    color={"#1fc10d"}
+                    isLoading={isApiLoading || isCtfLoading || isUserDetailLoading}
+                />
+            </Wrapper>
+        );
+    }
+
+    if (!isApiWorking) return <UnderMaintenance />;
 
     return (
         <Wrapper>
@@ -124,37 +135,7 @@ const CTF = () => {
                         .reverse()
                         .map((challenge, index) => (
                             <CTFLink to={{ pathname: `/ctf/${encodeURL(challenge.challengeName)}` }} key={index}>
-                                <CTFCard>
-                                    <CTFCardHeader>
-                                        {challenge?.challengeName}
-                                        {user &&
-                                            userDetail?.solved?.map((ctf, index) =>
-                                                challenge?._id === ctf?.ctfId && ctf?.isCompleted === true ? (
-                                                    <FcCheckmark key={index} color="green" size={25} />
-                                                ) : null,
-                                            )}
-                                    </CTFCardHeader>
-
-                                    <CTFCardBody>
-                                        <CTFCardSubtitle>{challenge?.subtitle}</CTFCardSubtitle>
-                                    </CTFCardBody>
-
-                                    <CTFCardFooter>
-                                        <CTFTags>
-                                            {challenge?.tags
-                                                .slice(0, 3)
-                                                .map(
-                                                    (tag, index) =>
-                                                        tag.length > 0 && <CTFTag key={index}>{tag}</CTFTag>,
-                                                )}
-
-                                            {challenge?.tags.length > 3 && (
-                                                <CTFTag key={index}> + {challenge.tags.length - 3}</CTFTag>
-                                            )}
-                                        </CTFTags>
-                                        <CTFType>{challenge?.difficulty}</CTFType>
-                                    </CTFCardFooter>
-                                </CTFCard>
+                                <CtfCard challenge={challenge} user={user} userDetail={userDetail} index={index} />
                             </CTFLink>
                         ))}
                 </CTFCards>

@@ -1,10 +1,11 @@
 import React from "react";
 import { TimelineContainer } from "./InternshipTimelineElements";
+import { getCDNUrl } from "../../../../features/apiUrl";
 
 const InternshipTimeline = () => {
     return (
         <TimelineContainer>
-            <img src={"https://thecyberhubstorage.blob.core.windows.net/images/assets/Timeline.png"} alt="" />
+            <img src={getCDNUrl + "/assets/images/Timeline.png"} alt="" />
         </TimelineContainer>
     );
 };

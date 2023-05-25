@@ -1,7 +1,7 @@
 import React from "react";
 import { OSINTGameContainer } from "./OSINTGameElements";
 import { Section } from "../../../Resources/WriteUps/WriteUpsElements";
-import { Heading } from "../../../Community/CommunityElements";
+import { Heading } from "../../Community/CommunityElements";
 
 const OSINTGame = () => {
     return (

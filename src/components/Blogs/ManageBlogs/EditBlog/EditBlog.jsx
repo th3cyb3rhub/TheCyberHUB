@@ -22,9 +22,11 @@ import { Button, PreviewIcon, PreviewSection } from "../../../Beta/Forum/ForumSu
 import { toast } from "react-toastify";
 import { getApiUrl } from "../../../../features/apiUrl";
 import axios from "axios";
+import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
 
 const EditBlog = () => {
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
     const { blogs, isError, message } = useSelector((state) => state.blogs);
     const [preview, setPreview] = useState(false);
 
@@ -160,6 +162,10 @@ const EditBlog = () => {
         dispatch(updateBlog({ id: blog._id, blogData: updatedBlogData }));
         navigate("../");
     };
+
+    if (user) {
+        return <UnderMaintenance />;
+    }
 
     return (
         <Wrapper>

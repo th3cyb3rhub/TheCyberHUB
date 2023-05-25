@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const UserSocialLinksContainer = styled.div`
-    margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
     background: #0e0e0e;

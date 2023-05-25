@@ -12,7 +12,7 @@ import {
     ErrorMessage,
     MessageIcon,
     OrgIcon,
-} from "../../ContactForm/ContactFormElements";
+} from "../../Homepage/ContactForm/ContactFormElements";
 import { toast } from "react-toastify";
 import { LoadingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";

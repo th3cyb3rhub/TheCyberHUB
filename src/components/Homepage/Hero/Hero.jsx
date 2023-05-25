@@ -15,7 +15,7 @@ import {
 import { ScrollButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { getCDNUrl } from "../../../features/apiUrl";
 
-const Video = `${getCDNUrl}/images/assets/video/thecyberhubBackgroundVideo.mp4`;
+const Video = `${getCDNUrl}/assets/video/thecyberhubBackgroundVideo.mp4`;
 
 const Hero = () => {
     const [hover, setHover] = useState(false);

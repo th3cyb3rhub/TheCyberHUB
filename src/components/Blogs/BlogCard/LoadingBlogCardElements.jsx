@@ -8,7 +8,7 @@ export const lineLoading = keyframes`
   }
 `;
 export const LoadingBlogContainer = styled.div`
-    height: 200px;
+    height: 250px;
 `;
 
 export const animate = keyframes`
@@ -33,13 +33,12 @@ export const LoadingLine = styled.div`
     height: ${(props) => props.height}px;
     border-radius: 5px;
     background-color: #414141;
-    animation: ${animate} 1s ease-in-out infinite;
+    animation: ${animate} 2s ease-in-out infinite;
 `;
 
 export const LoadingImage = styled.div`
     overflow: hidden;
-    width: 100px;
     height: ${(props) => props.height || props.width * 0.6}px;
     background-color: #414141;
-    animation: ${animate} 1s ease-in-out infinite;
+    animation: ${animate} 2s ease-in-out infinite;
 `;
