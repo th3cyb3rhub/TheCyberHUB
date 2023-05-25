@@ -1,3 +1,12 @@
+# [0.46.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.45.0...v0.46.0) (2023-05-25)
+
+
+### Features
+
+* follow func, blog design, and some fixes ([#417](https://github.com/thecyberworld/thecyberhub.org/issues/417)) ([30a0612](https://github.com/thecyberworld/thecyberhub.org/commit/30a0612dc520a367ecab8294ce02447996955687))
+
+
+
 # [0.45.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.3...v0.45.0) (2023-05-01)
 
 
@@ -32,15 +41,6 @@
 ### Bug Fixes
 
 * minor issues ([eb95f36](https://github.com/thecyberworld/thecyberhub.org/commit/eb95f3655fa23d27de1ba033cba16302f39b293d))
-
-
-
-# [0.44.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.43.0...v0.44.0) (2023-04-30)
-
-
-### Features
-
-* roadmap updates ([c6da284](https://github.com/thecyberworld/thecyberhub.org/commit/c6da284a1d620ea9c8ddfb4ff3b3b4e41fdad7b5))
 
 
 
