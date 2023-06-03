@@ -114,7 +114,7 @@ const FormData = () => {
                                         }
                                         return false;
                                     })
-                                    .map((data) => (
+                                    ?.map((data) => (
                                         <Job
                                             key={data.id}
                                             onClick={() => {
@@ -139,7 +139,7 @@ const FormData = () => {
                                 }}
                                 style={detailsVisible ? { display: "none" } : { overflowY: "scroll", height: "100%" }}
                             >
-                                {formData.map((data) => (
+                                {formData?.map((data) => (
                                     <Job
                                         key={data.id}
                                         onClick={() => {

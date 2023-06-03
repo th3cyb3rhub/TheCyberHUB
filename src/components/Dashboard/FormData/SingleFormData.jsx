@@ -37,7 +37,7 @@ export default function FormDetailsPage(props) {
                 </FormDetailsHeader>
             </FormDetailsHero>
             <FormDetails>
-                {props.jobDetails.map((item, i) => (
+                {props.jobDetails?.map((item, i) => (
                     <div key={i}>
                         <span>{item.item}</span>
                         {item.badge && (
@@ -49,7 +49,7 @@ export default function FormDetailsPage(props) {
                 ))}
             </FormDetails>
             {/* <FormDetails> */}
-            {/*    {props.jobDetails2.map((item, i) => ( */}
+            {/*    {props.jobDetails2?.map((item, i) => ( */}
             {/*        <div key={i}> */}
             {/*            <span>{item}</span> */}
             {/*        </div> */}
@@ -59,7 +59,7 @@ export default function FormDetailsPage(props) {
             <FormDetailsReq>
                 <h3> Requirements: </h3>
                 <ListContainer>
-                    {props.jobReq.map((item, id) => (
+                    {props.jobReq?.map((item, id) => (
                         <List key={id}>
                             <ListIcon /> <ListContent> {item} </ListContent>
                         </List>
@@ -69,7 +69,7 @@ export default function FormDetailsPage(props) {
             <FormDetailsReq>
                 <h3> Responsibilities: </h3>
                 <ListContainer>
-                    {props.jobRes.map((item, id) => (
+                    {props.jobRes?.map((item, id) => (
                         <List key={id}>
                             <ListIcon /> <ListContent> {item} </ListContent>
                         </List>

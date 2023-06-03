@@ -197,7 +197,7 @@ TheCyberSEC Team`,
                             onChange={(e) => setValues({ rejectedReason: e.target.value })}
                         >
                             <ContactFormSelectOption value="">Select Rejection Message</ContactFormSelectOption>
-                            {rejectedMessages.map((message, id) => {
+                            {rejectedMessages?.map((message, id) => {
                                 return (
                                     <ContactFormSelectOption key={id} value={message}>
                                         {message}

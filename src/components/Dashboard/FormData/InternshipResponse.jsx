@@ -81,14 +81,14 @@ const InternshipResponse = () => {
         <Wrapper>
             <InternshipResponseContainer>
                 <SelectMonthSection>
-                    {months.map((month, index) => (
+                    {months?.map((month, index) => (
                         <MonthButton key={index} onClick={() => handleMonthClick(index)}>
                             {month}
                         </MonthButton>
                     ))}
                 </SelectMonthSection>
                 <SelectInternshipSection>
-                    {Array.from(new Set(formData.map((data) => data.reasonType))).map(
+                    {Array?.from(new Set(formData?.map((data) => data.reasonType)))?.map(
                         (reasonType) =>
                             reasonType !== "Web Application Pentest" &&
                             reasonType !== "" && (
@@ -117,7 +117,7 @@ const InternshipResponse = () => {
                                     style={detailsVisible ? { overflowY: "scroll", height: "100%" } : {}}
                                     className={detailsVisible ? "active" : ""}
                                 >
-                                    {filteredFormData.map((data) => (
+                                    {filteredFormData?.map((data) => (
                                         <Job
                                             key={data.id}
                                             onClick={() => {
@@ -143,7 +143,7 @@ const InternshipResponse = () => {
                                         detailsVisible ? { display: "none" } : { overflowY: "scroll", height: "100%" }
                                     }
                                 >
-                                    {filteredFormData.map((data) => (
+                                    {filteredFormData?.map((data) => (
                                         <Job
                                             key={data.id}
                                             onClick={() => {

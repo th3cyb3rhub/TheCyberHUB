@@ -60,7 +60,7 @@ const Jobs = () => {
                                 style={detailsVisible ? { overflowY: "scroll", height: "100%" } : {}}
                                 className={detailsVisible ? "active" : ""}
                             >
-                                {JobsData.map((data) => (
+                                {JobsData?.map((data) => (
                                     <Job
                                         key={data.id}
                                         onClick={() => {
@@ -92,7 +92,7 @@ const Jobs = () => {
                                           }
                                 }
                             >
-                                {JobsData.map((data) => (
+                                {JobsData?.map((data) => (
                                     <Job
                                         key={data.id}
                                         onClick={() => {
