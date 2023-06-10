@@ -1,3 +1,12 @@
+# [0.48.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.47.0...v0.48.0) (2023-06-10)
+
+
+### Features
+
+* new community and hero description ([#420](https://github.com/thecyberworld/thecyberhub.org/issues/420)) ([ec90747](https://github.com/thecyberworld/thecyberhub.org/commit/ec907470347c192a67828d2c47f0e8f96aac58bb))
+
+
+
 # [0.47.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.46.0...v0.47.0) (2023-06-10)
 
 
@@ -31,16 +40,6 @@
 ### Bug Fixes
 
 * ctf certificate issue ([ce4253b](https://github.com/thecyberworld/thecyberhub.org/commit/ce4253b820cc39690d118c1b4eb1713cc3547a74))
-
-
-
-## [0.44.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.1...v0.44.2) (2023-05-01)
-
-
-### Bug Fixes
-
-* ctf certificate issue ([5fd8b6c](https://github.com/thecyberworld/thecyberhub.org/commit/5fd8b6c96e5b7f2a8603c9b597f747dc644480d8))
-* minor issues ([9381e6d](https://github.com/thecyberworld/thecyberhub.org/commit/9381e6d28bdfd50564ec3f73b32082adb99af224))
 
 
 
