@@ -39,7 +39,6 @@ import {
 import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
 import Tools from "./components/Beta/Tools/Tools";
 import BreachCheck from "./components/Beta/Tools/BreachCheck/BreachCheck";
-import EmailNotVerified from "./components/Dashboard/EmailNotVerified";
 import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
 import { useSelector } from "react-redux";
 import ContactForm from "./components/Homepage/ContactForm/ContactForm";
@@ -58,17 +57,16 @@ import HallOfFame from "./components/Other/Security/HallOfFame";
 import RulesOfEngagement from "./components/Other/Security/RulesOfEngagement";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import { useUserData } from "./components/Dashboard/checkUserVerified";
 import EditPublicProfile from "./components/Dashboard/Profile/EditPublicProfile/EditPublicProfile";
 import TagsPage from "./components/TagsPage/TagsPage";
 import TagPage from "./components/TagsPage/TagPage";
 import Social from "./components/Social/Social";
-// import PortScanner from "./components/Beta/Tools/PortScanner/PortScanner";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showWebsite, setShowWebsite] = useState(false);
     const { pathname } = useLocation();
+    const inDevelopment = true;
 
     const hostname = window.location.hostname;
 
@@ -95,7 +93,6 @@ const App = () => {
         const login = pathname !== "/login";
         const forgetPassword = pathname !== "/forgetPassword";
         const resetPassword = pathname !== "/resetPassword/:token";
-
         return register && login && forgetPassword && resetPassword;
     };
 
@@ -103,7 +100,6 @@ const App = () => {
     const toggle = () => setIsOpen(!isOpen);
 
     const { user } = useSelector((state) => state.auth);
-    const userVerified = useUserData({ user }).isVerified;
 
     if (isLoading) return <Spinner />;
 
@@ -118,7 +114,6 @@ const App = () => {
                             <Navbar toggle={toggle} />
                         </>
                     )}
-                    {user && !userVerified ? <EmailNotVerified user={user} /> : null}
                     <ScrollToTop>
                         <Routes>
                             <Route index exact path={"/"} element={<Homepage />} />
@@ -146,7 +141,6 @@ const App = () => {
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
 
-                            <Route exact path={"/dashboard"} element={<Dashboard />} />
                             <Route exact path={"/contact"} element={<ContactForm />} />
                             <Route exact path={"/login"} element={<Login />} />
                             <Route exact path={"/forgetPassword"} element={<ForgotPassword />} />
@@ -159,17 +153,19 @@ const App = () => {
                                 <Route exact path={"/edit/@:username"} element={<EditPublicProfile />} />
                             </Route>
 
-                            <Route path={"/dashboard/*"}>
-                                <Route index element={<Dashboard />} />
-                                <Route path={"goals"} element={<GoalSetter />} />
-                                <Route path={"blogs"}>
-                                    <Route index element={<UserBlogs />} />
-                                    <Route exact path={"create"} element={<CreateBlog />} />
-                                    <Route exact path={"edit/:title"} element={<EditBlog />} />
+                            {!inDevelopment ? (
+                                <Route path={"/dashboard/*"}>
+                                    <Route index element={<Dashboard />} />
+                                    <Route path={"goals"} element={<GoalSetter />} />
+                                    <Route path={"blogs"}>
+                                        <Route index element={<UserBlogs />} />
+                                        <Route exact path={"create"} element={<CreateBlog />} />
+                                        <Route exact path={"edit/:title"} element={<EditBlog />} />
+                                        <Route path={"*"} element={<NotFound />} />
+                                    </Route>
                                     <Route path={"*"} element={<NotFound />} />
                                 </Route>
-                                <Route path={"*"} element={<NotFound />} />
-                            </Route>
+                            ) : null}
 
                             <Route path={"/events/*"}>
                                 <Route index element={<Events />} />

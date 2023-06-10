@@ -3,9 +3,9 @@ import { getApiUrl } from "../apiUrl";
 
 const API_URL = getApiUrl("api/users/");
 
-const forgotPassword = async (email) => {
+const forgotPassword = async (userData) => {
     try {
-        const response = await axios.post(`${API_URL}forgot-password`, email);
+        const response = await axios.post(`${API_URL}forgot-password`, userData);
         return response.data;
     } catch (error) {
         throw error.response.data;
@@ -13,9 +13,9 @@ const forgotPassword = async (email) => {
 };
 
 // Service function for resetting password with token
-const resetPassword = async ({ token, password }) => {
+const resetPassword = async (userData) => {
     try {
-        const response = await axios.put(`${API_URL}reset-password/${token}`, { password });
+        const response = await axios.put(`${API_URL}reset-password`, userData);
         return response.data;
     } catch (error) {
         throw error.response.data;

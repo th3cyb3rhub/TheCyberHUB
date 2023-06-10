@@ -14,15 +14,27 @@ import { getApiUrl } from "../../../features/apiUrl";
 import { toast } from "react-toastify";
 import { DetailsText } from "./Jobs/JobDetailsElements";
 
-const CheckValues = (props) => {
+const CheckValues = ({
+    id,
+    resumePending,
+    checked,
+    rejected,
+    rejectedReason,
+    hired,
+    accepted,
+    email,
+    name,
+    reasonType,
+    resume,
+}) => {
     const [values, setValues] = useState({
-        id: props.id,
-        checked: props.checked || false,
-        accepted: props.accepted || false,
-        hired: props.hired || false,
-        rejected: props.rejected || false,
-        resumePending: props.resumePending || false,
-        rejectedReason: props.rejectedReason || "",
+        id,
+        checked: checked || false,
+        accepted: accepted || false,
+        hired: hired || false,
+        rejected: rejected || false,
+        resumePending: resumePending || false,
+        rejectedReason: rejectedReason || "",
     });
 
     const [isLoading, setIsLoading] = useState(false);
@@ -40,17 +52,39 @@ const CheckValues = (props) => {
     const emailMessages = {
         checked: {
             subject: "Application Status Update - TheCyberSEC",
-            message: `Dear Applicant,\n\nWe hope this email finds you well. This is to inform you that we have checked your application and we are currently reviewing it. We appreciate your patience as we continue to process your application. We will get back to you soon with an update on the status of your application.\n\nThank you for your interest in working with TheCyberSEC. \n\nBest Regards,\nTheCyberSEC Team`,
+            message: `Dear Applicant,
+            
+We hope this email finds you well. This is to inform you that we have checked your application and we are currently reviewing it. We appreciate your patience as we continue to process your application. We will get back to you soon with an update on the status of your application.
+            
+Thank you for your interest in working with TheCyberSEC. 
+            
+Best Regards,
+TheCyberSEC Team`,
         },
         accepted: {
             subject: "Congratulations! Your Application has been Accepted - TheCyberSEC",
-            message: `Dear Applicant,\n\nWe are delighted to inform you that your application for the ${props.reasonType} TheCyberSEC has been accepted. We appreciate the time and effort you put into your application and we are impressed by your qualifications and experience. We would like to schedule an interview with you to discuss the position and your availability. Please let us know which date and time work for you between Monday to Saturday, from 11am to 2pm.\n\nWe look forward to hearing from you soon.\n\nBest Regards,\nTheCyberSEC Team`,
+            message: `Dear Applicant,
+            
+We are delighted to inform you that your application for the ${reasonType} TheCyberSEC has been accepted. We appreciate the time and effort you put into your application and we are impressed by your qualifications and experience. We would like to schedule an interview with you to discuss the position and your availability. Please let us know which date and time work for you between Monday to Saturday, from 11am to 2pm.
+
+We look forward to hearing from you soon.
+
+Till now make sure to prepare for the interview, here are the roadmaps: 
+https://thecyberhub.org/roadmaps
+
+Other Links:
+Official Website: https://thecyber-sec.com
+Community Website: https://thecyberhub.org
+Discord Link: https://discord.gg/QHBPq6xP5p
+
+Best Regards,
+TheCyberSEC Team`,
         },
         hired: {
             subject: "Internship Offer - Your Application for TheCyberSEC",
-            message: `Dear ${props.name},
+            message: `Dear ${name},
 
-We are pleased to offer you the ${props.reasonType} at TheCyberSEC. We were impressed by your qualifications, experience, and passion for the field, and we believe that you will make a valuable contribution to our team.
+We are pleased to offer you the ${reasonType} at TheCyberSEC. We were impressed by your qualifications, experience, and passion for the field, and we believe that you will make a valuable contribution to our team.
 
 As an intern with TheCyberSEC, you will have the opportunity to gain hands-on experience in a dynamic and innovative environment. You will work closely with experienced professionals and have the chance to develop your skills and knowledge in [specific areas or projects].
 
@@ -63,27 +97,63 @@ TheCyberSEC Team`,
         },
         rejected: {
             subject: "Application Update - TheCyberSEC",
-            message: `Dear Applicant,\n\nWe regret to inform you that we have decided not to move forward with your application for the ${props.reasonType} TheCyberSEC. We appreciate your interest in working with us and we commend your effort and qualifications. Unfortunately, we received a large volume of applications, and we had to make tough decisions.
-             \n${values.rejectedReason}\n
-             Please do not take this decision personally and continue to pursue your career goals.\n\nWe wish you all the best in your future endeavors.\n\nBest Regards,\nTheCyberSEC Team`,
+            message: `Dear Applicant,
+            
+We regret to inform you that we have decided not to move forward with your application for the ${reasonType} TheCyberSEC. We appreciate your interest in working with us and we commend your effort and qualifications. Unfortunately, we received a large volume of applications, and we had to make tough decisions.
+             
+${values.rejectedReason}
+
+Please do not take this decision personally and continue to pursue your career goals.
+             
+We wish you all the best in your future endeavors.
+
+Resources:
+https://thecyberhub.org/roadmaps
+Official Website: https://thecyber-sec.com
+Community Website: https://thecyberhub.org
+Discord Link: https://discord.gg/QHBPq6xP5p
+             
+Best Regards,
+TheCyberSEC Team`,
         },
         resumePending: {
             subject: "Application Status Update - TheCyberSEC",
-            message: `Dear Applicant,\n\nWe hope this email finds you well. This is to inform you that we have received your application and we are currently reviewing it.\n\nThank you for your interest in the position at TheCyberSEC. We attempted to view your resume using the link you provided, but we were unable to access it due to a permission issue. We encourage you to double-check the link to ensure that it is accessible to us.\nOnce the link is accessible, we will be able to review your resume and move forward with your application.\n\nThank you for your interest in working with TheCyberSEC. \n\nBest Regards,\nTheCyberSEC Team`,
+            message: `Dear Applicant,
+            
+We hope this email finds you well. This is to inform you that we have received your application and we are currently reviewing it.
+            
+Thank you for your interest in the position at TheCyberSEC. We attempted to view your resume using the link you provided, but we were unable to access it due to a permission issue. We encourage you to double-check the link to ensure that it is accessible to us.
+
+Inaccessible Resume Link: ${resume}
+
+Once the link is accessible, we will be able to review your resume and move forward with your application.
+            
+Thank you for your interest in working with TheCyberSEC. 
+            
+Till now make sure to prepare for the interview, here are the roadmaps: 
+https://thecyberhub.org/roadmaps
+
+Other Links:
+Official Website: https://thecyber-sec.com
+Community Website: https://thecyberhub.org
+Discord Link: https://discord.gg/QHBPq6xP5p
+
+Best Regards,
+TheCyberSEC Team`,
         },
     };
 
     useEffect(() => {
         setValues({
-            id: props.id,
-            checked: props.checked,
-            accepted: props.accepted,
-            hired: props.hired,
-            resumePending: props.resumePending,
-            rejected: props.rejected,
-            rejectedReason: props.rejectedReason,
+            id,
+            checked,
+            accepted,
+            hired,
+            resumePending,
+            rejected,
+            rejectedReason,
         });
-    }, [props.id]);
+    }, [id, checked, accepted, hired, resumePending, rejected, rejectedReason]);
 
     const handleButtonClick = async (buttonName) => {
         setIsLoading(true);
@@ -92,14 +162,14 @@ TheCyberSEC Team`,
             if (buttonName === "rejected") {
                 await axios.post(getApiUrl("api/form/updateForm"), {
                     ...values,
-                    id: props.id,
+                    id,
                     [buttonName]: true,
                     rejectedReason: values.rejectedReason,
                 });
             } else {
                 await axios.post(getApiUrl("api/form/updateForm"), {
                     ...values,
-                    id: props.id,
+                    id,
                     [buttonName]: true,
                 });
             }
@@ -108,7 +178,7 @@ TheCyberSEC Team`,
                 .post(
                     getApiUrl("api/form/sendEmail"),
                     {
-                        email: props.email,
+                        email,
                         subject: emailMessages[buttonName].subject,
                         message: emailMessages[buttonName].message.replace(/\n/g, "<br>"),
                     },
@@ -121,7 +191,7 @@ TheCyberSEC Team`,
                 )
                 .then((response) => {
                     if (response.data.message === "Email sent successfully") {
-                        toast("to: " + props.email);
+                        toast("to: " + email);
                         toast("subject: " + emailMessages[buttonName].subject);
                         toast("message: " + emailMessages[buttonName].message.replace(/\n/g, "<br>"));
                         setIsLoading(false);
@@ -153,31 +223,31 @@ TheCyberSEC Team`,
                         <CircleSpinner size={20} color={"#131313"} />
                     </LoadingButton>
                 ) : null}
-                {!props.checked ? (
-                    <Button value={props.checked} color={"yellowgreen"} onClick={() => handleButtonClick("checked")}>
+                {!checked ? (
+                    <Button value={checked} color={"yellowgreen"} onClick={() => handleButtonClick("checked")}>
                         Checked
                     </Button>
                 ) : (
                     <ButtonGreen> Checked </ButtonGreen>
                 )}
-                {!props.accepted ? (
-                    <Button value={props.accepted} color={"yellowgreen"} onClick={() => handleButtonClick("accepted")}>
+                {!accepted ? (
+                    <Button value={accepted} color={"yellowgreen"} onClick={() => handleButtonClick("accepted")}>
                         Accepted
                     </Button>
                 ) : (
                     <ButtonGreen> Accepted </ButtonGreen>
                 )}
-                {!props.hired ? (
-                    <Button value={props.hired} color={"yellowgreen"} onClick={() => handleButtonClick("hired")}>
+                {!hired ? (
+                    <Button value={hired} color={"yellowgreen"} onClick={() => handleButtonClick("hired")}>
                         Hired
                     </Button>
                 ) : (
                     <ButtonGreen> Hired </ButtonGreen>
                 )}
 
-                {!props.resumePending ? (
+                {!resumePending ? (
                     <Button
-                        value={props.resumePending}
+                        value={resumePending}
                         color={"yellowgreen"}
                         onClick={() => handleButtonClick("resumePending")}
                     >
@@ -188,7 +258,7 @@ TheCyberSEC Team`,
                 )}
                 <br />
 
-                {!props.rejected ? (
+                {!rejected ? (
                     <>
                         <ContactFormSelect
                             name="rejectedReason"
@@ -216,10 +286,10 @@ TheCyberSEC Team`,
                         />
                     </>
                 ) : (
-                    <DetailsText>{props.rejectedReason}</DetailsText>
+                    <DetailsText>{rejectedReason}</DetailsText>
                 )}
-                {!props.rejected ? (
-                    <Button value={props.rejected} color={"yellowgreen"} onClick={() => handleButtonClick("rejected")}>
+                {!rejected ? (
+                    <Button value={rejected} color={"yellowgreen"} onClick={() => handleButtonClick("rejected")}>
                         Rejected
                     </Button>
                 ) : (

@@ -62,7 +62,7 @@ const BlogCard = ({ blog }) => {
                     </Link>
                 ) : null}
                 <div className="blogImage-wrapper">
-                    <img src={coverImageUrl || image} alt="Blog Image" width="100%" height="auto" />
+                    <img src={coverImageUrl || image} alt="" width="100%" height="auto" />
                 </div>
                 <h3>{blog.title}</h3>
                 <h6>

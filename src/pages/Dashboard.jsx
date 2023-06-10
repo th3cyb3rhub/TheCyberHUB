@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import { Wrapper } from "../components/Dashboard/Profile/ProfileElements";
 import DashboardItems from "../components/Dashboard/DashboardItems";
 import { DashboardContainer } from "../components/Dashboard/DashboardElements";
-import VerifyToAccess from "../components/Dashboard/VerifyToAccess";
-import { useUserData } from "../components/Dashboard/checkUserVerified";
 import { CircleSpinner } from "react-spinners-kit";
 import UnderMaintenance from "../components/Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "../features/apiStatus";
@@ -16,8 +14,6 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const { user } = useSelector((state) => state.auth);
-    const userData = useUserData({ user });
-    const userVerified = userData.isVerified;
     const { isApiLoading, isApiWorking } = apiStatus();
 
     useEffect(() => {
@@ -38,8 +34,6 @@ const Dashboard = () => {
     }
 
     if (!isApiWorking) return <UnderMaintenance />;
-
-    if (!userVerified) return <VerifyToAccess />;
 
     return (
         <Wrapper>

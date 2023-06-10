@@ -4,7 +4,17 @@ import { getApiUrl } from "../apiUrl";
 const API_URL = getApiUrl("api/users/");
 
 // Register user
-const register = async (userData) => {
+const sendEmailCode = async (userData) => {
+    const response = await axios.post(API_URL + `reg-email-code`, userData);
+    return response.data;
+};
+
+const verifyEmailCode = async (userData) => {
+    const response = await axios.post(API_URL + `verify-email-code`, userData);
+    return response.data;
+};
+
+const registerUser = async (userData) => {
     const response = await axios.post(API_URL, userData);
     if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -38,7 +48,9 @@ const updateUser = async (userData, token) => {
 };
 
 const authService = {
-    register,
+    sendEmailCode,
+    registerUser,
+    verifyEmailCode,
     login,
     logout,
     updateUser,

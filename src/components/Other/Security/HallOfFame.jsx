@@ -23,21 +23,19 @@ const HallOfFame = () => {
                         {
                             name: "Yash singh chauhan",
                             username: "0xFTW",
-                            vulnerability:
-                                "NoSQL Injection on Login Page (only login screen bypass, no user data leak)",
-                            profile: "https://thecyberhub.org/@0xFTW",
-                        },
-                        {
-                            name: "Yash singh chauhan",
-                            username: "0xFTW",
                             vulnerability: "Rate Limit on Blog Comments",
                             profile: "https://thecyberhub.org/@0xFTW",
                         },
+                    ],
+                },
+                {
+                    month: "June",
+                    list: [
                         {
-                            name: "Kabir",
-                            username: "kabir0x23",
-                            vulnerability: "XSS in Website Email Responses",
-                            profile: "https://thecyberhub.org/@kabir0x23",
+                            name: "Pratik kumar",
+                            username: "tikku",
+                            vulnerability: "Account Takeover via Password Reset",
+                            profile: "https://thecyberhub.org/@tikku",
                         },
                     ],
                 },
@@ -73,8 +71,9 @@ const HallOfFame = () => {
                                                             target="_blank"
                                                             rel="noreferrer"
                                                         >
+                                                            {" "}
                                                             [@{item.username}]
-                                                        </a>
+                                                        </a>{" "}
                                                         - {item.vulnerability}
                                                     </HallOfFameName>
                                                 ))}

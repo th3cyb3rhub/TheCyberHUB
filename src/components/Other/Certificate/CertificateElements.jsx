@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GlowingButton } from "../MixComponents/Buttons/ButtonElements";
+import { ButtonGreen } from "../MixComponents/Buttons/ButtonElements";
 import bgImage from "../../../assets/images/certificate-bg.png";
 
 // import {getCDNUrl} from "../../../features/apiUrl";
@@ -172,7 +172,7 @@ export const DownloadCertificateAs = styled.div`
     text-align: center;
 `;
 
-export const DownloadButton = styled(GlowingButton)`
+export const DownloadButton = styled(ButtonGreen)`
     margin: 5px;
     padding: 7px 25px;
 `;

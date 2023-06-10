@@ -97,7 +97,7 @@ export const RedirectButton = styled.a`
     }
 `;
 
-export const GlowingButton = styled.button`
+export const ButtonGreen = styled.button`
     text-decoration: none;
     border-radius: 5px;
     border-width: 1px;
@@ -105,7 +105,7 @@ export const GlowingButton = styled.button`
     border-color: #343434;
     white-space: nowrap;
     padding: ${({ big }) => (big ? "14px 48px" : "12px 30px")};
-    font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
+    font-size: ${({ fontBig }) => (fontBig ? "22px" : "18px")};
     outline: none;
     cursor: pointer;
     display: flex;
@@ -113,14 +113,15 @@ export const GlowingButton = styled.button`
     align-items: center;
     transition: all 0.2s ease-in-out;
     color: #000000;
-    background: #20c20e;
+    background: #17f31e;
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        box-shadow: 0 0 50px -5px rgba(32, 194, 14, 1);
-        -webkit-box-shadow: 0 0 50px -5px rgba(32, 194, 14, 1);
-        -moz-box-shadow: 0 0 50px -5px rgba(32, 194, 14, 1);
-        background: #20c20e;
+        scale: 1.02;
+        //box-shadow: 0 0 10px -5px rgb(23, 243, 30);
+        //-webkit-box-shadow: 0 0 10px -5px rgb(23, 243, 30);
+        //-moz-box-shadow: 0 0 10px -5px rgb(23, 243, 30);
+        background: #17f31e;
         color: black;
         border-color: #343434;
         // font-size: 18px;
@@ -148,7 +149,7 @@ export const LoadingButton = styled.button`
     align-items: center;
     transition: all 0.2s ease-in-out;
     color: #000000;
-    background: #20c20e;
+    background: #17f31e;
     box-shadow: 0 0 30px rgba(32, 194, 14, 0);
     animation: glowing 2s ease-in-out infinite;
 
@@ -157,7 +158,7 @@ export const LoadingButton = styled.button`
             box-shadow: 0 0 30px rgba(32, 194, 14, 0);
         }
         50% {
-            box-shadow: 0 0 60px 15px rgba(32, 194, 14, 0.5);
+            box-shadow: 0 0 60px 15px rgb(23, 243, 30);
         }
         100% {
             box-shadow: 0 0 30px rgba(32, 194, 14, 0);
@@ -185,7 +186,7 @@ export const LoadingRedirectButton = styled(RouterLink)`
     align-items: center;
     transition: all 0.2s ease-in-out;
     color: #000000;
-    background: #20c20e;
+    background: #17f31e;
     box-shadow: 0 0 30px rgba(32, 194, 14, 0);
     animation: glowing 2s ease-in-out infinite;
 
@@ -194,7 +195,7 @@ export const LoadingRedirectButton = styled(RouterLink)`
             box-shadow: 0 0 30px rgba(32, 194, 14, 0);
         }
         50% {
-            box-shadow: 0 0 60px 15px rgba(32, 194, 14, 0.5);
+            box-shadow: 0 0 60px 15px rgb(23, 243, 30);
         }
         100% {
             box-shadow: 0 0 30px rgba(32, 194, 14, 0);
@@ -221,13 +222,13 @@ export const RouterButtonGreen = styled(RouterLink)`
     align-items: center;
     transition: all 0.2s ease-in-out;
     color: #000000;
-    background: #20c20e;
+    background: #17f31e;
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: #20c20e;
+        background: #17f31e;
         color: black;
-        scale: 1.02;
+        scale: 1.01;
         border-color: #343434;
         // font-size: 18px;
     }

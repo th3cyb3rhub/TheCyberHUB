@@ -9,7 +9,7 @@ import {
     BlogImage,
     BlogImageContainer,
     BlogTitle,
-    CommentContainer,
+    // CommentContainer,
     ContainerViewBlog,
     ContentSection,
     Tag,
@@ -21,7 +21,7 @@ import {
 
 import NotFound from "../../../NotFound";
 import PreviewMarkdown from "./PreviewMarkdown";
-import BlogComments from "../Comments/BlogComments";
+// import BlogComments from "../Comments/BlogComments";
 import { toast } from "react-toastify";
 import { CircleSpinner } from "react-spinners-kit";
 import { getCDNUrlContent } from "../../../features/apiUrl";
@@ -93,7 +93,7 @@ const ViewBlog = () => {
             <ContainerViewBlog>
                 <ViewBlogHeader>
                     <BlogImageContainer>
-                        <BlogImage src={coverImageUrl} alt={coverImage} />
+                        <BlogImage src={coverImageUrl} alt={""} />
                     </BlogImageContainer>
                     <BlogTitle> {blog?.title} </BlogTitle>
                     <UsernameAndDate>
@@ -106,11 +106,11 @@ const ViewBlog = () => {
                 <Tags>
                     {blog?.tags.map((tag, id) => (tag.length !== 0 ? <Tag key={id}> {tag.slice(0, 40)} </Tag> : <></>))}
                 </Tags>
-                <CommentContainer>
-                    <BlogComments blog={blog} isError={isError} message={message} />
-                    {/* <ViewComments comments={blog?.comments} /> */}
-                    {/* <AddCommentForm blog_id={blog?._id} isLoading={isLoading} /> */}
-                </CommentContainer>
+                {/* <CommentContainer> */}
+                {/*    <BlogComments blog={blog} isError={isError} message={message} /> */}
+                {/*    /!* <ViewComments comments={blog?.comments} /> *!/ */}
+                {/*    /!* <AddCommentForm blog_id={blog?._id} isLoading={isLoading} /> *!/ */}
+                {/* </CommentContainer> */}
             </ContainerViewBlog>
             {/* <LeftBlogSidebar/> */}
             {/* </ViewBlogContainer> */}

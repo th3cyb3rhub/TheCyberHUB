@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { addComment, getAllBlogs } from "../../../features/blogs/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AddCommentFormContainer, Form, Input } from "./AddCommentFormElements";
-import { GlowingButton, RouterButtonGreen } from "../../Other/MixComponents/Buttons/ButtonElements";
+import { ButtonGreen, RouterButtonGreen } from "../../Other/MixComponents/Buttons/ButtonElements";
 import {
     BlogsCommentsContainer,
     Comment,
@@ -13,9 +13,7 @@ import {
     UserPicture,
     ViewCommentsContainer,
 } from "./ViewCommentsElements";
-// import { useUserData } from "../../Dashboard/checkUserVerified";
 import { getCDNUrl } from "../../../features/apiUrl";
-import { useUserData } from "../../Dashboard/checkUserVerified";
 const BlogComments = ({ blog }) => {
     const [addCommentData, setAddCommentData] = useState({ comment: "" });
     const { comment } = addCommentData;
@@ -54,7 +52,6 @@ const BlogComments = ({ blog }) => {
     const API_URL = getCDNUrl;
     const dummyPicture =
         "https://user-images.githubusercontent.com/44284877/210164205-8dfa753b-f98a-4b25-a243-164c9790b625.png";
-    const userVerified = useUserData({ user }).isVerified;
 
     return (
         <BlogsCommentsContainer>
@@ -81,7 +78,7 @@ const BlogComments = ({ blog }) => {
                 {/* {isLoading && <CircleSpinner size={20} color={"#1fc10d"}/>} */}
             </ViewCommentsContainer>
             <AddCommentFormContainer>
-                {user && userVerified ? (
+                {user ? (
                     <Form onSubmit={handleSubmit}>
                         <Input
                             type="text"
@@ -91,12 +88,10 @@ const BlogComments = ({ blog }) => {
                             onChange={onChange}
                             placeholder="Add your comment here..."
                         />
-                        <GlowingButton width={"100%"} type="submit">
+                        <ButtonGreen width={"100%"} type="submit">
                             Submit
-                        </GlowingButton>
+                        </ButtonGreen>
                     </Form>
-                ) : user && !userVerified ? (
-                    <RouterButtonGreen width={"100%"}>Please verify your email to comment</RouterButtonGreen>
                 ) : (
                     <RouterButtonGreen to={"/login"} width={"100%"}>
                         Login to Comment

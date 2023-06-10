@@ -68,7 +68,6 @@ const UserProfile = () => {
     }
 
     const { aboutMe, skills, achievements, projects } = userDetail || {};
-
     return (
         <Wrapper>
             <ProfileContainer>
@@ -77,7 +76,9 @@ const UserProfile = () => {
                     <UserLinks userDetail={userDetail} userDetails={userDetails} />
                     <UserDetailsContainer>
                         <UserPoints userDetail={userDetail} allUserDetail={userDetails} blogs={blogs} />
-                        {aboutMe && aboutMe?.length === 0 ? null : <AboutMe aboutMe={aboutMe} />}
+                        {(aboutMe && aboutMe?.length === 0) || aboutMe === undefined ? null : (
+                            <AboutMe aboutMe={aboutMe} />
+                        )}
                         {skills && skills?.length === 0 ? null : <SkillSet skills={skills} />}
                         {projects && projects?.length === 0 ? null : <UserProjects projects={projects} />}
                         {achievements && achievements?.length === 0 ? null : (

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { followUser, getFollowData, reset, unfollowUser } from "../../../../features/follow/followSlice";
 // import Followers from "../Followers/Followers";
 import { RouterLink } from "../../../Beta/Tools/ToolsElements";
-import { CircleSpinner } from "react-spinners-kit";
+// import { CircleSpinner } from "react-spinners-kit";
 
 const Follow = ({ userDetail, userDetails }) => {
     const dispatch = useDispatch();
@@ -84,8 +84,7 @@ const Follow = ({ userDetail, userDetails }) => {
                 )}
             </>
             <FollowCount>
-                {isLoading ? <CircleSpinner size={10} isLoading={isLoading} /> : followersCount} Followers <DotIcon />{" "}
-                {followingCount} Following
+                {followersCount} Followers <DotIcon /> {followingCount} Following
             </FollowCount>
             {/* <FollowCount> */}
             {/*    {500}+ Connections */}

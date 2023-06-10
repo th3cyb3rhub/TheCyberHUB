@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "../components/Homepage/Registration";
-import { CenterCard } from "../components/Homepage/Registration/CenterCard";
+import { CenterCard, Container } from "../components/Homepage/Registration/CenterCard";
 import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2CodePromotion";
 import { CustomInputGroup } from "../components/Other/MixComponents/InputField/CustomInputField";
 import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
-import { GlowingButton, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
+import { ButtonGreen, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
 import { CgPassword } from "react-icons/all";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -129,9 +128,9 @@ const ResetPassword = () => {
                             ) : setError ? (
                                 <p style={{ color: "white" }}>Invalid Token</p>
                             ) : (
-                                <GlowingButton width={"100%"} type="submit">
+                                <ButtonGreen width={"100%"} type="submit">
                                     Save Password
-                                </GlowingButton>
+                                </ButtonGreen>
                             )
                         ) : (
                             <LoadingButton width={"100%"}>

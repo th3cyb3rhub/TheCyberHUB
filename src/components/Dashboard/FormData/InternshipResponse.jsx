@@ -17,11 +17,12 @@ import {
 
 const InternshipResponse = () => {
     const { user } = useSelector((state) => state.auth);
-    if (!user || user?.userType === "user" || (user?.userType !== "admin" && user?.userType !== "team")) {
+    if (!user) {
         return <NotFound />;
     }
 
     const [formData, setFormData] = useState([]);
+    const [isAuthorised, setIsAuthorised] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     const [detailsVisible, setDetailsVisible] = useState(false);
     const [selectedJob, setSelectedJob] = useState(null);
@@ -30,6 +31,7 @@ const InternshipResponse = () => {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("user")).token;
+        // https://api.thecyberhub.org
         fetch(getApiUrl("api/form/getFormData"), {
             method: "GET",
             headers: {
@@ -40,9 +42,13 @@ const InternshipResponse = () => {
             .then((res) => res.json())
             .then((data) => {
                 setFormData(data);
+                if (data === "User not authorized") {
+                    setIsAuthorised(false);
+                } else {
+                    setIsAuthorised(true);
+                }
             })
             .catch((err) => {
-                console.error(err);
                 setErrorMessage(err.message);
             });
     }, []);
@@ -76,6 +82,10 @@ const InternshipResponse = () => {
     const filteredFormData = selectedReasonType
         ? filteredData.filter((data) => data.reasonType === selectedReasonType)
         : filteredData;
+
+    if (!isAuthorised) {
+        return <NotFound />;
+    }
 
     return (
         <Wrapper>

@@ -48,6 +48,7 @@ export default function JobDetailsPage(props) {
                 email={props.email}
                 name={props.name}
                 reasonType={props.reasonType}
+                resume={props?.resume}
             />
             <hr style={{ color: "#0f121e" }} />
             <SendEmail

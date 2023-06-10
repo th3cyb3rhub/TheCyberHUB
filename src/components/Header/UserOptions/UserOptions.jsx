@@ -26,6 +26,7 @@ const NavItem = (props) => {
             setOpen(false);
         }
     };
+
     window.addEventListener("scroll", () => setOpen(false));
     window.addEventListener("click", handleClose);
     return (
@@ -41,6 +42,7 @@ const NavItem = (props) => {
 const DropdownMenu = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const inDevelopment = true;
     const { user } = useSelector((state) => state.auth);
 
     const onLogout = () => {
@@ -75,9 +77,11 @@ const DropdownMenu = () => {
                         <DropdownItem to={`/@${user.username}`} leftIcon={<FaUserCircle />}>
                             Public Profile
                         </DropdownItem>
-                        <DropdownItem to={"/dashboard"} leftIcon={<MdDashboard />}>
-                            Dashboard
-                        </DropdownItem>
+                        {!inDevelopment ? (
+                            <DropdownItem to={"/dashboard"} leftIcon={<MdDashboard />}>
+                                Dashboard
+                            </DropdownItem>
+                        ) : null}
                         {/* <DropdownItem to={"/settings"} leftIcon={<FcSettings />}> */}
                         {/*    Settings */}
                         {/* </DropdownItem> */}

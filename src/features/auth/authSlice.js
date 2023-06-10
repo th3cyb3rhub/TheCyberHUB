@@ -12,9 +12,28 @@ const initialState = {
     logout: false,
 };
 
-export const register = createAsyncThunk("auth/register", async (user, thunkAPI) => {
+export const sendEmailCode = createAsyncThunk("auth/sendEmailCode", async (user, thunkAPI) => {
     try {
-        return await authService.register(user);
+        return await authService.sendEmailCode(user);
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+export const verifyEmailCode = createAsyncThunk("auth/verifyEmailCode", async (userData, thunkAPI) => {
+    try {
+        return await authService.verifyEmailCode(userData);
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
+export const registerUser = createAsyncThunk("auth/registerUser", async (user, thunkAPI) => {
+    try {
+        return await authService.registerUser(user);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -58,15 +77,42 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(register.pending, (state) => {
+            .addCase(sendEmailCode.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(register.fulfilled, (state, action) => {
+            .addCase(sendEmailCode.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
+                state.message = action.payload;
+            })
+            .addCase(sendEmailCode.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(verifyEmailCode.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(verifyEmailCode.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.message = action.payload;
+            })
+            .addCase(verifyEmailCode.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(registerUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.message = action.payload;
                 state.user = action.payload;
             })
-            .addCase(register.rejected, (state, action) => {
+            .addCase(registerUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

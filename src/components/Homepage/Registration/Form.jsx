@@ -3,17 +3,26 @@ import styled from "styled-components";
 export const RegistrationFormContainer = styled.form`
     width: 100%;
     height: 100%;
-    padding: 43px 10%;
     max-width: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    //background: transparent;
+    background: rgba(0, 0, 0, 0.44);
+    box-shadow: 0 0 100px 0 rgba(47, 47, 47, 0.2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    padding: 50px 10%;
+
     @media screen and (max-width: 1200px) {
         padding: 50px 10%;
     }
     @media screen and (max-width: 500px) {
         padding: 25px;
     }
+
     & .registration__promotion__h1 {
         color: white;
         font-size: 25px;

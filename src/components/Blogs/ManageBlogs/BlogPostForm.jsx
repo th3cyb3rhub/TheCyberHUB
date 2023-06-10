@@ -1,17 +1,9 @@
 import React from "react";
 import { Form, Input, SectionCreateBlog, Submit, TagInput, TextArea } from "./CreateBlog/CreateBlogElements";
-import {
-    LoadingButton,
-    LoadingRedirectButton,
-    RouterButtonGreen,
-} from "../../Other/MixComponents/Buttons/ButtonElements";
+import { LoadingButton, LoadingRedirectButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
-import { useUserData } from "../../Dashboard/checkUserVerified";
 
 const BlogPostForm = (props) => {
-    const user = props.user;
-    const userVerified = useUserData({ user }).isVerified;
-
     return (
         <SectionCreateBlog>
             <Form onSubmit={props.onSubmit}>
@@ -49,11 +41,8 @@ const BlogPostForm = (props) => {
                     />
                 </div>
                 <div>
-                    {props.user && userVerified ? (
-                        <Submit type={"submit"}>Publish Blog</Submit>
-                    ) : (
-                        <RouterButtonGreen>Please verify your email to Post Blogs</RouterButtonGreen>
-                    )}
+                    <Submit type={"submit"}>Publish Blog</Submit>
+
                     {props.onSuccess ? (
                         <>
                             <LoadingRedirectButton to={"/blogs"} width={"100%"}>

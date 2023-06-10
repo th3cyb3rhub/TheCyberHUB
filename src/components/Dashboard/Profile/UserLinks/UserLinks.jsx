@@ -5,6 +5,12 @@ import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter, IoEarth } from 
 import Follow from "../Follow/Follow";
 
 const UserLinks = ({ userDetail, userDetails }) => {
+    const socialUsernames = userDetail?.socialLinks?.map(
+        (item) => item?.profileUsername !== "" && item?.profileUsername,
+    );
+
+    const showSocialContainer = socialUsernames?.includes(true);
+
     return (
         <UserLinksContainer>
             <UserInfo>
@@ -13,40 +19,47 @@ const UserLinks = ({ userDetail, userDetails }) => {
             </UserInfo>
             {userDetail?.user && <Follow userDetail={userDetail} userDetails={userDetails} />}
 
-            <UserBio>
-                <p className={"bio"}>{userDetail?.bio}</p>
-            </UserBio>
+            {userDetail?.bio?.length === 0 || !userDetail?.bio ? null : (
+                <UserBio>
+                    <p className={"bio"}>{userDetail?.bio}</p>
+                </UserBio>
+            )}
 
-            <UserSocialLinksContainer>
-                {userDetail?.socialLinks &&
-                    userDetail?.socialLinks?.map((item, index) => (
-                        <SocialLink key={index}>
-                            {item?.profileUsername && item?.websiteLink && (
-                                <>
-                                    {getIconComponent(item?.icon)}
-                                    <SocialUsername href={item?.websiteLink + item?.profileUsername} target="_blank">
-                                        {item?.profileUsername}
-                                    </SocialUsername>
-                                </>
-                            )}
-                            {item?.profileUsername && !item?.websiteLink && (
-                                <>
-                                    {getIconComponent(item?.icon)}
-                                    <SocialUsername
-                                        href={
-                                            item?.profileUsername.startsWith("http")
-                                                ? item?.profileUsername
-                                                : "https://" + item?.profileUsername
-                                        }
-                                        target="_blank"
-                                    >
-                                        {item?.profileUsername}
-                                    </SocialUsername>
-                                </>
-                            )}
-                        </SocialLink>
-                    ))}
-            </UserSocialLinksContainer>
+            {showSocialContainer ? (
+                <UserSocialLinksContainer>
+                    {userDetail?.socialLinks &&
+                        userDetail?.socialLinks?.map((item, index) => (
+                            <SocialLink key={index}>
+                                {item?.profileUsername && item?.websiteLink && (
+                                    <>
+                                        {getIconComponent(item?.icon)}
+                                        <SocialUsername
+                                            href={item?.websiteLink + item?.profileUsername}
+                                            target="_blank"
+                                        >
+                                            {item?.profileUsername}
+                                        </SocialUsername>
+                                    </>
+                                )}
+                                {item?.profileUsername && !item?.websiteLink && (
+                                    <>
+                                        {getIconComponent(item?.icon)}
+                                        <SocialUsername
+                                            href={
+                                                item?.profileUsername.startsWith("http")
+                                                    ? item?.profileUsername
+                                                    : "https://" + item?.profileUsername
+                                            }
+                                            target="_blank"
+                                        >
+                                            {item?.profileUsername}
+                                        </SocialUsername>
+                                    </>
+                                )}
+                            </SocialLink>
+                        ))}
+                </UserSocialLinksContainer>
+            ) : null}
         </UserLinksContainer>
     );
 };

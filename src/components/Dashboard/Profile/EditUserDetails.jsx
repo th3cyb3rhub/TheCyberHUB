@@ -50,7 +50,6 @@ const EditUserDetails = ({ user }) => {
 
         if (profileData.name === "") delete updatedUserData.name;
         if (profileData.username === "") delete updatedUserData.username;
-        console.log(updatedUserData);
 
         dispatch(updateUserDetail({ id: user._id, userData: updatedUserData }));
     };

@@ -22,7 +22,7 @@ const CreateCTF = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    if (!user || (user && user.userType !== "admin" && user.userType !== "moderator" && user.userType !== "team")) {
+    if (!user) {
         return <NotFound />;
     }
 

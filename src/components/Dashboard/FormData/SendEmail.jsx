@@ -64,7 +64,6 @@ const SendEmail = () => {
                     setIsLoading(false);
                 }
                 toast.success(response.data.message);
-                console.log(response.data.message);
                 if (response.data.message === "Something went wrong. Please try again later.") {
                     setError(true);
                     setIsSuccess(false);

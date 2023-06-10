@@ -67,3 +67,51 @@ export const ContactFormSelectOption = styled.option`
     display: flex;
     flex-wrap: wrap;
 `;
+
+export const HiredSection = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 25px;
+`;
+export const HiredInput = styled.input`
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 5px;
+    background: #101010;
+    border: transparent;
+    color: #c2c2c2;
+    width: 100%;
+    text-underline-offset: 5px;
+    font-size: 20px;
+
+    padding: 10px 25px;
+
+    transition: all 0.2s ease-in-out;
+    @media (max-width: 900px) {
+        font-size: 17px;
+    }
+    @media (max-width: 500px) {
+        font-size: 15px;
+    }
+
+    ::placeholder {
+        color: #fff;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        background: #111111;
+        transition: all 0.2s ease-in-out;
+        border: transparent;
+        color: #fff;
+    }
+`;

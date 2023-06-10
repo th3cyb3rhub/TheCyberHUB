@@ -13,13 +13,14 @@ import SendEmail from "./SendEmail";
 const FormData = () => {
     // const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    if (!user || user?.userType === "user" || (user?.userType !== "admin" && user?.userType !== "team")) {
+    if (!user) {
         return <NotFound />;
     }
 
     const [formData, setFormData] = useState([]);
-    const [errorMessage, setErrorMessage] = useState();
+    const [errorMessage, setErrorMessage] = useState("");
     const [detailsVisible, setDetailsVisible] = useState(false);
+    const [isAuthorised, setIsAuthorised] = useState(false);
     const [selectedJob, setSelectedJob] = useState(null);
 
     useEffect(() => {
@@ -35,9 +36,13 @@ const FormData = () => {
             .then((res) => res.json())
             .then((data) => {
                 setFormData(data);
+                if (data === "User not authorized") {
+                    setIsAuthorised(false);
+                } else {
+                    setIsAuthorised(true);
+                }
             })
             .catch((err) => {
-                console.error(err);
                 setErrorMessage(err.message);
             });
     }, []);
@@ -76,6 +81,10 @@ const FormData = () => {
         }
     };
 
+    if (!isAuthorised) {
+        return <NotFound />;
+    }
+
     return (
         <Wrapper>
             <FormDataContainer>
@@ -99,24 +108,24 @@ const FormData = () => {
                                 className={detailsVisible ? "active" : ""}
                             >
                                 {formData
-                                    .filter((form) => {
-                                        if (form.reason === "pentest" && showPentest) {
+                                    ?.filter((form) => {
+                                        if (form?.reason === "pentest" && showPentest) {
                                             return true;
                                         }
-                                        if (form.reason === "internship" && showInternship) {
+                                        if (form?.reason === "internship" && showInternship) {
                                             return true;
                                         }
-                                        if (form.reason === "feedback" && showFeedback) {
+                                        if (form?.reason === "feedback" && showFeedback) {
                                             return true;
                                         }
-                                        if (form.reason === "other" && showOthers) {
+                                        if (form?.reason === "other" && showOthers) {
                                             return true;
                                         }
                                         return false;
                                     })
                                     ?.map((data) => (
                                         <Job
-                                            key={data.id}
+                                            key={data?.id}
                                             onClick={() => {
                                                 setSelectedJob(data);
                                             }}
@@ -126,7 +135,7 @@ const FormData = () => {
                             </JobsCardSection>
                             {detailsVisible ? (
                                 <JobsDetailSection style={{ float: "right", width: "30%" }}>
-                                    {selectedJob ? <JobDetailsPage key={selectedJob.id} {...selectedJob} /> : null}
+                                    {selectedJob ? <JobDetailsPage key={selectedJob?.id} {...selectedJob} /> : null}
                                 </JobsDetailSection>
                             ) : null}
                         </>
@@ -141,7 +150,7 @@ const FormData = () => {
                             >
                                 {formData?.map((data) => (
                                     <Job
-                                        key={data.id}
+                                        key={data?.id}
                                         onClick={() => {
                                             setSelectedJob(data);
                                         }}
@@ -153,7 +162,7 @@ const FormData = () => {
                                 <JobsDetailSection style={{ float: "right", width: "30%" }}>
                                     {selectedJob ? (
                                         <JobDetailsPage
-                                            key={selectedJob.id}
+                                            key={selectedJob?.id}
                                             {...selectedJob}
                                             onClick={() => setDetailsVisible(false)}
                                         />

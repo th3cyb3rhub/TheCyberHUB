@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AddCommentFormContainer, Form, Input } from "./AddCommentFormElements";
 import { addComment, getAllBlogs } from "../../../features/blogs/blogSlice";
 import { useDispatch } from "react-redux";
-import { GlowingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
+import { ButtonGreen } from "../../Other/MixComponents/Buttons/ButtonElements";
 
 const AddCommentForm = (props) => {
     const [addCommentData, setAddCommentData] = useState({ comment: "" });
@@ -45,9 +45,9 @@ const AddCommentForm = (props) => {
                     onChange={onChange}
                     placeholder="Add your comment here..."
                 />
-                <GlowingButton width={"100%"} type="submit">
+                <ButtonGreen width={"100%"} type="submit">
                     Submit
-                </GlowingButton>
+                </ButtonGreen>
             </Form>
             {error && <p style={{ marginTop: "10px" }}>{error}</p>}
         </AddCommentFormContainer>

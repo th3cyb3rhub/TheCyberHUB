@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "../components/Homepage/Registration";
-import { CenterCard } from "../components/Homepage/Registration/CenterCard";
+import { CenterCard, Container } from "../components/Homepage/Registration/CenterCard";
 import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2CodePromotion";
 import { CustomInputGroup } from "../components/Other/MixComponents/InputField/CustomInputField";
 import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
 import {
-    GlowingButton,
+    ButtonGreen,
     LoadingButton,
     RouterButtonGreen,
 } from "../components/Other/MixComponents/Buttons/ButtonElements";
@@ -69,16 +68,9 @@ const Login = () => {
                 <Learn2CodePromotion>
                     <div id="reg-promo-content">
                         <RouterLink to={"/"} className="brand-logo">
-                            Thecyberhub
+                            TheCyberHUB
                         </RouterLink>
                         <h1 className="leading-title">Learn Cybersecurity For Free</h1>
-                        {/* <ul className="nav-links"> */}
-                        {/*    <li>Home</li> */}
-                        {/*    <li>Tour</li> */}
-                        {/*    <li>Courses</li> */}
-                        {/*    <li>Articles</li> */}
-                        {/*    <li>Blog</li> */}
-                        {/* </ul> */}
                     </div>
                 </Learn2CodePromotion>
                 <RegistrationFormContainer onSubmit={onSubmit}>
@@ -131,9 +123,9 @@ const Login = () => {
                         {/* </div> */}
 
                         {!isLoading ? (
-                            <GlowingButton width={"100%"} type="submit">
+                            <ButtonGreen width={"100%"} type="submit">
                                 Start Hacking
-                            </GlowingButton>
+                            </ButtonGreen>
                         ) : (
                             <LoadingButton width={"100%"} type="submit">
                                 <CircleSpinner size={20} color={"#131313"} />

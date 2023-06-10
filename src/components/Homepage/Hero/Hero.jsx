@@ -31,8 +31,8 @@ const Hero = () => {
             </HeroBg>
 
             <HeroContent>
-                <HeroH1> Cyber Security Made Easy. </HeroH1>
-                <HeroP> Cyber Security is a field that is growing at an exponential rate. </HeroP>
+                <HeroH1> Unlock the Power of Cybersecurity </HeroH1>
+                <HeroP> Join a thriving community and explore the limitless possibilities. </HeroP>
 
                 <HeroBtnWrapper>
                     <ScrollButton
