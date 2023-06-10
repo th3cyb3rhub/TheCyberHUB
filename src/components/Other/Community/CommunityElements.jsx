@@ -3,6 +3,81 @@ import { getCDNUrl } from "../../../features/apiUrl";
 import { FaDiscord } from "react-icons/fa";
 const bgImage = `${getCDNUrl}/assets/images/WebsiteLogo/thecyberworld-green01.png`;
 
+export const CommunitySection = styled.section`
+    color: white;
+    margin: 200px 0;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+        margin: 100px 0;
+    }
+`;
+
+export const CommunityContainer = styled.div`
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+`;
+
+export const CommunityHeading = styled.h2`
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    text-align: center;
+
+    @media screen and (max-width: 768px) {
+        font-size: 1.5rem;
+        margin: 0.5rem 0 1rem;
+    }
+`;
+
+export const CommunityParagraph = styled.p`
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0.5rem 0 2rem;
+    text-align: center;
+    max-width: 1100px;
+`;
+
+export const DiscordLink = styled.a`
+    text-decoration: none;
+
+    &:hover {
+        transform: scale(1.1);
+        transition: all 0.3s ease-in-out;
+    }
+`;
+
+export const DiscordButtonIcon = styled(FaDiscord)`
+    color: #5865f2;
+    font-size: 45px;
+    margin: 0 10px;
+`;
+
+export const DiscordButton = styled.button`
+    background-color: #151515;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+
+    & > span {
+        margin: 0 10px;
+        font-size: 18px;
+        color: #dadada;
+    }
+`;
+
 export const Header = styled.header`
     color: #cecac3;
     background: url(${bgImage}) no-repeat;
@@ -64,22 +139,22 @@ export const Paragraph = styled.p`
     }
 `;
 
-export const DiscordLink = styled.a`
-    @media screen and (max-width: 500px) {
-        width: 100%;
-    }
+// export const DiscordLink = styled.a`
+//     @media screen and (max-width: 500px) {
+//         width: 100%;
+//     }
+//
+//     &:hover {
+//         transform: scale(1.1);
+//         transition: all 0.3s ease-in-out;
+//     }
+// `;
 
-    &:hover {
-        transform: scale(1.1);
-        transition: all 0.3s ease-in-out;
-    }
-`;
-
-export const DiscordButton = styled(FaDiscord)`
-    color: #5865f2;
-    font-size: 45px;
-    margin: 0 10px;
-`;
+// export const DiscordButton = styled(FaDiscord)`
+//     color: #5865f2;
+//     font-size: 45px;
+//     margin: 0 10px;
+// `;
 
 export const Button = styled.button`
     background-color: #151515;

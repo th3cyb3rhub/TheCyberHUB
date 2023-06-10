@@ -1,38 +1,39 @@
 import React from "react";
 import {
-    Button,
-    Container,
-    DiscordButton,
+    CommunitySection,
+    CommunityContainer,
+    CommunityHeading,
+    CommunityParagraph,
     DiscordLink,
-    Header,
-    Heading,
-    Overlay,
-    Paragraph,
+    DiscordButtonIcon,
+    DiscordButton,
 } from "./CommunityElements";
 
 const Community = () => {
     return (
-        <Header>
-            <Overlay></Overlay>
-            <Container>
-                <Heading>
-                    Empowering the Next Generation of <br />
-                    Cybersecurity Experts
-                </Heading>
-                <Paragraph>
-                    Our community aims to assist new individuals in getting started with open-source and cybersecurity
-                    through creating cybersecurity courses and developing open-source projects for both hackers and
-                    beginners. <br />
-                    We are loved by thousands of hackers..
-                </Paragraph>
-                <DiscordLink href="https://discord.gg/thecyberworld-799183504759324672" target="blanck">
-                    <Button>
-                        <DiscordButton />
+        <CommunitySection>
+            <CommunityContainer>
+                <CommunityHeading>Empowering the Next Generation of Cybersecurity Experts</CommunityHeading>
+                <CommunityParagraph>
+                    Welcome to TheCyberHUB, the ultimate destination for hackers, cybersecurity enthusiasts, and IT
+                    professionals. Our platform is designed to empower you with a wide range of free resources,
+                    including engaging Capture The Flag (CTF) challenges, comprehensive courses, insightful blogs,
+                    interactive forums, and so much more.
+                </CommunityParagraph>
+                <CommunityParagraph>
+                    Join our vibrant community of passionate hackers, where you can learn, share knowledge, and
+                    collaborate with like-minded individuals. Whether you&apos;re just starting your cybersecurity
+                    journey or looking to expand your skills, TheCyberHUB provides the tools and support you need to
+                    succeed.
+                </CommunityParagraph>
+                <DiscordLink href="https://discord.gg/thecyberworld-799183504759324672" target="_blank">
+                    <DiscordButton>
+                        <DiscordButtonIcon />
                         <span>Join our Community on Discord</span>
-                    </Button>
+                    </DiscordButton>
                 </DiscordLink>
-            </Container>
-        </Header>
+            </CommunityContainer>
+        </CommunitySection>
     );
 };
 
