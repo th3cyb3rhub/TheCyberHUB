@@ -11,7 +11,7 @@ export const RoadmapContainer = styled.div`
     justify-content: center;
     align-items: center;
     max-width: 1000px;
-    gap: 50px;
+    gap: 25px;
 `;
 
 export const DotIcon = styled(BsDot)`
@@ -31,7 +31,7 @@ export const HrLine = styled.hr`
 export const RoadmapHeadingSection = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 70px 25px;
+    padding: 25px;
     width: 100%;
 `;
 export const RoadmapHeading = styled.h1`
@@ -40,8 +40,8 @@ export const RoadmapHeading = styled.h1`
     justify-content: center;
     text-align: center;
     align-items: center;
-    color: #090909;
-    background: #f79200;
+    color: #d9d9d9;
+    background: #090909;
     font-size: 40px;
     padding: 25px 0;
     //background: #090909;

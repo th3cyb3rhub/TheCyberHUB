@@ -59,15 +59,20 @@ export const RoadmapCard = styled.div`
     align-items: start;
     text-align: start;
 
-    width: 25em;
+    width: 100%;
+    max-width: 400px;
     height: auto;
-    background-color: #120e18;
+    background-color: #101010;
     border: 1px solid #2a2a2a;
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+        max-width: 90%;
+    }
 
     &:hover {
         transform: scale(1.05);
