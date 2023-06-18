@@ -1,3 +1,12 @@
+## [0.48.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.48.0...v0.48.1) (2023-06-18)
+
+
+### Bug Fixes
+
+* Resolve non-responsive roadmap section ([#421](https://github.com/thecyberworld/thecyberhub.org/issues/421)) ([#422](https://github.com/thecyberworld/thecyberhub.org/issues/422)) ([b63fd78](https://github.com/thecyberworld/thecyberhub.org/commit/b63fd786682fd50b4ce55cb65c2fc4e7d885256b))
+
+
+
 # [0.48.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.47.0...v0.48.0) (2023-06-10)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * password reset ([085e215](https://github.com/thecyberworld/thecyberhub.org/commit/085e2158385b54d3da0e67381de7564d39469fae))
-
-
-
-## [0.44.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.2...v0.44.3) (2023-05-01)
-
-
-### Bug Fixes
-
-* ctf certificate issue ([ce4253b](https://github.com/thecyberworld/thecyberhub.org/commit/ce4253b820cc39690d118c1b4eb1713cc3547a74))
 
 
 
