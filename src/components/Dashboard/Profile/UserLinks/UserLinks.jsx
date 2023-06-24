@@ -9,7 +9,7 @@ const UserLinks = ({ userDetail, userDetails }) => {
         (item) => item?.profileUsername !== "" && item?.profileUsername,
     );
 
-    const showSocialContainer = socialUsernames?.includes(true);
+    const showSocialContainer = socialUsernames?.includes(userDetail?.username);
 
     return (
         <UserLinksContainer>

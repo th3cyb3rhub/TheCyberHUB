@@ -9,7 +9,6 @@ import {
     ContactFormSelectOption,
     ContactFormSubmit,
     ContactFormTextArea,
-    ContentP,
     Cover,
     CoverLeft,
     CoverRight,
@@ -20,24 +19,22 @@ import {
     InternshipIcon,
     MessageIcon,
     OrgIcon,
-    PentestIcon,
     PersonIcon,
-    PhoneIcon,
     ReasonIcon,
     ResumeIcon,
-    WebIcon,
 } from "./ContactFormElements.jsx";
 
 import { getApiUrl } from "../../../features/apiUrl";
 import axios from "axios";
 import { toast } from "react-toastify";
-import InternshipProgramData from "../../Resources/Jobs/Internship/InternshipProgramData";
+import InternshipProgramData from "../../Opportunities/Internship/InternshipProgramData";
 import { JobsData } from "../../Resources/Jobs/JobsData";
 import { LoadingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
 import apiStatus from "../../../features/apiStatus";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
+import { volunteerPrograms } from "../../Opportunities/Volunteer/VolunteerData";
 
 const ContactForm = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -47,29 +44,15 @@ const ContactForm = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        company: "",
-        website: "",
-        pentestBefore: "",
         reason: "",
-        phoneNumber: "",
         reasonType: "",
         contextHeading: "",
         resume: "",
         message: "",
+        isExperienced: "",
     });
-    const {
-        name,
-        email,
-        company,
-        website,
-        reason,
-        phoneNumber,
-        reasonType,
-        pentestBefore,
-        resume,
-        contextHeading,
-        message,
-    } = formData;
+
+    const { name, email, reason, reasonType, resume, contextHeading, message, isExperienced } = formData;
 
     const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -127,15 +110,12 @@ const ContactForm = () => {
         const filledFormData = {
             name,
             email,
-            company,
-            website,
-            pentestBefore,
             reason,
-            phoneNumber,
             reasonType,
             resume,
             message,
             contextHeading,
+            isExperienced,
             submissionFrom: "thecyberhub.org",
         };
         if (name.length === 0) {
@@ -144,9 +124,11 @@ const ContactForm = () => {
             setError("Please add your email");
         } else if (reason.length === 0) {
             setError("Please select a reason");
+        } else if (isExperienced.length === 0) {
+            setError("Please tell us if you have prior experience");
         } else if (
             message.length === 0 ||
-            ((reason === "pentest" || reason === "internship") && reasonType.length === 0)
+            ((reason === "volunteer" || reason === "internship") && reasonType.length === 0)
         ) {
             setError("Please fill all of the fields");
         } else if (reason === "internship" && resume.length === 0) {
@@ -167,15 +149,12 @@ const ContactForm = () => {
                         setFormData({
                             name: "",
                             email: "",
-                            company: "",
-                            website: "",
-                            pentestBefore: "",
                             reason: "",
-                            phoneNumber: "",
                             reasonType: "",
                             contextHeading: "",
                             resume: "",
                             message: "",
+                            isExperienced: "",
                         });
                         setError(false);
                         setError2(false);
@@ -218,12 +197,7 @@ const ContactForm = () => {
 
     return (
         <ContactFormContainer id={"contactUs"}>
-            {isOpened ? (
-                <H1> {"Applications are currently open!".toUpperCase()} </H1>
-            ) : (
-                <H1> {"Applications are currently closed.".toUpperCase()} </H1>
-            )}
-            <ContentP>Internship and Services Opportunities</ContentP>
+            <H1> {"Internship, Volunteer and Speaker Opportunities.".toUpperCase()} </H1>
             <ContactFormCard>
                 <ContactFormSection onSubmit={handleSubmit}>
                     <Cover>
@@ -265,102 +239,14 @@ const ContactForm = () => {
                                 Internship {isOpened ? "(Applications Now Open!)" : null}
                                 {isClosed ? "(Applications Closed)" : null}
                             </ContactFormSelectOption>
-                            <ContactFormSelectOption value="pentest">Pentest Service</ContactFormSelectOption>
+                            <ContactFormSelectOption value="volunteer">
+                                Volunteer (Contribute to the Community)
+                            </ContactFormSelectOption>
                             <ContactFormSelectOption value="feedback">Feedback</ContactFormSelectOption>
                             <ContactFormSelectOption value="other">Other</ContactFormSelectOption>
                         </ContactFormSelect>
                     </CoverLeft>
-                    {reason === "pentest" && (
-                        <>
-                            <CoverLeft>
-                                <ContactFormLabel htmlFor="reasonType">
-                                    <PentestIcon />
-                                </ContactFormLabel>
-                                <ContactFormSelect
-                                    name="reasonType"
-                                    id="reasonType"
-                                    value={formData.reasonType}
-                                    onChange={handleChange}
-                                >
-                                    <ContactFormSelectOption value="">Select a pentest type</ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Web Application Pentest">
-                                        Web Application Pentest
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="API Pentest">API Pentest</ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Mobile Application Pentest">
-                                        Mobile Application Pentest
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Cloud Pentest">
-                                        Cloud Pentest
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="IOT and OT Pentest">
-                                        IOT and OT Pentest
-                                    </ContactFormSelectOption>
-                                    <ContactFormSelectOption value="Network Pentest">
-                                        Network Pentest
-                                    </ContactFormSelectOption>
-                                </ContactFormSelect>
-                            </CoverLeft>
 
-                            <Cover>
-                                <CoverLeft>
-                                    <ContactFormLabel htmlFor="company">
-                                        <ReasonIcon />
-                                    </ContactFormLabel>
-                                    <ContactFormInput
-                                        type="text"
-                                        name="company"
-                                        id="company"
-                                        value={formData.company}
-                                        onChange={handleChange}
-                                        placeholder={"Company"}
-                                    />
-                                </CoverLeft>
-                                <CoverRight>
-                                    <ContactFormLabel htmlFor="website">
-                                        <WebIcon />
-                                    </ContactFormLabel>
-                                    <ContactFormInput
-                                        type="text"
-                                        name="website"
-                                        id="website"
-                                        value={formData.website}
-                                        onChange={handleChange}
-                                        placeholder={"Website"}
-                                    />
-                                </CoverRight>
-                            </Cover>
-
-                            <Cover>
-                                <CoverLeft>
-                                    <ContactFormLabel htmlFor="pentestBefore">
-                                        <OrgIcon />
-                                    </ContactFormLabel>
-                                    <ContactFormInput
-                                        type="text"
-                                        name="pentestBefore"
-                                        id="pentestBefore"
-                                        value={formData.pentestBefore}
-                                        onChange={handleChange}
-                                        placeholder={"Have you performed any pentest previously?"}
-                                    />
-                                </CoverLeft>
-                                <CoverRight>
-                                    <ContactFormLabel htmlFor="phoneNumber">
-                                        <PhoneIcon />
-                                    </ContactFormLabel>
-                                    <ContactFormInput
-                                        type="text"
-                                        name="phoneNumber"
-                                        id="phoneNumber"
-                                        value={formData.phoneNumber}
-                                        onChange={handleChange}
-                                        placeholder={"Phone number, +01 0101010101"}
-                                    />
-                                </CoverRight>
-                            </Cover>
-                        </>
-                    )}
                     {isOpened && reason === "internship" && (
                         <>
                             <CoverLeft>
@@ -379,10 +265,6 @@ const ContactForm = () => {
                                             {job.id}
                                         </ContactFormSelectOption>
                                     ))}
-
-                                    {/* <ContactFormSelectOption value="SOC Analyst Internship"> */}
-                                    {/*    SOC Analyst Internship */}
-                                    {/* </ContactFormSelectOption> */}
                                 </ContactFormSelect>
                             </CoverLeft>
                             <Cover>
@@ -420,7 +302,66 @@ const ContactForm = () => {
                             />
                         </CoverLeft>
                     )}
+                    {reason === "volunteer" && (
+                        <>
+                            <CoverLeft>
+                                <ContactFormLabel htmlFor="reasonType">
+                                    <InternshipIcon />
+                                </ContactFormLabel>
+                                <ContactFormSelect
+                                    name="reasonType"
+                                    id="reasonType"
+                                    value={formData.reasonType}
+                                    onChange={handleChange}
+                                >
+                                    <ContactFormSelectOption value="">
+                                        Select a Volunteer Program (remote/online)
+                                    </ContactFormSelectOption>
+                                    {volunteerPrograms.map((volunteerProgram, id) => (
+                                        <ContactFormSelectOption value={volunteerProgram.volunteerFor} key={id}>
+                                            {volunteerProgram.volunteerFor}
+                                        </ContactFormSelectOption>
+                                    ))}
 
+                                    <ContactFormSelectOption value={"other"}>
+                                        Anything else you want to volunteer for (Please specify in the message)
+                                    </ContactFormSelectOption>
+
+                                    {/* <ContactFormSelectOption value="SOC Analyst Internship"> */}
+                                    {/*    SOC Analyst Internship */}
+                                    {/* </ContactFormSelectOption> */}
+                                </ContactFormSelect>
+                            </CoverLeft>
+                            <CoverLeft>
+                                <ContactFormLabel htmlFor="isExperienced">
+                                    <ResumeIcon />
+                                </ContactFormLabel>
+                                <ContactFormInput
+                                    type="text"
+                                    name="isExperienced"
+                                    id="isExperienced"
+                                    value={formData.isExperienced}
+                                    onChange={handleChange}
+                                    placeholder={"Do you have any experience in this field? (Yes/No)"}
+                                />
+                            </CoverLeft>
+                            <CoverLeft>
+                                <ContactFormLabel htmlFor="resume">
+                                    <ResumeIcon />
+                                </ContactFormLabel>
+                                <ContactFormInput
+                                    type="text"
+                                    name="resume"
+                                    id="resume"
+                                    value={formData.resume}
+                                    onChange={handleChange}
+                                    placeholder={
+                                        "Resume link (You can upload in drive and make sure the link is accessible in incognito mode)"
+                                    }
+                                />
+                            </CoverLeft>
+                        </>
+                    )}
                     {reason === "feedback" && (
                         <CoverLeft>
                             <ContactFormLabel htmlFor="contextHeading">
@@ -462,7 +403,17 @@ const ContactForm = () => {
                                 id="message"
                                 value={formData.message}
                                 onChange={handleChange}
-                                placeholder={reason === "internship" ? "Cover Letter (Optional) " : "Message"}
+                                placeholder={
+                                    reason === "internship" || reason === "volunteer"
+                                        ? `Cover Letter 
+
+Including: 
+- Why u want to join this program
+- Share your previous work (links) / experience (if any) 
+- Must share your github, tryhackme and linkedin profile link (if any)
+`
+                                        : "Message"
+                                }
                             />
                         </CoverLeft>
                     )}

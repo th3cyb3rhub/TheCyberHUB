@@ -33,8 +33,12 @@ export const ScrollButton = styled(Button)`
 `;
 
 export const ResumeLink = styled.a`
-    color: white;
+    color: #6fe32d;
     margin: 0 10px;
+    background: #0a0c11;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 10px;
 `;
 
 export const JobSection = styled.section`

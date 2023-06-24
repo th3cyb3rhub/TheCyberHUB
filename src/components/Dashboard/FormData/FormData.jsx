@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { FormDataContainer, FormType, FormTypesContainer, FromDataSection } from "./FormDataElements";
+import { FormDataContainer, FormType, FormTypesContainer } from "./FormDataElements";
 import { JobsCardSection, JobsDetailContainer, JobsDetailSection } from "./Jobs/JobsElements";
 import Job from "./Jobs/Job";
 import JobDetailsPage from "./Jobs/JobDetailsPage";
 import { useSelector } from "react-redux";
 import { Wrapper } from "../Profile/ProfileElements";
 import { NotFound } from "../../index";
-// import {useNavigate} from "react-router-dom";
 import { getApiUrl } from "../../../features/apiUrl";
-import SendEmail from "./SendEmail";
 
 const FormData = () => {
-    // const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
     if (!user) {
         return <NotFound />;
@@ -25,7 +22,6 @@ const FormData = () => {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("user")).token;
-        // https://api.thecyberhub.org
         fetch(getApiUrl("api/form/getFormData"), {
             method: "GET",
             headers: {
@@ -47,37 +43,36 @@ const FormData = () => {
             });
     }, []);
 
-    const [showPentest, setShowPentest] = useState(false);
-
     const [showInternship, setShowInternship] = useState(false);
+    const [showVolunteer, setShowVolunteer] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
     const [showOthers, setShowOthers] = useState(false);
 
     const handleShowState = (stateName) => {
-        if (stateName === "showPentest") {
-            setShowPentest(true);
-            setShowInternship(false);
-            setShowFeedback(false);
-            setShowOthers(false);
-            setDetailsVisible(false);
-        } else if (stateName === "showInternship") {
-            setShowPentest(false);
+        if (stateName === "showInternship") {
             setShowInternship(true);
             setShowFeedback(false);
             setShowOthers(false);
             setDetailsVisible(false);
-        } else if (stateName === "showFeedback") {
-            setShowPentest(false);
+            setShowVolunteer(false);
+        } else if (stateName === "showVolunteer") {
+            setShowVolunteer(true);
             setShowInternship(false);
-            setShowFeedback(true);
+            setShowFeedback(false);
             setShowOthers(false);
             setDetailsVisible(false);
+        } else if (stateName === "showFeedback") {
+            setShowInternship(false);
+            setShowFeedback(false);
+            setShowOthers(false);
+            setDetailsVisible(false);
+            setShowVolunteer(false);
         } else if (stateName === "showOthers") {
-            setShowPentest(false);
             setShowInternship(false);
             setShowFeedback(false);
             setShowOthers(true);
             setDetailsVisible(false);
+            setShowVolunteer(false);
         }
     };
 
@@ -92,10 +87,10 @@ const FormData = () => {
                 <FormTypesContainer>
                     <FormType onClick={() => handleShowState("showPentest")}>Services</FormType>
                     <FormType onClick={() => handleShowState("showInternship")}>Internships</FormType>
+                    <FormType onClick={() => handleShowState("showVolunteer")}>Volunteer</FormType>
                     <FormType onClick={() => handleShowState("showFeedback")}>Feedback</FormType>
                     <FormType onClick={() => handleShowState("showOthers")}>Others</FormType>
                 </FormTypesContainer>
-                <FromDataSection>{showPentest ? <SendEmail /> : null}</FromDataSection>
                 <JobsDetailContainer id="jobs">
                     {window.innerWidth > 1000 ? (
                         <>
@@ -109,10 +104,10 @@ const FormData = () => {
                             >
                                 {formData
                                     ?.filter((form) => {
-                                        if (form?.reason === "pentest" && showPentest) {
+                                        if (form?.reason === "internship" && showInternship) {
                                             return true;
                                         }
-                                        if (form?.reason === "internship" && showInternship) {
+                                        if (form?.reason === "volunteer" && showVolunteer) {
                                             return true;
                                         }
                                         if (form?.reason === "feedback" && showFeedback) {

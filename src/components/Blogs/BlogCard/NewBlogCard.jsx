@@ -57,7 +57,7 @@ const NewBlogCard = ({ blog }) => {
                             ) : null}
                         </EditBlogSection>
                         <RouterLink to={{ pathname: `/blogs/@${blog.username}/${encodeURL(blog.title)}` }}>
-                            <BlogCardImage src={coverImageUrl || image} alt={blog.title} />
+                            <BlogCardImage src={coverImageUrl || image} alt={""} />
                         </RouterLink>
                     </BlogImageSection>
                 </DetailsSection>

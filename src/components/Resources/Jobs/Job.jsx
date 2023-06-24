@@ -48,13 +48,6 @@ export default function Job(props) {
                     ))}
                 </ul>
             </JobReq>
-            {/* <JobTimeline> */}
-            {/*    <span>{props.jobTimeline.datePosted}</span> */}
-            {/*    <span className="dot">{props.jobTimeline.separator}</span> */}
-            {/*    <span> */}
-            {/*        From <span className="remote">{props.jobTimeline.directory}</span> */}
-            {/*    </span> */}
-            {/* </JobTimeline> */}
         </JobContainer>
     );
 }

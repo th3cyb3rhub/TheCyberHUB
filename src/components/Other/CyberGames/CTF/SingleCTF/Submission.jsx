@@ -151,7 +151,11 @@ const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIs
                         )}
                         {flag.hint === "" ? null : (
                             <>
-                                {hintFlagId === flag._id ? <ShowFlagHint>{flag.hint}</ShowFlagHint> : null}
+                                {hintFlagId === flag._id ? (
+                                    solvedFlags?.includes(flag._id) ? null : (
+                                        <ShowFlagHint>{flag.hint}</ShowFlagHint>
+                                    )
+                                ) : null}
                                 {solvedFlags?.includes(flag._id) ? null : (
                                     <FlagHintButton onClick={() => handleToggleHint(flag._id)}>
                                         {hintFlagId === flag._id ? (

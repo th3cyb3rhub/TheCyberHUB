@@ -54,12 +54,18 @@ export const SidebarLink = styled(RouterLink)`
     padding: 8px;
     text-decoration: none;
     list-style: none;
-    transition: 0.2s ease-in-out;
     color: #fff;
     cursor: pointer;
+    width: 80%;
+    background: rgba(76, 194, 62, 0.04);
+    border: 1px solid rgba(76, 194, 62, 0.2);
+    border-radius: 10px;
+
+    transition: 0.2s ease-in-out;
 
     &:hover {
-        color: #20c20e;
+        color: #17f31eff;
+        scale: 105%;
         transition: 0.2s ease-in-out;
     }
 `;

@@ -6,7 +6,7 @@ import Job from "./Job";
 import { JobsData } from "./JobsData";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import JobDetailsPage from "./JobDetailsPage";
-import InternshipProgram from "./Internship/InternshipProgram";
+import InternshipProgram from "../../Opportunities/Internship/InternshipProgram";
 
 const Jobs = () => {
     const [detailsVisible, setDetailsVisible] = useState(false);

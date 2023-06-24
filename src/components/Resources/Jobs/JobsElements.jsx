@@ -11,7 +11,7 @@ export const RouterLink = styled(Link)`
 
     &:hover {
         transition: 0.3s ease-in-out;
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 `;
 export const ScrollButton = styled(Button)`
@@ -108,7 +108,6 @@ export const JobsCardSection = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
     grid-gap: 25px;
-    //padding: 20px;
     box-sizing: border-box;
     cursor: pointer;
     padding: 5px;

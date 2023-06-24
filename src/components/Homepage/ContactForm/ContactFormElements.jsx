@@ -52,7 +52,7 @@ export const ContentP = styled.p`
 
 export const ContactFormContainer = styled.div`
     color: #fff;
-    margin: 100px 0 50px;
+    margin: 150px 0 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -268,7 +268,7 @@ export const ContactFormTextArea = styled.textarea`
     border: transparent;
     color: #fff;
     width: 100%;
-    height: 150px;
+    height: 250px;
     font-size: 20px;
 
     @media (max-width: 900px) {

@@ -12,8 +12,9 @@ export default function JobDetailsPage(props) {
             <JobHero>
                 <JobHeader>
                     {props?.reason === "internship" && <JobTitle>{props?.reasonType}</JobTitle>}
-                    {props?.reason === "other" && <JobTitle>{props?.contextHeading}</JobTitle>}
+                    {props?.reason === "volunteer" && <JobTitle>{props?.reasonType}</JobTitle>}
                     {props?.reason === "feedback" && <JobTitle>{props?.contextHeading}</JobTitle>}
+                    {props?.reason === "other" && <JobTitle>{props?.contextHeading}</JobTitle>}
                 </JobHeader>
             </JobHero>
             <DetailsText>
@@ -26,6 +27,13 @@ export default function JobDetailsPage(props) {
                     <DetailsText> {props?.name} </DetailsText>
                     <DetailsText> {props?.email} </DetailsText>
                 </Detail2>
+                <DetailsText>
+                    {props?.reason === "volunteer" && (
+                        <>
+                            Experienced in {props?.reasonType}: {props?.isExperienced}
+                        </>
+                    )}
+                </DetailsText>
                 <Detail2>
                     <DetailsText>
                         Resume link:

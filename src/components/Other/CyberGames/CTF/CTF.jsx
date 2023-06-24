@@ -110,7 +110,7 @@ const CTF = () => {
                         Type
                         <Select value={selectedType} onChange={handleTypeSelect}>
                             <Option value="all"> All </Option>
-                            <Option value="ctf"> CTF </Option>
+                            <Option value="challenge"> Challenge </Option>
                             <Option value="walkthrough"> Walkthrough </Option>
                             <Option value="learning"> Learning </Option>
                         </Select>
@@ -134,7 +134,14 @@ const CTF = () => {
                         ?.slice()
                         .reverse()
                         .map((challenge, index) => (
-                            <CTFLink to={{ pathname: `/ctf/${encodeURL(challenge.challengeName)}` }} key={index}>
+                            <CTFLink
+                                to={{
+                                    pathname: `/ctf/${encodeURL(challenge.type)}/${encodeURL(
+                                        challenge.difficulty,
+                                    )}/${encodeURL(challenge.challengeName)}`,
+                                }}
+                                key={index}
+                            >
                                 <CtfCard challenge={challenge} user={user} userDetail={userDetail} index={index} />
                             </CTFLink>
                         ))}

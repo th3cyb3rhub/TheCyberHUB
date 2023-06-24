@@ -168,7 +168,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Cyber Security Beginner Roadmap",
-                        url: "https://thecyberhub.org/roadmaps/mern-stack-roadmap",
+                        url: "https://thecyberhub.org/roadmaps/cyber-security-beginner",
                     },
                 ],
             },
@@ -258,7 +258,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Cyber Security Beginner Roadmap",
-                        url: "https://thecyberhub.org/roadmaps/mern-stack-roadmap",
+                        url: "https://thecyberhub.org/roadmaps/cyber-security-beginner",
                     },
                 ],
             },
@@ -573,159 +573,6 @@ const RoadmapsData = [
             },
         ],
     },
-    // {
-    //     id: 2,
-    //     title: "Cybersecurity Specialist",
-    //     level: "Entry",
-    //     desc: "Step by step guide to becoming a Cybersecurity Specialist",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 3,
-    //     title: "Cyber Crime Analyst",
-    //     level: "Entry",
-    //     desc: "Step by step guide to becoming a Cyber Crime Analyst",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 4,
-    //     title: "Incident & Intrusion Analyst",
-    //     level: "Entry",
-    //     desc: "Step by step guide to becoming an Incident & Intrusion Analyst",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 5,
-    //     title: "IT Auditor",
-    //     level: "Entry",
-    //     desc: "Step by step guide to becoming an IT Auditor",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 6,
-    //     title: "Cybersecurity Analyst",
-    //     level: "Mid",
-    //     desc: "Step by step guide to becoming a Cybersecurity Analyst",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 7,
-    //     title: "Cybersecurity Consultant",
-    //     level: "Mid",
-    //     desc: "Step by step guide to becoming a Cybersecurity Consultant",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 9,
-    //     title: "Cybersecurity Manager",
-    //     level: "Advanced",
-    //     desc: "Step by step guide to becoming a Cybersecurity Manager",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 10,
-    //     title: "Cybersecurity Engineer",
-    //     level: "Advanced",
-    //     desc: "Step by step guide to becoming a Cybersecurity Engineer",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     id: 11,
-    //     title: "Cybersecurity Architect Analyst",
-    //     level: "Advanced",
-    //     desc: "Step by step guide to becoming a Cybersecurity Architect Analyst",
-    //     details: [
-    //         {
-    //             section: "Coming Soon",
-    //             resources: [
-    //                 {
-    //                     title: "Coming Soon",
-    //                     url: "Coming Soon",
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
 ];
 
 export default RoadmapsData;

@@ -3,8 +3,9 @@ import { Link as LinkRouter } from "react-router-dom";
 import { CloseIcon } from "../Sidebar/SidebarElements";
 
 export const SideCloseIcon = styled(CloseIcon)`
-    margin-left: 95%;
-    height: 25px;
+    margin-left: 50%;
+    top: 0;
+    height: 100%;
     width: 20px;
     cursor: pointer;
 
@@ -58,7 +59,7 @@ export const DropdownItemContainer = styled.div`
     color: black;
     position: relative;
     margin: 1rem;
-    width: 250px;
+    width: 270px;
 
     &:hover {
         cursor: pointer;
@@ -86,6 +87,8 @@ export const DropdownDesc = styled.p`
     margin-top: 10px;
     text-align: start;
     color: #ababab;
+    //line bracks
+    white-space: pre-wrap;
     @media screen and (max-width: 768px) {
         font-size: 0.8rem;
     }

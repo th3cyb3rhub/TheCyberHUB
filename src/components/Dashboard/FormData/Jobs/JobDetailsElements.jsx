@@ -191,7 +191,7 @@ export const Detail2 = styled.div`
 `;
 
 export const StatusButtonNoWidth = styled.button`
-    background: #0f121e;
+    background: #0b0c0e;
     border: 1px solid #111111;
     padding: 5px 0;
     font-size: 15px;
@@ -202,6 +202,7 @@ export const DetailsText = styled.p`
     background: #0f121e;
     border-radius: 5px;
     color: #c2bbbb;
+    width: fit-content;
     margin: 10px;
     padding: 10px;
 `;

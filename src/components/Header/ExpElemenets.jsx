@@ -8,6 +8,7 @@ export const ExpContainer = styled.div`
     background: transparent;
     width: 120px;
     gap: 15px;
+    transition: 0.3s ease-in-out;
 
     @media screen and (max-width: 1350px) {
         min-width: initial;
@@ -15,10 +16,10 @@ export const ExpContainer = styled.div`
     @media screen and (max-width: 400px) {
         font-size: 12px;
     }
-    @media screen and (max-width: 970px) {
+    @media screen and (max-width: 1000px) {
         display: none;
     }
-    @media screen and (max-width: 780px) {
+    @media screen and (max-width: 820px) {
         display: flex;
     }
     @media screen and (max-width: 450px) {

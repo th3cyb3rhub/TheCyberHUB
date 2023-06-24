@@ -1,5 +1,5 @@
 import React from "react";
-import { InternshipHeader, InternshipHeading } from "../../Resources/Jobs/Internship/InternshipElements";
+import { InternshipHeader, InternshipHeading } from "../../Opportunities/Internship/InternshipElements";
 import { NavigationContainer, NavigationLink } from "./SecurityElements";
 
 const SecurityNavigation = ({ heading }) => {

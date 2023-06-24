@@ -28,17 +28,28 @@ const Navbar = ({ isOpen, toggle }) => {
     const [scrollNav, setScrollNav] = useState(false);
     const [drop, setDrop] = useState(false);
     const [resourcesClick, setResourcesClick] = useState(true);
-    const [onClosed, setOnClosed] = useState(true);
+    const [opportunities, setOpportunities] = useState(true);
+    const [toggleDropdown, setToggleDropdown] = useState(false);
     const location = useLocation();
     const onClickResources = () => {
         if (drop) setResourcesClick(false);
+    };
+
+    const onClickOpportunities = () => {
+        if (drop) setOpportunities(false);
     };
 
     const dropHandler = (title) => {
         if (title === "resources") {
             setDrop(true);
             setResourcesClick(true);
-            setOnClosed(true);
+            setOpportunities(false);
+            setToggleDropdown(true);
+        } else if (title === "programs") {
+            setDrop(true);
+            setOpportunities(true);
+            setResourcesClick(false);
+            setToggleDropdown(true);
         } else setDrop(false);
     };
 
@@ -64,7 +75,7 @@ const Navbar = ({ isOpen, toggle }) => {
                 </NavLogoRouter>
                 <NavMenu>
                     {[
-                        { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
+                        { to: "course", title: "Course", dropdown: "course" },
                         { to: "ctf", title: "CTF", dropdown: "ctf" },
                         { to: "tools", title: "Tools", dropdown: "tools" },
                         { to: "blogs", title: "Blogs", dropdown: "blogs" },
@@ -78,7 +89,15 @@ const Navbar = ({ isOpen, toggle }) => {
                             ),
                             dropdown: "resources",
                         },
-                        { to: "internship", title: "Internship", dropdown: "Internship" },
+                        {
+                            title: (
+                                <>
+                                    <p onClick={() => onClickOpportunities()}>Opportunities</p>
+                                    <DropdownIcon onClick={() => onClickOpportunities()} />
+                                </>
+                            ),
+                            dropdown: "programs",
+                        },
                     ].map(({ to, title, dropdown }) => (
                         <NavItem
                             onMouseEnter={() => dropHandler(dropdown)}
@@ -89,7 +108,20 @@ const Navbar = ({ isOpen, toggle }) => {
                                 {title}
                             </NavLink>
                             {dropdown === "resources" && resourcesClick && drop && (
-                                <Dropdown isResources={true} toggle={setOnClosed} closed={onClosed} isOpen={isOpen} />
+                                <Dropdown
+                                    isResources={true}
+                                    toggle={setToggleDropdown}
+                                    toggleDropdown={toggleDropdown}
+                                    isOpen={isOpen}
+                                />
+                            )}
+                            {dropdown === "programs" && opportunities && drop && (
+                                <Dropdown
+                                    isOpportunities={true}
+                                    toggle={setToggleDropdown}
+                                    toggleDropdown={toggleDropdown}
+                                    isOpen={isOpen}
+                                />
                             )}
                         </NavItem>
                     ))}

@@ -11,7 +11,6 @@ export const SocialUsername = styled.a`
     font-size: 15px;
     color: #e0e0e0;
     text-decoration: none;
-    margin-left: 7px;
 
     &:hover {
         text-decoration: underline;
@@ -19,7 +18,6 @@ export const SocialUsername = styled.a`
 `;
 export const SocialLink = styled.div`
     color: #e0e0e0;
-    margin: 3px 0;
     font-size: 18px;
     display: flex;
     align-items: center;
