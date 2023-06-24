@@ -1,3 +1,12 @@
+# [0.49.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.48.1...v0.49.0) (2023-06-24)
+
+
+### Features
+
+* oppurtunities programs and fix form ([#423](https://github.com/thecyberworld/thecyberhub.org/issues/423)) ([3f06062](https://github.com/thecyberworld/thecyberhub.org/commit/3f06062e37b4ba694b371e51d92c99edccdfa62c))
+
+
+
 ## [0.48.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.48.0...v0.48.1) (2023-06-18)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * follow func, blog design, and some fixes ([#417](https://github.com/thecyberworld/thecyberhub.org/issues/417)) ([30a0612](https://github.com/thecyberworld/thecyberhub.org/commit/30a0612dc520a367ecab8294ce02447996955687))
-
-
-
-# [0.45.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.44.3...v0.45.0) (2023-05-01)
-
-
-### Features
-
-* password reset ([085e215](https://github.com/thecyberworld/thecyberhub.org/commit/085e2158385b54d3da0e67381de7564d39469fae))
 
 
 
