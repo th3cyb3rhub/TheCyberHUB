@@ -1,3 +1,12 @@
+# [0.50.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.49.0...v0.50.0) (2023-06-25)
+
+
+### Features
+
+* OpenSec Projects ([#425](https://github.com/thecyberworld/thecyberhub.org/issues/425)) ([82d853a](https://github.com/thecyberworld/thecyberhub.org/commit/82d853a6fbc5e23af8b1ce242fd369e4b7224049))
+
+
+
 # [0.49.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.48.1...v0.49.0) (2023-06-24)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * new registration form, fix: follow and some minor issues ([#419](https://github.com/thecyberworld/thecyberhub.org/issues/419)) ([5a19c82](https://github.com/thecyberworld/thecyberhub.org/commit/5a19c82da4c3fcf0e9e412919c6f384a7c901040))
-
-
-
-# [0.46.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.45.0...v0.46.0) (2023-05-25)
-
-
-### Features
-
-* follow func, blog design, and some fixes ([#417](https://github.com/thecyberworld/thecyberhub.org/issues/417)) ([30a0612](https://github.com/thecyberworld/thecyberhub.org/commit/30a0612dc520a367ecab8294ce02447996955687))
 
 
 
