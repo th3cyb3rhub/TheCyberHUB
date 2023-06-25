@@ -294,7 +294,8 @@ export const ContactFormTextArea = styled.textarea`
 `;
 
 export const ContactFormSubmit = styled.button`
-    padding: 10px;
+    padding: 15px 10px;
+    font-size: 1.5rem;
     background: #101010;
     border: transparent;
     color: whitesmoke;
@@ -302,8 +303,14 @@ export const ContactFormSubmit = styled.button`
     margin: 5px 0;
     width: 100%;
     cursor: pointer;
-    font-size: 1rem;
     font-family: "Roboto", sans-serif;
+
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #6ffd01;
+        color: #000000;
+    }
 `;
 
 export const GlowingButton = styled.button`
@@ -346,9 +353,10 @@ export const GlowingButton = styled.button`
 `;
 
 export const ErrorMessage = styled.div`
-    padding: 10px 25px;
+    padding: 25px;
+    font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #666666;
+    color: #88ff00;
 `;

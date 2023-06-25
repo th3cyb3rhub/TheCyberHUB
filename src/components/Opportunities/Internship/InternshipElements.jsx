@@ -107,10 +107,27 @@ export const InternshipHeader = styled.div`
 export const InternshipHeading = styled.h1`
     font-size: 5rem;
     font-style: oblique;
+    transition: 0.2s ease-in-out;
     @media screen and (max-width: 768px) {
+        transition: 0.2s ease-in-out;
         font-size: 3rem;
     }
+    transition: 0.2s ease-in-out;
     @media screen and (max-width: 500px) {
+        transition: 0.2s ease-in-out;
         font-size: 2rem;
+    }
+`;
+export const InternshipDesc = styled.h1`
+    font-size: 25px;
+    font-family: "Fira Code", monospace;
+    transition: 0.2s ease-in-out;
+    @media screen and (max-width: 768px) {
+        transition: 0.2s ease-in-out;
+        font-size: 20px;
+    }
+    @media screen and (max-width: 500px) {
+        transition: 0.2s ease-in-out;
+        font-size: 25px;
     }
 `;

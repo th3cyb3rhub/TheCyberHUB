@@ -62,15 +62,13 @@ const ContactForm = () => {
     const [isOpened, setIsOpened] = useState(false);
     const [isClosed, setIsClosed] = useState(false);
 
-    // const [internshipMessage, setInternshipMessage] = useState('');
-    // // const currentDate = new Date().toISOString();
-
     useEffect(() => {
+        if (error || error2) {
+            toast.error("Please fill all the fields");
+        }
         InternshipProgramData.some(({ applicationOpenDate, applicationCloseDate, internshipStartTime }) => {
             const currentDate = new Date().toISOString();
-            // const currentDate = "2023-08-01T00:00:00.000Z"
-            // const currentDate = "2023-09-21T00:00:00.000Z"
-            // const currentDate = "2023-10-01T00:00:00.000Z"
+
             const isBetweenDates = (currentDate, startDate, endDate) =>
                 currentDate >= startDate && currentDate <= endDate;
 
@@ -84,12 +82,10 @@ const ContactForm = () => {
             if (isBetween) {
                 setIsOpened(true);
                 setIsClosed(false);
-                // setInternshipMessage('Applications are currently open!');
             }
             if (isClosed) {
                 setIsOpened(false);
                 setIsClosed(true);
-                // setInternshipMessage('Applications are currently closed.');
             }
             return null;
         });
@@ -104,6 +100,7 @@ const ContactForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true);
         setError(false);
         setError2(false);
         setIsSuccess(false);
@@ -126,12 +123,14 @@ const ContactForm = () => {
             setError("Please select a reason");
         } else if (isExperienced.length === 0) {
             setError("Please tell us if you have prior experience");
+        } else if (!resume.startsWith("http")) {
+            setError("please submit the correct link to your resume");
         } else if (
             message.length === 0 ||
             ((reason === "volunteer" || reason === "internship") && reasonType.length === 0)
         ) {
             setError("Please fill all of the fields");
-        } else if (reason === "internship" && resume.length === 0) {
+        } else if (reason === "internship" || (reason === "volunteer" && resume.length === 0)) {
             setError("Please include the resume link");
             // }
             // else if ((reason === "internship" && message.length < 200) || message.length > 1000) {
@@ -326,10 +325,6 @@ const ContactForm = () => {
                                     <ContactFormSelectOption value={"other"}>
                                         Anything else you want to volunteer for (Please specify in the message)
                                     </ContactFormSelectOption>
-
-                                    {/* <ContactFormSelectOption value="SOC Analyst Internship"> */}
-                                    {/*    SOC Analyst Internship */}
-                                    {/* </ContactFormSelectOption> */}
                                 </ContactFormSelect>
                             </CoverLeft>
                             <CoverLeft>
@@ -423,7 +418,7 @@ Including:
                                 Submit
                             </ContactFormSubmit>
                         ) : (
-                            <LoadingButton width={"100%"}>
+                            <LoadingButton width={"10 0%"}>
                                 <CircleSpinner size={20} color={"#131313"} />
                             </LoadingButton>
                         )
