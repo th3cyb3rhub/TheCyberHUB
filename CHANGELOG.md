@@ -1,3 +1,12 @@
+# [0.51.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.50.0...v0.51.0) (2023-08-07)
+
+
+### Features
+
+* feeds, blogs, and explore ([#429](https://github.com/thecyberworld/thecyberhub.org/issues/429)) ([eec2628](https://github.com/thecyberworld/thecyberhub.org/commit/eec262852de6cc3c3c12ad1aa3de626480398cfe))
+
+
+
 # [0.50.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.49.0...v0.50.0) (2023-06-25)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * new community and hero description ([#420](https://github.com/thecyberworld/thecyberhub.org/issues/420)) ([ec90747](https://github.com/thecyberworld/thecyberhub.org/commit/ec907470347c192a67828d2c47f0e8f96aac58bb))
-
-
-
-# [0.47.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.46.0...v0.47.0) (2023-06-10)
-
-
-### Features
-
-* new registration form, fix: follow and some minor issues ([#419](https://github.com/thecyberworld/thecyberhub.org/issues/419)) ([5a19c82](https://github.com/thecyberworld/thecyberhub.org/commit/5a19c82da4c3fcf0e9e412919c6f384a7c901040))
 
 
 
