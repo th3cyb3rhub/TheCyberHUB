@@ -3,20 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllBlogs, reset } from "../../features/blogs/blogSlice";
 import { Wrapper } from "../Dashboard/Profile/ProfileElements";
 import { AllBlogs, BlogsContainer, BlogsSection, MiddleContainer } from "./BlogsElements";
-import NewBlogCard from "./BlogCard/NewBlogCard";
+// import BlogCard from "./BlogCard/BlogCard";
 import LoadingBlogCard from "./BlogCard/LoadingBlogCard";
 import { RouterNavCreateButtonLink } from "../Header/Navbar/NavbarElements";
-import LeftBlogSidebar from "./BlogSidebar/LeftBlogSidebar";
+// import LeftBlogSidebar from "./BlogSidebar/LeftBlogSidebar";
 import UnderMaintenance from "../Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "../../features/apiStatus";
-import BlogsTags from "./BlogsTags";
+import BlogCards from "./BlogCard/BlogCards";
 
 const Blogs = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
     const dispatch = useDispatch();
     const { blogs, isLoading, isError, message } = useSelector((state) => state.blogs);
-
-    const tags = [...new Set(blogs?.map((blog) => blog?.tags).flat())].sort();
 
     useEffect(() => {
         if (isError) {
@@ -55,20 +53,11 @@ const Blogs = () => {
                 <BlogsSection>
                     <RouterNavCreateButtonLink to={"/dashboard/blogs/create"}>Create Blog</RouterNavCreateButtonLink>
                     <MiddleContainer>
-                        <div>
-                            <LeftBlogSidebar />
-                            <BlogsTags tags={tags} />
-                        </div>
-                        <AllBlogs>
-                            {blogs && Array.isArray(blogs) ? (
-                                blogs
-                                    .slice()
-                                    .reverse()
-                                    .map((blog) => <NewBlogCard key={blog?._id} blog={blog} />)
-                            ) : (
-                                <h3>There are no blogs to display</h3>
-                            )}
-                        </AllBlogs>
+                        {/* <div> */}
+                        {/*    <LeftBlogSidebar /> */}
+                        {/* <Tags tags={tags} /> */}
+                        {/* </div> */}
+                        <BlogCards blogs={blogs} />
                     </MiddleContainer>
                 </BlogsSection>
             </BlogsContainer>

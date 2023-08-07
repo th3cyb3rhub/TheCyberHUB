@@ -1,5 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
+export const DashboardRoutesContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1500px;
+`;
+
 export const DashboardContainer = styled.div`
     display: flex;
     flex-direction: row;

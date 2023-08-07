@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ExploreContentContainer } from "../Explore/ExploreElements";
 
 export const BlogsContainer = styled.div`
     display: flex;
@@ -31,12 +32,7 @@ export const SubContainerTop = styled.div`
 
 export const SubContainerHeading = styled.h4``;
 
-export const AllBlogs = styled.div`
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-gap: 1rem;
-    @media screen and (max-width: 600px) {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
+export const AllBlogs = styled(ExploreContentContainer)`
+    background-color: ${(props) => (props.displayAt === "explore" ? "#090909" : "#000000")};
+    padding: ${(props) => (props.displayAt ? "15px" : "0")};
 `;

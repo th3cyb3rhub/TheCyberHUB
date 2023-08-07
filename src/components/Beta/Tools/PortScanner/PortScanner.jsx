@@ -17,7 +17,7 @@ import { CircleSpinner } from "react-spinners-kit";
 import { getApiUrl } from "../../../../features/apiUrl";
 import apiStatus from "../../../../features/apiStatus";
 import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
-import { CgOpenCollective } from "react-icons/all";
+import { CgOpenCollective } from "react-icons/cg";
 import { CopyButton, CopyButtonSection, DownloadButton } from "../SubdomainFinder/SubdomainFinderElements";
 
 const PortScanner = () => {

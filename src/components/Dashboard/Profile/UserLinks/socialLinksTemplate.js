@@ -4,7 +4,7 @@ const SocialLinksTemplate = [
     { icon: "FaLinkedin", platform: "LinkedIn", profileUsername: "", websiteLink: "https://www.linkedin.com/in/" },
     { icon: "FaGithub", platform: "GitHub", profileUsername: "", websiteLink: "https://github.com/" },
     { icon: "FaMedium", platform: "Medium", profileUsername: "", websiteLink: "https://medium.com/@" },
-    { icon: "IoEarth", platform: "Website", profileUsername: "", websiteLink: "" },
+    { icon: "RiEarthFill", platform: "Website", profileUsername: "", websiteLink: "" },
 ];
 
 export default SocialLinksTemplate;

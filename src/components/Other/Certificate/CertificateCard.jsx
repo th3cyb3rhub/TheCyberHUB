@@ -12,18 +12,19 @@ import {
     TCWLogo,
     TCWText,
 } from "./CertificateElements";
-import { InvalidCertificate } from "../CyberGames/CTF/CTFElements";
+import { InvalidCertificate } from "../../CaptureTheFlag/CTFElements";
 import { useParams } from "react-router-dom";
 import html2canvas from "html2canvas";
 import JsPDF from "jspdf";
-import { AiFillFileImage, VscFilePdf } from "react-icons/all";
+import { AiFillFileImage } from "react-icons/ai";
+import { VscFilePdf } from "react-icons/vsc";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import Logo from "../../../assets/images/Thecyberworld_logo_outlined.png";
 import { CircleSpinner } from "react-spinners-kit";
 import { getApiUrl } from "../../../features/apiUrl";
 
 // import {getCDNUrl} from "../../../features/apiUrl";
-// const TCWlogo = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+// const TCWlogo = `${getCDNUrl}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();

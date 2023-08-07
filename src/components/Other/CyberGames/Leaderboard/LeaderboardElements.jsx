@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MdRefresh } from "react-icons/all";
+import { MdRefresh } from "react-icons/md";
 
 export const LeaderboardContainer = styled.div`
     display: flex;

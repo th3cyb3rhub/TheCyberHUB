@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { Button, Header } from "../../../Other/Community/CommunityElements";
 import { FaChevronDown } from "react-icons/fa";
-import { IoMdArrowRoundBack } from "react-icons/all";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 export const RouterLink = styled(Link)`

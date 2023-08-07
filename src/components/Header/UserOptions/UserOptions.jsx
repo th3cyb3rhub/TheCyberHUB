@@ -1,16 +1,10 @@
 import React, { useRef, useState } from "react";
 import "./UserOptions.css";
 
-import {
-    BiLogOut,
-    FaUserAstronaut,
-    // FcSettings,
-    IoLogInSharp,
-    // MdDarkMode,
-    MdDashboard,
-    // MdNotifications,
-    FaUserCircle,
-} from "react-icons/all";
+import { FaUserAstronaut, FaUserCircle } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
+import { IoMdLogIn } from "react-icons/io";
+import { MdDashboard } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RouterLink, UserOptionsContainer, UserOptionsDropdownContainer } from "./UserOptionsElements";
@@ -42,7 +36,7 @@ const NavItem = (props) => {
 const DropdownMenu = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const inDevelopment = true;
+    // const inDevelopment = true;
     const { user } = useSelector((state) => state.auth);
 
     const onLogout = () => {
@@ -65,23 +59,24 @@ const DropdownMenu = () => {
             <div className={"menu"}>
                 {!user ? (
                     <>
-                        <DropdownItem to={"/login"} leftIcon={<IoLogInSharp />}>
+                        <DropdownItem to={"/login"} leftIcon={<IoMdLogIn />}>
                             Login
                         </DropdownItem>
-                        <DropdownItem to={"/register"} leftIcon={<IoLogInSharp />}>
+                        <DropdownItem to={"/register"} leftIcon={<IoMdLogIn />}>
                             Register
                         </DropdownItem>
                     </>
                 ) : (
                     <>
+                        <DropdownItem to={"/dashboard"} leftIcon={<MdDashboard />}>
+                            Dashboard
+                        </DropdownItem>
                         <DropdownItem to={`/@${user.username}`} leftIcon={<FaUserCircle />}>
                             Public Profile
                         </DropdownItem>
-                        {!inDevelopment ? (
-                            <DropdownItem to={"/dashboard"} leftIcon={<MdDashboard />}>
-                                Dashboard
-                            </DropdownItem>
-                        ) : null}
+                        {/* {!inDevelopment ? ( */}
+
+                        {/* ) : null} */}
                         {/* <DropdownItem to={"/settings"} leftIcon={<FcSettings />}> */}
                         {/*    Settings */}
                         {/* </DropdownItem> */}

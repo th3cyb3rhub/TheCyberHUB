@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TbCrown } from "react-icons/all";
+import { TbCrown } from "react-icons/tb";
 
 export const UserPointsContainer = styled.div`
     background: #090909;

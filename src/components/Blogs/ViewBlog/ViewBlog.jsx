@@ -6,47 +6,49 @@ import { getAllBlogs, reset } from "../../../features/blogs/blogSlice";
 import { Helmet } from "react-helmet";
 
 import {
+    BlogContent,
     BlogImage,
     BlogImageContainer,
+    BlogSummary,
     BlogTitle,
-    // CommentContainer,
+    CommentContainer,
     ContainerViewBlog,
     ContentSection,
     Tag,
     Tags,
-    UsernameAndDate,
-    // ViewBlogContainer,
+    // UsernameAndDate,
     ViewBlogHeader,
 } from "./ViewBlogElements";
 
 import NotFound from "../../../NotFound";
-import PreviewMarkdown from "./PreviewMarkdown";
-// import BlogComments from "../Comments/BlogComments";
 import { toast } from "react-toastify";
 import { CircleSpinner } from "react-spinners-kit";
-import { getCDNUrlContent } from "../../../features/apiUrl";
-import { RouterLink } from "../../Beta/Tools/ToolsElements";
+import { getCdnBlogImages } from "../../../features/apiUrl";
 import apiStatus from "../../../features/apiStatus";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
-// import LeftBlogSidebar from "../BlogSidebar/LeftBlogSidebar";
+
+import "react-quill/dist/quill.bubble.css";
+// import {RouterLink} from "../../Beta/Tools/ToolsElements";
+// import PostActionsAndStats from "../../Feeds/FeedPosts/PostActionsAndStats";
+// import AddCommentForm from "../BlogComments/AddCommentForm";
+import BlogComments from "../BlogComments/BlogComments";
 
 const ViewBlog = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
     const { title } = useParams();
-
     const { blogs, isLoading, isError, message } = useSelector((state) => state.blogs);
     const dispatch = useDispatch();
 
+    // const {user} = useSelector(state => state.auth);
+
     useEffect(() => {
         if (isError) {
-            console.log(message);
-            if (message === "AxiosError: Request failed with status code 429") {
-                toast("You have reached the maximum number of requests. Please try again later.", { type: "error" });
-            }
+            toast.error(message);
         }
 
         dispatch(getAllBlogs());
+        // dispatch(getBookmarks());
         return () => {
             dispatch(reset());
         };
@@ -66,17 +68,38 @@ const ViewBlog = () => {
 
     if (!blog) return <NotFound />;
 
-    const blogUnFormattedDate = new Date(blog?.createdAt);
+    // const blogUnFormattedDate = new Date(blog?.createdAt);
 
-    const blogCreatedAt = new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-    }).format(blogUnFormattedDate);
+    // const blogCreatedAt = new Intl.DateTimeFormat("en-US", {
+    //     month: "short",
+    //     day: "numeric",
+    //     year: "numeric",
+    // }).format(blogUnFormattedDate);
 
-    const API_URL = getCDNUrlContent;
     const coverImage = blog?.coverImage;
-    const coverImageUrl = `${API_URL}/blog/${coverImage}`;
+    const coverImageUrl = `${getCdnBlogImages}/blog/${coverImage}`;
+
+    const filterContent = blog?.content.replace(/src="blog-content-(\d+\.(?:png|jpe?g|gif))"/g, (match, filename) => {
+        // You can construct the Azure Blob Storage URL here based on the filename
+        const blobUrl = `https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/development/blog/blog-content-${filename}`;
+        return `src="${blobUrl}" alt=${blog?.title} `;
+    });
+
+    const formats = [
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "indent",
+        "list-style",
+        "link",
+        "image",
+        "code-block",
+    ];
 
     return (
         <>
@@ -94,23 +117,36 @@ const ViewBlog = () => {
                 <ViewBlogHeader>
                     <BlogImageContainer>
                         <BlogImage src={coverImageUrl} alt={""} />
+                        <BlogTitle> {blog?.title} </BlogTitle>
                     </BlogImageContainer>
-                    <BlogTitle> {blog?.title} </BlogTitle>
-                    <UsernameAndDate>
-                        <RouterLink to={`/@${blog?.username}`}>@{blog?.username}</RouterLink> • {blogCreatedAt}
-                    </UsernameAndDate>
+
                     <ContentSection>
-                        <PreviewMarkdown content={blog?.content} />
+                        <BlogSummary>{blog?.summary}</BlogSummary>
+                    </ContentSection>
+                    <ContentSection>
+                        <BlogContent
+                            value={filterContent}
+                            readOnly={true}
+                            modules={{ toolbar: false }}
+                            formats={formats}
+                            theme={"bubble"}
+                        />
                     </ContentSection>
                 </ViewBlogHeader>
                 <Tags>
                     {blog?.tags.map((tag, id) => (tag.length !== 0 ? <Tag key={id}> {tag.slice(0, 40)} </Tag> : <></>))}
                 </Tags>
-                {/* <CommentContainer> */}
-                {/*    <BlogComments blog={blog} isError={isError} message={message} /> */}
-                {/*    /!* <ViewComments comments={blog?.comments} /> *!/ */}
-                {/*    /!* <AddCommentForm blog_id={blog?._id} isLoading={isLoading} /> *!/ */}
-                {/* </CommentContainer> */}
+
+                {/* <PostActionsAndStats post={blog} user={user} itemType={"blog"}/> */}
+
+                <CommentContainer>
+                    {/* <BlogComments blog={blog} isError={isError} message={message} /> */}
+                    {/* <ViewComments comments={blog?.comments} /> */}
+                    <BlogComments blog={blog} />
+                </CommentContainer>
+                {/* <UsernameAndDate> */}
+                {/*    <RouterLink to={`/@${blog?.username}`}>@{blog?.username}</RouterLink> • {blogCreatedAt} */}
+                {/* </UsernameAndDate> */}
             </ContainerViewBlog>
             {/* <LeftBlogSidebar/> */}
             {/* </ViewBlogContainer> */}

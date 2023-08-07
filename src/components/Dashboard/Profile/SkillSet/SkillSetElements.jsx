@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { FaEdit, FaPlus, MdOutlineCancel } from "react-icons/all";
+import { FaEdit, FaPlus } from "react-icons/fa";
+import { MdOutlineCancel } from "react-icons/md";
 
 export const SkillSetContainer = styled.div`
     width: 100%;

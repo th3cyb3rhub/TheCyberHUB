@@ -8,7 +8,7 @@ import {
     MainSection,
     SubSection,
     Title,
-} from "./NewBlogCardElements";
+} from "./BlogCardElements";
 
 const LoadingLineAnimation = ({ height }) => {
     return (

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link as ScrollLink } from "react-scroll";
-import { GoPrimitiveSquare } from "react-icons/all";
+import { BsSquareFill } from "react-icons/bs";
 
-export const DotSymbol = styled(GoPrimitiveSquare)`
+export const DotSymbol = styled(BsSquareFill)`
     color: #20c20e;
     margin-bottom: 4px;
     margin-right: 4px;

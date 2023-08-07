@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MdOutlineLocalFireDepartment } from "react-icons/all";
+import { MdOutlineLocalFireDepartment } from "react-icons/md";
 
 export const ExpContainer = styled.div`
     display: flex;

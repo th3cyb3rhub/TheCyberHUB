@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
+import ReactQuill from "react-quill";
 
 export const BlogImageContainer = styled.div`
     border-radius: 5px;
@@ -14,8 +15,8 @@ export const BlogImage = styled.img`
 `;
 
 export const BlogTitle = styled.h1`
+    padding-top: 15px;
     text-align: center;
-    margin-top: 20px;
     word-wrap: break-word;
     width: 100%;
     max-width: 1000px;
@@ -27,7 +28,6 @@ export const BlogTitle = styled.h1`
 `;
 
 export const UsernameAndDate = styled.h4`
-    margin: 5px auto;
     word-wrap: break-word;
     max-width: 8000px;
 
@@ -71,6 +71,218 @@ export const Tag = styled.p`
     &:hover {
         transform: scale(1.03);
     }
+`;
+
+export const ContentSection = styled.div`
+    background: #090909;
+    border: 1px solid #111111;
+    //background: #111111;
+    width: 100%;
+`;
+
+export const BlogSummary = styled.div`
+    padding: 40px;
+    font: 17px "Poppins", sans-serif;
+`;
+export const BlogContent = styled(ReactQuill)`
+    padding: 25px 25px;
+
+    * {
+        font-family: "Poppins", sans-serif;
+        font-size: 17px;
+    }
+
+    a {
+        margin: 0 5px 0 2px;
+        color: #009dff;
+        text-decoration: underline;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+            color: #0bff0b;
+            transition: 0.3s ease-in-out;
+            scale: 1.05;
+        }
+    }
+
+    //h1 {
+    //  font-size: 2em;
+    //}
+    //h2 {
+    //  font-size: 1.5em;
+    //  border-bottom: 1px #2a2a2a solid;
+    //  margin-top: 1em;
+    //}
+    //
+    //h3 {
+    //  font-size: 1.17em;
+    //}
+    //
+    //h4 {
+    //  font-size: 1em;
+    //}
+    //
+    //h5 {
+    //  font-size: 0.83em;
+    //}
+    //
+    //h6 {
+    //  font-size: 0.67em;
+    //}
+    //
+    pre {
+        font-family: "Roboto Mono", monospace;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    code {
+        font-family: "Roboto Mono", monospace;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    //
+    //p {
+    //  //font-family: "Roboto Mono", monospace;
+    //  font-family: "Poppins", sans-serif;
+    //  text-align: left;
+    //  white-space: pre-line;
+    //  font-size: 16px;
+    //  line-height: 1.5;
+    //}
+    //
+    //ol {
+    //  list-style-type: decimal;
+    //  font-family: "Roboto Mono", monospace;
+    //  text-align: left;
+    //  font-size: 20px;
+    //  line-height: 1.5;
+    //  margin-left: 20px; /* Adjust this value according to your preference */
+    //  border: #17f31e 1px solid;
+    //}
+    //ul {
+    //  list-style-type: square;
+    //  font-family: "Roboto Mono", monospace;
+    //  border: #17ecf3 1px solid;
+    //}
+    //li {
+    //  border: #17f31e 1px solid;
+    //  list-style-type: square;
+    //  display: inline-table;
+    //  font-family: "Roboto Mono", monospace;
+    //  text-align: left;
+    //  margin: 10px 0;
+    //  padding-left: 20px;
+    //  font-size: 20px;
+    //  line-height: 1.5;
+    //  white-space: pre-line;
+    //}
+    img {
+        margin: 5px 0 10px 0;
+        padding: 0;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 5px;
+    }
+    //
+    //hr {
+    //  border: 0;
+    //  height: 1px;
+    //  background: #333;
+    //}
+    //
+    //@media screen and (max-width: 600px) {
+    //  padding: 10px 20px;
+    //
+    //  * {
+    //    font-family: "Poppins", sans-serif;
+    //    margin: 10px auto;
+    //  }
+    //
+    //  a {
+    //    color: #f4f4f4;
+    //  }
+    //
+    //  h1 {
+    //    font-size: 20px;
+    //    border-bottom: 1px #2a2a2a solid;
+    //  }
+    //
+    //  h2 {
+    //    font-size: 18px;
+    //  }
+    //
+    //  h3 {
+    //    font-size: 17px;
+    //  }
+    //
+    //  h4 {
+    //    font-size: 16px;
+    //  }
+    //
+    //  h5 {
+    //    font-size: 15px;
+    //  }
+    //
+    //  h6 {
+    //    font-size: 14px;
+    //  }
+    //
+    //  code {
+    //    font-size: 14px;
+    //    font-family: "Roboto Mono", monospace;
+    //    white-space: pre-wrap;
+    //    word-break: break-word;
+    //    background-color: #1d1f21;
+    //    border-radius: 5px;
+    //    overflow-wrap: break-word;
+    //  }
+    //
+    //  p {
+    //    //font-family: "Roboto Mono", monospace;
+    //    font-family: "Poppins", sans-serif;
+    //    text-align: left;
+    //    white-space: pre-line;
+    //    font-size: 13px;
+    //    line-height: 1.5;
+    //  }
+    //
+    //  ol {
+    //    list-style-type: decimal;
+    //    //font-family: "Roboto Mono", monospace;
+    //    text-align: left;
+    //    font-size: 13px;
+    //    line-height: 1.5;
+    //    margin: 0 -60px;
+    //    padding-left: -10px;
+    //  }
+    //
+    //  ul {
+    //  }
+    //
+    //  li {
+    //    list-style-type: square;
+    //    //font-family: "Roboto Mono", monospace;
+    //    text-align: left;
+    //    margin: 0 50px;
+    //    padding: 0 10px;
+    //    white-space: pre-line;
+    //    font-size: 13px;
+    //    line-height: 1.5;
+    //  }
+    //
+    //  img {
+    //    margin-top: 0;
+    //    object-fit: contain;
+    //    border-radius: 5px;
+    //  }
+    //
+    //  hr {
+    //    border: 0;
+    //    height: 1px;
+    //    background: #333;
+    //  }
 `;
 
 export const ContentReactMarkdown = styled(ReactMarkdown)`
@@ -264,12 +476,6 @@ export const ContentReactMarkdown = styled(ReactMarkdown)`
     }
 `;
 
-export const ContentSection = styled.div`
-    background: #111111;
-    width: 100%;
-    margin: 5px auto;
-`;
-
 export const ViewBlogContainer = styled.div`
     width: 100%;
     display: flex;
@@ -299,6 +505,7 @@ export const ViewBlogHeader = styled.div`
     //font-family: "Montserrat", sans-serif;
     color: #cecac3;
     width: 100%;
+    gap: 15px;
 `;
 
 export const CommentContainer = styled.div`

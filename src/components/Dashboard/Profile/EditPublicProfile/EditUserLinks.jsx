@@ -1,7 +1,9 @@
 import React from "react";
 import { EditUserBioTextarea, UserBio, UserInfo, UserLinksContainer } from "../UserLinks/UserLinksElements";
 import { EditSocialUsername, SocialLink, UserSocialLinksContainer } from "../UserSocialLinks/UserSocialLinksElements";
-import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter, IoEarth, IoMdSave } from "react-icons/all";
+import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
+import { IoMdSave } from "react-icons/io";
+import { RiEarthFill } from "react-icons/ri";
 import { FollowButton } from "../Follow/FollowElements";
 
 const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) => {
@@ -89,8 +91,8 @@ const getIconComponent = (iconName) => {
             return <FaGithub />;
         case "FaMedium":
             return <FaMedium />;
-        case "IoEarth":
-            return <IoEarth />;
+        case "RiEarthFill":
+            return <RiEarthFill />;
         default:
             return null;
     }

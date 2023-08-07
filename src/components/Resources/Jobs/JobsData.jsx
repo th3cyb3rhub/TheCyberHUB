@@ -1,7 +1,7 @@
 import React from "react";
 import { FaBolt, FaBriefcase, FaCircle, FaMoneyCheckAlt, FaStar, FaTelegramPlane } from "react-icons/fa";
 import { RouterLink } from "./JobsElements";
-import { MdWork } from "react-icons/all";
+import { MdWork } from "react-icons/md";
 
 const iconSize = 15;
 

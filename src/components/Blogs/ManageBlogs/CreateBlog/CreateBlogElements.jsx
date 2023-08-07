@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FcAddImage } from "react-icons/all";
+import { FcAddImage } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 export const createContent = styled.input``;

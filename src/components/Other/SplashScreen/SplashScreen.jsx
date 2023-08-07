@@ -8,8 +8,8 @@ import {
     SplashScreenTextContainer,
 } from "./SplashScreenElements";
 import { TextGreenBG } from "../Support/SponsorsElements";
-import { getCDNUrl } from "../../../features/apiUrl";
-const logo = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+import { getCdnAssets } from "../../../features/apiUrl";
+const logo = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const SplashScreen = () => {
     const [showLogo, setShowLogo] = useState(true);

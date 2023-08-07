@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BsDot } from "react-icons/all";
+import { BsDot } from "react-icons/bs";
 
 export const FollowContainer = styled.div`
     //display: flex;

@@ -24,7 +24,7 @@ export { default as Event } from "./Resources/Events/ViewEvent/Event";
 // //
 export { default as CyberGames } from "./Other/CyberGames/CyberGames";
 export { default as OSINTGame } from "./Other/CyberGames/OSINTGame/OSINTGame";
-export { default as CTF } from "./Other/CyberGames/CTF/CTF";
+export { default as CTF } from "./CaptureTheFlag/CTF";
 export { default as About } from "./Homepage/About/About";
 
 // Prep //
@@ -40,13 +40,13 @@ export { default as Spinner } from "./Other/MixComponents/Spinner/Spinner";
 export { default as ViewBlog } from "./Blogs/ViewBlog/ViewBlog";
 export { default as Roadmap } from "./Learn/Roadmaps/Roadmap";
 
-export { default as Dashboard } from "../pages/Dashboard";
+export { default as Dashboard } from "./Dashboard/Dashboard";
 export { default as Login } from "../pages/Login";
 export { default as UserProfile } from "../components/Dashboard/Profile/UserProfile";
 export { default as LearningPath } from "./Resources/LearningPath/LearningPath";
 export { default as CreateBlog } from "./Blogs/ManageBlogs/CreateBlog/CreateBlog";
-export { default as GoalSetter } from "../components/Dashboard/GoalSetter/GoalSetter";
-export { default as UserBlogs } from "./Dashboard/Blogs/UserBlogs";
+export { default as GoalSetter } from "./Dashboard/OldDashbaord/GoalSetter/GoalSetter";
+export { default as UserBlogs } from "./Dashboard/OldDashbaord/Blogs/UserBlogs";
 export { default as Blogs } from "./Blogs/Blogs";
 export { default as SingleBlog } from "./Blogs/SingleBlog/SingleBlog";
 export { default as EditBlog } from "./Blogs/ManageBlogs/EditBlog/EditBlog";

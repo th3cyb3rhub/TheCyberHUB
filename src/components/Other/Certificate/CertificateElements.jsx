@@ -3,7 +3,7 @@ import { ButtonGreen } from "../MixComponents/Buttons/ButtonElements";
 import bgImage from "../../../assets/images/certificate-bg.png";
 
 // import {getCDNUrl} from "../../../features/apiUrl";
-// const bgImage = `${getCDNUrl}/assets/images/certificate-bg.png`;
+// const bgImage = `${getCDNUrl}/images/certificate-bg.png`;
 
 export const CertificateContainer = styled.div`
     margin-top: 40px;

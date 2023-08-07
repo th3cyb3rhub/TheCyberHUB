@@ -4,10 +4,11 @@ import {
     CommunityContainer,
     CommunityHeading,
     CommunityParagraph,
-    DiscordLink,
-    DiscordButtonIcon,
-    DiscordButton,
+    // DiscordLink,
+    // DiscordButtonIcon,
+    // DiscordButton,
 } from "./CommunityElements";
+import Socials from "../../Homepage/Socials/Socials";
 
 const Community = () => {
     return (
@@ -26,12 +27,8 @@ const Community = () => {
                     journey or looking to expand your skills, TheCyberHUB provides the tools and support you need to
                     succeed.
                 </CommunityParagraph>
-                <DiscordLink href="https://discord.gg/thecyberworld-799183504759324672" target="_blank">
-                    <DiscordButton>
-                        <DiscordButtonIcon />
-                        <span>Join our Community on Discord</span>
-                    </DiscordButton>
-                </DiscordLink>
+
+                <Socials />
             </CommunityContainer>
         </CommunitySection>
     );

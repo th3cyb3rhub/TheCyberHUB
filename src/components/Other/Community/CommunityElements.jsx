@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { getCDNUrl } from "../../../features/apiUrl";
+import { getCdnAssets } from "../../../features/apiUrl";
 import { FaDiscord } from "react-icons/fa";
-const bgImage = `${getCDNUrl}/assets/images/WebsiteLogo/thecyberworld-green01.png`;
+const bgImage = `${getCdnAssets}/images/WebsiteLogo/thecyberworld-green01.png`;
 
 export const CommunitySection = styled.section`
     color: white;
-    margin: 200px 0;
+    margin: 150px 0;
 
     width: 100%;
     display: flex;

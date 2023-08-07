@@ -23,7 +23,7 @@ const HallOfFame = () => {
                         {
                             name: "Yash singh chauhan",
                             username: "0xFTW",
-                            vulnerability: "Rate Limit on Blog Comments",
+                            vulnerability: "Rate Limit on Blog BlogComments",
                             profile: "https://thecyberhub.org/@0xFTW",
                         },
                     ],

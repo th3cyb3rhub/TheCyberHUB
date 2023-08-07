@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BsCheck } from "react-icons/all";
+import { BsCheck } from "react-icons/bs";
 export const BlogImageSection = styled.div``;
 export const BlogImage = styled.img``;
 export const ContainerTrendingBlogCard = styled.div`

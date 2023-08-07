@@ -18,7 +18,7 @@ import { CircleSpinner } from "react-spinners-kit";
 import { getApiUrl } from "../../../../features/apiUrl";
 import apiStatus from "../../../../features/apiStatus";
 import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
-import { IoEarthSharp } from "react-icons/all";
+import { RiEarthFill } from "react-icons/ri";
 
 const SubdomainFinder = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -102,8 +102,7 @@ const SubdomainFinder = () => {
         <Wrapper>
             <SubdomainFinderSpinner>
                 <Title>
-                    {" "}
-                    <IoEarthSharp> </IoEarthSharp> Subdomain Finder
+                    <RiEarthFill /> Subdomain Finder
                 </Title>
                 <Form onSubmit={handleSubmit}>
                     <Input

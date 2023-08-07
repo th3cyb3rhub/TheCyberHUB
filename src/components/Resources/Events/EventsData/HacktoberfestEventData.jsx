@@ -1,7 +1,7 @@
 import React from "react";
 import { ListContent, List, Link } from "../../../Learn/Roadmaps/RoadmapsElements";
-import { getCDNUrl } from "../../../../features/apiUrl";
-const HacktoberfestXthecyberworld = `${getCDNUrl}/assets/images/Events/HacktoberfestXthecyberworld.png`;
+import { getCdnAssets } from "../../../../features/apiUrl";
+const HacktoberfestXthecyberworld = `${getCdnAssets}/images/Events/HacktoberfestXthecyberworld.png`;
 
 const HacktoberfestEventData = [
     {

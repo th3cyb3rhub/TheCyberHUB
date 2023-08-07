@@ -8,7 +8,9 @@ import {
 import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
 import { ButtonGreen, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
 import { FaUserCircle } from "react-icons/fa";
-import { AiTwotoneMail, CgPassword, SiNamecheap } from "react-icons/all";
+import { AiTwotoneMail } from "react-icons/ai";
+import { SiNamecheap } from "react-icons/si";
+import { CgPassword } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,7 +18,7 @@ import { registerUser, reset, sendEmailCode, verifyEmailCode } from "../features
 import { CircleSpinner } from "react-spinners-kit";
 import { RouterLink } from "../components/Resources/Events/EventsElement";
 
-const Register = () => {
+const Register = ({ authPopup }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -112,17 +114,19 @@ const Register = () => {
     };
 
     return (
-        <Container>
-            <CenterCard>
-                <Learn2CodePromotion>
-                    <div id="reg-promo-content">
-                        <RouterLink to={"/"} className="brand-logo">
-                            {" "}
-                            TheCyberHUB{" "}
-                        </RouterLink>
-                        <h1 className="leading-title">Learn Cybersecurity For Free</h1>
-                    </div>
-                </Learn2CodePromotion>
+        <Container authPopup={authPopup}>
+            <CenterCard authPopup={authPopup}>
+                {!authPopup ? (
+                    <Learn2CodePromotion>
+                        <div id="reg-promo-content">
+                            <RouterLink to={"/"} className="brand-logo">
+                                {" "}
+                                TheCyberHUB{" "}
+                            </RouterLink>
+                            <h1 className="leading-title">Learn Cybersecurity For Free</h1>
+                        </div>
+                    </Learn2CodePromotion>
+                ) : null}
                 <RegistrationFormContainer>
                     <h1 className="registration__promotion__h1">Join over 25 million learners from around the globe</h1>
                     <p className="registration__promotion__p">
@@ -205,6 +209,7 @@ const RegisterEmail = ({
                     </RouterLink>
                 </div>
             </div>
+
             {isLoading ? (
                 <LoadingButton width={"100%"}>
                     <CircleSpinner size={20} color={"#131313"} />
@@ -214,6 +219,9 @@ const RegisterEmail = ({
                     Send Code
                 </ButtonGreen>
             )}
+            <RouterLink to={"/login"}>
+                <p style={{ color: "white", margin: "15px 0 0 0" }}>Login Instead?</p>
+            </RouterLink>
         </div>
     </>
 );

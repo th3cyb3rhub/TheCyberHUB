@@ -2,19 +2,6 @@ import axios from "axios";
 import { getApiUrl } from "../apiUrl";
 
 const API_URL = getApiUrl("api/blogs/");
-const addComment = async (blogId, commentData, token) => {
-    try {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
-        const response = await axios.post(API_URL + blogId + "/comment", { comment: commentData }, config);
-        return response.data;
-    } catch (error) {
-        throw new Error(error);
-    }
-};
 
 // Get All blogs
 const getAllBlogs = async () => {
@@ -79,7 +66,6 @@ const deleteBlog = async (blogId, token) => {
 };
 
 const blogService = {
-    addComment,
     getAllBlogs,
     createBlog,
     updateBlog,

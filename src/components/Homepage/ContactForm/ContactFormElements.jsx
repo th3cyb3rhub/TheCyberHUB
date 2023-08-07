@@ -1,16 +1,10 @@
 import styled from "styled-components";
-import {
-    AiTwotoneMail,
-    BsQuestionSquareFill,
-    BsTelephoneFill,
-    CgNotes,
-    CgOrganisation,
-    CgWorkAlt,
-    IoPersonSharp,
-    RiQuestionAnswerFill,
-    SiFirefoxbrowser,
-    SiFsecure,
-} from "react-icons/all";
+import { AiTwotoneMail } from "react-icons/ai";
+import { BsQuestionSquareFill, BsTelephoneFill, BsFillPersonFill } from "react-icons/bs";
+import { CgNotes, CgOrganisation, CgWorkAlt } from "react-icons/cg";
+import { RiQuestionAnswerFill } from "react-icons/ri";
+import { SiFirefoxbrowser, SiFsecure } from "react-icons/si";
+
 export const H1 = styled.h1`
     font-size: 30px;
     font-family: "Fira Code Medium", monospace;
@@ -19,6 +13,7 @@ export const H1 = styled.h1`
     //background: #70ff00;
     //color: black;
     color: #ffffff;
+
     &:hover {
         background: #17f31e;
         color: black;
@@ -109,7 +104,7 @@ export const CoverRight = styled.div`
     }
 `;
 
-export const PersonIcon = styled(IoPersonSharp)`
+export const PersonIcon = styled(BsFillPersonFill)`
     color: #666666;
     margin: 0 10px;
 `;
@@ -306,6 +301,7 @@ export const ContactFormSubmit = styled.button`
     font-family: "Roboto", sans-serif;
 
     transition: all 0.2s ease-in-out;
+
     &:hover {
         transition: all 0.2s ease-in-out;
         background: #6ffd01;

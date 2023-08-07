@@ -3,7 +3,7 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Homepage from "./pages/Homepage";
+import Homepage from "./components/Homepage/Homepage";
 import ScrollToTop from "./components/Other/ScrollToTop";
 import Register from "./pages/Register";
 import {
@@ -14,12 +14,9 @@ import {
     CreateBlog,
     CTF,
     CyberGames,
-    Dashboard,
-    EditBlog,
     Event,
     Events,
     Footer,
-    GoalSetter,
     InterviewQuestions,
     Jobs,
     LearningPath,
@@ -33,7 +30,6 @@ import {
     Sidebar,
     SingleBlog,
     Sponsors,
-    UserBlogs,
 } from "./components";
 import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
 import Tools from "./components/Beta/Tools/Tools";
@@ -46,8 +42,8 @@ import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
 import FormData from "./components/Dashboard/FormData/FormData";
 import SubdomainFinder from "./components/Beta/Tools/SubdomainFinder/SubdomainFinder";
 import UserProfile from "./components/Dashboard/Profile/UserProfile";
-import SingleCTF from "./components/Other/CyberGames/CTF/SingleCTF/SingleCTF";
-import CreateCTF from "./components/Other/CyberGames/CTF/CreateCTF";
+import SingleCTF from "./components/CaptureTheFlag/SingleCTF/SingleCTF";
+import CreateCTF from "./components/CaptureTheFlag/CreateCTF";
 import Leaderboard from "./components/Other/CyberGames/Leaderboard/Leaderboard";
 import UserTimestamps from "./features/UserTimestamps";
 import InternshipResponse from "./components/Dashboard/FormData/InternshipResponse";
@@ -57,18 +53,22 @@ import RulesOfEngagement from "./components/Other/Security/RulesOfEngagement";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import EditPublicProfile from "./components/Dashboard/Profile/EditPublicProfile/EditPublicProfile";
-import TagsPage from "./components/TagsPage/TagsPage";
-import TagPage from "./components/TagsPage/TagPage";
-import Social from "./components/Social/Social";
+import Explore from "./components/Explore/Explore";
+// import Feeds from "./components/Feeds/Feeds";
 import Volunteer from "./components/Opportunities/Volunteer/Volunteer";
 import TheCyberXcel from "./components/Opportunities/TheCyberXcel/TheCyberXcel";
-import OpenSecProjects from "./components/OpenSecProjects/OpenSecProjects";
+import OpenSecProjects from "./components/Opportunities/OpenSecProjects/OpenSecProjects";
+import Courses from "./components/Courses/Courses";
+import Forum from "./components/Forum/Forum";
+import ForumSubPage from "./components/Forum/ForumSubPage";
+import DashboardRoutes from "./components/Dashboard/DashboardRoutes";
+import CreateForumPost from "./components/Forum/CreateForumPost/CreateForumPost";
+import FeedRoutes from "./components/Feeds/FeedRoutes";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showWebsite, setShowWebsite] = useState(false);
     const { pathname } = useLocation();
-    const inDevelopment = true;
 
     const hostname = window.location.hostname;
 
@@ -90,12 +90,13 @@ const App = () => {
         }
     }, []);
 
-    const showFooter = () => {
-        const register = pathname !== "/register";
-        const login = pathname !== "/login";
-        const forgetPassword = pathname !== "/forgetPassword";
-        const resetPassword = pathname !== "/resetPassword/:token";
-        return register && login && forgetPassword && resetPassword;
+    const hideHomeHeader = () => {
+        const pathDashboard = pathname.includes("/dashboard");
+        const pathLogin = pathname.includes("/login");
+        const pathRegister = pathname.includes("/register");
+        const pathForgetPassword = pathname.includes("/forgetPassword");
+        const pathResetPassword = pathname.includes("/resetPassword");
+        return pathDashboard || pathLogin || pathRegister || pathForgetPassword || pathResetPassword;
     };
 
     const [isOpen, setIsOpen] = useState(false);
@@ -110,7 +111,7 @@ const App = () => {
             <>
                 {user && <UserTimestamps user={user} />}
                 <Container>
-                    {showFooter() && (
+                    {!hideHomeHeader() && (
                         <>
                             <Sidebar isOpen={isOpen} toggle={toggle} />
                             <Navbar toggle={toggle} />
@@ -136,13 +137,6 @@ const App = () => {
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
 
-                            <Route path={"/social"}>
-                                <Route index element={<Social />} />
-                                <Route exact path={":username/:title"} element={<SingleBlog />} />
-                                {/* <Route element={<NotFound/>}/> */}
-                                <Route path={"*"} element={<NotFound />} />
-                            </Route>
-
                             <Route exact path={"/contact"} element={<ContactForm />} />
                             <Route exact path={"/login"} element={<Login />} />
                             <Route exact path={"/forgetPassword"} element={<ForgotPassword />} />
@@ -155,30 +149,15 @@ const App = () => {
                                 <Route exact path={"/edit/@:username"} element={<EditPublicProfile />} />
                             </Route>
 
-                            {!inDevelopment ? (
-                                <Route path={"/dashboard/*"}>
-                                    <Route index element={<Dashboard />} />
-                                    <Route path={"goals"} element={<GoalSetter />} />
-                                    <Route path={"blogs"}>
-                                        <Route index element={<UserBlogs />} />
-                                        <Route exact path={"create"} element={<CreateBlog />} />
-                                        <Route exact path={"edit/:title"} element={<EditBlog />} />
-                                        <Route path={"*"} element={<NotFound />} />
-                                    </Route>
-                                    <Route path={"*"} element={<NotFound />} />
-                                </Route>
-                            ) : null}
+                            <Route path={"/dashboard/*"} element={<DashboardRoutes />} />
+                            <Route path={"/feeds/*"} element={<FeedRoutes />} />
 
                             <Route path={"/events/*"}>
                                 <Route index element={<Events />} />
                                 <Route path={":slug"} element={<Event />} />
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
-                            <Route path={"/ctf/*"}>
-                                <Route index element={<CTF />} />
-                                <Route path={":type/:difficulty/:ctfId"} element={<SingleCTF />} />
-                                <Route path={"*"} element={<NotFound />} />
-                            </Route>
+
                             <Route exact path={"/community"} element={<Community />} />
                             <Route exact path={"/support"} element={<Sponsors />} />
                             <Route exact path={"/about"} element={<About />} />
@@ -187,8 +166,8 @@ const App = () => {
 
                             <Route exact path={"/ctf"}>
                                 <Route index element={<CTF />} />
+                                <Route path={":type/:difficulty/:ctfId"} element={<SingleCTF />} />
                                 <Route path={"create"} element={<CreateCTF />} />
-                                {/* <Route path={"certificate"} element={<CertificatePage/>}/> */}
                                 <Route path={"certificate/:id"} element={<CertificateCard />} />
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
@@ -217,11 +196,24 @@ const App = () => {
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
 
-                            <Route path={"/tags"}>
-                                <Route index element={<TagsPage />} />
-                                <Route path={":tag"} element={<TagPage />} />
+                            <Route path={"/explore"}>
+                                <Route index element={<Explore />} />
                                 <Route path={"*"} element={<NotFound />} />
                             </Route>
+
+                            <Route path={"/courses"}>
+                                <Route index element={<Courses />} />
+                                <Route path={"*"} element={<NotFound />} />
+                            </Route>
+
+                            <Route path={"/forum"}>
+                                <Route index element={<Forum />} />
+                                <Route path={":title"} element={<ForumSubPage />} />
+
+                                <Route path={"*"} element={<NotFound />} />
+                            </Route>
+
+                            <Route path={"/dashboard/forum/create"} element={<CreateForumPost />} />
 
                             <Route>
                                 <Route path={"/security"} element={<Security />} />
@@ -243,7 +235,7 @@ const App = () => {
                             />
                         </Routes>
                     </ScrollToTop>
-                    {showFooter() && <Footer />}
+                    {hideHomeHeader() && <Footer />}
                 </Container>
                 <ToastContainer />
             </>

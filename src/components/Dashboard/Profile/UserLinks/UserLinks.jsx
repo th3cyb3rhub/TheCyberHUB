@@ -1,8 +1,10 @@
 import React from "react";
 import { UserBio, UserInfo, UserLinksContainer } from "./UserLinksElements";
 import { SocialLink, SocialUsername, UserSocialLinksContainer } from "../UserSocialLinks/UserSocialLinksElements";
-import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter, IoEarth } from "react-icons/all";
+import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
+import { RiEarthFill } from "react-icons/ri";
 import Follow from "../Follow/Follow";
+import { UserPicture } from "../../../Explore/Users/UsersElements";
 
 const UserLinks = ({ userDetail, userDetails }) => {
     const socialUsernames = userDetail?.socialLinks?.map(
@@ -14,6 +16,14 @@ const UserLinks = ({ userDetail, userDetails }) => {
     return (
         <UserLinksContainer>
             <UserInfo>
+                <UserPicture
+                    style={{
+                        height: "200px",
+                        width: "200px",
+                    }}
+                    src={"https://avatars.githubusercontent.com/u/44284877?v=4"}
+                />
+
                 <span className={"name"}>{userDetail?.name}</span>
                 <span className={"username"}>@{userDetail?.username}</span>
             </UserInfo>
@@ -76,8 +86,8 @@ const getIconComponent = (iconName) => {
             return <FaGithub />;
         case "FaMedium":
             return <FaMedium />;
-        case "IoEarth":
-            return <IoEarth />;
+        case "RiEarthFill":
+            return <RiEarthFill />;
         default:
             return null;
     }

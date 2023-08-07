@@ -1,7 +1,7 @@
 import React from "react";
 import TrendingBlogCard from "./TrendingBlogCard";
 import { ComponentTrendingBlogs } from "./TrendingBlogsElements";
-import forumData from "../../Beta/Forum/ForumData";
+import forumData from "../../Forum/ForumData";
 
 const TrendingBlogs = () => {
     return (

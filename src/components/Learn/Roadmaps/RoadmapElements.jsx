@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { BsDot, BiCircle } from "react-icons/all";
+import { BsDot } from "react-icons/bs";
+import { BiCircle } from "react-icons/bi";
 
 export const RoadmapContainer = styled.div`
     margin: 100px auto;

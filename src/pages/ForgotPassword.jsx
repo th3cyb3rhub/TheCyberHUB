@@ -16,7 +16,7 @@ import { CircleSpinner } from "react-spinners-kit";
 import { RouterLink } from "../components/Resources/Events/EventsElement";
 import { FaUserCircle } from "react-icons/fa";
 import { verifyEmailCode } from "../features/auth/authSlice";
-import { CgPassword } from "react-icons/all";
+import { CgPassword } from "react-icons/cg";
 
 const ForgotPassword = () => {
     const [formData, setFormData] = useState({

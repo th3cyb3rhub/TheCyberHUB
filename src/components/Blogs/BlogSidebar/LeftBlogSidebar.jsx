@@ -1,13 +1,14 @@
 import React from "react";
 import { ExploreContainer, ExploreHeading, LeftBlogSidebarContainer, RouterLink } from "./LeftBlogSidebarElements";
-import { AiTwotoneFlag, MdOutlineTravelExplore } from "react-icons/all";
+import { AiTwotoneFlag } from "react-icons/ai";
+import { MdOutlineTravelExplore } from "react-icons/md";
 
 const LeftBlogSidebar = () => {
     return (
         <LeftBlogSidebarContainer>
             <ExploreContainer>
                 {/* <ExploreHeading> */}
-                {/*    <CgFeed/> My Feed */}
+                {/*    <CgFeed/> My Feeds */}
                 {/* </ExploreHeading> */}
                 <RouterLink to={"/tags"}>
                     <ExploreHeading>

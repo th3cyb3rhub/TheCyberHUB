@@ -4,7 +4,7 @@ import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2C
 import { CustomInputGroup } from "../components/Other/MixComponents/InputField/CustomInputField";
 import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
 import { ButtonGreen, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
-import { CgPassword } from "react-icons/all";
+import { CgPassword } from "react-icons/cg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";

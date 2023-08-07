@@ -1,12 +1,9 @@
 import styled from "styled-components";
-import {
-    AiTwotoneMail,
-    BsQuestionSquareFill,
-    CgOrganisation,
-    IoPersonSharp,
-    RiQuestionAnswerFill,
-    SiFirefoxbrowser,
-} from "react-icons/all";
+import { AiTwotoneMail } from "react-icons/ai";
+import { BsQuestionSquareFill, BsFillPersonFill } from "react-icons/bs";
+import { CgOrganisation } from "react-icons/cg";
+import { RiQuestionAnswerFill } from "react-icons/ri";
+import { SiFirefoxbrowser } from "react-icons/si";
 
 export const ContentH = styled.h1`
     text-align: center;
@@ -81,7 +78,7 @@ export const CoverRight = styled.div`
     }
 `;
 
-export const PersonIcon = styled(IoPersonSharp)`
+export const PersonIcon = styled(BsFillPersonFill)`
     margin: 0 10px;
 `;
 

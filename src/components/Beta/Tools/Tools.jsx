@@ -6,8 +6,8 @@ import { CardToolHeading, CardTools, ContainerTools, RouterLink } from "./ToolsE
 // import apiStatus from "../../../features/apiStatus";
 import {
     // CgOpenCollective,
-    IoEarthSharp,
-} from "react-icons/all";
+    RiEarthFill,
+} from "react-icons/ri";
 
 const Tools = () => {
     // const {isApiLoading, isApiWorking} = apiStatus();
@@ -37,7 +37,7 @@ const Tools = () => {
                 <RouterLink to={"subdomainFinder"}>
                     <CardTools>
                         <CardToolHeading>
-                            <IoEarthSharp /> Subdomain Finder
+                            <RiEarthFill /> Subdomain Finder
                         </CardToolHeading>
                     </CardTools>
                 </RouterLink>

@@ -67,11 +67,9 @@ const SkillSet = ({ skills, setUserDetailData }) => {
                                 </RemoveButton>
                             </AchievementLink>
                         ))}
-                    {updatedSkills.length >= 0 && (
-                        <AddButtonSection onClick={handleAddTitle}>
-                            <IconAdd />
-                        </AddButtonSection>
-                    )}
+                    <AddButtonSection onClick={handleAddTitle}>
+                        <IconAdd />
+                    </AddButtonSection>
                 </SkillSetListItem>
             </AchievementList>
         </SkillSetContainer>

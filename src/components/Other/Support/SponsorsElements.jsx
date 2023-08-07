@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GoPrimitiveSquare } from "react-icons/all";
+import { BsSquareFill } from "react-icons/bs";
 
 export const SponsorsContainer = styled.div`
     width: 100%;
@@ -47,7 +47,7 @@ export const SponsorsDescription = styled.div`
     flex-direction: row;
 `;
 
-export const DotSymbol = styled(GoPrimitiveSquare)`
+export const DotSymbol = styled(BsSquareFill)`
     color: #20c20e;
     margin: 23px 10px 0;
     font-size: 0.5rem;

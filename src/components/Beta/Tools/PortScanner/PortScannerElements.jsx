@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { CgSoftwareDownload, MdContentCopy } from "react-icons/all";
+import { CgSoftwareDownload } from "react-icons/cg";
+import { MdContentCopy } from "react-icons/md";
 
 export const Wrapper = styled.div`
     display: flex;

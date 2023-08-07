@@ -1,8 +1,7 @@
 import React from "react";
-import { getCDNUrl } from "../../../features/apiUrl";
+import { getCdnAssets } from "../../../features/apiUrl";
 
 import { FaGithub } from "react-icons/fa";
-// import { GoPrimitiveDot } from "react-icons/go";
 import { IconsSpacing, IconsSpacing2 } from "../../Other/MixComponents/Buttons/ButtonElements";
 import { BsFillPlayFill } from "react-icons/bs";
 import { List, ListContainer, ListContent, ListIcon } from "../../Resources/Jobs/JobDetailsElements";
@@ -10,12 +9,8 @@ import { List, ListContainer, ListContent, ListIcon } from "../../Resources/Jobs
 import contributeSvg from "../../../assets/images/open-source-contribution.svg";
 import ResourcesSvg from "../../../assets/images/undraw_firmware_re_fgdy.svg";
 import VersionControlSvg from "../../../assets/images/undraw_version_control_re_mg66.svg";
-// import communitySvg from "../../../assets/images/undraw_public_discussion_re_w9up.svg`;
-// import logoThecyberworld from "../../../assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png";
-// const contributeSvg  = `${getCDNUrl}/assets/images/open-source-contribution.svg`;
-// const ResourcesSvg  = `${getCDNUrl}/assets/images/undraw_firmware_re_fgdy.svg`;
-// const VersionControlSvg  = `${getCDNUrl}/assets/images/undraw_version_control_re_mg66.svg`;
-const logoThecyberworld = `${getCDNUrl}/assets/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+
+const logoThecyberworld = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 export const aboutData = {
     id: "about",

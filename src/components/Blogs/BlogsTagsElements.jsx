@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const BlogsTagsContainer = styled.div`
+export const TagsContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -12,7 +12,7 @@ export const BlogsTagsContainer = styled.div`
     height: auto;
     background: #101010;
     margin-bottom: 15px;
-    border-radius: 15px;
+    border-radius: 5px;
 `;
 
 export const Tags = styled.div`

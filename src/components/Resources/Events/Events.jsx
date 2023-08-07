@@ -1,6 +1,6 @@
 import React from "react";
 import EventsData from "./EventsData/EventsData";
-import CTFDataOld from "../../Other/CyberGames/CTF/CTFDataOld";
+import CTFDataOld from "../../CaptureTheFlag/CTFDataOld";
 import PastEvents from "./PastEvents/PastEvents";
 import OnGoingEvents from "./OnGoingEvents/OnGoingEvents";
 import UpComingEvents from "./UpComingEvents/UpComingEvents";

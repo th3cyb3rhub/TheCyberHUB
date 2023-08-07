@@ -68,21 +68,8 @@ export const deleteBlog = createAsyncThunk("blogs/delete", async (id, thunkAPI) 
     }
 });
 
-// Add comment to blog
-export const addComment = createAsyncThunk("blog/addComment", async ({ blogId, addCommentData }, thunkAPI) => {
-    try {
-        const commentData = addCommentData.comment;
-        const token = thunkAPI.getState().auth.user.token;
-        return await blogService.addComment(blogId, commentData, token);
-    } catch (error) {
-        const message =
-            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-        return thunkAPI.rejectWithValue(message);
-    }
-});
-
 export const blogSlice = createSlice({
-    name: "blog",
+    name: "blogs",
     initialState,
     reducers: {
         reset: (state) => initialState,
@@ -93,13 +80,15 @@ export const blogSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(createBlog.fulfilled, (state, action) => {
-                state.isLoading = false;
                 state.isSuccess = true;
+                state.isLoading = false;
+                state.isError = false;
                 state.blogs.push(action.payload);
             })
             .addCase(createBlog.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
+                state.isSuccess = false;
                 state.message = action.payload;
             })
             .addCase(updateBlog.pending, (state) => {
@@ -113,36 +102,6 @@ export const blogSlice = createSlice({
                 );
             })
             .addCase(updateBlog.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-            })
-            .addCase(addComment.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(addComment.fulfilled, (state, action) => {
-                state.isLoading = false;
-                // Check if the new comment has been added to the blog
-                if (action.payload.comment) {
-                    state.isSuccess = true;
-                    // Find the index of the blog in the state.blogs array that needs to be updated
-                    const blogIndex = state.blogs.findIndex((blog) => blog._id === action.payload._id);
-                    // If the blog is found, update it in the state.blogs array by pushing the new comment to the comments array
-                    if (blogIndex !== -1) {
-                        state.blogs[blogIndex] = {
-                            ...state.blogs[blogIndex],
-                            comments: [...(state.blogs[blogIndex].comments || []), action.payload.comment],
-                        };
-                    }
-                    // If the blog is not found, push the updated blog object to the state.blogs array
-                    else {
-                        state.blogs.push(action.payload);
-                    }
-                } else {
-                    state.isSuccess = false;
-                }
-            })
-            .addCase(addComment.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

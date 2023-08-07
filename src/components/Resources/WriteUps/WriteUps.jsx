@@ -20,8 +20,9 @@ import {
     HR,
 } from "./WriteUpsElements";
 
-import { MdOutlineBookmarkAdd } from "react-icons/md";
-import { AiOutlineShareAlt } from "react-icons/all";
+import { MdBookmarkAdded, MdOutlineBookmarkAdd, MdOutlineBookmarkRemove } from "react-icons/md";
+import { AiOutlineShareAlt } from "react-icons/ai";
+import { BsFillBookmarkXFill } from "react-icons/bs";
 
 export const WriteUps = () => {
     return (
@@ -59,9 +60,9 @@ export const WriteUps = () => {
                 <MinRead>2 min read</MinRead>
                 <Bookmark>
                     <MdOutlineBookmarkAdd />
-                    {/*<MdBookmarkAdded/>*/}
-                    {/*<MdOutlineBookmarkRemove/>*/}
-                    {/*<BsFillBookmarkXFill/>*/}
+                    <MdBookmarkAdded />
+                    <MdOutlineBookmarkRemove />
+                    <BsFillBookmarkXFill />
                     <AiOutlineShareAlt />
                 </Bookmark>
             </ContentFooter>

@@ -22,13 +22,11 @@ export const DropdownContainer = styled.div`
     position: absolute;
     top: 80px;
     left: 0;
-    background: transparent;
-    transition: all 0.2s ease-in-out;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(100px);
+
+    background: #030303;
+
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    //border: 1px solid rgba(3, 3, 3, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
     @media screen and (max-width: 768px) {
         top: 0;

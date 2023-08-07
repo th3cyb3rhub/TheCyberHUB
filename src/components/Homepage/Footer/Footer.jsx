@@ -8,10 +8,10 @@ import {
     FooterRedirectLink,
     FooterRouterLink,
     FooterScrollLink,
-    FooterSocialLinksDiscord,
-    FooterSocialLinksGithub,
-    FooterSocialLinksLinktree,
-    FooterSocialLinksTwitter,
+    // FooterSocialLinksDiscord,
+    // FooterSocialLinksGithub,
+    // FooterSocialLinksLinktree,
+    // FooterSocialLinksTwitter,
     FooterWrap,
     SocialIconLinkDiscord,
     SocialIconLinkGithub,
@@ -71,37 +71,32 @@ const Footer = () => {
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle>Community</FooterLinkTitle>
-                            <FooterRouterLink to="/jobs">Internship</FooterRouterLink>
+                            <FooterRouterLink to="/explore">Explore</FooterRouterLink>
+                            <FooterRouterLink to="/blogs">Blogs</FooterRouterLink>
+                            <FooterRouterLink to="/forums">Forum</FooterRouterLink>
+                            <FooterRouterLink to="/space">Space</FooterRouterLink>
+                            <FooterRouterLink to="/ctf">CTF</FooterRouterLink>
+                        </FooterLinkItems>
+
+                        <FooterLinkItems>
+                            <FooterLinkTitle>Opportunities</FooterLinkTitle>
+                            <FooterRouterLink to="/internship">Internships</FooterRouterLink>
+                            <FooterRouterLink to="/volunteer">Volunteer</FooterRouterLink>
+                            <FooterRouterLink to="/opensec-projects ">OpenSec Projects</FooterRouterLink>
+                            <FooterRouterLink to="/thecyberxcel">TheCyberXcel</FooterRouterLink>
+                            <FooterRouterLink to="/thecyberspeak">TheCyberSpeak</FooterRouterLink>
+                        </FooterLinkItems>
+
+                        <FooterLinkItems>
+                            <FooterLinkTitle>Community</FooterLinkTitle>
                             <FooterRouterLink to="/contact">Contact</FooterRouterLink>
                             <FooterRouterLink to="/contact">Feedback</FooterRouterLink>
-                            <FooterSocialLinksDiscord to={SocialLinks.discord}>
-                                Support (Discord)
-                            </FooterSocialLinksDiscord>
+                            <FooterRouterLink to="/community">Community</FooterRouterLink>
                             <FooterRouterLink to="/support">Support</FooterRouterLink>
                         </FooterLinkItems>
+
                         <FooterLinkItems>
-                            <FooterLinkTitle>Security</FooterLinkTitle>
-                            <FooterRouterLink to="/security"> Security </FooterRouterLink>
-                            <FooterRouterLink to="/security/rules-of-engagement">Rules of Engagement</FooterRouterLink>
-                            <FooterRouterLink to="/security/hall-of-fame"> Hall of Fame </FooterRouterLink>
-                        </FooterLinkItems>
-                        <FooterLinkItems>
-                            <FooterLinkTitle> Social Media </FooterLinkTitle>
-                            <FooterSocialLinksTwitter href={SocialLinks.twitter} target={"_blank"}>
-                                Twitter
-                            </FooterSocialLinksTwitter>
-                            <FooterSocialLinksGithub href={SocialLinks.github} target={"_blank"}>
-                                GitHub
-                            </FooterSocialLinksGithub>
-                            <FooterSocialLinksDiscord href={SocialLinks.discord} target={"_blank"}>
-                                Discord
-                            </FooterSocialLinksDiscord>
-                            <FooterSocialLinksLinktree href={SocialLinks.linktree} target={"_blank"}>
-                                All Community Links
-                            </FooterSocialLinksLinktree>
-                        </FooterLinkItems>
-                        <FooterLinkItems>
-                            <FooterLinkTitle> Videos (coming soon) </FooterLinkTitle>
+                            <FooterLinkTitle> Videos </FooterLinkTitle>
                             <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
                                 About Community
                             </FooterRedirectLink>
@@ -111,6 +106,12 @@ const Footer = () => {
                             <FooterRedirectLink href={SocialLinks.youtube} target={"_blank"}>
                                 How to Contribute to the Community
                             </FooterRedirectLink>
+                        </FooterLinkItems>
+                        <FooterLinkItems>
+                            <FooterLinkTitle>Security</FooterLinkTitle>
+                            <FooterRouterLink to="/security"> Security </FooterRouterLink>
+                            <FooterRouterLink to="/security/rules-of-engagement">Rules of Engagement</FooterRouterLink>
+                            <FooterRouterLink to="/security/hall-of-fame"> Hall of Fame </FooterRouterLink>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
                 </FooterLinksContainer>

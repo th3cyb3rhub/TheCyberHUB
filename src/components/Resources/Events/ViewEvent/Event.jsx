@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
-import CTFDataOld from "../../../Other/CyberGames/CTF/CTFDataOld";
+import CTFDataOld from "../../../CaptureTheFlag/CTFDataOld";
 import { encodeURL } from "../../../Blogs/util";
 // import EventsData from "../EventsData/EventsData";
 import {

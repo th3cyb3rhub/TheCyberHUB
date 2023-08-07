@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FcAddImage } from "react-icons/all";
+import { FcAddImage } from "react-icons/fc";
 
 export const SectionUpdateBlog = styled.div`
     display: flex;

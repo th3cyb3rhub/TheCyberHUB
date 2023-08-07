@@ -16,11 +16,10 @@ import {
 } from "./CreateBlogElements";
 import axios from "axios";
 import PreviewBlogContent from "../../PreviewBlogContent";
-import { Button, PreviewIcon, PreviewSection } from "../../../Beta/Forum/ForumSubPageElements";
-import { getApiUrl, getCDNUrlContent } from "../../../../features/apiUrl";
+import { Button, PreviewIcon, PreviewSection } from "../../../Forum/ForumSubPageElements";
+import { getApiUrl } from "../../../../features/apiUrl";
 import BlogPostForm from "../BlogPostForm";
 import { toast } from "react-toastify";
-import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
 
 const CreateBlog = () => {
     const dispatch = useDispatch();
@@ -36,10 +35,12 @@ const CreateBlog = () => {
 
     const [blogData, setBlogData] = useState({
         title: "",
+        summary: "",
         content: "",
         coverImage: "",
         tags: [],
     });
+
     const { title, content, tags } = blogData;
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("");
@@ -53,125 +54,14 @@ const CreateBlog = () => {
         return () => dispatch(reset());
     }, [user, isError, message, isSuccess, navigate, dispatch]);
 
-    const handleDrop = async (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0];
-        if (!file) return;
-        if (!file.type.startsWith("image/")) {
-            toast.error("Invalid file type. Only images are allowed.");
-            return;
-        }
-        const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
-
-        if (!allowedTypes.includes(file.type)) {
-            toast.error("Invalid file type. Only png and jpg are allowed.");
-            return;
-        }
-        const maxFileSize = 1000000; // 1000KB
-        if (file.size > maxFileSize) {
-            toast.error(`File size should be less than ${maxFileSize / 1000}KB.`);
-            return;
-        }
-        try {
-            const currentDateTimeNumber = new Date().getTime();
-            const fileName = `${currentDateTimeNumber}.${file && file.type.split("/")[1]}`;
-            const formData = new FormData();
-            formData.append("image", file);
-            formData.append("folderName", "images/blog");
-            formData.append("fileName", `${fileName}`);
-            const API_URL = getApiUrl("api/upload");
-            await axios.post(API_URL, formData);
-            const newImageUrl = `${getCDNUrlContent}/images/blog/${fileName}`;
-            setBlogData((prevState) => ({
-                ...prevState,
-                content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
-            }));
-        } catch (err) {
-            if (err.message === "Request failed with status code 429") {
-                setErrorMessage("You are uploading images too fast. Please wait a few seconds and try again.");
-                errorMessage && toast.error(errorMessage);
-                if (errorMessage === "") {
-                    toast("You are uploading images too fast. Please wait a few seconds and try again.");
-                }
-            }
-        }
-    };
-    const handlePaste = async (e) => {
-        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-        let file = null;
-
-        // Check if the paste event contains an image
-        for (const item of items) {
-            if (item.type.startsWith("image")) {
-                file = item.getAsFile();
-                break;
-            }
-        }
-        if (!file) return;
-        if (!file.type.startsWith("image/")) {
-            toast.error("Invalid file type. Only images are allowed.");
-            return;
-        }
-        if (file.type !== ("image/png" || "image/jpeg" || "image/jpg")) {
-            toast.error("Invalid file type. Only png and jpg are allowed.");
-            return;
-        }
-        const maxFileSize = 1000000; // 1000KB
-        if (file.size > maxFileSize) {
-            toast.error(`File size should be less than ${maxFileSize / 1000}KB.`);
-            return;
-        }
-        try {
-            const currentDateTimeNumber = new Date().getTime();
-            const fileName = `${currentDateTimeNumber}.${file && file.type.split("/")[1]}`;
-            const formData = new FormData();
-            formData.append("image", file);
-            formData.append("folderName", "images/blog");
-            formData.append("fileName", `${fileName}`);
-            const API_URL = getApiUrl("api/upload");
-            await axios.post(API_URL, formData);
-            const newImageUrl = `${getCDNUrlContent}/images/blog/${fileName}`;
-            setBlogData((prevState) => ({
-                ...prevState,
-                content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
-            }));
-        } catch (err) {
-            if (err.message === "Request failed with status code 429") {
-                setErrorMessage("You are uploading images too fast. Please wait a few seconds and try again.");
-                errorMessage && toast.error(errorMessage);
-                if (errorMessage === "") {
-                    toast("You are uploading images too fast. Please wait a few seconds and try again.");
-                }
-            }
-        }
-    };
-
     const onChange = (e) => {
         const value = e.target.value;
-        // if (e.target.name === "tags") value = value.split(",").map((tag) => tag.trim());
-
-        // if (file) {
-        //     if (e.target.name === "title") {
-        //         const newFile = new File(
-        //             [file],
-        //             `${
-        //                 value &&
-        //                 value
-        //                     .toLowerCase()
-        //                     .replace(/ +/g, "_")
-        //                     .replace(/[^a-zA-Z0-9]/g, "_")
-        //                     .replace(/_+/g, "_")
-        //             }_by_${user.username}.${file && file.type.split("/")[1]}`,
-        //             { type: file && file.type },
-        //         );
-        //         setFile(newFile);
-        //     }
-        // }
         setBlogData((prevState) => ({
             ...prevState,
             [e.target.name]: value,
         }));
     };
+
     const onFileChange = (e) => {
         const file = e.target.files[0];
         const currentDateTimeNumber = new Date().getTime();
@@ -220,7 +110,7 @@ const CreateBlog = () => {
 
             const formData = new FormData();
             formData.append("image", file);
-            formData.append("folderName", "images/blog");
+            formData.append("folderName", "blog");
             formData.append("fileName", `${ImageNameWithExt}`);
 
             try {
@@ -243,9 +133,9 @@ const CreateBlog = () => {
         }
     };
 
-    if (user) {
-        return <UnderMaintenance />;
-    }
+    // if (user) {
+    //     return <UnderMaintenance />;
+    // }
 
     return (
         <Wrapper>
@@ -302,9 +192,7 @@ const CreateBlog = () => {
                         onChange={onChange}
                         isLoading={isLoading}
                         onSuccess={isSuccess}
-                        handleDrop={handleDrop}
                         handleDragOver={handleDragOver}
-                        handlePaste={handlePaste}
                         user={user}
                     />
                 )}
