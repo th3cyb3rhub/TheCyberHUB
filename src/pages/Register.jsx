@@ -35,25 +35,25 @@ const Register = ({ authPopup }) => {
     const [emailSent, setEmailSent] = useState(false);
     const [emailRegistered, setEmailRegistered] = useState(false);
     const { name, username, email, password, password2, termsAndConditions, code } = formData;
-    const { user, isLoading, isError, message } = useSelector((state) => state.auth);
+    const { user, isUserLoading, isUserError, userMessage } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        // if (isError) {toast.error(message);}
-        if (message) {
-            toast(message);
+        if (isUserError || userMessage) {
+            toast(userMessage);
         }
+
         if (user) {
             navigate("/");
         }
         dispatch(userReset());
 
-        if (message === "Email sent successfully") {
+        if (userMessage === "Email sent successfully") {
             setEmailSent(true);
         }
-        if (message === "Email verified successfully") {
+        if (userMessage === "Email verified successfully") {
             setEmailRegistered(true);
         }
-    }, [user, isError, message, navigate, dispatch]);
+    }, [user, isUserError, userMessage, navigate, dispatch]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -141,13 +141,13 @@ const Register = ({ authPopup }) => {
                                       setFormData,
                                       formData,
                                       termsAndConditions,
-                                      isLoading,
+                                      isUserLoading,
                                   })
                                 : VerifyCode({
                                       code,
                                       onChange,
                                       onSubmitVerifyCode,
-                                      isLoading,
+                                      isUserLoading,
                                   })
                             : AddUserData({
                                   name,
@@ -156,7 +156,7 @@ const Register = ({ authPopup }) => {
                                   password2,
                                   onChange,
                                   onSubmitUserData,
-                                  isLoading,
+                                  isUserLoading,
                               })}
                     </div>
                 </RegistrationFormContainer>
@@ -169,7 +169,7 @@ const RegisterEmail = ({
     email,
     onChange,
     onSubmitSendEmail,
-    isLoading,
+    isUserLoading,
     setFormData,
     formData,
     termsAndConditions,
@@ -207,7 +207,7 @@ const RegisterEmail = ({
                 </div>
             </div>
 
-            {isLoading ? (
+            {isUserLoading ? (
                 <LoadingButton width={"100%"}>
                     <CircleSpinner size={20} color={"#131313"} />
                 </LoadingButton>
@@ -223,7 +223,7 @@ const RegisterEmail = ({
     </>
 );
 
-const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isLoading }) => (
+const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isUserLoading }) => (
     <>
         <VerificationCodeSection>
             <CustomInputGroup style={{ width: "100%" }}>
@@ -238,7 +238,7 @@ const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isLoading }) => (
                     aria-label={"Code"}
                 />
             </CustomInputGroup>
-            {!isLoading ? (
+            {!isUserLoading ? (
                 <ButtonGreen style={{ width: "150px", height: "100%" }} onClick={onSubmitVerifyCode}>
                     Verify
                 </ButtonGreen>
@@ -251,7 +251,7 @@ const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isLoading }) => (
     </>
 );
 
-const AddUserData = ({ name, username, password, password2, onChange, onSubmitUserData, isLoading }) => (
+const AddUserData = ({ name, username, password, password2, onChange, onSubmitUserData, isUserLoading }) => (
     <>
         <CustomInputGroup>
             <span>
@@ -310,7 +310,7 @@ const AddUserData = ({ name, username, password, password2, onChange, onSubmitUs
             />
         </CustomInputGroup>
 
-        {!isLoading ? (
+        {!isUserLoading ? (
             <ButtonGreen width={"100%"} onClick={onSubmitUserData}>
                 Start Hacking
             </ButtonGreen>
