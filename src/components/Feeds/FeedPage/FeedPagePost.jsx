@@ -18,6 +18,7 @@ import PopUpWindow from "../../Common/PopUpWindow";
 import ImageSlider from "../../Common/ImageSlider/ImageSlider";
 import { ImageContainer, ImageUploadContainer, UploadedImage } from "../PostForm/AddPostElements";
 import { IconVerified } from "../../Explore/Users/UsersElements";
+import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
 const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFeedView }) => {
     const [showPopupWindow, setShowPopupWindow] = useState(false);
@@ -26,10 +27,12 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
         setSelectedImageIndex(index);
         setShowPopupWindow(true);
     };
+    const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatarDummy.png"));
+
     return (
         <FeedPostContainer>
             <LeftSection>
-                <PostHeaderImg src={"https://avatars.githubusercontent.com/u/44284877?v=4"} alt="Profile picture" />
+                <PostHeaderImg src={avatar} alt={feed?.username + `avatar`} />
             </LeftSection>
             <RightSection>
                 <PostHeader>

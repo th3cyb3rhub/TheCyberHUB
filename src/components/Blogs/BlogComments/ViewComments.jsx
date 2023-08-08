@@ -22,7 +22,7 @@ const ViewComments = ({ comments }) => {
                 <CommentSection key={id}>
                     <SectionUserPicture>
                         <UserPicture
-                            src={cdnContentImagesUrl("/user/" + (comment?.avatar || "1691297013370.png"))}
+                            src={cdnContentImagesUrl("/user/" + (comment?.avatar || "avatarDummy.png"))}
                             alt={comment?.avatar}
                         />
                     </SectionUserPicture>

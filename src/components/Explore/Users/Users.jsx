@@ -41,7 +41,7 @@ const Users = ({ userDetails, searchTerm }) => {
             {displayedUsers?.map((user, id) => (
                 <RouteLink to={`/@${user.username}`} key={user.username}>
                     <UserContainer>
-                        <UserPicture src={cdnContentImagesUrl("/user/" + (user?.avatar || "1691297013370.png"))} />
+                        <UserPicture src={cdnContentImagesUrl("/user/" + (user?.avatar || "avatarDummy.png"))} />
                         <UserDetail>
                             <Header>
                                 <Name>{user.name}</Name>

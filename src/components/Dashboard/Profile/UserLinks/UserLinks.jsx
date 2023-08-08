@@ -14,7 +14,7 @@ const UserLinks = ({ userDetail, userDetails }) => {
 
     const showSocialContainer = socialUsernames?.includes(userDetail?.username);
 
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "1691297013370.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
 
     return (
         <UserLinksContainer>

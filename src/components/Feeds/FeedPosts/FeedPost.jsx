@@ -19,7 +19,7 @@ import { IconVerified } from "../../Explore/Users/UsersElements";
 import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
 const FeedPost = ({ feed, user, comments, likes, bookmarks, views, setStopRefresh, displayAt }) => {
-    const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "1691297013370.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatarDummy.png"));
 
     return (
         <FeedPostContainer displayAt={displayAt}>

@@ -5,8 +5,9 @@ import { FooterSection, PostFormButton } from "../PostForm/AddPostElements";
 import { addFeedComment } from "../../../features/feeds/feedComments/feedCommentsSlice";
 import { LeftSection, PostHeader, PostHeaderImg, RightSection } from "../FeedPosts/FeedPostsElements";
 import AuthPopup from "../../../pages/AuthPopup/AuthPopup";
+import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
-const AddFeedComment = ({ feedId }) => {
+const AddFeedComment = ({ feedId, userDetail }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
 
@@ -35,11 +36,14 @@ const AddFeedComment = ({ feedId }) => {
         textarea.style.height = `${textarea.scrollHeight}px`; // Set height to fit content
         setAddReply({ reply: textarea.value }); // Update only the 'reply' property in the state
     };
+
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+
     return (
         <AddFeedCommentContainer>
             {showAuthPopup && <AuthPopup onClose={() => setShowAuthPopup(false)} />}
             <LeftSection>
-                <PostHeaderImg src={"https://avatars.githubusercontent.com/u/44284877?v=4"} alt="Profile picture" />
+                <PostHeaderImg src={avatar} alt={userDetail?.username + `avatar`} />
             </LeftSection>
             <RightSection>
                 <PostHeader>

@@ -12,12 +12,15 @@ import {
 import { RouteLink } from "../../Dashboard/Sidebar/SidebarElements";
 import { dateFormatter } from "../../Common/dateFormatter";
 import PostActionsAndStats from "../FeedPosts/PostActionsAndStats";
+import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
 const ReplyCard = ({ reply, user, comments, likes, bookmarks, views, displayAt, updateFeedView }) => {
+    const avatar = cdnContentImagesUrl("/user/" + (reply?.avatar || "avatarDummy.png"));
+
     return (
         <FeedPostContainer displayAt={displayAt}>
             <LeftSection>
-                <PostHeaderImg src={"https://avatars.githubusercontent.com/u/44284877?v=4"} alt="Profile picture" />
+                <PostHeaderImg src={avatar} alt={reply?.username + `avatar`} />
             </LeftSection>
             <RightSection>
                 <RouteLink to={`/feeds/${reply?._id}`}>

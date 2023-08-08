@@ -47,7 +47,7 @@ const Feeds = () => {
         <Wrapper style={{ marginTop: "80px" }}>
             <FeedsContainer>
                 <MiddleSection>
-                    <AddFeed showPostTags={true} />
+                    <AddFeed showPostTags={true} userDetails={userDetails} />
                     <FeedPosts feeds={combinedData} isFeedLoading={isFeedLoading} />
                 </MiddleSection>
             </FeedsContainer>

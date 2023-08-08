@@ -122,7 +122,7 @@ const FeedPage = () => {
                         updateFeedView={true}
                     />
 
-                    <AddFeedComment feedId={feedId} />
+                    <AddFeedComment feedId={feedId} userDetail={userDetail} />
 
                     <FeedReplies
                         user={user}

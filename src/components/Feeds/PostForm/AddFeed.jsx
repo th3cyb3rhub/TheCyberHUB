@@ -15,13 +15,13 @@ import {
 import { FeedCommentInput } from "../FeedComments/AddFeedCommentsElements";
 import { LeftSection, PostHeaderImg, RightSection } from "../FeedPosts/FeedPostsElements";
 import { ImageUploadLabel } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
-import { getApiUrl } from "../../../features/apiUrl";
+import { cdnContentImagesUrl, getApiUrl } from "../../../features/apiUrl";
 import axios from "axios";
 import { CircleSpinner } from "react-spinners-kit";
 import { createFeed } from "../../../features/feeds/feedsSlice";
 import { toast } from "react-toastify";
 
-const AddPost = ({ showPostTags }) => {
+const AddPost = ({ showPostTags, userDetails }) => {
     const dispatch = useDispatch();
     const textareaRef = useRef(null);
     const imageInputRef = useRef(null);
@@ -126,10 +126,13 @@ const AddPost = ({ showPostTags }) => {
         }
     };
 
+    const userDetail = userDetails?.find((userDetail) => userDetail?.user === user?._id);
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+
     return (
         <AddFeedCommentContainer>
             <LeftSection>
-                <PostHeaderImg src={"https://avatars.githubusercontent.com/u/44284877?v=4"} alt="Profile picture" />
+                <PostHeaderImg src={avatar} alt="Profile picture" />
             </LeftSection>
             <RightSection>
                 <FeedCommentInput
