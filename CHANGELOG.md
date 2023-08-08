@@ -1,3 +1,12 @@
+## [0.53.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.0...v0.53.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* reg issue ([f45bfc6](https://github.com/thecyberworld/thecyberhub.org/commit/f45bfc6d5ce0a7f079e19bf7b8e3ba36d45270bb))
+
+
+
 # [0.53.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.52.0...v0.53.0) (2023-08-08)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * OpenSec Projects ([#425](https://github.com/thecyberworld/thecyberhub.org/issues/425)) ([82d853a](https://github.com/thecyberworld/thecyberhub.org/commit/82d853a6fbc5e23af8b1ce242fd369e4b7224049))
-
-
-
-# [0.49.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.48.1...v0.49.0) (2023-06-24)
-
-
-### Features
-
-* oppurtunities programs and fix form ([#423](https://github.com/thecyberworld/thecyberhub.org/issues/423)) ([3f06062](https://github.com/thecyberworld/thecyberhub.org/commit/3f06062e37b4ba694b371e51d92c99edccdfa62c))
 
 
 
