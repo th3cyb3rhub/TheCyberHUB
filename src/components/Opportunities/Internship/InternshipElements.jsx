@@ -36,7 +36,7 @@ export const ApplicationOpenText = styled.p`
 export const ApplicationHeading = styled.h3`
     font-size: 1.3rem;
     font-family: "Fira Code", monospace;
-    color: greenyellow;
+    color: #00b2ff;
     text-align: center;
     @media screen and (max-width: 768px) {
         font-size: 1.1rem;
@@ -79,7 +79,7 @@ export const InternshipCard = styled.div`
   font-size: 1.1rem;
   position: relative;
   //background: transparent;
-  box-shadow: 0 0 100px 0 rgba(63, 255, 0, 0.2);
+  box-shadow: 0 0 100px 0 rgba(255, 174, 0, 0.25);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(145, 145, 145, 0.18);

@@ -10,7 +10,7 @@ export const CustomInputGroup = styled.div`
     padding: 4px 8px;
 
     &:focus-within {
-        border-color: green !important;
+        border-color: #ff6b08 !important;
     }
 
     & input {
@@ -19,7 +19,7 @@ export const CustomInputGroup = styled.div`
         background: transparent;
         border: none;
         outline: none;
-        color: white;
+        color: #f5f5f5;
         font-size: 15px;
     }
 
@@ -35,7 +35,7 @@ export const CustomInputGroup = styled.div`
         background: transparent;
         border: none;
         outline: none;
-        color: white;
+        color: #f5f5f5;
         font-size: 20px;
     }
 

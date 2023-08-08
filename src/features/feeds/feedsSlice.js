@@ -3,10 +3,10 @@ import feedsService from "./feedsService";
 
 const initialState = {
     feeds: [],
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    message: "",
+    isFeedError: false,
+    isFeedSuccess: false,
+    isFeedLoading: false,
+    feedMessage: "",
 };
 
 // Create new feed
@@ -72,81 +72,81 @@ export const feedsSlice = createSlice({
     name: "feeds",
     initialState,
     reducers: {
-        reset: (state) => initialState,
+        feedReset: (state) => initialState,
     },
     extraReducers: (builder) => {
         builder
             .addCase(createFeed.pending, (state) => {
-                state.isLoading = true;
+                state.isFeedLoading = true;
             })
             .addCase(createFeed.fulfilled, (state, action) => {
-                state.isSuccess = true;
-                state.isLoading = false;
-                state.isError = false;
+                state.isFeedSuccess = true;
+                state.isFeedLoading = false;
+                state.isFeedError = false;
                 state.feeds.push(action.payload);
             })
             .addCase(createFeed.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isFeedLoading = false;
                 state.isError = true;
-                state.isSuccess = false;
-                state.message = action.payload;
+                state.isFeedSuccess = false;
+                state.feedMessage = action.payload;
             })
             .addCase(updateFeed.pending, (state) => {
-                state.isLoading = true;
+                state.isFeedLoading = true;
             })
             .addCase(updateFeed.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isFeedLoading = false;
+                state.isFeedSuccess = true;
                 state.feeds = state.feeds.map((feed) =>
                     feed._id === action.payload._id ? { ...feed, ...action.payload } : feed,
                 );
             })
             .addCase(updateFeed.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isFeedLoading = false;
                 state.isError = true;
-                state.message = action.payload;
+                state.feedMessage = action.payload;
             })
             .addCase(getFeeds.pending, (state) => {
-                state.isLoading = true;
+                state.isFeedLoading = true;
             })
             .addCase(getFeeds.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isFeedLoading = false;
+                state.isFeedSuccess = true;
                 state.feed = action.payload;
             })
             .addCase(getFeeds.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isFeedLoading = false;
                 state.isError = true;
-                state.message = action.payload;
+                state.feedMessage = action.payload;
             })
             .addCase(getAllFeeds.pending, (state) => {
-                state.isLoading = true;
+                state.isFeedLoading = true;
             })
             .addCase(getAllFeeds.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isFeedLoading = false;
+                state.isFeedSuccess = true;
                 state.feeds = action.payload;
             })
             .addCase(getAllFeeds.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isFeedLoading = false;
                 state.isError = true;
-                state.message = action.payload;
+                state.feedMessage = action.payload;
             })
             .addCase(deleteFeed.pending, (state) => {
-                state.isLoading = true;
+                state.isFeedLoading = true;
             })
             .addCase(deleteFeed.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isFeedLoading = false;
+                state.isFeedSuccess = true;
                 state.feed = state.feed.filter((feed) => feed._id !== action.payload.id);
             })
             .addCase(deleteFeed.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isFeedLoading = false;
                 state.isError = true;
-                state.message = action.payload;
+                state.feedMessage = action.payload;
             });
     },
 });
 
-export const { reset } = feedsSlice.actions;
+export const { feedReset } = feedsSlice.actions;
 export default feedsSlice.reducer;

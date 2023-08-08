@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { reset, resetPasswordWithToken } from "../features/resetPassword/resetPasswordSlice";
 import { CircleSpinner } from "react-spinners-kit";
-import { RouterLink } from "../components/Resources/Events/EventsElement";
+import { RouterLink } from "../components/Events/EventsElement";
 
 const ResetPassword = () => {
     const [formData, setFormData] = useState({

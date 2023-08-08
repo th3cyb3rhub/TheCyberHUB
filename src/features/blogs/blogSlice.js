@@ -3,10 +3,10 @@ import blogService from "./blogService";
 
 const initialState = {
     blogs: [],
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    message: "",
+    isBlogError: false,
+    isBlogSuccess: false,
+    isBlogLoading: false,
+    blogMessage: "",
 };
 
 // Create new blog
@@ -72,81 +72,81 @@ export const blogSlice = createSlice({
     name: "blogs",
     initialState,
     reducers: {
-        reset: (state) => initialState,
+        blogReset: (state) => initialState,
     },
     extraReducers: (builder) => {
         builder
             .addCase(createBlog.pending, (state) => {
-                state.isLoading = true;
+                state.isBlogLoading = true;
             })
             .addCase(createBlog.fulfilled, (state, action) => {
-                state.isSuccess = true;
-                state.isLoading = false;
-                state.isError = false;
+                state.isBlogSuccess = true;
+                state.isBlogLoading = false;
+                state.isBlogError = false;
                 state.blogs.push(action.payload);
             })
             .addCase(createBlog.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.isSuccess = false;
-                state.message = action.payload;
+                state.isBlogLoading = false;
+                state.isBlogError = true;
+                state.isBlogSuccess = false;
+                state.blogMessage = action.payload;
             })
             .addCase(updateBlog.pending, (state) => {
-                state.isLoading = true;
+                state.isBlogLoading = true;
             })
             .addCase(updateBlog.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isBlogLoading = false;
+                state.isBlogSuccess = true;
                 state.blogs = state.blogs.map((blog) =>
                     blog._id === action.payload._id ? { ...blog, ...action.payload } : blog,
                 );
             })
             .addCase(updateBlog.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isBlogLoading = false;
+                state.isBlogError = true;
+                state.blogMessage = action.payload;
             })
             .addCase(getBlogs.pending, (state) => {
-                state.isLoading = true;
+                state.isBlogLoading = true;
             })
             .addCase(getBlogs.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isBlogLoading = false;
+                state.isBlogSuccess = true;
                 state.blogs = action.payload;
             })
             .addCase(getBlogs.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isBlogLoading = false;
+                state.isBlogError = true;
+                state.blogMessage = action.payload;
             })
             .addCase(getAllBlogs.pending, (state) => {
-                state.isLoading = true;
+                state.isBlogLoading = true;
             })
             .addCase(getAllBlogs.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isBlogLoading = false;
+                state.isBlogSuccess = true;
                 state.blogs = action.payload;
             })
             .addCase(getAllBlogs.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isBlogLoading = false;
+                state.isBlogError = true;
+                state.blogMessage = action.payload;
             })
             .addCase(deleteBlog.pending, (state) => {
-                state.isLoading = true;
+                state.isBlogLoading = true;
             })
             .addCase(deleteBlog.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isBlogLoading = false;
+                state.isBlogSuccess = true;
                 state.blogs = state.blogs.filter((blog) => blog._id !== action.payload.id);
             })
             .addCase(deleteBlog.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isBlogLoading = false;
+                state.isBlogError = true;
+                state.blogMessage = action.payload;
             });
     },
 });
 
-export const { reset } = blogSlice.actions;
+export const { blogReset } = blogSlice.actions;
 export default blogSlice.reducer;

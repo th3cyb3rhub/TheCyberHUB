@@ -97,8 +97,8 @@ export const JobDetails = styled.div`
     }
 
     & div.badge {
-        background: #20c20e;
-        color: white;
+        background: #ff6b08;
+        color: #f5f5f5;
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -121,7 +121,7 @@ export const JobDetails = styled.div`
 `;
 
 export const ListIcon = styled(DotSymbol)`
-    color: #20c20e;
+    color: #ff6b08;
     margin-bottom: 4px;
     margin-right: 4px;
     font-size: 0.5rem;
@@ -157,7 +157,7 @@ export const ListContent = styled.p`
     font-size: 15px;
 `;
 export const JobDetailsTimeline = styled(JobDetails)`
-    color: #20c20e;
+    color: #ff6b08;
     column-gap: 0.4rem;
     font-size: 0.89rem;
     margin-top: auto;
@@ -167,7 +167,7 @@ export const JobDetailsTimeline = styled(JobDetails)`
     }
 
     & span.dot {
-        color: #fff;
+        color: #f5f5f5;
         font-size: 0.2rem;
     }
 

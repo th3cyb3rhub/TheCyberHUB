@@ -37,7 +37,7 @@ export const AchievementLink = styled.a`
 `;
 
 export const IconDot = styled(BsDot)`
-    color: #5eff00;
+    color: #ff6b08;
     margin: 0 0 0 10px;
     font-size: 1.5rem;
 `;

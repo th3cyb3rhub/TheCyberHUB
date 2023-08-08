@@ -8,7 +8,7 @@ export const TagsInputContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 5px;
-    padding: 10px;
+    //padding: 10px 0;
     border: ${(props) => (props.size === "lg" ? "#222222 1px solid" : "transparent")};
     background: ${(props) => (props.size === "lg" ? "#0c0c0c" : "transparent")};
 `;
@@ -19,7 +19,7 @@ export const TagsInput = styled.div`
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
-    color: #fff;
+    color: #f5f5f5;
     text-underline-offset: 5px;
     font-family: "Poppins", sans-serif;
     gap: 5px;
@@ -37,7 +37,7 @@ export const TagInput = styled.input`
     border-radius: 5px;
     //background: transparent;
     background: #2d2d2d;
-    color: #fff;
+    color: #f5f5f5;
     text-underline-offset: 5px;
     //border: #222222 1px solid;
     border: transparent;
@@ -50,7 +50,7 @@ export const TagInput = styled.input`
 
     ::placeholder {
         //transition: all 0.1s ease-in-out;
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -64,13 +64,13 @@ export const IconAdd = styled(BiPlus)`
     padding: 1px;
     border-radius: 5px;
     cursor: pointer;
-    color: #fff;
+    color: #f5f5f5;
     background: #1a1c1d;
     transition: all 0.2s ease-in-out;
 
     &:hover {
         background: #26292a;
-        color: #fff;
+        color: #f5f5f5;
         transition: all 0.2s ease-in-out;
         padding: 0;
     }
@@ -80,13 +80,13 @@ export const IconRemove = styled(BiMinus)`
     padding: 1px;
     border-radius: 5px;
     cursor: pointer;
-    color: #fff;
+    color: #f5f5f5;
     background: #1a1c1d;
     transition: all 0.2s ease-in-out;
 
     &:hover {
         background: #26292a;
-        color: #fff;
+        color: #f5f5f5;
         transition: all 0.2s ease-in-out;
         padding: 0;
     }
@@ -97,7 +97,7 @@ export const Submit = styled.button`
     margin: 10px 0;
     background: #111213;
     border: transparent;
-    color: whitesmoke;
+    color: #f5f5f5;
     border-radius: 5px;
     width: 100%;
     cursor: pointer;
@@ -107,7 +107,7 @@ export const Submit = styled.button`
 
     &:hover {
         background: #282a2c;
-        color: #fff;
+        color: #f5f5f5;
         transition: all 0.2s ease-in-out;
     }
 `;

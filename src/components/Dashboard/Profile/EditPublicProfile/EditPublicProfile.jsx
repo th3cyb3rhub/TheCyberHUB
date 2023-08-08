@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetail, reset, updateUserDetail } from "../../../../features/userDetail/userDetailSlice";
+import { getUserDetail, userDetailReset, updateUserDetail } from "../../../../features/userDetail/userDetailSlice";
 import { ProfileContainer, ProfileDetailsSection, Wrapper } from "../ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
 import { NotFound } from "../../../index";
@@ -37,12 +37,13 @@ const EditPublicProfile = () => {
         }
 
         dispatch(getUserDetail(user.username));
-        return () => dispatch(reset());
+        return () => dispatch(userDetailReset());
     }, [isError, message, dispatch, user.username]);
 
-    const { aboutMe, bio, skills, achievements, cyberProfiles, socialLinks, projects } = userDetail;
+    const { avatar, aboutMe, bio, skills, achievements, cyberProfiles, socialLinks, projects } = userDetail;
 
     const getInitialUserDetailData = () => ({
+        avatar: avatar || "",
         bio: bio || "",
         aboutMe: aboutMe || "",
         skills: skills || [],
@@ -69,13 +70,15 @@ const EditPublicProfile = () => {
             await dispatch(updateUserDetail({ id: userDetail?.user, userData: userDetailData }));
             navigate(`/@${user.username}`);
             setIsSuccess(true);
+
+            setUserDetailData(getInitialUserDetailData());
         }
     };
 
     if (isLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} />
+                <CircleSpinner size={20} color={"#ff6b08"} />
             </Wrapper>
         );
     }

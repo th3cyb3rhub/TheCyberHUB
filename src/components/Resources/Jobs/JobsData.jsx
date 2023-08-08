@@ -13,7 +13,7 @@ export const JobsData = [
         jobRoleTitle: "Penetration Tester",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -21,32 +21,32 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -62,7 +62,7 @@ export const JobsData = [
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -81,7 +81,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -146,7 +146,7 @@ export const JobsData = [
         jobRoleTitle: "Content Creator",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -154,32 +154,32 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -195,7 +195,7 @@ export const JobsData = [
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -214,7 +214,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -258,7 +258,7 @@ export const JobsData = [
         jobRoleTitle: "MERN Stack Developer",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -266,32 +266,32 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -307,7 +307,7 @@ export const JobsData = [
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -326,7 +326,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -377,7 +377,7 @@ export const JobsData = [
         jobRoleTitle: "Next.js Developer",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -385,32 +385,32 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -426,7 +426,7 @@ export const JobsData = [
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -445,7 +445,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -496,7 +496,7 @@ export const JobsData = [
         jobRoleTitle: "React Native Android Developer Intern",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -504,32 +504,32 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -547,7 +547,7 @@ export const JobsData = [
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -566,7 +566,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -617,7 +617,7 @@ export const JobsData = [
         jobRoleTitle: "Graphic Design Intern",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "On-site/Remote",
@@ -625,33 +625,33 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume and
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Resume and
                 Portfolio
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -671,7 +671,7 @@ export const JobsData = [
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -690,7 +690,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -730,7 +730,7 @@ export const JobsData = [
         jobRoleTitle: "UI/UX Design Intern",
         jobRating: (
             <>
-                4.5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                4.5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -738,32 +738,32 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -781,7 +781,7 @@ export const JobsData = [
                 <br /> <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -800,7 +800,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -840,7 +840,7 @@ export const JobsData = [
         jobRoleTitle: "Business Development Intern",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -848,32 +848,32 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+                        <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Real world experience
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Real world experience
                     </>
                 ),
             },
-            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag</>),},
+            // {item: (<><FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag</>),},
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Unpaid Internship
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Unpaid Internship
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -889,7 +889,7 @@ export const JobsData = [
                 <br />
                 We&apos;re excited to offer a unique internship opportunity designed to provide you with hands-on,
                 real-world experience in the field. Although this is an
-                <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship, we are committed to making it a
+                <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship, we are committed to making it a
                 valuable experience for you.
                 {/* After two months of hard work and dedication, we&apos;ll provide you with some swag to show our appreciation. */}
                 <br />
@@ -908,7 +908,7 @@ export const JobsData = [
                 If you&apos;re eager to learn and make a difference,
                 <br />
                 Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -949,7 +949,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             5.0
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
     //         </>
     //     ),
     //     jobLocation: "India",
@@ -983,11 +983,11 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaClock size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaClock size={iconSize} style={{ color: "#07b6f6" }} />
     //             Urgently hiring
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -1012,7 +1012,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             5.0
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
     //         </>
     //     ),
     //     jobLocation: "Hybrid",
@@ -1037,15 +1037,15 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employe
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -1073,7 +1073,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             4.6
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
     //         </>
     //     ),
     //     jobLocation: "Remote",
@@ -1107,15 +1107,15 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employer
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -1143,7 +1143,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             4.8
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
     //         </>
     //     ),
     //     jobLocation: "Hybrid",
@@ -1176,19 +1176,19 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaClock size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaClock size={iconSize} style={{ color: "#07b6f6" }} />
     //             Urgently hiring
     //         </>,
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employer
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -1216,7 +1216,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             5.0
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
     //         </>
     //     ),
     //     jobLocation: "U.S.A",
@@ -1250,19 +1250,19 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaClock size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaClock size={iconSize} style={{ color: "#07b6f6" }} />
     //             Urgently hiring
     //         </>,
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employer
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -1288,7 +1288,7 @@ export const JobsData = [
     //     jobRoleTitle: "SOC Analyst",
     //     jobRating: (
     //         <>
-    //             5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             5 <FaStar size={iconSize} style={{ color: "#07b6f6" }} />
     //         </>
     //     ),
     //     jobLocation: "Remote",
@@ -1296,31 +1296,31 @@ export const JobsData = [
     //         {
     //             item: (
     //                 <>
-    //                     <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+    //                     <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6" }} /> Including Swag
     //                 </>
     //             ),
     //         },
     //         {
     //             item: (
     //                 <>
-    //                     <MdWork size={iconSize} style={{ color: "yellowgreen" }} /> 10 Openings
+    //                     <MdWork size={iconSize} style={{ color: "#07b6f6" }} /> 10 Openings
     //                 </>
     //             ),
     //         },
     //         {
     //             item: (
     //                 <>
-    //                     <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+    //                     <FaBriefcase size={iconSize} style={{ color: "#07b6f6" }} /> Performance-based incentives
     //                 </>
     //             ),
     //         },
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
     //         </>,
     //     ],
     //     jobDesc1: (
@@ -1336,14 +1336,14 @@ export const JobsData = [
     //             <br />
     //             If you&apos;re eager to learn and make a difference,
     //             <br /> Submit your resume and cover letter through our
-    //             <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+    //             <RouterLink to={"/contact"} style={{ color: "#07b6f6" }}>
     //
     //                 <b> Contact us </b>
     //             </RouterLink>
     //             form.
     //             <br />
     //             <br />
-    //             We are thrilled to offer an <strong style={{ color: "yellowgreen" }}> unpaid </strong> internship opportunity aimed at providing you with valuable
+    //             We are thrilled to offer an <strong style={{ color: "#07b6f6" }}> unpaid </strong> internship opportunity aimed at providing you with valuable
     //             experience in this field. After three months of hard work and dedication, you will receive swags as a
     //             token of our appreciation. Starting from the fourth month, we will also provide incentives to recognize
     //             and reward your contributions. This is a fantastic chance to gain hands-on experience and develop your

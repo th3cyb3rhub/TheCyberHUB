@@ -6,10 +6,10 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
     user: user || null,
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    message: "",
+    isCtfError: false,
+    isCtfSuccess: false,
+    isCtfLoading: false,
+    ctfMessage: "",
     logout: false,
     ctf: [],
 };

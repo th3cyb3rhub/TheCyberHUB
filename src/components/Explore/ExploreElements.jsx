@@ -8,6 +8,13 @@ export const ExploreContainer = styled.div`
     gap: 25px;
     max-width: 1500px;
     //background: #090909;
+
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+        gap: 0px;
+
+        align-items: center;
+    }
 `;
 
 export const SearchContainer = styled.div`
@@ -15,6 +22,10 @@ export const SearchContainer = styled.div`
     flex-direction: column;
     gap: 5px;
     width: 100%;
+
+    @media screen and (max-width: 800px) {
+        padding: 15px;
+    }
 `;
 
 export const LeftContainer = styled.div`
@@ -22,6 +33,10 @@ export const LeftContainer = styled.div`
     flex-direction: column;
     gap: 25px;
     max-width: 300px;
+
+    @media screen and (max-width: 800px) {
+        max-width: 100%;
+    }
 `;
 
 export const RightContainer = styled.div`
@@ -68,7 +83,7 @@ export const SearchTypeButton = styled.button`
     transition: all 0.3s ease-in-out;
     &:hover {
         background-color: #333333;
-        color: #ffffff;
+        color: #f5f5f5;
     }
 `;
 

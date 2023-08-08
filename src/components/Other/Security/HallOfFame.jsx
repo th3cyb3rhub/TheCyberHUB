@@ -66,14 +66,13 @@ const HallOfFame = () => {
                                                         <DotSymbol />
                                                         {item.name}
                                                         <a
-                                                            style={{ color: "greenyellow" }}
+                                                            style={{ color: "#07b6f6" }}
                                                             href={item.profile}
                                                             target="_blank"
                                                             rel="noreferrer"
                                                         >
-                                                            {" "}
                                                             [@{item.username}]
-                                                        </a>{" "}
+                                                        </a>
                                                         - {item.vulnerability}
                                                     </HallOfFameName>
                                                 ))}

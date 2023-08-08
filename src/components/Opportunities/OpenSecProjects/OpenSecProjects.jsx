@@ -6,8 +6,6 @@ import { InternshipDesc, InternshipHeader, InternshipHeading } from "../Internsh
 const OpenSecProjects = () => {
     const [repositories, setRepositories] = useState([]);
 
-    console.log(repositories);
-
     useEffect(() => {
         fetch("https://api.github.com/users/thecyberworld/repos")
             .then((response) => response.json())
@@ -37,27 +35,26 @@ const OpenSecProjects = () => {
 const Card = ({ repository }) => {
     // eslint-disable-next-line camelcase
     const { name, description, html_url, stargazers_count, forks_count, open_issues_count } = repository;
-    console.log(repository);
     return (
         <div className="card">
             <span>
                 <div className="card-header">
                     <h2>{name}</h2>
                     <div className={"counts"}>
-                        <div className="star-count">
-                            <IconStar />
+                        <div className="fork-count">
+                            <IconIssue />
                             {/* eslint-disable-next-line camelcase */}
-                            <span>{stargazers_count}</span>
+                            <span>{open_issues_count}</span>
                         </div>
                         <div className="fork-count">
                             <IconFork />
                             {/* eslint-disable-next-line camelcase */}
                             <span>{forks_count}</span>
                         </div>
-                        <div className="fork-count">
-                            <IconIssue />
+                        <div className="star-count">
+                            <IconStar />
                             {/* eslint-disable-next-line camelcase */}
-                            <span>{open_issues_count}</span>
+                            <span>{stargazers_count}</span>
                         </div>
                     </div>
                 </div>

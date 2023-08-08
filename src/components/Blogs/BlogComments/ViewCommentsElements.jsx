@@ -48,7 +48,7 @@ export const CommentDate = styled.p`
 `;
 
 export const Comment = styled.p`
-    background-color: #252525;
+    background-color: #151515;
     margin: 10px auto;
     padding: 10px;
     max-width: 600px;

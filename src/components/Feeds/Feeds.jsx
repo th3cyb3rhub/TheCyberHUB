@@ -4,42 +4,51 @@ import { Wrapper } from "../Dashboard/Profile/ProfileElements";
 import AddFeed from "./PostForm/AddFeed";
 import FeedPosts from "./FeedPosts/FeedPosts";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllFeeds, reset } from "../../features/feeds/feedsSlice";
-import { getAllUserDetails } from "../../features/userDetail/userDetailSlice";
-// import AuthPopup from "../../pages/AuthPopup/AuthPopup";
+import { feedReset, getAllFeeds } from "../../features/feeds/feedsSlice";
+import { getAllUserDetails, userDetailReset } from "../../features/userDetail/userDetailSlice";
+import LoadingSpinner from "../Other/MixComponents/Spinner/LoadingSpinner";
+import UnderMaintenance from "../Other/UnderMaintenance/UnderMaintenance";
+import apiStatus from "../../features/apiStatus";
 
 const Feeds = () => {
     const dispatch = useDispatch();
-    const { feeds } = useSelector((state) => state.feeds);
-    // const {user} = useSelector(state => state.auth);
-    const { userDetails } = useSelector((state) => state.userDetail);
+    const { isApiLoading, isApiWorking } = apiStatus();
+    const { feeds, isFeedLoading, isFeedError, feedMessage } = useSelector((state) => state.feeds);
+    const { userDetails, isUserDetailLoading, isUserDetailError, userDetailMessage } = useSelector(
+        (state) => state.userDetail,
+    );
 
     useEffect(() => {
+        if (isFeedError) console.log(feedMessage);
+        if (isUserDetailError) console.log(userDetailMessage);
+
         dispatch(getAllFeeds());
         dispatch(getAllUserDetails());
 
-        return () => dispatch(reset());
+        return () => {
+            dispatch(feedReset());
+            dispatch(userDetailReset());
+        };
     }, [dispatch]);
 
-    const combinedData = feeds.map((feed) => {
-        const userDetail = userDetails.find((user) => user.userId === feed.userId);
+    const combinedData = feeds?.map((feed) => {
+        const userDetail = userDetails?.find((user) => user?.user === feed?.user);
 
-        // Extract only the desired fields from userDetail (username and avatar)
-        const { username, avatar } = userDetail || {};
+        const { username, avatar, verified } = userDetail || {};
 
-        return {
-            ...feed,
-            username,
-            avatar,
-        };
+        return { ...feed, username, avatar, verified };
     });
 
+    if (isApiLoading || isUserDetailLoading || isFeedLoading) return <LoadingSpinner />;
+
+    if (!isApiWorking) return <UnderMaintenance />;
+
     return (
-        <Wrapper>
+        <Wrapper style={{ marginTop: "80px" }}>
             <FeedsContainer>
                 <MiddleSection>
-                    <AddFeed />
-                    <FeedPosts feeds={combinedData} />
+                    <AddFeed showPostTags={true} />
+                    <FeedPosts feeds={combinedData} isFeedLoading={isFeedLoading} />
                 </MiddleSection>
             </FeedsContainer>
         </Wrapper>

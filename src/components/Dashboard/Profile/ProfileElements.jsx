@@ -40,7 +40,7 @@ export const SaveButton = styled.button`
     gap: 5px;
     font-size: 18px;
     background: #0c0c0c;
-    color: #f4f4f4;
+    color: #f5f5f5;
     border-radius: 20px;
     border: 2px solid #171717;
     transition: all 0.2s ease-in-out;
@@ -56,7 +56,7 @@ export const SaveButton = styled.button`
 export const Wrapper = styled.div`
     margin: 100px auto;
     width: 100%;
-    color: whitesmoke;
+    color: #f5f5f5;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,7 +94,7 @@ export const CommentContainer = styled.div`
 `;
 export const CommentAmountContainer = styled.div`
     flex: 1;
-    background-color: #fff;
+    background-color: #f5f5f5;
     flex-direction: row;
     zindex: 2;
 `;

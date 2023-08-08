@@ -1,36 +1,45 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getFeedComments, reset } from "../../../features/feeds/feedComments/feedCommentsSlice";
-import FeedPagePost from "../FeedPage/FeedPagePost";
+import React from "react";
+import ReplyCard from "./ReplyCard";
+import LoadingSpinner from "../../Other/MixComponents/Spinner/LoadingSpinner";
 
-const FeedComments = ({ feedId, user }) => {
-    const dispatch = useDispatch();
-    const { feedComments } = useSelector((state) => state.feedComments);
+const FeedComments = ({ user, replies, likes, bookmarks, views, isFeedReplyLoading, updateFeedView }) => {
+    const feedLikesData = ({ replyId }) => {
+        return likes?.filter((like) => like?.itemId === replyId);
+    };
+    const feedViewsData = ({ feedId }) => {
+        return views?.filter((view) => view.itemId === feedId);
+    };
+    const feedUserBookmarksData = ({ feedId }) => {
+        return (
+            bookmarks?.filter((bookmark) => bookmark?.itemId === feedId) &&
+            bookmarks.filter((bookmark) => bookmark.user === user._id)
+        );
+    };
 
-    useEffect(() => {
-        dispatch(getFeedComments({ feedId }));
+    if (replies.length === 0) {
+        return <p style={{ textAlign: "center", padding: "25px 0" }}>Be the first to comment on this post</p>;
+    }
 
-        return () => {
-            dispatch(reset());
-        };
-    }, [dispatch, feedId]);
-
-    const commentData = feedComments.map((comment) => {
-        return {
-            _id: comment._id,
-            createdAt: comment.createdAt,
-            content: comment.comment,
-            user: comment.user,
-        };
-    });
+    if (isFeedReplyLoading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <>
-            {commentData
+            {replies
                 .slice()
                 .reverse()
-                .map((feed, id) => (
-                    <FeedPagePost key={id} feed={feed} feedComments={feedComments} user={user} />
+                .map((reply, id) => (
+                    <ReplyCard
+                        key={id}
+                        reply={reply}
+                        user={user}
+                        // comments={comments}
+                        likes={feedLikesData({ replyId: reply._id })}
+                        views={feedViewsData({ replyId: reply._id })}
+                        bookmarks={feedUserBookmarksData({ replyId: reply._id })}
+                        updateFeedView={updateFeedView}
+                    />
                 ))}
         </>
     );

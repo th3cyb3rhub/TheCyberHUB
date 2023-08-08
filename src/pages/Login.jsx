@@ -3,20 +3,16 @@ import { CenterCard, Container } from "../components/Homepage/Registration/Cente
 import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2CodePromotion";
 import { CustomInputGroup } from "../components/Other/MixComponents/InputField/CustomInputField";
 import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
-import {
-    ButtonGreen,
-    LoadingButton,
-    RouterButtonGreen,
-} from "../components/Other/MixComponents/Buttons/ButtonElements";
+import { ButtonGreen, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
 import { FaUserCircle } from "react-icons/fa";
 import { CgPassword } from "react-icons/cg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login, reset } from "../features/auth/authSlice";
+import { login, userReset } from "../features/auth/authSlice";
 import { CircleSpinner } from "react-spinners-kit";
-import { RouterLink } from "../components/Resources/Events/EventsElement";
+import { RouterLink } from "../components/Events/EventsElement";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -29,19 +25,23 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+    const { user, isUserLoading, isUserError, isUserSuccess, userMessage } = useSelector((state) => state.auth);
     useEffect(() => {
-        if (isSuccess || user) {
+        if (isUserSuccess || user) {
             navigate("/");
         }
-        if (isError) {
-            if (message === "Request failed with status code 429") {
+        if (isUserError) {
+            if (userMessage === "Request failed with status code 429") {
                 toast.error("Please try again in 1 minute");
-            } else toast.error(message);
+                // } else if (userMessage === "AxiosError: Request failed with status code 401") {
+                //     toast.error("Invalid Credentials");
+            } else {
+                toast.error(userMessage);
+            }
         }
 
-        dispatch(reset());
-    }, [user, isError, isSuccess, message, navigate, dispatch]);
+        dispatch(userReset());
+    }, [user, isUserError, isUserSuccess, userMessage, navigate, dispatch]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -110,9 +110,14 @@ const Login = () => {
                             />
                         </CustomInputGroup>
                     </div>
-                    <RouterLink to={"/forgetPassword"}>
-                        <p style={{ color: "white", margin: "15px 0 0 0" }}>Forgot Password?</p>
-                    </RouterLink>
+                    <div className={"forgot_register"}>
+                        <RouterLink to={"/forgetPassword"}>
+                            <p style={{ color: "white", margin: "15px 0 0 0" }}>Forgot Password?</p>
+                        </RouterLink>
+                        <RouterLink to={"/register"}>
+                            <p style={{ color: "white", margin: "15px 0 0 0" }}>Register Instead?</p>
+                        </RouterLink>
+                    </div>
                     <div className="registration__ctas">
                         {/* <div className="registration__tandc"> */}
                         {/*    <input role="checkbox" type="checkbox" autoComplete="" /> */}
@@ -122,18 +127,15 @@ const Login = () => {
                         {/*    </div> */}
                         {/* </div> */}
 
-                        {!isLoading ? (
-                            <ButtonGreen width={"100%"} type="submit">
+                        {!isUserLoading ? (
+                            <ButtonGreen width={"100%"} onClick={onSubmit}>
                                 Start Hacking
                             </ButtonGreen>
                         ) : (
-                            <LoadingButton width={"100%"} type="submit">
+                            <LoadingButton width={"100%"}>
                                 <CircleSpinner size={20} color={"#131313"} />
                             </LoadingButton>
                         )}
-                        <RouterButtonGreen to={"/register"} width={"100%"}>
-                            Register
-                        </RouterButtonGreen>
                     </div>
                 </RegistrationFormContainer>
             </CenterCard>

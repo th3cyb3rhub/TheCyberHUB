@@ -23,7 +23,7 @@ const LearningPath = () => {
     if (isLoading || isApiLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isLoading || isApiLoading} />
+                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isLoading || isApiLoading} />
             </Wrapper>
         );
     }

@@ -1,5 +1,4 @@
 import React from "react";
-import { RouterLink } from "../../Beta/Tools/ToolsElements";
 import { AllTags, Tag, TagsContainer } from "./TagsElements";
 
 const Tags = ({ tags }) => {
@@ -17,11 +16,13 @@ const Tags = ({ tags }) => {
                 Trending
             </h4>
             <AllTags>
-                {tags.map(
+                {tags.slice(0, 10).map(
                     (tag, key) =>
                         tag.length !== 0 && (
                             <Tag key={key}>
-                                <RouterLink to={`tags/${tag.split(" ").join("-")}`}>{tag}</RouterLink>
+                                {/* <RouterLink to={`tags/${tag.split(" ").join("-")}`}> */}
+                                {tag}
+                                {/* </RouterLink> */}
                             </Tag>
                         ),
                 )}

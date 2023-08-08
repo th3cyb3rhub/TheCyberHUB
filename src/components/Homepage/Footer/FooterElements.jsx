@@ -46,7 +46,7 @@ export const FooterLinkItems = styled.li`
     align-items: flex-start;
     text-align: left;
     box-sizing: border-box;
-    color: #fff;
+    color: #f5f5f5;
 
     transition: all 0.3s ease-in-out;
     @media screen and (max-width: 420px) {
@@ -63,48 +63,47 @@ export const FooterLinkTitle = styled.h1`
 `;
 
 export const FooterRouterLink = styled(RouterLink)`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     font-size: 15px;
 
     &:hover {
-        color: #20c20e;
+        color: #ff6b08;
         transition: 0.3s ease-out;
     }
 `;
 
 export const FooterScrollLink = styled(ScrollLink)`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     font-size: 15px;
 
     &:hover {
-        color: #20c20e;
+        color: #ff6b08;
         scale: 1.1;
         transition: 0.3s ease-out;
     }
 `;
 
 export const FooterRedirectLink = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     font-size: 15px;
 
     &:hover {
-        color: #20c20e;
-        scale: 1.1;
+        color: #ff6b08;
         transition: 0.3s ease-out;
     }
 `;
 
 export const FooterSocialLinks = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     margin-bottom: 0.5rem;
     font-size: 14px;
 
     &:hover {
-        color: #20c20e;
+        color: #ff6b08;
         transition: 0.3s ease-out;
     }
 `;
@@ -112,7 +111,7 @@ export const FooterSocialLinks = styled.a`
 export const SocialMedia = styled.div`
     max-width: 1500px;
     width: 100%;
-    color: #fff;
+    color: #f5f5f5;
     margin: 50px 0 0 0;
 `;
 
@@ -130,7 +129,7 @@ export const SocialMediaWrap = styled.div`
 `;
 
 export const WebsiteRights = styled.small`
-    color: #fff;
+    color: #f5f5f5;
 `;
 
 export const SocialIcons = styled.div`
@@ -141,17 +140,17 @@ export const SocialIcons = styled.div`
 `;
 
 export const SocialIconLink = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     font-size: 24px;
 
     &:hover {
-        color: #20c20e;
+        color: #ff6b08;
         transition: 0.3s ease-out;
     }
 `;
 
 export const FooterSocialLinksTwitter = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     margin-bottom: 0.5rem;
     font-size: 15px;
@@ -163,7 +162,7 @@ export const FooterSocialLinksTwitter = styled.a`
     }
 `;
 export const FooterSocialLinksGithub = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     margin-bottom: 0.5rem;
     font-size: 14px;
@@ -175,7 +174,7 @@ export const FooterSocialLinksGithub = styled.a`
     }
 `;
 export const FooterSocialLinksDiscord = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     margin-bottom: 0.5rem;
     font-size: 14px;
@@ -187,20 +186,20 @@ export const FooterSocialLinksDiscord = styled.a`
     }
 `;
 export const FooterSocialLinksLinktree = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
     margin-bottom: 0.5rem;
     font-size: 14px;
 
     &:hover {
-        color: #20c20e;
+        color: #ff6b08;
         scale: 1.2;
         transition: 0.3s ease-out;
     }
 `;
 
 export const SocialIconLinkTwitter = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     font-size: 24px;
 
     &:hover {
@@ -211,7 +210,7 @@ export const SocialIconLinkTwitter = styled.a`
 `;
 
 export const SocialIconLinkGithub = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     font-size: 24px;
 
     &:hover {
@@ -222,7 +221,7 @@ export const SocialIconLinkGithub = styled.a`
 `;
 
 export const SocialIconLinkDiscord = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     font-size: 24px;
 
     &:hover {
@@ -232,7 +231,7 @@ export const SocialIconLinkDiscord = styled.a`
     }
 `;
 export const SocialIconLinkInstagram = styled.a`
-    color: #fff;
+    color: #f5f5f5;
     font-size: 24px;
 
     &:hover {
@@ -243,7 +242,7 @@ export const SocialIconLinkInstagram = styled.a`
 `;
 
 export const SocialLogo = styled(RouterLink)`
-    color: #fff;
+    color: #f5f5f5;
     justify-self: start;
     cursor: pointer;
     text-decoration: none;
@@ -253,7 +252,7 @@ export const SocialLogo = styled(RouterLink)`
     font-weight: bold;
 
     :hover {
-        color: #20c20e;
+        color: #ff6b08;
         scale: 1.2;
         transition: 0.3s ease-out;
     }

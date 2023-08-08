@@ -43,7 +43,7 @@ const EditProfile = () => {
     }, [dispatch, isError, user, navigate, message]);
 
     if (isLoading) {
-        return <CircleSpinner size={20} color={"#1fc10d"} />;
+        return <CircleSpinner size={20} color={"#ff6b08"} />;
     }
 
     const onChange = (e) => {

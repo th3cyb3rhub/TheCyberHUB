@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ExpContainer, ExpIcon, ExpText, StreakText } from "./ExpElemenets";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetail, reset } from "../../features/userDetail/userDetailSlice";
+import { getUserDetail, userDetailReset } from "../../features/userDetail/userDetailSlice";
 import { CircleSpinner } from "react-spinners-kit";
 import apiStatus from "../../features/apiStatus";
 
@@ -25,7 +25,7 @@ const Exp = () => {
             dispatch(getUserDetail(user.username));
         }
 
-        return () => dispatch(reset());
+        return () => dispatch(userDetailReset());
     }, [dispatch]);
 
     const exp = userDetail?.exp || 0;
@@ -35,7 +35,7 @@ const Exp = () => {
     if (isLoading || isApiLoading) {
         return (
             <ExpContainer>
-                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isLoading || isApiLoading} />
+                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isLoading || isApiLoading} />
             </ExpContainer>
         );
     }

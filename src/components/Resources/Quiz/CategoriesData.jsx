@@ -81,7 +81,7 @@ export const PhishingQuestions = [
         answerOptions: [
             {
                 answerText:
-                    "If you get an email that looks likes it's from someone you know, you can click on any links as long as you have a spam blocker and anti-virus protection.",
+                    "If you get an email that looks feedLikes it's from someone you know, you can click on any links as long as you have a spam blocker and anti-virus protection.",
                 isCorrect: false,
             },
             {
@@ -512,7 +512,7 @@ export const VSQQuestions = [
         answerOptions: [
             {
                 answerText:
-                    "Include provisions for security in your vendor contracts, likes a plan to evaluate and update security controls.",
+                    "Include provisions for security in your vendor contracts, feedLikes a plan to evaluate and update security controls.",
                 isCorrect: true,
             },
             {

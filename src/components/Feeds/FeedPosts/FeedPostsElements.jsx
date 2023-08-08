@@ -3,7 +3,16 @@ import { ExploreContentContainer } from "../../Explore/ExploreElements";
 
 export const FeedPostsContainer = styled(ExploreContentContainer)`
     background-color: ${(props) => (props.displayAt === "explore" ? "#090909" : "#000000")};
-    padding: ${(props) => (props.displayAt ? "15px" : "0")};
+    padding: ${(props) => (props.displayAt === "explore" ? "15px" : "0")};
+
+    grid-auto-rows: ${(props) => (props.displayAt === "explore" ? "1fr" : "0fr")};
+    gap: ${(props) => (props.displayAt === "explore" ? "25px" : "0")};
+
+    @media screen and (max-width: 1230px) {
+        grid-auto-rows: 0fr;
+        gap: 15px;
+        padding: 15px;
+    }
 `;
 
 export const Content = styled.div`
@@ -15,14 +24,21 @@ export const PostForm = styled.div`
 `;
 
 export const FeedPostContainer = styled.div`
-    //border-bottom: 1px solid #1a1a1a;
-    border: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+    //border: 1px solid #a8e827;
+    //border-radius: 5px;
     background: #000000;
     padding: 25px;
-    border-radius: 5px;
-    width: 100%;
     display: flex;
+    width: 100%;
     flex-direction: row;
+
+    height: ${(props) => (props.displayAt === "explore" ? "auto" : "min-content")};
+
+    @media screen and (max-width: 800px) {
+        width: 100%;
+        height: min-content;
+    }
 `;
 
 export const LeftSection = styled.div`
@@ -35,8 +51,10 @@ export const LeftSection = styled.div`
 
 export const RightSection = styled.div`
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     width: 100%;
+
     gap: 10px;
 `;
 
@@ -75,7 +93,7 @@ export const PostHeaderImg = styled.img`
 export const PostHeaderUsername = styled.h2`
     margin: 0;
     font-size: 18px;
-    color: #d3d3d3;
+    color: #f5f5f5;
 `;
 
 export const PostTimestamp = styled.p`
@@ -111,10 +129,9 @@ export const PostActionsAndStatsContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-    padding: 15px 0 0;
+    //padding: 15px 0 0;
     font-size: 14px;
     color: #999;
-
     width: 100%;
 `;
 
@@ -142,6 +159,6 @@ export const PostStatValue = styled.span`
 
 export const Footer = styled.div`
     background-color: #333;
-    color: #fff;
+    color: #f5f5f5;
     text-align: center;
 `;

@@ -21,6 +21,8 @@ import { useLocation } from "react-router-dom";
 
 const logo = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo.png`;
 const Navbar = ({ isOpen, toggle }) => {
+    // const { theme, toggleTheme } = useContext(ThemeContext);
+
     const [scrollNav, setScrollNav] = useState(false);
     const [drop, setDrop] = useState(false);
     const [resourcesClick, setResourcesClick] = useState(true);
@@ -67,7 +69,12 @@ const Navbar = ({ isOpen, toggle }) => {
     const showBottomBorder = pathName !== "";
 
     return (
-        <Nav onMouseLeave={() => setDrop(false)} scrollNav={scrollNav} showBottomBorder={showBottomBorder}>
+        <Nav
+            onMouseLeave={() => setDrop(false)}
+            scrollNav={scrollNav}
+            showBottomBorder={showBottomBorder}
+            // style={{backgroundColor, color}}
+        >
             <NavbarContainer>
                 <NavLogoRouter to={"/"} onClick={toggleHome}>
                     <NavLogo src={logo} />
@@ -75,10 +82,10 @@ const Navbar = ({ isOpen, toggle }) => {
                 <NavMenu>
                     {[
                         { to: "explore", title: "Explore", dropdown: "explore" },
-                        { to: "blogs", title: "Blogs", dropdown: "blogs" },
-                        { to: "forum", title: "Forum", dropdown: "forum" },
                         { to: "feeds", title: "Feeds", dropdown: "feeds" },
-                        { to: "courses", title: "Courses", dropdown: "courses" },
+                        { to: "blogs", title: "Blogs", dropdown: "blogs" },
+                        // { to: "forum", title: "Forum", dropdown: "forum" },
+                        // { to: "courses", title: "Courses", dropdown: "courses" },
                         { to: "ctf", title: "CTF", dropdown: "ctf" },
                         { to: "tools", title: "Tools", dropdown: "tools" },
                         {
@@ -105,7 +112,11 @@ const Navbar = ({ isOpen, toggle }) => {
                             onMouseLeave={() => dropHandler(dropdown)}
                             key={dropdown}
                         >
-                            <NavLink to={to} className={location.pathname === `/${to}` ? "active" : ""}>
+                            <NavLink
+                                to={to}
+                                className={location.pathname === `/${to}` ? "active" : ""}
+                                // style={{color}}
+                            >
                                 {title}
                             </NavLink>
                             {dropdown === "resources" && resourcesClick && drop && (
@@ -114,6 +125,8 @@ const Navbar = ({ isOpen, toggle }) => {
                                     toggle={setToggleDropdown}
                                     toggleDropdown={toggleDropdown}
                                     isOpen={isOpen}
+                                    // backgroundColor={backgroundColor}
+                                    // color={color}
                                 />
                             )}
                             {dropdown === "programs" && opportunities && drop && (
@@ -122,22 +135,16 @@ const Navbar = ({ isOpen, toggle }) => {
                                     toggle={setToggleDropdown}
                                     toggleDropdown={toggleDropdown}
                                     isOpen={isOpen}
+                                    // backgroundColor={backgroundColor}
+                                    // color={color}
                                 />
                             )}
                         </NavItem>
                     ))}
                 </NavMenu>
-                {/* <NavMenu2> */}
-                {/*    <NavItem> */}
-                {/*        <RouterNavLeaderboardButtonLink */}
-                {/*            to={"/leaderboard"} */}
-                {/*            className={location.pathname === `/${"leaderboard"}` ? "active" : ""} */}
-                {/*        > */}
-                {/*            <CrownIcon style={{ fontSize: "1.5rem" }} /> */}
-                {/*            <span> Leaderboard </span> */}
-                {/*        </RouterNavLeaderboardButtonLink> */}
-                {/*    </NavItem> */}
-                {/* </NavMenu2> */}
+                {/* <button onClick={toggleTheme}> */}
+                {/*    {themeType === 'dark' ? 'light' : 'dark'} */}
+                {/* </button> */}
                 <NavUsersDetailsSection>
                     {/* <Exp /> */}
                     <SideOptionsContainer>

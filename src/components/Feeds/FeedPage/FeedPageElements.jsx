@@ -14,7 +14,6 @@ export const FeedContentSection = styled.div`
     align-items: center;
     width: 100%;
     max-width: 600px;
-    margin-top: 20px;
     border-left: 1px solid #2c2c2c;
     border-right: 1px solid #2c2c2c;
 `;

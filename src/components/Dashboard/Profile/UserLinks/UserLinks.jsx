@@ -2,9 +2,10 @@ import React from "react";
 import { UserBio, UserInfo, UserLinksContainer } from "./UserLinksElements";
 import { SocialLink, SocialUsername, UserSocialLinksContainer } from "../UserSocialLinks/UserSocialLinksElements";
 import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
-import { RiEarthFill } from "react-icons/ri";
 import Follow from "../Follow/Follow";
 import { UserPicture } from "../../../Explore/Users/UsersElements";
+import { CgWebsite } from "react-icons/cg";
+import { cdnContentImagesUrl } from "../../../../features/apiUrl";
 
 const UserLinks = ({ userDetail, userDetails }) => {
     const socialUsernames = userDetail?.socialLinks?.map(
@@ -13,17 +14,12 @@ const UserLinks = ({ userDetail, userDetails }) => {
 
     const showSocialContainer = socialUsernames?.includes(userDetail?.username);
 
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "1691297013370.png"));
+
     return (
         <UserLinksContainer>
             <UserInfo>
-                <UserPicture
-                    style={{
-                        height: "200px",
-                        width: "200px",
-                    }}
-                    src={"https://avatars.githubusercontent.com/u/44284877?v=4"}
-                />
-
+                <UserPicture style={{ height: "200px", width: "200px" }} src={avatar} />
                 <span className={"name"}>{userDetail?.name}</span>
                 <span className={"username"}>@{userDetail?.username}</span>
             </UserInfo>
@@ -86,8 +82,8 @@ const getIconComponent = (iconName) => {
             return <FaGithub />;
         case "FaMedium":
             return <FaMedium />;
-        case "RiEarthFill":
-            return <RiEarthFill />;
+        case "IoEarth" || "RiEarthFill":
+            return <CgWebsite />;
         default:
             return null;
     }

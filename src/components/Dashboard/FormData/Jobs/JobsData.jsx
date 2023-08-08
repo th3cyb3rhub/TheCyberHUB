@@ -12,7 +12,7 @@ export const JobsData = [
         jobRoleTitle: "Business Development Intern",
         jobRating: (
             <>
-                4 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                4 <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -20,24 +20,24 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6green" }} /> Including Swag
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6green" }} /> Performance-based incentives
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -56,7 +56,7 @@ export const JobsData = [
                 <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6green" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -97,7 +97,7 @@ export const JobsData = [
         jobRoleTitle: "MERN Stack Developer",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -105,24 +105,24 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6green" }} /> Including Swag
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6green" }} /> Performance-based incentives
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -138,7 +138,7 @@ export const JobsData = [
                 <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6green" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -179,7 +179,7 @@ export const JobsData = [
         jobRoleTitle: "Content Creator",
         jobRating: (
             <>
-                4.5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                4.5 <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -187,24 +187,24 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6green" }} /> Including Swag
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6green" }} /> Performance-based incentives
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -220,7 +220,7 @@ export const JobsData = [
                 <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6green" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -264,7 +264,7 @@ export const JobsData = [
         jobRoleTitle: "Next.js Developer",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -272,24 +272,24 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6green" }} /> Including Swag
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6green" }} /> Performance-based incentives
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -306,7 +306,7 @@ export const JobsData = [
                 <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6green" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -347,7 +347,7 @@ export const JobsData = [
         jobRoleTitle: "Penetration Tester",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -355,24 +355,24 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6green" }} /> Including Swag
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6green" }} /> Performance-based incentives
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -388,7 +388,7 @@ export const JobsData = [
                 <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6green" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -430,7 +430,7 @@ export const JobsData = [
         jobRoleTitle: "SOC Analyst",
         jobRating: (
             <>
-                5 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                5 <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -438,24 +438,24 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6green" }} /> Including Swag
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6green" }} /> Performance-based incentives
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Thecyberhub Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Thecyberhub Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -471,7 +471,7 @@ export const JobsData = [
                 <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6green" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -514,7 +514,7 @@ export const JobsData = [
         jobRoleTitle: "React Native Android Developer Intern",
         jobRating: (
             <>
-                4 <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+                4 <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
             </>
         ),
         jobLocation: "Remote",
@@ -522,24 +522,24 @@ export const JobsData = [
             {
                 item: (
                     <>
-                        <FaMoneyCheckAlt size={iconSize} style={{ color: "yellowgreen" }} /> Including Swag
+                        <FaMoneyCheckAlt size={iconSize} style={{ color: "#07b6f6green" }} /> Including Swag
                     </>
                 ),
             },
             {
                 item: (
                     <>
-                        <FaBriefcase size={iconSize} style={{ color: "yellowgreen" }} /> Performance-based incentives
+                        <FaBriefcase size={iconSize} style={{ color: "#07b6f6green" }} /> Performance-based incentives
                     </>
                 ),
             },
         ],
         jobDetails2: [
             <>
-                <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} /> Apply securely with Resume
+                <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} /> Apply securely with Resume
             </>,
             <>
-                <FaBolt size={iconSize} style={{ color: "#20c20e" }} /> Responsive employer
+                <FaBolt size={iconSize} style={{ color: "#ff6b08" }} /> Responsive employer
             </>,
         ],
         jobDesc1: (
@@ -557,7 +557,7 @@ export const JobsData = [
                 <br />
                 If you&apos;re eager to learn and make a difference,
                 <br /> Submit your resume and cover letter through our
-                <RouterLink to={"/contact"} style={{ color: "yellowgreen" }}>
+                <RouterLink to={"/contact"} style={{ color: "#07b6f6green" }}>
                     <b> Contact us </b>
                 </RouterLink>
                 form.
@@ -598,7 +598,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             5.0
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
     //         </>
     //     ),
     //     jobLocation: "India",
@@ -632,11 +632,11 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaClock size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaClock size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Urgently hiring
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -661,7 +661,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             5.0
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
     //         </>
     //     ),
     //     jobLocation: "Hybrid",
@@ -686,15 +686,15 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employe
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -722,7 +722,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             4.6
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
     //         </>
     //     ),
     //     jobLocation: "Remote",
@@ -756,15 +756,15 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employer
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -792,7 +792,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             4.8
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
     //         </>
     //     ),
     //     jobLocation: "Hybrid",
@@ -825,19 +825,19 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaClock size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaClock size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Urgently hiring
     //         </>,
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employer
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],
@@ -865,7 +865,7 @@ export const JobsData = [
     //     jobRating: (
     //         <>
     //             5.0
-    //             <FaStar size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaStar size={iconSize} style={{ color: "#07b6f6green" }} />
     //         </>
     //     ),
     //     jobLocation: "U.S.A",
@@ -899,19 +899,19 @@ export const JobsData = [
     //     ],
     //     jobDetails2: [
     //         <>
-    //             <FaClock size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaClock size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Urgently hiring
     //         </>,
     //         <>
-    //             <FaTelegramPlane size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaTelegramPlane size={iconSize} style={{ color: "#ff6b08" }} />
     //             Apply securely with Thecyberhub Resume
     //         </>,
     //         <>
-    //             <FaBolt size={iconSize} style={{ color: "#20c20e" }} />
+    //             <FaBolt size={iconSize} style={{ color: "#ff6b08" }} />
     //             Responsive employer
     //         </>,
     //         <>
-    //             <FaUserPlus size={iconSize} style={{ color: "yellowgreen" }} />
+    //             <FaUserPlus size={iconSize} style={{ color: "#07b6f6green" }} />
     //             Hiring multiple candidates
     //         </>,
     //     ],

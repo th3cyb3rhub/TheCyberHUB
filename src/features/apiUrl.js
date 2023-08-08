@@ -11,14 +11,16 @@ const devUrl = "https://dev.api.thecyberhub.org";
 export const webEnv = import.meta.env.VITE_WEB_ENV || "production";
 
 const cdnAssets = "https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/assets";
-let cndBlogImages;
-if (webEnv === "localhost" || webEnv === "development") {
-    cndBlogImages = "https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/development";
-} else if (webEnv === "security") {
-    cndBlogImages = "https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/security";
-} else {
-    cndBlogImages = "https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/production";
-}
+
+export const cdnContentImagesUrl = (props) => {
+    if (webEnv === "localhost" || webEnv === "development") {
+        return `https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/development${props}`;
+    } else if (webEnv === "security") {
+        return `https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/security${props}`;
+    } else {
+        return `https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/production${props}`;
+    }
+};
 
 export const getApiUrl = (props) => {
     if (webEnv === "production" || webEnv === "security") {
@@ -31,4 +33,3 @@ export const getApiUrl = (props) => {
 };
 
 export const getCdnAssets = cdnAssets;
-export const getCdnBlogImages = cndBlogImages;

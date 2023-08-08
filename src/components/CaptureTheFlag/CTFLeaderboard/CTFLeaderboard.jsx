@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, reset } from "../../../features/userDetail/userDetailSlice";
+import { getAllUserDetails, userDetailReset } from "../../../features/userDetail/userDetailSlice";
 import {
     LeaderboardContainer,
     LeaderboardHeader,
@@ -12,7 +12,7 @@ import {
     PlayersContainer,
     RefreshButton,
 } from "./CTFLeaderboardElements";
-import { RouterLink } from "../../Beta/Tools/ToolsElements";
+import { RouterLink } from "../../Tools/ToolsElements";
 
 const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
@@ -26,7 +26,7 @@ const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
         dispatch(getAllUserDetails());
 
         return () => {
-            dispatch(reset());
+            dispatch(userDetailReset());
         };
     }, [dispatch]);
 

@@ -18,7 +18,7 @@ export const FeedCommentInput = styled.textarea`
     border-radius: 5px;
     background: transparent;
     border: transparent;
-    color: #fff;
+    color: #f5f5f5;
     width: 100%;
     font-family: "Roboto", sans-serif;
     font-size: 15px;
@@ -27,10 +27,10 @@ export const FeedCommentInput = styled.textarea`
     resize: none; /* Disable resizing via drag */
     overflow: hidden; /* Hide scrollbars */
 
-    padding: 15px;
+    padding: 15px 0;
 
     ::placeholder {
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -40,7 +40,7 @@ export const FeedCommentInput = styled.textarea`
     &:hover {
         background: transparent;
         border: transparent;
-        color: #fff;
+        color: #f5f5f5;
     }
 `;
 
@@ -49,7 +49,7 @@ export const AddCommentButton = styled.button`
     border-radius: 15px;
     background: #2a2a2a;
     border: 1px solid #2a2a2a;
-    color: #fff;
+    color: #f5f5f5;
 
     cursor: pointer;
 
@@ -57,7 +57,7 @@ export const AddCommentButton = styled.button`
     &:hover {
         background: #444444;
         border: 1px solid #2a2a2a;
-        color: #fff;
+        color: #f5f5f5;
         font-size: 15px;
     }
 `;

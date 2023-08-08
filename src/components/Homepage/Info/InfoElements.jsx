@@ -3,7 +3,7 @@ import { Link as ScrollLink } from "react-scroll";
 import { BsSquareFill } from "react-icons/bs";
 
 export const DotSymbol = styled(BsSquareFill)`
-    color: #20c20e;
+    color: #ff6b08;
     margin-bottom: 4px;
     margin-right: 4px;
     font-size: 0.5rem;
@@ -51,7 +51,7 @@ export const YouTubeVideoIFrame = styled.iframe`
 `;
 
 export const InfoContainer = styled.div`
-    color: #fff;
+    color: #f5f5f5;
 
     background: ${({ lightBg }) => (lightBg ? "#f9f9f9" : "#000000")};
 
@@ -63,13 +63,14 @@ export const InfoContainer = styled.div`
 export const InfoWrapper = styled.div`
     display: grid;
     z-index: 1;
-    height: 800px;
+    height: 700px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin-right: auto;
     margin-left: auto;
     padding: 0 24px;
     justify-content: center;
+
     @media screen and (max-width: 768px) {
         height: 100%;
     }
@@ -108,7 +109,7 @@ export const TextWrapper = styled.div`
 `;
 
 export const TopLine = styled.p`
-    color: #20c20e;
+    color: #ff6b08;
     font-size: 16px;
     line-height: 16px;
     font-weight: 700;
@@ -122,7 +123,7 @@ export const Heading = styled.h1`
     font-size: 48px;
     line-height: 1.1;
     font-weight: 600;
-    color: ${({ lightText }) => (lightText ? "#f7f8fa" : "#000000")};
+    color: ${({ lightText }) => (lightText ? "#f5f5f5" : "#000000")};
 
     @media screen and (max-width: 480px) {
         font-size: 32px;
@@ -134,7 +135,7 @@ export const Subtitle = styled.div`
     margin-bottom: 35px;
     font-size: 18px;
     line-height: 24px;
-    color: ${({ darkText }) => (darkText ? "#000000" : "#fff")};
+    color: ${({ darkText }) => (darkText ? "#000000" : "#f5f5f5")};
 `;
 
 export const BtnWrap = styled.div`

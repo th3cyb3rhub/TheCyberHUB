@@ -5,23 +5,33 @@ import { AllBlogs, BlogsContainer, MiddleContainer } from "../../../Blogs/BlogsE
 import LoadingBlogCard from "../../../Blogs/BlogCard/LoadingBlogCard";
 import BlogCard from "../../../Blogs/BlogCard/BlogCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getBlogs, reset } from "../../../../features/blogs/blogSlice";
+import { getBlogs, blogReset } from "../../../../features/blogs/blogSlice";
+import LoadingSpinner from "../../../Other/MixComponents/Spinner/LoadingSpinner";
+import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
+import apiStatus from "../../../../features/apiStatus";
 
 const UserBlogs = () => {
+    const { isApiLoading, isApiWorking } = apiStatus();
+
     const dispatch = useDispatch();
-    const { blogs, isLoading, isError, message } = useSelector((state) => state.blogs);
+    const { blogs, isBlogLoading, isBlogError, blogMessage } = useSelector((state) => state.blogs);
 
     useEffect(() => {
-        if (isError) {
-            console.log(message);
+        if (isBlogError) {
+            console.log(blogMessage);
         }
         dispatch(getBlogs());
-        return () => dispatch(reset());
-    }, [dispatch, isError, message]);
+        return () => dispatch(blogReset());
+    }, [dispatch, isBlogError, blogMessage]);
+
+    if (isApiLoading) return <LoadingSpinner />;
+
+    if (!isApiWorking) return <UnderMaintenance />;
+
     return (
         <Wrapper>
             <BlogsContainer>
-                {isLoading ? (
+                {isBlogLoading ? (
                     <MiddleContainer>
                         <AllBlogs>
                             <LoadingBlogCard />

@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { Wrapper } from "./Profile/ProfileElements";
 import DashboardItems from "./OldDashbaord/DashboardItems";
 import { DashboardContainer } from "./DashboardElements";
-import { CircleSpinner } from "react-spinners-kit";
 import UnderMaintenance from "../Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "../../features/apiStatus";
+import LoadingSpinner from "../Other/MixComponents/Spinner/LoadingSpinner";
 // import Sidebar from "./Sidebar/Sidebar";
 // import AuthPopup from "../../pages/AuthPopup/AuthPopup";
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
     const { user } = useSelector((state) => state.auth);
     const { isApiLoading, isApiWorking } = apiStatus();
 
@@ -21,18 +21,12 @@ const Dashboard = () => {
         if (!user) {
             navigate("/");
         }
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
+        // setTimeout(() => {
+        //     setIsLoading(false);
+        // }, 1000);
     }, [user, navigate]);
 
-    if (isLoading || isApiLoading) {
-        return (
-            <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isLoading || isApiLoading} />
-            </Wrapper>
-        );
-    }
+    if (isApiLoading) return <LoadingSpinner />;
 
     if (!isApiWorking) return <UnderMaintenance />;
 

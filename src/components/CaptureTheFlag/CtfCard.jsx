@@ -9,7 +9,7 @@ import {
     CTFTags,
     CTFType,
 } from "./CTFElements";
-import { FcCheckmark } from "react-icons/fc";
+import { IoCheckmarkSharp } from "react-icons/io5";
 
 const CtfCard = ({ challenge, user, userDetail, index }) => {
     return (
@@ -19,7 +19,7 @@ const CtfCard = ({ challenge, user, userDetail, index }) => {
                 {user &&
                     userDetail?.solved?.map((ctf, index) =>
                         challenge?._id === ctf?.ctfId && ctf?.isCompleted === true ? (
-                            <FcCheckmark key={index} color="green" size={25} />
+                            <IoCheckmarkSharp key={index} color="#ff6b08" size={25} />
                         ) : null,
                     )}
             </CTFCardHeader>

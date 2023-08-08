@@ -19,7 +19,7 @@ export const ScrollButton = styled(Button)`
     transition: 260ms all;
 
     &:hover {
-        background: #20c20e;
+        background: #ff6b08;
         outline-color: #545454;
         outline-offset: 2px;
     }
@@ -166,7 +166,7 @@ export const JobHeader = styled.div`
     align-items: start;
 
     & span.status {
-        color: greenyellow;
+        color: #00b2ff;
     }
 `;
 
@@ -228,7 +228,7 @@ export const JobDetails = styled.div`
     }
 
     & div.badge {
-        background: #20c20e;
+        background: #ff6b08;
         color: white;
         display: inline-flex;
         justify-content: center;
@@ -262,7 +262,7 @@ export const JobReq = styled.div`
     }
 
     & li::marker {
-        color: #20c20e;
+        color: #ff6b08;
     }
 `;
 
@@ -271,7 +271,7 @@ export const JobDescSection = styled.div`
 `;
 
 export const JobTimeline = styled(JobDetails)`
-    color: #20c20e;
+    color: #ff6b08;
     column-gap: 0.4rem;
     font-size: 0.89rem;
     margin-top: auto;

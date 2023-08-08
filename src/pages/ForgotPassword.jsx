@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { forgetPasswordWithEmail, reset, resetPasswordWithToken } from "../features/resetPassword/resetPasswordSlice";
 import { CircleSpinner } from "react-spinners-kit";
-import { RouterLink } from "../components/Resources/Events/EventsElement";
+import { RouterLink } from "../components/Events/EventsElement";
 import { FaUserCircle } from "react-icons/fa";
 import { verifyEmailCode } from "../features/auth/authSlice";
 import { CgPassword } from "react-icons/cg";
@@ -33,33 +33,33 @@ const ForgotPassword = () => {
     const [emailSent, setEmailSent] = useState(false);
     const [isEmailVerified, setIsEmailVerified] = useState(false);
 
-    const { isLoading: isAuthLoading, isError: isAuthError, message: authMessage } = useSelector((state) => state.auth);
+    const { isUserLoading, isUserError, userMessage } = useSelector((state) => state.auth);
 
     const { isLoading, isError, isSuccess, message } = useSelector((state) => state.resetPassword);
 
     useEffect(() => {
-        if (isError || isAuthError) {
+        if (isError || isUserError) {
             if (message === "Request failed with status code 429") {
                 toast.error("Please try again in 1 minute");
-            } else toast.error(message || authMessage);
+            } else toast.error(message || userMessage);
         }
 
         toast(message.length > 0 && message);
-        toast(authMessage.length > 0 && authMessage);
+        toast(userMessage.length > 0 && userMessage);
 
         dispatch(reset());
 
         if (message === "Email sent successfully") {
             setEmailSent(true);
         }
-        if (authMessage === "Email verified successfully") {
+        if (userMessage === "Email verified successfully") {
             setIsEmailVerified(true);
             // setEmailSent(false);
         }
         if (message === "Password updated successfully") {
             navigate("/login");
         }
-    }, [isError, isSuccess, message, authMessage, navigate, dispatch]);
+    }, [isError, isSuccess, message, userMessage, navigate, dispatch]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -87,7 +87,6 @@ const ForgotPassword = () => {
             toast.error(`Sorry, ${domain} email domain is not allowed`);
         } else {
             const userData = { email };
-            console.log(userData);
             dispatch(forgetPasswordWithEmail(userData));
         }
     };
@@ -95,7 +94,6 @@ const ForgotPassword = () => {
     const onSubmitVerifyCode = (e) => {
         e.preventDefault();
         const userData = { email, code };
-        console.log(userData);
         dispatch(verifyEmailCode(userData));
     };
 
@@ -106,7 +104,6 @@ const ForgotPassword = () => {
             toast.error("Passwords do not match");
         } else {
             const userData = { email, code, password };
-            console.log(userData);
             dispatch(resetPasswordWithToken(userData));
         }
     };
@@ -117,8 +114,7 @@ const ForgotPassword = () => {
                 <Learn2CodePromotion>
                     <div id="reg-promo-content">
                         <RouterLink to={"/"} className="brand-logo">
-                            {" "}
-                            TheCyberHUB{" "}
+                            TheCyberHUB
                         </RouterLink>
                         <h1 className="leading-title">Learn Cybersecurity For Free</h1>
                     </div>
@@ -131,8 +127,8 @@ const ForgotPassword = () => {
                         {!emailSent
                             ? SendEmail({ email, onChange, onSubmitSendEmail, isLoading })
                             : !isEmailVerified
-                            ? VerifyCode({ code, onChange, onSubmitVerifyCode, isAuthLoading })
-                            : ResetPassword({ password, confirmPassword, onChange, onSubmitPassword, isLoading })}{" "}
+                            ? VerifyCode({ code, onChange, onSubmitVerifyCode, isUserLoading })
+                            : ResetPassword({ password, confirmPassword, onChange, onSubmitPassword, isLoading })}
                     </div>
                 </RegistrationFormContainer>
             </CenterCard>
@@ -171,7 +167,7 @@ const SendEmail = ({ email, onChange, onSubmitSendEmail, isLoading }) => (
     </>
 );
 
-const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isAuthLoading }) => (
+const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isUserLoading }) => (
     <>
         <>
             <h1 className="registration__promotion__h1">Verify Code</h1>
@@ -190,7 +186,7 @@ const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isAuthLoading }) => (
                     />
                 </CustomInputGroup>
                 {/* <ButtonGreen width={"100%"} onClick={onSubmitVerifyCode}> Resend </ButtonGreen> */}
-                {!isAuthLoading ? (
+                {!isUserLoading ? (
                     <ButtonGreen style={{ width: "150px", height: "100%" }} onClick={onSubmitVerifyCode}>
                         Verify
                     </ButtonGreen>

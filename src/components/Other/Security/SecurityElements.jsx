@@ -26,7 +26,7 @@ export const NavigationLink = styled(Link)`
     &:hover {
         cursor: pointer;
         transition: all 0.2s ease-in-out;
-        color: greenyellow;
+        color: #00b2ff;
         scale: 1.05;
     }
 

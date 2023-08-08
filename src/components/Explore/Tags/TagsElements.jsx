@@ -12,6 +12,11 @@ export const TagsContainer = styled.div`
     background: #090909;
     margin-bottom: 15px;
     border-radius: 5px;
+
+    @media screen and (max-width: 800px) {
+        padding: 15px;
+        display: none;
+    }
 `;
 
 export const AllTags = styled.div`

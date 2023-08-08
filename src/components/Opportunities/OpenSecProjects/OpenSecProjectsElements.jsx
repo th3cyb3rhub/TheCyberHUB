@@ -4,17 +4,17 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { GoIssueOpened } from "react-icons/go";
 
 export const IconStar = styled(AiTwotoneStar)`
-    color: #f1c40f;
+    color: #ff6b08;
     font-size: 25px;
 `;
 
 export const IconFork = styled(BiGitRepoForked)`
-    color: #f1c40f;
+    color: #ff6b08;
     font-size: 25px;
 `;
 
 export const IconIssue = styled(GoIssueOpened)`
-    color: #f1c40f;
+    color: #ff6b08;
     font-size: 25px;
 `;
 
@@ -58,8 +58,9 @@ export const OpenSecProjectsContainer = styled.div`
         padding: 16px;
         width: 100%;
 
+        transition: all 0.3s ease-in-out;
+
         &:hover {
-            transition: all 0.3s ease-in-out;
             transform: scale(1.02);
         }
     }
@@ -75,12 +76,12 @@ export const OpenSecProjectsContainer = styled.div`
         width: 100%;
         flex-direction: row;
         justify-content: space-between;
+        transition: all 0.3s ease-in-out;
 
         @media (max-width: 620px) {
             flex-direction: column;
             justify-content: start;
             align-items: start;
-            transition: all 1.3s ease-in-out;
         }
     }
 
@@ -122,14 +123,14 @@ export const OpenSecProjectsContainer = styled.div`
     }
 
     .card-footer a {
-        color: #0366d6;
+        color: #ff6b08;
         transition: all 0.3s ease-in-out;
 
         width: 100%;
         text-decoration: none;
 
         &:hover {
-            color: #0079ff;
+            color: #ff6b08;
             text-decoration: underline;
             transition: all 0.3s ease-in-out;
             scale: 1.1;

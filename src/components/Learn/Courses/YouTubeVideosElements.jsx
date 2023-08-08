@@ -46,7 +46,7 @@ export const FreeCoursesWrapper = styled.div`
 
 export const FreeCoursesCard = styled.a`
     text-decoration: none;
-    background: #fff;
+    background: #f5f5f5;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -72,7 +72,7 @@ export const FreeCoursesIcon = styled.img`
 
 export const FreeCoursesH1 = styled.h1`
     font-size: 2.5rem;
-    color: #fff;
+    color: #f5f5f5;
     margin-bottom: 64px;
 
     @media screen and (max-width: 480px) {
@@ -146,7 +146,7 @@ export const HeadingContainer = styled.div`
 `;
 
 export const IconContainer = styled.div`
-    color: white;
+    color: #f5f5f5;
     //display: none;
     //@media screen and (max-width: 768px) {
     display: flex;
@@ -164,7 +164,7 @@ export const CaretDownIcon = styled(AiFillCaretDown)`
 `;
 
 export const SideBarHeading = styled.h1`
-    color: #fff;
+    color: #f5f5f5;
     font-size: 24px;
     white-space: nowrap;
 `;
@@ -199,26 +199,26 @@ export const ListContent = styled.li`
     ${({ isActive }) =>
         isActive &&
         css`
-            //box-shadow: inset 10px 0 0 -7px #20c20e;
+            //box-shadow: inset 10px 0 0 -7px #ff6b08;
             background: #000000;
-            border-bottom: 2px solid #20c20e;
+            border-bottom: 2px solid #ff6b08;
         `}
     &:hover {
         background: #000000;
-        border-bottom: 2px solid #20c20e;
+        border-bottom: 2px solid #ff6b08;
     }
 `;
 
 export const Link = styled(RouterLink)`
-    color: #fff;
+    color: #f5f5f5;
     text-decoration: none;
 
     ${({ isActive }) =>
         isActive &&
         css`
-            color: #20c20e;
+            color: #ff6b08;
         `}
     &:hover {
-        color: #20c20e;
+        color: #ff6b08;
     }
 `;

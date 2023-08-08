@@ -38,7 +38,7 @@ export const aboutData = {
             <List>
                 <ListIcon />
                 <ListContent style={{ fontSize: "initial" }}>
-                    Thecyberhub Website, Mobile App, Web Extensions, and Bots are built by @thecyberworld community
+                    TheCyberHUB Website, Mobile App, Web Extensions, and Bots are built by @thecyberworld community
                 </ListContent>
             </List>
             <List>
@@ -49,7 +49,7 @@ export const aboutData = {
             </List>
         </ListContainer>
     ),
-    buttonLabel1: "Join our community",
+    buttonLabel1: "Join our Community",
     link1: "/community",
     buttonType1: "router",
     buttonLabel2: "Contribute to Opensource",
@@ -74,8 +74,8 @@ export const ResourcesData = {
     headline: "Cyber Sec Resources",
     description: (
         <>
-            Explore cyber security resources. <br />
-            Courses, ctfs, events, blogs, tools, writeups, roadmaps, and much more.
+            Explore Cyber Security Resources. <br />
+            Courses, CTFs, Events, Blogs, Tools, WriteUps, Roadmaps, and much more.
         </>
     ),
     buttonLabel1: (
@@ -142,7 +142,7 @@ export const contributeData = {
             <IconsSpacing>
                 <FaGithub />
             </IconsSpacing>
-            Contribute to Github
+            Contribute to Projects
         </>
     ),
     link1: "https://github.com/thecyberworld",

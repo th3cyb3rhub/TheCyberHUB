@@ -122,7 +122,7 @@ export const volunteerPrograms = [
         requirements: [
             "Proficiency in web development using React",
             "Strong knowledge of HTML, CSS, and JavaScript",
-            "Experience with version control systems likes Git",
+            "Experience with version control systems feedLikes Git",
         ],
     },
 ];

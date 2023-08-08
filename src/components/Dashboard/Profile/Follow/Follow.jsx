@@ -3,7 +3,8 @@ import { DotIcon, FollowButton, FollowContainer, FollowCount } from "./FollowEle
 import { useDispatch, useSelector } from "react-redux";
 import { followUser, getFollowData, reset, unfollowUser } from "../../../../features/follow/followSlice";
 // import Followers from "../Followers/Followers";
-import { RouterLink } from "../../../Beta/Tools/ToolsElements";
+import { RouterLink } from "../../../Tools/ToolsElements";
+import { CircleSpinner } from "react-spinners-kit";
 // import { CircleSpinner } from "react-spinners-kit";
 
 const Follow = ({ userDetail, userDetails }) => {
@@ -47,25 +48,15 @@ const Follow = ({ userDetail, userDetails }) => {
     const handleFollow = async () => {
         if (!isFollowed && followUserId) {
             await dispatch(followUser(followUserId));
-            console.log("followed");
         }
         if (isFollowed && followUserId) {
             await dispatch(unfollowUser(unfollowId));
-            console.log("unfollowed");
         }
         await dispatch(getFollowData(userId));
     };
 
-    // const handleConnection = async () => {
-    //     setIsConnection(!isConnection);
-    // }
-
     const followersCount = followers?.length || 0;
     const followingCount = following?.length || 0;
-
-    if (isLoading) {
-        // return <CircleSpinner size={10} isLoading={isLoading}/>;
-    }
 
     return (
         <FollowContainer>
@@ -76,20 +67,20 @@ const Follow = ({ userDetail, userDetails }) => {
                     </FollowButton>
                 ) : (
                     <div style={{ display: "flex", gap: "15px" }}>
-                        <FollowButton onClick={handleFollow}>{isFollowed ? "Unfollow" : "Follow"}</FollowButton>
-                        {/* <FollowButton onClick={handleConnection}> */}
-                        {/*    {isConnection ? "Remove Connection" : "Connection"} */}
-                        {/* </FollowButton> */}
+                        {isLoading ? (
+                            <FollowButton>
+                                {" "}
+                                <CircleSpinner size={16} isLoading={isLoading} />{" "}
+                            </FollowButton>
+                        ) : (
+                            <FollowButton onClick={handleFollow}>{isFollowed ? "Unfollow" : "Follow"}</FollowButton>
+                        )}
                     </div>
                 )}
             </>
             <FollowCount>
                 {followersCount} Followers <DotIcon /> {followingCount} Following
             </FollowCount>
-            {/* <FollowCount> */}
-            {/*    {500}+ Connections */}
-            {/* </FollowCount> */}
-            {/* <Followers followers={followData?.followers} userDetails={userDetails}/> */}
         </FollowContainer>
     );
 };

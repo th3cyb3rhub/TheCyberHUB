@@ -111,7 +111,7 @@ const SingleCTF = () => {
     if (isCtfLoading || isApiLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={25} color={"#1fc10d"} isLoading={isCtfLoading || isApiLoading} />
+                <CircleSpinner size={25} color={"#ff6b08"} isLoading={isCtfLoading || isApiLoading} />
             </Wrapper>
         );
     }

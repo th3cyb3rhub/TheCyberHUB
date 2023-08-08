@@ -24,7 +24,7 @@ export const RegistrationFormContainer = styled.form`
     }
 
     & .registration__promotion__h1 {
-        color: white;
+        color: #f5f5f5;
         font-size: 25px;
         margin-bottom: 13px;
         line-height: 1.2;
@@ -42,18 +42,25 @@ export const RegistrationFormContainer = styled.form`
         row-gap: 20px;
     }
 
+    & .forgot_register {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
     & .registration__ctas {
-        margin-top: 20px;
+        //margin-top: 20px;
         display: grid;
-        row-gap: 20px;
+        row-gap: 10px;
 
         & .registration__tandc {
             display: flex;
             font-size: 12px;
-            color: white;
+            color: #f5f5f5;
 
             & span {
-                color: green;
+                color: #ff6b08;
                 text-decoration: underline;
                 margin-left: 5px;
                 cursor: pointer;

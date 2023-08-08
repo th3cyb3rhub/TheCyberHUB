@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, getUserDetail, reset } from "../../../../features/userDetail/userDetailSlice";
+import { getAllUserDetails, getUserDetail, userDetailReset } from "../../../../features/userDetail/userDetailSlice";
 import {
     LeaderboardContainer,
     LeaderboardHeader,
@@ -13,7 +13,7 @@ import {
     Username,
 } from "./LeaderboardElements";
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
-import { RouterLink } from "../../../Beta/Tools/ToolsElements";
+import { RouterLink } from "../../../Tools/ToolsElements";
 import { RankCgCrown } from "../../../Dashboard/Profile/UserPoints/UserPointsElements";
 import UnderMaintenance from "../../UnderMaintenance/UnderMaintenance";
 import { CircleSpinner } from "react-spinners-kit";
@@ -36,7 +36,7 @@ const Leaderboard = () => {
         dispatch(getAllUserDetails());
 
         return () => {
-            dispatch(reset());
+            dispatch(userDetailReset());
         };
     }, [dispatch]);
 
@@ -47,7 +47,7 @@ const Leaderboard = () => {
     if (isLoading || isApiLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isLoading || isApiLoading} />
+                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isLoading || isApiLoading} />
             </Wrapper>
         );
     }

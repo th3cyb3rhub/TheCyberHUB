@@ -58,7 +58,7 @@ export const RefreshSection = styled.div`
 `;
 
 export const RefreshButton = styled(MdRefresh)`
-    color: #fff;
+    color: #f5f5f5;
     cursor: pointer;
     font-size: 30px;
     margin: 0 10px;
@@ -85,7 +85,7 @@ export const Username = styled.p`
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        color: #fff;
+        color: #f5f5f5;
         scale: 1.01;
     }
 `;

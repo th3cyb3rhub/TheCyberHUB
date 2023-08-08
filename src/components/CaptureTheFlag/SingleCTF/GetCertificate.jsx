@@ -25,7 +25,7 @@ const GetCertificate = ({ ctfCertificates, ctfId, user, isCompleted, isCertExist
                     <h2 style={{ color: "#bdbdbd" }}>Congratulations!</h2>
                     <h3 style={{ color: "#bdbdbd" }}>You have completed this CTF!</h3>
                     <Link to={redirectUrlParams}>
-                        <h4 style={{ color: "greenyellow" }}>Click here to get your Certificate</h4>
+                        <h4 style={{ color: "#00b2ff" }}>Click here to get your Certificate</h4>
                     </Link>
                 </div>
             ) : (

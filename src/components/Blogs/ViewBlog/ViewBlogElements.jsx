@@ -8,10 +8,13 @@ export const BlogImageContainer = styled.div`
     background-color: #111111;
 `;
 export const BlogImage = styled.img`
-    border-radius: 5px;
-    max-height: 550px;
-    justify-self: center;
-    word-wrap: break-word;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover; /* Adjust the value based on your requirement */
+    display: block;
+    margin: 0 auto;
+    border-radius: 15px 15px 0 0;
 `;
 
 export const BlogTitle = styled.h1`
@@ -29,7 +32,9 @@ export const BlogTitle = styled.h1`
 
 export const UsernameAndDate = styled.h4`
     word-wrap: break-word;
-    max-width: 8000px;
+    max-width: 800px;
+
+    color: #e7e7e7;
 
     @media screen and (max-width: 600px) {
         font-size: 12px;
@@ -99,7 +104,7 @@ export const BlogContent = styled(ReactQuill)`
         transition: 0.3s ease-in-out;
 
         &:hover {
-            color: #0bff0b;
+            color: #ff6b08;
             transition: 0.3s ease-in-out;
             scale: 1.05;
         }
@@ -159,7 +164,7 @@ export const BlogContent = styled(ReactQuill)`
     //  font-size: 20px;
     //  line-height: 1.5;
     //  margin-left: 20px; /* Adjust this value according to your preference */
-    //  border: #17f31e 1px solid;
+    //  border: #ff6b08 1px solid;
     //}
     //ul {
     //  list-style-type: square;
@@ -167,7 +172,7 @@ export const BlogContent = styled(ReactQuill)`
     //  border: #17ecf3 1px solid;
     //}
     //li {
-    //  border: #17f31e 1px solid;
+    //  border: #ff6b08 1px solid;
     //  list-style-type: square;
     //  display: inline-table;
     //  font-family: "Roboto Mono", monospace;
@@ -201,7 +206,7 @@ export const BlogContent = styled(ReactQuill)`
     //  }
     //
     //  a {
-    //    color: #f4f4f4;
+    //    color: #f5f5f5;
     //  }
     //
     //  h1 {
@@ -296,7 +301,7 @@ export const ContentReactMarkdown = styled(ReactMarkdown)`
   }
 
   a {
-    color: #f4f4f4;
+    color: #f5f5f5;
   }
 
   h1 {
@@ -392,7 +397,7 @@ export const ContentReactMarkdown = styled(ReactMarkdown)`
     }
 
     a {
-      color: #f4f4f4;
+      color: #f5f5f5;
     }
 
     h1 {
@@ -509,10 +514,11 @@ export const ViewBlogHeader = styled.div`
 `;
 
 export const CommentContainer = styled.div`
-    background-color: #111111;
+    background-color: #090909;
     border-radius: 5px;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-wrap: normal;

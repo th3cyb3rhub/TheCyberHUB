@@ -55,7 +55,7 @@ export const GetCertificateContainer = styled.div`
 export const Heading = styled.h2`
     font-size: 1.5rem;
     background: transparent;
-    color: whitesmoke;
+    color: #f5f5f5;
     margin: 5px;
     padding: 5px 10px;
 `;
@@ -65,7 +65,7 @@ export const InvalidCertificate = styled.div`
     padding: 1rem 5rem;
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
-    color: whitesmoke;
+    color: #f5f5f5;
     background-repeat: no-repeat;
     background-size: cover;
     border: 2px solid #222;
@@ -84,7 +84,7 @@ export const InputBox = styled.input`
     background: transparent;
     border: #3f3f3f 1px solid;
     border-radius: 0.5rem;
-    color: whitesmoke;
+    color: #f5f5f5;
     padding: 5px 5px;
 `;
 
@@ -288,6 +288,10 @@ export const SearchInput = styled.input`
     width: 300px;
     border-radius: 0 4px 4px 0;
     @media screen and (max-width: 380px) {
+        width: 100%;
+    }
+
+    @media screen and (max-width: 800px) {
         width: 100%;
     }
 

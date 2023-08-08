@@ -3,17 +3,16 @@ import feedService from "./feedCommentServices";
 
 const initialState = {
     feedComments: [],
-    isLoading: false,
-    isError: false,
-    isSuccess: false,
-    message: "",
+    isFeedReplyLoading: false,
+    isFeedReplyError: false,
+    isFeedReplySuccess: false,
+    feedCommentMessage: "",
 };
 
 // Fetch comments for a feed
-export const getFeedComments = createAsyncThunk("comments/fetchComments", async ({ feedId }, thunkAPI) => {
+export const getFeedComments = createAsyncThunk("comments/fetchComments", async (_, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token;
-        return await feedService.getComments(feedId, token);
+        return await feedService.getComments();
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -22,10 +21,10 @@ export const getFeedComments = createAsyncThunk("comments/fetchComments", async 
 });
 
 // Add a comment to a feed
-export const addFeedComment = createAsyncThunk("comments/addComment", async ({ feedId, commentData }, thunkAPI) => {
+export const addFeedComment = createAsyncThunk("comments/addComment", async ({ feedId, replyData }, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await feedService.addComment(feedId, commentData, token);
+        return await feedService.addComment(feedId, replyData, token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -62,71 +61,71 @@ const commentSlice = createSlice({
     name: "feedComments",
     initialState,
     reducers: {
-        reset: (state) => initialState,
+        feedReplyReset: (state) => initialState,
     },
     extraReducers: (builder) => {
         builder
             .addCase(getFeedComments.pending, (state) => {
-                state.isLoading = true;
-                state.isError = false;
+                state.isFeedReplyLoading = true;
+                state.isFeedReplyError = false;
             })
             .addCase(getFeedComments.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isError = false;
-                state.isSucces = true;
+                state.isFeedReplyLoading = false;
+                state.isFeedReplyError = false;
+                state.isFeedReplySuccess = true;
                 state.feedComments = action.payload;
             })
             .addCase(getFeedComments.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.isSucces = false;
-                state.message = action.payload;
+                state.isFeedReplyLoading = false;
+                state.isFeedReplyError = true;
+                state.isFeedReplySuccess = false;
+                state.feedCommentMessage = action.payload;
             })
             .addCase(addFeedComment.pending, (state) => {
-                state.isLoading = true;
-                state.isError = false;
+                state.isFeedReplyLoading = true;
+                state.isFeedReplyError = false;
             })
             .addCase(addFeedComment.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSucces = true;
-                state.feedComments.push(action.payload);
+                state.isFeedReplyLoading = false;
+                state.isFeedReplySuccess = true;
+                state.feedComments = [...state.feedComments, action.payload];
             })
             .addCase(addFeedComment.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.isSucces = false;
-                state.message = action.payload;
+                state.isFeedReplyLoading = false;
+                state.isFeedReplyError = true;
+                state.isFeedReplySucces = false;
+                state.feedCommentMessage = action.payload;
             })
             .addCase(updateComment.pending, (state) => {
-                state.isLoading = true;
-                state.isError = false;
+                state.isFeedReplyLoading = true;
+                state.isFeedReplyError = false;
             })
             .addCase(updateComment.fulfilled, (state, action) => {
-                state.isLoading = false;
+                state.isFeedReplyLoading = false;
                 state.feedComments = state.feedComments.map((comment) =>
                     comment._id === action.payload._id ? { ...comment, ...action.payload } : comment,
                 );
             })
             .addCase(updateComment.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isFeedReplyLoading = false;
+                state.isFeedReplyError = true;
+                state.feedCommentMessage = action.payload;
             })
             .addCase(deleteComment.pending, (state) => {
-                state.isLoading = true;
-                state.isError = false;
+                state.isFeedReplyLoading = true;
+                state.isFeedReplyError = false;
             })
             .addCase(deleteComment.fulfilled, (state, action) => {
-                state.isLoading = false;
+                state.isFeedReplyLoading = false;
                 state.feedComments = state.feedComments.filter((comment) => comment._id !== action.payload);
             })
             .addCase(deleteComment.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isFeedReplyLoading = false;
+                state.isFeedReplyError = true;
+                state.feedCommentMessage = action.payload;
             });
     },
 });
 
-export const { reset } = commentSlice.actions;
+export const { feedReplyReset } = commentSlice.actions;
 export default commentSlice.reducer;

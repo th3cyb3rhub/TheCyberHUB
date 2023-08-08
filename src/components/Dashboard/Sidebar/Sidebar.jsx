@@ -14,8 +14,16 @@ const Sidebar = () => {
                 <SidebarTitle> Bookmarks </SidebarTitle>
             </RouteLink>
 
-            <SidebarTitle> Analytics </SidebarTitle>
-            <SidebarTitle> Settings </SidebarTitle>
+            <RouteLink to={"/dashboard/blogs"}>
+                <SidebarTitle> User Blogs </SidebarTitle>
+            </RouteLink>
+
+            <RouteLink to={"/dashboard/goals"}>
+                <SidebarTitle> Goals </SidebarTitle>
+            </RouteLink>
+
+            {/* <SidebarTitle> Analytics </SidebarTitle> */}
+            {/* <SidebarTitle> Settings </SidebarTitle> */}
         </DashboardSidebarContainer>
     );
 };

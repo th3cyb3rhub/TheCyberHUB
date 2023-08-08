@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthPopupContainer, CloseButton } from "./AuthPopupElements";
+import { PopupContainer, CloseButton } from "./AuthPopupElements";
 import Register from "../Register";
 
 const AuthPopup = ({ onClose }) => {
@@ -7,16 +7,16 @@ const AuthPopup = ({ onClose }) => {
 
     const togglePop = () => {
         setSeen(!seen);
-        onClose(); // Call the onClose prop to close the popup
+        onClose();
     };
 
     return (
-        <AuthPopupContainer>
+        <PopupContainer>
             <div className="popup-inner">
                 <Register authPopup={true} />
                 <CloseButton onClick={togglePop} />
             </div>
-        </AuthPopupContainer>
+        </PopupContainer>
     );
 };
 

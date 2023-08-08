@@ -2,7 +2,14 @@ import styled from "styled-components";
 import { ExploreContentContainer } from "../ExploreElements";
 import { LuVerified } from "react-icons/lu";
 
-export const UsersContainer = styled(ExploreContentContainer)``;
+export const UsersContainer = styled(ExploreContentContainer)`
+    grid-auto-rows: ${(props) => (props.displayAt === "explore" ? "1fr" : "0fr")};
+    gap: 15px;
+    @media screen and (max-width: 800px) {
+        grid-auto-rows: 0fr;
+        padding: 15px;
+    }
+`;
 
 export const IconVerified = styled(LuVerified)`
     color: #1da1f2;
@@ -30,6 +37,17 @@ export const UserPicture = styled.img`
     margin: 0 auto;
     border: #222222 1px solid;
 `;
+
+// const EditButton = styled.button`
+//   position: absolute;
+//   bottom: 5px;
+//   right: 5px;
+//   background-color: #f5f5f5;
+//   border: 1px solid #222222;
+//   border-radius: 50%;
+//   padding: 5px;
+//   cursor: pointer;
+// `;
 
 export const UserDetail = styled.div`
     display: flex;

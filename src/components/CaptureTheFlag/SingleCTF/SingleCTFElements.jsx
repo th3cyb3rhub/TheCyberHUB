@@ -70,7 +70,7 @@ export const CTFMachineLink = styled.a`
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        color: greenyellow;
+        color: #00b2ff;
         scale: 1.01;
     }
 `;

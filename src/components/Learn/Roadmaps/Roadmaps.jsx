@@ -9,13 +9,13 @@ import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 const Colors = [
     "darkorange",
     "#ff1f19",
-    "greenyellow",
+    "#00b2ff",
     "#149eca",
     "#dfdfdf",
     "#4abfdf",
     "darkorange",
     "cornflowerblue",
-    "greenyellow",
+    "#00b2ff",
     "darkgray",
     "mediumpurple",
 ];

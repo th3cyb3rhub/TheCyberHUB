@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddFeedCommentContainer, FeedCommentInput } from "./AddFeedCommentsElements";
-import { AddImage, FooterSection, PostFormButton } from "../PostForm/AddPostElements";
+import { FooterSection, PostFormButton } from "../PostForm/AddPostElements";
 import { addFeedComment } from "../../../features/feeds/feedComments/feedCommentsSlice";
 import { LeftSection, PostHeader, PostHeaderImg, RightSection } from "../FeedPosts/FeedPostsElements";
 import AuthPopup from "../../../pages/AuthPopup/AuthPopup";
@@ -10,8 +10,8 @@ const AddFeedComment = ({ feedId }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
 
-    const [addComment, setAddComment] = useState({ comment: "" });
-    const { comment } = addComment;
+    const [addReply, setAddReply] = useState({ reply: "" });
+    const { reply } = addReply;
     const [showAuthPopup, setShowAuthPopup] = useState(false);
 
     const handleSubmit = (e) => {
@@ -22,9 +22,9 @@ const AddFeedComment = ({ feedId }) => {
             return;
         }
 
-        const commentData = { comment };
-        dispatch(addFeedComment({ feedId, commentData }));
-        setAddComment({ comment: "" });
+        const replyData = { reply };
+        dispatch(addFeedComment({ feedId, replyData }));
+        setAddReply({ reply: "" });
     };
 
     const textareaRef = useRef(null);
@@ -33,7 +33,7 @@ const AddFeedComment = ({ feedId }) => {
         const textarea = textareaRef.current;
         textarea.style.height = "auto"; // Reset height to recalculate scrollHeight
         textarea.style.height = `${textarea.scrollHeight}px`; // Set height to fit content
-        setAddComment({ comment: textarea.value }); // Update only the 'comment' property in the state
+        setAddReply({ reply: textarea.value }); // Update only the 'reply' property in the state
     };
     return (
         <AddFeedCommentContainer>
@@ -45,14 +45,14 @@ const AddFeedComment = ({ feedId }) => {
                 <PostHeader>
                     <FeedCommentInput
                         ref={textareaRef}
-                        placeholder="Add a comment..."
-                        value={comment} // Use 'comment' directly instead of 'addComment'
+                        placeholder="Add a reply..."
+                        value={reply} // Use 'reply' directly instead of 'addComment'
                         onChange={handleChange}
                     />
                 </PostHeader>
 
                 <FooterSection>
-                    <AddImage />
+                    <p></p>
                     <PostFormButton onClick={handleSubmit}>Submit</PostFormButton>
                 </FooterSection>
             </RightSection>

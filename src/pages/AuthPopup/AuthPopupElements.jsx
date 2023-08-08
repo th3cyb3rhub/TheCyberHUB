@@ -1,23 +1,34 @@
 import styled from "styled-components";
 import { ImCross } from "react-icons/im";
 
-export const AuthPopupContainer = styled.div`
+export const PopupContainer = styled.div`
     position: fixed;
-    z-index: 1;
+    z-index: 99;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 5px;
+    overflow: hidden;
 
     .popup-inner {
+        margin-top: 50px;
         border: #2a2a2a solid 1px;
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
+    }
+
+    ::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.59);
     }
 `;
 
@@ -30,7 +41,7 @@ export const CloseButton = styled(ImCross)`
     cursor: pointer;
     font-size: 25px;
     color: #090a0c;
-    background: #17f31e;
+    background: #f67c07;
     border-radius: 50%;
     padding: 5px;
 

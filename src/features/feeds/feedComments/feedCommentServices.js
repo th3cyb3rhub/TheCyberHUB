@@ -1,18 +1,12 @@
 import axios from "axios";
 import { getApiUrl } from "../../apiUrl";
 
-const API_URL = getApiUrl("api/feeds"); // Replace with the actual API endpoint for comments
+const API_URL = getApiUrl("api/feeds"); // Replace with the actual API endpoint for replies
 
-// Get comments for a feed
-const getComments = async (feedId, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
+// Get replies for a feed
+const getComments = async () => {
     try {
-        const response = await axios.get(`${API_URL}/${feedId}/comments`, config);
+        const response = await axios.get(`${API_URL}/replies`);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -20,7 +14,7 @@ const getComments = async (feedId, token) => {
 };
 
 // Add a comment to a feed
-const addComment = async (feedId, commentData, token) => {
+const addComment = async (feedId, replyData, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -28,7 +22,7 @@ const addComment = async (feedId, commentData, token) => {
     };
 
     try {
-        const response = await axios.post(`${API_URL}/${feedId}/comments`, commentData, config);
+        const response = await axios.post(`${API_URL}/${feedId}/replies`, replyData, config);
         return response.data;
     } catch (error) {
         console.error(error);

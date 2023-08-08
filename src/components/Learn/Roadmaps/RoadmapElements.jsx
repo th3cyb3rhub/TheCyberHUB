@@ -96,7 +96,7 @@ export const RoadmapContentHeading = styled.p`
     width: 100%;
 
     &:hover {
-        color: greenyellow;
+        color: #00b2ff;
         transition: all 0.3s ease-in-out;
         scale: 1.02;
         background: #222222;
@@ -247,7 +247,7 @@ export const RedirectLink = styled.a`
 export const RoadmapsHeading = styled.p`
     width: 40%;
     min-width: 20px;
-    color: greenyellow;
+    color: #00b2ff;
     font-size: 18px;
 `;
 

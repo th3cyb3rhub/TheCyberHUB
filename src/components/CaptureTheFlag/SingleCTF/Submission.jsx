@@ -113,7 +113,7 @@ const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIs
     };
 
     // if (userDetailIsLoading) {
-    //     return <CircleSpinner size={30} color="#09ff1b"/>;
+    //     return <CircleSpinner size={30} color="#ff6b08"/>;
     // }
 
     return (
@@ -141,7 +141,7 @@ const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIs
                                 style={{ color: buttonColor === "#f77000" && "#f77000" }}
                             >
                                 {userDetailIsLoading ? (
-                                    <CircleSpinner size={20} color="#09ff1b" />
+                                    <CircleSpinner size={20} color="#ff6b08" />
                                 ) : buttonColor === "#f77000" ? (
                                     "Wrong Answer"
                                 ) : (

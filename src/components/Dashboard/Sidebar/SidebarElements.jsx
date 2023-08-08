@@ -10,7 +10,7 @@ export const DashboardSidebarContainer = styled.div`
     width: 300px;
     height: 100vh;
     border-radius: 10px;
-    color: #d3d3d3;
+    color: #f5f5f5;
     border-right: #2a2a2a 1px solid;
     gap: 15px;
 
@@ -21,18 +21,18 @@ export const DashboardSidebarContainer = styled.div`
 
 export const RouteLink = styled(Link)`
     text-decoration: none;
-    color: #d3d3d3;
+    color: #f5f5f5;
 `;
 
 export const SidebarTitle = styled.h2`
-    color: #d3d3d3;
+    color: #f5f5f5;
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s ease-in-out;
     &:hover {
         transition: 0.3s ease-in-out;
-        color: #fff;
+        color: #f5f5f5;
         scale: 1.1;
     }
 `;

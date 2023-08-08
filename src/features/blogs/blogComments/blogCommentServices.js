@@ -3,23 +3,17 @@ import { getApiUrl } from "../../apiUrl";
 
 const API_URL = getApiUrl("api/blogs"); // Replace with the actual API endpoint for comments
 
-// Get comments for a blog
-const getComments = async (blogId, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
+// Get comments for a feed
+const getComments = async () => {
     try {
-        const response = await axios.get(`${API_URL}/${blogId}/comments`, config);
+        const response = await axios.get(`${API_URL}/comments`);
         return response.data;
     } catch (error) {
         console.error(error);
     }
 };
 
-// Add a comment to a blog
+// Add a blog to a feed
 const addComment = async (blogId, commentData, token) => {
     const config = {
         headers: {
@@ -28,15 +22,15 @@ const addComment = async (blogId, commentData, token) => {
     };
 
     try {
-        const response = await axios.post(`${API_URL}/${blogId}/comments`, commentData, config);
+        const response = await axios.post(`${API_URL}/${blogId}/comment`, commentData, config);
         return response.data;
     } catch (error) {
         console.error(error);
     }
 };
 
-// Update a comment
-const updateComment = async (commentId, content, token) => {
+// Update a blog
+const updateComment = async (blogId, content, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -44,15 +38,15 @@ const updateComment = async (commentId, content, token) => {
     };
 
     try {
-        const response = await axios.put(API_URL + commentId, { content }, config);
+        const response = await axios.put(API_URL + blogId, { content }, config);
         return response.data;
     } catch (error) {
         console.error(error);
     }
 };
 
-// Delete a comment
-const deleteComment = async (commentId, token) => {
+// Delete a blog
+const deleteComment = async (blogId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -60,18 +54,18 @@ const deleteComment = async (commentId, token) => {
     };
 
     try {
-        const response = await axios.delete(API_URL + commentId, config);
+        const response = await axios.delete(API_URL + blogId, config);
         return response.data;
     } catch (error) {
         console.error(error);
     }
 };
 
-const commentService = {
+const blogCommentService = {
     getComments,
     addComment,
     updateComment,
     deleteComment,
 };
 
-export default commentService;
+export default blogCommentService;

@@ -23,9 +23,9 @@ export const Nav = styled.nav`
     //if showBottomBorder then show bottom border
     border-bottom: ${({ showBottomBorder }) => (showBottomBorder ? "1px solid #2a2a2a" : "none")};
 
-    background: #0000007f;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.34);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
@@ -53,7 +53,7 @@ export const NavLogoRouter = styled(LinkRouter)`
     display: flex;
     justify-self: center;
     align-items: center;
-    color: #fff;
+    color: #f5f5f5;
     cursor: pointer;
     font-size: 1.5rem;
     font-weight: bold;
@@ -79,7 +79,7 @@ export const MobileIcon = styled.div`
         align-items: center;
         font-size: 1.5rem;
         cursor: pointer;
-        color: #fff;
+        color: #f5f5f5;
     }
 `;
 
@@ -100,7 +100,7 @@ export const NavMenu = styled.div`
         font-size: 125%;
         transition: all 0.3s ease-in-out;
         transform: scale(1.05);
-        border-bottom: 3px solid #20c20e;
+        border-bottom: 3px solid #ff6b08;
     }
 `;
 export const NavMenu2 = styled.div`
@@ -130,7 +130,7 @@ export const NavItem = styled.div`
 `;
 
 export const NavLink = styled(LinkRouter)`
-    color: #fff;
+    color: #f5f5f5;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -153,7 +153,7 @@ export const NavLink = styled(LinkRouter)`
         font-size: 125%;
         transition: all 0.3s ease-in-out;
         transform: scale(1.05);
-        border-bottom: 2px solid #20c20e;
+        border-bottom: 2px solid #ff6b08;
     }
 `;
 export const NavButtonsSection = styled.div`
@@ -168,7 +168,7 @@ export const NavButtonsSection = styled.div`
 `;
 
 export const RouterNavLeaderboardButtonLink = styled(Link)`
-    color: #fff;
+    color: #f5f5f5;
     display: flex;
     gap: 5px;
     transition: 0.2s ease-in-out;
@@ -179,16 +179,16 @@ export const RouterNavLeaderboardButtonLink = styled(Link)`
     &:hover {
         transition: all 0.2s ease-in-out;
         transform: scale(1.05);
-        border-bottom: 3px solid #20c20e;
+        border-bottom: 3px solid #ff6b08;
     }
 
     &.active {
-        border-bottom: 3px solid #20c20e;
+        border-bottom: 3px solid #ff6b08;
     }
 `;
 
 export const CrownIcon = styled(TbCrown)`
-    color: #17f31e;
+    color: #ff6b08;
     font-size: 30px;
 `;
 
@@ -199,7 +199,7 @@ export const RouterNavCreateButtonLink = styled(Link)`
     height: fit-content;
     background: #111111;
     border-radius: 5px;
-    color: #0bff0b;
+    color: #ff6b08;
     padding: 5px 15px;
     transition: 0.2s ease-in-out;
 

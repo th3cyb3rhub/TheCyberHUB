@@ -17,7 +17,7 @@ import {
     Votes,
 } from "./CardElements";
 import { encodeURL } from "../../Blogs/util";
-import { RouterLink } from "../../Beta/Tools/ToolsElements";
+import { RouterLink } from "../../Tools/ToolsElements";
 
 const Card = ({ title, description, username, date, categories, views, answers, answerAccepted, votes }) => {
     const postedTime = moment(date);

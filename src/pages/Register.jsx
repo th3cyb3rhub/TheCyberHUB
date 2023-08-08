@@ -14,9 +14,9 @@ import { CgPassword } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { registerUser, reset, sendEmailCode, verifyEmailCode } from "../features/auth/authSlice";
+import { registerUser, userReset, sendEmailCode, verifyEmailCode } from "../features/auth/authSlice";
 import { CircleSpinner } from "react-spinners-kit";
-import { RouterLink } from "../components/Resources/Events/EventsElement";
+import { RouterLink } from "../components/Events/EventsElement";
 
 const Register = ({ authPopup }) => {
     const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Register = ({ authPopup }) => {
         if (user) {
             navigate("/");
         }
-        dispatch(reset());
+        dispatch(userReset());
 
         if (message === "Email sent successfully") {
             setEmailSent(true);
@@ -120,8 +120,7 @@ const Register = ({ authPopup }) => {
                     <Learn2CodePromotion>
                         <div id="reg-promo-content">
                             <RouterLink to={"/"} className="brand-logo">
-                                {" "}
-                                TheCyberHUB{" "}
+                                TheCyberHUB
                             </RouterLink>
                             <h1 className="leading-title">Learn Cybersecurity For Free</h1>
                         </div>
@@ -201,11 +200,9 @@ const RegisterEmail = ({
                     value={termsAndConditions}
                 />
                 <div>
-                    {" "}
                     I agree to all statements included in
                     <RouterLink to={"/terms-conditions"}>
-                        {" "}
-                        <span style={{ color: "#20c20e" }}> Terms of Use </span>
+                        <span style={{ color: "#f67c07" }}> Terms of Use </span>
                     </RouterLink>
                 </div>
             </div>

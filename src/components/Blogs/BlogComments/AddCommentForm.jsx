@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AddCommentFormContainer, Form, Input } from "./AddCommentFormElements";
-import { addBlogComment } from "../../../features/blogs/blogComments/blogCommentsSlice"; // Import the comment slice action
+import { addBlogComment } from "../../../features/blogs/blogComments/blogCommentSlice"; // Import the comment slice action
 import { useDispatch } from "react-redux";
 import { ButtonGreen } from "../../Other/MixComponents/Buttons/ButtonElements";
 

@@ -25,7 +25,7 @@ export const DashboardItemsContainer = styled.div`
     justify-content: space-evenly;
     margin: 25px;
     border-radius: 10px;
-    color: whitesmoke;
+    color: #f5f5f5;
 
     @media screen and (max-width: 768px) {
         flex-wrap: wrap;
@@ -41,5 +41,5 @@ export const DashboardItemsLink = styled(Link)`
     padding: 50px 100px;
     border-radius: 10px;
     cursor: pointer;
-    color: whitesmoke;
+    color: #f5f5f5;
 `;

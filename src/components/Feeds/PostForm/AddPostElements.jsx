@@ -22,12 +22,12 @@ export const PostFormTextarea = styled.textarea`
     justify-content: flex-start;
     align-items: center;
     background: transparent;
-    color: #fff;
+    color: #f5f5f5;
     width: 100%;
     height: 250px;
 
     ::placeholder {
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -39,7 +39,7 @@ export const FooterSection = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    //padding: 0 10px 0 12px;
     width: 100%;
 `;
 
@@ -53,7 +53,7 @@ export const PostFormButton = styled.button`
     padding: 10px 20px;
     cursor: pointer;
     background: transparent;
-    color: #f4f4f4;
+    color: #f5f5f5;
     border: 1px solid #1a1c1d;
     border-radius: 25px;
     font-size: 14px;
@@ -66,4 +66,50 @@ export const PostFormButton = styled.button`
         transition: all 0.2s ease-in-out;
         background: #1a1c1d;
     }
+`;
+
+export const ImageContainer = styled.div`
+    position: relative;
+    margin-right: 8px;
+    margin-bottom: 8px;
+`;
+
+export const UploadedImage = styled.img`
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        opacity: 0.8;
+        scale: 1.1;
+    }
+`;
+
+export const RemoveButton = styled.button`
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(42, 42, 42, 0.78);
+    border: none;
+    border-radius: 50%;
+    color: #f00;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    width: 15px;
+    font-size: 10px;
+`;
+
+export const ImageUploadContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
 `;

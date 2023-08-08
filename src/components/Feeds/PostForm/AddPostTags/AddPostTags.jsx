@@ -7,7 +7,7 @@ const AddFeedTags = ({ tags, setTags, size }) => {
     const [addTag, setAddTag] = useState("");
 
     useEffect(() => {
-        if (tags.length > 11) {
+        if (tags.length > 9) {
             setHideInput(false);
         } else {
             setHideInput(true);
@@ -26,9 +26,23 @@ const AddFeedTags = ({ tags, setTags, size }) => {
     };
 
     const handleTagInputChange = (event) => {
-        setAddTag(event.target.value);
+        const value = event.target.value;
+        setAddTag(value);
+
+        // Check if the user has entered a tag and pressed Enter or typed a comma
+        if (value.trim() !== "" && (event.key === "Enter" || event.key === ",")) {
+            setTags((prevTags) => [...prevTags, value.trim()]);
+            setAddTag("");
+        }
     };
 
+    const handleTagInputBlur = () => {
+        const value = addTag.trim();
+        if (value !== "") {
+            setTags((prevTags) => [...prevTags, value]);
+            setAddTag("");
+        }
+    };
     const handleAddTagOnEnter = (event) => {
         if (event.key === "Enter") {
             event.preventDefault();
@@ -48,21 +62,20 @@ const AddFeedTags = ({ tags, setTags, size }) => {
         }
     }, [addTag]);
 
-    console.log(tags);
-    console.log(tags.length === 0);
-
     return (
         <TagsInputContainer size={size}>
-            <PostTags size={size}>
-                {tags.map(
-                    (tag, id) =>
-                        tag !== "" && (
-                            <PostTag size={size} key={id}>
-                                {tag}
-                            </PostTag>
-                        ),
-                )}
-            </PostTags>
+            {tags.length !== 0 ? (
+                <PostTags size={size}>
+                    {tags.map(
+                        (tag, id) =>
+                            tag !== "" && (
+                                <PostTag size={size} key={id}>
+                                    {tag}
+                                </PostTag>
+                            ),
+                    )}
+                </PostTags>
+            ) : null}
             {hideInput ? (
                 <TagsInput size={size}>
                     <TagInput
@@ -74,6 +87,7 @@ const AddFeedTags = ({ tags, setTags, size }) => {
                         value={addTag}
                         onChange={handleTagInputChange}
                         onKeyDown={handleAddTagOnEnter}
+                        onBlur={handleTagInputBlur} // Add onBlur event handler
                         placeholder="Add tag"
                     />
                     <IconAdd onClick={handleAddTag}>+</IconAdd>

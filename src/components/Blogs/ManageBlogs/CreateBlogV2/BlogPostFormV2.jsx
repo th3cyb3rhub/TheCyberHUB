@@ -19,6 +19,7 @@ const BlogPostFormV2 = ({ content, setContent }) => {
             ["clean"],
         ],
     };
+
     const formats = [
         "header",
         "bold",
@@ -43,7 +44,7 @@ const QuillContainer = styled(ReactQuill)`
         min-height: 350px;
         height: 100%;
         width: 100%;
-        color: #fff;
+        color: #f5f5f5;
         padding: 20px;
         background: #0c0c0c;
         font-size: 17px;
@@ -55,7 +56,7 @@ const QuillContainer = styled(ReactQuill)`
         border: #1f1f1f 1px solid;
         font-family: "Poppins", sans-serif;
         font-size: 17px;
-        color: #fff;
+        color: #f5f5f5;
     }
 
     .ql-toolbar.ql-snow {

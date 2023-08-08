@@ -40,7 +40,7 @@ const InfoSection = ({
     darkText,
 }) => {
     return (
-        <InfoContainer id={id} lightBg={lightBg}>
+        <InfoContainer id={id}>
             <InfoWrapper>
                 <InfoRow imgStart={imgStart}>
                     <Column1>

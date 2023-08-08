@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaEdit, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
 
 export const SkillSetContainer = styled.div`
@@ -89,7 +89,7 @@ export const EditButtonSection = styled.div`
     justify-content: space-between;
 `;
 
-export const EditButton = styled(FaEdit)`
+export const EditButton = styled.div`
     cursor: pointer;
 
     &:hover {

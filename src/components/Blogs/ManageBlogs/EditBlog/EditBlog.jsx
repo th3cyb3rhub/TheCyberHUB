@@ -2,252 +2,305 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { encodeURL } from "../../util";
 import { useDispatch, useSelector } from "react-redux";
-import PreviewBlogContent from "../../PreviewBlogContent";
-import { getAllBlogs, reset, updateBlog } from "../../../../features/blogs/blogSlice";
+import { getAllBlogs, blogReset, updateBlog } from "../../../../features/blogs/blogSlice";
 import {
     AddCoverImageSection,
     AddImage,
+    CategorySection,
     CreateBlogContainer,
     Form,
+    ImageSelected,
     ImageUploadAndPreviewSection,
+    ImageUploadInput,
     ImageUploadLabel,
     Input,
     SectionCreateBlog,
     Submit,
-    TagInput,
     TextArea,
+    TextGrey,
 } from "../CreateBlog/CreateBlogElements";
 import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
-import { Button, PreviewIcon, PreviewSection } from "../../../Forum/ForumSubPageElements";
 import { toast } from "react-toastify";
 import { getApiUrl } from "../../../../features/apiUrl";
 import axios from "axios";
-import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
+import AuthPopup from "../../../../pages/AuthPopup/AuthPopup";
+import BlogPostFormV2 from "../CreateBlogV2/BlogPostFormV2";
+import { Option, Select } from "../../../CaptureTheFlag/CTFElements";
+import AddFeedTags from "../../../Feeds/PostForm/AddPostTags/AddPostTags";
+import { LoadingButton } from "../../../Other/MixComponents/Buttons/ButtonElements";
+import { CircleSpinner } from "react-spinners-kit";
 
 const EditBlog = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
-    const { blogs, isError, message } = useSelector((state) => state.blogs);
-    const [preview, setPreview] = useState(false);
-
     const navigate = useNavigate();
-    const [blogData, setBlogData] = useState({
-        title: "",
-        content: "",
-        tags: [],
-    });
+    const { user } = useSelector((state) => state.auth);
+    const { blogTitle } = useParams();
+    const { blogs, isBlogLoading, isBlogError, blogMessage } = useSelector((state) => state.blogs);
+
+    const [isSuccess, setInSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        if (isError) {
-            console.log(message);
+        if (isBlogError || errorMessage) {
+            toast.error(errorMessage || blogMessage);
         }
         dispatch(getAllBlogs());
-        return () => dispatch(reset());
-    }, [dispatch, isError, message]);
 
-    const { title } = useParams();
-    const blog = blogs.find((blog) => encodeURL(blog.title).toLowerCase() === title.toLowerCase()) || {
+        if (!user) navigate("/login");
+        if (isSuccess) navigate("/blogs");
+
+        return () => dispatch(blogReset());
+    }, [isBlogError, blogMessage, isSuccess, errorMessage]);
+
+    const blog = blogs.find((blog) => encodeURL(blog.title).toLowerCase() === blogTitle.toLowerCase()) || {
         tags: [],
     };
+    const [showAuthPopup, setShowAuthPopup] = useState(false);
 
-    const onPreview = () => setPreview(true);
-    const closePreview = () => setPreview(false);
+    const [title, setTitle] = useState(blog?.title);
+    const [summary, setSummary] = useState(blog?.summary);
+    const [content, setContent] = useState(blog?.content);
+    const [coverImage, setCoverImage] = useState(blog?.coverImage);
+    const [category, setCategory] = useState(blog?.category);
+    const [tags, setTags] = useState(blog?.tags || []);
 
-    const onChange = (e) => {
-        let value = e.target.value;
-        if (e.target.name === "tags") {
-            value = value.split(",").map((tag) => tag.trim());
-        }
-        setBlogData((prevState) => ({
-            ...prevState,
-            [e.target.name]: value,
-        }));
-    };
+    // const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState(blog?.coverImage);
 
-    const handleDrop = async (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0];
-        if (!file) return;
-        if (!file.type.startsWith("image/")) {
-            toast.error("Invalid file type. Only images are allowed.");
-            return;
-        }
-        const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+    let updatedContent;
 
-        if (!allowedTypes.includes(file.type)) {
-            toast.error("Invalid file type. Only png and jpg are allowed.");
-            return;
-        }
-        const maxFileSize = 1000000; // 1000KB
-        if (file.size > maxFileSize) {
-            toast.error(`File size should be less than ${maxFileSize / 1000}KB.`);
-            return;
-        }
-        try {
-            const currentDateTimeNumber = new Date().getTime();
-            const fileName = `${currentDateTimeNumber}.${file && file.type.split("/")[1]}`;
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("key", `blog_images/${fileName}`);
-            const API_URL = getApiUrl("api/upload");
-            await axios.post(API_URL, formData);
-            const newImageUrl = `https://thecyberhubstorage.blob.core.windows.net/images/blog${fileName}`;
-            setBlogData((prevState) => ({
-                ...prevState,
-                content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
-            }));
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-    const handlePaste = async (e) => {
-        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-        let file = null;
+    // const onFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     const fileName = `blog-${Date.now()}.${file && file.type.split("/")[1]}`;
+    //
+    //     setFileName(fileName);
+    //     setCoverImage(fileName);
+    //
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //         setFile();
+    //         const newFile = new File([reader.result], fileName, {type: file && file.type});
+    //         setFile(newFile);
+    //     };
+    //     reader.readAsArrayBuffer(file);
+    // };
 
-        // Check if the paste event contains an image
-        for (const item of items) {
-            if (item.type.startsWith("image")) {
-                file = item.getAsFile();
-                break;
+    const createNewPost = async (ev) => {
+        ev.preventDefault();
+        if (!user) {
+            setShowAuthPopup(true); // Show the login popup if the user is not logged in
+        } else {
+            setInSuccess(false);
+            setErrorMessage("");
+
+            if (!title) {
+                toast.error("Title is required");
+                return;
             }
-        }
-        if (!file) return;
-        if (!file.type.startsWith("image/")) {
-            toast.error("Invalid file type. Only images are allowed.");
-            return;
-        }
+            if (!summary) {
+                toast.error("Summary is required");
+                return;
+            }
+            if (!content) {
+                toast.error("Content is required");
+                return;
+            }
+            if (!coverImage) {
+                toast.error("Cover Image is required");
+                return;
+            }
+            if (tags.length === 0) {
+                toast.error("Tags are required");
+                return;
+            }
+            // if (!file) {
+            //     toast.error("CoverImage is required");
+            //     return;
+            // }
 
-        if (file.type !== ("image/png" || "image/jpeg" || "image/jpg")) {
-            toast.error("Invalid file type. Only png and jpg are allowed.");
-            return;
-        }
-        const maxFileSize = 1000000; // 1000KB
-        if (file.size > maxFileSize) {
-            toast.error(`File size should be less than ${maxFileSize / 1000}KB.`);
-            return;
-        }
-        try {
-            const currentDateTimeNumber = new Date().getTime();
-            const fileName = `${currentDateTimeNumber}.${file && file.type.split("/")[1]}`;
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("key", `blog_images/${fileName}`);
-            const API_URL = getApiUrl("api/upload");
-            await axios.post(API_URL, formData);
-            const newImageUrl = `https://thecyberhubstorage.blob.core.windows.net/images/blog${fileName}`;
-            setBlogData((prevState) => ({
-                ...prevState,
-                content: prevState.content + `\n![PLEASE_ADD_A_NAME_FOR_THIS_IMAGE_HERE](${newImageUrl})`,
-            }));
-        } catch (err) {
-            console.error(err.message);
+            try {
+                // async function uploadCoverImage() {
+                //     try {
+                //         const formData = new FormData();
+                //         formData.append("image", file);
+                //         const API_URL = getApiUrl("api/upload");
+                //         await axios.post(API_URL, formData);
+                //     } catch (err) {
+                //         toast.error(err.message);
+                //     }
+                // }
+
+                // await uploadCoverImage();
+
+                const imageTags = content.match(/<img[^>]*src="([^"]*)"[^>]*>/g) || [];
+                updatedContent = content;
+
+                if (imageTags.length > 0) {
+                    async function uploadContentImages() {
+                        const imageUrls = imageTags.map((tag) => {
+                            const match = tag.match(/src="([^"]*)"/);
+                            return match ? match[1] : null;
+                        });
+
+                        for (const imageUrl of imageUrls) {
+                            if (!isImageUrl(imageUrl)) {
+                                await uploadContentImage(imageUrl);
+                            }
+                        }
+                    }
+
+                    await uploadContentImages();
+                }
+
+                async function uploadContentImage(imageUrl) {
+                    const [imageType, base64Data] = imageUrl.split(";base64,");
+                    const filename = `blog-${Date.now()}.${imageType.split("/")[1]}`;
+                    updatedContent = updatedContent.replace(imageUrl, filename.split("-")[1]);
+
+                    const newFile = bufferToFile(base64Data, filename, imageType);
+
+                    const contentImageData = new FormData();
+                    contentImageData.append("image", newFile);
+
+                    try {
+                        const API_URL = getApiUrl("api/upload");
+                        await axios.post(API_URL, contentImageData);
+                    } catch (err) {
+                        toast.error(err.message);
+                    }
+                }
+
+                const blogData = {
+                    title: title.trim(),
+                    summary,
+                    content: updatedContent,
+                    coverImage: fileName,
+                    category,
+                    tags,
+                };
+
+                try {
+                    await dispatch(updateBlog({ id: blog._id, blogData }));
+                    setInSuccess(true);
+                } catch (err) {
+                    setErrorMessage(err.message);
+                }
+            } catch (err) {
+                setErrorMessage(err.message);
+            }
+
+            setTitle("");
+            setSummary("");
+            setContent("");
+            setCoverImage("");
+            setCategory("");
+            setTags([]);
+            setFileName("");
+            // setFile("");
         }
     };
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-
-        const tagData = blogData.tags.length === 0 ? blog.tags : blogData.tags;
-
-        const updatedBlogData = {
-            title: blogData.title || blog.title,
-            content: blogData.content || blog.content,
-            tags: tagData,
-        };
-
-        dispatch(updateBlog({ id: blog._id, blogData: updatedBlogData }));
-        navigate("../");
-    };
-
-    if (user) {
-        return <UnderMaintenance />;
-    }
-
+    // const coverImagePreview = cdnContentImagesUrl(`/blog/${blog?.coverImage}`);
     return (
         <Wrapper>
+            {showAuthPopup && <AuthPopup onClose={() => setShowAuthPopup(false)} />}
             <CreateBlogContainer>
                 <ImageUploadAndPreviewSection>
                     <AddCoverImageSection>
                         <ImageUploadLabel style={{ color: "grey" }} htmlFor="addCoverImage">
-                            <AddImage /> Updating Cover Image is not Implemented yet
-                            {/* {!fileName ? <> Add Cover Image </> : */}
-                            {/*    !preview && (!fileName && <ImageSelected> Please select an image </ImageSelected> */}
-                            {/*    )} */}
-                            {/* <ImageSelected> {file && <p>{fileName} selected</p>} </ImageSelected> */}
+                            <AddImage />
+                            {!fileName ? (
+                                <> Add Cover Image </>
+                            ) : (
+                                !fileName && <ImageSelected> Please select an image </ImageSelected>
+                            )}
+                            <ImageSelected> {fileName && <>{fileName.slice(0, 20)}..</>} </ImageSelected>
+                            {/* <img src={file ? URL.createObjectURL(file) : coverImagePreview}  alt={""} style={{height: "100px", width:"auto"}}/> */}
                         </ImageUploadLabel>
-                        {/* <ImageUploadInput */}
-                        {/*    type="file" name="addCoverImage" id="addCoverImage" */}
-                        {/*    // onChange={onFileChange} */}
-                        {/*    style={{display: "none"}} */}
-                        {/* /> */}
+                        <ImageUploadInput
+                            // type="file"
+                            // name="addCoverImage"
+                            // id="addCoverImage"
+                            // onChange={onFileChange}
+                            style={{ display: "none" }}
+                        />
                     </AddCoverImageSection>
 
-                    <PreviewSection>
-                        {!preview ? (
-                            <Button onClick={onPreview}>
-                                <PreviewIcon /> Show Preview
-                            </Button>
-                        ) : (
-                            <Button onClick={closePreview}>
-                                <PreviewIcon /> Close Preview
-                            </Button>
-                        )}
-                    </PreviewSection>
+                    <TextGrey>Required Image Size: 1280 x 720 pixels</TextGrey>
                 </ImageUploadAndPreviewSection>
-                {preview ? (
-                    <PreviewBlogContent
-                        preview={preview}
-                        closePreview={closePreview}
-                        title={blogData.title || blog.title}
-                        content={blogData.content || blog.content}
-                        tags={blogData.tags.length !== 0 ? blogData.tags : blog.tags}
-                    />
-                ) : (
-                    <SectionCreateBlog>
-                        <Form onSubmit={onSubmit}>
-                            <div>
-                                <Input
-                                    type="text"
-                                    name="title"
-                                    id="title"
-                                    value={blogData.title || blog.title}
-                                    onChange={onChange}
-                                />
-                                <TextArea
-                                    name="content"
-                                    id="content"
-                                    value={blogData.content || blog.content}
-                                    onChange={onChange}
-                                    onDrop={handleDrop}
-                                    onDragOver={handleDragOver}
-                                    onPaste={handlePaste}
-                                />
-                                <TagInput
-                                    type="text"
-                                    name="tags"
-                                    id="tags"
-                                    value={blogData.tags.join(", ") || blog.tags.join(", ")}
-                                    onChange={onChange}
-                                />
-                            </div>
-                            <div>
-                                <Submit type="submit" className="btn btn-primary">
-                                    Update Blog
-                                </Submit>
-                                <Submit type="button" className="btn btn-secondary" onClick={() => navigate("../")}>
-                                    Cancel
-                                </Submit>
-                            </div>
-                        </Form>
-                    </SectionCreateBlog>
-                )}
+                <SectionCreateBlog>
+                    <Form>
+                        <Input
+                            name={"title"}
+                            type="title"
+                            placeholder={"Title"}
+                            value={title}
+                            onChange={(ev) => setTitle(ev.target.value)}
+                        />
+
+                        <TextArea
+                            name={"summary"}
+                            type="summary"
+                            placeholder={"Summary"}
+                            value={summary}
+                            onChange={(ev) => setSummary(ev.target.value)}
+                        />
+
+                        <BlogPostFormV2 content={content} setContent={setContent} />
+
+                        <CategorySection>
+                            Category
+                            <Select
+                                name={"category"}
+                                type="category"
+                                placeholder={"Category"}
+                                value={category}
+                                onChange={(ev) => setCategory(ev.target.value)}
+                            >
+                                <Option value="Blog">Blog</Option>
+                                <Option value="CTF Walkthrough">CTF Walkthrough</Option>
+                                <Option value="Bug Hunting WriteUp">Bug Hunting WriteUp</Option>
+                                <Option value="Tools Walkthrough">Tools Walkthrough</Option>
+                                <Option value="Tips & Tricks">Tips & Tricks</Option>
+                                <Option value="News">News</Option>
+                                <Option value="Others">Others</Option>
+                            </Select>
+                        </CategorySection>
+
+                        <AddFeedTags tags={tags} setTags={setTags} size={"lg"} />
+
+                        {isBlogLoading ? (
+                            <LoadingButton width={"100%"}>
+                                <CircleSpinner size={20} color={"#131313"} />
+                            </LoadingButton>
+                        ) : (
+                            <Submit onClick={createNewPost} style={{ marginTop: "5px" }}>
+                                Update Blog
+                            </Submit>
+                        )}
+                    </Form>
+                </SectionCreateBlog>
             </CreateBlogContainer>
         </Wrapper>
     );
 };
+
+function isImageUrl(url) {
+    return (
+        url.startsWith("http://") || url.startsWith("https://") || url.replace(/^data:/, "").startsWith("data:image")
+    );
+}
+
+function bufferToFile(base64Data, fileName, imageType) {
+    const byteCharacters = atob(base64Data);
+
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const uint8Array = new Uint8Array(byteNumbers);
+    const blob = new Blob([uint8Array], { type: imageType });
+    return new File([blob], fileName, { type: imageType.replace(/^data:/, "") });
+}
 
 export default EditBlog;

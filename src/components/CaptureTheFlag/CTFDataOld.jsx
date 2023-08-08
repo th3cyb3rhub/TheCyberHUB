@@ -1,4 +1,4 @@
-import Capture from "../Resources/Events/EventsData/Capture.png";
+import Capture from "../Events/EventsData/Capture.png";
 
 const CTFDataOld = [
     {

@@ -2,6 +2,8 @@ import React from "react";
 import {
     BlogCardImage,
     BlogImageSection,
+    ButtonDelete,
+    ButtonEdit,
     // ButtonDelete,
     // ButtonEdit,
     Categories,
@@ -9,6 +11,7 @@ import {
     ContainerCard,
     // Description,
     DetailsSection,
+    EditBlogSection,
     // EditBlogSection,
     FooterDetailsSection,
     MainSection,
@@ -16,44 +19,51 @@ import {
     Title,
     Username,
 } from "./BlogCardElements";
-import { RouterLink } from "../../Beta/Tools/ToolsElements";
+import { RouterLink } from "../../Tools/ToolsElements";
 import { encodeURL } from "../util";
 // import { AiFillDelete } from "react-icons/ai";
 // import { BiEdit } from "react-icons/bi";
 // import { deleteBlog } from "../../../features/blogs/blogSlice";
 // import { Link, useLocation } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
-import { getCdnBlogImages } from "../../../features/apiUrl";
+import { cdnContentImagesUrl } from "../../../features/apiUrl";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { BiEdit } from "react-icons/bi";
+import { deleteBlog } from "../../../features/blogs/blogSlice";
+import { AiFillDelete } from "react-icons/ai";
 
 const image = "https://user-images.githubusercontent.com/44284877/210166161-ad2f71a7-df74-43b9-8330-af9740d9e8ba.png";
-const API_URL = getCdnBlogImages;
 
 const BlogCard = ({ blog }) => {
+    const pathname = window.location.pathname;
+    const dispatch = useDispatch();
     const coverImage = blog?.coverImage;
-    const coverImageUrl = `${API_URL}/blog/${coverImage}` || image;
+    const coverImageUrl = cdnContentImagesUrl(`/blog/${coverImage}`) || image;
+    const { user } = useSelector((state) => state.auth);
 
     return (
         <ContainerCard>
             <span>
                 <DetailsSection>
                     <BlogImageSection>
-                        {/* <EditBlogSection> */}
-                        {/*    {pathname !== "/blogs" && user && user._id === blog?.user ? ( */}
-                        {/*        <Link key={blog?._id} to={{ pathname: `edit/${encodeURL(blog?.title)}` }}> */}
-                        {/*            <ButtonEdit style={{ padding: "2px 10px" }}> */}
-                        {/*                <BiEdit /> */}
-                        {/*            </ButtonEdit> */}
-                        {/*        </Link> */}
-                        {/*    ) : null} */}
-                        {/*    {pathname !== "/blogs" && user && user._id === blog?.user ? ( */}
-                        {/*        <ButtonDelete */}
-                        {/*            onClick={() => dispatch(deleteBlog(blog?._id))} */}
-                        {/*            style={{ padding: "2px 10px" }} */}
-                        {/*        > */}
-                        {/*            <AiFillDelete /> */}
-                        {/*        </ButtonDelete> */}
-                        {/*    ) : null} */}
-                        {/* </EditBlogSection> */}
+                        <EditBlogSection>
+                            {pathname === "/dashboard/blogs" && user && user._id === blog?.user ? (
+                                <Link key={blog?._id} to={{ pathname: `edit/${encodeURL(blog?.title)}` }}>
+                                    <ButtonEdit style={{ padding: "2px 10px" }}>
+                                        <BiEdit />
+                                    </ButtonEdit>
+                                </Link>
+                            ) : null}
+                            {pathname !== "/blogs" && user && user._id === blog?.user ? (
+                                <ButtonDelete
+                                    onClick={() => dispatch(deleteBlog(blog?._id))}
+                                    style={{ padding: "2px 10px" }}
+                                >
+                                    <AiFillDelete />
+                                </ButtonDelete>
+                            ) : null}
+                        </EditBlogSection>
                         <RouterLink to={{ pathname: `/blogs/@${blog?.username}/${encodeURL(blog?.title)}` }}>
                             <BlogCardImage src={coverImageUrl || image} alt={""} />
                         </RouterLink>

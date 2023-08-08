@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { EditUserBioTextarea, UserBio, UserInfo, UserLinksContainer } from "../UserLinks/UserLinksElements";
 import { EditSocialUsername, SocialLink, UserSocialLinksContainer } from "../UserSocialLinks/UserSocialLinksElements";
 import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
 import { IoMdSave } from "react-icons/io";
-import { RiEarthFill } from "react-icons/ri";
 import { FollowButton } from "../Follow/FollowElements";
+import { CgWebsite } from "react-icons/cg";
+import { UserPicture } from "../../../Explore/Users/UsersElements";
+import { EditButton } from "../SkillSet/SkillSetElements";
+import { getApiUrl, cdnContentImagesUrl } from "../../../../features/apiUrl";
+import { toast } from "react-toastify";
+import {
+    AddCoverImageSection,
+    AddImage,
+    ImageUploadInput,
+    ImageUploadLabel,
+} from "../../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+import axios from "axios";
 
 const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) => {
+    const [file, setFile] = useState("");
     const updateUserLinks = (index, field, value) => {
         const updatedSocialLinksData = [...userDetailData.socialLinks]; // create a new array reference
         updatedSocialLinksData[index] = {
@@ -21,12 +33,64 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
         setUserDetailData({ ...userDetailData, bio: value });
     };
 
-    const handleSave = (e) => {
-        onSubmit(e);
+    const onFileChange = (e) => {
+        const file = e.target.files[0];
+        const fileName = `user-${Date.now()}.${file && file.type.split("/")[1]}`;
+
+        setUserDetailData({ ...userDetailData, avatar: fileName.split("-")[1] });
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setFile();
+            const newFile = new File([reader.result], fileName, { type: file && file.type });
+            setFile(newFile);
+        };
+        reader.readAsArrayBuffer(file);
     };
+
+    const handleSave = async (e) => {
+        onSubmit(e);
+
+        async function uploadCoverImage() {
+            try {
+                const formData = new FormData();
+                formData.append("image", file);
+                const API_URL = getApiUrl("api/upload");
+                await axios.post(API_URL, formData);
+            } catch (err) {
+                toast.error(err.message);
+            }
+        }
+
+        await uploadCoverImage();
+    };
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "1691297013370.png"));
     return (
         <UserLinksContainer>
             <UserInfo>
+                <div style={{ position: "relative", display: "inline-block" }}>
+                    <UserPicture
+                        style={{ height: "200px", width: "200px" }}
+                        src={file ? URL.createObjectURL(file) : avatar}
+                    />
+                    <EditButton>
+                        <AddCoverImageSection>
+                            <ImageUploadLabel
+                                style={{ color: "grey", background: "transparent", border: "transparent" }}
+                                htmlFor="avatar"
+                            >
+                                <AddImage />
+                            </ImageUploadLabel>
+                            <ImageUploadInput
+                                type="file"
+                                name="avatar"
+                                id="avatar"
+                                onChange={onFileChange}
+                                style={{ display: "none" }}
+                            />
+                        </AddCoverImageSection>
+                    </EditButton>
+                </div>
                 <span className={"name"}>{userDetail?.name}</span>
                 <span className={"username"}>@{userDetail?.username}</span>
             </UserInfo>
@@ -61,12 +125,13 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
             <UserSocialLinksContainer>
                 {userDetailData?.socialLinks?.map((item, index) => (
                     <SocialLink key={index}>
-                        {getIconComponent(item.icon)}
+                        {getIconComponent(item?.icon)}
                         <EditSocialUsername
                             type="text"
                             name={`profileUsername${index}`}
                             id={`profileUsername${index}`}
                             defaultValue={item?.profileUsername}
+                            placeholder={item?.platform}
                             onChange={(e) => {
                                 const value = e.target.value;
                                 updateUserLinks(index, "profileUsername", value);
@@ -91,8 +156,8 @@ const getIconComponent = (iconName) => {
             return <FaGithub />;
         case "FaMedium":
             return <FaMedium />;
-        case "RiEarthFill":
-            return <RiEarthFill />;
+        case "IoEarth" || "RiEarthFill":
+            return <CgWebsite />;
         default:
             return null;
     }

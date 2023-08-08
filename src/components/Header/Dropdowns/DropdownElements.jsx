@@ -74,7 +74,7 @@ export const DropdownItem = styled.h2`
     &:hover {
         transition: all 0.2s ease-in-out;
         transform: scale(1.05);
-        border-bottom: 3px solid #20c20e;
+        border-bottom: 3px solid #ff6b08;
     }
     @media screen and (max-width: 768px) {
         font-size: 1.1rem;
@@ -83,10 +83,14 @@ export const DropdownItem = styled.h2`
 
 export const DropdownDesc = styled.p`
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     text-align: start;
+    align-items: start;
     color: #ababab;
-    //line bracks
-    white-space: pre-wrap;
+    //white-space: pre-wrap;
+    word-wrap: break-word;
     @media screen and (max-width: 768px) {
         font-size: 0.8rem;
     }
@@ -94,6 +98,6 @@ export const DropdownDesc = styled.p`
 
 export const DropdownRouterLink = styled(LinkRouter)`
     text-decoration: none;
-    color: white;
+    color: #f5f5f5;
     margin-left: 50px;
 `;

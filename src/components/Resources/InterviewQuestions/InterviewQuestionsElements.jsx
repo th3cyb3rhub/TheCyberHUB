@@ -37,19 +37,19 @@ export const InterviewsQuestionsCard = styled.div`
 
 export const InterviewsQuestionsHeading = styled.h2`
     margin: 10px 5px;
-    color: #17f31e;
+    color: #ff6b08;
     font-size: 25px;
 `;
 export const InterviewsAnswerQuestionsHeading = styled.h2`
     margin: 10px 0px;
-    color: #17f31e;
+    color: #ff6b08;
     font-size: 25px;
     width: 100%;
 `;
 
 export const SingleQuestion = styled.p`
     margin: 0 10px;
-    color: #17f31e;
+    color: #ff6b08;
     font-size: 1rem;
 
     &:hover {
@@ -69,7 +69,7 @@ export const InterviewsQuestionsTitle = styled.div`
     color: #e1e1e1;
 
     &:hover {
-        background: #17f31e;
+        background: #ff6b08;
         color: #0a0a0a;
     }
 `;

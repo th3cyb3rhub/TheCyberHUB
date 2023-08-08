@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Dropdown from "../Dropdowns/Dropdown";
-import { CrownIcon, DropdownIcon, NavItem } from "../Navbar/NavbarElements";
+import { DropdownIcon, NavItem } from "../Navbar/NavbarElements";
 
 import { SidebarContainer, Icon, CloseIcon, SidebarWrapper, SidebarLink, SidebarMenu } from "./SidebarElements";
 
@@ -53,21 +53,13 @@ const Sidebar = (props) => {
                 <SidebarWrapper>
                     <SidebarMenu>
                         {[
-                            {
-                                to: "leaderboard",
-                                title: (
-                                    <span style={{ gap: "5px", display: "flex", alignItems: "center" }}>
-                                        <CrownIcon style={{ fontSize: "2rem" }} />
-                                        <span> Leaderboard </span>
-                                    </span>
-                                ),
-                                dropdown: "leaderboard",
-                            },
-                            { to: "freeCourse", title: "Free Course", dropdown: "freeCourse" },
-                            { to: "tools", title: "Tools", dropdown: "tools" },
+                            { to: "explore", title: "Explore", dropdown: "explore" },
+                            { to: "feeds", title: "Feeds", dropdown: "feeds" },
                             { to: "blogs", title: "Blogs", dropdown: "blogs" },
+                            // { to: "forum", title: "Forum", dropdown: "forum" },
+                            // { to: "courses", title: "Courses", dropdown: "courses" },
                             { to: "ctf", title: "CTF", dropdown: "ctf" },
-                            { to: "internship", title: "Internship", dropdown: "Internship" },
+                            { to: "tools", title: "Tools", dropdown: "tools" },
                             {
                                 title: (
                                     <>

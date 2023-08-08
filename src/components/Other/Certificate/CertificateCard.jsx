@@ -84,7 +84,7 @@ const CertificateCard = () => {
     if (isLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={30} color="#17f31e" loading={isLoading} />
+                <CircleSpinner size={30} color="#ff6b08" loading={isLoading} />
             </Wrapper>
         );
     }

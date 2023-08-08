@@ -37,7 +37,7 @@ export const ImageUploadLabel = styled.label`
     justify-content: center;
     align-items: center;
     background: #1a1c1d;
-    color: #f4f4f4;
+    color: #f5f5f5;
     border: 1px solid #1a1c1d;
     border-radius: 3px;
     padding: 10px 20px;
@@ -64,7 +64,7 @@ export const Container = styled.div`
     flex-direction: column;
 `;
 export const Heading2 = styled.h2`
-    color: #fff;
+    color: #f5f5f5;
 `;
 export const Heading3 = styled.h3``;
 export const ImageSelected = styled.p`
@@ -75,6 +75,17 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     width: 100%;
+`;
+
+export const CategorySection = styled.div`
+    background: #0c0c0c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 25px;
+
+    border: #222222 1px solid;
 `;
 
 export const Label = styled.label`
@@ -89,7 +100,7 @@ export const Input = styled.input`
     align-items: center;
     border-radius: 5px;
     background: transparent;
-    color: #fff;
+    color: #f5f5f5;
     width: 100%;
     height: 50px;
     font-size: 20px;
@@ -100,7 +111,7 @@ export const Input = styled.input`
     font-family: "Poppins", sans-serif;
 
     ::placeholder {
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -110,7 +121,7 @@ export const Input = styled.input`
     &:hover {
         background: transparent;
         //border: transparent;
-        color: #fff;
+        color: #f5f5f5;
     }
 `;
 
@@ -125,12 +136,12 @@ export const TextArea = styled.textarea`
     justify-content: flex-start;
     align-items: center;
     background: transparent;
-    color: #fff;
+    color: #f5f5f5;
     width: 100%;
-    height: 550px;
+    height: 200px;
 
     ::placeholder {
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -145,7 +156,7 @@ export const TagInput = styled.input`
     align-items: center;
     border-radius: 5px;
     background: transparent;
-    color: #fff;
+    color: #f5f5f5;
     width: 100%;
     height: 50px;
     font-size: 15px;
@@ -155,7 +166,7 @@ export const TagInput = styled.input`
     padding: 25px;
 
     ::placeholder {
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -168,7 +179,7 @@ export const Submit = styled.button`
     margin: 10px 0;
     background: #1e1e1e;
     border: transparent;
-    color: whitesmoke;
+    color: #f5f5f5;
     border-radius: 5px;
     width: 100%;
     cursor: pointer;
@@ -180,7 +191,7 @@ export const RouterButtonLink = styled(Link)`
     height: fit-content;
     background: #111111;
     border-radius: 5px;
-    color: #0bff0b;
+    color: #ff6b08;
     padding: 5px 15px;
     margin: 5px 15px;
 

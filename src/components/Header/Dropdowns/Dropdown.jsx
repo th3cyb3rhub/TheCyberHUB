@@ -8,18 +8,26 @@ import {
     DropdownItemsContainer,
 } from "./DropdownElements";
 
-export default function Dropdown({ isOpen, toggle, isResources, isOpportunities, toggleDropdown }) {
+export default function Dropdown({
+    isOpen,
+    toggle,
+    isResources,
+    isOpportunities,
+    toggleDropdown,
+    backgroundColor,
+    color,
+}) {
     const opportunities = [
         {
             title: "Internships",
             to: "/internship",
             desc: "Unlock Your Career Potential: Discover Internship Opportunities to Kickstart Your Journey.",
         },
-        {
-            title: "Volunteer",
-            to: "/volunteer",
-            desc: `Volunteer for Change: \nJoin Our Community Program and Make an Impact.`,
-        },
+        // {
+        //     title: "Volunteer",
+        //     to: "/volunteer",
+        //     desc: `Volunteer for Change: \nJoin Our Community Program and Make an Impact.`,
+        // },
         {
             title: "OpenSec Projects",
             to: "/opensec-projects",
@@ -28,7 +36,7 @@ export default function Dropdown({ isOpen, toggle, isResources, isOpportunities,
         {
             title: "TheCyberXcel",
             to: "/thecyberxcel",
-            desc: `Learn with community, Project and Resume Reviews, Mock Interviews, and more.`,
+            desc: "Learn with community, Project and Resume Reviews, Mock Interviews, and more.",
         },
         {
             title: "TheCyberSpeak",
@@ -43,20 +51,20 @@ export default function Dropdown({ isOpen, toggle, isResources, isOpportunities,
         { title: "Interview Questions", to: "/interviewQuestions", desc: "Prepare for your interview" },
         { title: "Quiz", to: "/quiz", desc: "Test your knowledge" },
         { title: "Community", to: "/community", desc: "Join our community" },
-        { title: "Events", to: "/events", desc: "Find Cybersecurity Events" },
+        // { title: "Events", to: "/events", desc: "Find Cybersecurity Events" },
         { title: "Support", to: "/support", desc: "Support us" },
         // {title: "News", to: "/cyberNews", desc: "Stay up to date with the latest news"},
     ];
 
     return (
         toggleDropdown && (
-            <DropdownContainer isOpen={isOpen}>
+            <DropdownContainer isOpen={isOpen} style={{ backgroundColor, color }}>
                 <DropdownItemsContainer>
                     {isOpportunities === true &&
                         opportunities.map((program, id) => (
                             <DropdownItemContainer key={id}>
                                 <DropdownRouterLink to={program.to} onClick={() => toggle(false)}>
-                                    <DropdownItem>{program.title}</DropdownItem>
+                                    <DropdownItem style={{ color }}>{program.title}</DropdownItem>
                                     <DropdownDesc>{program.desc}</DropdownDesc>
                                 </DropdownRouterLink>
                             </DropdownItemContainer>
@@ -65,7 +73,7 @@ export default function Dropdown({ isOpen, toggle, isResources, isOpportunities,
                         resources.map((i, id) => (
                             <DropdownItemContainer key={id}>
                                 <DropdownRouterLink to={i.to} onClick={() => toggle(false)}>
-                                    <DropdownItem> {i.title} </DropdownItem>
+                                    <DropdownItem style={{ color }}>{i.title}</DropdownItem>
                                     <DropdownDesc> {i.desc} </DropdownDesc>
                                 </DropdownRouterLink>
                             </DropdownItemContainer>

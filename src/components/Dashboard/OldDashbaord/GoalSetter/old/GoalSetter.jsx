@@ -17,7 +17,7 @@ const GoalSetter = () => {
     }, [isError, message, dispatch]);
 
     if (isLoading) {
-        return <CircleSpinner size={20} color={"#1fc10d"} />;
+        return <CircleSpinner size={20} color={"#ff6b08"} />;
     }
 
     return (

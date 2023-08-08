@@ -31,14 +31,14 @@ export const RankNumberContainer = styled.div`
 `;
 
 export const RankNumber = styled.p`
-    // color: ${(props) => (props.userRank === 1 ? "#17f31e" : "#d7d7d7")};
+    // color: ${(props) => (props.userRank === 1 ? "#ff6b08" : "#d7d7d7")};
     margin-bottom: ${(props) => (props.userRank === 1 ? "-5px" : "")};
     font-weight: 600;
 `;
 
 export const RankCgCrown = styled(TbCrown)`
     margin-bottom: -10px;
-    color: #17f31e;
+    color: #ff6b08;
     font-size: 30px;
 `;
 

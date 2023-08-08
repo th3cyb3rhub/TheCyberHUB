@@ -15,18 +15,22 @@ import {
 import {
     AddCoverImageSection,
     AddImage,
+    CategorySection,
     ImageSelected,
     ImageUploadInput,
     ImageUploadLabel,
     TextGrey,
 } from "../CreateBlog/CreateBlogElements";
-import { createBlog, reset } from "../../../../features/blogs/blogSlice";
+import { blogReset, createBlog } from "../../../../features/blogs/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getApiUrl } from "../../../../features/apiUrl";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AddFeedTags from "../../../Feeds/PostForm/AddPostTags/AddPostTags";
 import AuthPopup from "../../../../pages/AuthPopup/AuthPopup";
+import { CircleSpinner } from "react-spinners-kit";
+import { LoadingButton } from "../../../Other/MixComponents/Buttons/ButtonElements";
+import { Option, Select } from "../../../CaptureTheFlag/CTFElements";
 
 const CreateBlogV2 = () => {
     const dispatch = useDispatch();
@@ -34,18 +38,21 @@ const CreateBlogV2 = () => {
     const { user } = useSelector((state) => state.auth);
     const [showAuthPopup, setShowAuthPopup] = useState(false);
     const {
-        // blogs, isLoading,
-        isError,
-        message,
+        // blogs,
+        isBlogLoading,
+        isBlogError,
+        blogMessage,
     } = useSelector((state) => state.blogs);
     const [isSuccess, setInSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
     const [title, setTitle] = useState("");
     const [summary, setSummary] = useState("");
     const [content, setContent] = useState("");
     const [coverImage, setCoverImage] = useState("");
-    const [tags, setTags] = useState(["", ""]);
+    const [category, setCategory] = useState("Blog");
+    const [tags, setTags] = useState([]);
 
     const [file, setFile] = useState("");
     const [fileName, setFileName] = useState("");
@@ -53,19 +60,19 @@ const CreateBlogV2 = () => {
     let updatedContent;
 
     useEffect(() => {
-        if (isError || errorMessage) {
-            toast.error(errorMessage || message);
+        if (isBlogError || errorMessage) {
+            toast.error(errorMessage || blogMessage);
         }
         if (!user) navigate("/login");
-        if (isSuccess) {
-            navigate("/blogs");
-        }
-        return () => dispatch(reset());
-    }, [user, isError, message, isSuccess, navigate, dispatch]);
+        if (isSuccess) navigate("/blogs");
+
+        return () => dispatch(blogReset());
+    }, [user, isSuccess, isBlogError, blogMessage, errorMessage, dispatch, navigate]);
 
     const onFileChange = (e) => {
         const file = e.target.files[0];
-        const fileName = `blog-cover-${Date.now()}.${file && file.type.split("/")[1]}`;
+        const fileName = `blog-${Date.now()}.${file && file.type.split("/")[1]}`;
+
         setFileName(fileName);
         setCoverImage(fileName);
 
@@ -102,7 +109,7 @@ const CreateBlogV2 = () => {
                 toast.error("Cover Image is required");
                 return;
             }
-            if (tags[0] === "" || tags[1] === "") {
+            if (tags.length === 0) {
                 toast.error("Tags are required");
                 return;
             }
@@ -112,6 +119,8 @@ const CreateBlogV2 = () => {
             }
 
             try {
+                setIsLoading(true);
+
                 async function uploadCoverImage() {
                     try {
                         const formData = new FormData();
@@ -147,8 +156,8 @@ const CreateBlogV2 = () => {
 
                 async function uploadContentImage(imageUrl) {
                     const [imageType, base64Data] = imageUrl.split(";base64,");
-                    const filename = `blog-content-${Date.now()}.${imageType.split("/")[1]}`;
-                    updatedContent = updatedContent.replace(imageUrl, filename);
+                    const filename = `blog-${Date.now()}.${imageType.split("/")[1]}`;
+                    updatedContent = updatedContent.replace(imageUrl, filename.split("-")[1]);
 
                     const newFile = bufferToFile(base64Data, filename, imageType);
 
@@ -167,14 +176,16 @@ const CreateBlogV2 = () => {
                     title: title.trim(),
                     summary,
                     content: updatedContent,
-                    coverImage,
+                    coverImage: fileName.split("-")[1],
+                    category,
                     tags,
                 };
 
                 try {
-                    console.log(blogData);
                     await dispatch(createBlog(blogData));
                     setInSuccess(true);
+                    setIsLoading(false);
+                    toast("Blog created successfully");
                 } catch (err) {
                     setErrorMessage(err.message);
                 }
@@ -186,7 +197,8 @@ const CreateBlogV2 = () => {
             setSummary("");
             setContent("");
             setCoverImage("");
-            setTags(["", ""]);
+            setCategory("");
+            setTags([]);
             setFileName("");
             setFile("");
         }
@@ -205,7 +217,7 @@ const CreateBlogV2 = () => {
                             ) : (
                                 !fileName && <ImageSelected> Please select an image </ImageSelected>
                             )}
-                            <ImageSelected> {file && <p>{fileName.slice(0, 20)}..</p>} </ImageSelected>
+                            <ImageSelected> {file && <>{fileName.slice(0, 20)}..</>} </ImageSelected>
                         </ImageUploadLabel>
                         <ImageUploadInput
                             type="file"
@@ -238,11 +250,36 @@ const CreateBlogV2 = () => {
 
                         <BlogPostFormV2 content={content} setContent={setContent} />
 
+                        <CategorySection>
+                            Category
+                            <Select
+                                name={"category"}
+                                type="category"
+                                placeholder={"Category"}
+                                value={category}
+                                onChange={(ev) => setCategory(ev.target.value)}
+                            >
+                                <Option value="Blog">Blog</Option>
+                                <Option value="CTF Walkthrough">CTF Walkthrough</Option>
+                                <Option value="Bug Hunting WriteUp">Bug Hunting WriteUp</Option>
+                                <Option value="Tools Walkthrough">Tools Walkthrough</Option>
+                                <Option value="Tips & Tricks">Tips & Tricks</Option>
+                                <Option value="News">News</Option>
+                                <Option value="Others">Others</Option>
+                            </Select>
+                        </CategorySection>
+
                         <AddFeedTags tags={tags} setTags={setTags} size={"lg"} />
 
-                        <Submit onClick={createNewPost} style={{ marginTop: "5px" }}>
-                            Create post
-                        </Submit>
+                        {isLoading || isBlogLoading ? (
+                            <LoadingButton width={"100%"}>
+                                <CircleSpinner size={20} color={"#131313"} />
+                            </LoadingButton>
+                        ) : (
+                            <Submit onClick={createNewPost} style={{ marginTop: "5px" }}>
+                                Create Blog
+                            </Submit>
+                        )}
                     </Form>
                 </SectionCreateBlog>
             </CreateBlogContainer>
@@ -258,8 +295,6 @@ function isImageUrl(url) {
 
 function bufferToFile(base64Data, fileName, imageType) {
     const byteCharacters = atob(base64Data);
-    console.log("base64Data", base64Data);
-    console.log("byteCharacters", byteCharacters);
 
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {

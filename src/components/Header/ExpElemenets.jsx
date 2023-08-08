@@ -31,7 +31,7 @@ export const ExpContainer = styled.div`
 `;
 
 export const ExpIcon = styled(MdOutlineLocalFireDepartment)`
-    color: #09ff1b;
+    color: #ff6b08;
     margin: 0 5px;
     font-size: 1.2rem;
     @media screen and (max-width: 400px) {
@@ -39,7 +39,7 @@ export const ExpIcon = styled(MdOutlineLocalFireDepartment)`
     }
 `;
 export const ExpText = styled.div`
-    color: #09ff1b;
+    color: #ff6b08;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -56,7 +56,7 @@ export const ExpText = styled.div`
     }
 `;
 export const StreakText = styled.div`
-    color: #09ff1b;
+    color: #ff6b08;
     display: flex;
     align-items: center;
 `;

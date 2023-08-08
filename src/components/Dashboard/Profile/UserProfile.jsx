@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ProfileContainer, ProfileDetailsSection, Wrapper } from "./ProfileElements";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, reset } from "../../../features/userDetail/userDetailSlice";
+import { getAllUserDetails, userDetailReset } from "../../../features/userDetail/userDetailSlice";
 import { getAllBlogs } from "../../../features/blogs/blogSlice";
 import { useParams } from "react-router-dom";
 import { CircleSpinner } from "react-spinners-kit";
@@ -23,9 +23,9 @@ const UserProfile = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
 
     const dispatch = useDispatch();
-    const { userDetails, isLoading: userDetailIsLoading, isError, message } = useSelector((state) => state.userDetail);
+    const { userDetails, isUserDetailLoading, isError, message } = useSelector((state) => state.userDetail);
 
-    const { blogs, isLoading: blogIsLoading } = useSelector((state) => state.blogs);
+    const { blogs, isBlogLoading } = useSelector((state) => state.blogs);
     const { username } = useParams();
 
     const userDetail = userDetails?.find((user) => user?.username === username);
@@ -38,16 +38,16 @@ const UserProfile = () => {
         dispatch(getAllBlogs());
         dispatch(getAllUserDetails());
 
-        return () => dispatch(reset());
+        return () => dispatch(userDetailReset());
     }, [isError, message, dispatch, username]);
 
-    if (userDetailIsLoading || blogIsLoading || isApiLoading) {
+    if (isUserDetailLoading || isBlogLoading || isApiLoading) {
         return (
             <Wrapper>
                 <CircleSpinner
                     size={20}
-                    color={"#1fc10d"}
-                    isLoading={userDetailIsLoading || blogIsLoading || isApiLoading}
+                    color={"#ff6b08"}
+                    isLoading={isUserDetailLoading || isBlogLoading || isApiLoading}
                 />
             </Wrapper>
         );

@@ -110,7 +110,6 @@ const CreateForumPost = () => {
             };
 
             try {
-                console.log(blogData);
                 toast.success(isSuccess);
                 toast.info(isSuccess);
                 toast.loading(isSuccess);
@@ -175,8 +174,6 @@ function isImageUrl(url) {
 
 function bufferToFile(base64Data, fileName, imageType) {
     const byteCharacters = atob(base64Data);
-    console.log("base64Data", base64Data);
-    console.log("byteCharacters", byteCharacters);
 
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {

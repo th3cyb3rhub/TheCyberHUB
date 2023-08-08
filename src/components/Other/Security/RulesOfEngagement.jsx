@@ -19,7 +19,7 @@ const RulesOfEngagement = () => {
                     Security testing should only be conducted on <br />
                     <DotSymbol />
                     <a
-                        style={{ color: "greenyellow" }}
+                        style={{ color: "#00b2ff" }}
                         href="https://security.thecyberhub.org"
                         target="_blank"
                         rel="noreferrer"
@@ -29,7 +29,7 @@ const RulesOfEngagement = () => {
                     <br />
                     <DotSymbol />
                     <a
-                        style={{ color: "greenyellow" }}
+                        style={{ color: "#00b2ff" }}
                         href="https://security.api.thecyberhub.org"
                         target="_blank"
                         rel="noreferrer"
@@ -39,7 +39,7 @@ const RulesOfEngagement = () => {
                     <br />
                     <DotSymbol />
                     <a
-                        style={{ color: "greenyellow" }}
+                        style={{ color: "#00b2ff" }}
                         href="https://security.thecyber-sec.com"
                         target="_blank"
                         rel="noreferrer"
@@ -60,33 +60,23 @@ const RulesOfEngagement = () => {
                 <>
                     The following domains are out of scope for security testing: <br />
                     <DotSymbol />
-                    <a style={{ color: "greenyellow" }} href="https://thecyberhub.org" target="_blank" rel="noreferrer">
+                    <a style={{ color: "#00b2ff" }} href="https://thecyberhub.org" target="_blank" rel="noreferrer">
                         thecyberhub.org
                     </a>
                     <br />
                     <DotSymbol />
-                    <a
-                        style={{ color: "greenyellow" }}
-                        href="https://api.thecyberhub.org"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                    <a style={{ color: "#00b2ff" }} href="https://api.thecyberhub.org" target="_blank" rel="noreferrer">
                         api.thecyberhub.org
                     </a>
                     <br />
                     <DotSymbol />
-                    <a
-                        style={{ color: "greenyellow" }}
-                        href="https://dev.thecyberhub.org"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                    <a style={{ color: "#00b2ff" }} href="https://dev.thecyberhub.org" target="_blank" rel="noreferrer">
                         dev.thecyberhub.org
                     </a>
                     <br />
                     <DotSymbol />
                     <a
-                        style={{ color: "greenyellow" }}
+                        style={{ color: "#00b2ff" }}
                         href="https://dev.api.thecyberhub.org"
                         target="_blank"
                         rel="noreferrer"
@@ -95,12 +85,7 @@ const RulesOfEngagement = () => {
                     </a>
                     <br />
                     <DotSymbol />
-                    <a
-                        style={{ color: "greenyellow" }}
-                        href="https://thecyber-sec.com"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                    <a style={{ color: "#00b2ff" }} href="https://thecyber-sec.com" target="_blank" rel="noreferrer">
                         thecyber-sec.com
                     </a>
                     <br />
@@ -112,8 +97,8 @@ const RulesOfEngagement = () => {
             description: (
                 <>
                     If you discover a vulnerability during your testing, please report it immediately to
-                    <span style={{ color: "greenyellow", margin: "0px 5px" }}> security@thecyber-sec.com. </span> Please
-                    do not disclose any information about the vulnerability to others until it has been remediated.
+                    <span style={{ color: "#00b2ff", margin: "0px 5px" }}> security@thecyber-sec.com. </span> Please do
+                    not disclose any information about the vulnerability to others until it has been remediated.
                 </>
             ),
         },

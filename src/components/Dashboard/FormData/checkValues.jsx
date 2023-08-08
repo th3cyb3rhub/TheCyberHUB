@@ -224,21 +224,21 @@ TheCyberSEC Team`,
                     </LoadingButton>
                 ) : null}
                 {!checked ? (
-                    <Button value={checked} color={"yellowgreen"} onClick={() => handleButtonClick("checked")}>
+                    <Button value={checked} color={"#07b6f6green"} onClick={() => handleButtonClick("checked")}>
                         Checked
                     </Button>
                 ) : (
                     <ButtonGreen> Checked </ButtonGreen>
                 )}
                 {!accepted ? (
-                    <Button value={accepted} color={"yellowgreen"} onClick={() => handleButtonClick("accepted")}>
+                    <Button value={accepted} color={"#07b6f6green"} onClick={() => handleButtonClick("accepted")}>
                         Accepted
                     </Button>
                 ) : (
                     <ButtonGreen> Accepted </ButtonGreen>
                 )}
                 {!hired ? (
-                    <Button value={hired} color={"yellowgreen"} onClick={() => handleButtonClick("hired")}>
+                    <Button value={hired} color={"#07b6f6green"} onClick={() => handleButtonClick("hired")}>
                         Hired
                     </Button>
                 ) : (
@@ -248,7 +248,7 @@ TheCyberSEC Team`,
                 {!resumePending ? (
                     <Button
                         value={resumePending}
-                        color={"yellowgreen"}
+                        color={"#07b6f6green"}
                         onClick={() => handleButtonClick("resumePending")}
                     >
                         Resume
@@ -289,7 +289,7 @@ TheCyberSEC Team`,
                     <DetailsText>{rejectedReason}</DetailsText>
                 )}
                 {!rejected ? (
-                    <Button value={rejected} color={"yellowgreen"} onClick={() => handleButtonClick("rejected")}>
+                    <Button value={rejected} color={"#07b6f6green"} onClick={() => handleButtonClick("rejected")}>
                         Rejected
                     </Button>
                 ) : (

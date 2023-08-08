@@ -1,114 +1,121 @@
-import React, { useEffect, useRef, useState } from "react";
-import { PostActionsAndStatsContainer, PostStat, PostStatLabel, PostStatValue } from "./FeedPostsElements";
-import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
-import { FcLike } from "react-icons/fc";
-import { BiCommentDetail } from "react-icons/bi";
-import { VscGraphLine } from "react-icons/vsc";
-import { BsBookmarks, BsBookmarksFill } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { addLike, getLikes, removeLike } from "../../../features/likes/likeSlice";
-import { getViews, updateView } from "../../../features/views/viewSlice";
-import { addBookmark, getBookmarks, removeBookmark } from "../../../features/bookmarks/bookmarkSlice";
+import React, {useEffect, useRef, useState} from "react";
+import {PostActionsAndStatsContainer, PostStat, PostStatLabel, PostStatValue} from "./FeedPostsElements";
+import {AiOutlineHeart} from "react-icons/ai";
+import {FcLike} from "react-icons/fc";
+import {BiCommentDetail} from "react-icons/bi";
+import {VscGraphLine} from "react-icons/vsc";
+import {BsBookmarks, BsBookmarksFill} from "react-icons/bs";
+import {useDispatch} from "react-redux";
+import {addFeedLike, removeFeedLike} from "../../../features/feeds/feedLikes/feedLikesSlice";
+import {addBookmark, removeBookmark} from "../../../features/bookmarks/bookmarkSlice";
 import AuthPopup from "../../../pages/AuthPopup/AuthPopup";
+import {updateView} from "../../../features/feeds/views/viewSlice";
 
-const PostActionsAndStats = ({ feed, feedComments, user, itemType }) => {
+const PostActionsAndStats = ({feed, comments, user, itemType, views, bookmarks, likes,setStopRefresh, updateFeedView}) => {
+
     const dispatch = useDispatch();
     const feedRef = useRef(null);
 
-    const { likes } = useSelector((state) => state.likes);
-    const { views } = useSelector((state) => state.views);
-    const { bookmarks } = useSelector((state) => state.bookmarks);
-    const userId = user?._id;
-
     const [showAuthPopup, setShowAuthPopup] = useState(false);
 
-    useEffect(() => {
-        dispatch(getLikes());
-        dispatch(getBookmarks());
-        dispatch(getViews());
-    }, [dispatch]);
+    const userId = user?._id;
 
     useEffect(() => {
-        const isViewed = () => {
-            return views.some((view) => view?.users?.some((user) => user === userId) && view?.itemId === feed?._id);
-        };
+        if (user && updateFeedView === true) {
 
-        if (!isViewed()) {
-            dispatch(updateView({ itemId: feed?._id, itemType, userId }));
+            const isViewed = () => {
+                return views?.some((view) => view.user === userId && view.itemId === feed?._id);
+            };
+
+            if (!isViewed()) {
+                dispatch(updateView({itemId: feed?._id}));
+            }
         }
-    }, [dispatch, itemType, feed, userId, views]);
+    }, [updateFeedView]);
 
-    const viewCount = views?.filter((view) => view.itemId === feed?._id && view.users)?.length || 0;
+    const filteredViews = views.filter(
+        (view, index, self) =>
+            index === self.findIndex((v) => v.itemId === view.itemId && v.user === view.user)
+    );
+
+    const viewsCount =  filteredViews.length || 0;
 
     const isLiked = () => {
-        return likes.some((like) => like.user === userId && like.itemId === feed?._id);
+        return likes?.some((like) => like.user === userId && like.itemId === feed?._id);
     };
+    const likeCount = likes.filter((like) => like.itemId === feed?._id).length || 0;
 
-    const likeCount = likes.filter((like) => like.itemId === feed?._id).length;
+
 
     function handleLike(_id) {
         if (!user) {
-            setShowAuthPopup(true); // Show the login popup if the user is not logged in
+            setShowAuthPopup(true);
+            setStopRefresh && setStopRefresh(true)
             return;
         }
 
         if (isLiked(_id)) {
-            dispatch(removeLike({ itemType, itemId: _id }));
+            dispatch(removeFeedLike({itemId: _id}));
         } else {
-            dispatch(addLike({ itemType, itemId: _id }));
+            dispatch(addFeedLike({itemId: _id}));
         }
     }
 
-    const isBookmarked = (itemId) => {
-        return bookmarks.some((bookmark) => bookmark.itemId === itemId);
+    const isBookmarked = () => {
+        return bookmarks.some((bookmark) => bookmark.user === userId && bookmark.itemId === feed?._id);
     };
 
     const handleBookmark = (_id) => {
         if (!user) {
-            setShowAuthPopup(true); // Show the login popup if the user is not logged in
+            setShowAuthPopup(true);
+            setStopRefresh && setStopRefresh(true)
             return;
         }
-
         if (isBookmarked(_id)) {
-            dispatch(removeBookmark({ itemType, itemId: _id }));
+            dispatch(removeBookmark({itemType, itemId: _id}));
         } else {
-            dispatch(addBookmark({ itemType, itemId: _id }));
+            dispatch(addBookmark({itemType, itemId: _id}));
         }
     };
 
+    const handleCloseAuthPopup = () => {
+        setShowAuthPopup(false);
+        setStopRefresh && setStopRefresh(false)
+    };
+
+
     return (
         <PostActionsAndStatsContainer ref={feedRef}>
-            {showAuthPopup && <AuthPopup onClose={() => setShowAuthPopup(false)} />}
+            {showAuthPopup && <AuthPopup onClose={() => handleCloseAuthPopup()}/>}
             <PostStat>
                 <PostStatLabel>
                     <span onClick={() => handleLike(feed?._id)}>
-                        {isLiked(userId) ? <FcLike /> : <AiOutlineHeart />}
+                        {isLiked(userId) ? <FcLike/> : <AiOutlineHeart/>}
                     </span>
                 </PostStatLabel>
                 <PostStatValue>{likeCount} </PostStatValue>
             </PostStat>
+            {/* <PostStat> */}
+            {/*    <PostStatLabel> */}
+            {/*        <AiOutlineRetweet/> */}
+            {/*    </PostStatLabel> */}
+            {/*    <PostStatValue>99</PostStatValue> */}
+            {/* </PostStat> */}
             <PostStat>
                 <PostStatLabel>
-                    <AiOutlineRetweet />
+                    <BiCommentDetail/>
                 </PostStatLabel>
-                <PostStatValue>99</PostStatValue>
+                <PostStatValue>{comments?.length}</PostStatValue>
             </PostStat>
             <PostStat>
                 <PostStatLabel>
-                    {" "}
-                    <BiCommentDetail />
+                    <VscGraphLine/>
                 </PostStatLabel>
-                <PostStatValue>{feedComments?.length}</PostStatValue>
-            </PostStat>
-            <PostStat>
-                <PostStatLabel>
-                    <VscGraphLine />
-                </PostStatLabel>
-                <PostStatValue>{viewCount}</PostStatValue>
+                <PostStatValue>{viewsCount}</PostStatValue>
             </PostStat>
             <PostStat>
                 <PostStatLabel onClick={() => handleBookmark(feed?._id)}>
-                    {isBookmarked(feed?._id) ? <BsBookmarksFill /> : <BsBookmarks />}
+                    {isBookmarked(feed?._id) ? <BsBookmarksFill/> : <BsBookmarks/>}
                 </PostStatLabel>
             </PostStat>
         </PostActionsAndStatsContainer>

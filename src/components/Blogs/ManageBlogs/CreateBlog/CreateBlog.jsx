@@ -18,15 +18,15 @@ import axios from "axios";
 import PreviewBlogContent from "../../PreviewBlogContent";
 import { Button, PreviewIcon, PreviewSection } from "../../../Forum/ForumSubPageElements";
 import { getApiUrl } from "../../../../features/apiUrl";
-import BlogPostForm from "../BlogPostForm";
 import { toast } from "react-toastify";
+import BlogPostForm from "../BlogPostForm";
 
 const CreateBlog = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
     const { blogs } = useSelector((state) => state.blogs);
-    const { isLoading, isError, message } = useSelector((state) => state.blogs);
+    const { isBlogLoading, isBlogError, blogMessage } = useSelector((state) => state.blogs);
     const [isSuccess, setInSuccess] = useState(false);
     const [preview, setPreview] = useState(false); // added state variable for preview
     const [errorMessage, setErrorMessage] = useState("");
@@ -47,12 +47,12 @@ const CreateBlog = () => {
 
     const maxFileSize = 500000; // 500KB
     useEffect(() => {
-        if (isError) {
-            console.log(message);
+        if (isBlogError) {
+            console.log(blogMessage);
         }
         if (!user) navigate("/login");
         return () => dispatch(reset());
-    }, [user, isError, message, isSuccess, navigate, dispatch]);
+    }, [user, isBlogError, blogMessage, isSuccess, navigate, dispatch]);
 
     const onChange = (e) => {
         const value = e.target.value;
@@ -190,7 +190,7 @@ const CreateBlog = () => {
                         tags={tags}
                         onSubmit={onSubmit}
                         onChange={onChange}
-                        isLoading={isLoading}
+                        isBlogLoading={isBlogLoading}
                         onSuccess={isSuccess}
                         handleDragOver={handleDragOver}
                         user={user}

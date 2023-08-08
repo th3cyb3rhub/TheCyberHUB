@@ -4,11 +4,11 @@ import userDetailReducer from "../features/userDetail/userDetailSlice";
 import goalReducer from "../features/goals/goalSlice";
 import blogReducer from "../features/blogs/blogSlice";
 import forumReducer from "../features/forum/forumSlice";
-import viewReducer from "../features/views/viewSlice";
+import viewReducer from "../features/feeds/views/viewSlice";
 import feedReducer from "../features/feeds/feedsSlice";
-import likeReduces from "../features/likes/likeSlice";
+import feedLikeReduces from "../features/feeds/feedLikes/feedLikesSlice";
 
-import blogCommentsReducer from "../features/blogs/blogComments/blogCommentsSlice";
+import blogCommentsReducer from "../features/blogs/blogComments/blogCommentSlice";
 import feedCommentsReducer from "../features/feeds/feedComments/feedCommentsSlice";
 
 import ctfReducer from "../features/ctf/ctfSlice";
@@ -33,7 +33,7 @@ export default configureStore({
 
         views: viewReducer,
         bookmarks: bookmarkReduces,
-        likes: likeReduces,
+        feedLikes: feedLikeReduces,
 
         userDetail: userDetailReducer,
         ctf: ctfReducer,

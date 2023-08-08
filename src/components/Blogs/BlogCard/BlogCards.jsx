@@ -3,7 +3,7 @@ import { AllBlogs } from "../BlogsElements";
 import BlogCard from "./BlogCard";
 
 const BlogCards = ({ blogs, searchTerm, blogsBookmarksData, displayAt }) => {
-    const filteredData = blogs.filter((blog) => {
+    const filteredData = blogs?.filter((blog) => {
         // Check if blog is bookmarked
         const isBookmarked = blogsBookmarksData
             ? blogsBookmarksData.some((bookmark) => bookmark.itemId === blog._id)
@@ -22,7 +22,7 @@ const BlogCards = ({ blogs, searchTerm, blogsBookmarksData, displayAt }) => {
     return filteredData.length > 0 ? (
         <AllBlogs displayAt={displayAt}>
             {filteredData
-                .slice()
+                ?.slice()
                 .reverse()
                 .map((blog) => (
                     <BlogCard key={blog?._id} blog={blog} />

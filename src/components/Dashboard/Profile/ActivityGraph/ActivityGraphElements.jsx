@@ -16,7 +16,7 @@ export const ActivityGraphContainer = styled.div`
 
     .react-calendar-heatmap {
         border-radius: 5px;
-        color: #33e33c;
+        color: #ff6b08;
     }
 
     .react-calendar-heatmap .react-calendar-heatmap-small-text {

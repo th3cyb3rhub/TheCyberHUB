@@ -4,10 +4,10 @@ import userDetailService from "./userDetailService";
 const initialState = {
     userDetail: [],
     userDetails: [],
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    message: "",
+    isUserDetailError: false,
+    isUserDetailSuccess: false,
+    isUserDetailLoading: false,
+    userDetailMessage: "",
 };
 
 // Create new userDetail
@@ -23,13 +23,13 @@ export const createUserDetail = createAsyncThunk("userDetail/create", async (use
 });
 
 // Get user userDetail
-export const getUserDetail = createAsyncThunk("userDetail/getUserDetail", async (username) => {
+export const getUserDetail = createAsyncThunk("userDetail/getUserDetail", async (username, thunkAPI) => {
     try {
         return await userDetailService.getUserDetail(username);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-        return message;
+        return thunkAPI.rejectWithValue(message);
     }
 });
 
@@ -70,89 +70,89 @@ export const userDetailSlice = createSlice({
     name: "userDetail",
     initialState,
     reducers: {
-        reset: (state) => initialState,
+        userDetailReset: (state) => initialState,
     },
     extraReducers: (builder) => {
         builder
             .addCase(createUserDetail.pending, (state) => {
-                state.isLoading = true;
+                state.isUserDetailLoading = true;
             })
             .addCase(createUserDetail.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = true;
                 state.userDetail.push(action.payload);
             })
             .addCase(createUserDetail.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserDetailLoading = false;
+                state.isUserDetailError = true;
+                state.userDetailMessage = action.payload;
             })
             .addCase(getUserDetail.pending, (state) => {
-                state.isLoading = true;
-                state.isSuccess = false;
-                state.isError = false;
-                state.message = "";
+                state.isUserDetailLoading = true;
+                state.isUserDetailSuccess = false;
+                state.isUserDetailError = false;
+                state.userDetailMessage = "";
             })
             .addCase(getUserDetail.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.isError = false;
-                state.message = "";
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = true;
+                state.isUserDetailError = false;
+                state.userDetailMessage = "";
                 state.userDetail = action.payload;
             })
             .addCase(getUserDetail.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = false;
+                state.isUserDetailError = true;
+                state.userDetailMessage = action.payload;
             })
             .addCase(getAllUserDetails.pending, (state) => {
-                state.isLoading = true;
-                state.isSuccess = false;
-                state.isError = false;
-                state.message = "";
+                state.isUserDetailLoading = true;
+                state.isUserDetailSuccess = false;
+                state.isUserDetailError = false;
+                state.userDetailMessage = "";
             })
             .addCase(getAllUserDetails.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.isError = false;
-                state.message = "";
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = true;
+                state.isUserDetailError = false;
+                state.userDetailMessage = "";
                 state.userDetails = action.payload;
             })
             .addCase(getAllUserDetails.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = false;
+                state.isUserDetailError = true;
+                state.userDetailMessage = action.payload;
             })
             .addCase(updateUserDetail.pending, (state) => {
-                state.isLoading = true;
+                state.isUserDetailLoading = true;
             })
             .addCase(updateUserDetail.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = true;
                 state.userDetail = { ...state.userDetail, ...action.payload };
             })
             .addCase(updateUserDetail.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserDetailLoading = false;
+                state.isUserDetailError = true;
+                state.userDetailMessage = action.payload;
             })
             .addCase(deleteUserDetail.pending, (state) => {
-                state.isLoading = true;
+                state.isUserDetailLoading = true;
             })
             .addCase(deleteUserDetail.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = true;
                 state.userDetail = state.userDetail.filter((userDetail) => userDetail._id !== action.payload.id);
             })
             .addCase(deleteUserDetail.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserDetailLoading = false;
+                state.isUserDetailError = true;
+                state.userDetailMessage = action.payload;
             });
     },
 });
 
-export const { reset } = userDetailSlice.actions;
+export const { userDetailReset } = userDetailSlice.actions;
 export default userDetailSlice.reducer;

@@ -66,6 +66,7 @@ const ContactForm = () => {
         if (error || error2) {
             toast.error("Please fill all the fields");
         }
+        toast(error || error2);
         InternshipProgramData.some(({ applicationOpenDate, applicationCloseDate, internshipStartTime }) => {
             const currentDate = new Date().toISOString();
 
@@ -100,7 +101,7 @@ const ContactForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setIsLoading(true);
+        setIsLoading(false);
         setError(false);
         setError2(false);
         setIsSuccess(false);
@@ -115,26 +116,17 @@ const ContactForm = () => {
             isExperienced,
             submissionFrom: "thecyberhub.org",
         };
+
         if (name.length === 0) {
             setError("Please add your name");
         } else if (email.length === 0) {
             setError("Please add your email");
         } else if (reason.length === 0) {
             setError("Please select a reason");
-        } else if (isExperienced.length === 0) {
-            setError("Please tell us if you have prior experience");
         } else if (!resume.startsWith("http")) {
             setError("please submit the correct link to your resume");
-        } else if (
-            message.length === 0 ||
-            ((reason === "volunteer" || reason === "internship") && reasonType.length === 0)
-        ) {
-            setError("Please fill all of the fields");
-        } else if (reason === "internship" || (reason === "volunteer" && resume.length === 0)) {
+        } else if ((reason === "internship" || reason === "volunteer") && resume.length === 0) {
             setError("Please include the resume link");
-            // }
-            // else if ((reason === "internship" && message.length < 200) || message.length > 1000) {
-            //     toast("Please write a cover letter of length 200 - 1000 characters");
         } else {
             setIsLoading(true);
             axios
@@ -185,7 +177,7 @@ const ContactForm = () => {
     if (isApiLoading) {
         return lastEndpoint === "contact" ? (
             <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isApiLoading} />
+                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isApiLoading} />
             </Wrapper>
         ) : null;
     }
@@ -196,7 +188,8 @@ const ContactForm = () => {
 
     return (
         <ContactFormContainer id={"contactUs"}>
-            <H1> {"Internship, Volunteer and Speaker Opportunities.".toUpperCase()} </H1>
+            {/* <H1> {"Internship, Volunteer and Speaker Opportunities.".toUpperCase()} </H1> */}
+            <H1> {"Internship Opportunities".toUpperCase()} </H1>
             <ContactFormCard>
                 <ContactFormSection onSubmit={handleSubmit}>
                     <Cover>
@@ -235,12 +228,12 @@ const ContactForm = () => {
                         <ContactFormSelect name="reason" id="reason" value={formData.reason} onChange={handleChange}>
                             <ContactFormSelectOption value="">Select a reason</ContactFormSelectOption>
                             <ContactFormSelectOption value="internship">
-                                Internship {isOpened ? "(Applications Now Open!)" : null}
+                                Internship {isOpened ? "(Applications are Now Open!)" : null}
                                 {isClosed ? "(Applications Closed)" : null}
                             </ContactFormSelectOption>
-                            <ContactFormSelectOption value="volunteer">
-                                Volunteer (Contribute to the Community)
-                            </ContactFormSelectOption>
+                            {/* <ContactFormSelectOption value="volunteer"> */}
+                            {/*    Volunteer (Contribute to the Community) */}
+                            {/* </ContactFormSelectOption> */}
                             <ContactFormSelectOption value="feedback">Feedback</ContactFormSelectOption>
                             <ContactFormSelectOption value="other">Other</ContactFormSelectOption>
                         </ContactFormSelect>
@@ -423,7 +416,7 @@ Including:
                             </LoadingButton>
                         )
                     ) : null}
-                    {error && !isSuccess && <ErrorMessage>{"Please fill all of the fields"}</ErrorMessage>}
+                    {error && !isSuccess && <ErrorMessage>{error}</ErrorMessage>}
                     {error2 && !isSuccess && (
                         <ErrorMessage>{"Server Error - Please contact us on discord"}</ErrorMessage>
                     )}

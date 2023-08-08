@@ -3,11 +3,9 @@ import { Wrapper } from "../Dashboard/Profile/ProfileElements";
 import { getAllCTFs } from "../../features/ctf/ctfSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    // CTFCardsContainer,
     CTFContainer,
     CTFHeader,
     CTFHeading,
-    // CTFLink,
     Option,
     SearchBox,
     SearchContainer,
@@ -18,22 +16,20 @@ import {
 } from "./CTFElements";
 import { getUserDetail } from "../../features/userDetail/userDetailSlice";
 // import { encodeURL } from "../Blogs/util";
-import { CircleSpinner } from "react-spinners-kit";
 import UnderMaintenance from "../Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "../../features/apiStatus";
 // import CtfCard from "./CtfCard";
 import CtfChallenges from "./CTFCards/CtfChallenges";
+import { CrownIcon } from "../Header/Navbar/NavbarElements";
+import { RouteLink } from "../Dashboard/Sidebar/SidebarElements";
+import LoadingSpinner from "../Other/MixComponents/Spinner/LoadingSpinner";
 
 const CTF = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
-    const { ctf, isLoading: isCtfLoading } = useSelector((state) => state.ctf);
-    const {
-        userDetail,
-        isLoading: isUserDetailLoading,
-        // isError, message
-    } = useSelector((state) => state.userDetail);
+    const { ctf, isCtfLoading } = useSelector((state) => state.ctf);
+    const { userDetail, isUserDetailLoading } = useSelector((state) => state.userDetail);
 
     useEffect(() => {
         dispatch(getAllCTFs());
@@ -72,17 +68,7 @@ const CTF = () => {
         setSelectedDifficulty(event.target.value);
     };
 
-    if (isApiLoading || isCtfLoading || isUserDetailLoading) {
-        return (
-            <Wrapper>
-                <CircleSpinner
-                    size={20}
-                    color={"#1fc10d"}
-                    isLoading={isApiLoading || isCtfLoading || isUserDetailLoading}
-                />
-            </Wrapper>
-        );
-    }
+    if (isApiLoading || isUserDetailLoading || isCtfLoading) return <LoadingSpinner />;
 
     if (!isApiWorking) return <UnderMaintenance />;
 
@@ -127,6 +113,22 @@ const CTF = () => {
                             <Option value="insane"> insane </Option>
                         </Select>
                     </SearchDifficulty>
+                    <RouteLink to="/leaderboard">
+                        <SearchDifficulty
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                textDecoration: "none",
+                                gap: "5px",
+                                padding: "6px 15px 6px 10px",
+                                borderRadius: "5px",
+                                backgroundColor: "#252525",
+                            }}
+                        >
+                            <CrownIcon style={{ fontSize: "1.5rem" }} />
+                            <span> Leaderboard </span>
+                        </SearchDifficulty>
+                    </RouteLink>
                 </SearchContainer>
 
                 <CtfChallenges ctf={filteredCTFs} userDetail={userDetail} user={user} />

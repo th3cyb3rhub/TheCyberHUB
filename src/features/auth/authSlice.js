@@ -5,10 +5,10 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
     user: user || null,
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    message: "",
+    isUserLoading: false,
+    isUserError: false,
+    isUserSuccess: false,
+    userMessage: "",
     logout: false,
 };
 
@@ -68,69 +68,69 @@ export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        reset: (state) => {
-            state.isLoading = false;
-            state.isSuccess = false;
-            state.isError = false;
-            state.message = "";
+        userReset: (state) => {
+            state.isUserLoading = false;
+            state.isUserSuccess = false;
+            state.isUserError = false;
+            state.userMessage = "";
         },
     },
     extraReducers: (builder) => {
         builder
             .addCase(sendEmailCode.pending, (state) => {
-                state.isLoading = true;
+                state.isUserLoading = true;
             })
             .addCase(sendEmailCode.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserSuccess = true;
+                state.userMessage = action.payload;
             })
             .addCase(sendEmailCode.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserError = true;
+                state.userMessage = action.payload;
             })
             .addCase(verifyEmailCode.pending, (state) => {
-                state.isLoading = true;
+                state.isUserLoading = true;
             })
             .addCase(verifyEmailCode.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserSuccess = true;
+                state.userMessage = action.payload;
             })
             .addCase(verifyEmailCode.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserError = true;
+                state.userMessage = action.payload;
             })
             .addCase(registerUser.pending, (state) => {
-                state.isLoading = true;
+                state.isUserLoading = true;
             })
             .addCase(registerUser.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserSuccess = true;
+                state.userMessage = action.payload;
                 state.user = action.payload;
             })
             .addCase(registerUser.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserError = true;
+                state.userMessage = action.payload;
                 state.user = null;
             })
             .addCase(login.pending, (state) => {
-                state.isLoading = true;
+                state.isUserLoading = true;
             })
             .addCase(login.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isUserLoading = false;
+                state.isUserSuccess = true;
                 state.user = action.payload;
                 state.logout = false;
             })
             .addCase(login.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserError = true;
+                state.userMessage = action.payload;
                 state.user = null;
             })
             .addCase(logout.fulfilled, (state) => {
@@ -138,17 +138,17 @@ export const authSlice = createSlice({
                 state.logout = true;
             })
             .addCase(updateUser.pending, (state) => {
-                state.isLoading = true;
+                state.isUserLoading = true;
             })
             .addCase(updateUser.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isUserLoading = false;
+                state.isUserSuccess = true;
                 state.user = { ...state.user, ...action.payload };
             })
             .addCase(updateUser.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isUserLoading = false;
+                state.isUserError = true;
+                state.userMessage = action.payload;
             });
     },
 });
@@ -157,5 +157,5 @@ export const logout = createAsyncThunk("auth/logout", async () => {
     await authService.logout();
 });
 
-export const { reset } = authSlice.actions;
+export const { userReset } = authSlice.actions;
 export default authSlice.reducer;

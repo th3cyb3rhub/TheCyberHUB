@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAllUserDetails, reset } from "../../../features/userDetail/userDetailSlice";
+import { getAllUserDetails, userDetailReset } from "../../../features/userDetail/userDetailSlice";
 import {
     Header,
     IconVerified,
@@ -12,6 +12,9 @@ import {
     UserPicture,
     UsersContainer,
 } from "./UsersElements";
+import { RouteLink } from "../../Dashboard/Sidebar/SidebarElements";
+import { cdnContentImagesUrl } from "../../../features/apiUrl";
+
 const Users = ({ userDetails, searchTerm }) => {
     const dispatch = useDispatch();
 
@@ -22,7 +25,7 @@ const Users = ({ userDetails, searchTerm }) => {
 
         dispatch(getAllUserDetails());
 
-        return () => dispatch(reset());
+        return () => dispatch(userDetailReset());
     }, [dispatch]);
 
     // based on name or username
@@ -31,22 +34,24 @@ const Users = ({ userDetails, searchTerm }) => {
             user?.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
             user?.username?.toLowerCase().includes(searchTerm?.toLowerCase()),
     );
-    const displayedUsers = searchTerm.length === 0 ? filteredUsers.slice(0, 3) : filteredUsers;
+    const displayedUsers = searchTerm.length === 0 ? filteredUsers.slice(0, 10) : filteredUsers;
 
     return filteredUsers.length > 0 ? (
         <UsersContainer>
-            {displayedUsers?.map((user) => (
-                <UserContainer key={user.username}>
-                    <UserPicture src={"https://avatars.githubusercontent.com/u/44284877?v=4"} />
-                    <UserDetail>
-                        <Header>
-                            <Name>{user.name}</Name>
-                            <Username>@{user.username}</Username>
-                            <IconVerified />
-                        </Header>
-                        <UserBio>{user.bio}</UserBio>
-                    </UserDetail>
-                </UserContainer>
+            {displayedUsers?.map((user, id) => (
+                <RouteLink to={`/@${user.username}`} key={user.username}>
+                    <UserContainer>
+                        <UserPicture src={cdnContentImagesUrl("/user/" + (user?.avatar || "1691297013370.png"))} />
+                        <UserDetail>
+                            <Header>
+                                <Name>{user.name}</Name>
+                                <Username>@{user.username}</Username>
+                                {user?.verified && <IconVerified />}
+                            </Header>
+                            <UserBio>{user.bio}</UserBio>
+                        </UserDetail>
+                    </UserContainer>
+                </RouteLink>
             ))}
         </UsersContainer>
     ) : null;

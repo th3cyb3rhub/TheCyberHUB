@@ -12,17 +12,17 @@ export const H1 = styled.h1`
     padding: 15px 25px;
     //background: #70ff00;
     //color: black;
-    color: #ffffff;
+    color: #f5f5f5;
 
     &:hover {
-        background: #17f31e;
+        background: #ff6b08;
         color: black;
         transition: all 0.2s ease-in-out;
     }
 `;
 export const ContentH = styled.h1`
     text-align: center;
-    color: #c4c4c4;
+    color: #f5f5f5;
     margin: 5px 0 0 0;
     width: 100%;
     max-width: 600px;
@@ -32,7 +32,7 @@ export const ContentP = styled.p`
     background: #090909;
     font-family: "Fira Code Medium", monospace;
     text-align: center;
-    color: #d7d7d7;
+    color: #f5f5f5;
     margin: 5px 0 0 0;
     width: 100%;
     max-width: 1100px;
@@ -46,7 +46,7 @@ export const ContentP = styled.p`
 `;
 
 export const ContactFormContainer = styled.div`
-    color: #fff;
+    color: #f5f5f5;
     margin: 150px 0 50px;
     display: flex;
     flex-direction: column;
@@ -182,7 +182,7 @@ export const ContactFormInput = styled.input`
     border-radius: 5px;
     background: transparent;
     border: transparent;
-    color: #c2c2c2;
+    color: #f5f5f5;
     width: 100%;
     text-underline-offset: 5px;
     font-size: 20px;
@@ -195,7 +195,7 @@ export const ContactFormInput = styled.input`
     }
 
     ::placeholder {
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -205,7 +205,7 @@ export const ContactFormInput = styled.input`
     &:hover {
         background: transparent;
         border: transparent;
-        color: #fff;
+        color: #f5f5f5;
     }
 `;
 
@@ -218,7 +218,7 @@ export const ContactFormSelect = styled.select`
     align-items: center;
     background: #101010;
     border: none;
-    color: #c4c4c4;
+    color: #f5f5f5;
     width: 100%;
 
     @media (max-width: 900px) {
@@ -230,7 +230,7 @@ export const ContactFormSelect = styled.select`
 `;
 export const ContactFormSelectOption = styled.option`
     font-size: 20px;
-    color: #c4c4c4;
+    color: #f5f5f5;
     padding: 25px;
     margin: 25px;
 
@@ -261,7 +261,7 @@ export const ContactFormTextArea = styled.textarea`
     //border-radius: 5px;
     background: transparent;
     border: transparent;
-    color: #fff;
+    color: #f5f5f5;
     width: 100%;
     height: 250px;
     font-size: 20px;
@@ -274,7 +274,7 @@ export const ContactFormTextArea = styled.textarea`
     }
 
     ::placeholder {
-        color: #fff;
+        color: #f5f5f5;
     }
 
     &:focus {
@@ -284,7 +284,7 @@ export const ContactFormTextArea = styled.textarea`
     &:hover {
         background: transparent;
         border: transparent;
-        color: #fff;
+        color: #f5f5f5;
     }
 `;
 
@@ -293,7 +293,7 @@ export const ContactFormSubmit = styled.button`
     font-size: 1.5rem;
     background: #101010;
     border: transparent;
-    color: whitesmoke;
+    color: #f5f5f5;
     border-radius: 5px;
     margin: 5px 0;
     width: 100%;
@@ -304,7 +304,7 @@ export const ContactFormSubmit = styled.button`
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: #6ffd01;
+        background: #ff6b08;
         color: #000000;
     }
 `;
@@ -325,7 +325,7 @@ export const GlowingButton = styled.button`
     align-items: center;
     transition: all 0.2s ease-in-out;
     color: #000000;
-    background: #6ffd01;
+    background: #ff6b08;
     box-shadow: 0 0 30px rgba(32, 194, 14, 0);
     animation: glowing 2s ease-in-out infinite;
     margin: 5px 0;
@@ -337,7 +337,7 @@ export const GlowingButton = styled.button`
             box-shadow: 0 0 30px rgba(32, 194, 14, 0);
         }
         50% {
-            box-shadow: 0 0 60px 15px rgba(32, 194, 14, 0.5);
+            box-shadow: 0 0 60px 15px rgba(194, 89, 14, 0.5);
         }
         100% {
             box-shadow: 0 0 30px rgba(32, 194, 14, 0);
@@ -354,5 +354,5 @@ export const ErrorMessage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #88ff00;
+    color: #ff6b08;
 `;
