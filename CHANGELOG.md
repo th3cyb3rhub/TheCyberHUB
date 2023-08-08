@@ -1,3 +1,12 @@
+# [0.53.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.52.0...v0.53.0) (2023-08-08)
+
+
+### Features
+
+* blogs feeds explore and design ([#432](https://github.com/thecyberworld/thecyberhub.org/issues/432)) ([d9b2b2f](https://github.com/thecyberworld/thecyberhub.org/commit/d9b2b2f4bb76880bff157619332708a25fd6c4ad))
+
+
+
 # [0.52.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.51.0...v0.52.0) (2023-08-08)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * oppurtunities programs and fix form ([#423](https://github.com/thecyberworld/thecyberhub.org/issues/423)) ([3f06062](https://github.com/thecyberworld/thecyberhub.org/commit/3f06062e37b4ba694b371e51d92c99edccdfa62c))
-
-
-
-## [0.48.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.48.0...v0.48.1) (2023-06-18)
-
-
-### Bug Fixes
-
-* Resolve non-responsive roadmap section ([#421](https://github.com/thecyberworld/thecyberhub.org/issues/421)) ([#422](https://github.com/thecyberworld/thecyberhub.org/issues/422)) ([b63fd78](https://github.com/thecyberworld/thecyberhub.org/commit/b63fd786682fd50b4ce55cb65c2fc4e7d885256b))
 
 
 
