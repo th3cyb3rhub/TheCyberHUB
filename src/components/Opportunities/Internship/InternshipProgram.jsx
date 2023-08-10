@@ -17,7 +17,7 @@ const InternshipProgram = () => {
         // <Wrapper>
         <InternshipContainer>
             <InternshipHeader>
-                <InternshipHeading> Internship </InternshipHeading>
+                <InternshipHeading> Internships - 2024 </InternshipHeading>
             </InternshipHeader>
             <InternshipTimeline />
             <InternshipProgramContainer>
