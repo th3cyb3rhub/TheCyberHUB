@@ -1,3 +1,12 @@
+## [0.53.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.1...v0.53.2) (2023-08-11)
+
+
+### Bug Fixes
+
+* image path ([f30062b](https://github.com/thecyberworld/thecyberhub.org/commit/f30062b16f272f4b720a9ce1c496f651fe179bfb))
+
+
+
 ## [0.53.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.0...v0.53.1) (2023-08-08)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * feeds, blogs, and explore ([#429](https://github.com/thecyberworld/thecyberhub.org/issues/429)) ([eec2628](https://github.com/thecyberworld/thecyberhub.org/commit/eec262852de6cc3c3c12ad1aa3de626480398cfe))
-
-
-
-# [0.50.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.49.0...v0.50.0) (2023-06-25)
-
-
-### Features
-
-* OpenSec Projects ([#425](https://github.com/thecyberworld/thecyberhub.org/issues/425)) ([82d853a](https://github.com/thecyberworld/thecyberhub.org/commit/82d853a6fbc5e23af8b1ce242fd369e4b7224049))
 
 
 
