@@ -29,6 +29,8 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
     };
     const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatarDummy.png"));
 
+    const feedImage = (image) => cdnContentImagesUrl(`/feed/${image}`);
+
     return (
         <FeedPostContainer>
             <LeftSection>
@@ -51,8 +53,8 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
                         <ImageContainer key={index}>
                             <UploadedImage
                                 onClick={() => handleImageClick(index)}
-                                src={`https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/development/feed/${image}`}
-                                alt={`Uploaded ${index + 1}`}
+                                src={feedImage(image)}
+                                alt={feed.username + `image${index}`}
                             />
                         </ImageContainer>
                     ))}
@@ -60,6 +62,7 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
                         <PopUpWindow onClose={() => setShowPopupWindow(false)}>
                             <ImageSlider
                                 images={feed?.images}
+                                username={feed?.username}
                                 selectedIndex={selectedImageIndex}
                                 onClose={() => setShowPopupWindow(false)}
                             />

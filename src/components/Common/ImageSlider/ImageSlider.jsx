@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { ImageSliderContainer, Image, ImagesContainer, LeftArrow, RightArrow } from "./ImageSliderElements";
+import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
-const ImageSlider = ({ images, selectedIndex, onClose }) => {
+const ImageSlider = ({ images, selectedIndex, onClose, username }) => {
     const [currentIndex, setCurrentIndex] = useState(selectedIndex);
 
     const handleNextSlide = () => {
@@ -11,6 +12,7 @@ const ImageSlider = ({ images, selectedIndex, onClose }) => {
     const handlePrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
     };
+    const feedImage = (image) => cdnContentImagesUrl(`/feed/${image}`);
 
     return (
         <ImageSliderContainer>
@@ -20,8 +22,8 @@ const ImageSlider = ({ images, selectedIndex, onClose }) => {
                 {images.map((image, index) => (
                     <Image
                         key={index}
-                        src={`https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/development/feed/${image}`}
-                        alt={`Uploaded ${index + 1}`}
+                        src={feedImage(image)}
+                        alt={username?.username + ` image ${index + 1}`}
                         style={{ display: index === currentIndex ? "block" : "none" }}
                     />
                 ))}

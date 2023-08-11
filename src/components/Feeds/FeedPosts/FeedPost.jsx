@@ -20,6 +20,7 @@ import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
 const FeedPost = ({ feed, user, comments, likes, bookmarks, views, setStopRefresh, displayAt }) => {
     const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatarDummy.png"));
+    const feedImage = (image) => cdnContentImagesUrl(`/feed/${image}`);
 
     return (
         <FeedPostContainer displayAt={displayAt}>
@@ -44,11 +45,8 @@ const FeedPost = ({ feed, user, comments, likes, bookmarks, views, setStopRefres
                             {feed?.images?.map((image, index) => (
                                 <ImageContainer key={index}>
                                     <UploadedImage
-                                        src={
-                                            "https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/development/feed/" +
-                                            image
-                                        }
-                                        alt={`Uploaded ${index + 1}`}
+                                        src={feedImage(image)}
+                                        alt={feed?.username + ` image ${index + 1}`}
                                     />
                                 </ImageContainer>
                             ))}
