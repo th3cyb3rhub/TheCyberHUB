@@ -57,7 +57,7 @@ const FeedsExplore = ({ feeds, searchTerm, feedBookmarksData, isFeedLoading, dis
         <FeedPostsContainer displayAt={displayAt}>
             {filteredData?.length > 0 &&
                 filteredData
-                    .slice()
+                    ?.slice()
                     .reverse()
                     .map((feed, index) => (
                         <FeedPost

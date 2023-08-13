@@ -96,7 +96,7 @@ const Explore = () => {
     const feedData = feeds
         ?.slice()
         .reverse()
-        .slice(0, 10)
+        ?.slice(0, 10)
         .reverse()
         .map((feed) => {
             const userDetail = userDetails?.find((user) => user.user === feed.user);
@@ -106,9 +106,9 @@ const Explore = () => {
         });
 
     const blogsData = blogs
-        .slice()
+        ?.slice()
         .reverse()
-        .slice(0, 10)
+        ?.slice(0, 10)
         .reverse()
         .map((blog) => {
             const userDetail = userDetails?.find((user) => user.user === blog.user);
@@ -118,9 +118,9 @@ const Explore = () => {
         });
 
     const ctfData = ctf
-        .slice()
+        ?.slice()
         .reverse()
-        .slice(0, 10)
+        ?.slice(0, 10)
         .reverse()
         .map((ctf) => {
             const userDetail = userDetails?.find((user) => user.user === ctf.user);
