@@ -1,3 +1,12 @@
+## [0.53.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.2...v0.53.3) (2023-08-13)
+
+
+### Bug Fixes
+
+* data slice logic ([d96db26](https://github.com/thecyberworld/thecyberhub.org/commit/d96db2634b91262cf5481fc97d0eb240f3f54130))
+
+
+
 ## [0.53.2](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.1...v0.53.2) (2023-08-11)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * feeds blogs explore and design ([#431](https://github.com/thecyberworld/thecyberhub.org/issues/431)) ([dc9bd72](https://github.com/thecyberworld/thecyberhub.org/commit/dc9bd729ceb97af7ed78501890d780ebf7de3cac))
-
-
-
-# [0.51.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.50.0...v0.51.0) (2023-08-07)
-
-
-### Features
-
-* feeds, blogs, and explore ([#429](https://github.com/thecyberworld/thecyberhub.org/issues/429)) ([eec2628](https://github.com/thecyberworld/thecyberhub.org/commit/eec262852de6cc3c3c12ad1aa3de626480398cfe))
 
 
 
