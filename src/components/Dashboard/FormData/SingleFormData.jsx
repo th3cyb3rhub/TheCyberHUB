@@ -22,44 +22,44 @@ import {
 export default function FormDetailsPage(props) {
     return (
         <FormDetailsContainer>
-            {/* <BackArrow onClick={props.onClick} /> */}
+            {/* <BackArrow onClick={props?.onClick} /> */}
             <FormDetailsHero>
                 <FormDetailsHeader>
-                    {props.status && <span className="status">{props.status}</span>}
-                    <FormDetailsTitle>{props.jobTitle}</FormDetailsTitle>
+                    {props?.status && <span className="status">{props?.status}</span>}
+                    <FormDetailsTitle>{props?.jobTitle}</FormDetailsTitle>
                     <FormDetailsRole>
-                        <FormDetailsRoleTitle>{props.jobRoleTitle}</FormDetailsRoleTitle>
-                        <FormDetailsRating>{props.jobRating}</FormDetailsRating>
+                        <FormDetailsRoleTitle>{props?.jobRoleTitle}</FormDetailsRoleTitle>
+                        <FormDetailsRating>{props?.jobRating}</FormDetailsRating>
                     </FormDetailsRole>
                     <FormDetailsLocation>
-                        <span>{props.jobLocation}</span>
+                        <span>{props?.jobLocation}</span>
                     </FormDetailsLocation>
                 </FormDetailsHeader>
             </FormDetailsHero>
             <FormDetails>
-                {props.jobDetails?.map((item, i) => (
+                {props?.jobDetails?.map((item, i) => (
                     <div key={i}>
-                        <span>{item.item}</span>
-                        {item.badge && (
+                        <span>{item?.item}</span>
+                        {item?.badge && (
                             <div className="badge">
-                                <span>{item.badge}</span>
+                                <span>{item?.badge}</span>
                             </div>
                         )}
                     </div>
                 ))}
             </FormDetails>
             {/* <FormDetails> */}
-            {/*    {props.jobDetails2?.map((item, i) => ( */}
+            {/*    {props?.jobDetails2?.map((item, i) => ( */}
             {/*        <div key={i}> */}
             {/*            <span>{item}</span> */}
             {/*        </div> */}
             {/*    ))} */}
             {/* </FormDetails> */}
-            <FormDescSection>{props.jobDesc1}</FormDescSection>
+            <FormDescSection>{props?.jobDesc1}</FormDescSection>
             <FormDetailsReq>
                 <h3> Requirements: </h3>
                 <ListContainer>
-                    {props.jobReq?.map((item, id) => (
+                    {props?.jobReq?.map((item, id) => (
                         <List key={id}>
                             <ListIcon /> <ListContent> {item} </ListContent>
                         </List>
@@ -69,19 +69,19 @@ export default function FormDetailsPage(props) {
             <FormDetailsReq>
                 <h3> Responsibilities: </h3>
                 <ListContainer>
-                    {props.jobRes?.map((item, id) => (
+                    {props?.jobRes?.map((item, id) => (
                         <List key={id}>
                             <ListIcon /> <ListContent> {item} </ListContent>
                         </List>
                     ))}
                 </ListContainer>
             </FormDetailsReq>
-            <FormDescSection>{props.jobDesc2}</FormDescSection>
+            <FormDescSection>{props?.jobDesc2}</FormDescSection>
             <FormDetailsTimeline>
-                <span>{props.jobTimeline.datePosted}</span>
-                <span className="dot">{props.jobTimeline.separator}</span>
+                <span>{props?.jobTimeline.datePosted}</span>
+                <span className="dot">{props?.jobTimeline.separator}</span>
                 <span>
-                    From <span className="remote">{props.jobTimeline.directory}</span>
+                    From <span className="remote">{props?.jobTimeline.directory}</span>
                 </span>
             </FormDetailsTimeline>
         </FormDetailsContainer>
