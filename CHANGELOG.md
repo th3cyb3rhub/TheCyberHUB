@@ -1,3 +1,12 @@
+## [0.53.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.3...v0.53.4) (2023-08-14)
+
+
+### Bug Fixes
+
+* if else log in jobs ([59d5df2](https://github.com/thecyberworld/thecyberhub.org/commit/59d5df2ae1890df595005b6cf28f7187e54dcf11))
+
+
+
 ## [0.53.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.2...v0.53.3) (2023-08-13)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * blogs feeds explore and design ([#432](https://github.com/thecyberworld/thecyberhub.org/issues/432)) ([d9b2b2f](https://github.com/thecyberworld/thecyberhub.org/commit/d9b2b2f4bb76880bff157619332708a25fd6c4ad))
-
-
-
-# [0.52.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.51.0...v0.52.0) (2023-08-08)
-
-
-### Features
-
-* feeds blogs explore and design ([#431](https://github.com/thecyberworld/thecyberhub.org/issues/431)) ([dc9bd72](https://github.com/thecyberworld/thecyberhub.org/commit/dc9bd729ceb97af7ed78501890d780ebf7de3cac))
 
 
 
