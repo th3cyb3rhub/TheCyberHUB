@@ -88,7 +88,8 @@ export const BuyMeACoffeeImage = styled.img`
     color: #73ff00;
     background: #73ff00;
     border-radius: 5px;
-
+    font-size: 12px;
+    word-break: break-all;
     @media screen and (max-width: 768px) {
         margin: 0;
     }

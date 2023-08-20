@@ -22,6 +22,9 @@ export const SplashImage = styled.img`
     width: 150px;
     height: 150px;
     object-fit: cover;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const SplashImageNeon = styled.img`
@@ -29,7 +32,9 @@ export const SplashImageNeon = styled.img`
     height: 150px;
     object-fit: cover;
     animation: fade-in 1s forwards, neon-effect 2s ease-in-out infinite;
-
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
     @keyframes neon-effect {
         0% {
             opacity: 0;
@@ -50,7 +55,9 @@ export const SplashImageNeon2 = styled.img`
     height: 150px;
     object-fit: cover;
     animation: fade-in 1s forwards, neon-effect 0.5s ease-in-out infinite;
-
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
     @keyframes neon-effect {
         0% {
             opacity: 0;

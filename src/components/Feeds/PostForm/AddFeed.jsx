@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthPopup from "../../../pages/AuthPopup/AuthPopup";
 import AddPostTags from "./AddPostTags/AddPostTags";
@@ -7,10 +7,10 @@ import {
     AddImage,
     FooterSection,
     ImageContainer,
-    ImageUploadContainer,
+    ImagesContainer,
     PostFormButton,
     RemoveButton,
-    UploadedImage,
+    FeedImage,
 } from "./AddPostElements";
 import { FeedCommentInput } from "../FeedComments/AddFeedCommentsElements";
 import { LeftSection, PostHeaderImg, RightSection } from "../FeedPosts/FeedPostsElements";
@@ -36,6 +36,14 @@ const AddPost = ({ showPostTags, userDetails }) => {
     const [feedImages, setFeedImages] = useState([]);
     const [showAuthPopup, setShowAuthPopup] = useState(false);
 
+    const maxCharacterCount = 1500;
+
+    const [remainingCharacters, setRemainingCharacters] = useState(maxCharacterCount);
+
+    useEffect(() => {
+        setRemainingCharacters(maxCharacterCount - content.length);
+    }, [content]);
+
     const handleChange = () => {
         const textarea = textareaRef.current;
         textarea.style.height = "auto"; // Reset height to recalculate scrollHeight
@@ -52,7 +60,7 @@ const AddPost = ({ showPostTags, userDetails }) => {
 
         for (const file of imageFiles) {
             if (file.type !== "image/jpeg" && file.type !== "image/png") {
-                toast.error("Only JPEG and PNG are allowed");
+                toast.warn("Only JPEG and PNG are allowed");
                 return;
             }
             const fileName = `feed-${Date.now()}.${file && file.type.split("/")[1]}`;
@@ -87,7 +95,20 @@ const AddPost = ({ showPostTags, userDetails }) => {
         setIsFeedLoading(true);
 
         if (!user) {
-            setShowAuthPopup(true); // Show the login popup if the user is not logged in
+            setShowAuthPopup(true);
+            setIsFeedLoading(false);
+        } else if (!content) {
+            toast.warn("Please enter some content");
+            setIsFeedLoading(false);
+        } else if (content.length > 1500) {
+            toast.warn("Content cannot be more than 1500 characters");
+            setIsFeedLoading(false);
+            setIsFeedLoading(false);
+        } else if (tags.length > 10 || tags.length < 2) {
+            toast.warn("You can add a maximum of 10 tags");
+            setIsFeedLoading(false);
+        } else if (files.length > 4) {
+            toast.warn("You can upload a maximum of 4 images");
             setIsFeedLoading(false);
         } else {
             async function uploadFeedImages() {
@@ -103,7 +124,7 @@ const AddPost = ({ showPostTags, userDetails }) => {
                 }
             }
 
-            await uploadFeedImages();
+            if (files) await uploadFeedImages();
 
             const data = {
                 content,
@@ -112,6 +133,8 @@ const AddPost = ({ showPostTags, userDetails }) => {
             };
 
             dispatch(createFeed(data));
+
+            toast.success("Feed posted successfully");
 
             setIsFeedLoading(false);
             setContent("");
@@ -135,21 +158,38 @@ const AddPost = ({ showPostTags, userDetails }) => {
                 <PostHeaderImg src={avatar} alt="Profile picture" />
             </LeftSection>
             <RightSection>
-                <FeedCommentInput
-                    ref={textareaRef}
-                    placeholder="What's on your mind?"
-                    value={content}
-                    onChange={handleChange}
-                />
+                <div>
+                    <FeedCommentInput
+                        ref={textareaRef}
+                        placeholder="What's on your mind?"
+                        value={content}
+                        onChange={handleChange}
+                    />
+                    <p
+                        style={{
+                            color:
+                                remainingCharacters <= 99 ? "#ff2525" : remainingCharacters <= 500 ? "#ff6b08" : "grey",
+                            width: "100%",
+                            textAlign: "right",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                            // border: '1px solid #ff6b08',
+                            marginTop: "-15px",
+                            marginBottom: "-10px",
+                        }}
+                    >
+                        {remainingCharacters < 0 ? "-" : ""} {Math.abs(remainingCharacters)}
+                    </p>
+                </div>
 
-                <ImageUploadContainer>
+                <ImagesContainer>
                     {files.map((file, index) => (
                         <ImageContainer key={index}>
-                            <UploadedImage src={URL.createObjectURL(file)} alt={`Uploaded ${index + 1}`} />
+                            <FeedImage src={URL.createObjectURL(file)} alt={`Uploaded ${index + 1}`} />
                             <RemoveButton onClick={() => handleRemoveImage(index)}>&#10005;</RemoveButton>
                         </ImageContainer>
                     ))}
-                </ImageUploadContainer>
+                </ImagesContainer>
 
                 {/* File input for image upload */}
                 {files.length < 4 && (
@@ -172,7 +212,7 @@ const AddPost = ({ showPostTags, userDetails }) => {
                         style={{ background: "transparent", border: "transparent", padding: "0" }}
                         htmlFor="feedImage"
                     >
-                        <AddImage />
+                        {files.length < 4 && <AddImage />}
                     </ImageUploadLabel>
 
                     {isFeedLoading ? (

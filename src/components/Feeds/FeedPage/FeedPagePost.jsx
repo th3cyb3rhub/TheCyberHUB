@@ -16,7 +16,7 @@ import PostActionsAndStats from "../FeedPosts/PostActionsAndStats";
 import { dateFormatter } from "../../Common/dateFormatter";
 import PopUpWindow from "../../Common/PopUpWindow";
 import ImageSlider from "../../Common/ImageSlider/ImageSlider";
-import { ImageContainer, ImageUploadContainer, UploadedImage } from "../PostForm/AddPostElements";
+import { ImageContainer, ImagesContainer, FeedImage } from "../PostForm/AddPostElements";
 import { IconVerified } from "../../Explore/Users/UsersElements";
 import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
@@ -34,7 +34,7 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
     return (
         <FeedPostContainer>
             <LeftSection>
-                <PostHeaderImg src={avatar} alt={feed?.username + `avatar`} />
+                <PostHeaderImg src={avatar} alt={feed?.username + ` avatar`} />
             </LeftSection>
             <RightSection>
                 <PostHeader>
@@ -48,10 +48,10 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
                 </PostHeader>
                 <PostContent>{feed?.content}</PostContent>
 
-                <ImageUploadContainer>
+                <ImagesContainer>
                     {feed?.images?.map((image, index) => (
                         <ImageContainer key={index}>
-                            <UploadedImage
+                            <FeedImage
                                 onClick={() => handleImageClick(index)}
                                 src={feedImage(image)}
                                 alt={feed.username + `image${index}`}
@@ -68,7 +68,7 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
                             />
                         </PopUpWindow>
                     ) : null}
-                </ImageUploadContainer>
+                </ImagesContainer>
 
                 {feed?.tags ? (
                     <PostTags>

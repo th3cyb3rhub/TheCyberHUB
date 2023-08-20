@@ -33,6 +33,9 @@ export const SectionUserPicture = styled.div`
 export const UserPicture = styled.img`
     width: 40px;
     border-radius: 5px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const SectionCommentDetails = styled.div`

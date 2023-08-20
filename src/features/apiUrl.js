@@ -10,15 +10,16 @@ const devUrl = "https://dev.api.thecyberhub.org";
 
 export const webEnv = import.meta.env.VITE_WEB_ENV || "production";
 
-const cdnAssets = "https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/assets";
+const assetsURL = "https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets";
+const cdnAssets = `${assetsURL}/assets`;
 
 export const cdnContentImagesUrl = (props) => {
     if (webEnv === "localhost" || webEnv === "development") {
-        return `https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/development${props}`;
+        return `${assetsURL}/development${props}`;
     } else if (webEnv === "security") {
-        return `https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/security${props}`;
+        return `${assetsURL}/security${props}`;
     } else {
-        return `https://storagethecyberhub.blob.core.windows.net/thecyberhub-assets/production${props}`;
+        return `${assetsURL}/production${props}`;
     }
 };
 

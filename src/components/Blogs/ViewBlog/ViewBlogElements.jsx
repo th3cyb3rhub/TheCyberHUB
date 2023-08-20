@@ -15,6 +15,9 @@ export const BlogImage = styled.img`
     display: block;
     margin: 0 auto;
     border-radius: 15px 15px 0 0;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const BlogTitle = styled.h1`

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getCdnAssets } from "../../../features/apiUrl";
-const CybersecurityRegImage = `${getCdnAssets}/images/Registeration/CybersecurityRegPage.png`;
+const CybersecurityRegImage = `${getCdnAssets}/images/Registration/CybersecurityRegPage.png`;
 
 export const Container = styled.div`
     display: flex;

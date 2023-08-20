@@ -22,6 +22,9 @@ export const UpComingEventsImage = styled.img`
     height: 100%;
     width: auto;
     margin-bottom: 10px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const UpComingEventsTitle = styled.div``;

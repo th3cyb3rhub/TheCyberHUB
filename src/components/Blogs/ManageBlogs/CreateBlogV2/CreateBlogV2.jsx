@@ -57,6 +57,14 @@ const CreateBlogV2 = () => {
     const [file, setFile] = useState("");
     const [fileName, setFileName] = useState("");
 
+    const maxCharacterCount = 10000;
+
+    const [remainingCharacters, setRemainingCharacters] = useState(maxCharacterCount);
+
+    useEffect(() => {
+        setRemainingCharacters(maxCharacterCount - content.length);
+    }, [content]);
+
     let updatedContent;
 
     useEffect(() => {
@@ -94,27 +102,40 @@ const CreateBlogV2 = () => {
             setErrorMessage("");
 
             if (!title) {
-                toast.error("Title is required");
+                toast.warn("Title is required");
                 return;
             }
             if (!summary) {
-                toast.error("Summary is required");
+                toast.warn("Summary is required");
                 return;
             }
             if (!content) {
-                toast.error("Content is required");
+                toast.warn("Content is required");
+                return;
+            }
+            if (content.length < 100) {
+                toast.warn("Content should be atleast 100 characters");
+                return;
+            }
+            if (content.length > 10000) {
+                toast.warn("Content should be less than 10000 characters");
                 return;
             }
             if (!coverImage) {
-                toast.error("Cover Image is required");
+                toast.warn("Cover Image is required");
                 return;
             }
             if (tags.length === 0) {
-                toast.error("Tags are required");
+                toast.warn("Tags are required");
                 return;
             }
             if (!file) {
-                toast.error("CoverImage is required");
+                toast.warn("CoverImage is required");
+                return;
+            }
+
+            if (!category) {
+                toast.warn("Category is required");
                 return;
             }
 
@@ -249,7 +270,25 @@ const CreateBlogV2 = () => {
                         />
 
                         <BlogPostFormV2 content={content} setContent={setContent} />
-
+                        <p
+                            style={{
+                                color:
+                                    remainingCharacters <= 1000
+                                        ? "#ff2525"
+                                        : remainingCharacters <= 5000
+                                        ? "#ff6b08"
+                                        : "grey",
+                                width: "100%",
+                                textAlign: "right",
+                                fontSize: "12px",
+                                fontWeight: "bold",
+                                // border: '1px solid #ff6b08',
+                                // marginTop: '-15px',
+                                // marginBottom: '-10px',
+                            }}
+                        >
+                            {remainingCharacters < 0 ? "-" : ""} {Math.abs(remainingCharacters)}
+                        </p>
                         <CategorySection>
                             Category
                             <Select

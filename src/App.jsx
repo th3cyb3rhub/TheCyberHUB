@@ -158,7 +158,24 @@ const App = () => {
                 </ScrollToTop>
                 {!hideHomeHeader() && <Footer />}
             </Container>
-            <ToastContainer />
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss={true}
+                draggable={false}
+                pauseOnHover={true}
+                toastStyle={{
+                    backgroundColor: "#000",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    borderRadius: "10px",
+                    border: "1px solid grey",
+                }}
+            />
         </>
     );
 };

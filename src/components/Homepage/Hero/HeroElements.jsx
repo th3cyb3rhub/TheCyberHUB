@@ -40,6 +40,9 @@ export const ImageBg = styled.img`
     height: 100%;
     object-fit: cover;
     background: #000000;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const ImagePlaceholder = styled.img`
@@ -47,6 +50,9 @@ export const ImagePlaceholder = styled.img`
     height: 100%;
     object-fit: cover;
     background: #000000;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const VideoBg = styled.video`

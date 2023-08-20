@@ -14,7 +14,7 @@ import {
 import PostActionsAndStats from "./PostActionsAndStats";
 import { RouteLink } from "../../Dashboard/Sidebar/SidebarElements";
 import { dateFormatter } from "../../Common/dateFormatter";
-import { ImageContainer, ImageUploadContainer, UploadedImage } from "../PostForm/AddPostElements";
+import { ImageContainer, ImagesContainer, FeedImage } from "../PostForm/AddPostElements";
 import { IconVerified } from "../../Explore/Users/UsersElements";
 import { cdnContentImagesUrl } from "../../../features/apiUrl";
 
@@ -33,24 +33,28 @@ const FeedPost = ({ feed, user, comments, likes, bookmarks, views, setStopRefres
                         <LeftSection>
                             <PostHeaderUsername>{feed?.username}</PostHeaderUsername>
                             {feed?.verified && <IconVerified />}
-                        </LeftSection>
-                        • <PostTimestamp>{dateFormatter({ date: new Date(feed?.createdAt) })}</PostTimestamp>
+                        </LeftSection>{" "}
+                        •<PostTimestamp>{dateFormatter({ date: new Date(feed?.createdAt) })}</PostTimestamp>
                     </PostHeader>
-                    <PostContent>{feed?.content}</PostContent>
+                    <PostContent>
+                        {feed?.content.slice(0, 225)}
+                        {feed?.content.length > 225 && (
+                            <>
+                                ... <span style={{ color: "#ff6b08" }}> show more.</span>
+                            </>
+                        )}
+                    </PostContent>
                 </RouteLink>
 
                 <RouteLink to={`/feeds/${feed?._id}`}>
                     {feed?.images?.length > 0 ? (
-                        <ImageUploadContainer>
+                        <ImagesContainer>
                             {feed?.images?.map((image, index) => (
                                 <ImageContainer key={index}>
-                                    <UploadedImage
-                                        src={feedImage(image)}
-                                        alt={feed?.username + ` image ${index + 1}`}
-                                    />
+                                    <FeedImage src={feedImage(image)} alt={feed?.username + ` image ${index + 1}`} />
                                 </ImageContainer>
                             ))}
-                        </ImageUploadContainer>
+                        </ImagesContainer>
                     ) : null}
                 </RouteLink>
 

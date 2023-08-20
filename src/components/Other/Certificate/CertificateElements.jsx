@@ -24,6 +24,9 @@ export const LogoSection = styled.div`
 export const TCWLogo = styled.img`
     width: 50px;
     height: 50px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 export const TCWText = styled.p`
     margin: 0 10px;

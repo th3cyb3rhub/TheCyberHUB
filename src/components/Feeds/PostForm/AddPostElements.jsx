@@ -4,7 +4,7 @@ import { FcAddImage } from "react-icons/fc";
 export const AddFeedCommentContainer = styled.div`
     border-bottom: 1px solid #1a1a1a;
     background: #000000;
-    padding: 25px 25px 10px;
+    padding: 15px;
     border-radius: 5px;
     width: 100%;
     display: flex;
@@ -62,6 +62,7 @@ export const PostFormButton = styled.button`
     align-items: center;
 
     transition: all 0.2s ease-in-out;
+
     &:hover {
         transition: all 0.2s ease-in-out;
         background: #1a1c1d;
@@ -74,22 +75,28 @@ export const ImageContainer = styled.div`
     margin-bottom: 8px;
 `;
 
-export const UploadedImage = styled.img`
+export const FeedImage = styled.img`
     width: 100%;
-    height: 100px;
+    height: 100px; /* Set a fixed height or adjust as needed */
     object-fit: cover;
-
     border-radius: 5px;
-
     cursor: pointer;
-
     transition: all 0.2s ease-in-out;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 
     &:hover {
         opacity: 0.8;
-        scale: 1.1;
+        transform: scale(1.1);
     }
 `;
+
+// const ImageGrid = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust column width */
+//   grid-gap: 8px; /* Adjust gap between images */
+// `;
 
 export const RemoveButton = styled.button`
     position: absolute;
@@ -109,7 +116,8 @@ export const RemoveButton = styled.button`
     font-size: 10px;
 `;
 
-export const ImageUploadContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
+export const ImagesContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust column width */
+    grid-gap: 8px; /* Adjust gap between images */
 `;

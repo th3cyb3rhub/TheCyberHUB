@@ -105,6 +105,9 @@ export const EventsImage = styled.img`
     height: 100%;
     width: auto;
     margin-bottom: 10px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const EventLink = styled.a`
@@ -156,6 +159,9 @@ export const EventHeaderImage = styled.img`
     width: 100%;
     object-fit: contain;
     border-radius: 5px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const EventVenue = styled.div`

@@ -68,6 +68,9 @@ export const FreeCoursesIcon = styled.img`
     height: auto;
     width: 300px;
     margin-bottom: 10px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const FreeCoursesH1 = styled.h1`

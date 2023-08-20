@@ -87,12 +87,7 @@ const FeedPage = () => {
     const feedRepliesData = feedComments?.map((reply) => {
         const { username, avatar, verified } = userDetail || {};
 
-        return {
-            ...reply,
-            username,
-            avatar,
-            verified,
-        };
+        return { ...reply, username, avatar, verified };
     });
 
     const feedCommentsData = ({ feedId }) => {

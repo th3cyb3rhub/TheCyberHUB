@@ -52,6 +52,9 @@ export const Img = styled.img`
     max-width: 100%;
     display: block;
     object-fit: cover;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 export const Card = styled.div`
     display: flex;
@@ -117,6 +120,9 @@ export const User = styled.div`
 export const ChannelImg = styled.img`
     border-radius: 50%;
     width: 2.5rem;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const UserInfo = styled.div`

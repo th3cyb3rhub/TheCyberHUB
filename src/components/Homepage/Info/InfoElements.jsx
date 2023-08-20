@@ -158,4 +158,7 @@ export const ImgWrap = styled.div`
 
 export const Img = styled.img`
     max-height: 400px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;

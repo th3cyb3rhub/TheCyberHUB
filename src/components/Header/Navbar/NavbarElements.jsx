@@ -69,6 +69,9 @@ export const NavLogo = styled.img`
     height: 40px;
     width: 40px;
     cursor: pointer;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const MobileIcon = styled.div`

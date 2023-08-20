@@ -23,6 +23,9 @@ export const Image = styled.img`
     max-height: 80vh;
     object-fit: cover;
     transition: all 0.3s ease-in-out;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const ArrowButton = styled.button`

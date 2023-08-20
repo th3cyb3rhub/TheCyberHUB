@@ -11,6 +11,11 @@ body {
     height: auto;
 }
 
+.toast {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Text color */
+}
+
 html {
     scrollbar-face-color: #646464;
     scrollbar-base-color: #646464;

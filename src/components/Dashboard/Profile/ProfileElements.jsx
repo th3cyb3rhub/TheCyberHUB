@@ -115,6 +115,9 @@ export const UserImage = styled.img`
     margin-top: -5%;
     margin-inline: 5% 5%;
     object-fit: cover;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 export const BlogCoverImage = styled.img`
     width: 100%;
@@ -122,6 +125,9 @@ export const BlogCoverImage = styled.img`
     border-radius: 5%;
     flex: 1;
     margin-bottom: -20%;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 export const UserBanner = styled.img`
     border: 5px solid #111111;
@@ -130,6 +136,9 @@ export const UserBanner = styled.img`
     height: 100%;
     max-height: 150px;
     margin-top: -30px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 export const UserInfo = styled.div``;
 

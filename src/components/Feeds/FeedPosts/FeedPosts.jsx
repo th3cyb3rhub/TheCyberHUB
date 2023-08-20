@@ -77,9 +77,9 @@ const FeedPosts = ({ feeds, searchTerm, feedBookmarksData, isFeedLoading, displa
             hasMore={numPostsToShow < filteredData.length}
             loader={<LoadingSpinner />}
             endMessage={
-                <span style={{ textAlign: "center", padding: "15px 0" }}>
+                <div style={{ textAlign: "center", margin: "15px auto" }}>
                     <p>Yay! You have seen it all</p>
-                </span>
+                </div>
             }
             scrollableTarget="scrollableDiv"
             refreshFunction={refreshData}

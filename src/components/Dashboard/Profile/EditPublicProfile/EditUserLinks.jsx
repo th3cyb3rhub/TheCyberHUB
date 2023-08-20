@@ -62,7 +62,7 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
             }
         }
 
-        await uploadCoverImage();
+        if (file) await uploadCoverImage();
     };
     const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
     return (
@@ -131,7 +131,7 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
                             name={`profileUsername${index}`}
                             id={`profileUsername${index}`}
                             defaultValue={item?.profileUsername}
-                            placeholder={item?.platform}
+                            placeholder={item?.platform + " username"}
                             onChange={(e) => {
                                 const value = e.target.value;
                                 updateUserLinks(index, "profileUsername", value);
@@ -147,17 +147,71 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
 const getIconComponent = (iconName) => {
     switch (iconName) {
         case "FaInstagram":
-            return <FaInstagram />;
+            return (
+                <FaInstagram
+                    style={{
+                        // color: "#e1306c",
+                        fontSize: "1.5rem",
+                        minWidth: "1.5rem",
+                        minHeight: "1.5rem",
+                    }}
+                />
+            );
         case "FaTwitter":
-            return <FaTwitter />;
+            return (
+                <FaTwitter
+                    style={{
+                        // color: "#1DA1F2",
+                        fontSize: "1.5rem",
+                        minWidth: "1.5rem",
+                        minHeight: "1.5rem",
+                    }}
+                />
+            );
         case "FaLinkedin":
-            return <FaLinkedin />;
+            return (
+                <FaLinkedin
+                    style={{
+                        // color: "#0077b5",
+                        fontSize: "1.5rem",
+                        minWidth: "1.5rem",
+                        minHeight: "1.5rem",
+                    }}
+                />
+            );
         case "FaGithub":
-            return <FaGithub />;
+            return (
+                <FaGithub
+                    style={{
+                        // color: "#a9a9a9",
+                        fontSize: "1.5rem",
+                        minWidth: "1.5rem",
+                        minHeight: "1.5rem",
+                    }}
+                />
+            );
         case "FaMedium":
-            return <FaMedium />;
+            return (
+                <FaMedium
+                    style={{
+                        // color: "#dcdcdc",
+                        fontSize: "1.5rem",
+                        minWidth: "1.5rem",
+                        minHeight: "1.5rem",
+                    }}
+                />
+            );
         case "IoEarth" || "RiEarthFill":
-            return <CgWebsite />;
+            return (
+                <CgWebsite
+                    style={{
+                        // color: "#dcdcdc",
+                        fontSize: "1.5rem",
+                        minWidth: "1.5rem",
+                        minHeight: "1.5rem",
+                    }}
+                />
+            );
         default:
             return null;
     }

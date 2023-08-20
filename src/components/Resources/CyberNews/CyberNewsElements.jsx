@@ -37,6 +37,9 @@ export const AuthorImage = styled.img`
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const AuthorUsername = styled.div`
@@ -76,6 +79,9 @@ export const Image = styled.img`
     border-radius: 5px;
     max-width: 300px;
     max-height: 150px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const ContentFooter = styled.div`

@@ -37,4 +37,6 @@ export const EditSocialUsername = styled.input`
     background: transparent;
     padding: 5px;
     border: 1px solid #3a3a3a;
+    border-radius: 5px;
+    width: 100%;
 `;

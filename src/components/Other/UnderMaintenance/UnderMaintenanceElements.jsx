@@ -28,6 +28,9 @@ export const UnderMaintenanceContainer = styled.div`
 export const UnderMaintenanceLogo = styled.img`
     width: 500px;
     height: 500px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
     //border-radius: 5px;
     //position: relative;
     //animation: logo-animation 1s ease-in-out infinite alternate;

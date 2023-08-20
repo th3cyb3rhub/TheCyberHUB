@@ -36,12 +36,16 @@ const Users = ({ userDetails, searchTerm }) => {
     );
     const displayedUsers = searchTerm.length === 0 ? filteredUsers.slice(0, 10) : filteredUsers;
 
+    const avatar = ({ user }) => {
+        return cdnContentImagesUrl("/user/" + (user?.avatar || "avatarDummy.png"));
+    };
+
     return filteredUsers.length > 0 ? (
         <UsersContainer>
             {displayedUsers?.map((user, id) => (
                 <RouteLink to={`/@${user.username}`} key={user.username}>
                     <UserContainer>
-                        <UserPicture src={cdnContentImagesUrl("/user/" + (user?.avatar || "avatarDummy.png"))} />
+                        <UserPicture src={avatar(user)} />
                         <UserDetail>
                             <Header>
                                 <Name>{user.name}</Name>

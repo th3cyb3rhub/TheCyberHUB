@@ -36,6 +36,9 @@ export const UserPicture = styled.img`
     object-position: center;
     margin: 0 auto;
     border: #222222 1px solid;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 // const EditButton = styled.button`

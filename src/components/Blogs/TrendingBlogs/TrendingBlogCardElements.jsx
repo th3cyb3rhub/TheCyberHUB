@@ -11,6 +11,9 @@ export const ContainerTrendingBlogCard = styled.div`
     border-bottom: #313131 1px solid;
     border-radius: 5px;
     background: #111111;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const MainSection = styled.div`

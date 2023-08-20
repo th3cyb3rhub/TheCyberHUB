@@ -11,7 +11,6 @@ export const FeedPostsContainer = styled(ExploreContentContainer)`
     @media screen and (max-width: 1230px) {
         grid-auto-rows: 0fr;
         gap: 15px;
-        padding: 15px;
     }
 `;
 
@@ -28,7 +27,7 @@ export const FeedPostContainer = styled.div`
     //border: 1px solid #a8e827;
     //border-radius: 5px;
     background: #000000;
-    padding: 25px;
+    padding: 15px;
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -46,7 +45,7 @@ export const LeftSection = styled.div`
     flex-direction: row;
     align-items: start;
     justify-content: flex-start;
-    gap: 5px;
+    gap: 10px;
 `;
 
 export const RightSection = styled.div`
@@ -54,7 +53,6 @@ export const RightSection = styled.div`
     justify-content: space-between;
     flex-direction: column;
     width: 100%;
-
     gap: 10px;
 `;
 
@@ -88,6 +86,9 @@ export const PostHeaderImg = styled.img`
     height: 50px;
     border-radius: 25px;
     margin-right: 20px;
+    font-size: 12px;
+    color: #999;
+    word-break: break-all;
 `;
 
 export const PostHeaderUsername = styled.h2`
@@ -108,6 +109,10 @@ export const PostContent = styled.p`
     overflow: hidden;
     //break text
     word-wrap: break-word;
+
+    // pre line
+    white-space: pre-line;
+
     display: -webkit-box;
     -webkit-line-clamp: 5;
     //-webkit-box-orient: vertical;
