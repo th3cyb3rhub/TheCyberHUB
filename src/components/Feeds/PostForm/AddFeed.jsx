@@ -104,7 +104,10 @@ const AddPost = ({ showPostTags, userDetails }) => {
             toast.warn("Content cannot be more than 1500 characters");
             setIsFeedLoading(false);
             setIsFeedLoading(false);
-        } else if (tags.length > 10 || tags.length < 2) {
+        } else if (tags.length < 2) {
+            toast.warn("Please add at least 2 tags");
+            setIsFeedLoading(false);
+        } else if (tags.length > 10) {
             toast.warn("You can add a maximum of 10 tags");
             setIsFeedLoading(false);
         } else if (files.length > 4) {
