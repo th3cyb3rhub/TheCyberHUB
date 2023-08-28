@@ -1,3 +1,12 @@
+## [0.53.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.4...v0.53.5) (2023-08-28)
+
+
+### Bug Fixes
+
+* footer link ([8f79170](https://github.com/thecyberworld/thecyberhub.org/commit/8f7917064722b6a336559559454146a6757fe361))
+
+
+
 ## [0.53.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.3...v0.53.4) (2023-08-14)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * reg issue ([f45bfc6](https://github.com/thecyberworld/thecyberhub.org/commit/f45bfc6d5ce0a7f079e19bf7b8e3ba36d45270bb))
-
-
-
-# [0.53.0](https://github.com/thecyberworld/thecyberhub.org/compare/v0.52.0...v0.53.0) (2023-08-08)
-
-
-### Features
-
-* blogs feeds explore and design ([#432](https://github.com/thecyberworld/thecyberhub.org/issues/432)) ([d9b2b2f](https://github.com/thecyberworld/thecyberhub.org/commit/d9b2b2f4bb76880bff157619332708a25fd6c4ad))
 
 
 
