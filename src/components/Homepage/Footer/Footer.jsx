@@ -74,7 +74,6 @@ const Footer = () => {
                             <FooterRouterLink to="/explore">Explore</FooterRouterLink>
                             <FooterRouterLink to="/blogs">Blogs</FooterRouterLink>
                             <FooterRouterLink to="/forums">Forum</FooterRouterLink>
-                            <FooterRouterLink to="/space">Space</FooterRouterLink>
                             <FooterRouterLink to="/ctf">CTF</FooterRouterLink>
                         </FooterLinkItems>
 
