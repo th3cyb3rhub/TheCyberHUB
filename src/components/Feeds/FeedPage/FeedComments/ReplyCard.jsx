@@ -8,11 +8,11 @@ import {
     PostHeaderUsername,
     PostTimestamp,
     RightSection,
-} from "../FeedPosts/FeedPostsElements";
-import { RouteLink } from "../../Dashboard/Sidebar/SidebarElements";
-import { dateFormatter } from "../../Common/dateFormatter";
-import PostActionsAndStats from "../FeedPosts/PostActionsAndStats";
-import { cdnContentImagesUrl } from "../../../features/apiUrl";
+} from "../../FeedPosts/FeedPostsElements";
+import { RouteLink } from "../../../Dashboard/Sidebar/SidebarElements";
+import { dateFormatter } from "../../../Common/dateFormatter";
+import PostActionsAndStats from "../../FeedPosts/PostActionsAndStats";
+import { cdnContentImagesUrl } from "../../../../features/apiUrl";
 
 const ReplyCard = ({ reply, user, comments, likes, bookmarks, views, displayAt, updateFeedView }) => {
     const avatar = cdnContentImagesUrl("/user/" + (reply?.avatar || "avatarDummy.png"));

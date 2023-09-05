@@ -1,15 +1,16 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddFeedCommentContainer, FeedCommentInput } from "./AddFeedCommentsElements";
-import { FooterSection, PostFormButton } from "../PostForm/AddPostElements";
-import { addFeedComment } from "../../../features/feeds/feedComments/feedCommentsSlice";
-import { LeftSection, PostHeader, PostHeaderImg, RightSection } from "../FeedPosts/FeedPostsElements";
-import AuthPopup from "../../../pages/AuthPopup/AuthPopup";
-import { cdnContentImagesUrl } from "../../../features/apiUrl";
+import { FooterSection, PostFormButton } from "../../PostForm/AddPostElements";
+import { addFeedComment } from "../../../../features/feeds/feedComments/feedCommentsSlice";
+import { LeftSection, PostHeader, PostHeaderImg, RightSection } from "../../FeedPosts/FeedPostsElements";
+import AuthPopup from "../../../../pages/AuthPopup/AuthPopup";
+import { cdnContentImagesUrl } from "../../../../features/apiUrl";
 
-const AddFeedComment = ({ feedId, userDetail }) => {
+const AddFeedComment = ({ feedId, userDetails }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
+    const userDetail = userDetails?.find((userDetail) => userDetail?.user === user._id);
 
     const [addReply, setAddReply] = useState({ reply: "" });
     const { reply } = addReply;

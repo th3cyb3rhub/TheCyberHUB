@@ -1,6 +1,6 @@
 import React from "react";
 import ReplyCard from "./ReplyCard";
-import LoadingSpinner from "../../Other/MixComponents/Spinner/LoadingSpinner";
+import LoadingSpinner from "../../../Other/MixComponents/Spinner/LoadingSpinner";
 
 const FeedComments = ({ user, replies, likes, bookmarks, views, isFeedReplyLoading, updateFeedView }) => {
     const feedLikesData = ({ replyId }) => {

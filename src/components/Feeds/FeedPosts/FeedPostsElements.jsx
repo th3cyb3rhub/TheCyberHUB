@@ -23,9 +23,9 @@ export const PostForm = styled.div`
 `;
 
 export const FeedPostContainer = styled.div`
-    border-bottom: 1px solid #1a1a1a;
     //border: 1px solid #a8e827;
     //border-radius: 5px;
+    border-bottom: 1px solid #1a1a1a;
     background: #000000;
     padding: 15px;
     display: flex;

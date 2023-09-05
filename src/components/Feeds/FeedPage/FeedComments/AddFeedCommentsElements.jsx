@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const AddFeedCommentContainer = styled.div`
     border-bottom: 1px solid #1a1a1a;
     background: #000000;
-    padding: 25px 25px 10px;
+    padding: 15px;
     border-radius: 5px;
     width: 100%;
     display: flex;
@@ -21,6 +21,7 @@ export const FeedCommentInput = styled.textarea`
     color: #f5f5f5;
     width: 100%;
     font-family: "Roboto", sans-serif;
+    line-height: 1.5;
     font-size: 15px;
     text-underline-offset: 5px;
     word-wrap: break-word;

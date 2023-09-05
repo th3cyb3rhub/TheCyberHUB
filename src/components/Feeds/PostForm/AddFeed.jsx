@@ -12,7 +12,7 @@ import {
     RemoveButton,
     FeedImage,
 } from "./AddPostElements";
-import { FeedCommentInput } from "../FeedComments/AddFeedCommentsElements";
+import { FeedCommentInput } from "../FeedPage/FeedComments/AddFeedCommentsElements";
 import { LeftSection, PostHeaderImg, RightSection } from "../FeedPosts/FeedPostsElements";
 import { ImageUploadLabel } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import { cdnContentImagesUrl, getApiUrl } from "../../../features/apiUrl";

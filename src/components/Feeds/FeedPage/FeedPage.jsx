@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { feedReset, getAllFeeds } from "../../../features/feeds/feedsSlice";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
-import AddFeedComment from "../FeedComments/AddFeedComment";
+import AddFeedComment from "./FeedComments/AddFeedComment";
 
 import { FeedContentSection, FeedPageContainer } from "./FeedPageElements";
 import { getAllUserDetails, userDetailReset } from "../../../features/userDetail/userDetailSlice";
@@ -13,7 +13,7 @@ import { getViews } from "../../../features/feeds/views/viewSlice";
 import { feedReplyReset, getFeedComments } from "../../../features/feeds/feedComments/feedCommentsSlice";
 
 import FeedPagePost from "./FeedPagePost";
-import FeedReplies from "../FeedComments/FeedComments";
+import FeedReplies from "./FeedComments/FeedComments";
 import LoadingSpinner from "../../Other/MixComponents/Spinner/LoadingSpinner";
 import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "../../../features/apiStatus";
@@ -85,6 +85,8 @@ const FeedPage = () => {
     };
 
     const feedRepliesData = feedComments?.map((reply) => {
+        const userDetail = userDetails?.find((userDetail) => userDetail?.user === reply?.user);
+
         const { username, avatar, verified } = userDetail || {};
 
         return { ...reply, username, avatar, verified };
@@ -117,7 +119,7 @@ const FeedPage = () => {
                         updateFeedView={true}
                     />
 
-                    <AddFeedComment feedId={feedId} userDetail={userDetail} />
+                    <AddFeedComment feedId={feedId} userDetails={userDetails} />
 
                     <FeedReplies
                         user={user}
