@@ -19,10 +19,13 @@ export const ChallengeContainer = styled.div`
 
 export const ChallengeName = styled.h2`
     background: #0c0c0c;
-    padding: 15px 25px;
+    padding: 15px 15px;
     white-space: pre-line;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     border-radius: 5px;
-    color: #f4f4f4;
 `;
 export const ChallengeDescription = styled.p`
     background: #0c0c0c;
@@ -35,22 +38,42 @@ export const ChallengeDescription = styled.p`
     border-radius: 5px;
 `;
 
-export const CTFRegistration = styled.div``;
+export const CTFRegistration = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px;
+    background: #0c0c0c;
+    padding: 25px;
+    border-radius: 5px;
+`;
 
 export const ButtonCTFRegister = styled.button`
     background: #2a2a2a;
     white-space: nowrap;
-    padding: 7px 10px;
+    padding: 10px 10px;
     color: #fff;
-    font-size: 14px;
     outline: none;
-    border: none;
+
+    border: 1px solid #252525;
+    border-radius: 5px;
+
+    font-family: "Ubuntu", sans-serif;
+    font-size: 16px;
+
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease-in-out;
     margin: 10px 0;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #ff6b08;
+        color: #0e0e0e;
+    }
 `;
 
 export const CTFMachineLink = styled.a`

@@ -3,28 +3,35 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import Submission from "./Submission";
 import {
-    ButtonCTFRegister,
+    // ButtonCTFRegister,
     ChallengeContainer,
     ChallengeDescription,
     ChallengeName,
     CTFMachineLink,
-    CTFRegistration,
+    // CTFRegistration,
     CTFSection,
-    LikesAndViewsContainer,
-    LikesContainer,
+    // LikesAndViewsContainer,
+    // LikesContainer,
     MainCTFSection,
     SingleCTFContainer,
     SingleCTFSection,
-    ViewsContainer,
+    // ViewsContainer,
 } from "./SingleCTFElements";
 
 import { TeamContainer } from "../Team/TeamInviteElements";
-import { getAllCTFs, registerCTF, updateLikesAndViews } from "../../../features/ctf/ctfSlice";
+import {
+    getAllCTFs,
+    registerCTF,
+    // , updateLikesAndViews
+} from "../../../features/ctf/ctfSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 // import TimeToStart from "../TimeToStart";
 import CTFLeaderboard from "../CTFLeaderboard/CTFLeaderboard";
-import { AiFillEye, AiFillLike, AiOutlineCloudDownload } from "react-icons/ai";
+import {
+    // AiFillEye, AiFillLike,
+    AiOutlineCloudDownload,
+} from "react-icons/ai";
 import { encodeURL } from "../../Blogs/util";
 import createCtfCertificate from "../../Other/Certificate/createCtfCertificate";
 import { getUserDetail } from "../../../features/userDetail/userDetailSlice";
@@ -32,6 +39,7 @@ import GetCertificate from "./GetCertificate";
 import apiStatus from "../../../features/apiStatus";
 import { CircleSpinner } from "react-spinners-kit";
 import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
+import CtfRegister from "./CtfRegister";
 
 const SingleCTF = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -41,27 +49,28 @@ const SingleCTF = () => {
     const { user } = useSelector((state) => state.auth);
     const {
         userDetail,
-        isLoading: userDetailIsLoading,
+        isUserDetailLoading,
         // isError, message
     } = useSelector((state) => state.userDetail);
     const [isCompleted, setIsCompleted] = useState(false);
     const [isCertExisted, setIsCertExisted] = useState(false);
-    const [isLikedTemp, setIsLikedTemp] = useState(false);
-    const [isLikedTempNumber, setIsLikedNumber] = useState(false);
+    // const [isLikedTemp, setIsLikedTemp] = useState(false);
+    // const [isLikedTempNumber, setIsLikedNumber] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);
 
     const { ctfId } = useParams();
-    const challenge = ctf?.find(
-        (challenge) => `${encodeURL(challenge?.challengeName)}`.toLowerCase() === ctfId?.toLowerCase(),
-    );
+    const challenge =
+        ctf &&
+        ctf?.length > 0 &&
+        ctf?.find((challenge) => `${encodeURL(challenge?.challengeName)}`.toLowerCase() === ctfId?.toLowerCase());
 
     // const ctfDate = challenge?.startTime || new Date(Date.now()).toLocaleString();
     // const dateNow = new Date(Date.now()).toLocaleString();
 
     const registeredUsers = challenge?.registeredUsers || [];
 
-    const isLiked = challenge?.likes?.some((like) => like?.user?.toString() === user?._id.toString()) || isLikedTemp;
-    const isViewed = challenge?.views?.some((view) => view?.user?.toString() === user?._id.toString());
+    // const isLiked = challenge?.likes?.some((like) => like?.user?.toString() === user?._id.toString()) || isLikedTemp;
+    // const isViewed = challenge?.views?.some((view) => view?.user?.toString() === user?._id.toString());
 
     useEffect(() => {
         if (!user) {
@@ -72,12 +81,12 @@ const SingleCTF = () => {
         }
 
         dispatch(getAllCTFs());
-        if (!isViewed && user) {
-            dispatch(updateLikesAndViews({ ctfId: challenge?._id, view: true }));
-        }
-    }, [dispatch, navigate, user, isViewed, challenge?._id]);
+        // if (!isViewed && user) {
+        //     dispatch(updateLikesAndViews({ ctfId: challenge?._id, view: true }));
+        // }
+    }, [dispatch, user, navigate, challenge?._id]);
 
-    const uniqueIds = [...new Set(challenge?.views?.map((view) => view?.user))];
+    // const uniqueIds = [...new Set(challenge?.views?.map((view) => view?.user))];
     const registeredUsernames = registeredUsers.map((user) => {
         return user?.username;
     });
@@ -87,13 +96,13 @@ const SingleCTF = () => {
         setIsRegistered(true);
     };
 
-    const handleLike = () => {
-        if (!isLiked && user) {
-            dispatch(updateLikesAndViews({ ctfId: challenge?._id, like: true }));
-            setIsLikedTemp(true);
-            setIsLikedNumber(challenge?.likes.length + 1);
-        }
-    };
+    // const handleLike = () => {
+    //     if (!isLiked && user) {
+    //         dispatch(updateLikesAndViews({ ctfId: challenge?._id, like: true }));
+    //         setIsLikedTemp(true);
+    //         setIsLikedNumber(challenge?.likes.length + 1);
+    //     }
+    // };
 
     if (!isCertExisted && isCompleted) {
         createCtfCertificate({
@@ -166,26 +175,27 @@ const SingleCTF = () => {
                                     user={user}
                                     setIsCompleted={setIsCompleted}
                                     setIsCertExisted={setIsCertExisted}
-                                    userDetailIsLoading={userDetailIsLoading}
+                                    userDetailIsLoading={isUserDetailLoading}
                                     userDetail={userDetail}
                                 />
                             </CTFSection>
+
                             <TeamContainer>
-                                <LikesAndViewsContainer>
-                                    <LikesContainer>
-                                        {isLiked ? (
-                                            <AiFillLike style={{ color: "cadetblue" }} />
-                                        ) : (
-                                            <AiFillLike onClick={handleLike} style={{ cursor: "pointer" }} />
-                                        )}
-                                        {challenge?.likes.length < isLikedTempNumber
-                                            ? isLikedTempNumber
-                                            : challenge?.likes.length}
-                                    </LikesContainer>
-                                    <ViewsContainer>
-                                        <AiFillEye /> {uniqueIds.length}
-                                    </ViewsContainer>
-                                </LikesAndViewsContainer>
+                                {/* <LikesAndViewsContainer> */}
+                                {/*    <LikesContainer> */}
+                                {/*        {isLiked ? ( */}
+                                {/*            <AiFillLike style={{ color: "cadetblue" }} /> */}
+                                {/*        ) : ( */}
+                                {/*            <AiFillLike onClick={handleLike} style={{ cursor: "pointer" }} /> */}
+                                {/*        )} */}
+                                {/*        {challenge?.likes.length < isLikedTempNumber */}
+                                {/*            ? isLikedTempNumber */}
+                                {/*            : challenge?.likes.length} */}
+                                {/*    </LikesContainer> */}
+                                {/*    <ViewsContainer> */}
+                                {/*        <AiFillEye /> {uniqueIds.length} */}
+                                {/*    </ViewsContainer> */}
+                                {/* </LikesAndViewsContainer> */}
 
                                 <GetCertificate
                                     challenge={userDetail?.challenge}
@@ -206,11 +216,7 @@ const SingleCTF = () => {
                             </TeamContainer>
                         </SingleCTFSection>
                     ) : (
-                        <CTFRegistration>
-                            <ChallengeName>{challenge?.challengeName}</ChallengeName>
-                            Register and Build your team to participate in this challenge
-                            <ButtonCTFRegister onClick={handleRegister}>Register Now</ButtonCTFRegister>
-                        </CTFRegistration>
+                        <CtfRegister challenge={challenge} handleRegister={handleRegister} />
                     )}
                 </MainCTFSection>
                 {/* )} */}

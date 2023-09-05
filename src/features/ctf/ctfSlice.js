@@ -117,7 +117,7 @@ export const ctfSlice = createSlice({
                 // Update state as needed after successful registration
                 state.isLoading = false;
                 state.error = null;
-                // state.ctf = action.payload;
+                state.ctf = { ...state.ctf, ...action.payload };
             })
             .addCase(registerCTF.rejected, (state, action) => {
                 state.isLoading = false;
@@ -134,6 +134,7 @@ export const ctfSlice = createSlice({
             .addCase(updateLikesAndViews.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message;
+                state.ctf = { ...state.ctf, ...action.payload };
             });
     },
 });
