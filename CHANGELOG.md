@@ -1,3 +1,12 @@
+## [0.53.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.7...v0.53.8) (2023-09-05)
+
+
+### Bug Fixes
+
+* ctf and certificate minor issues ([#433](https://github.com/thecyberworld/thecyberhub.org/issues/433)) ([0b7950c](https://github.com/thecyberworld/thecyberhub.org/commit/0b7950ced240e84469ab9badf3c2e7fb74d12378))
+
+
+
 ## [0.53.7](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.6...v0.53.7) (2023-09-05)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * if else log in jobs ([59d5df2](https://github.com/thecyberworld/thecyberhub.org/commit/59d5df2ae1890df595005b6cf28f7187e54dcf11))
-
-
-
-## [0.53.3](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.2...v0.53.3) (2023-08-13)
-
-
-### Bug Fixes
-
-* data slice logic ([d96db26](https://github.com/thecyberworld/thecyberhub.org/commit/d96db2634b91262cf5481fc97d0eb240f3f54130))
 
 
 
