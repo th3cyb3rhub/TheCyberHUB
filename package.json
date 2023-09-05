@@ -2,7 +2,7 @@
   "homepage": "https://thecyberhub.org/",
   "name": "thecyberhub.org",
   "private": true,
-  "version": "0.53.8",
+  "version": "0.53.9",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

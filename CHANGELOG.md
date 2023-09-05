@@ -1,3 +1,12 @@
+## [0.53.9](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.8...v0.53.9) (2023-09-05)
+
+
+### Bug Fixes
+
+* ctf minor issues ([#434](https://github.com/thecyberworld/thecyberhub.org/issues/434)) ([1ec4ea4](https://github.com/thecyberworld/thecyberhub.org/commit/1ec4ea47c0337984714966292959474039baab4e))
+
+
+
 ## [0.53.8](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.7...v0.53.8) (2023-09-05)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * footer link ([8f79170](https://github.com/thecyberworld/thecyberhub.org/commit/8f7917064722b6a336559559454146a6757fe361))
-
-
-
-## [0.53.4](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.3...v0.53.4) (2023-08-14)
-
-
-### Bug Fixes
-
-* if else log in jobs ([59d5df2](https://github.com/thecyberworld/thecyberhub.org/commit/59d5df2ae1890df595005b6cf28f7187e54dcf11))
 
 
 
