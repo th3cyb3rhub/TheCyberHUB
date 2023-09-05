@@ -49,7 +49,6 @@ const CreateForumPost = () => {
             toast.error(errorMessage || message);
         }
         if (!user) navigate("/login");
-        console.log(isSuccess);
         if (isSuccess) {
             toast.success(isSuccess);
             navigate("/forum");

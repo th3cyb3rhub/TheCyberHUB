@@ -12,8 +12,6 @@ const UserLinks = ({ userDetail, userDetails }) => {
         (item) => item?.profileUsername !== "" && item?.profileUsername,
     );
 
-    console.log(socialUsernames);
-
     const showSocialContainer = socialUsernames?.includes(userDetail?.username);
 
     const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));

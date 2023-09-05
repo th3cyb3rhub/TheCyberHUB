@@ -20,6 +20,8 @@ import { SideOptionsContainer } from "../ExpElemenets";
 import { useLocation } from "react-router-dom";
 
 const logo = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo.png`;
+// const logoThecyberworld = `${getCdnAssets}/images/ThecyberworldLogo/thecyberworld-logo-big.png`;
+
 const Navbar = ({ isOpen, toggle }) => {
     // const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -69,12 +71,7 @@ const Navbar = ({ isOpen, toggle }) => {
     const showBottomBorder = pathName !== "";
 
     return (
-        <Nav
-            onMouseLeave={() => setDrop(false)}
-            scrollNav={scrollNav}
-            showBottomBorder={showBottomBorder}
-            // style={{backgroundColor, color}}
-        >
+        <Nav onMouseLeave={() => setDrop(false)} scrollNav={scrollNav} showBottomBorder={showBottomBorder}>
             <NavbarContainer>
                 <NavLogoRouter to={"/"} onClick={toggleHome}>
                     <NavLogo src={logo} />
@@ -112,11 +109,7 @@ const Navbar = ({ isOpen, toggle }) => {
                             onMouseLeave={() => dropHandler(dropdown)}
                             key={dropdown}
                         >
-                            <NavLink
-                                to={to}
-                                className={location.pathname === `/${to}` ? "active" : ""}
-                                // style={{color}}
-                            >
+                            <NavLink to={to} className={location.pathname === `/${to}` ? "active" : ""}>
                                 {title}
                             </NavLink>
                             {dropdown === "resources" && resourcesClick && drop && (
@@ -125,8 +118,6 @@ const Navbar = ({ isOpen, toggle }) => {
                                     toggle={setToggleDropdown}
                                     toggleDropdown={toggleDropdown}
                                     isOpen={isOpen}
-                                    // backgroundColor={backgroundColor}
-                                    // color={color}
                                 />
                             )}
                             {dropdown === "programs" && opportunities && drop && (
@@ -135,18 +126,12 @@ const Navbar = ({ isOpen, toggle }) => {
                                     toggle={setToggleDropdown}
                                     toggleDropdown={toggleDropdown}
                                     isOpen={isOpen}
-                                    // backgroundColor={backgroundColor}
-                                    // color={color}
                                 />
                             )}
                         </NavItem>
                     ))}
                 </NavMenu>
-                {/* <button onClick={toggleTheme}> */}
-                {/*    {themeType === 'dark' ? 'light' : 'dark'} */}
-                {/* </button> */}
                 <NavUsersDetailsSection>
-                    {/* <Exp /> */}
                     <SideOptionsContainer>
                         <MobileIcon onClick={toggle}>
                             <FaBars />

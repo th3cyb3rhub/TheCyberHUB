@@ -102,8 +102,6 @@ const ViewBlog = () => {
     const coverImage = blog?.coverImage;
     const coverImageUrl = cdnContentImagesUrl(`/blog/${coverImage}`);
 
-    console.log(coverImageUrl);
-
     const filterContent = blog?.content.replace(/src="(\d+\.(?:png|jpe?g|gif))"/g, (match, filename) => {
         // You can construct the Azure Blob Storage URL here based on the filename
         const blobUrl = `${cdnContentImagesUrl(`/blog/${filename}`)}`;
