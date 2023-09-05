@@ -3,19 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
 import Submission from "./Submission";
 import {
-    // ButtonCTFRegister,
     ChallengeContainer,
     ChallengeDescription,
     ChallengeName,
     CTFMachineLink,
-    // CTFRegistration,
     CTFSection,
-    // LikesAndViewsContainer,
-    // LikesContainer,
     MainCTFSection,
     SingleCTFContainer,
     SingleCTFSection,
-    // ViewsContainer,
 } from "./SingleCTFElements";
 
 import { TeamContainer } from "../Team/TeamInviteElements";
@@ -26,7 +21,7 @@ import {
 } from "../../../features/ctf/ctfSlice";
 
 import { useDispatch, useSelector } from "react-redux";
-// import TimeToStart from "../TimeToStart";
+// import CtfTimeToStart from "../CtfTimeToStart";
 import CTFLeaderboard from "../CTFLeaderboard/CTFLeaderboard";
 import {
     // AiFillEye, AiFillLike,
@@ -47,15 +42,10 @@ const SingleCTF = () => {
     const navigate = useNavigate();
     const { ctf, isLoading: isCtfLoading } = useSelector((state) => state.ctf);
     const { user } = useSelector((state) => state.auth);
-    const {
-        userDetail,
-        isUserDetailLoading,
-        // isError, message
-    } = useSelector((state) => state.userDetail);
+    const { userDetail, isUserDetailLoading } = useSelector((state) => state.userDetail);
     const [isCompleted, setIsCompleted] = useState(false);
     const [isCertExisted, setIsCertExisted] = useState(false);
-    // const [isLikedTemp, setIsLikedTemp] = useState(false);
-    // const [isLikedTempNumber, setIsLikedNumber] = useState(false);
+
     const [isRegistered, setIsRegistered] = useState(false);
 
     const { ctfId } = useParams();
@@ -69,9 +59,6 @@ const SingleCTF = () => {
 
     const registeredUsers = challenge?.registeredUsers || [];
 
-    // const isLiked = challenge?.likes?.some((like) => like?.user?.toString() === user?._id.toString()) || isLikedTemp;
-    // const isViewed = challenge?.views?.some((view) => view?.user?.toString() === user?._id.toString());
-
     useEffect(() => {
         if (!user) {
             navigate("/login");
@@ -81,28 +68,19 @@ const SingleCTF = () => {
         }
 
         dispatch(getAllCTFs());
-        // if (!isViewed && user) {
-        //     dispatch(updateLikesAndViews({ ctfId: challenge?._id, view: true }));
-        // }
+
+        if (user?.username && challenge?.registeredUsers?.some((regUser) => regUser?.username === user?.username)) {
+            setIsRegistered(true);
+        }
     }, [dispatch, user, navigate, challenge?._id]);
 
-    // const uniqueIds = [...new Set(challenge?.views?.map((view) => view?.user))];
     const registeredUsernames = registeredUsers.map((user) => {
         return user?.username;
     });
 
     const handleRegister = () => {
         dispatch(registerCTF({ ctfId: challenge?._id }));
-        setIsRegistered(true);
     };
-
-    // const handleLike = () => {
-    //     if (!isLiked && user) {
-    //         dispatch(updateLikesAndViews({ ctfId: challenge?._id, like: true }));
-    //         setIsLikedTemp(true);
-    //         setIsLikedNumber(challenge?.likes.length + 1);
-    //     }
-    // };
 
     if (!isCertExisted && isCompleted) {
         createCtfCertificate({
@@ -117,6 +95,7 @@ const SingleCTF = () => {
             setIsCertExisted(true);
         });
     }
+
     if (isCtfLoading || isApiLoading) {
         return (
             <Wrapper>
@@ -130,18 +109,6 @@ const SingleCTF = () => {
     return (
         <Wrapper>
             <SingleCTFContainer>
-                {/* {ctfDate > dateNow ? ( */}
-                {/*    <div> */}
-                {/*        <ChallengeName>{challenge?.challengeName}</ChallengeName> */}
-                {/*        <TimeToStart ctfDate={challenge?.startTime} /> */}
-                {/*        Register and Build your team to participate in this challenge */}
-                {/*        {!isRegistered || !registeredUsernames.includes(user?.username) ? ( */}
-                {/*            <CTFRegistration> */}
-                {/*                <ButtonCTFRegister onClick={handleRegister}>Register Now</ButtonCTFRegister> */}
-                {/*            </CTFRegistration> */}
-                {/*        ) : null} */}
-                {/*    </div> */}
-                {/* ) : ( */}
                 <MainCTFSection>
                     {registeredUsernames.includes(user?.username) || isRegistered ? (
                         <SingleCTFSection>
@@ -164,7 +131,8 @@ const SingleCTF = () => {
                                                         target="_blank"
                                                         key={index}
                                                     >
-                                                        {resource?.resourceName} <AiOutlineCloudDownload />
+                                                        {resource?.resourceName}
+                                                        <AiOutlineCloudDownload />
                                                     </CTFMachineLink>
                                                 ),
                                         )}
@@ -181,22 +149,6 @@ const SingleCTF = () => {
                             </CTFSection>
 
                             <TeamContainer>
-                                {/* <LikesAndViewsContainer> */}
-                                {/*    <LikesContainer> */}
-                                {/*        {isLiked ? ( */}
-                                {/*            <AiFillLike style={{ color: "cadetblue" }} /> */}
-                                {/*        ) : ( */}
-                                {/*            <AiFillLike onClick={handleLike} style={{ cursor: "pointer" }} /> */}
-                                {/*        )} */}
-                                {/*        {challenge?.likes.length < isLikedTempNumber */}
-                                {/*            ? isLikedTempNumber */}
-                                {/*            : challenge?.likes.length} */}
-                                {/*    </LikesContainer> */}
-                                {/*    <ViewsContainer> */}
-                                {/*        <AiFillEye /> {uniqueIds.length} */}
-                                {/*    </ViewsContainer> */}
-                                {/* </LikesAndViewsContainer> */}
-
                                 <GetCertificate
                                     challenge={userDetail?.challenge}
                                     user={user}
@@ -210,16 +162,12 @@ const SingleCTF = () => {
                                     ctfId={challenge?._id}
                                     flags={challenge?.flags}
                                 />
-                                {/* <Team team={teams[0]} isTeamEdit={isTeamEdit}/> */}
-                                {/* <CTF/> */}
-                                {/* <TeamChat team={teams[0]} isTeamEdit={isTeamEdit}/> */}
                             </TeamContainer>
                         </SingleCTFSection>
                     ) : (
                         <CtfRegister challenge={challenge} handleRegister={handleRegister} />
                     )}
                 </MainCTFSection>
-                {/* )} */}
             </SingleCTFContainer>
         </Wrapper>
     );
