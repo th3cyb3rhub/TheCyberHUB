@@ -1,3 +1,12 @@
+## [0.53.6](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.5...v0.53.6) (2023-09-05)
+
+
+### Bug Fixes
+
+* feeds comments data and design ([5590383](https://github.com/thecyberworld/thecyberhub.org/commit/55903838d73bd065f317625f643e824cfc3fcf6d))
+
+
+
 ## [0.53.5](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.4...v0.53.5) (2023-08-28)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * image path ([f30062b](https://github.com/thecyberworld/thecyberhub.org/commit/f30062b16f272f4b720a9ce1c496f651fe179bfb))
-
-
-
-## [0.53.1](https://github.com/thecyberworld/thecyberhub.org/compare/v0.53.0...v0.53.1) (2023-08-08)
-
-
-### Bug Fixes
-
-* reg issue ([f45bfc6](https://github.com/thecyberworld/thecyberhub.org/commit/f45bfc6d5ce0a7f079e19bf7b8e3ba36d45270bb))
 
 
 
