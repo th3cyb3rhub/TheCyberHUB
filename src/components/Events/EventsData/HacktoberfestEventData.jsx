@@ -43,7 +43,7 @@ const HacktoberfestEventData = [
                         <ListContent>
                             <List>
                                 Thecyberhub website:
-                                <Link href={"https://github.com/thecyberworld/thecyberhub.org"} target={"_blank"}>
+                                <Link href={"https://github.com/thecyberworld/TheCyberHUB"} target={"_blank"}>
                                     link
                                 </Link>
                             </List>
@@ -81,7 +81,7 @@ const HacktoberfestEventData = [
                     </div>
                     Read the
                     <Link
-                        href={"https://github.com/thecyberworld/thecyberhub.org/blob/main/CONTRIBUTING.md"}
+                        href={"https://github.com/thecyberworld/TheCyberHUB/blob/main/CONTRIBUTING.md"}
                         target={"_blank"}
                     >
                         Thecyberworld Contributing Guide

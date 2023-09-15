@@ -2,7 +2,7 @@ const OpensourceProjectsData = [
     {
         id: 1,
         title: "thecyberhub.org",
-        link: "https://github.com/thecyberworld/thecyberhub.org",
+        link: "https://github.com/thecyberworld/TheCyberHUB",
         content: " Community website.",
         tags: ["React", "Website"],
     },
