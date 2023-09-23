@@ -8,7 +8,7 @@ export const SocialWrapper = styled.div`
     width: 100%;
 `;
 
-export const SocialsCard = styled.div`
+export const SocialsCard = styled.a`
     color: white;
     background: #131313;
     padding: 50px;
@@ -92,6 +92,7 @@ export const SocialsContainer = styled.div`
     background: #000000;
     width: 100%;
     max-width: 1400px;
+    margin: 150px auto;
 `;
 
 export const SocialsWrapper = styled.div`

@@ -38,9 +38,11 @@ const Socials = () => {
                     <SocialCardTelegram href="https://t.me/thecyberw0rld" target="_blank" aria-label="Telegram">
                         <FaTelegramPlane /> <SocialH1> Telegram </SocialH1>
                     </SocialCardTelegram>
+
                     <SocialCardGithub href="https://www.github.com/thecyberworld" target="_blank" aria-label="Github">
                         <FaGithub /> <SocialH1> Github </SocialH1>
                     </SocialCardGithub>
+
                     <SocialCardYoutube
                         href="https://www.youtube.com/c/thecyberworld"
                         target="_blank"
