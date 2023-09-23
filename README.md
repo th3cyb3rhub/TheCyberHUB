@@ -1,4 +1,4 @@
-<h1 align="center"> Thecyberhub </h1>
+<h1 align="center"> TheCyberHUB </h1>
 
 ![thecyberhub](https://user-images.githubusercontent.com/44284877/194150142-1df54766-b8bb-4d9c-9e86-26907e324551.gif)
 
