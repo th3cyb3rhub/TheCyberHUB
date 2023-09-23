@@ -1,3 +1,12 @@
+## [0.53.12](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.11...v0.53.12) (2023-09-23)
+
+
+### Bug Fixes
+
+* social container & links ([2663bfd](https://github.com/thecyberworld/TheCyberHUB/commit/2663bfda9bba8ee540a241467e16f59fcb999090))
+
+
+
 ## [0.53.11](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.10...v0.53.11) (2023-09-15)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * ctf and certificate minor issues ([#433](https://github.com/thecyberworld/TheCyberHUB/issues/433)) ([0b7950c](https://github.com/thecyberworld/TheCyberHUB/commit/0b7950ced240e84469ab9badf3c2e7fb74d12378))
-
-
-
-## [0.53.7](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.6...v0.53.7) (2023-09-05)
-
-
-### Bug Fixes
-
-* feeds comments data and design ([e792d8d](https://github.com/thecyberworld/TheCyberHUB/commit/e792d8d4a675b4ce9e578999f7c94a950639886a))
 
 
 
