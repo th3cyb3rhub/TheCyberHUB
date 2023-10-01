@@ -64,7 +64,7 @@ const Socials = () => {
                         target="_blank"
                         aria-label="Linkedin"
                     >
-                        <FaLinkedinIn /> <SocialH1> LinkedinIn </SocialH1>
+                        <FaLinkedinIn /> <SocialH1> LinkedIn </SocialH1>
                     </SocialCardLinkedin>
                     <SocialCardInstagram
                         href="https://www.instagram.com/thecyberw0rld"
