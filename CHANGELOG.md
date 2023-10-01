@@ -1,3 +1,12 @@
+## [0.53.14](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.13...v0.53.14) (2023-10-01)
+
+
+### Bug Fixes
+
+* Message icon is in middle in mobile version issue - [#443](https://github.com/thecyberworld/TheCyberHUB/issues/443) ([#446](https://github.com/thecyberworld/TheCyberHUB/issues/446)) ([eb8ddab](https://github.com/thecyberworld/TheCyberHUB/commit/eb8ddaba854a33d73cf109ef12c6e7e57186cf5d))
+
+
+
 ## [0.53.13](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.12...v0.53.13) (2023-10-01)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * minor issues ([#435](https://github.com/thecyberworld/TheCyberHUB/issues/435)) ([39c0631](https://github.com/thecyberworld/TheCyberHUB/commit/39c0631d6650a1ccd8437eca88dc63c5fcd4cfcb))
-
-
-
-## [0.53.9](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.8...v0.53.9) (2023-09-05)
-
-
-### Bug Fixes
-
-* ctf minor issues ([#434](https://github.com/thecyberworld/TheCyberHUB/issues/434)) ([1ec4ea4](https://github.com/thecyberworld/TheCyberHUB/commit/1ec4ea47c0337984714966292959474039baab4e))
 
 
 
