@@ -1,3 +1,12 @@
+## [0.53.13](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.12...v0.53.13) (2023-10-01)
+
+
+### Bug Fixes
+
+* Spelling Mistake ([#444](https://github.com/thecyberworld/TheCyberHUB/issues/444)) ([0055904](https://github.com/thecyberworld/TheCyberHUB/commit/0055904123cc392a950c264fbe17bfae9a3ae2be))
+
+
+
 ## [0.53.12](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.11...v0.53.12) (2023-09-23)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * ctf minor issues ([#434](https://github.com/thecyberworld/TheCyberHUB/issues/434)) ([1ec4ea4](https://github.com/thecyberworld/TheCyberHUB/commit/1ec4ea47c0337984714966292959474039baab4e))
-
-
-
-## [0.53.8](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.7...v0.53.8) (2023-09-05)
-
-
-### Bug Fixes
-
-* ctf and certificate minor issues ([#433](https://github.com/thecyberworld/TheCyberHUB/issues/433)) ([0b7950c](https://github.com/thecyberworld/TheCyberHUB/commit/0b7950ced240e84469ab9badf3c2e7fb74d12378))
 
 
 
