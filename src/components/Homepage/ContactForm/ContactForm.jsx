@@ -381,7 +381,7 @@ const ContactForm = () => {
                         </CoverLeft>
                     )}
                     {isClosed && reason === "internship" ? null : (
-                        <CoverLeft>
+                        <CoverLeft style={{ alignItems: "start" }}>
                             <ContactFormLabel htmlFor="message">
                                 <MessageIcon />
                             </ContactFormLabel>
