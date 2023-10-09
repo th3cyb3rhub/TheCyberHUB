@@ -1,3 +1,12 @@
+## [0.53.15](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.14...v0.53.15) (2023-10-09)
+
+
+### Bug Fixes
+
+* alignement of icon and text in the navbar ([#486](https://github.com/thecyberworld/TheCyberHUB/issues/486)) ([1373320](https://github.com/thecyberworld/TheCyberHUB/commit/1373320a046b10f554d5a4f340ba1932f7622f12))
+
+
+
 ## [0.53.14](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.13...v0.53.14) (2023-10-01)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * TheCyberHUB name ([8525677](https://github.com/thecyberworld/TheCyberHUB/commit/852567753cba30135e1100e06ae155c5db2e50e3))
-
-
-
-## [0.53.10](https://github.com/thecyberworld/TheCyberHUB/compare/v0.53.9...v0.53.10) (2023-09-05)
-
-
-### Bug Fixes
-
-* minor issues ([#435](https://github.com/thecyberworld/TheCyberHUB/issues/435)) ([39c0631](https://github.com/thecyberworld/TheCyberHUB/commit/39c0631d6650a1ccd8437eca88dc63c5fcd4cfcb))
 
 
 
