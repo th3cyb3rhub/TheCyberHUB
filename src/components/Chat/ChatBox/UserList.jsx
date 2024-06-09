@@ -4,55 +4,45 @@ import { getConnections } from "src/features/connections/connectionSlice";
 import { RouteLink, UserListContainer } from "src/components/Chat/Sidebar/SidebarElements";
 import Contact from "src/components/Chat/Contact";
 
-const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, setSelectedUserId }) => {
+const UserList = ({ hideSidebar, onlinePeople = [], offlinePeople = [], selectedUserId, setSelectedUserId }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { connections } = useSelector((state) => state.connectionData);
-    const allConnections = connections?.connections
-        ?.filter((connection) => connection.isAccepted)
-        ?.map((connection) => connection.user);
+    const allConnections =
+        connections?.connections?.filter((connection) => connection.isAccepted)?.map((connection) => connection.user) ||
+        [];
     const userId = user?._id;
+
     useEffect(() => {
         if (userId) {
             dispatch(getConnections(userId));
         }
-    }, []);
-    // const [showUsers, setShowUsers] = useState(true);
+    }, [userId, dispatch]);
 
-    // const [searchTerm, setSearchTerm] = useState("");
     const searchTerm = "";
 
-    // const toggleUsers = () => {
-    //     setShowUsers(!showUsers);
-    // };
-
-    // const handleSearchChange = (e) => {
-    //     setSearchTerm(e.target.value);
-    // };
-
     const filteredOnlinePeople = onlinePeople?.filter((person) =>
-        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
+        person?.username?.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
-    const onlineConnections = filteredOnlinePeople?.filter((person) => allConnections?.includes(person.user));
+    const onlineConnections = filteredOnlinePeople?.filter((person) => allConnections.includes(person.user));
 
     const filteredOfflinePeople = offlinePeople?.filter((person) =>
-        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
+        person?.username?.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
-    const OfflineConnections = filteredOfflinePeople?.filter((person) => {
-        return allConnections?.includes(person.user);
-    });
+    const offlineConnections = filteredOfflinePeople?.filter((person) => allConnections.includes(person.user));
+
     return (
         <UserListContainer>
-            {onlineConnections &&
+            {onlineConnections?.length > 0 ? (
                 onlineConnections.map((person) => (
                     <RouteLink to={`/dashboard/chat/${person.user}`} key={person.user}>
                         <Contact
                             key={person.user}
                             id={person.user}
                             online={true}
-                            username={person.username.toLowerCase()}
+                            username={person.username?.toLowerCase() || "Unknown"}
                             onClick={() => {
                                 if (selectedUserId === person.user) {
                                     setSelectedUserId(null);
@@ -63,15 +53,17 @@ const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, se
                             selected={person.user === selectedUserId}
                         />
                     </RouteLink>
-                ))}
-            {OfflineConnections &&
-                OfflineConnections.map((person) => (
-                    // <RouteLink to={`/dashboard/chat/${person.user}`} key={person.user}>
+                ))
+            ) : (
+                <p>No online users found</p>
+            )}
+            {offlineConnections?.length > 0 ? (
+                offlineConnections.map((person) => (
                     <Contact
                         key={person.user}
                         id={person.user}
                         online={false}
-                        username={person.username.toLowerCase()}
+                        username={person.username?.toLowerCase() || "Unknown"}
                         onClick={() => {
                             if (selectedUserId === person.user) {
                                 setSelectedUserId(null);
@@ -81,8 +73,10 @@ const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, se
                         }}
                         selected={person.user === selectedUserId}
                     />
-                    // </RouteLink>
-                ))}
+                ))
+            ) : (
+                <p>No offline users found</p>
+            )}
         </UserListContainer>
     );
 };
