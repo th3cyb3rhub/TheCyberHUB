@@ -39,13 +39,13 @@ const Sidebar = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, set
     };
 
     const filteredOnlinePeople = onlinePeople?.filter((person) =>
-        person.username.toLowerCase().includes(searchTerm.toLowerCase()),
+        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
     const onlineConnections = filteredOnlinePeople?.filter((person) => allConnections?.includes(person.user));
 
     const filteredOfflinePeople = offlinePeople?.filter((person) =>
-        person.username.toLowerCase().includes(searchTerm.toLowerCase()),
+        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
     const OfflineConnections = filteredOfflinePeople?.filter((person) => {
