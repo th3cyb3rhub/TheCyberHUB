@@ -18,6 +18,7 @@ import { registerUser, userReset, sendEmailCode, verifyEmailCode } from "src/fea
 import { CircleSpinner } from "react-spinners-kit";
 import { RouterLink } from "src/components/Tools/ToolsElements";
 import validator from "validator";
+
 const Register = ({ authPopup }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,14 +29,13 @@ const Register = ({ authPopup }) => {
         email: "",
         password: "",
         password2: "",
-        termsAndConditions: "", // this is intialized with 'true' as the checkbox is checked upon page render
+        termsAndConditions: true,
         notifications: true,
         code: "",
     });
 
     const [emailSent, setEmailSent] = useState(false);
     const [emailRegistered, setEmailRegistered] = useState(false);
-    // Added notifications here to include in this object to be used later
     const { name, username, email, password, password2, termsAndConditions, notifications, code } = formData;
     const { user, isUserLoading, isUserError, userMessage } = useSelector((state) => state.auth);
 
@@ -44,7 +44,7 @@ const Register = ({ authPopup }) => {
             toast(userMessage);
         }
 
-        if (user) {
+        if (user && user._id) {
             navigate("/");
         }
         dispatch(userReset());

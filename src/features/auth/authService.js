@@ -18,6 +18,15 @@ const verifyEmailCode = async (userData) => {
 
     return response.data;
 };
+const verify2FACode = async (userData) => {
+    const response = await axios.post(API_URL + `verify-2fa`, userData);
+
+    if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data;
+};
 
 const registerUser = async (userData) => {
     const response = await axios.post(API_URL, userData);
@@ -70,6 +79,7 @@ const authService = {
     sendEmailCode,
     registerUser,
     verifyEmailCode,
+    verify2FACode,
     login,
     logout,
     updateUser,

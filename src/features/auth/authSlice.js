@@ -31,6 +31,16 @@ export const verifyEmailCode = createAsyncThunk("auth/verifyEmailCode", async (u
     }
 });
 
+export const verify2FACode = createAsyncThunk("auth/verify2FACode", async (userData, thunkAPI) => {
+    try {
+        return await authService.verify2FACode(userData);
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
 export const registerUser = createAsyncThunk("auth/registerUser", async (user, thunkAPI) => {
     try {
         return await authService.registerUser(user);
@@ -100,6 +110,20 @@ export const authSlice = createSlice({
                 state.userMessage = action.payload;
             })
             .addCase(verifyEmailCode.rejected, (state, action) => {
+                state.isUserLoading = false;
+                state.isUserError = true;
+                state.userMessage = action.payload;
+            })
+            .addCase(verify2FACode.pending, (state) => {
+                state.isUserLoading = true;
+            })
+            .addCase(verify2FACode.fulfilled, (state, action) => {
+                state.isUserLoading = false;
+                state.isUserSuccess = true;
+                state.user = action.payload;
+                state.userMessage = action.payload;
+            })
+            .addCase(verify2FACode.rejected, (state, action) => {
                 state.isUserLoading = false;
                 state.isUserError = true;
                 state.userMessage = action.payload;

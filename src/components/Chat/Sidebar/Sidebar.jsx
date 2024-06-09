@@ -13,22 +13,21 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getConnections } from "src/features/connections/connectionSlice";
 
-const Sidebar = ({ hideSidebar, onlinePeople = [], offlinePeople = [], selectedUserId, setSelectedUserId }) => {
+const Sidebar = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, setSelectedUserId }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { connections } = useSelector((state) => state.connectionData);
-    const allConnections =
-        connections?.connections?.filter((connection) => connection.isAccepted)?.map((connection) => connection.user) ||
-        [];
+    const allConnections = connections?.connections
+        ?.filter((connection) => connection.isAccepted)
+        ?.map((connection) => connection.user);
     const userId = user?._id;
-
     useEffect(() => {
         if (userId) {
             dispatch(getConnections(userId));
         }
-    }, [userId, dispatch]);
-
+    }, []);
     const [showUsers, setShowUsers] = useState(true);
+
     const [searchTerm, setSearchTerm] = useState("");
 
     const toggleUsers = () => {
@@ -40,16 +39,18 @@ const Sidebar = ({ hideSidebar, onlinePeople = [], offlinePeople = [], selectedU
     };
 
     const filteredOnlinePeople = onlinePeople?.filter((person) =>
-        person?.username?.toLowerCase().includes(searchTerm.toLowerCase()),
+        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
-    const onlineConnections = filteredOnlinePeople?.filter((person) => allConnections.includes(person.user));
+    const onlineConnections = filteredOnlinePeople?.filter((person) => allConnections?.includes(person.user));
 
     const filteredOfflinePeople = offlinePeople?.filter((person) =>
-        person?.username?.toLowerCase().includes(searchTerm.toLowerCase()),
+        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
-    const offlineConnections = filteredOfflinePeople?.filter((person) => allConnections.includes(person.user));
+    const OfflineConnections = filteredOfflinePeople?.filter((person) => {
+        return allConnections?.includes(person.user);
+    });
 
     return (
         <SidebarContainer $hideSidebar={hideSidebar}>
@@ -67,45 +68,50 @@ const Sidebar = ({ hideSidebar, onlinePeople = [], offlinePeople = [], selectedU
 
                 {!showUsers ? null : (
                     <UserListContainer>
-                        {onlineConnections?.length > 0 ? (
+                        {onlineConnections &&
                             onlineConnections.map((person) => (
                                 <RouteLink to={`/dashboard/chat/${person.user}`} key={person.user}>
                                     <Contact
                                         key={person.user}
                                         id={person.user}
                                         online={true}
-                                        username={person.username?.toLowerCase() || "Unknown"}
+                                        username={person.username.toLowerCase()}
                                         onClick={() => {
                                             setSelectedUserId(person.user);
                                         }}
                                         selected={person.user === selectedUserId}
                                     />
                                 </RouteLink>
-                            ))
-                        ) : (
-                            <p>No online users found</p>
-                        )}
-                        {offlineConnections?.length > 0 ? (
-                            offlineConnections.map((person) => (
+                            ))}
+                        {OfflineConnections &&
+                            OfflineConnections.map((person) => (
                                 <RouteLink to={`/dashboard/chat/${person.user}`} key={person.user}>
                                     <Contact
                                         key={person.user}
                                         id={person.user}
                                         online={false}
-                                        username={person.username?.toLowerCase() || "Unknown"}
+                                        username={person.username.toLowerCase()}
                                         onClick={() => {
                                             setSelectedUserId(person.user);
                                         }}
                                         selected={person.user === selectedUserId}
                                     />
                                 </RouteLink>
-                            ))
-                        ) : (
-                            <p>No offline users found</p>
-                        )}
+                            ))}
                     </UserListContainer>
                 )}
             </SidebarSection>
+
+            {/* <SidebarSection> */}
+            {/*    <SidebarTitle>Channels</SidebarTitle> */}
+            {/*    <ChannelList> */}
+            {/*        {chatData.channels.map((channel) => ( */}
+            {/*            <ChannelItem key={channel.id}> */}
+            {/*                <RouteLink to={`${channel.id}`}>{channel.channelname}</RouteLink> */}
+            {/*            </ChannelItem> */}
+            {/*        ))} */}
+            {/*    </ChannelList> */}
+            {/* </SidebarSection> */}
         </SidebarContainer>
     );
 };

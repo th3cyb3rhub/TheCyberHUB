@@ -10,7 +10,7 @@ import { CgPassword } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login, userReset, verifyEmailCode } from "src/features/auth/authSlice";
+import { login, userReset, verify2FACode } from "src/features/auth/authSlice";
 import { CircleSpinner } from "react-spinners-kit";
 import { RouterLink } from "src/components/Tools/ToolsElements";
 import { VerifyCode } from "src/pages/Register.jsx";
@@ -79,7 +79,7 @@ const Login = () => {
     const onSubmitVerifyCode = (e) => {
         e.preventDefault();
         const userData = { email, code };
-        dispatch(verifyEmailCode(userData));
+        dispatch(verify2FACode(userData));
     };
 
     useEffect(() => {
