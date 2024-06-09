@@ -69,7 +69,7 @@ const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
                                         if (bFlagsCount !== aFlagsCount) {
                                             return bFlagsCount - aFlagsCount;
                                         } else {
-                                            return a.username.localeCompare(b.username);
+                                            return a.username?.localeCompare(b.username);
                                         }
                                     })
                                     .map((user, index) => (

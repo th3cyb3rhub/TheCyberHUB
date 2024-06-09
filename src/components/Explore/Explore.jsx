@@ -192,7 +192,7 @@ const Explore = () => {
         ctf?.filter((ctf) => ctf?.registeredUsers.find(({ user }) => selectedFilter?.includes(user))) || [];
 
     const filteredUsers = userDetailsLocal
-        ?.filter((user) => selectedFilter?.includes(user.user))
+        ?.filter((user) => selectedFilter?.includes(user?.user))
         .reverse()
         ?.slice(0, 10)
         .reverse();

@@ -27,7 +27,7 @@ const CreateCTF = () => {
     //     return <NotFound />;
     // }
 
-    if (user && user.userType !== "admin") {
+    if (user && user?.userType !== "admin") {
         return <NotFound />;
     }
 

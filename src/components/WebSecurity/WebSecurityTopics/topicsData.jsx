@@ -448,7 +448,7 @@ Vulnerable Code Fixed (Example):
 \`\`\`javascript
 // Fixed Node.js code with Mongoose
 const username = req.body.username;
-const query = { username: username.trim() }; // Sanitize input
+const query = { username: username?.trim() }; // Sanitize input
 // Use a parameterized query
 const users = await User.find({ username: { $eq: username } }); // Safe binding
 \`\`\`
@@ -457,7 +457,7 @@ const users = await User.find({ username: { $eq: username } }); // Safe binding
 
 User input is sanitized (e.g., trimming) before embedding it in the query object.
 
-A parameterized query is used with a placeholder for the username.
+A parameterized query is used with a placeholder for the username?.
 
 The actual username value is bound to the parameter, preventing unintended code execution.`,
             },

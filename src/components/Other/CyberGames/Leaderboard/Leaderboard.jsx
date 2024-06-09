@@ -78,7 +78,7 @@ const Leaderboard = () => {
                             </LeaderboardTableRow>
                             {userDetails &&
                                 [...userDetails]
-                                    // .sort((a, b) => a?.username.localeCompare(b?.username))
+                                    // .sort((a, b) => a?.username?.localeCompare(b?.username))
                                     .sort((a, b) => (b?.exp || 0) - (a?.exp || 0))
                                     .map((user, index) => (
                                         <LeaderboardTableRow key={index}>

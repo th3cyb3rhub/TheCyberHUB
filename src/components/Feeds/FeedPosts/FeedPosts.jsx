@@ -54,7 +54,7 @@ const FeedPosts = ({ feeds, searchTerm, showOnlyFollowingPosts, isFeedLoading, d
                       feed?.tags?.some((postTag) => postTag.toLowerCase() === selectedTag.toLowerCase()),
                   );
         const usernameIncludeSearchTerm =
-            !cleanSearchTerm || feed?.username.toLowerCase().includes(cleanSearchTerm?.toLowerCase()) || false;
+            !cleanSearchTerm || feed?.username?.toLowerCase().includes(cleanSearchTerm?.toLowerCase()) || false;
         return (
             postedByFollowingUser &&
             allFilterTagsIncluded &&

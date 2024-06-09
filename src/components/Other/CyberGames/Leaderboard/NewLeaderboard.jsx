@@ -29,7 +29,7 @@ const NewLeaderboard = () => {
     }, [dispatch]);
 
     const allUsers = userDetails && [...userDetails].sort((a, b) => (b?.exp || 0) - (a?.exp || 0));
-    // .sort((a, b) => a?.username.localeCompare(b?.username))
+    // .sort((a, b) => a?.username?.localeCompare(b?.username))
 
     // make top2 at index 0 and top 1 at index 1 and let the 3rd at 2
     const ist = allUsers.slice(0, 1);

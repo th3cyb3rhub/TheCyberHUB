@@ -30,56 +30,58 @@ const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, se
     //     setSearchTerm(e.target.value);
     // };
 
-    const filteredOnlinePeople = onlinePeople?.filter((person) =>
-        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
+    const filteredOnlinePeople = onlinePeople?.filter(
+        (person) => (person && person?.username?.toLowerCase().includes(searchTerm.toLowerCase())) || {},
     );
 
-    const onlineConnections = filteredOnlinePeople?.filter((person) => allConnections?.includes(person.user));
+    const onlineConnections = filteredOnlinePeople?.filter((person) =>
+        allConnections?.includes(person && person?.user),
+    );
 
-    const filteredOfflinePeople = offlinePeople?.filter((person) =>
-        person?.username.toLowerCase().includes(searchTerm.toLowerCase()),
+    const filteredOfflinePeople = offlinePeople?.filter(
+        (person) => (person && person?.username?.toLowerCase().includes(searchTerm.toLowerCase())) || {},
     );
 
     const OfflineConnections = filteredOfflinePeople?.filter((person) => {
-        return allConnections?.includes(person.user);
+        return allConnections?.includes(person && person?.user);
     });
     return (
         <UserListContainer>
             {onlineConnections &&
                 onlineConnections.map((person) => (
-                    <RouteLink to={`/dashboard/chat/${person.user}`} key={person.user}>
+                    <RouteLink to={`/dashboard/chat/${person?.user}`} key={person?.user}>
                         <Contact
-                            key={person.user}
-                            id={person.user}
+                            key={person?.user}
+                            id={person?.user}
                             online={true}
-                            username={person.username.toLowerCase()}
+                            username={person?.username?.toLowerCase()}
                             onClick={() => {
-                                if (selectedUserId === person.user) {
+                                if (selectedUserId === person?.user) {
                                     setSelectedUserId(null);
                                 } else {
-                                    setSelectedUserId(person.user);
+                                    setSelectedUserId(person?.user);
                                 }
                             }}
-                            selected={person.user === selectedUserId}
+                            selected={person?.user === selectedUserId}
                         />
                     </RouteLink>
                 ))}
             {OfflineConnections &&
                 OfflineConnections.map((person) => (
-                    // <RouteLink to={`/dashboard/chat/${person.user}`} key={person.user}>
+                    // <RouteLink to={`/dashboard/chat/${person?.user}`} key={person?.user}>
                     <Contact
-                        key={person.user}
-                        id={person.user}
+                        key={person?.user}
+                        id={person?.user}
                         online={false}
-                        username={person.username.toLowerCase()}
+                        username={person?.username?.toLowerCase()}
                         onClick={() => {
-                            if (selectedUserId === person.user) {
+                            if (selectedUserId === person?.user) {
                                 setSelectedUserId(null);
                             } else {
-                                setSelectedUserId(person.user);
+                                setSelectedUserId(person?.user);
                             }
                         }}
-                        selected={person.user === selectedUserId}
+                        selected={person?.user === selectedUserId}
                     />
                     // </RouteLink>
                 ))}

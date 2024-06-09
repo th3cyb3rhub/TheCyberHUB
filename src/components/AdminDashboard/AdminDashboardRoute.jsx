@@ -15,7 +15,7 @@ const DashboardRoute = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user || (user.userType !== "admin" && user.userType !== "team")) {
+        if (!user || (user?.userType !== "admin" && user?.userType !== "team")) {
             navigate("/");
         }
         // setTimeout(() => {

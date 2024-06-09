@@ -114,7 +114,7 @@ const Register = ({ authPopup }) => {
             toast.error("Passwords do not match");
         } else if (password.length < 8 || password.length > 64) {
             toast.error("Password must be between 8 and 32 characters");
-        } else if (username.length < 2 || username.length > 32) {
+        } else if (username?.length < 2 || username?.length > 32) {
             toast.error("Username must be between 2 and 20 characters");
         } else if (name.length < 1 || name.length > 32) {
             toast.error("Name must be between 1 and 20 characters");

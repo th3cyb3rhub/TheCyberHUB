@@ -52,7 +52,7 @@ const Blogs = () => {
     };
 
     const userDetailsfunction = (blog) => {
-        const userDetail = userDetails?.find((user) => user.user === blog.user);
+        const userDetail = userDetails?.find((user) => user?.user === blog.user);
         const { username, avatar, verified } = userDetail || {};
 
         return { ...blog, username, avatar, verified };

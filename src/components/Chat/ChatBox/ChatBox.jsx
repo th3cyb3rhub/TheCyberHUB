@@ -78,8 +78,8 @@ const ChatBox = () => {
     const showOnlinePeople = (peopleArray) => {
         const uniqueUserIds = new Set();
         const uniquePeopleArray = peopleArray.filter((person) => {
-            if (!uniqueUserIds.has(person.userId)) {
-                uniqueUserIds.add(person.userId);
+            if (!uniqueUserIds.has(person?.userId)) {
+                uniqueUserIds.add(person?.userId);
                 return true;
             }
             return false;
@@ -89,7 +89,7 @@ const ChatBox = () => {
 
         uniquePeopleArray.forEach((person) => {
             userDetails.forEach((userDetail) => {
-                if (userDetail?.user === person.userId) {
+                if (userDetail?.user === person?.userId) {
                     onlinePeople.push(userDetail);
                 }
             });
@@ -158,10 +158,10 @@ const ChatBox = () => {
         }
     }, [selectedUserId]);
 
-    const onlinePeopleExclOurUser = onlinePeople.filter((person) => person.user !== user?._id);
+    const onlinePeopleExclOurUser = onlinePeople.filter((person) => person?.user !== user?._id);
 
     const offlinePeopleData = userDetails.filter((person) => {
-        const foundOnlinePerson = onlinePeople.find((onlinePerson) => onlinePerson.user === person.user);
+        const foundOnlinePerson = onlinePeople.find((onlinePerson) => onlinePerson?.user === person?.user);
         return !foundOnlinePerson;
     });
 
@@ -180,7 +180,7 @@ const ChatBox = () => {
     }
 
     const filterUsers = (users) => {
-        return users.filter((user) => user?.username.toLowerCase().includes(searchQuery.toLowerCase()));
+        return users.filter((user) => user?.username?.toLowerCase().includes(searchQuery.toLowerCase()));
     };
 
     const filteredOnlinePeople = filterUsers(onlinePeopleExclOurUser);

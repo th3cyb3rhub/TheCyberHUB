@@ -147,7 +147,7 @@ const CertificateCard = () => {
                                 <div className="presented-word">This certificate is presented to</div>
                                 <div className="full-name">
                                     {certificate.fullName}
-                                    <span className="username">({certificate.username.toLowerCase()})</span>
+                                    <span className="username">({certificate.username?.toLowerCase()})</span>
                                 </div>
                                 <div className="ctf">
                                     for {getKindText(certificate.kind)} - {certificate.ctf}

@@ -76,7 +76,7 @@ const ViewBlog = () => {
     const userId = user?._id;
 
     const blogsData = blogs.map((blog) => {
-        const userDetail = userDetails?.find((user) => user.user === blog.user);
+        const userDetail = userDetails?.find((user) => user?.user === blog.user);
 
         const { username, avatar, verified } = userDetail || {};
 
@@ -126,7 +126,7 @@ const ViewBlog = () => {
     ];
 
     const blogsCommentsData = blogComments.map((comments) => {
-        const userDetail = userDetails?.find((user) => user.user === comments.user);
+        const userDetail = userDetails?.find((user) => user?.user === comments.user);
         const { username, avatar, verified } = userDetail || {};
 
         return {

@@ -57,7 +57,7 @@ const UserLinks = ({ userDetail, userDetails, isUserDetailsLoading, setShowAuthP
                                         {getIconComponent(item?.icon)}
                                         <SocialUsername
                                             href={
-                                                item?.profileUsername.startsWith("http")
+                                                item?.profileusername?.startsWith("http")
                                                     ? item?.profileUsername
                                                     : "https://" + item?.profileUsername
                                             }

@@ -40,7 +40,7 @@ export default function SettingsForm() {
     const [is2fa, setIs2fa] = useState(reduxIs2fa);
     const disabled =
         name.value === reduxName &&
-        username.value === reduxUsername &&
+        username?.value === reduxUsername &&
         email.value === reduxEmail &&
         !password.value &&
         is2fa === reduxIs2fa;
@@ -76,15 +76,15 @@ export default function SettingsForm() {
             userData.name = name.value;
         }
 
-        if (!username.value) {
+        if (!username?.value) {
             return setUsername((curr) => ({
                 ...curr,
                 error: "Username required!",
             }));
         }
 
-        if (username.value !== reduxUsername) {
-            userData.username = username.value;
+        if (username?.value !== reduxUsername) {
+            userData.username = username?.value;
         }
 
         if (password.value) {
@@ -136,13 +136,13 @@ export default function SettingsForm() {
                 <br />
                 <input
                     type="text"
-                    value={username.value}
+                    value={username?.value}
                     id="username"
                     name="username"
                     placeholder="Your cool username"
                     onChange={(e) => handleChange(e, setUsername)}
                 />
-                {username.error && <p className="profile-error">{username.error}</p>}
+                {username?.error && <p className="profile-error">{username?.error}</p>}
             </div>
             <div className="settings-profile-input-wrapper">
                 <label htmlFor="password">Password</label>
