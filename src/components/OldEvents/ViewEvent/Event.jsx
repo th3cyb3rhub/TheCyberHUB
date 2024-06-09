@@ -10,6 +10,7 @@ import {
     EventTitle,
     // EventVenue,
 } from "src/components/OldEvents/EventsElement";
+//
 
 const Event = () => {
     const { title } = useParams();
