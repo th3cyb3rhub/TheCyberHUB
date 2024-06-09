@@ -9,30 +9,30 @@ export const UserLinksContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
-    @media screen and (max-width: 760px) {
+
+    @media screen and (width <= 760px) {
         width: 100%;
         min-width: initial;
         max-width: initial;
     }
 `;
 
-export const UserInfo = styled.div`
+export const UserInfoContainer = styled.div`
     display: flex;
     flex-direction: column;
 
     .name {
-        font-size: 1.7rem;
+        font-size: ${({ fontSizeName }) => fontSizeName || "1.7rem"};
     }
 
     .username {
-        font-size: 1.3rem;
+        font-size: ${({ fontSizeUsername }) => fontSizeUsername || "1.3rem"};
         color: #777;
     }
 `;
 
 export const UserFollowersAndFollowing = styled.div`
     margin: 10px 0;
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -64,6 +64,7 @@ export const UserBio = styled.div`
     padding: 10px;
     border-radius: 5px;
     font-size: 13px;
+
     .bio {
         display: flex;
         flex-direction: row;
@@ -79,12 +80,14 @@ export const EditUserBioTextarea = styled.textarea`
     border-radius: 5px;
     resize: none;
     font-size: 18px;
-    font-family: "Arial", sans-serif;
+    font-family: Arial, sans-serif;
     color: #a2a2a2;
     background: #0c0c0c;
     padding: 10px;
+
     /* Additional styles for the textarea when in edit mode */
-    //background-color: ${({ isEdit }) => (isEdit ? "#c2c2c2" : "transparent")};
+
+    /* background-color: ${({ isEdit }) => (isEdit ? "#c2c2c2" : "transparent")}; */
     outline: none;
     box-shadow: ${({ isEdit }) => (isEdit ? "0 2px 4px rgba(0, 0, 0, 0.1)" : "none")};
 
@@ -94,5 +97,3 @@ export const EditUserBioTextarea = styled.textarea`
         color: #d0d0d0;
     }
 `;
-
-export const LookingForJob = styled.div``;

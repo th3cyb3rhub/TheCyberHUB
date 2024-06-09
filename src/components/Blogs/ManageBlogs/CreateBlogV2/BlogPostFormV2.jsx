@@ -48,24 +48,25 @@ const QuillContainer = styled(ReactQuill)`
         padding: 20px;
         background: #0c0c0c;
         font-size: 17px;
-        //font-family: monospace;
+
+        /* font-family: monospace; */
     }
 
     .ql-toolbar {
         background: transparent;
         border: #1f1f1f 1px solid;
-        font-family: "Poppins", sans-serif;
+        font-family: Poppins, sans-serif;
         font-size: 17px;
         color: #f5f5f5;
     }
 
     .ql-toolbar.ql-snow {
         border: #1f1f1f 1px solid;
-        font-family: "Poppins", sans-serif;
+        font-family: Poppins, sans-serif;
         font-size: 17px;
     }
 
-    // hide the main border
+    /* hide the main border */
     .ql-container.ql-snow {
         border: #1f1f1f 1px solid;
         max-height: 500px;

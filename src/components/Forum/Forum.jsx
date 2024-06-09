@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import { ForumContainer } from "./ForumElements";
-import { RouterButtonLink } from "../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+import { RouterButtonLink } from "src/components/Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import { useDispatch, useSelector } from "react-redux";
-import { getForums } from "../../features/forum/forumSlice";
+import { getForums } from "src/features/forum/forumSlice";
 import ForumPosts from "./ForumPosts/ForumPosts";
 
 const Forum = () => {

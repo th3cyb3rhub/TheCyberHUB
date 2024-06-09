@@ -3,13 +3,13 @@ import GoalForm from "./GoalForm";
 import GoalItem from "./GoalItem";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getGoals, reset } from "../../../../features/goals/goalSlice";
+import { getGoals, reset } from "src/features/goals/goalSlice";
 import "./GoalSetter.css";
-import { Wrapper } from "../../Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
 import { GoalsContainer } from "./old/GoalElements";
-import apiStatus from "../../../../features/apiStatus";
-import UnderMaintenance from "../../../Other/UnderMaintenance/UnderMaintenance";
+import apiStatus from "src/features/apiStatus";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 
 const GoalSetter = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -34,7 +34,7 @@ const GoalSetter = () => {
     if (isApiLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={20} color={"#1fc10d"} isLoading={isApiLoading} />
+                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isApiLoading} />
             </Wrapper>
         );
     }

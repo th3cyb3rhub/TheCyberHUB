@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { BsCheck } from "react-icons/bs";
-export const BlogImageSection = styled.div``;
-export const BlogImage = styled.img``;
 export const ContainerTrendingBlogCard = styled.div`
     display: flex;
     flex-direction: column;
@@ -10,7 +8,7 @@ export const ContainerTrendingBlogCard = styled.div`
     margin: 10px;
     border-bottom: #313131 1px solid;
     border-radius: 5px;
-    background: #111111;
+    background: #111;
     font-size: 12px;
     color: #999;
     word-break: break-all;
@@ -22,7 +20,7 @@ export const MainSection = styled.div`
     justify-content: space-between;
 `;
 export const SubSection = styled.div`
-    padding: 25px 25px 15px 25px;
+    padding: 25px 25px 15px;
 `;
 
 export const DetailsSection = styled.div`
@@ -45,10 +43,6 @@ export const FooterDetailsSection = styled.div`
     padding: 5px 5px 5px 0;
 `;
 
-export const Title = styled.h4``;
-
-export const Description = styled.p``;
-export const Username = styled.p``;
 export const Date = styled.p`
     font-size: 10px;
     margin: 0 5px 0 0;

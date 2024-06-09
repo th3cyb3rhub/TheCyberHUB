@@ -7,15 +7,14 @@ export const AchievementsContainer = styled.div`
     background: #080808;
 `;
 
-export const AchievementHeading = styled.h2``;
-
 export const AchievementList = styled.ul`
     display: flex;
-    //display: grid;
-    //grid-template-columns: 1fr 1fr;
-    //grid-template-rows: 1fr 1fr;
-    //grid-template-areas: "AchievementItem AchievementItem" "AchievementItem AchievementItem";
-    //grid-gap: 25px;
+
+    /* display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "AchievementItem AchievementItem" "AchievementItem AchievementItem";
+    grid-gap: 25px; */
     padding: 0;
 `;
 
@@ -24,7 +23,6 @@ export const AchievementItem = styled.li`
     flex-direction: column;
 `;
 
-export const AchievementCategoryH = styled.h3``;
 export const AchievementLink = styled.a`
     color: #fff;
     display: flex;

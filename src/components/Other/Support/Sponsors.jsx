@@ -10,7 +10,7 @@ import {
     SponsorsP,
     TextGreenBG,
 } from "./SponsorsElements";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 
 const Sponsors = () => {
     return (
@@ -55,7 +55,7 @@ const Sponsors = () => {
                     </SponsorsDescription>
                 </SponsorsDescriptionContainer>
                 <SponsorsLink href="https://www.buymeacoffee.com/thecyberw0rld" target={"_blank"}>
-                    <BuyMeACoffeeImage src="https://img.buymeacoffee.com/button-api/?text=Support our work from here&emoji=💰&slug=thecyberw0rld&button_colour=73ff00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" />
+                    <BuyMeACoffeeImage src="https://img.buymeacoffee.com/button-api/?text=Support our work from here&emoji=💰&slug=thecyberw0rld&button_colour=ff6b08&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ff6b08" />
                 </SponsorsLink>
             </SponsorsContainer>
         </Wrapper>

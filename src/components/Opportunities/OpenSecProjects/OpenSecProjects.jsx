@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { IconFork, IconIssue, IconStar, OpenSecProjectsContainer } from "./OpenSecProjectsElements";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
-import { InternshipDesc, InternshipHeader, InternshipHeading } from "../Internship/InternshipElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import {
+    InternshipDesc,
+    InternshipHeader,
+    InternshipHeading,
+} from "src/components/Opportunities/Internship/InternshipElements";
 
 const OpenSecProjects = () => {
     const [repositories, setRepositories] = useState([]);
@@ -22,8 +26,8 @@ const OpenSecProjects = () => {
                 </InternshipHeader>
                 <div className={"cards"}>
                     {repositories
-                        .sort((a, b) => b?.stargazers_count - a?.stargazers_count)
-                        .map((repository) => (
+                        ?.sort((a, b) => b?.stargazers_count - a?.stargazers_count)
+                        ?.map((repository) => (
                             <Card key={repository.id} repository={repository} />
                         ))}
                 </div>

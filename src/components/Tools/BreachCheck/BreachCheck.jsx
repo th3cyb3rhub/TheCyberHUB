@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import {
     ContainerBreachCheck,
     EmailInput,
@@ -8,9 +8,9 @@ import {
     RedMessage,
     SubmitButton,
 } from "./BreachCheckElements";
-import { Title } from "../SubdomainFinder/SubdomainFinderElements";
+import { Title } from "src/components/Tools/SubdomainFinder/SubdomainFinderElements";
 import { RiEarthFill } from "react-icons/ri";
-import { Form } from "../PortScanner/PortScannerElements";
+import { Form } from "src/components/Tools/PortScanner/PortScannerElements";
 
 const BreachCheck = () => {
     const Emails = ["user1@example.com", "user2@example.com", "user3@example.com"];
@@ -19,7 +19,7 @@ const BreachCheck = () => {
 
     const validateEmail = (e) => {
         e.preventDefault();
-        // Validate the email somehow, for example by checking if it's in a list of known emails
+        // Validate the email somehow, for example, by checking if it's in a list of known emails
         const emailExists = Emails.includes(email);
         if (!emailExists) {
             setError(<GreenMessage>Email does not exist in the breached database</GreenMessage>);

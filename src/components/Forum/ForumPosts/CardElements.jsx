@@ -4,11 +4,12 @@ import { BsCheck } from "react-icons/bs";
 export const ContainerCard = styled.div`
     display: flex;
     flex-direction: column;
-    //width: 500px;
+
+    /* width: 500px; */
     text-align: start;
     border-bottom: #313131 1px solid;
     border-radius: 5px;
-    background: #111111;
+    background: #111;
 `;
 
 export const MainSection = styled.div`
@@ -17,7 +18,7 @@ export const MainSection = styled.div`
     justify-content: space-between;
 `;
 export const SubSection = styled.div`
-    padding: 25px 25px 15px 25px;
+    padding: 25px 25px 15px;
 `;
 
 export const DetailsSection = styled.div`
@@ -40,10 +41,6 @@ export const FooterDetailsSection = styled.div`
     padding: 5px 5px 5px 0;
 `;
 
-export const Title = styled.h3``;
-
-export const Description = styled.p``;
-export const Username = styled.p``;
 export const Date = styled.p`
     font-size: 10px;
     margin: 0 5px 0 0;

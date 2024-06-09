@@ -1,29 +1,34 @@
 import React from "react";
-import { UserBio, UserInfo, UserLinksContainer } from "./UserLinksElements";
-import { SocialLink, SocialUsername, UserSocialLinksContainer } from "../UserSocialLinks/UserSocialLinksElements";
+import UserInfo from "./UserInfo";
+import { UserBio, UserLinksContainer } from "./UserLinksElements";
+import {
+    SocialLink,
+    SocialUsername,
+    UserSocialLinksContainer,
+} from "src/components/Dashboard/Profile/UserSocialLinks/UserSocialLinksElements";
 import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
-import Follow from "../Follow/Follow";
-import { UserPicture } from "../../../Explore/Users/UsersElements";
 import { CgWebsite } from "react-icons/cg";
-import { cdnContentImagesUrl } from "../../../../features/apiUrl";
+import ConnectionsAndFollows from "src/components/Dashboard/Profile/ConnectionsAndFollows/ConnectionsAndFollows";
 
-const UserLinks = ({ userDetail, userDetails }) => {
+const UserLinks = ({ userDetail, userDetails, isUserDetailsLoading, setShowAuthPopup }) => {
     const socialUsernames = userDetail?.socialLinks?.map(
         (item) => item?.profileUsername !== "" && item?.profileUsername,
     );
 
     const showSocialContainer = socialUsernames?.includes(userDetail?.username);
 
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
-
     return (
         <UserLinksContainer>
-            <UserInfo>
-                <UserPicture style={{ height: "200px", width: "200px" }} src={avatar} />
-                <span className={"name"}>{userDetail?.name}</span>
-                <span className={"username"}>@{userDetail?.username}</span>
-            </UserInfo>
-            {userDetail?.user && <Follow userDetail={userDetail} userDetails={userDetails} />}
+            <UserInfo>{userDetail}</UserInfo>
+
+            {userDetail?.user && (
+                <ConnectionsAndFollows
+                    isUserDetailsLoading={isUserDetailsLoading}
+                    userDetail={userDetail}
+                    userDetails={userDetails}
+                    setShowAuthPopup={setShowAuthPopup}
+                />
+            )}
 
             {userDetail?.bio?.length === 0 || !userDetail?.bio ? null : (
                 <UserBio>

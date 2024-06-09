@@ -1,6 +1,6 @@
 import React from "react";
-import "../../../index.css";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import "src/index.css";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 const ComingSoon = () => {
     return (
         <Wrapper style={{ paddingTop: "40px" }}>

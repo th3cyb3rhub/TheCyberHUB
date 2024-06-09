@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { FormDataContainer, FormType, FormTypesContainer } from "./FormDataElements";
+import { FormDataContainer, FormType } from "./FormDataElements";
 import { JobsCardSection, JobsDetailContainer, JobsDetailSection } from "./Jobs/JobsElements";
 import Job from "./Jobs/Job";
 import JobDetailsPage from "./Jobs/JobDetailsPage";
 import { useSelector } from "react-redux";
-import { Wrapper } from "../Profile/ProfileElements";
-import { NotFound } from "../../index";
-import { getApiUrl } from "../../../features/apiUrl";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { NotFound } from "src/components/index";
+import { getApiUrl } from "src/features/apiUrl";
 
 const FormData = () => {
     const { user } = useSelector((state) => state.auth);
+
     if (!user) {
         return <NotFound />;
     }
@@ -84,13 +85,13 @@ const FormData = () => {
         <Wrapper>
             <FormDataContainer>
                 {errorMessage && <p>{errorMessage}</p>}
-                <FormTypesContainer>
+                <div>
                     <FormType onClick={() => handleShowState("showPentest")}>Services</FormType>
                     <FormType onClick={() => handleShowState("showInternship")}>Internships</FormType>
                     <FormType onClick={() => handleShowState("showVolunteer")}>Volunteer</FormType>
                     <FormType onClick={() => handleShowState("showFeedback")}>Feedback</FormType>
                     <FormType onClick={() => handleShowState("showOthers")}>Others</FormType>
-                </FormTypesContainer>
+                </div>
                 <JobsDetailContainer id="jobs">
                     {window.innerWidth > 1000 ? (
                         <>

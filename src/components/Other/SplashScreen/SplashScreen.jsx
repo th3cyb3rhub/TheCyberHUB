@@ -7,8 +7,8 @@ import {
     SplashScreenContainer,
     SplashScreenTextContainer,
 } from "./SplashScreenElements";
-import { TextGreenBG } from "../Support/SponsorsElements";
-import { getCdnAssets } from "../../../features/apiUrl";
+import { TextGreenBG } from "src/components/Other/Support/SponsorsElements";
+import { getCdnAssets } from "src/features/apiUrl";
 const logo = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const SplashScreen = () => {

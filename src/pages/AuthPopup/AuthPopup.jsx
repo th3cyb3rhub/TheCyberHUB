@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PopupContainer, CloseButton } from "./AuthPopupElements";
-import Register from "../Register";
+import Register from "src/pages/Register";
 
 const AuthPopup = ({ onClose }) => {
     const [seen, setSeen] = useState(true);

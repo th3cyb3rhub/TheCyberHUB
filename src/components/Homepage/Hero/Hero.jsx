@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
     ArrowForward,
     ArrowRight,
@@ -11,11 +10,10 @@ import {
     HeroP,
     VideoBg,
 } from "./HeroElements";
+import { ScrollButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
+import { getCdnAssets } from "src/features/apiUrl";
 
-import { ScrollButton } from "../../Other/MixComponents/Buttons/ButtonElements";
-import { getCdnAssets } from "../../../features/apiUrl";
-
-import greenBG from "../../../assets/greenBG.png";
+import greenBG from "src/assets/greenBG.png";
 const video = `${getCdnAssets}/video/bgvideo.mp4`;
 
 const Hero = () => {
@@ -33,12 +31,13 @@ const Hero = () => {
                 </VideoBg>
             </HeroBg>
             <HeroContent>
-                <HeroH1> Unlock the Power of Cybersecurity </HeroH1>
-                <HeroP> Join a thriving community and explore the limitless possibilities. </HeroP>
+                <HeroH1>Empowering Cybersecurity Enthusiasts</HeroH1>
+                <HeroP>Join a thriving community and unlock the limitless potential of cybersecurity.</HeroP>
 
                 <HeroBtnWrapper>
                     <ScrollButton
-                        to={"about"}
+                        href="/about"
+                        to="about"
                         onMouseEnter={onHover}
                         onMouseLeave={onHover}
                         primary={"true"}

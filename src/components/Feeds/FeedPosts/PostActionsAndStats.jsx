@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { PostActionsAndStatsContainer, PostStat, PostStatLabel, PostStatValue } from "./FeedPostsElements";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
@@ -6,22 +6,13 @@ import { BiCommentDetail } from "react-icons/bi";
 import { VscGraphLine } from "react-icons/vsc";
 import { BsBookmarks, BsBookmarksFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { addFeedLike, removeFeedLike } from "../../../features/feeds/feedLikes/feedLikesSlice";
-import { addBookmark, removeBookmark } from "../../../features/bookmarks/bookmarkSlice";
-import AuthPopup from "../../../pages/AuthPopup/AuthPopup";
-import { updateView } from "../../../features/feeds/views/viewSlice";
+import { updateView } from "src/features/feeds/views/viewSlice";
+import { addFeedLike, removeFeedLike } from "src/features/feeds/feedLikes/feedLikesSlice";
+import { addBookmark, removeBookmark } from "src/features/bookmarks/bookmarkSlice";
+import AuthPopup from "src/pages/AuthPopup/AuthPopup";
+import { RouteLink } from "src/components/Common/GeneralDashboardSidebar/GeneralDashboardSidebarElements";
 
-const PostActionsAndStats = ({
-    feed,
-    comments,
-    user,
-    itemType,
-    views,
-    bookmarks,
-    likes,
-    setStopRefresh,
-    updateFeedView,
-}) => {
+const PostActionsAndStats = ({ feed, comments, user, itemType, views, bookmarks, likes, updateFeedView }) => {
     const dispatch = useDispatch();
     const feedRef = useRef(null);
 
@@ -39,7 +30,7 @@ const PostActionsAndStats = ({
                 dispatch(updateView({ itemId: feed?._id }));
             }
         }
-    }, [updateFeedView]);
+    }, []);
 
     const filteredViews = views.filter(
         (view, index, self) => index === self.findIndex((v) => v.itemId === view.itemId && v.user === view.user),
@@ -62,7 +53,7 @@ const PostActionsAndStats = ({
     function handleLike(_id) {
         if (!user) {
             setShowAuthPopup(true);
-            setStopRefresh && setStopRefresh(true);
+            // setStopRefresh && setStopRefresh(true);
             return;
         }
 
@@ -74,13 +65,13 @@ const PostActionsAndStats = ({
     }
 
     const isBookmarked = () => {
-        return bookmarks.some((bookmark) => bookmark.user === userId && bookmark.itemId === feed?._id);
+        return bookmarks?.some((bookmark) => bookmark.user === userId && bookmark.itemId === feed?._id);
     };
 
     const handleBookmark = (_id) => {
         if (!user) {
             setShowAuthPopup(true);
-            setStopRefresh && setStopRefresh(true);
+            // setStopRefresh && setStopRefresh(true);
             return;
         }
         if (isBookmarked(_id)) {
@@ -92,7 +83,6 @@ const PostActionsAndStats = ({
 
     const handleCloseAuthPopup = () => {
         setShowAuthPopup(false);
-        setStopRefresh && setStopRefresh(false);
     };
 
     return (
@@ -114,7 +104,9 @@ const PostActionsAndStats = ({
             {/* </PostStat> */}
             <PostStat>
                 <PostStatLabel>
-                    <BiCommentDetail />
+                    <RouteLink to={`/feeds/${feed?._id}`}>
+                        <BiCommentDetail />
+                    </RouteLink>
                 </PostStatLabel>
                 <PostStatValue>{comments?.length}</PostStatValue>
             </PostStat>

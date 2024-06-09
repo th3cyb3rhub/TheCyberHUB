@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { DotSymbol } from "../../Homepage/Info/InfoElements";
+import { DotSymbol } from "src/components/Homepage/Info/InfoElements";
 
 export const JobDetailsContainer = styled.div`
-    background-color: rgba(32, 194, 14, 0.04);
+    background-color: rgb(32 194 14 / 4%);
     width: 100%;
     margin: 10px;
     outline: 1px solid #2a2a2a;
@@ -17,7 +17,7 @@ export const JobDetailsContainer = styled.div`
         outline-offset: 2px;
     }
 
-    @media only screen and (max-width: 1000px) {
+    @media only screen and (width <= 1000px) {
         margin: 0;
     }
 `;
@@ -42,10 +42,10 @@ export const JobDetailsHeader = styled.div`
 export const JobDetailsTitle = styled.h2`
     color: orange;
 
-    //background: linear-gradient(to right, #b1faa9, #f6dbaa);
-    //background-clip: text;
-    //-webkit-background-clip: text;
-    //-webkit-text-fill-color: transparent;
+    /* background: linear-gradient(to right, #b1faa9, #f6dbaa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
     font-size: 18px;
     font-weight: bolder;
     letter-spacing: 0.1rem;
@@ -153,7 +153,7 @@ export const JobDescSection = styled.div`
 export const ListContent = styled.p`
     margin: 5px;
     width: 100%;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
     text-align: left;
     font-size: 15px;
     color: #f5f5f5;

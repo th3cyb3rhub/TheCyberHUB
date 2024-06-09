@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import {
     SecurityContainer,
     SecurityContentList,
@@ -33,8 +33,10 @@ const Security = () => {
                 text: (
                     <>
                         If you have discovered a security vulnerability, please contact us at
-                        <span style={{ color: "#00b2ff", margin: "0px 5px" }}> security@thecyber-sec.com. </span> We
-                        will do our best to respond to your report in a timely manner.
+                        <a style={{ color: "#00b2ff", margin: "0 0 0 5px" }} href="mailto:info@thecyberhub.org">
+                            info@thecyberhub.org
+                        </a>
+                        . We will do our best to respond to your report in a timely manner.
                     </>
                 ),
             },

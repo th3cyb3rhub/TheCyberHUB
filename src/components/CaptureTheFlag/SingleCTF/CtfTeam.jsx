@@ -1,6 +1,6 @@
 import React from "react";
-import Team from "../Team/Team";
-import TeamChat from "../Team/TeamChat";
+import Team from "src/components/CaptureTheFlag/Team/Team";
+import TeamChat from "src/components/CaptureTheFlag/Team/TeamChat";
 
 const CtfTeam = ({ teams, isTeamEdit }) => {
     return (

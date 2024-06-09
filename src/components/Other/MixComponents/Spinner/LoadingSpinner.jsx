@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
 
 const LoadingSpinner = () => {

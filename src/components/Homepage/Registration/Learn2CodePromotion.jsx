@@ -2,12 +2,10 @@ import styled from "styled-components";
 
 export const Learn2CodePromotion = styled.div`
     width: 100%;
-
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.22);
-    box-shadow: 0 0 100px 0 rgba(47, 47, 47, 0.2);
+    background: rgb(0 0 0 / 22%);
+    box-shadow: 0 0 100px 0 rgb(47 47 47 / 20%);
     backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
 
     & #reg-promo-content {
         width: 100%;
@@ -18,10 +16,11 @@ export const Learn2CodePromotion = styled.div`
         flex-direction: column;
         padding: 35px 10% 20px;
 
-        @media screen and (max-width: 1200px) {
+        @media screen and (width <= 1200px) {
             padding: 50px 10% 0;
         }
-        @media screen and (max-width: 500px) {
+
+        @media screen and (width <= 500px) {
             padding: 25px;
         }
 
@@ -29,7 +28,8 @@ export const Learn2CodePromotion = styled.div`
             font-weight: 600;
             color: #ff6b08;
             font-size: 25px;
-            @media screen and (max-width: 850px) {
+
+            @media screen and (width <= 850px) {
                 font-size: 20px;
             }
 
@@ -47,11 +47,11 @@ export const Learn2CodePromotion = styled.div`
             font-size: 40px;
             width: min-content;
 
-            @media screen and (max-width: 900px) {
+            @media screen and (width <= 900px) {
                 font-size: 30px;
             }
 
-            @media screen and (max-width: 500px) {
+            @media screen and (width <= 500px) {
                 font-size: 20px;
             }
 

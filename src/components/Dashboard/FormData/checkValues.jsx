@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-    Button,
-    ButtonGreen,
-    CheckValuesContainer,
-    ContactFormSelect,
-    ContactFormSelectOption,
-} from "./CheckValuesElements";
-import { LoadingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
+import { Button, ButtonGreen, ContactFormSelect, ContactFormSelectOption } from "./CheckValuesElements";
+import { LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
-import { TextArea } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+import { TextArea } from "src/components/Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import axios from "axios";
-import { getApiUrl } from "../../../features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 import { toast } from "react-toastify";
 import { DetailsText } from "./Jobs/JobDetailsElements";
 
@@ -216,87 +210,81 @@ TheCyberSEC Team`,
     };
 
     return (
-        <CheckValuesContainer>
-            <div>
-                {isLoading ? (
-                    <LoadingButton width={"100%"}>
-                        <CircleSpinner size={20} color={"#131313"} />
-                    </LoadingButton>
-                ) : null}
-                {!checked ? (
-                    <Button value={checked} color={"#07b6f6green"} onClick={() => handleButtonClick("checked")}>
-                        Checked
-                    </Button>
-                ) : (
-                    <ButtonGreen> Checked </ButtonGreen>
-                )}
-                {!accepted ? (
-                    <Button value={accepted} color={"#07b6f6green"} onClick={() => handleButtonClick("accepted")}>
-                        Accepted
-                    </Button>
-                ) : (
-                    <ButtonGreen> Accepted </ButtonGreen>
-                )}
-                {!hired ? (
-                    <Button value={hired} color={"#07b6f6green"} onClick={() => handleButtonClick("hired")}>
-                        Hired
-                    </Button>
-                ) : (
-                    <ButtonGreen> Hired </ButtonGreen>
-                )}
+        <div>
+            {isLoading ? (
+                <LoadingButton width={"100%"}>
+                    <CircleSpinner size={20} color={"#131313"} />
+                </LoadingButton>
+            ) : null}
+            {!checked ? (
+                <Button value={checked} color={"#07b6f6green"} onClick={() => handleButtonClick("checked")}>
+                    Checked
+                </Button>
+            ) : (
+                <ButtonGreen> Checked </ButtonGreen>
+            )}
+            {!accepted ? (
+                <Button value={accepted} color={"#07b6f6green"} onClick={() => handleButtonClick("accepted")}>
+                    Accepted
+                </Button>
+            ) : (
+                <ButtonGreen> Accepted </ButtonGreen>
+            )}
+            {!hired ? (
+                <Button value={hired} color={"#07b6f6green"} onClick={() => handleButtonClick("hired")}>
+                    Hired
+                </Button>
+            ) : (
+                <ButtonGreen> Hired </ButtonGreen>
+            )}
 
-                {!resumePending ? (
-                    <Button
-                        value={resumePending}
-                        color={"#07b6f6green"}
-                        onClick={() => handleButtonClick("resumePending")}
+            {!resumePending ? (
+                <Button value={resumePending} color={"#07b6f6green"} onClick={() => handleButtonClick("resumePending")}>
+                    Resume
+                </Button>
+            ) : (
+                <ButtonGreen> Resume </ButtonGreen>
+            )}
+            <br />
+
+            {!rejected ? (
+                <>
+                    <ContactFormSelect
+                        name="rejectedReason"
+                        id="rejectedReason"
+                        value={values.rejectedReason}
+                        onChange={(e) => setValues({ rejectedReason: e.target.value })}
                     >
-                        Resume
-                    </Button>
-                ) : (
-                    <ButtonGreen> Resume </ButtonGreen>
-                )}
-                <br />
-
-                {!rejected ? (
-                    <>
-                        <ContactFormSelect
-                            name="rejectedReason"
-                            id="rejectedReason"
-                            value={values.rejectedReason}
-                            onChange={(e) => setValues({ rejectedReason: e.target.value })}
-                        >
-                            <ContactFormSelectOption value="">Select Rejection Message</ContactFormSelectOption>
-                            {rejectedMessages?.map((message, id) => {
-                                return (
-                                    <ContactFormSelectOption key={id} value={message}>
-                                        {message}
-                                    </ContactFormSelectOption>
-                                );
-                            })}
-                        </ContactFormSelect>
-                        <TextArea
-                            style={{ height: "150px", fontSize: "1rem" }}
-                            type="text"
-                            id="rejectedReason"
-                            name="rejectedReason"
-                            placeholder="Rejected Reason"
-                            value={values.rejectedReason}
-                            onChange={(e) => setValues({ rejectedReason: e.target.value })}
-                        />
-                    </>
-                ) : (
-                    <DetailsText>{rejectedReason}</DetailsText>
-                )}
-                {!rejected ? (
-                    <Button value={rejected} color={"#07b6f6green"} onClick={() => handleButtonClick("rejected")}>
-                        Rejected
-                    </Button>
-                ) : (
-                    <ButtonGreen> Rejected </ButtonGreen>
-                )}
-            </div>
-        </CheckValuesContainer>
+                        <ContactFormSelectOption value="">Select Rejection Message</ContactFormSelectOption>
+                        {rejectedMessages?.map((message, id) => {
+                            return (
+                                <ContactFormSelectOption key={id} value={message}>
+                                    {message}
+                                </ContactFormSelectOption>
+                            );
+                        })}
+                    </ContactFormSelect>
+                    <TextArea
+                        style={{ height: "150px", fontSize: "1rem" }}
+                        type="text"
+                        id="rejectedReason"
+                        name="rejectedReason"
+                        placeholder="Rejected Reason"
+                        value={values.rejectedReason}
+                        onChange={(e) => setValues({ rejectedReason: e.target.value })}
+                    />
+                </>
+            ) : (
+                <DetailsText>{rejectedReason}</DetailsText>
+            )}
+            {!rejected ? (
+                <Button value={rejected} color={"#07b6f6green"} onClick={() => handleButtonClick("rejected")}>
+                    Rejected
+                </Button>
+            ) : (
+                <ButtonGreen> Rejected </ButtonGreen>
+            )}
+        </div>
     );
 };
 

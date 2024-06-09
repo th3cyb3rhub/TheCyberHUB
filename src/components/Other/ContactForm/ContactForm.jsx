@@ -3,7 +3,6 @@ import {
     ContactFormCard,
     ContactFormContainer,
     ContactFormInput,
-    ContactFormLabel,
     ContactFormSection,
     ContactFormSubmit,
     ContactFormTextArea,
@@ -37,44 +36,44 @@ const ContactForm = () => {
                 <ContactFormSection action="mailto:info@thecyber-sec.com">
                     <Cover>
                         <CoverLeft>
-                            <ContactFormLabel htmlFor="name">
+                            <label htmlFor="name">
                                 <PersonIcon />
-                            </ContactFormLabel>
+                            </label>
                             <ContactFormInput type="text" name="name" id="name" placeholder={"Name"} />
                         </CoverLeft>
                         <CoverRight>
-                            <ContactFormLabel htmlFor="name">
+                            <label htmlFor="name">
                                 <EmailIcon />
-                            </ContactFormLabel>
+                            </label>
                             <ContactFormInput type="text" name="email" id="email" placeholder={"Email"} />
                         </CoverRight>
                     </Cover>
 
                     <Cover>
                         <CoverLeft>
-                            <ContactFormLabel htmlFor="company">
+                            <label htmlFor="company">
                                 <OrgIcon />
-                            </ContactFormLabel>
+                            </label>
                             <ContactFormInput type="text" name="company" id="company" placeholder={"Company"} />
                         </CoverLeft>
                         <CoverRight>
-                            <ContactFormLabel htmlFor="website">
+                            <label htmlFor="website">
                                 <WebIcon />
-                            </ContactFormLabel>
+                            </label>
                             <ContactFormInput type="text" name="website" id="website" placeholder={"Website"} />
                         </CoverRight>
                     </Cover>
 
                     <CoverLeft>
-                        <ContactFormLabel htmlFor="reason">
+                        <label htmlFor="reason">
                             <ReasonIcon />
-                        </ContactFormLabel>
+                        </label>
                         <ContactFormInput type="text" name="reason" id="reason" placeholder={"Reason for contact"} />
                     </CoverLeft>
                     <CoverLeft>
-                        <ContactFormLabel htmlFor="message">
+                        <label htmlFor="message">
                             <MessageIcon />
-                        </ContactFormLabel>
+                        </label>
                         <ContactFormTextArea type="text" name="reason" id="message" placeholder={"Message"} />
                     </CoverLeft>
                     <ContactFormSubmit type="submit" value="submit" placeholder={"Submit"}>

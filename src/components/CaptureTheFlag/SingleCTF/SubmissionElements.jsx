@@ -15,7 +15,8 @@ export const SubmissionContainer = styled.div`
 export const SubmissionFlagSection = styled.div`
     display: flex;
     gap: 5px;
-    @media screen and (max-width: 500px) {
+
+    @media screen and (width <= 500px) {
         flex-direction: column;
     }
 `;
@@ -36,7 +37,7 @@ export const FlagQues = styled.div`
     color: #d3d3d3;
     font-size: 14px;
     padding: 10px 5px;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 `;
 
 export const FlagAns = styled.input`
@@ -47,7 +48,7 @@ export const FlagAns = styled.input`
     width: 100%;
     padding: 10px;
     font-size: 15px;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 `;
 
 export const FlagSolved = styled.p`
@@ -58,7 +59,7 @@ export const FlagSolved = styled.p`
     width: 100%;
     padding: 10px;
     font-size: 13px;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 `;
 
 export const FlagSubmit = styled.button`
@@ -95,9 +96,8 @@ export const ShowFlagHint = styled.div`
     color: #d3d3d3;
     display: flex;
     align-items: center;
-
     width: 100%;
     padding: 8px;
     font-size: 12px;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 `;

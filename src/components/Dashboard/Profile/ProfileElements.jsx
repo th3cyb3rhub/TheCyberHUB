@@ -18,16 +18,11 @@ export const HR = styled.hr`
     margin: 5px;
 `;
 
-export const Heading = styled.h3``;
-
 export const AboutSection = styled.div`
     width: 100%;
-
     background: #090909;
     padding: 10px;
     border-radius: 5px;
-    .about-me {
-    }
 `;
 
 export const SaveButton = styled.button`
@@ -55,6 +50,7 @@ export const SaveButton = styled.button`
 
 export const Wrapper = styled.div`
     margin: 100px auto;
+    overflow-x: clip;
     width: 100%;
     color: #f5f5f5;
     display: flex;
@@ -62,9 +58,6 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0 25px;
-
-    @media screen and (max-width: 760px) {
-    }
 `;
 
 export const BlogPostContainer = styled.div`
@@ -81,7 +74,7 @@ export const ProfileDetailsSection = styled.div`
     width: 100%;
     gap: 10px;
 
-    @media screen and (max-width: 760px) {
+    @media screen and (width <= 760px) {
         flex-direction: column;
     }
 `;
@@ -96,7 +89,7 @@ export const CommentAmountContainer = styled.div`
     flex: 1;
     background-color: #f5f5f5;
     flex-direction: row;
-    zindex: 2;
+    z-index: 2;
 `;
 export const BlogCard = styled.div`
     margin: 1%;
@@ -130,7 +123,7 @@ export const BlogCoverImage = styled.img`
     word-break: break-all;
 `;
 export const UserBanner = styled.img`
-    border: 5px solid #111111;
+    border: 5px solid #111;
     width: 100%;
     object-fit: cover;
     height: 100%;
@@ -140,7 +133,6 @@ export const UserBanner = styled.img`
     color: #999;
     word-break: break-all;
 `;
-export const UserInfo = styled.div``;
 
 export const HeaderSection = styled.div`
     display: flex;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Detail1, Detail2, DetailsText, JobDetailsContainer } from "./JobDetailsElements";
 import { BackArrow, ResumeLink } from "./JobsElements";
-import { JobHeader, JobHero, JobTitle } from "../../../Resources/Jobs/JobsElements";
-import SendEmail from "../SendEmail";
-import CheckValues from "../checkValues";
+import { JobHeader, JobHero, JobTitle } from "src/components/Resources/Jobs/JobsElements";
+import SendEmail from "src/components/Dashboard/FormData/SendEmail";
+import CheckValues from "src/components/Dashboard/FormData/checkValues";
 
 export default function JobDetailsPage(props) {
     return (

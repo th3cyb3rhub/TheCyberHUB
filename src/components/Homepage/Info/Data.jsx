@@ -1,14 +1,14 @@
 import React from "react";
-import { getCdnAssets } from "../../../features/apiUrl";
+import { getCdnAssets } from "src/features/apiUrl";
 
 import { FaGithub } from "react-icons/fa";
-import { IconsSpacing, IconsSpacing2 } from "../../Other/MixComponents/Buttons/ButtonElements";
+import { IconsSpacing, IconsSpacing2 } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { BsFillPlayFill } from "react-icons/bs";
-import { List, ListContainer, ListContent, ListIcon } from "../../Resources/Jobs/JobDetailsElements";
+import { List, ListContainer, ListContent, ListIcon } from "src/components/Resources/Jobs/JobDetailsElements";
 
-import contributeSvg from "../../../assets/images/open-source-contribution.svg";
-import ResourcesSvg from "../../../assets/images/undraw_firmware_re_fgdy.svg";
-import VersionControlSvg from "../../../assets/images/undraw_version_control_re_mg66.svg";
+import contributeSvg from "src/assets/images/open-source-contribution.svg";
+import ResourcesSvg from "src/assets/images/undraw_firmware_re_fgdy.svg";
+import VersionControlSvg from "src/assets/images/undraw_version_control_re_mg66.svg";
 
 const logoThecyberworld = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
@@ -17,44 +17,53 @@ export const aboutData = {
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: "Thecyberworld Community",
-    headline: "About Thecyberworld",
+    topLine: "TheCyberworld Community",
+    headline: "Empowering the Next Generation of Cybersecurity Experts",
     description: (
-        <ListContainer style={{ background: "initial" }}>
-            <List>
-                <ListIcon />
-                <ListContent style={{ fontSize: "initial" }}>Cyber Security courses for FREE (coming soon)</ListContent>
-            </List>
-            <List>
-                <ListIcon />
-                <ListContent style={{ fontSize: "initial" }}>
-                    Community&apos;s goal is to help new folks to get started with Opensource and Cybersecurity.
-                </ListContent>
-            </List>
-            <List>
-                <ListIcon />
-                <ListContent style={{ fontSize: "initial" }}>Community with more than 150,000 members. </ListContent>
-            </List>
-            <List>
-                <ListIcon />
-                <ListContent style={{ fontSize: "initial" }}>
-                    TheCyberHUB Website, Mobile App, Web Extensions, and Bots are built by @thecyberworld community
-                </ListContent>
-            </List>
-            <List>
-                <ListIcon /> <ListContent style={{ fontSize: "initial" }}>Opensource projects.</ListContent>
-            </List>
-            <List>
-                <ListIcon /> <ListContent style={{ fontSize: "initial" }}>A Hub of Cyber Security.</ListContent>
-            </List>
-        </ListContainer>
+        <>
+            Welcome to TheCyberHUB, the ultimate destination for cybersecurity enthusiasts.
+            <br />
+            <br />
+            Explore what we offer:
+            <ListContainer style={{ background: "initial" }}>
+                <List>
+                    <ListIcon />
+                    <ListContent style={{ fontSize: "initial" }}>
+                        Access Cyber Security courses for FREE (coming soon).
+                    </ListContent>
+                </List>
+                <List>
+                    <ListIcon />
+                    <ListContent style={{ fontSize: "initial" }}>
+                        Our community&apos;s goal is to help newcomers get started with Opensource and Cybersecurity.
+                    </ListContent>
+                </List>
+                <List>
+                    <ListIcon />
+                    <ListContent style={{ fontSize: "initial" }}>
+                        Join a community with more than 150,000 members.
+                    </ListContent>
+                </List>
+                <List>
+                    <ListIcon />
+                    <ListContent style={{ fontSize: "initial" }}>
+                        Contribute to Opensource projects; our Website, Mobile App, Web Extensions, and Bots are built
+                        by TheCyberworld community.
+                    </ListContent>
+                </List>
+                <List>
+                    <ListIcon />
+                    <ListContent style={{ fontSize: "initial" }}>Become a part of a Hub of Cyber Security.</ListContent>
+                </List>
+            </ListContainer>
+        </>
     ),
     buttonLabel1: "Join our Community",
     link1: "/community",
     buttonType1: "router",
     buttonLabel2: "Contribute to Opensource",
-    link2: "contribute",
-    buttonType2: "scroll",
+    link2: "/opensec-projects",
+    buttonType2: "router",
     imgStart: false,
     img: logoThecyberworld,
     alt: "Thecyberworld Community Logo",

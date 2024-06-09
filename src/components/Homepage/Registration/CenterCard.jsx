@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getCdnAssets } from "../../../features/apiUrl";
+import { getCdnAssets } from "src/features/apiUrl";
 const CybersecurityRegImage = `${getCdnAssets}/images/Registration/CybersecurityRegPage.png`;
 
 export const Container = styled.div`
@@ -10,13 +10,13 @@ export const Container = styled.div`
     overflow: auto;
     padding: 50px;
 
-    @media screen and (max-width: 600px) {
-        //padding: 10px;
+    @media screen and (width <= 600px) {
+        /* padding: 10px; */
         padding: 25px;
     }
 
     ${(props) =>
-        props.authPopup
+        props.$authPopup
             ? `
 
     `
@@ -26,22 +26,22 @@ export const Container = styled.div`
 `;
 
 export const CenterCard = styled.div`
-    //min-width: max-content;
+    /* min-width: max-content; */
     margin: auto;
     height: 100%;
     background: #1a1c20;
-    //width: 1124px;
+
+    /* width: 1124px; */
     box-shadow: rgb(0 0 0 / 11%) 1px 7px 16px 5px;
     border-radius: 7px;
-
     background-image: url(${CybersecurityRegImage});
     background-size: cover;
     background-position: 45%;
-    background-color: rgba(51, 51, 51, 0.19);
+    background-color: rgb(51 51 51 / 19%);
     background-blend-mode: soft-light;
 
     ${(props) =>
-        props.authPopup
+        props.$authPopup
             ? `
 
     `

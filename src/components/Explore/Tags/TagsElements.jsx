@@ -13,7 +13,7 @@ export const TagsContainer = styled.div`
     margin-bottom: 15px;
     border-radius: 5px;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (width <= 800px) {
         padding: 15px;
         display: none;
     }
@@ -25,7 +25,7 @@ export const AllTags = styled.div`
     flex-wrap: wrap;
     word-wrap: break-word;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         flex-wrap: wrap;
         padding: 15px 0;
         width: 100%;
@@ -46,6 +46,7 @@ export const Tag = styled.p`
     word-break: break-word;
     overflow-wrap: break-word;
     text-transform: capitalize;
+
     &:hover {
         transform: scale(1.03);
     }

@@ -1,0 +1,52 @@
+name: Responsive Web
+description: Create a responsive report to help us improve
+title: "[Responsive-Web] <description>"
+labels: [responsive-web]
+body:
+    - type: textarea
+      id: description
+      attributes:
+          label: Detailed description
+          description: Provide a detailed description of the layout change you are proposing
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: To Reproduce
+          description: |
+              Steps to reproduce the behavior.
+              1. Current Screen Resolution is '...' width/height (approximately)
+              2. Go to '...'
+              3. Click on '...'
+              4. Scroll down to '...'
+              5. See responsive problem
+      validations:
+          required: true
+    - type: textarea
+      id: expectedbhv
+      attributes:
+          label: Expected Behavior
+          description: A clear and concise description of how it is should be displayed on mobile/tablet.
+      validations:
+          required: false
+    - type: textarea
+      attributes:
+          label: Screenshot/ Video of the Responsive Problem
+          description: Add screenshots to help explain the layout problem.
+      validations:
+          required: true
+    - type: checkboxes
+      id: coc
+      attributes:
+          label: Code of Conduct
+          description: By submitting this issue, I confirm I've read and complied with the [CoC](https://github.com/thecyberworld/TheCyberHUB/blob/dev/CODE_OF_CONDUCT.md) 🖖
+          options:
+              - label: I agree to follow this project's Code of Conduct
+                required: true
+    - type: markdown
+      attributes:
+          value: |
+              ---
+              You can also join our [Discord](https://discord.gg/QHBPq6xP5p) community.
+              Feel free to check out other cool repositories of the [Thecyberworld](https://github.com/thecyberworld).
+              Join the Thecyberworld GitHub Organisation by raising an [issue](https://github.com/thecyberworld/Support/issues/new?assignees=&labels=invite+me+to+the+organisation&template=invitation.yml&title=Please+invite+me+to+the+GitHub+Community+Organization) (you will be sent an invitation).

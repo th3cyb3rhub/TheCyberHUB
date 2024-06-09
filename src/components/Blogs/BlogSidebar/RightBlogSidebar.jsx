@@ -1,13 +1,19 @@
 import React from "react";
-import { BlogStatus, DraftStatus, RightBlogSidebarContainer, SeeAll, TrendingBlogs } from "./RightBlogSidebarElements";
-import { SubContainerHeading, SubContainerTop } from "../BlogsElements";
+import {
+    BlogStatus,
+    DraftStatus,
+    RightBlogSidebarContainer,
+    SeeAll,
+    TrendingBlogs,
+} from "src/components/Blogs/BlogSidebar/RightBlogSidebarElements";
+import { SubContainerTop } from "src/components/Blogs/BlogsElements";
 
 const RightBlogSidebar = () => {
     return (
         <RightBlogSidebarContainer>
             <BlogStatus>
                 <SubContainerTop>
-                    <SubContainerHeading> Blog Status </SubContainerHeading>
+                    <h4> Blog Status </h4>
                     <SeeAll to={"/dashboard"}> Dashboard </SeeAll>
                 </SubContainerTop>
                 Pageviews Articles Appreciations <br />
@@ -16,13 +22,13 @@ const RightBlogSidebar = () => {
 
             <DraftStatus>
                 <SubContainerTop>
-                    <SubContainerHeading> Drafts (2) </SubContainerHeading>
+                    <h4> Drafts (2) </h4>
                     <SeeAll to={"/dashboard/drafts"}> See all </SeeAll>
                 </SubContainerTop>
             </DraftStatus>
             <TrendingBlogs>
                 <SubContainerTop>
-                    <SubContainerHeading> Trending </SubContainerHeading>
+                    <h4> Trending </h4>
                     <SeeAll to={"trending"}> See all </SeeAll>
                 </SubContainerTop>
             </TrendingBlogs>

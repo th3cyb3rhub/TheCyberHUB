@@ -1,0 +1,29 @@
+ [
+  {
+    "id": 1,
+    "title": "Most Active Times",
+    "value": 1.234,
+    "percent": "+89.67%",
+    "chart": "barchart",
+    "createdAt": "2024-02-17T10:00:00",
+    "updatedAt": "2024-02-17T10:00:00"
+  },
+  {
+    "id": 2,
+    "title": "Total Visitors",
+    "value": 1.004,
+    "percent": "+71.80%",
+    "chart": "stackedchart",
+    "createdAt": "2024-02-19T10:00:00",
+    "updatedAt": "2024-02-19T10:00:00"
+  },
+  {
+    "id": 3,
+    "title": "Age Average",
+    "value": 1.045,
+    "percent": "+67.82%",
+    "chart": "piechart",
+    "createdAt": "2024-02-20T10:00:00",
+    "updatedAt": "2024-02-20T10:00:00"
+  }
+]

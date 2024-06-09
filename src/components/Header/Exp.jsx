@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ExpContainer, ExpIcon, ExpText, StreakText } from "./ExpElemenets";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetail, userDetailReset } from "../../features/userDetail/userDetailSlice";
+import { getUserDetail, userDetailReset } from "src/features/userDetail/userDetailSlice";
 import { CircleSpinner } from "react-spinners-kit";
-import apiStatus from "../../features/apiStatus";
+import apiStatus from "src/features/apiStatus";
 
 export const getStreak = (userDetail) => {
     const ActivityDates = userDetail?.solved?.map((ctf) => ctf?.flags?.map((flag) => flag?.date)).flat() || [];

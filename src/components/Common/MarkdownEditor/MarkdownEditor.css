@@ -1,0 +1,21 @@
+.w-md-editor-text-pre > code,
+.w-md-editor-text-input {
+    font-size: 18px !important;
+    line-height: 24px !important;
+}
+.image {
+    max-height: 500px;
+}
+.preview {
+    max-height: calc(100vh - 550px - 3rem);
+    overflow-y: auto;
+}
+
+code .token {
+    padding: 0;
+    font-size: 18px;
+}
+
+code .tag + .tag {
+    margin: 0;
+}

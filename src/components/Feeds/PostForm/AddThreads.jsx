@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AddThreadsContainer } from "./AddThreadElements";
-import { CloseButton } from "../../../pages/AuthPopup/AuthPopupElements";
-import AddPost from "./AddFeed";
+import { CloseButton } from "src/pages/AuthPopup/AuthPopupElements";
+import AddPost from "./ModifyFeed";
 
 const AddThreads = ({ onClose, threadsData }) => {
     const [addThread, setAddThread] = useState(true);

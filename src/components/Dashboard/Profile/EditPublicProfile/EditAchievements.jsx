@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
-    AchievementHeading,
     AchievementItem,
     AchievementLink,
     AchievementList,
     AchievementsContainer,
     AddButtonSection,
     EditTitle,
-} from "../Achievements/AchievementsElements";
-import { IconAdd, RemoveButton } from "../SkillSet/SkillSetElements";
+} from "src/components/Dashboard/Profile/Achievements/AchievementsElements";
+import { IconAdd, RemoveButton } from "src/components/Dashboard/Profile/SkillSet/SkillSetElements";
 
 const Achievements = ({ achievements, setUserDetailData }) => {
     const [updatedAchievements, setUpdatedAchievements] = useState(achievements || []);
@@ -53,7 +52,7 @@ const Achievements = ({ achievements, setUserDetailData }) => {
 
     return (
         <AchievementsContainer>
-            <AchievementHeading>Achievements</AchievementHeading>
+            <h3>Achievements</h3>
             <AchievementList>
                 <AchievementItem>
                     {updatedAchievements?.length > 0 &&

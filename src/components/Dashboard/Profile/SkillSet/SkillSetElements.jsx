@@ -8,7 +8,6 @@ export const SkillSetContainer = styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: center;
-
     background: #090909;
     padding: 10px;
     border-radius: 5px;
@@ -19,7 +18,6 @@ export const SkillSetCategory = styled.div`
     flex-direction: column;
     align-items: start;
 `;
-export const SkillSetCategoryH = styled.h5``;
 
 export const SkillSetList = styled.ul`
     display: flex;
@@ -30,14 +28,13 @@ export const SkillSetList = styled.ul`
 
 export const SkillSetListItem = styled.li`
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     align-items: center;
     margin: 5px 0;
     gap: 10px;
     width: 100%;
-    flex-wrap: wrap;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         gap: 5px;
         justify-content: center;
     }
@@ -47,7 +44,7 @@ export const SkillName = styled.p`
     font-size: 18px;
     background: #212121;
     color: #e7e7e7;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
     padding: 0 7px;
     border-radius: 5px;
     display: flex;
@@ -55,7 +52,7 @@ export const SkillName = styled.p`
     justify-content: center;
     gap: 5px;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         font-size: 14px;
         padding: 0 5px;
     }
@@ -71,7 +68,7 @@ export const AddSkillInput = styled.input`
     border-radius: 2px;
     resize: none;
     font-size: 18px;
-    font-family: "Arial", sans-serif;
+    font-family: Arial, sans-serif;
 `;
 export const UserDetailsContainer = styled.div`
     width: 100%;
@@ -79,8 +76,6 @@ export const UserDetailsContainer = styled.div`
     flex-direction: column;
     gap: 10px;
 `;
-
-export const SkillLevel = styled.p``;
 
 export const EditButtonSection = styled.div`
     display: flex;

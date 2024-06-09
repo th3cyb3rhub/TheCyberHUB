@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentReactMarkdown } from "./ViewBlogElements";
+import { ContentReactMarkdown } from "src/components/Blogs/ViewBlog/ViewBlogElements";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 

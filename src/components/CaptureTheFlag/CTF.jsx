@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
-import { getAllCTFs } from "../../features/ctf/ctfSlice";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { getAllCTFs } from "src/features/ctf/ctfSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    CTFContainer,
-    CTFHeader,
-    CTFHeading,
-    Option,
-    SearchBox,
-    SearchContainer,
-    SearchDifficulty,
-    SearchIcon,
-    SearchInput,
-    Select,
-} from "./CTFElements";
-import { getUserDetail } from "../../features/userDetail/userDetailSlice";
-// import { encodeURL } from "../Blogs/util";
-import UnderMaintenance from "../Other/UnderMaintenance/UnderMaintenance";
-import apiStatus from "../../features/apiStatus";
-// import CtfCard from "./CtfCard";
+import { CTFContainer, CTFHeader, CTFHeading, Option, SearchContainer, SearchDifficulty, Select } from "./CTFElements";
+import { getUserDetail } from "src/features/userDetail/userDetailSlice";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
+import apiStatus from "src/features/apiStatus";
 import CtfChallenges from "./CTFCards/CtfChallenges";
-import { CrownIcon } from "../Header/Navbar/NavbarElements";
-import { RouteLink } from "../Dashboard/Sidebar/SidebarElements";
-import LoadingSpinner from "../Other/MixComponents/Spinner/LoadingSpinner";
+import { RankTrophy } from "src/components/Header/Navbar/NavbarElements";
+import { RouteLink } from "src/components/Common/GeneralDashboardSidebar/GeneralDashboardSidebarElements";
+import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner";
+import SearchInputBox from "src/components/Common/SearchInputBox";
 
 const CTF = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -83,15 +71,12 @@ const CTF = () => {
                 {/* </Link> */}
 
                 <SearchContainer>
-                    <SearchBox>
-                        <SearchIcon />
-                        <SearchInput
-                            type="text"
-                            placeholder="Search by name"
-                            value={searchTerm}
-                            onChange={handleSearchTermChange}
-                        />
-                    </SearchBox>
+                    <SearchInputBox
+                        placeholder="Search by name"
+                        value={searchTerm}
+                        onChange={handleSearchTermChange}
+                        setValue={setSearchTerm}
+                    />
                     <SearchDifficulty>
                         Type
                         <Select value={selectedType} onChange={handleTypeSelect}>
@@ -113,6 +98,24 @@ const CTF = () => {
                             <Option value="insane"> insane </Option>
                         </Select>
                     </SearchDifficulty>
+
+                    {/* <RouteLink to="teams"> */}
+                    {/*    <SearchDifficulty */}
+                    {/*        style={{ */}
+                    {/*            display: "flex", */}
+                    {/*            justifyContent: "center", */}
+                    {/*            textDecoration: "none", */}
+                    {/*            gap: "5px", */}
+                    {/*            padding: "6px 15px 6px 10px", */}
+                    {/*            borderRadius: "5px", */}
+                    {/*            backgroundColor: "#252525", */}
+                    {/*        }} */}
+                    {/*    > */}
+                    {/*        <RankTrophy style={{ fontSize: "1rem" }} /> */}
+                    {/*        <span> Teams </span> */}
+                    {/*    </SearchDifficulty> */}
+                    {/* </RouteLink> */}
+
                     <RouteLink to="/leaderboard">
                         <SearchDifficulty
                             style={{
@@ -125,7 +128,7 @@ const CTF = () => {
                                 backgroundColor: "#252525",
                             }}
                         >
-                            <CrownIcon style={{ fontSize: "1.5rem" }} />
+                            <RankTrophy style={{ fontSize: "1rem" }} />
                             <span> Leaderboard </span>
                         </SearchDifficulty>
                     </RouteLink>

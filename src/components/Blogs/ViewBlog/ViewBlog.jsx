@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { encodeURL } from "../util";
+import { encodeURL } from "src/components/Blogs/util";
 import { useDispatch, useSelector } from "react-redux";
-import { blogReset, getAllBlogs } from "../../../features/blogs/blogSlice";
-import { Helmet } from "react-helmet";
+import { blogReset, getAllBlogs } from "src/features/blogs/blogSlice";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import ReactBar from "src/components/Blogs/ReactBarr/ReactBar"; // Ensure this path is correct
 
 import {
     BlogContent,
@@ -18,25 +19,23 @@ import {
     Tags,
     UsernameAndDate,
     ViewBlogHeader,
-} from "./ViewBlogElements";
+} from "src/components/Blogs/ViewBlog/ViewBlogElements";
 
-import NotFound from "../../../NotFound";
+import NotFound from "src/NotFound";
 import { CircleSpinner } from "react-spinners-kit";
-import { cdnContentImagesUrl } from "../../../features/apiUrl";
-import apiStatus from "../../../features/apiStatus";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
-import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
+import { cdnContentImagesUrl } from "src/features/apiUrl";
+import apiStatus from "src/features/apiStatus";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 
 import "react-quill/dist/quill.bubble.css";
-// import {RouterLink} from "../../Beta/Tools/ToolsElements";
-// import PostActionsAndStats from "../../Feeds/FeedPosts/PostActionsAndStats";
-// import AddCommentForm from "../BlogComments/AddCommentForm";
-import BlogComments from "../BlogComments/BlogComments";
-import ViewComments from "../BlogComments/ViewComments";
-import { blogCommentReset, getBlogComments } from "../../../features/blogs/blogComments/blogCommentSlice";
-import { getAllUserDetails, userDetailReset } from "../../../features/userDetail/userDetailSlice";
-import { RouterLink } from "../../Tools/ToolsElements";
-
+import BlogComments from "src/components/Blogs/BlogComments/BlogComments";
+import ViewComments from "src/components/Blogs/BlogComments/ViewComments";
+import { blogCommentReset, getBlogComments } from "src/features/blogs/blogComments/blogCommentSlice";
+import { getAllUserDetails, userDetailReset } from "src/features/userDetail/userDetailSlice";
+import { RouterLink } from "src/components/Tools/ToolsElements";
+import DOMPurify from "dompurify";
+import { addBookmark, getBookmarks, removeBookmark } from "src/features/bookmarks/bookmarkSlice.js";
 const ViewBlog = () => {
     const dispatch = useDispatch();
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -46,8 +45,8 @@ const ViewBlog = () => {
     const { userDetails, isUserDetailLoading, isUserDetailError, userDetailMessage } = useSelector(
         (state) => state.userDetail,
     );
-
-    // const {user} = useSelector(state => state.auth);
+    const { bookmarks } = useSelector((state) => state.bookmarks);
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (isBlogError) console.log(blogMessage);
@@ -56,6 +55,7 @@ const ViewBlog = () => {
         dispatch(getAllBlogs());
         dispatch(getBlogComments());
         dispatch(getAllUserDetails());
+        dispatch(getBookmarks());
 
         return () => {
             dispatch(blogReset());
@@ -73,6 +73,7 @@ const ViewBlog = () => {
     }
 
     if (!isApiWorking) return <UnderMaintenance />;
+    const userId = user?._id;
 
     const blogsData = blogs.map((blog) => {
         const userDetail = userDetails?.find((user) => user.user === blog.user);
@@ -138,34 +139,52 @@ const ViewBlog = () => {
 
     const blogCommentsData = blogsCommentsData.filter((comment) => comment.blogId === blog?._id);
 
+    const purifiedCode = DOMPurify.sanitize(filterContent);
+
+    const isBookmarked = () => {
+        return bookmarks?.some((bookmark) => bookmark.user === userId && bookmark.itemId === blog?._id);
+    };
+
+    const itemType = "blog";
+
+    const handleBookmark = (_id) => {
+        // if (!user) {
+        //     setShowAuthPopup(true);
+        //     // setStopRefresh && setStopRefresh(true);
+        //     return;
+        // }
+        if (isBookmarked(_id)) {
+            dispatch(removeBookmark({ itemType, itemId: _id }));
+        } else {
+            dispatch(addBookmark({ itemType, itemId: _id }));
+        }
+    };
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta property="og:title" content={blog?.title} />
                 <meta property="og:description" content={blog?.description} />
                 <meta property="og:image" content={coverImageUrl} />
-                <meta
-                    property="og:url"
-                    content={`https://thecyberhub.org/blogs/@${blog.username}/${encodeURL(blog?.title)}`}
-                />
+                <meta property="og:url" content={`https://thecyberhub.org/blogs/${encodeURL(blog?.title)}`} />
             </Helmet>
             {/* <ViewBlogContainer> */}
             <ContainerViewBlog>
                 <ViewBlogHeader>
                     {/* <Tag> {blog?.category} </Tag> */}
+
                     <BlogImageContainer>
                         <BlogImage src={coverImageUrl} alt={""} />
                         <BlogTitle> {blog?.title} </BlogTitle>
                     </BlogImageContainer>
                     <UsernameAndDate>
-                        <RouterLink to={`/@${blog?.username}`}>@{blog?.username}</RouterLink> • {blogCreatedAt}
+                        <RouterLink to={`/user/${blog?.username}`}>@{blog?.username}</RouterLink> • {blogCreatedAt}
                     </UsernameAndDate>
                     <ContentSection>
                         <BlogSummary>{blog?.summary}</BlogSummary>
                     </ContentSection>
                     <ContentSection>
                         <BlogContent
-                            value={filterContent}
+                            value={purifiedCode}
                             readOnly={true}
                             modules={{ toolbar: false }}
                             formats={formats}
@@ -179,7 +198,7 @@ const ViewBlog = () => {
 
                 {/* <PostActionsAndStats post={blog} user={user} itemType={"blog"}/> */}
 
-                <CommentContainer>
+                <CommentContainer id={"comments"}>
                     {/* <BlogComments blog={blog} isBlogError={isBlogError} blogMessage={blogMessage} /> */}
                     <ViewComments comments={blogCommentsData} />
                     <BlogComments blogId={blog._id} />
@@ -187,7 +206,9 @@ const ViewBlog = () => {
             </ContainerViewBlog>
             {/* <LeftBlogSidebar/> */}
             {/* </ViewBlogContainer> */}
-        </>
+            <ReactBar blog={blog} isBookmarked={isBookmarked} handleBookmark={handleBookmark} />{" "}
+            {/* Fixed ReactBar component at the bottom */}
+        </HelmetProvider>
     );
 };
 

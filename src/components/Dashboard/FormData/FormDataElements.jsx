@@ -9,7 +9,7 @@ export const FormDataContainer = styled.div`
     position: relative;
     padding: 5px;
     z-index: 1;
-    color: #666666;
+    color: #666;
     width: 100%;
     max-width: 1500px;
 `;
@@ -24,12 +24,10 @@ export const FromDataSection = styled.div`
     width: 100%;
 `;
 
-export const FormTypesContainer = styled.div``;
-
 export const FormType = styled.button`
     background: #080a10;
     color: #b9b9b9;
-    border: 1px solid #111111;
+    border: 1px solid #111;
     padding: 10px 20px;
     margin: 10px;
     border-radius: 5px;

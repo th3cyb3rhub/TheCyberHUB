@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetail, reset } from "../../../../features/userDetail/userDetailSlice";
+import { getUserDetail, reset } from "src/features/userDetail/userDetailSlice";
 import { StreakContainer, StreakIcon, Streaks } from "./StreakElements";
 import { CircleSpinner } from "react-spinners-kit";
 
@@ -22,7 +22,7 @@ const Streak = () => {
         return (
             <StreakContainer>
                 <Streaks>
-                    <CircleSpinner size={20} color={"#1fc10d"} /> <StreakIcon />
+                    <CircleSpinner size={20} color={"#ff6b08"} /> <StreakIcon />
                 </Streaks>
             </StreakContainer>
         );

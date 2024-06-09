@@ -4,7 +4,7 @@ export const InterviewQuestionContainer = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     max-width: 1500px;
     gap: 25px;
@@ -17,9 +17,6 @@ export const InterviewQuestionSection = styled.div`
     text-align: center;
     color: #cecac3;
     background: #090909;
-    @media screen and (min-width: 800px) {
-        width: 70%;
-    }
 `;
 
 export const InterviewsQuestionsCard = styled.div`
@@ -33,6 +30,7 @@ export const InterviewsQuestionsCard = styled.div`
     border-radius: 3px;
     padding: 10px 15px;
     transition: all 0.3s ease-in-out;
+    gap: 5px;
 `;
 
 export const InterviewsQuestionsHeading = styled.h2`
@@ -41,13 +39,13 @@ export const InterviewsQuestionsHeading = styled.h2`
     font-size: 25px;
 `;
 export const InterviewsAnswerQuestionsHeading = styled.h2`
-    margin: 10px 0px;
+    margin: 10px 0;
     color: #ff6b08;
     font-size: 25px;
     width: 100%;
 `;
 
-export const SingleQuestion = styled.p`
+export const ArrowIcon = styled.p`
     margin: 0 10px;
     color: #ff6b08;
     font-size: 1rem;
@@ -56,22 +54,36 @@ export const SingleQuestion = styled.p`
         color: #0a0a0a;
     }
 `;
-export const InterviewsQuestionsTitle = styled.div`
-    //border: #4cc23e 1px solid;
+export const SingleQuestion = styled.p`
     border-radius: 3px;
     width: 100%;
-    background: #131313;
+    background: ${(props) => (props.isSelected ? "#ff6b08" : "#131313")};
+    color: ${(props) => (props.isSelected ? "#0A0A0A" : "#e1e1e1")};
     display: flex;
-    margin: 0 0 5px 0;
-    padding: 5px;
+    padding: 5px 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    color: #e1e1e1;
 
     &:hover {
         background: #ff6b08;
         color: #0a0a0a;
     }
+`;
+
+export const QuestionSection = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+`;
+export const InterviewsQuestionsTitle = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
 `;
 
 export const AnswerContainer = styled.div`
@@ -81,7 +93,7 @@ export const AnswerContainer = styled.div`
     justify-content: start;
     text-align: left;
     width: 100%;
-    color: #cccccc;
+    color: #ccc;
     background: #0a0a0a;
     border: #383838 1px solid;
     border-radius: 3px;
@@ -94,7 +106,6 @@ export const AnswerContainer = styled.div`
     top: 80px;
     overflow-wrap: break-word;
     white-space: pre-wrap;
-
     overflow: auto;
     max-height: 80vh;
 
@@ -103,11 +114,7 @@ export const AnswerContainer = styled.div`
     -ms-overflow-style: none; /* IE 10+ */
 
     &::-webkit-scrollbar {
-        width: 0px;
+        width: 0;
         background: transparent; /* Chrome/Safari/Webkit */
     }
 `;
-
-export const AnswerCard = styled.div``;
-
-export const BackArrowSection = styled.div``;

@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BookmarksContainer } from "./BookmarksElements";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookmarks } from "../../../features/bookmarks/bookmarkSlice";
-import FeedPosts from "../../Feeds/FeedPosts/FeedPosts";
-import { getAllFeeds } from "../../../features/feeds/feedsSlice";
-import { getAllUserDetails } from "../../../features/userDetail/userDetailSlice";
-import LoadingSpinner from "../../Other/MixComponents/Spinner/LoadingSpinner";
-import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
-import apiStatus from "../../../features/apiStatus";
+import { getBookmarks } from "src/features/bookmarks/bookmarkSlice";
+import FeedPosts from "src/components/Feeds/FeedPosts/FeedPosts";
+import { getAllFeeds } from "src/features/feeds/feedsSlice";
+import { getAllUserDetails } from "src/features/userDetail/userDetailSlice";
+import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
+import apiStatus from "src/features/apiStatus";
+import BlogCards from "src/components/Blogs/BlogCard/BlogCards.jsx";
+import { getAllBlogs } from "src/features/blogs/blogSlice.js";
+import { FilterButton } from "src/components/Feeds/FeedsElements.jsx";
 
 const Bookmarks = () => {
     const dispatch = useDispatch();
@@ -15,28 +18,90 @@ const Bookmarks = () => {
 
     const { bookmarks } = useSelector((state) => state.bookmarks);
     const { feeds, isFeedLoading } = useSelector((state) => state.feeds);
-    const { userDetails, isUserDetailLoading } = useSelector((state) => state.userDetail);
+    const { blogs, isBlogLoading } = useSelector((state) => state.blogs);
 
     useEffect(() => {
         dispatch(getBookmarks());
         dispatch(getAllFeeds());
+        dispatch(getAllBlogs());
         dispatch(getAllUserDetails());
     }, [dispatch]);
 
-    const feedBookmarksData = bookmarks.map((bookmark) => {
-        const feed = feeds.find((feed) => feed._id === bookmark.itemId && bookmark.itemType === "feed");
-        const userDetail = userDetails?.find((user) => user?.user === feed?.user);
-        const { username, avatar, verified } = userDetail || {};
-        return { ...feed, username, avatar, verified };
-    });
+    const [selectedFilter, setSelectedFilter] = useState("Feeds");
 
-    if (isApiLoading || isUserDetailLoading || isFeedLoading) return <LoadingSpinner />;
+    const handleFilterChange = (filter) => {
+        setSelectedFilter(filter);
+    };
+
+    if (isApiLoading || isFeedLoading || isBlogLoading) return <LoadingSpinner />;
 
     if (!isApiWorking) return <UnderMaintenance />;
 
+    const filteredFeeds = bookmarks
+        .filter((bookmark) => bookmark.itemType === "feed")
+        .map((bookmark) => feeds.find((feed) => feed?._id === bookmark?.itemId));
+
+    const filteredBlogs = bookmarks
+        .filter((bookmark) => bookmark.itemType === "blog")
+        .map((bookmark) => blogs.find((blog) => blog?._id === bookmark?.itemId));
+
     return (
         <BookmarksContainer>
-            <FeedPosts feeds={feedBookmarksData} isFeedLoading={isFeedLoading} />
+            <h1
+                style={{
+                    fontSize: "30px",
+                    fontWeight: "bold",
+                    color: "#8f8f8f",
+                    padding: "25px",
+                    alignItems: "center",
+                    textAlign: "center",
+                }}
+            >
+                Saved
+            </h1>
+            <div style={{ padding: "0 0 50px 0", display: "flex", justifyContent: "space-between", width: "100%" }}>
+                <FilterButton
+                    style={{
+                        background: selectedFilter === "Feeds" ? "#FF6B08" : "",
+                        color: selectedFilter === "Feeds" ? "#0A0A0A" : "",
+                    }}
+                    onClick={() => handleFilterChange("Feeds")}
+                >
+                    Feeds
+                </FilterButton>
+                <FilterButton
+                    style={{
+                        background: selectedFilter === "Blogs" ? "#FF6B08" : "",
+                        color: selectedFilter === "Blogs" ? "#0A0A0A" : "",
+                    }}
+                    onClick={() => handleFilterChange("Blogs")}
+                >
+                    Blogs
+                </FilterButton>
+                {/* <FilterButton */}
+                {/*    style={{ */}
+                {/*        background: selectedFilter === "CTF" ? "#FF6B08" : "", */}
+                {/*        color: selectedFilter === "CTF" ? "#0A0A0A" : "", */}
+                {/*    }} */}
+                {/*    onClick={() => handleFilterChange("CTF")} */}
+                {/* > */}
+                {/*    CTF */}
+                {/* </FilterButton> */}
+                {/* <FilterButton */}
+                {/*    style={{ */}
+                {/*        background: selectedFilter === "WebSecurity" ? "#FF6B08" : "", */}
+                {/*        color: selectedFilter === "WebSecurity" ? "#0A0A0A" : "", */}
+                {/*    }} */}
+                {/*    onClick={() => handleFilterChange("WebSecurity")} */}
+                {/* > */}
+                {/*    Web Security */}
+                {/* </FilterButton> */}
+            </div>
+            {selectedFilter === "Feeds" ? (
+                <FeedPosts feeds={filteredFeeds} isFeedLoading={isFeedLoading} />
+            ) : (
+                <BlogCards selectedTags={""} blogs={filteredBlogs || blogs} />
+            )}
         </BookmarksContainer>
     );
 };

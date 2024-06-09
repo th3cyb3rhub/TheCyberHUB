@@ -107,7 +107,7 @@ This means that if a long-term key is compromised, the attacker cannot use it to
         ],
     },
     {
-        id: 1,
+        id: 2,
         title: "Network Level and Logging",
         level: "Beginner",
         desc: "Step by step guide to learn Cyber Security",
@@ -274,7 +274,7 @@ ARP is a protocol that operates at the Data Link layer of the OSI model, and is 
         ],
     },
     {
-        id: 1,
+        id: 3,
         title: "OWASP Top 10, Pentesting and/or Web Applications",
         level: "Beginner",
         desc: "Step by step guide to learn Cyber Security",
@@ -344,7 +344,7 @@ CORS allows web applications to make cross-origin requests and enables APIs to b
         ],
     },
     {
-        id: 1,
+        id: 4,
         title: "Databases",
         level: "Beginner",
         desc: "Step by step guide to learn Cyber Security",
@@ -375,7 +375,7 @@ In this case, it's important to notify affected parties and consider implementin
         ],
     },
     {
-        id: 1,
+        id: 5,
         title: "Tools and Games",
         level: "Beginner",
         desc: "Step by step guide to learn Cyber Security",
@@ -484,7 +484,7 @@ Fourth, encryption should be used for sensitive data in transit and at rest. Fin
         ],
     },
     {
-        id: 1,
+        id: 6,
         title: "Programming and Code",
         level: "Beginner",
         desc: "Step by step guide to learn Cyber Security",
@@ -526,7 +526,7 @@ This reduced the time spent on data entry by more than 50%, allowing me to focus
         ],
     },
     {
-        id: 1,
+        id: 7,
         title: "Compliance",
         level: "Beginner",
         desc: "Step by step guide to learn Cyber Security",

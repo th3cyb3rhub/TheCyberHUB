@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import userDetailService from "./userDetailService";
+import { addParticipant, removeParticipant } from "src/features/events/eventsSlice";
 
 const initialState = {
     userDetail: [],
@@ -148,6 +149,41 @@ export const userDetailSlice = createSlice({
             })
             .addCase(deleteUserDetail.rejected, (state, action) => {
                 state.isUserDetailLoading = false;
+                state.isUserDetailError = true;
+                state.userDetailMessage = action.payload;
+            })
+            // listen to reducers from events that related to userDetail
+            .addCase(addParticipant.pending, (state) => {
+                state.isUserDetailLoading = true;
+            })
+            .addCase(addParticipant.fulfilled, (state, action) => {
+                state.isUserDetailLoading = false;
+                state.isUserDetailError = false;
+                state.isUserDetailSuccess = true;
+                if (state.userDetail._id === action.payload.userDetail._id) {
+                    state.userDetail = action.payload.userDetail;
+                }
+            })
+            .addCase(addParticipant.rejected, (state, action) => {
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = false;
+                state.isUserDetailError = true;
+                state.userDetailMessage = action.payload;
+            })
+            .addCase(removeParticipant.pending, (state) => {
+                state.isUserDetailLoading = true;
+            })
+            .addCase(removeParticipant.fulfilled, (state, action) => {
+                state.isUserDetailLoading = false;
+                state.isUserDetailError = false;
+                state.isUserDetailSuccess = true;
+                if (state.userDetail._id === action.payload.userDetail._id) {
+                    state.userDetail = action.payload.userDetail;
+                }
+            })
+            .addCase(removeParticipant.rejected, (state, action) => {
+                state.isUserDetailLoading = false;
+                state.isUserDetailSuccess = false;
                 state.isUserDetailError = true;
                 state.userDetailMessage = action.payload;
             });

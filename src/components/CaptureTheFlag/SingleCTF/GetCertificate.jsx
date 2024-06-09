@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GetCertificateContainer } from "./GetCertificateElements";
-// import {RefreshButton} from "../CTFLeaderboard/CTFLeaderboardElements";
-// import {getUserDetail} from "../../../../../features/userDetail/userDetailSlice";
-// import {useDispatch, useSelector} from "react-redux";
 
 const GetCertificate = ({ ctfCertificates, ctfId, user, isCompleted, isCertExisted }) => {
     // const dispatch = useDispatch();
@@ -12,9 +9,9 @@ const GetCertificate = ({ ctfCertificates, ctfId, user, isCompleted, isCertExist
     //     dispatch(getUserDetail(user.username));
     // };
     const certificateId = ctfCertificates?.find((cert) => cert.ctfId === ctfId)?.ctfCertificateId;
-    let redirectUrlParams = `/@${user}`;
+    let redirectUrlParams = `/user/${user}`;
     if (certificateId === undefined) {
-        redirectUrlParams = `/@${user.username}`;
+        redirectUrlParams = `/user/${user.username}`;
     } else {
         redirectUrlParams = `/CTF/certificate/${certificateId}`;
     }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, userDetailReset } from "../../../features/userDetail/userDetailSlice";
+import { getAllUserDetails, userDetailReset } from "src/features/userDetail/userDetailSlice";
 import {
     LeaderboardContainer,
     LeaderboardHeader,
@@ -12,7 +12,7 @@ import {
     PlayersContainer,
     RefreshButton,
 } from "./CTFLeaderboardElements";
-import { RouterLink } from "../../Tools/ToolsElements";
+import { RouterLink } from "src/components/Tools/ToolsElements";
 
 const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
@@ -79,7 +79,7 @@ const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
                                                 {index + 1}
                                             </LeaderboardTableHeaderIndex>
                                             <LeaderboardTableHeader>
-                                                <RouterLink to={`/@${user?.username}`} style={{ color: "inherit" }}>
+                                                <RouterLink to={`/user/${user?.username}`} style={{ color: "inherit" }}>
                                                     {user?.username}
                                                 </RouterLink>
                                             </LeaderboardTableHeader>

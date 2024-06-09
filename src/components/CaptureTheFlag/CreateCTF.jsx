@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createCTF } from "../../features/ctf/ctfSlice";
+import { createCTF } from "src/features/ctf/ctfSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,14 +15,19 @@ import {
     FlagsContainer,
     Tags,
 } from "./CreateCTFElements";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
-import { NotFound } from "../index";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { NotFound } from "src/components/index";
 
 const CreateCTF = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    if (!user) {
+
+    // if (!user) {
+    //     return <NotFound />;
+    // }
+
+    if (user && user.userType !== "admin") {
         return <NotFound />;
     }
 

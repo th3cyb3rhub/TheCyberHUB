@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { getApiUrl } from "../../../features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 
 export const useUserData = ({ user }) => {
     const [userData, setUserData] = useState({});

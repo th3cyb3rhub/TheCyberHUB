@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getApiUrl } from "../apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 
 const API_URL = getApiUrl("api/forums/");
 

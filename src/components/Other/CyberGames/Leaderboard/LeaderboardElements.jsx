@@ -10,7 +10,7 @@ export const LeaderboardContainer = styled.div`
     height: 100%;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
     background: #090909;
     max-width: 1000px;
 `;
@@ -31,23 +31,51 @@ export const LeaderboardTable = styled.table`
 export const LeaderboardTableRow = styled.tr`
     background-color: #181818;
     color: #dadada;
-    text-align: center;
-    align-items: center;
     padding: 8px;
+
+    &:hover {
+        background-color: #333;
+    }
 `;
 
 export const LeaderboardTableHeader = styled.th`
     background-color: #101010;
     border: 1px solid #181818;
+    text-align: start;
     padding: 12px;
-    text-align: center;
+`;
+export const LeaderboardTableHeaderPoints = styled.th`
+    background-color: #101010;
+    border: 1px solid #181818;
+    padding: 12px;
+    text-align: right;
 `;
 
 export const LeaderboardTableData = styled.td`
-    background: #131313;
     border: 1px solid #181818;
-    padding: 5px;
-    text-align: center;
+    padding: 5px 12px;
+    text-align: start;
+`;
+
+export const LeaderboardTextIconData = styled.span`
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+`;
+export const LeaderboardFirstRow = styled.span`
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+`;
+
+export const LeaderboardTablePoints = styled.td`
+    border: 1px solid #181818;
+    padding: 5px 12px;
+    text-align: right;
 `;
 
 export const RefreshSection = styled.div`
@@ -67,20 +95,16 @@ export const RefreshButton = styled(MdRefresh)`
 export const TopPlayerSection = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 5px;
 `;
-
-export const FirstPlace = styled.div``;
 
 export const Username = styled.p`
     font-size: 1rem;
     font-weight: 550;
     color: #d5d5d5;
-
     cursor: pointer;
-
     transition: all 0.2s ease-in-out;
 
     &:hover {

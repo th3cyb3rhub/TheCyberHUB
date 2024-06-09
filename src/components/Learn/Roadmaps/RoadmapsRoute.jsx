@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { NotFound, Roadmap, Roadmaps } from "../../index";
+import { NotFound, Roadmap, Roadmaps } from "src/components/index";
 
 const RoadmapsRoute = () => {
     return (

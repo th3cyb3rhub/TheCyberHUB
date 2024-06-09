@@ -10,7 +10,6 @@ import {
     Content,
     Heading,
     Paragraph,
-    ImageSection,
     Image,
     ContentFooter,
     Tag,
@@ -49,9 +48,9 @@ export const WriteUps = () => {
                         direct object reference, is a common yet insecure....
                     </Paragraph>
                 </Content>
-                <ImageSection>
+                <div>
                     <Image src="https://miro.medium.com/fit/c/224/224/1*cRu3ETnHdt6n-z96oedxPQ.png" alt="Bootcamp" />
-                </ImageSection>
+                </div>
             </ContentBody>
             <MarginTop />
             <MarginTop />

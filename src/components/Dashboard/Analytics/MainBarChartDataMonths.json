@@ -1,0 +1,48 @@
+{
+  "options": [
+    {
+      "plugins": {
+        "legend": {
+          "display": true
+        }
+      },
+      "maintainAspectRatio": false,
+      "responsive": true
+    },
+    {
+      "plugins": {
+        "legend": {
+          "display": true,
+          "label": {
+            "display": false
+          }
+        }
+      },
+      "maintainAspectRatio": false,
+      "responsive": true
+    }
+  ],
+  "datasets": [
+    {
+      "label": "Contributions days",
+      "data": [345, 567, 765, 453, 676, 876, 564, 234, 440, 280, 440, 280],
+      "borderColor": "rgb(128, 128, 128)",
+      "backgroundColor": [
+        "rgb(255, 99, 132)",
+        "rgb(255, 106, 9)",
+        "rgb(54, 162, 235)",
+        "rgb(0, 47, 225)",
+        "rgb(255, 205, 86)",
+        "rgb(255, 99, 132)",
+        "rgb(255, 106, 9)",
+        "rgb(54, 162, 235)",
+        "rgb(0, 47, 225)",
+        "rgb(255, 205, 86)",
+        "rgb(169, 169, 169, 0.1)",
+        "rgb(169, 169, 169, 0.1)"
+      ],
+      "hoverOffset": 4
+    }
+  ],
+  "xDataSet": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+}

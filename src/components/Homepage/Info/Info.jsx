@@ -1,5 +1,5 @@
 import React from "react";
-import { RedirectButton, RouterButton, ScrollButton } from "../../Other/MixComponents/Buttons/ButtonElements";
+import { RedirectButton, RouterButton, ScrollButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import {
     BtnWrap,
     Column1,
@@ -42,12 +42,12 @@ const InfoSection = ({
     return (
         <InfoContainer id={id}>
             <InfoWrapper>
-                <InfoRow imgStart={imgStart}>
+                <InfoRow $imgStart={imgStart}>
                     <Column1>
                         <TextWrapper>
                             <TopLine> {topLine} </TopLine>
-                            <Heading lightText={lightText}> {headline} </Heading>
-                            <Subtitle darkText={darkText}> {description} </Subtitle>
+                            <Heading $lightText={lightText}> {headline} </Heading>
+                            <Subtitle $darkText={darkText}> {description} </Subtitle>
                             <BtnWrap>
                                 {buttonType1 === "router" && (
                                     <RouterButton

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Forum from "./Forum";
 import ForumSubPage from "./ForumSubPage";
-import { NotFound } from "../index";
+import { NotFound } from "src/components/index";
 
 const ForumRoute = () => {
     return (

@@ -8,6 +8,10 @@ export const FooterContainer = styled.footer`
     margin-top: auto;
     width: 100%;
     padding: 100px;
+
+    @media screen and (width <= 600px) {
+        padding: 24px;
+    }
 `;
 
 export const FooterWrap = styled.div`
@@ -24,12 +28,12 @@ export const FooterLinksContainer = styled.div`
     justify-content: center;
     width: 100%;
 
-    @media screen and (max-width: 820px) {
+    @media screen and (width <= 820px) {
         padding-top: 32px;
     }
 `;
 
-export const FooterLinksWrapper = styled.div`
+export const FooterLinksWrapper = styled.ul`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 1fr;
@@ -47,9 +51,9 @@ export const FooterLinkItems = styled.li`
     text-align: left;
     box-sizing: border-box;
     color: #f5f5f5;
-
     transition: all 0.3s ease-in-out;
-    @media screen and (max-width: 420px) {
+
+    @media screen and (width <= 420px) {
         transition: all 0.3s ease-in-out;
         margin: 0;
         padding: 10px;
@@ -77,10 +81,12 @@ export const FooterScrollLink = styled(ScrollLink)`
     color: #f5f5f5;
     text-decoration: none;
     font-size: 15px;
+    cursor: pointer;
 
     &:hover {
         color: #ff6b08;
-        scale: 1.1;
+
+        /* scale: 1.1; */
         transition: 0.3s ease-out;
     }
 `;
@@ -112,7 +118,7 @@ export const SocialMedia = styled.div`
     max-width: 1500px;
     width: 100%;
     color: #f5f5f5;
-    margin: 50px 0 0 0;
+    margin: 50px 0 0;
 `;
 
 export const SocialMediaWrap = styled.div`
@@ -123,7 +129,8 @@ export const SocialMediaWrap = styled.div`
     justify-content: space-between;
     gap: 25px;
     align-items: center;
-    @media screen and (max-width: 1000px) {
+
+    @media screen and (width <= 1000px) {
         flex-direction: column;
     }
 `;
@@ -220,6 +227,17 @@ export const SocialIconLinkGithub = styled.a`
     }
 `;
 
+export const SocialIconLinkYoutube = styled.a`
+    color: #f5f5f5;
+    font-size: 24px;
+
+    &:hover {
+        color: #f00;
+        transition: 0.3s ease-out;
+        scale: 1.2;
+    }
+`;
+
 export const SocialIconLinkDiscord = styled.a`
     color: #f5f5f5;
     font-size: 24px;
@@ -251,7 +269,7 @@ export const SocialLogo = styled(RouterLink)`
     align-items: center;
     font-weight: bold;
 
-    :hover {
+    &:hover {
         color: #ff6b08;
         scale: 1.2;
         transition: 0.3s ease-out;

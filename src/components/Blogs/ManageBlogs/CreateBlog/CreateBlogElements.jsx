@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { FcAddImage } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
-export const createContent = styled.input``;
 export const SectionCreateBlog = styled.div`
     display: flex;
     flex-direction: column;
@@ -43,11 +42,10 @@ export const ImageUploadLabel = styled.label`
     padding: 10px 20px;
     cursor: pointer;
 
-    @media screen and (max-width: 500px) {
-        padding: 5px 5px;
+    @media screen and (width <= 500px) {
+        padding: 5px;
     }
 `;
-export const ImageUploadInput = styled.input``;
 
 export const TextGrey = styled.p`
     color: #707070;
@@ -66,9 +64,8 @@ export const Container = styled.div`
 export const Heading2 = styled.h2`
     color: #f5f5f5;
 `;
-export const Heading3 = styled.h3``;
 export const ImageSelected = styled.p`
-    //margin-left: 25px;
+    /* margin-left: 25px; */
 `;
 
 export const Form = styled.form`
@@ -84,12 +81,11 @@ export const CategorySection = styled.div`
     align-items: center;
     width: 100%;
     padding: 10px 25px;
-
-    border: #222222 1px solid;
+    border: #222 1px solid;
 `;
 
 export const Label = styled.label`
-    border: #222222 1px solid;
+    border: #222 1px solid;
     padding: 5px;
 `;
 
@@ -106,11 +102,11 @@ export const Input = styled.input`
     font-size: 20px;
     text-underline-offset: 5px;
     margin: 10px 0;
-    border: #222222 1px solid;
+    border: #222 1px solid;
     padding: 25px;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 
-    ::placeholder {
+    &::placeholder {
         color: #f5f5f5;
     }
 
@@ -120,14 +116,15 @@ export const Input = styled.input`
 
     &:hover {
         background: transparent;
-        //border: transparent;
+
+        /* border: transparent; */
         color: #f5f5f5;
     }
 `;
 
 export const TextArea = styled.textarea`
-    font-family: "Poppins", sans-serif;
-    border: #222222 1px solid;
+    font-family: Poppins, sans-serif;
+    border: #222 1px solid;
     padding: 25px;
     margin: 10px 0;
     font-size: 17px;
@@ -140,7 +137,7 @@ export const TextArea = styled.textarea`
     width: 100%;
     height: 200px;
 
-    ::placeholder {
+    &::placeholder {
         color: #f5f5f5;
     }
 
@@ -162,10 +159,10 @@ export const TagInput = styled.input`
     font-size: 15px;
     text-underline-offset: 5px;
     margin: 10px 0;
-    border: #222222 1px solid;
+    border: #222 1px solid;
     padding: 25px;
 
-    ::placeholder {
+    &::placeholder {
         color: #f5f5f5;
     }
 
@@ -184,18 +181,18 @@ export const Submit = styled.button`
     width: 100%;
     cursor: pointer;
     font-size: 13px;
-    font-family: "Roboto", sans-serif;
+    font-family: Roboto, sans-serif;
 `;
 
 export const RouterButtonLink = styled(Link)`
     height: fit-content;
-    background: #111111;
+    background: #111;
     border-radius: 5px;
     color: #ff6b08;
     padding: 5px 15px;
     margin: 5px 15px;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         font-size: 12px;
     }
 

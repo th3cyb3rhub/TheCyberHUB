@@ -1,6 +1,6 @@
 import React from "react";
 import { TimelineContainer } from "./InternshipTimelineElements";
-import { getCdnAssets } from "../../../features/apiUrl";
+import { getCdnAssets } from "src/features/apiUrl";
 
 const InternshipTimeline = () => {
     return (

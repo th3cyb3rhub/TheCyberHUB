@@ -7,24 +7,26 @@ export const ExploreContainer = styled.div`
     width: 100%;
     gap: 25px;
     max-width: 1500px;
-    //background: #090909;
 
-    @media screen and (max-width: 800px) {
+    /* background: #090909; */
+
+    @media screen and (width <= 800px) {
         flex-direction: column;
-        gap: 0px;
-
+        gap: 0;
         align-items: center;
     }
 `;
 
 export const SearchContainer = styled.div`
     display: flex;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
     gap: 5px;
-    width: 100%;
+    border-radius: 5px;
 
-    @media screen and (max-width: 800px) {
-        padding: 15px;
+    @media screen and (width <= 800px) {
+        /* padding: 15px; */
     }
 `;
 
@@ -34,7 +36,7 @@ export const LeftContainer = styled.div`
     gap: 25px;
     max-width: 300px;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (width <= 800px) {
         max-width: 100%;
     }
 `;
@@ -81,22 +83,46 @@ export const SearchTypeButton = styled.button`
     border-radius: 4px;
     width: auto; /* Adjust the button width based on content */
     transition: all 0.3s ease-in-out;
+
     &:hover {
-        background-color: #333333;
+        background-color: #333;
         color: #f5f5f5;
     }
 `;
 
-export const BlogsContainer = styled(ExploreContentContainer)``;
+export const BlogsContainer = styled(ExploreContentContainer)`
+    /* ExploreContentContainer */
+`;
 
-export const JobsContainer = styled(ExploreContentContainer)``;
+export const JobsContainer = styled(ExploreContentContainer)`
+    /* ExploreContentContainer */
+`;
 
-export const ToolsContainer = styled(ExploreContentContainer)``;
+export const ToolsContainer = styled(ExploreContentContainer)`
+    /* ExploreContentContainer */
+`;
 
-export const CoursesContainer = styled(ExploreContentContainer)``;
+export const CoursesContainer = styled(ExploreContentContainer)`
+    /* ExploreContentContainer */
+`;
 
-export const EventsContainer = styled(ExploreContentContainer)``;
+export const EventsContainer = styled(ExploreContentContainer)`
+    /* ExploreContentContainer */
+`;
 
-export const QuizContainer = styled(ExploreContentContainer)``;
+export const QuizContainer = styled(ExploreContentContainer)`
+    /* ExploreContentContainer */
+`;
 
-export const InterviewQuesContainer = styled(ExploreContentContainer)``;
+export const InterviewQuesContainer = styled(ExploreContentContainer)`
+    /* ExploreContentContainer */
+`;
+
+export const RadioContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const RadioLabel = styled.label`
+    margin-bottom: 5px;
+`;

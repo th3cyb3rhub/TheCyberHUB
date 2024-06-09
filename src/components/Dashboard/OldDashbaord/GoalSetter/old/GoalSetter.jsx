@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import GoalForm from "./GoalForm";
 import { useDispatch, useSelector } from "react-redux";
 import { GoalsContainer } from "./GoalElements";
-import { deleteGoal, getGoals, reset } from "../../../../../features/goals/goalSlice";
+import { deleteGoal, getGoals, reset } from "src/features/goals/goalSlice";
 import { CircleSpinner } from "react-spinners-kit";
 
 const GoalSetter = () => {

@@ -45,7 +45,7 @@ export default {
         borderRadius: "1px",
         boxShadow: "1px 1px .5em black inset",
     },
-    ':not(pre) > code[class*="language-"]': {
+    '&:not(pre) > code[class*="language-"]': {
         background: "hsl(30, 20%, 25%)",
         padding: ".15em .2em .05em",
         borderRadius: "1px",

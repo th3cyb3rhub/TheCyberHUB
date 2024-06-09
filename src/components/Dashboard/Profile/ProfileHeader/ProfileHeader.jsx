@@ -1,6 +1,6 @@
 import React from "react";
-import { HeaderContainer, UserBanner } from "../ProfileElements";
-import { getCdnAssets } from "../../../../features/apiUrl";
+import { HeaderContainer, UserBanner } from "src/components/Dashboard/Profile/ProfileElements";
+import { getCdnAssets } from "src/features/apiUrl";
 
 const ProfileHeader = () => {
     return (

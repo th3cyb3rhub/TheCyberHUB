@@ -20,10 +20,10 @@ import {
     FaInstagram,
     FaLinkedinIn,
     FaTelegramPlane,
-    FaTwitter,
     FaYoutube,
 } from "react-icons/fa";
-import { H1 } from "../ContactForm/ContactFormElements";
+import { FaThreads, FaXTwitter } from "react-icons/fa6";
+import { H1 } from "src/components/Homepage/ContactForm/ContactFormElements";
 
 const Socials = () => {
     return (
@@ -34,10 +34,6 @@ const Socials = () => {
                     <SocialCardDiscord href="https://discord.gg/QHBPq6xP5p" target="_blank" aria-label="Discord">
                         <FaDiscord /> <SocialH1> Discord </SocialH1>
                     </SocialCardDiscord>
-
-                    <SocialCardTelegram href="https://t.me/thecyberw0rld" target="_blank" aria-label="Telegram">
-                        <FaTelegramPlane /> <SocialH1> Telegram </SocialH1>
-                    </SocialCardTelegram>
 
                     <SocialCardGithub href="https://www.github.com/thecyberworld" target="_blank" aria-label="Github">
                         <FaGithub /> <SocialH1> Github </SocialH1>
@@ -51,14 +47,6 @@ const Socials = () => {
                         <FaYoutube /> <SocialH1> YouTube </SocialH1>
                     </SocialCardYoutube>
 
-                    <SocialCardTwitter
-                        href="https://www.twitter.com/thecyberw0rld"
-                        target="_blank"
-                        aria-label="Twitter"
-                    >
-                        <FaTwitter /> <SocialH1> Twitter </SocialH1>
-                    </SocialCardTwitter>
-
                     <SocialCardLinkedin
                         href="https://linkedin.com/company/thecyberw0rld"
                         target="_blank"
@@ -66,6 +54,27 @@ const Socials = () => {
                     >
                         <FaLinkedinIn /> <SocialH1> LinkedIn </SocialH1>
                     </SocialCardLinkedin>
+
+                    <SocialCardTelegram href="https://t.me/thecyberw0rld" target="_blank" aria-label="Telegram">
+                        <FaTelegramPlane /> <SocialH1> Telegram </SocialH1>
+                    </SocialCardTelegram>
+
+                    <SocialCardTwitter
+                        href="https://www.twitter.com/thecyberw0rld"
+                        target="_blank"
+                        aria-label="Twitter"
+                    >
+                        <FaXTwitter /> <SocialH1> Twitter </SocialH1>
+                    </SocialCardTwitter>
+
+                    <SocialCardInstagram
+                        href="https://www.threads.net/thecyberw0rld"
+                        target="_blank"
+                        aria-label="Thread"
+                    >
+                        <FaThreads /> <SocialH1> Threads </SocialH1>
+                    </SocialCardInstagram>
+
                     <SocialCardInstagram
                         href="https://www.instagram.com/thecyberw0rld"
                         target="_blank"
@@ -73,8 +82,9 @@ const Socials = () => {
                     >
                         <FaInstagram /> <SocialH1> Instagram </SocialH1>
                     </SocialCardInstagram>
+
                     <SocialCardFacebook
-                        href="https://www.facebook.com/thecyberw0rld"
+                        href="https://www.facebook.com/thecyberworldcommunity/"
                         target="_blank"
                         aria-label="Facebook"
                     >

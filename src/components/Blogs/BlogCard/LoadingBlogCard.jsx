@@ -1,5 +1,10 @@
 import React from "react";
-import { LoadingBlogContainer, LoadingContainer, LoadingImage, LoadingLine } from "./LoadingBlogCardElements";
+import {
+    LoadingBlogContainer,
+    LoadingContainer,
+    LoadingImage,
+    LoadingLine,
+} from "src/components/Blogs/BlogCard/LoadingBlogCardElements";
 import {
     BlogImageSection,
     ContainerCard,
@@ -8,7 +13,7 @@ import {
     MainSection,
     SubSection,
     Title,
-} from "./BlogCardElements";
+} from "src/components/Blogs/BlogCard/BlogCardElements";
 
 const LoadingLineAnimation = ({ height }) => {
     return (

@@ -23,7 +23,7 @@ export const ActivityGraphContainer = styled.div`
         font-size: 5px;
     }
 
-    .react-calendar-heatmap rect:hover {
+    .react-calendar-heatmap rect&:hover {
         stroke: #555;
         stroke-width: 1px;
     }

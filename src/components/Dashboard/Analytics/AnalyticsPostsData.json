@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "title": "The Importance of Secure Passwords in Cybersecurity",
+        "category": "blog",
+        "views": 100,
+        "likes": 50,
+        "datetime": "2024-02-13T10:00:00"
+    },
+    {
+        "id": 2,
+        "title": "Common Phishing Techniques and How to Avoid Them",
+        "category": "blog",
+        "views": 150,
+        "likes": 80,
+        "datetime": "2024-02-14T11:30:00"
+    },
+    {
+        "id": 3,
+        "title": "Understanding DDoS Attacks and Mitigation Strategies",
+        "category": "feed",
+        "views": 120,
+        "likes": 60,
+        "datetime": "2024-02-15T12:45:00"
+    },
+    {
+        "id": 4,
+        "title": "The Role of Encryption in Data Security",
+        "category": "feed",
+        "views": 180,
+        "likes": 70,
+        "datetime": "2024-02-16T14:00:00"
+    },
+    {
+        "id": 5,
+        "title": "Cybersecurity Best Practices for Remote Work",
+        "category": "blog",
+        "views": 90,
+        "likes": 45,
+        "datetime": "2024-02-17T15:30:00"
+    },
+    {
+        "id": 6,
+        "title": "Identifying and Responding to Insider Threats",
+        "category": "feed",
+        "views": 200,
+        "likes": 100,
+        "datetime": "2024-02-18T16:15:00"
+    },
+    {
+        "id": 7,
+        "title": "The Rise of Ransomware Attacks: Prevention and Recovery",
+        "category": "blog",
+        "views": 160,
+        "likes": 75,
+        "datetime": "2024-02-19T17:45:00"
+    },
+    {
+        "id": 8,
+        "title": "Securing Internet of Things (IoT) Devices",
+        "category": "feed",
+        "views": 140,
+        "likes": 65,
+        "datetime": "2024-02-20T18:30:00"
+    },
+    {
+        "id": 9,
+        "title": "Mobile Device Security: Tips for Protecting Your Smartphone",
+        "category": "blog",
+        "views": 110,
+        "likes": 55,
+        "datetime": "2024-02-21T20:00:00"
+    },
+    {
+        "id": 10,
+        "title": "The Evolution of Cyber Threats: Past, Present, and Future",
+        "category": "feed",
+        "views": 170,
+        "likes": 90,
+        "datetime": "2024-02-22T21:15:00"
+    }
+]

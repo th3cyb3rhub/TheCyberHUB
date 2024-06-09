@@ -46,11 +46,11 @@ export const Input = styled.input`
     height: 50px;
     font-size: 20px;
     text-underline-offset: 5px;
-    border: #222222 1px solid;
+    border: #222 1px solid;
     padding: 25px;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 
-    ::placeholder {
+    &::placeholder {
         color: #fff;
     }
 
@@ -60,14 +60,15 @@ export const Input = styled.input`
 
     &:hover {
         background: transparent;
-        //border: transparent;
+
+        /* border: transparent; */
         color: #fff;
     }
 `;
 
 export const TextArea = styled.textarea`
-    font-family: "Poppins", sans-serif;
-    border: #222222 1px solid;
+    font-family: Poppins, sans-serif;
+    border: #222 1px solid;
     padding: 25px;
     font-size: 17px;
     display: flex;
@@ -79,7 +80,7 @@ export const TextArea = styled.textarea`
     width: 100%;
     height: 130px;
 
-    ::placeholder {
+    &::placeholder {
         color: #fff;
     }
 
@@ -100,8 +101,8 @@ export const TagsInput = styled.div`
     width: 100%;
     padding: 10px;
     text-underline-offset: 5px;
-    border: #222222 1px solid;
-    font-family: "Poppins", sans-serif;
+    border: #222 1px solid;
+    font-family: Poppins, sans-serif;
 `;
 
 export const TagInput = styled.input`
@@ -117,11 +118,10 @@ export const TagInput = styled.input`
     padding: 15px;
     font-size: 15px;
     text-underline-offset: 5px;
-    border: #222222 1px solid;
-
+    border: #222 1px solid;
     transition: all 0.2s ease-in-out;
 
-    ::placeholder {
+    &::placeholder {
         transition: all 0.2s ease-in-out;
         color: #fff;
     }
@@ -161,7 +161,7 @@ export const Submit = styled.button`
     width: 100%;
     cursor: pointer;
     font-size: 13px;
-    font-family: "Roboto", sans-serif;
+    font-family: Roboto, sans-serif;
     transition: all 0.2s ease-in-out;
 
     &:hover {

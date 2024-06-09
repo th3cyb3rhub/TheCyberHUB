@@ -1,21 +1,30 @@
 import React, { useState } from "react";
-import { EditUserBioTextarea, UserBio, UserInfo, UserLinksContainer } from "../UserLinks/UserLinksElements";
-import { EditSocialUsername, SocialLink, UserSocialLinksContainer } from "../UserSocialLinks/UserSocialLinksElements";
-import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
+import {
+    EditUserBioTextarea,
+    UserBio,
+    UserInfoContainer,
+    UserLinksContainer,
+} from "src/components/Dashboard/Profile/UserLinks/UserLinksElements";
+import {
+    EditSocialUsername,
+    SocialLink,
+    UserSocialLinksContainer,
+} from "src/components/Dashboard/Profile/UserSocialLinks/UserSocialLinksElements";
+import { FaGithub, FaInstagram, FaLinkedin, FaMedium } from "react-icons/fa";
 import { IoMdSave } from "react-icons/io";
-import { FollowButton } from "../Follow/FollowElements";
+import { FollowButton } from "src/components/Dashboard/Profile/ConnectionsAndFollows/Follow/FollowElements";
 import { CgWebsite } from "react-icons/cg";
-import { UserPicture } from "../../../Explore/Users/UsersElements";
-import { EditButton } from "../SkillSet/SkillSetElements";
-import { getApiUrl, cdnContentImagesUrl } from "../../../../features/apiUrl";
+import { UserPicture } from "src/components/Explore/Users/UsersElements";
+import { EditButton } from "src/components/Dashboard/Profile/SkillSet/SkillSetElements";
+import { getApiUrl, cdnContentImagesUrl } from "src/features/apiUrl";
 import { toast } from "react-toastify";
 import {
     AddCoverImageSection,
     AddImage,
-    ImageUploadInput,
     ImageUploadLabel,
-} from "../../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+} from "src/components/Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import axios from "axios";
+import { FaXTwitter } from "react-icons/fa6";
 
 const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) => {
     const [file, setFile] = useState("");
@@ -67,7 +76,7 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
     const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
     return (
         <UserLinksContainer>
-            <UserInfo>
+            <UserInfoContainer>
                 <div style={{ position: "relative", display: "inline-block" }}>
                     <UserPicture
                         style={{ height: "200px", width: "200px" }}
@@ -81,7 +90,7 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
                             >
                                 <AddImage />
                             </ImageUploadLabel>
-                            <ImageUploadInput
+                            <input
                                 type="file"
                                 name="avatar"
                                 id="avatar"
@@ -93,7 +102,7 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
                 </div>
                 <span className={"name"}>{userDetail?.name}</span>
                 <span className={"username"}>@{userDetail?.username}</span>
-            </UserInfo>
+            </UserInfoContainer>
 
             <FollowButton
                 onClick={handleSave}
@@ -159,7 +168,7 @@ const getIconComponent = (iconName) => {
             );
         case "FaTwitter":
             return (
-                <FaTwitter
+                <FaXTwitter
                     style={{
                         // color: "#1DA1F2",
                         fontSize: "1.5rem",

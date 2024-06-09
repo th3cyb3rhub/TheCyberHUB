@@ -3,7 +3,6 @@ import InternshipProgramData from "./InternshipProgramData";
 import {
     ApplicationHeading,
     ApplicationOpenText,
-    ApplicationOpenTextSection,
     InternshipCard,
     InternshipContainer,
     InternshipHeader,
@@ -61,15 +60,15 @@ const InternshipCycle = ({
     const appClosed = currentDate >= closeDate && currentDate <= internCloseDate;
 
     return (
-        <InternshipCard isBetweenDates={isBetweenDates} appClosed={appClosed}>
+        <InternshipCard $isBetweenDates={isBetweenDates} $appClosed={appClosed}>
             {isBetweenDates ? (
-                <ApplicationOpenTextSection>
+                <div>
                     <ApplicationOpenText>Applications Now Open!</ApplicationOpenText>
-                </ApplicationOpenTextSection>
+                </div>
             ) : appClosed ? (
-                <ApplicationOpenTextSection>
+                <div>
                     <ApplicationOpenText>Applications Closed</ApplicationOpenText>
-                </ApplicationOpenTextSection>
+                </div>
             ) : null}
 
             <ApplicationHeading>{cycleName}</ApplicationHeading>

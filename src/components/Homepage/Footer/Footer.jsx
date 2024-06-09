@@ -17,6 +17,7 @@ import {
     SocialIconLinkGithub,
     SocialIconLinkInstagram,
     SocialIconLinkTwitter,
+    SocialIconLinkYoutube,
     SocialIcons,
     SocialLogo,
     SocialMedia,
@@ -24,14 +25,17 @@ import {
     WebsiteRights,
 } from "./FooterElements";
 
-import { FaDiscord, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaDiscord, FaGithub, FaInstagram, FaTelegram, FaYoutube } from "react-icons/fa";
+import { FaThreads, FaXTwitter } from "react-icons/fa6";
 import { animateScroll as scroll } from "react-scroll";
 
 const SocialLinks = {
     github: "https://www.github.com/thecyberworld",
     instagram: "https://www.instagram.com/thecyberw0rld",
     twitter: "https://www.twitter.com/thecyberw0rld",
+    threads: "https://www.threads.net/thecyberw0rld",
     discord: "https://discord.gg/QHBPq6xP5p",
+    telegram: "https://t.me/thecyberw0rld",
     linktree: "https://linktr.ee/thecyberworld",
     youtube: "https://www.youtube.com/c/thecyberworld",
 };
@@ -55,6 +59,7 @@ const Footer = () => {
                                 { to: "contribute", title: "Contribute" },
                             ].map(({ to, title }) => (
                                 <FooterScrollLink
+                                    href={`/${to}`}
                                     key={to}
                                     to={to}
                                     smooth={true}
@@ -72,8 +77,8 @@ const Footer = () => {
                         <FooterLinkItems>
                             <FooterLinkTitle>Community</FooterLinkTitle>
                             <FooterRouterLink to="/explore">Explore</FooterRouterLink>
+                            <FooterRouterLink to="/feeds">Feeds</FooterRouterLink>
                             <FooterRouterLink to="/blogs">Blogs</FooterRouterLink>
-                            <FooterRouterLink to="/forums">Forum</FooterRouterLink>
                             <FooterRouterLink to="/ctf">CTF</FooterRouterLink>
                         </FooterLinkItems>
 
@@ -121,15 +126,24 @@ const Footer = () => {
                         </SocialLogo>
                         <WebsiteRights> © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
                         <SocialIcons>
-                            <SocialIconLinkTwitter href={SocialLinks.twitter} target="_blank" aria-label="Twitter">
-                                <FaTwitter />
+                            <SocialIconLinkYoutube href={SocialLinks.youtube} target="_blank" aria-label="YouTube">
+                                <FaYoutube />
+                            </SocialIconLinkYoutube>
+                            <SocialIconLinkDiscord href={SocialLinks.discord} target="_blank" aria-label="Discord">
+                                <FaDiscord />
+                            </SocialIconLinkDiscord>
+                            <SocialIconLinkTwitter href={SocialLinks.telegram} target="_blank" aria-label="Telegram">
+                                <FaTelegram />
                             </SocialIconLinkTwitter>
                             <SocialIconLinkGithub href={SocialLinks.github} target="_blank" aria-label="Github">
                                 <FaGithub />
                             </SocialIconLinkGithub>
-                            <SocialIconLinkDiscord href={SocialLinks.discord} target="_blank" aria-label="Discord">
-                                <FaDiscord />
-                            </SocialIconLinkDiscord>
+                            <SocialIconLinkTwitter href={SocialLinks.twitter} target="_blank" aria-label="Twitter">
+                                <FaXTwitter />
+                            </SocialIconLinkTwitter>
+                            <SocialIconLinkInstagram href={SocialLinks.threads} target="_blank" aria-label="Twitter">
+                                <FaThreads />
+                            </SocialIconLinkInstagram>
                             <SocialIconLinkInstagram
                                 href={SocialLinks.instagram}
                                 target="_blank"

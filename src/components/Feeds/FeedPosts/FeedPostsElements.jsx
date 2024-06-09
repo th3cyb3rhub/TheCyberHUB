@@ -1,14 +1,13 @@
 import styled from "styled-components";
-import { ExploreContentContainer } from "../../Explore/ExploreElements";
+import { ExploreContentContainer } from "src/components/Explore/ExploreElements";
 
 export const FeedPostsContainer = styled(ExploreContentContainer)`
-    background-color: ${(props) => (props.displayAt === "explore" ? "#090909" : "#000000")};
-    padding: ${(props) => (props.displayAt === "explore" ? "15px" : "0")};
+    background-color: ${({ $displayAt }) => ($displayAt === "explore" ? "#090909" : "#000000")};
+    padding: ${({ $displayAt }) => ($displayAt === "explore" ? "15px" : "0")};
+    grid-auto-rows: minmax(min-content, max-content);
+    gap: ${({ $displayAt }) => ($displayAt === "explore" ? "25px" : "0")};
 
-    grid-auto-rows: ${(props) => (props.displayAt === "explore" ? "1fr" : "0fr")};
-    gap: ${(props) => (props.displayAt === "explore" ? "25px" : "0")};
-
-    @media screen and (max-width: 1230px) {
+    @media screen and (width <= 1230px) {
         grid-auto-rows: 0fr;
         gap: 15px;
     }
@@ -23,18 +22,17 @@ export const PostForm = styled.div`
 `;
 
 export const FeedPostContainer = styled.div`
-    //border: 1px solid #a8e827;
-    //border-radius: 5px;
+    /* border: 1px solid #a8e827;
+    border-radius: 5px; */
     border-bottom: 1px solid #1a1a1a;
-    background: #000000;
+    background: #000;
     padding: 15px;
     display: flex;
     width: 100%;
     flex-direction: row;
+    height: ${({ $displayAt }) => ($displayAt === "explore" ? "auto" : "min-content")};
 
-    height: ${(props) => (props.displayAt === "explore" ? "auto" : "min-content")};
-
-    @media screen and (max-width: 800px) {
+    @media screen and (width <= 800px) {
         width: 100%;
         height: min-content;
     }
@@ -45,7 +43,9 @@ export const LeftSection = styled.div`
     flex-direction: row;
     align-items: start;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 5px;
+    width: max-content;
+    min-width: 60px;
 `;
 
 export const RightSection = styled.div`
@@ -55,7 +55,12 @@ export const RightSection = styled.div`
     width: 100%;
     gap: 10px;
 `;
-
+export const RightHeaderSection = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 10px;
+`;
 export const PostTags = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -70,12 +75,14 @@ export const PostTag = styled.span`
     color: #adadad;
     padding: 2px 5px;
     border-radius: 5px;
-    font-size: ${(props) => (props.size === "lg" ? "15px" : "0.8rem")};
+    font-size: ${({ size }) => (size === "lg" ? "15px" : "0.8rem")};
 `;
 
 export const PostHeader = styled.div`
+    position: relative;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    align-items: start;
     gap: 10px;
     margin-bottom: 10px;
     width: 100%;
@@ -85,7 +92,6 @@ export const PostHeaderImg = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    margin-right: 20px;
     font-size: 12px;
     color: #999;
     word-break: break-all;
@@ -100,6 +106,7 @@ export const PostHeaderUsername = styled.h2`
 export const PostTimestamp = styled.p`
     font-size: 14px;
     color: #999;
+    margin-left: auto;
 `;
 
 export const PostContent = styled.p`
@@ -107,15 +114,16 @@ export const PostContent = styled.p`
     flex-wrap: wrap;
     width: 100%;
     overflow: hidden;
-    //break text
+
+    /* break text */
     word-wrap: break-word;
 
-    // pre line
+    /* pre line */
     white-space: pre-line;
-
     display: -webkit-box;
     -webkit-line-clamp: 5;
-    //-webkit-box-orient: vertical;
+
+    /* -webkit-box-orient: vertical; */
 `;
 
 export const PostActions = styled.div`
@@ -129,12 +137,13 @@ export const PostActions = styled.div`
 `;
 
 export const PostActionsAndStatsContainer = styled.div`
-    //border-top: 1px solid #1a1a1a;
+    /* border-top: 1px solid #1a1a1a; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-    //padding: 15px 0 0;
+
+    /* padding: 15px 0 0; */
     font-size: 14px;
     color: #999;
     width: 100%;
@@ -142,7 +151,8 @@ export const PostActionsAndStatsContainer = styled.div`
 
 export const PostStat = styled.div`
     display: flex;
-    //align-items: center;
+
+    /* align-items: center; */
     gap: 7px;
 `;
 

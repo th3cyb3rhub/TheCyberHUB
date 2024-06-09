@@ -1,5 +1,5 @@
 import React from "react";
-import ComingSoon from "../../Other/MixComponents/ComingSoon";
+import ComingSoon from "src/components/Other/MixComponents/ComingSoon";
 
 const TheCyberXcel = () => {
     return (

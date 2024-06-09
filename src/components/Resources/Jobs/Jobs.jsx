@@ -4,9 +4,9 @@ import { JobsCardSection, JobsDetailContainer, JobsDetailSection, JobSection } f
 
 import Job from "./Job";
 import { JobsData } from "./JobsData";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import JobDetailsPage from "./JobDetailsPage";
-import InternshipProgram from "../../Opportunities/Internship/InternshipProgram";
+import InternshipProgram from "src/components/Opportunities/Internship/InternshipProgram";
 
 const Jobs = () => {
     const [detailsVisible, setDetailsVisible] = useState(false);

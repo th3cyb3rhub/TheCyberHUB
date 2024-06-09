@@ -10,8 +10,8 @@ export const LeaderboardContainer = styled.div`
     height: 100%;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    background: #090909;
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    background: #131313;
 `;
 
 export const LeaderboardHeader = styled.div`
@@ -28,21 +28,27 @@ export const PlayersContainer = styled.div`
     flex-direction: column;
     width: 100%;
     max-height: 450px;
-    // scrollable
+
+    /* scrollable */
     overflow-y: auto;
-    // small scroll bar width
+
+    /* small scroll bar width */
     scrollbar-width: thin;
     scrollbar-color: #4a4a4a #090909;
+
     &::-webkit-scrollbar {
         width: 5px;
     }
+
     &::-webkit-scrollbar-track {
         background: #090909;
     }
+
     &::-webkit-scrollbar-thumb {
         background-color: #4a4a4a;
     }
-    &::-webkit-scrollbar-thumb:hover {
+
+    &::-webkit-scrollbar-thumb&:hover {
         background-color: #4a4a4a;
     }
 `;
@@ -68,7 +74,7 @@ export const LeaderboardTableHeader = styled.th`
     text-align: left;
 `;
 export const LeaderboardTableHeaderIndex = styled(LeaderboardTableHeader)`
-    padding: 10px 0px 10px 15px;
+    padding: 10px 0 10px 15px;
 `;
 
 export const LeaderboardTableData = styled.td`

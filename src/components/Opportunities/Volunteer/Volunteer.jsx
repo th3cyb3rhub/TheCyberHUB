@@ -1,6 +1,10 @@
 import React from "react";
-import { InternshipContainer, InternshipHeader, InternshipHeading } from "../Internship/InternshipElements";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import {
+    InternshipContainer,
+    InternshipHeader,
+    InternshipHeading,
+} from "src/components/Opportunities/Internship/InternshipElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import {
     JobContainer,
     JobDetails,
@@ -10,9 +14,9 @@ import {
     JobsCardSection,
     JobTitle,
     RouterLink,
-} from "../../Resources/Jobs/JobsElements";
+} from "src/components/Resources/Jobs/JobsElements";
 import { volunteerPrograms } from "./VolunteerData";
-import { List, ListContent, ListIcon } from "../../Resources/Jobs/JobDetailsElements";
+import { List, ListContent, ListIcon } from "src/components/Resources/Jobs/JobDetailsElements";
 
 const Volunteer = () => {
     return (
@@ -95,8 +99,7 @@ function Job(props) {
                         },
                     }}
                 >
-                    {" "}
-                    Apply{" "}
+                    Apply
                 </RouterLink>
             </div>
         </JobContainer>

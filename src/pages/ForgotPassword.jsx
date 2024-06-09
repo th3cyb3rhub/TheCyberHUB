@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { CenterCard, Container } from "../components/Homepage/Registration/CenterCard";
-import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2CodePromotion";
+import { CenterCard, Container } from "src/components/Homepage/Registration/CenterCard";
+import { Learn2CodePromotion } from "src/components/Homepage/Registration/Learn2CodePromotion";
 import {
     CustomInputGroup,
     VerificationCodeSection,
-} from "../components/Other/MixComponents/InputField/CustomInputField";
-import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
-import { ButtonGreen, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
+} from "src/components/Other/MixComponents/InputField/CustomInputField";
+import { RegistrationFormContainer } from "src/components/Homepage/Registration/Form";
+import { ButtonGreen, LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { forgetPasswordWithEmail, reset, resetPasswordWithToken } from "../features/resetPassword/resetPasswordSlice";
+import { forgetPasswordWithEmail, reset, resetPasswordWithToken } from "src/features/resetPassword/resetPasswordSlice";
 import { CircleSpinner } from "react-spinners-kit";
-import { RouterLink } from "../components/Events/EventsElement";
+import { RouterLink } from "src/components/Tools/ToolsElements";
 import { FaUserCircle } from "react-icons/fa";
-import { verifyEmailCode } from "../features/auth/authSlice";
+import { verifyEmailCode } from "src/features/auth/authSlice";
 import { CgPassword } from "react-icons/cg";
+import validator from "validator";
 
 const ForgotPassword = () => {
     const [formData, setFormData] = useState({
@@ -78,11 +79,17 @@ const ForgotPassword = () => {
         "proton.me",
         "protonmail.ch",
     ];
+    const validateEmail = (email) => {
+        return validator?.isEmail(email);
+    };
+
     const onSubmitSendEmail = (e) => {
         e.preventDefault();
         const domain = email.split("@")[1];
         if (domain === undefined) {
             toast.error("Please enter a valid email");
+        } else if (!validateEmail(email)) {
+            toast.error("Please enter a valid email address.");
         } else if (whitelistedDomains.indexOf(domain) === -1) {
             toast.error(`Sorry, ${domain} email domain is not allowed`);
         } else {
@@ -120,15 +127,15 @@ const ForgotPassword = () => {
                     </div>
                 </Learn2CodePromotion>
                 <RegistrationFormContainer>
-                    <p className="registration__promotion__p">
+                    <p className="registration-promotion-p">
                         Master Cybersecurity. This path will prepare you to build you base strong in cyber security
                     </p>
-                    <div className="registration__ctas">
+                    <div className="registration-ctas">
                         {!emailSent
                             ? SendEmail({ email, onChange, onSubmitSendEmail, isLoading })
                             : !isEmailVerified
-                            ? VerifyCode({ code, onChange, onSubmitVerifyCode, isUserLoading })
-                            : ResetPassword({ password, confirmPassword, onChange, onSubmitPassword, isLoading })}
+                              ? VerifyCode({ code, onChange, onSubmitVerifyCode, isUserLoading })
+                              : ResetPassword({ password, confirmPassword, onChange, onSubmitPassword, isLoading })}
                     </div>
                 </RegistrationFormContainer>
             </CenterCard>
@@ -138,8 +145,8 @@ const ForgotPassword = () => {
 
 const SendEmail = ({ email, onChange, onSubmitSendEmail, isLoading }) => (
     <>
-        <h1 className="registration__promotion__h1">Forgot Password</h1>
-        <div className="registration__inputfields">
+        <h1 className="registration-promotion-h1">Forgot Password</h1>
+        <div className="registration-inputfields">
             <CustomInputGroup>
                 <span>
                     <FaUserCircle />
@@ -152,6 +159,7 @@ const SendEmail = ({ email, onChange, onSubmitSendEmail, isLoading }) => (
                     placeholder="email"
                     onChange={onChange}
                     aria-label="email"
+                    autoComplete="off"
                 />
             </CustomInputGroup>
         </div>
@@ -170,12 +178,12 @@ const SendEmail = ({ email, onChange, onSubmitSendEmail, isLoading }) => (
 const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isUserLoading }) => (
     <>
         <>
-            <h1 className="registration__promotion__h1">Verify Code</h1>
+            <h1 className="registration-promotion-h1">Verify Code</h1>
             <VerificationCodeSection>
                 {/* <span> Code </span> */}
                 <CustomInputGroup style={{ width: "100%" }}>
                     <input
-                        className={"codeInput"}
+                        className={"code-input"}
                         type={"text"}
                         id={"code"}
                         name={"code"}
@@ -183,6 +191,7 @@ const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isUserLoading }) => (
                         placeholder={"Code"}
                         onChange={onChange}
                         aria-label={"Code"}
+                        autoComplete="off"
                     />
                 </CustomInputGroup>
                 {/* <ButtonGreen width={"100%"} onClick={onSubmitVerifyCode}> Resend </ButtonGreen> */}
@@ -202,8 +211,8 @@ const VerifyCode = ({ code, onChange, onSubmitVerifyCode, isUserLoading }) => (
 
 const ResetPassword = ({ password, confirmPassword, onChange, onSubmitPassword, isLoading }) => (
     <>
-        <h1 className="registration__promotion__h1">Reset Password</h1>
-        <div className="registration__inputfields">
+        <h1 className="registration-promotion-h1">Reset Password</h1>
+        <div className="registration-inputfields">
             <CustomInputGroup>
                 <span>
                     <CgPassword />
@@ -216,7 +225,7 @@ const ResetPassword = ({ password, confirmPassword, onChange, onSubmitPassword, 
                     placeholder="Password"
                     onChange={onChange}
                     aria-label="Password"
-                    autoComplete={null}
+                    autoComplete="off"
                 />
             </CustomInputGroup>
             <CustomInputGroup>
@@ -231,7 +240,7 @@ const ResetPassword = ({ password, confirmPassword, onChange, onSubmitPassword, 
                     placeholder="Confirm Password"
                     onChange={onChange}
                     aria-label="Password"
-                    autoComplete={null}
+                    autoComplete="off"
                 />
             </CustomInputGroup>
             {/* <ButtonGreen width={"100%"} onClick={onSubmitVerifyCode}> Resend </ButtonGreen> */}

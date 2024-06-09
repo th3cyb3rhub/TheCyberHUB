@@ -10,22 +10,27 @@ export const ExpContainer = styled.div`
     gap: 15px;
     transition: 0.3s ease-in-out;
 
-    @media screen and (max-width: 1350px) {
+    @media screen and (width <= 1350px) {
         min-width: initial;
     }
-    @media screen and (max-width: 400px) {
+
+    @media screen and (width <= 400px) {
         font-size: 12px;
     }
-    @media screen and (max-width: 1000px) {
+
+    @media screen and (width <= 1000px) {
         display: none;
     }
-    @media screen and (max-width: 820px) {
+
+    @media screen and (width <= 820px) {
         display: flex;
     }
-    @media screen and (max-width: 450px) {
+
+    @media screen and (width <= 450px) {
         width: auto;
     }
-    @media screen and (max-width: 360px) {
+
+    @media screen and (width <= 360px) {
         display: none;
     }
 `;
@@ -33,8 +38,9 @@ export const ExpContainer = styled.div`
 export const ExpIcon = styled(MdOutlineLocalFireDepartment)`
     color: #ff6b08;
     margin: 0 5px;
-    font-size: 1.2rem;
-    @media screen and (max-width: 400px) {
+    font-size: 1.4rem;
+
+    @media screen and (width <= 400px) {
         font-size: 12px;
     }
 `;
@@ -45,13 +51,15 @@ export const ExpText = styled.div`
     justify-content: end;
     text-align: right;
     width: 100%;
-    //@media screen and (max-width: 1350px) {
-    //    display: none;
-    //}
-    @media screen and (max-width: 900px) {
+
+    /* @media screen and (max-width: 1350px) {
+       display: none;
+    } */
+    @media screen and (width <= 900px) {
         display: initial;
     }
-    @media screen and (max-width: 450px) {
+
+    @media screen and (width <= 450px) {
         min-width: initial;
     }
 `;

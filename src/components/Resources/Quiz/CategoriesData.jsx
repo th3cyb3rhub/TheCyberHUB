@@ -13,6 +13,7 @@ export const CBQQuestions = [
             },
             { answerText: "Use multi-factor authentication.", isCorrect: true },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -21,6 +22,7 @@ export const CBQQuestions = [
             { answerText: "True", isCorrect: true },
             { answerText: "False", isCorrect: false },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -47,6 +49,7 @@ export const CBQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "Cyber criminals only target large companies?",
@@ -54,6 +57,7 @@ export const CBQQuestions = [
             { answerText: "True", isCorrect: false },
             { answerText: "False", isCorrect: true },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "Which of the following is the best answer for how to secure your router?",
@@ -72,6 +76,7 @@ export const CBQQuestions = [
             },
             { answerText: "All of the above.", isCorrect: true },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
 ];
 
@@ -100,6 +105,7 @@ export const PhishingQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -108,6 +114,7 @@ export const PhishingQuestions = [
             { answerText: "True", isCorrect: false },
             { answerText: "False", isCorrect: true },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -128,6 +135,7 @@ export const PhishingQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "Email authentication can help protect against phishing attacks. True or False?",
@@ -135,6 +143,7 @@ export const PhishingQuestions = [
             { answerText: "True", isCorrect: true },
             { answerText: "False", isCorrect: false },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "If you fall for a phishing scam, what should you do to limit the damage?",
@@ -152,6 +161,7 @@ export const PhishingQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
 ];
 
@@ -176,6 +186,7 @@ export const PSQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -184,6 +195,7 @@ export const PSQQuestions = [
             { answerText: "True", isCorrect: false },
             { answerText: "False", isCorrect: true },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -198,6 +210,7 @@ export const PSQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "Which one of these statements is true?",
@@ -222,6 +235,7 @@ export const PSQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -236,6 +250,7 @@ export const PSQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
 ];
 
@@ -261,6 +276,7 @@ export const RansomwareQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -269,6 +285,7 @@ export const RansomwareQuestions = [
             { answerText: "True", isCorrect: false },
             { answerText: "False", isCorrect: true },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "Which of these best describes how criminals start ransomware attacks?",
@@ -291,6 +308,7 @@ export const RansomwareQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -305,6 +323,7 @@ export const RansomwareQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -319,6 +338,7 @@ export const RansomwareQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
 ];
 
@@ -336,6 +356,7 @@ export const SRAQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "What is a common way to help protect devices connected to the company network?",
@@ -358,6 +379,7 @@ export const SRAQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -372,6 +394,7 @@ export const SRAQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -386,6 +409,7 @@ export const SRAQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -408,6 +432,7 @@ export const SRAQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
 ];
 
@@ -436,6 +461,7 @@ export const TSSQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -444,6 +470,7 @@ export const TSSQQuestions = [
             { answerText: "True", isCorrect: false },
             { answerText: "False", isCorrect: true },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "Which of these answers describes the best way to protect against tech support scams?",
@@ -465,6 +492,7 @@ export const TSSQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -479,6 +507,7 @@ export const TSSQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText: "Which is the best way to protect against viruses or other security threats?",
@@ -502,6 +531,7 @@ export const TSSQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
 ];
 
@@ -528,6 +558,7 @@ export const VSQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -554,6 +585,7 @@ export const VSQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -568,6 +600,7 @@ export const VSQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -582,6 +615,7 @@ export const VSQQuestions = [
                 isCorrect: true,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
     {
         questionText:
@@ -605,5 +639,6 @@ export const VSQQuestions = [
                 isCorrect: false,
             },
         ],
+        additionalInfo: "additional info for question , this text should be changed accoringly to each question",
     },
 ];

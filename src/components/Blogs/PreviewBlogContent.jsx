@@ -1,6 +1,6 @@
 import React from "react";
 import { ContentSection, PreviewMarkdownHeading, Tag, Tags } from "./ViewBlog/ViewBlogElements";
-import PreviewMarkdown from "./ViewBlog/PreviewMarkdown";
+import PreviewMarkdown from "src/components/Blogs/ViewBlog/PreviewMarkdown";
 import { useLocation } from "react-router-dom";
 
 const PreviewBlogContent = (props) => {

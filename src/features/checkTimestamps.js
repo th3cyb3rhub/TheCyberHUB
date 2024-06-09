@@ -9,7 +9,7 @@ const checkTimestamps = ({ user }) => {
     const { userDetail, isLoading } = useSelector((state) => state.userDetail);
 
     useEffect(() => {
-        dispatch(getUserDetail(user.username));
+        dispatch(getUserDetail(user?.username));
     }, [dispatch, user.username]);
 
     if (isApiLoading || isLoading) {

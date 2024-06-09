@@ -5,14 +5,15 @@ import { FaUserAstronaut, FaUserCircle } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { IoMdLogIn } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
+import { RiAdminFill } from "react-icons/ri";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RouterLink, UserOptionsContainer, UserOptionsDropdownContainer } from "./UserOptionsElements";
-import { logout, userReset } from "../../../features/auth/authSlice";
+import { logout, userReset } from "src/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import { getAllUserDetails } from "../../../features/userDetail/userDetailSlice";
-import { cdnContentImagesUrl } from "../../../features/apiUrl";
-// import Streak from "../../Dashboard/Streak/Streak";
+import { getAllUserDetails } from "src/features/userDetail/userDetailSlice";
+import { cdnContentImagesUrl } from "src/features/apiUrl";
+import { CiSettingsIcon } from "src/components/Dashboard/DashbaordSidebar/DashbaordSidebarElements";
 
 const NavItem = (props) => {
     const [open, setOpen] = useState(false);
@@ -25,13 +26,15 @@ const NavItem = (props) => {
 
     window.addEventListener("scroll", () => setOpen(false));
     window.addEventListener("click", handleClose);
+
     return (
-        <li ref={userRef} className={"nav-item"}>
-            <a className={"icon-button"} onClick={() => setOpen(!open)}>
+        <div ref={userRef} className={"nav-item"}>
+            <span className={"icon-button"} onClick={() => setOpen(!open)} onMouseEnter={() => setOpen(true)}>
                 {props.text} {props.icon}
-            </a>
+            </span>
+
             {open && props.children}
-        </li>
+        </div>
     );
 };
 
@@ -70,14 +73,21 @@ const DropdownMenu = () => {
                     </>
                 ) : (
                     <>
+                        <DropdownItem to={`/user/${user.username}`} leftIcon={<FaUserCircle />}>
+                            Public Profile
+                        </DropdownItem>
+                        {(user?.userType === "admin" || user?.userType === "team") && (
+                            <DropdownItem to={"/admin-dashboard"} leftIcon={<RiAdminFill />}>
+                                Admin Dashboard
+                            </DropdownItem>
+                        )}
                         <DropdownItem to={"/dashboard"} leftIcon={<MdDashboard />}>
                             Dashboard
                         </DropdownItem>
-                        <DropdownItem to={`/@${user.username}`} leftIcon={<FaUserCircle />}>
-                            Public Profile
+                        <DropdownItem to={`/settings`} leftIcon={<CiSettingsIcon />}>
+                            Settings
                         </DropdownItem>
                         {/* {!inDevelopment ? ( */}
-
                         {/* ) : null} */}
                         {/* <DropdownItem to={"/settings"} leftIcon={<FcSettings />}> */}
                         {/*    Settings */}

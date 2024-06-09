@@ -19,7 +19,7 @@ export const ChallengeContainer = styled.div`
 
 export const ChallengeName = styled.h2`
     background: #0c0c0c;
-    padding: 15px 15px;
+    padding: 15px;
     white-space: pre-line;
     font-size: 20px;
     display: flex;
@@ -52,16 +52,13 @@ export const CTFRegistration = styled.div`
 export const ButtonCTFRegister = styled.button`
     background: #2a2a2a;
     white-space: nowrap;
-    padding: 10px 10px;
+    padding: 10px;
     color: #fff;
     outline: none;
-
     border: 1px solid #252525;
     border-radius: 5px;
-
-    font-family: "Ubuntu", sans-serif;
+    font-family: Ubuntu, sans-serif;
     font-size: 16px;
-
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -118,7 +115,7 @@ export const SingleCTFSection = styled.div`
     width: 100%;
     gap: 25px;
 
-    @media screen and (max-width: 860px) {
+    @media screen and (width <= 860px) {
         flex-direction: column;
     }
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LikesAndViewsContainer, LikesContainer, ViewsContainer } from "./SingleCTFElements";
 import { AiFillEye, AiFillLike } from "react-icons/ai";
-import { updateLikesAndViews } from "../../../features/ctf/ctfSlice";
+import { updateLikesAndViews } from "src/features/ctf/ctfSlice";
 import { useDispatch } from "react-redux";
 const LikesAndViews = ({ challenge, user }) => {
     const dispatch = useDispatch();

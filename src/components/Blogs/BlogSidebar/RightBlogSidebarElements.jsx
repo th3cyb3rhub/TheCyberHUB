@@ -9,7 +9,7 @@ export const RightBlogSidebarContainer = styled.div`
     align-items: start;
     justify-content: start;
 
-    @media screen and (max-width: 970px) {
+    @media screen and (width <= 970px) {
         transition: 0.1s ease-in-out;
         width: auto;
         min-width: auto;
@@ -19,7 +19,7 @@ export const RightBlogSidebarContainer = styled.div`
 export const SeeAll = styled(Link)`
     justify-content: flex-end;
     color: antiquewhite;
-    border: #666666 1px solid;
+    border: #666 1px solid;
     border-radius: 10px;
     padding: 5px 10px;
     font-size: 15px;

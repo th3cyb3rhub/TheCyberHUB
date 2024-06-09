@@ -9,13 +9,12 @@ export const ContainerBreachCheck = styled.div`
     position: relative;
     background: #090909;
     border: 1px solid #1a1c1d;
-    box-shadow: 0 0 100px 0 rgba(40, 110, 157, 0.2);
+    box-shadow: 0 0 100px 0 rgb(40 110 157 / 20%);
     backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
-    padding: 25px 50px 50px 50px;
+    padding: 25px 50px 50px;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         padding: 20px;
     }
 `;
@@ -30,7 +29,16 @@ export const EmailInput = styled.input`
     border: 1px solid #212121;
     border-radius: 5px;
     width: 100%;
-    @media (max-width: 768px) {
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        background: #1a1c1d;
+    }
+
+    @media (width <= 768px) {
         padding-left: 0.5rem;
         min-width: auto;
         width: 100%;
@@ -66,7 +74,7 @@ export const SubmitButton = styled.button`
         transition: all 0.2s ease-in-out;
     }
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         width: 100%;
 
         &:hover {
@@ -79,7 +87,7 @@ export const SubmitButton = styled.button`
 `;
 
 export const Message = styled.div`
-    margin: 50px 0 0 0;
+    margin: 50px 0 0;
     align-items: center;
     text-align: center;
     padding: 25px;

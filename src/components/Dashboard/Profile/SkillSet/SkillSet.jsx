@@ -1,11 +1,11 @@
 import React from "react";
-import { AchievementHeading, AchievementList } from "../Achievements/AchievementsElements";
+import { AchievementList } from "src/components/Dashboard/Profile/Achievements/AchievementsElements";
 import { SkillName, SkillSetContainer, SkillSetListItem } from "./SkillSetElements";
 
 const SkillSet = ({ skills }) => {
     return (
         <SkillSetContainer>
-            <AchievementHeading>Skills</AchievementHeading>
+            <h3>Skills</h3>
             <AchievementList>
                 <SkillSetListItem>
                     {skills?.length > 0 &&

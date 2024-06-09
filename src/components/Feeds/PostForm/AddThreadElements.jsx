@@ -9,7 +9,7 @@ export const AddThreadsContainer = styled.div`
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(0 0 0 / 40%);
     border-radius: 5px;
 
     .popup-inner {
@@ -25,7 +25,6 @@ export const CloseButton = styled(ImCross)`
     position: absolute;
     top: 20px;
     right: 20px;
-    background: none;
     border: none;
     cursor: pointer;
     font-size: 25px;
@@ -33,11 +32,10 @@ export const CloseButton = styled(ImCross)`
     background: #fc6c1a;
     border-radius: 50%;
     padding: 5px;
-
     transition: all 0.3s ease-in-out;
+
     &:hover {
         background: #f5f5f5;
-
         color: #000;
     }
 `;

@@ -1,11 +1,10 @@
 import React from "react";
 import { AboutSection } from "./ProfileElements";
-import { AchievementHeading } from "./Achievements/AchievementsElements";
 
 const AboutMe = ({ aboutMe }) => {
     return (
         <AboutSection>
-            <AchievementHeading>About Me</AchievementHeading>
+            <h2>About Me</h2>
             <p className="about-me">{aboutMe}</p>
         </AboutSection>
     );

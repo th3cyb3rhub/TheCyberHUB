@@ -1,47 +1,122 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import {
-    ExploreContainer,
-    LeftContainer,
-    RightContainer,
-    SearchContainer,
-    SearchTypeButton,
-    SearchTypeContainer,
-} from "./ExploreElements";
+import { ExploreContainer, LeftContainer, RightContainer } from "./ExploreElements";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
-import { SearchBox, SearchIcon, SearchInput } from "../CaptureTheFlag/CTFElements";
-import { getAllCTFs } from "../../features/ctf/ctfSlice";
-import { blogReset, getAllBlogs } from "../../features/blogs/blogSlice";
-import { getAllUserDetails, userDetailReset } from "../../features/userDetail/userDetailSlice";
-import { feedReset, getAllFeeds } from "../../features/feeds/feedsSlice";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { getAllCTFs } from "src/features/ctf/ctfSlice";
+import { blogReset, getAllBlogs } from "src/features/blogs/blogSlice";
+import { getAllUserDetails, userDetailReset } from "src/features/userDetail/userDetailSlice";
+import { feedReset, getAllFeeds } from "src/features/feeds/feedsSlice";
 import Users from "./Users/Users";
 import FeedsExplore from "./FeedsExplore";
-import Tags from "./Tags/Tags";
-import BlogCards from "../Blogs/BlogCard/BlogCards";
-import CtfChallenges from "../CaptureTheFlag/CTFCards/CtfChallenges";
-import apiStatus from "../../features/apiStatus";
-import UnderMaintenance from "../Other/UnderMaintenance/UnderMaintenance";
-import LoadingSpinner from "../Other/MixComponents/Spinner/LoadingSpinner";
+import BlogCards from "src/components/Blogs/BlogCard/BlogCards";
+import CtfChallenges from "src/components/CaptureTheFlag/CTFCards/CtfChallenges";
+import apiStatus from "src/features/apiStatus";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
+import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner";
+import { getFollowData } from "src/features/follow/followSlice";
+import { getConnections } from "src/features/connections/connectionSlice";
+import Sidebar from "src/components/Common/SocialSidebar/Sidebar";
+import { FilterButton } from "src/components/Feeds/FeedsElements";
+import { HintIcon } from "src/components/WebSecurity/Common/HintElements";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import NotFound from "src/NotFound";
+
+const FilterHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #131313;
+    border-radius: 5px;
+`;
+
+const FilterTitle = styled.p`
+    margin: 0;
+
+    /* font-weight: bold; */
+`;
+
+const FilterContent = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 10px 0 0;
+`;
+
+const FilterSection = ({ title, children }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div>
+            <FilterHeader onClick={() => setIsOpen(!isOpen)}>
+                <FilterTitle>{title}</FilterTitle>
+                <HintIcon>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</HintIcon>
+            </FilterHeader>
+            {isOpen && <FilterContent>{children}</FilterContent>}
+        </div>
+    );
+};
+
+const FiltersComponent = ({ types, selectedType, handleTypeSelect }) => {
+    return (
+        <FilterSection title="Filters">
+            {types.map((filter, index) => (
+                <FilterButton
+                    key={index}
+                    style={{
+                        background: selectedType === filter.value ? "#FF6B08" : "#1a1a1a",
+                        color: selectedType === filter.value ? "#0A0A0A" : "",
+                        borderRadius: "5px",
+                    }}
+                    onClick={() => handleTypeSelect(filter.value)}
+                >
+                    {filter.label}
+                </FilterButton>
+            ))}
+        </FilterSection>
+    );
+};
 
 const Explore = () => {
     const dispatch = useDispatch();
 
-    // const {user} = useSelector(state => state.auth);
+    const [showOnlyFollowing, setShowOnlyFollowing] = useState(false);
+
+    const { user } = useSelector((state) => state.auth);
     const { isApiLoading, isApiWorking } = apiStatus();
-    const { userDetails } = useSelector((state) => state.userDetail);
+    const { isUserDetailLoading } = useSelector((state) => state.userDetail);
     const { feeds, isFeedLoading } = useSelector((state) => state.feeds);
-    const { blogs } = useSelector((state) => state.blogs);
-    const { ctf } = useSelector((state) => state.ctf);
-    // const {forums} = useSelector((state) => state.forums);
+    const { blogs, isBlogLoading } = useSelector((state) => state.blogs);
+    const { ctf, isCtfLoading } = useSelector((state) => state.ctf);
+    const { connections } = useSelector((state) => state.connectionData);
+    const [userDetailsLocal, setUserDetailsLocal] = useState([]);
+    const userId = user?._id;
+    const { followData } = useSelector((state) => state.followData);
+    const allUsers = userDetailsLocal?.map((user) => user?.user) || [];
+    const followers = followData?.followers;
+    const following = followData?.following;
+    const allConnections = connections?.connections?.map((connection) => connection.user) || [];
+
+    const [filterLabel, setFilterLabel] = useState("all users");
+    const [selectedFilter, setSelectedFilter] = useState("all");
 
     useEffect(() => {
-        dispatch(getAllUserDetails());
+        dispatch(getAllUserDetails()).then(({ payload }) => {
+            setSelectedFilter(payload?.map((user) => user?.user));
+            setUserDetailsLocal(payload);
+        });
         dispatch(getAllFeeds());
         dispatch(getAllBlogs());
-        // dispatch(getForums());
         dispatch(getAllCTFs());
+
+        if (userId) {
+            dispatch(getFollowData(userId));
+            dispatch(getConnections(userId));
+        }
 
         return () => {
             dispatch(blogReset());
@@ -50,21 +125,19 @@ const Explore = () => {
         };
     }, [dispatch]);
 
-    const blogTags = blogs?.map((blog) => blog && blog?.tags).flat() || [];
-    const ctfTags = ctf?.map((ctf) => ctf && ctf?.tags).flat() || [];
-    const feedTags = feeds?.map((feed) => feed && feed?.tags).flat() || [];
+    useEffect(() => {
+        setSelectedFilter(allUsers);
+    }, [connections]);
+
+    const blogTags = blogs?.map((blog) => blog && blog?.tags.map((tag) => tag.toLowerCase())).flat() || [];
+    const ctfTags = ctf?.map((ctf) => ctf && ctf?.tags.map((tag) => tag.toLowerCase())).flat() || [];
+    const feedTags = feeds?.map((feed) => feed && feed?.tags.map((tag) => tag.toLowerCase())).flat() || [];
     // const forumTags = forums.map((forum) => forum && forum.tags).flat() || [];
 
-    const tags = [
-        ...new Set([
-            ...feedTags,
-            ...blogTags,
-            ...ctfTags,
-            // ...forumTags,
-        ]),
-    ].sort();
+    const tags = [...new Set([...feedTags, ...blogTags, ...ctfTags])].sort();
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedTags, setSelectedTags] = useState([]);
 
     const handleSearchTermChange = (event) => {
         setSearchTerm(event.target.value);
@@ -77,59 +150,94 @@ const Explore = () => {
         { value: "blogs", label: "Blogs" },
         { value: "ctf", label: "CTF" },
         { value: "feeds", label: "Feeds" },
-        // {value: "forum", label: "Forum"},
-        // jobs, internships, courses, events, quiz, interviewQues, tools
-        // {value: 'jobs', label: 'Jobs'},
-        // {value: 'internships', label: 'Internships'},
-        // {value: 'courses', label: 'Courses'},
-        // {value: 'events', label: 'Events'},
-        // {value: 'quiz', label: 'Quiz'},
-        // {value: 'interviewQues', label: 'Interview Questions'},
-        // {value: 'tools', label: 'Tools'},
     ];
 
     const handleTypeSelect = (type) => {
         setSelectedType(type);
-        // You can perform any additional actions here based on the selected type
     };
 
-    const feedData = feeds
-        ?.slice()
+    const feedData = feeds?.map((feed) => {
+        const userDetail = userDetailsLocal?.find((user) => user?.user === feed?.user);
+        if (!selectedFilter?.includes(userDetail?.user)) {
+            return null;
+        }
+        const { username, avatar, verified } = userDetail || {};
+
+        return { ...feed, username, avatar, verified };
+    });
+
+    const filteredFeeds = feedData
+        ?.filter((feed) => feed !== null)
         .reverse()
         ?.slice(0, 10)
-        .reverse()
-        .map((feed) => {
-            const userDetail = userDetails?.find((user) => user.user === feed.user);
-            const { username, avatar, verified } = userDetail || {};
+        .reverse();
 
-            return { ...feed, username, avatar, verified };
-        });
+    const blogsData = blogs?.map((blog) => {
+        const userDetail = userDetailsLocal?.find((user) => user?.user === blog?.user);
+        if (!selectedFilter?.includes(userDetail?.user)) {
+            return null;
+        }
+        const { username, avatar, verified } = userDetail || {};
 
-    const blogsData = blogs
-        ?.slice()
-        .reverse()
-        ?.slice(0, 10)
-        .reverse()
-        .map((blog) => {
-            const userDetail = userDetails?.find((user) => user.user === blog.user);
-            const { username, avatar, verified } = userDetail || {};
+        return { ...blog, username, avatar, verified };
+    });
 
-            return { ...blog, username, avatar, verified };
-        });
-
-    const ctfData = ctf
-        ?.slice()
+    const filteredBlogs = blogsData
+        ?.filter((blog) => blog !== null)
         .reverse()
         ?.slice(0, 10)
+        .reverse();
+
+    const filteredCtf =
+        ctf?.filter((ctf) => ctf?.registeredUsers.find(({ user }) => selectedFilter?.includes(user))) || [];
+
+    const filteredUsers = userDetailsLocal
+        ?.filter((user) => selectedFilter?.includes(user.user))
         .reverse()
-        .map((ctf) => {
-            const userDetail = userDetails?.find((user) => user.user === ctf.user);
-            const { username, avatar, verified } = userDetail || {};
+        ?.slice(0, 10)
+        .reverse();
 
-            return { ...ctf, username, avatar, verified };
-        });
+    const handleTypeFilter = (filter) => {
+        if (filter.label === filterLabel) {
+            setSelectedFilter(allUsers); // Deselect the filter
+            setFilterLabel("all"); // Reset the filter label
+        } else {
+            setSelectedFilter(filter.value); // Select the filter
+            setFilterLabel(filter.label); // Set the filter label
+        }
+    };
 
-    if (isApiLoading) return <LoadingSpinner />;
+    const userFilters = [
+        { value: allConnections, label: "Connections" },
+        { value: following, label: "Following" },
+        { value: followers, label: "Followers" },
+        { value: allUsers, label: "all users" },
+    ];
+
+    const renderNotFoundComponents = () => {
+        const dataTypes = ["Users", "Feeds", "Blogs", "Ctfs"];
+        const filteredData = {
+            Users: filteredUsers,
+            Feeds: filteredFeeds,
+            Blogs: filteredBlogs,
+            Ctfs: filteredCtf,
+        };
+        const missingDataTypes = dataTypes.filter((type) => !filteredData[type].length);
+
+        if (missingDataTypes.length === dataTypes.length) {
+            return <NotFound title="Not Found" description="There are no items" />;
+        } else if (missingDataTypes.length) {
+            const lastType = missingDataTypes.pop();
+            const missingDataTypesString = missingDataTypes.length
+                ? `${missingDataTypes.join(", ")} and ${lastType}`
+                : lastType;
+            return <NotFound title="" description={`${missingDataTypesString} Not Found`} />;
+        }
+
+        return null;
+    };
+
+    if (isApiLoading || isCtfLoading) return <LoadingSpinner />;
 
     if (!isApiWorking) return <UnderMaintenance />;
 
@@ -137,57 +245,105 @@ const Explore = () => {
         <Wrapper>
             <ExploreContainer>
                 <LeftContainer>
-                    <SearchContainer>
-                        <SearchBox>
-                            <SearchIcon />
-                            <SearchInput
-                                type="text"
-                                placeholder="Search by name"
-                                value={searchTerm}
-                                onChange={handleSearchTermChange}
-                            />
-                        </SearchBox>
-                        <SearchTypeContainer>
-                            {types.map((type) => (
-                                <SearchTypeButton
-                                    key={type.value}
-                                    selected={selectedType === type.value}
-                                    onClick={() => handleTypeSelect(type.value)}
-                                >
-                                    {type.label}
-                                </SearchTypeButton>
-                            ))}
-                        </SearchTypeContainer>
-                    </SearchContainer>
-
-                    <Tags tags={tags} />
+                    <Sidebar
+                        user={user}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                        handleSearchTermChange={handleSearchTermChange}
+                        tags={tags}
+                        selectedTags={selectedTags}
+                        setSelectedTags={setSelectedTags}
+                        showOnlyFollowing={showOnlyFollowing}
+                        setShowOnlyFollowing={setShowOnlyFollowing}
+                        userFilters={userFilters}
+                        filterLabel={filterLabel}
+                        handleTypeFilter={handleTypeFilter}
+                        exploreFiltersComponent={FiltersComponent({ types, selectedType, handleTypeSelect })}
+                        sidebarType={"explore"}
+                    />
                 </LeftContainer>
 
                 <RightContainer>
-                    {selectedType === "all" || selectedType === "users" ? (
-                        <Users userDetails={userDetails} searchTerm={searchTerm} displayAt={"explore"} />
-                    ) : null}
+                    {selectedType === "all" ? (
+                        <>
+                            {filteredUsers?.length ? (
+                                <Users
+                                    userDetails={filteredUsers}
+                                    isUserDetailLoading={isUserDetailLoading}
+                                    searchTerm={searchTerm}
+                                    displayAt={"explore"}
+                                />
+                            ) : null}
+                            {filteredFeeds?.length ? (
+                                <FeedsExplore
+                                    feeds={filteredFeeds}
+                                    isFeedLoading={isFeedLoading}
+                                    searchTerm={searchTerm}
+                                    displayAt={"explore"}
+                                    selectedTags={selectedTags}
+                                />
+                            ) : null}
+                            {filteredBlogs?.length ? (
+                                <BlogCards
+                                    blogs={filteredBlogs}
+                                    isBlogLoading={isBlogLoading}
+                                    searchTerm={searchTerm}
+                                    displayAt={"explore"}
+                                    selectedTags={selectedTags}
+                                />
+                            ) : null}
+                            {filteredCtf?.length ? (
+                                <CtfChallenges
+                                    ctf={filteredCtf}
+                                    isCtfLoading={isCtfLoading}
+                                    searchTerm={searchTerm}
+                                    displayAt={"explore"}
+                                    selectedTags={selectedTags}
+                                />
+                            ) : null}
+                            {renderNotFoundComponents()}
+                        </>
+                    ) : (
+                        <>
+                            {selectedType === "users" ? (
+                                <Users
+                                    userDetails={filteredUsers}
+                                    isUserDetailLoading={isUserDetailLoading}
+                                    searchTerm={searchTerm}
+                                    displayAt={"explore"}
+                                />
+                            ) : null}
 
-                    {selectedType === "all" || selectedType === "feeds" ? (
-                        <FeedsExplore
-                            feeds={feedData}
-                            isFeedLoading={isFeedLoading}
-                            searchTerm={searchTerm}
-                            displayAt={"explore"}
-                        />
-                    ) : null}
+                            {selectedType === "feeds" ? (
+                                <FeedsExplore
+                                    feeds={filteredFeeds}
+                                    isFeedLoading={isFeedLoading}
+                                    searchTerm={searchTerm}
+                                    displayAt={"explore"}
+                                />
+                            ) : null}
 
-                    {selectedType === "all" || selectedType === "blogs" ? (
-                        <BlogCards blogs={blogsData} searchTerm={searchTerm} displayAt={"explore"} />
-                    ) : null}
+                            {selectedType === "blogs" ? (
+                                <BlogCards
+                                    blogs={filteredBlogs}
+                                    isBlogLoading={isBlogLoading}
+                                    searchTerm={searchTerm}
+                                    selectedTags={selectedTags}
+                                    displayAt={"explore"}
+                                />
+                            ) : null}
 
-                    {/* {selectedType === "all" || selectedType === "forum" ? ( */}
-                    {/*    <ForumPosts forums={forums} searchTerm={searchTerm} displayAt={"explore"}/> */}
-                    {/* ) : null} */}
-
-                    {selectedType === "all" || selectedType === "ctf" ? (
-                        <CtfChallenges ctf={ctfData} searchTerm={searchTerm} displayAt={"explore"} />
-                    ) : null}
+                            {selectedType === "ctf" ? (
+                                <CtfChallenges
+                                    ctf={filteredCtf}
+                                    isCtfLoading={isCtfLoading}
+                                    searchTerm={searchTerm}
+                                    displayAt={"explore"}
+                                    selectedTags={selectedTags}
+                                />
+                            ) : null}
+                        </>
+                    )}
                 </RightContainer>
             </ExploreContainer>
         </Wrapper>

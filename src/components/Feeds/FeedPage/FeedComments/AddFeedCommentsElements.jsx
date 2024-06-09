@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AddFeedCommentContainer = styled.div`
     border-bottom: 1px solid #1a1a1a;
-    background: #000000;
+    background: #000;
     padding: 15px;
     border-radius: 5px;
     width: 100%;
@@ -20,17 +20,16 @@ export const FeedCommentInput = styled.textarea`
     border: transparent;
     color: #f5f5f5;
     width: 100%;
-    font-family: "Roboto", sans-serif;
+    font-family: Roboto, sans-serif;
     line-height: 1.5;
     font-size: 15px;
     text-underline-offset: 5px;
     word-wrap: break-word;
     resize: none; /* Disable resizing via drag */
     overflow: hidden; /* Hide scrollbars */
-
     padding: 15px 0;
 
-    ::placeholder {
+    &::placeholder {
         color: #f5f5f5;
     }
 
@@ -51,12 +50,11 @@ export const AddCommentButton = styled.button`
     background: #2a2a2a;
     border: 1px solid #2a2a2a;
     color: #f5f5f5;
-
     cursor: pointer;
-
     transition: all 0.2s ease-in-out;
+
     &:hover {
-        background: #444444;
+        background: #444;
         border: 1px solid #2a2a2a;
         color: #f5f5f5;
         font-size: 15px;

@@ -14,19 +14,21 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 const CtfCard = ({ challenge, user, userDetail, index }) => {
     return (
         <CTFCardContainer>
-            <CTFCardHeader>
-                {challenge?.challengeName}
-                {user &&
-                    userDetail?.solved?.map((ctf, index) =>
-                        challenge?._id === ctf?.ctfId && ctf?.isCompleted === true ? (
-                            <IoCheckmarkSharp key={index} color="#ff6b08" size={25} />
-                        ) : null,
-                    )}
-            </CTFCardHeader>
+            <span>
+                <CTFCardHeader>
+                    {challenge?.challengeName}
+                    {user &&
+                        userDetail?.solved?.map((ctf, index) =>
+                            challenge?._id === ctf?.ctfId && ctf?.isCompleted === true ? (
+                                <IoCheckmarkSharp key={index} color="#ff6b08" size={25} />
+                            ) : null,
+                        )}
+                </CTFCardHeader>
 
-            <CTFCardBody>
-                <CTFCardSubtitle>{challenge?.subtitle}</CTFCardSubtitle>
-            </CTFCardBody>
+                <CTFCardBody>
+                    <CTFCardSubtitle>{challenge?.subtitle}</CTFCardSubtitle>
+                </CTFCardBody>
+            </span>
 
             <CTFCardFooter>
                 <CTFTags>

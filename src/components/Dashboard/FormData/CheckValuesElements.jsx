@@ -1,13 +1,9 @@
 import styled from "styled-components";
 
-export const CheckValuesContainer = styled.div``;
-
 export const Checkbox = styled.input`
     margin-left: 10px;
     padding: 10px;
 `;
-
-export const Label = styled.label``;
 
 export const Button = styled.button`
     background: #131313;
@@ -20,8 +16,9 @@ export const Button = styled.button`
     cursor: pointer;
     margin: 5px;
     padding: 10px 20px;
-    @media screen and (max-width: 500px) {
-        padding: 5px 5px;
+
+    @media screen and (width <= 500px) {
+        padding: 5px;
         width: 100%;
     }
 `;
@@ -38,8 +35,9 @@ export const ButtonGreen = styled.button`
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
-    @media screen and (max-width: 500px) {
-        padding: 5px 5px;
+
+    @media screen and (width <= 500px) {
+        padding: 5px;
         width: 100%;
     }
 `;
@@ -77,7 +75,7 @@ export const HiredSection = styled.div`
     padding: 25px;
 `;
 export const HiredInput = styled.input`
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -89,18 +87,18 @@ export const HiredInput = styled.input`
     width: 100%;
     text-underline-offset: 5px;
     font-size: 20px;
-
     padding: 10px 25px;
-
     transition: all 0.2s ease-in-out;
-    @media (max-width: 900px) {
+
+    @media (width <= 900px) {
         font-size: 17px;
     }
-    @media (max-width: 500px) {
+
+    @media (width <= 500px) {
         font-size: 15px;
     }
 
-    ::placeholder {
+    &::placeholder {
         color: #fff;
     }
 
@@ -109,7 +107,7 @@ export const HiredInput = styled.input`
     }
 
     &:hover {
-        background: #111111;
+        background: #111;
         transition: all 0.2s ease-in-out;
         border: transparent;
         color: #fff;

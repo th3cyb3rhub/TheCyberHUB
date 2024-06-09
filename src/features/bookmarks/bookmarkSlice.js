@@ -3,10 +3,10 @@ import bookmarkService from "./bookmarkServices";
 
 const initialState = {
     bookmarks: [],
-    isError: false,
+    isBookmarkError: false,
     isSuccess: false,
-    isLoading: false,
-    message: "",
+    isBookmarkLoading: false,
+    bookmarkMessage: "",
 };
 
 // Create new bookmark
@@ -15,9 +15,11 @@ export const addBookmark = createAsyncThunk("bookmarks/add", async (bookmarkData
         const token = thunkAPI.getState().auth.user.token;
         return await bookmarkService.addBookmark(bookmarkData, token);
     } catch (error) {
-        const message =
-            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-        return thunkAPI.rejectWithValue(message);
+        const bookmarkMessage =
+            (error.response && error.response.data && error.response.data.bookmarkMessage) ||
+            error.bookmarkMessage ||
+            error.toString();
+        return thunkAPI.rejectWithValue(bookmarkMessage);
     }
 });
 
@@ -27,9 +29,11 @@ export const removeBookmark = createAsyncThunk("bookmarks/remove", async (bookma
         const token = thunkAPI.getState().auth.user.token;
         return await bookmarkService.removeBookmark(bookmarkData, token);
     } catch (error) {
-        const message =
-            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-        return thunkAPI.rejectWithValue(message);
+        const bookmarkMessage =
+            (error.response && error.response.data && error.response.data.bookmarkMessage) ||
+            error.bookmarkMessage ||
+            error.toString();
+        return thunkAPI.rejectWithValue(bookmarkMessage);
     }
 });
 
@@ -39,9 +43,11 @@ export const getBookmarks = createAsyncThunk("bookmarks/get", async (_, thunkAPI
         const token = thunkAPI.getState().auth.user.token;
         return await bookmarkService.getBookmarks(token);
     } catch (error) {
-        const message =
-            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-        return thunkAPI.rejectWithValue(message);
+        const bookmarkMessage =
+            (error.response && error.response.data && error.response.data.bookmarkMessage) ||
+            error.bookmarkMessage ||
+            error.toString();
+        return thunkAPI.rejectWithValue(bookmarkMessage);
     }
 });
 
@@ -54,43 +60,43 @@ export const bookmarkSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(addBookmark.pending, (state) => {
-                state.isLoading = true;
+                state.isBookmarkLoading = true;
             })
             .addCase(addBookmark.fulfilled, (state, action) => {
-                state.isLoading = false;
+                state.isBookmarkLoading = false;
                 state.isSuccess = true;
                 state.bookmarks.push(action.payload);
             })
             .addCase(addBookmark.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isBookmarkLoading = false;
+                state.isBookmarkError = true;
+                state.bookmarkMessage = action.payload;
             })
             .addCase(removeBookmark.pending, (state) => {
-                state.isLoading = true;
+                state.isBookmarkLoading = true;
             })
             .addCase(removeBookmark.fulfilled, (state, action) => {
-                state.isLoading = false;
+                state.isBookmarkLoading = false;
                 state.isSuccess = true;
                 state.bookmarks = state.bookmarks.filter((bookmark) => bookmark._id !== action.payload._id);
             })
             .addCase(removeBookmark.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isBookmarkLoading = false;
+                state.isBookmarkError = true;
+                state.bookmarkMessage = action.payload;
             })
             .addCase(getBookmarks.pending, (state) => {
-                state.isLoading = true;
+                state.isBookmarkLoading = true;
             })
             .addCase(getBookmarks.fulfilled, (state, action) => {
-                state.isLoading = false;
+                state.isBookmarkLoading = false;
                 state.isSuccess = true;
                 state.bookmarks = action.payload;
             })
             .addCase(getBookmarks.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
+                state.isBookmarkLoading = false;
+                state.isBookmarkError = true;
+                state.bookmarkMessage = action.payload;
             });
     },
 });

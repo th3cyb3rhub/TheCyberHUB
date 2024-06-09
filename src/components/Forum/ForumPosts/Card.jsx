@@ -7,17 +7,15 @@ import {
     // CheckIcon,
     ContainerCard,
     Date,
-    Description,
     DetailsSection,
     FooterDetailsSection,
     MainSection,
     SubSection,
-    Title,
     Views,
     Votes,
 } from "./CardElements";
-import { encodeURL } from "../../Blogs/util";
-import { RouterLink } from "../../Tools/ToolsElements";
+import { encodeURL } from "src/components/Blogs/util";
+import { RouterLink } from "src/components/Tools/ToolsElements";
 
 const Card = ({ title, description, username, date, categories, views, answers, answerAccepted, votes }) => {
     const postedTime = moment(date);
@@ -40,8 +38,8 @@ const Card = ({ title, description, username, date, categories, views, answers, 
             <MainSection>
                 <SubSection>
                     <RouterLink to={{ pathname: `/forum/${encodeURL(title)}` }}>
-                        <Title> {title} </Title>
-                        <Description> {description.slice(0, 150)}... </Description>
+                        <h3> {title} </h3>
+                        <p> {description.slice(0, 150)}... </p>
                     </RouterLink>
                 </SubSection>
                 <DetailsSection>

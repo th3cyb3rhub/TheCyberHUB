@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { encodeURL } from "../../util";
+import { encodeURL } from "src/components/Blogs/util";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBlogs, blogReset, updateBlog } from "../../../../features/blogs/blogSlice";
+import { getAllBlogs, blogReset, updateBlog } from "src/features/blogs/blogSlice";
 import {
     AddCoverImageSection,
     AddImage,
@@ -11,23 +11,22 @@ import {
     Form,
     ImageSelected,
     ImageUploadAndPreviewSection,
-    ImageUploadInput,
     ImageUploadLabel,
     Input,
     SectionCreateBlog,
     Submit,
     TextArea,
     TextGrey,
-} from "../CreateBlog/CreateBlogElements";
-import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
+} from "src/components/Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import { toast } from "react-toastify";
-import { getApiUrl } from "../../../../features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 import axios from "axios";
-import AuthPopup from "../../../../pages/AuthPopup/AuthPopup";
-import BlogPostFormV2 from "../CreateBlogV2/BlogPostFormV2";
-import { Option, Select } from "../../../CaptureTheFlag/CTFElements";
-import AddFeedTags from "../../../Feeds/PostForm/AddPostTags/AddPostTags";
-import { LoadingButton } from "../../../Other/MixComponents/Buttons/ButtonElements";
+import AuthPopup from "src/pages/AuthPopup/AuthPopup";
+import BlogPostFormV2 from "src/components/Blogs/ManageBlogs/CreateBlogV2/BlogPostFormV2";
+import { Option, Select } from "src/components/CaptureTheFlag/CTFElements";
+import AddFeedTags from "src/components/Feeds/PostForm/AddPostTags/AddPostTags";
+import { LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
 
 const EditBlog = () => {
@@ -217,7 +216,7 @@ const EditBlog = () => {
                             <ImageSelected> {fileName && <>{fileName.slice(0, 20)}..</>} </ImageSelected>
                             {/* <img src={file ? URL.createObjectURL(file) : coverImagePreview}  alt={""} style={{height: "100px", width:"auto"}}/> */}
                         </ImageUploadLabel>
-                        <ImageUploadInput
+                        <input
                             // type="file"
                             // name="addCoverImage"
                             // id="addCoverImage"

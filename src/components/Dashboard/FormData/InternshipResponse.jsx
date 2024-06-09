@@ -4,9 +4,9 @@ import { JobsCardSection, JobsDetailContainer, JobsDetailSection } from "./Jobs/
 import Job from "./Jobs/Job";
 import JobDetailsPage from "./Jobs/JobDetailsPage";
 import { useSelector } from "react-redux";
-import { Wrapper } from "../Profile/ProfileElements";
-import { NotFound } from "../../index";
-import { getApiUrl } from "../../../features/apiUrl";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { NotFound } from "src/components/index";
+import { getApiUrl } from "src/features/apiUrl";
 import {
     InternshipButton,
     InternshipResponseContainer,
@@ -21,15 +21,17 @@ const InternshipResponse = () => {
         return <NotFound />;
     }
 
-    const [formData, setFormData] = useState([]);
+    const [formData, setFormData] = useState(null);
     const [isAuthorised, setIsAuthorised] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     const [detailsVisible, setDetailsVisible] = useState(false);
     const [selectedJob, setSelectedJob] = useState(null);
     const [selectedReasonType, setSelectedReasonType] = useState(null);
     const [selectedMonth, setSelectedMonth] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
         const token = JSON.parse(localStorage.getItem("user")).token;
         // https://api.thecyberhub.org
         fetch(getApiUrl("api/form/getFormData"), {
@@ -51,6 +53,7 @@ const InternshipResponse = () => {
             .catch((err) => {
                 setErrorMessage(err.message);
             });
+        setIsLoading(false);
     }, []);
 
     const months = [
@@ -83,7 +86,7 @@ const InternshipResponse = () => {
         ? filteredData.filter((data) => data.reasonType === selectedReasonType)
         : filteredData;
 
-    if (!isAuthorised) {
+    if (!isAuthorised || isLoading || formData === null) {
         return <NotFound />;
     }
 
@@ -98,22 +101,23 @@ const InternshipResponse = () => {
                     ))}
                 </SelectMonthSection>
                 <SelectInternshipSection>
-                    {Array?.from(new Set(formData?.map((data) => data.reasonType)))?.map(
-                        (reasonType) =>
-                            reasonType !== "Web Application Pentest" &&
-                            reasonType !== "" && (
-                                <InternshipButton
-                                    key={reasonType}
-                                    selected={selectedReasonType === reasonType}
-                                    onClick={() => setSelectedReasonType(reasonType)}
-                                >
-                                    {reasonType}
-                                    <span>
-                                        ({filteredData.filter((data) => data.reasonType === reasonType).length})
-                                    </span>
-                                </InternshipButton>
-                            ),
-                    )}
+                    {Array.isArray(formData) &&
+                        Array?.from(new Set(formData.slice(0, 1)?.map((data) => data.reasonType)))?.map(
+                            (reasonType, index) =>
+                                reasonType !== "Web Application Pentest" &&
+                                reasonType !== "" && (
+                                    <InternshipButton
+                                        key={index}
+                                        selected={selectedReasonType === reasonType}
+                                        onClick={() => setSelectedReasonType(reasonType)}
+                                    >
+                                        {reasonType}
+                                        <span>
+                                            ({filteredData.filter((data) => data.reasonType === reasonType).length})
+                                        </span>
+                                    </InternshipButton>
+                                ),
+                        )}
                 </SelectInternshipSection>
                 <FormDataContainer>
                     {errorMessage && <p>{errorMessage}</p>}

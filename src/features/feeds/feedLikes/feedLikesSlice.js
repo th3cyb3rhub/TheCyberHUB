@@ -36,8 +36,7 @@ export const removeFeedLike = createAsyncThunk("feedLikes/remove", async (likeDa
 // Get user feedLikes
 export const getFeedLikes = createAsyncThunk("feedLikes/get", async (feedLikesData, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token;
-        return await likeService.getFeedLikes(feedLikesData, token);
+        return await likeService.getFeedLikes(feedLikesData);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

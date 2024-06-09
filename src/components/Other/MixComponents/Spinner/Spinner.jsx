@@ -1,7 +1,6 @@
 import React from "react";
 import { ScaleLoader } from "react-spinners";
 import { SpinnerSection } from "./SpinnerElements";
-// import logo from "../../../../assets/images/loading.gif";
 const Spinner = ({ loading, key }) => {
     return (
         <div>

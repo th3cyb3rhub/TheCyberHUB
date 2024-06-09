@@ -8,7 +8,7 @@ import { SiFirefoxbrowser } from "react-icons/si";
 export const ContentH = styled.h1`
     text-align: center;
     color: #c4c4c4;
-    margin: 5px 0 0 0;
+    margin: 5px 0 0;
     width: 100%;
     max-width: 600px;
 `;
@@ -16,13 +16,13 @@ export const ContentH = styled.h1`
 export const ContentP = styled.p`
     text-align: center;
     color: #c4c4c4;
-    margin: 5px 0 0 0;
+    margin: 5px 0 0;
     width: 100%;
     max-width: 600px;
 `;
 
 export const ContactFormContainer = styled.div`
-    margin: 50px auto auto auto;
+    margin: 50px auto auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,7 +39,7 @@ export const Cover = styled.div`
     align-items: center;
     width: 100%;
 
-    @media (max-width: 500px) {
+    @media (width <= 500px) {
         flex-direction: column;
         transition: 0.1s ease-in-out;
     }
@@ -56,7 +56,7 @@ export const CoverLeft = styled.div`
     margin: 5px 0;
     margin-right: 5px;
 
-    @media (max-width: 500px) {
+    @media (width <= 500px) {
         margin-right: 0;
     }
 `;
@@ -73,7 +73,7 @@ export const CoverRight = styled.div`
     margin: 5px 0;
     margin-left: 5px;
 
-    @media (max-width: 500px) {
+    @media (width <= 500px) {
         margin-left: 0;
     }
 `;
@@ -130,7 +130,7 @@ export const ContactFormInput = styled.input`
     width: 100%;
     text-underline-offset: 5px;
 
-    ::placeholder {
+    &::placeholder {
         color: #fff;
     }
 
@@ -152,24 +152,25 @@ export const ContactFormSelect = styled.select`
     align-items: center;
     border-radius: 5px;
 `;
-export const ContactFormSelectOption = styled.option``;
-
-export const ContactFormLabel = styled.label``;
-
+export const ContactFormLabel = styled.label`
+    font-size: 20px;
+`;
 export const ContactFormTextArea = styled.textarea`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    //border-radius: 5px;
-    //padding: 10px;
+
+    /* border-radius: 5px; */
+
+    /* padding: 10px; */
     background: transparent;
     border: transparent;
     color: #fff;
     width: 100%;
     height: 50px;
 
-    ::placeholder {
+    &::placeholder {
         color: #fff;
     }
 
@@ -194,5 +195,5 @@ export const ContactFormSubmit = styled.button`
     width: 100%;
     cursor: pointer;
     font-size: 1rem;
-    font-family: "Roboto", sans-serif;
+    font-family: Roboto, sans-serif;
 `;

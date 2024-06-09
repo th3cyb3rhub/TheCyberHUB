@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link as LinkRouter } from "react-router-dom";
-import { CloseIcon } from "../Sidebar/SidebarElements";
+import { CloseIcon } from "src/components/Header/Sidebar/SidebarElements";
 
 export const SideCloseIcon = styled(CloseIcon)`
     margin-left: 50%;
@@ -9,7 +9,7 @@ export const SideCloseIcon = styled(CloseIcon)`
     width: 20px;
     cursor: pointer;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (width >= 900px) {
         display: none;
     }
 `;
@@ -22,13 +22,16 @@ export const DropdownContainer = styled.div`
     position: absolute;
     top: 80px;
     left: 0;
+    z-index: 999;
+    display: block;
+    background: #0e0e0e;
+    backdrop-filter: blur(40px);
 
-    background: #030303;
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 821px) {
+        display: flex;
+        background: transparent;
+        position: static;
+        border-radius: 10px;
         top: 0;
     }
 `;
@@ -36,68 +39,130 @@ export const DropdownContainer = styled.div`
 export const DropdownItemsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     text-align: center;
     max-width: 60rem;
     height: auto;
     margin: 0 auto;
-    margin-bottom: 1rem;
+    z-index: 999;
+    width: max-content;
+    padding: 25px;
+    gap: 25px;
 
-    @media screen and (max-width: 768px) {
-        height: max-content;
-        background: #000000;
-        backdrop-filter: blur(1000px);
-        -webkit-backdrop-filter: blur(1000px);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    /* sidebar */
+    @media screen and (width <= 821px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(6, auto);
+        text-align: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+
+        @media screen and (width <= 380px) {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(6, auto);
+        }
     }
 `;
 
 export const DropdownItemContainer = styled.div`
     color: black;
     position: relative;
-    margin: 1rem;
-    width: 270px;
+    width: 280px;
+    z-index: 999;
+    border: none;
+    margin: 0;
 
     &:hover {
         cursor: pointer;
     }
 
-    @media screen and (max-width: 768px) {
-        max-width: 40%;
+    @media screen and (width <= 821px) {
+        /* width: min-content; */
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 1rem;
+        gap: 10px;
+        width: 100%;
+        background: rgb(26 26 29 / 53%);
+
+        @media screen and (width <= 768px) {
+            /* height: max-content; */
+            position: relative;
+        }
     }
 `;
 
 export const DropdownItem = styled.h2`
     text-align: start;
+    font-size: 1.5rem;
+    font-family: "Fira Code", monospace;
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        transform: scale(1.05);
+        transform: scale(1.01);
         border-bottom: 3px solid #ff6b08;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
         font-size: 1.1rem;
+        width: max-content;
+        margin: 0;
     }
 `;
 
 export const DropdownDesc = styled.p`
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     text-align: start;
     align-items: start;
     color: #ababab;
-    //white-space: pre-wrap;
     word-wrap: break-word;
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 821px) {
         font-size: 0.8rem;
+        width: max-content;
+        display: none;
     }
 `;
 
 export const DropdownRouterLink = styled(LinkRouter)`
     text-decoration: none;
     color: #f5f5f5;
-    margin-left: 50px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    @media screen and (width <= 821px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        padding: 8px;
+        text-decoration: none;
+        list-style: none;
+        color: #f5f5f5;
+        cursor: pointer;
+
+        /* width: 80%; */
+        width: 100%;
+        margin: 10px auto;
+        background: rgb(26 26 26);
+
+        /* border: 1px solid rgb(194 113 62 / 20%); */
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            /* color: #ff6b08; */
+            scale: 101%;
+            transition: 0.2s ease-in-out;
+        }
+    }
 `;

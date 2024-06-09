@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { getApiUrl } from "../../../features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 import {
     ContactFormInput,
-    ContactFormLabel,
     ContactFormSection,
     ContactFormSubmit,
     ContactFormTextArea,
@@ -12,9 +11,9 @@ import {
     ErrorMessage,
     MessageIcon,
     OrgIcon,
-} from "../../Homepage/ContactForm/ContactFormElements";
+} from "src/components/Homepage/ContactForm/ContactFormElements";
 import { toast } from "react-toastify";
-import { LoadingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
+import { LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
 
 const SendEmail = () => {
@@ -87,9 +86,9 @@ const SendEmail = () => {
         <div>
             <ContactFormSection onSubmit={handleSubmit}>
                 <CoverRight>
-                    <ContactFormLabel htmlFor="email">
+                    <label htmlFor="email">
                         <EmailIcon />
-                    </ContactFormLabel>
+                    </label>
                     <ContactFormInput
                         type="email"
                         name="email"
@@ -100,9 +99,9 @@ const SendEmail = () => {
                     />
                 </CoverRight>
                 <CoverRight>
-                    <ContactFormLabel htmlFor="subject">
+                    <label htmlFor="subject">
                         <OrgIcon />
-                    </ContactFormLabel>
+                    </label>
                     <ContactFormInput
                         type="text"
                         name="subject"
@@ -113,9 +112,9 @@ const SendEmail = () => {
                     />
                 </CoverRight>
                 <CoverRight>
-                    <ContactFormLabel htmlFor="message">
+                    <label htmlFor="message">
                         <MessageIcon />
-                    </ContactFormLabel>
+                    </label>
                     <ContactFormTextArea
                         type="text"
                         name="message"

@@ -8,52 +8,78 @@ import ScrollToTop from "./components/Other/ScrollToTop";
 import {
     About,
     Community,
-    CreateBlog,
-    CyberGames,
+    // CyberGames,
     Footer,
     InterviewQuestions,
     Jobs,
-    LearningPath,
+    // LearningPath,
+    Login,
     Navbar,
     NotFound,
-    OSINTGame,
+    // OSINTGame,
     Quiz,
     Sidebar,
-    Sponsors,
+    SpecialSponsors,
+    Support,
 } from "./components";
 import { Container } from "./components/Other/MixComponents/Layout/LayoutElements";
 import Spinner from "./components/Other/MixComponents/Spinner/Spinner";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import ContactForm from "./components/Homepage/ContactForm/ContactForm";
 import TermsAndCondition from "./components/Resources/TermsAndCondition";
 import PrivacyPolicy from "./components/Resources/PrivacyPolicy";
 import FormData from "./components/Dashboard/FormData/FormData";
 import UserProfile from "./components/Dashboard/Profile/UserProfile";
-import UserTimestamps from "./features/UserTimestamps";
+// import UserTimestamps from "./features/UserTimestamps";
 import InternshipResponse from "./components/Dashboard/FormData/InternshipResponse";
 import EditPublicProfile from "./components/Dashboard/Profile/EditPublicProfile/EditPublicProfile";
 import Volunteer from "./components/Opportunities/Volunteer/Volunteer";
-import TheCyberXcel from "./components/Opportunities/TheCyberXcel/TheCyberXcel";
+import DisplayCommunityEvents, { DisplayEventDetails } from "./components/Opportunities/DisplayCommunityEvents";
+// import TheCyberXcel from "./components/Opportunities/TheCyberXcel/TheCyberXcel";
 import OpenSecProjects from "./components/Opportunities/OpenSecProjects/OpenSecProjects";
 import DashboardRoute from "./components/Dashboard/DashboardRoute";
-import CreateForumPost from "./components/Forum/CreateForumPost/CreateForumPost";
+// import CreateForumPost from "./components/Forum/CreateForumPost/CreateForumPost";
 import FeedsRoute from "./components/Feeds/FeedsRoute";
+import Course from "./components/Courses/NewCourses/Course";
+import QuizPage from "./components/Resources/Quiz/Categories/QuizPage";
 import ToolsRoutes from "./components/Tools/ToolsRoute";
 import CtfRoute from "./components/CaptureTheFlag/CTFRoute";
 import BlogsRoute from "./components/Blogs/BlogsRoute";
-import EventsRoute from "./components/Events/EventsRoute";
 import RoadmapsRoute from "./components/Learn/Roadmaps/RoadmapsRoute";
 import CoursesRoute from "./components/Learn/Courses/CoursesRoute";
 import ForumRoute from "./components/Forum/ForumRoute";
-import AuthRoute from "./pages/AuthRoute";
+// import AuthRoute from "./pages/AuthRoute";
 import SecurityRoutes from "./components/Other/Security/SecurityRoutes";
 import ExploreRoutes from "./components/Explore/ExploreRoutes";
 import Leaderboard from "./components/Other/CyberGames/Leaderboard/Leaderboard";
+import SettingsRoute from "./components/Dashboard/Settings";
+// import CheatSheetsRoutes from "./components/CheatSheets/CheatSheetsRoutes";
+import AdminDashboardRoute from "./components/AdminDashboard/AdminDashboardRoute";
+import AiChat from "./components/AIChat/AIChat";
+import MakeQuiz from "./components/Resources/Quiz/CreateQuiz/Main";
+
+import Connections from "./components/Dashboard/Profile/ConnectionsAndFollows/Connections/Connections";
+import WebSecurityRoutes from "./components/WebSecurity/WebSecurityRoutes";
+import Methodology from "./components/Resources/Methodology/MethodologyMain";
+import SessionExpireLogout from "./components/Other/SessionExpireLogout";
+import { useSelector } from "react-redux";
+import MainPage from "./components/CaptureTheFlag/CtFPage/MainPage";
+import NewLeaderboard from "src/components/Other/CyberGames/Leaderboard/NewLeaderboard";
+import ForgotPassword from "src/pages/ForgotPassword";
+import ResetPassword from "src/pages/ResetPassword";
+import Register from "src/pages/Register";
+import ChatBox from "src/components/Chat/ChatBox/ChatBox";
+import Checklist from "src/components/Resources/Checklist/Checklist.jsx";
+import Payloads from "src/components/Resources/Payloads/Payloads.jsx";
+
+// import isAuthenticated from "./features/isAuthenticated";
+// import ChatBot from "./components/ChatBot/ChatBot";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const { pathname } = useLocation();
+    const { user } = useSelector((state) => state.auth);
 
+    const { pathname } = useLocation();
     const hostname = window.location.hostname;
 
     useEffect(() => {
@@ -68,94 +94,137 @@ const App = () => {
         }
     }, []);
 
+    // isAuthenticated();
+
     const hideHomeHeader = () => {
         const pathDashboard = pathname.includes("/dashboard");
+        const pathAdminDashboard = pathname.includes("/admin-dashboard");
         const pathLogin = pathname.includes("/login");
         const pathRegister = pathname.includes("/register");
         const pathForgetPassword = pathname.includes("/forgetPassword");
         const pathResetPassword = pathname.includes("/resetPassword");
-        return pathDashboard || pathLogin || pathRegister || pathForgetPassword || pathResetPassword;
+        const pathSettings = pathname.includes("/settings");
+        return (
+            pathDashboard ||
+            pathAdminDashboard ||
+            pathLogin ||
+            pathRegister ||
+            pathForgetPassword ||
+            pathResetPassword ||
+            pathSettings
+        );
     };
 
     const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
-
-    const { user } = useSelector((state) => state.auth);
+    const toggle = () => {
+        setIsOpen(!isOpen);
+        const overflowStatus = document.body.style.overflow;
+        document.body.style.overflow = overflowStatus === "hidden" ? "auto" : "hidden";
+    };
 
     if (isLoading) return <Spinner />;
 
     return (
         <>
-            {" "}
-            {user && <UserTimestamps user={user} />}
+            {user ? <SessionExpireLogout /> : null}
+            {/* {user && <UserTimestamps user={user} />} */}
             <Container>
                 {!hideHomeHeader() && (
                     <>
                         <Sidebar isOpen={isOpen} toggle={toggle} />
                         <Navbar toggle={toggle} />
+                        {user ? <ChatBox /> : null}
                     </>
                 )}
                 <ScrollToTop>
                     <Routes>
                         <Route index exact path={"/"} element={<Homepage />} />
 
-                        <Route path={"/*"} element={<AuthRoute />} />
+                        {/* <Route path={"/*"} element={<AuthRoute />} /> */}
+                        <Route exact path={"/login"} element={<Login />} />
+                        <Route exact path={"/forgetPassword"} element={<ForgotPassword />} />
+                        <Route exact path={"/resetPassword/:token"} element={<ResetPassword />} />
+                        <Route exact path={"/register"} element={<Register />} />
+
+                        <Route exact path={"/aichat"} element={<AiChat />} />
 
                         <Route path={"/explore/*"} element={<ExploreRoutes />} />
                         <Route path={"/feeds/*"} element={<FeedsRoute />} />
                         <Route path={"/blogs/*"} element={<BlogsRoute />} />
+
                         <Route path={"/forum/*"} element={<ForumRoute />} />
-                        <Route path={"/events/*"} element={<EventsRoute />} />
 
                         <Route path={"/ctf/*"} element={<CtfRoute />} />
+                        <Route path={"/ctf/mainpage"} element={<MainPage />} />
+
                         <Route exact path={"/leaderboard"} element={<Leaderboard />} />
+                        <Route exact path={"/newleaderboard"} element={<NewLeaderboard />} />
+                        <Route exact path={"courses/:title"} element={<Course />} />
 
-                        <Route path={"/tools/*"} element={<ToolsRoutes />} />
+                        <Route path={"/websecurity/*"} element={<WebSecurityRoutes />} />
 
+                        {/* Resources */}
                         <Route path={"/roadmaps/*"} element={<RoadmapsRoute />} />
+                        <Route path={"/interviewQuestions"} element={<InterviewQuestions />} />
+                        <Route path={"/tools/*"} element={<ToolsRoutes />} />
                         <Route path={"/courses/*"} element={<CoursesRoute />} />
 
-                        <Route path={"/security/*"} element={<SecurityRoutes />} />
+                        <Route path={"/resources/methodology"} element={<Methodology />} />
+                        <Route path={"/resources/checklist"} element={<Checklist />} />
+                        <Route path={"/resources/payloads"} element={<Payloads />} />
+
+                        <Route path={"/settings/*"} element={<SettingsRoute />} />
 
                         <Route path={"/dashboard/*"} element={<DashboardRoute />} />
-
+                        <Route path={"/admin-dashboard/*"} element={<AdminDashboardRoute />} />
                         <Route exact path={"/contact"} element={<ContactForm />} />
 
                         <Route>
-                            <Route exact path={"/@:username"} element={<UserProfile />} />
-                            <Route exact path={"/edit/@:username"} element={<EditPublicProfile />} />
+                            <Route exact path={"/user/:username"} element={<UserProfile />} />
+                            <Route exact path={"/connections"} element={<Connections />} />
+                            <Route exact path={"/user/edit/:username"} element={<EditPublicProfile />} />
                         </Route>
 
                         <Route exact path={"/community"} element={<Community />} />
-                        <Route exact path={"/support"} element={<Sponsors />} />
-                        <Route exact path={"/about"} element={<About />} />
-                        <Route exact path={"/terms-conditions"} element={<TermsAndCondition />} />
-                        <Route exact path={"/privacy-policy"} element={<PrivacyPolicy />} />
+                        <Route exact path={"/support"} element={<Support />} />
+                        <Route exact path={"/sponsors"} element={<SpecialSponsors />} />
 
                         <Route exact path={"/volunteer"} element={<Volunteer />} />
                         <Route exact path={"/opensec-projects"} element={<OpenSecProjects />} />
-                        <Route exact path={"/thecyberxcel"} element={<TheCyberXcel />} />
+                        <Route exact path={"/community-events"} element={<DisplayCommunityEvents />} />
+                        <Route exact path={"/community-events/:eventId"} element={<DisplayEventDetails />} />
 
-                        <Route exact path={"/CyberGames"} element={<CyberGames />} />
-                        <Route exact path={"/OSINT"} element={<OSINTGame />} />
-                        <Route exact path={"/course"} element={<LearningPath />} />
+                        {/* <Route exact path={"/thecyberxcel"} element={<TheCyberXcel />} /> */}
+                        {/* <Route exact path={"/thecyberspeak"} element={<TheCyberXcel />} /> */}
 
-                        <Route exact path={"/create-blog"} element={<CreateBlog />} />
+                        {/* <Route exact path={"/CyberGames"} element={<CyberGames />} /> */}
+                        {/* <Route exact path={"/OSINT"} element={<OSINTGame />} /> */}
+                        {/* <Route exact path={"/course"} element={<LearningPath />} /> */}
 
-                        <Route path={"/dashboard/forum/create"} element={<CreateForumPost />} />
+                        {/* <Route path={"/dashboard/forum/create"} element={<CreateForumPost />} /> */}
 
                         <Route path={"/internship"} element={<Jobs />} />
                         <Route path={"/quiz"} element={<Quiz />} />
-                        <Route path={"/interviewQuestions"} element={<InterviewQuestions />} />
+                        <Route path={"/createquiz"} element={<MakeQuiz />} />
+                        <Route path={"/quiz/:type"} element={<QuizPage />} />
+
                         <Route exact path={"/contactFormResponses"} element={<FormData />} />
                         <Route
                             exact
                             path={"/contactFormResponses/internshipResponse"}
                             element={<InternshipResponse />}
                         />
+
+                        <Route path={"/security/*"} element={<SecurityRoutes />} />
+
+                        <Route exact path={"/about"} element={<About />} />
+                        <Route exact path={"/terms-conditions"} element={<TermsAndCondition />} />
+                        <Route exact path={"/privacy-policy"} element={<PrivacyPolicy />} />
+
                         <Route path={"*"} element={<NotFound />} />
                     </Routes>
                 </ScrollToTop>
+                {/* <ChatBot /> */}
                 {!hideHomeHeader() && <Footer />}
             </Container>
             <ToastContainer

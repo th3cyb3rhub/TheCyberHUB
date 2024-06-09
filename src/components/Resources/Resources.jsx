@@ -1,6 +1,6 @@
 import React from "react";
 import { Section } from "./WriteUps/WriteUpsElements";
-import Roadmaps from "../Learn/Roadmaps/Roadmaps";
+import Roadmaps from "src/components/Learn/Roadmaps/Roadmaps";
 
 const Resources = () => {
     return (

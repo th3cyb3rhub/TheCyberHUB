@@ -6,7 +6,6 @@ export const UserSocialLinksContainer = styled.div`
     background: #0e0e0e;
 `;
 
-export const SocialIcon = styled.div``;
 export const SocialUsername = styled.a`
     font-size: 15px;
     color: #e0e0e0;

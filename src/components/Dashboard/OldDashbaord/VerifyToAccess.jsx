@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "../Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 
 const VerifyToAccess = () => {
     return (

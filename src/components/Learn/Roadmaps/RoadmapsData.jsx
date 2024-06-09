@@ -18,8 +18,8 @@ const RoadmapsData = [
                 section: "Essential SkillLevel",
                 resources: [
                     {
-                        title: "Basic IT SkillLevel",
-                        url: "https://www.professormesser.com/free-a-plus-training/220-1001/220-1000-training-course/",
+                        title: "Introduction to Linux",
+                        url: "https://youtu.be/iwolPf6kN-k",
                     },
                     {
                         title: "Linux Essentials for Ethical Hackers",
@@ -32,11 +32,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Computer Networking",
-                        url: "https://www.professormesser.com/free-a-plus-training/220-1001/220-1000-training-course/",
-                    },
-                    {
-                        title: "Network-plus n10-007",
-                        url: "https://www.professormesser.com/network-plus/n10-007/n10-007-training-course/",
+                        url: "https://youtu.be/IPvYjXCsTg8?si=-ngLluloP-bcKO-m",
                     },
                 ],
             },
@@ -62,6 +58,11 @@ const RoadmapsData = [
                     {
                         title: "Python",
                         url: "https://www.youtube.com/watch?v=7utwZYKweho&t=8861s",
+                    },
+                    {
+                        title: "Applied Python",
+                        url: "https://youtube.com/playlist?list=PLB7R26sRn2aLhKbDDRtd7wluaX91pqAQD&si=2zKV2iLoaFrTqxFh",
+                        isOptional: true,
                     },
                 ],
             },
@@ -89,30 +90,9 @@ const RoadmapsData = [
                         title: "Web App Penetration Testing Tutorials",
                         url: "https://www.youtube.com/playlist?list=PLBf0hzazHTGO3EpGAs718LvLsiMIv9dSC",
                     },
-                ],
-            },
-            {
-                section: "Books",
-                resources: [
                     {
-                        title: "Bug Bounty Bootcamp: The Guide to Finding and Reporting Web Vulnerabilities",
-                        url: "https://amzn.to/3LEmZPi",
-                    },
-                    {
-                        title: "Hacking: The Art of Exploitation",
-                        url: "https://amzn.to/428G6WX",
-                    },
-                    {
-                        title: "Metasploit: The Penetration Tester's Guide",
-                        url: "https://amzn.to/3HqkQUC",
-                    },
-                    {
-                        title: "Black Hat Python: Python Programming for Hackers and Pentesters",
-                        url: "https://amzn.to/3LGaYJ7",
-                    },
-                    {
-                        title: "Black Hat Python, 2nd Edition: Python Programming for Hackers and Pentesters",
-                        url: "https://amzn.to/3ne0xTB",
+                        title: "API Pentesting",
+                        url: "https://university.apisec.ai/apisec-certified-expert",
                     },
                 ],
             },
@@ -120,16 +100,20 @@ const RoadmapsData = [
                 section: "Important for Improving skills",
                 resources: [
                     {
+                        title: "Web Security",
+                        url: "https://thecyberhub.org/websecurity",
+                    },
+                    {
+                        title: "TheCyberCTF",
+                        url: "https://thecyberhub.org/ctf",
+                    },
+                    {
                         title: "PortSwigger Academy",
                         url: "https://portswigger.net/web-security/learning-path",
                     },
                     {
                         title: "TryHackMe",
                         url: "https://tryhackme.com/",
-                    },
-                    {
-                        title: "TheCyberCTF",
-                        url: "https://thecyberhub.org/ctf",
                     },
                     {
                         title: "VulnHub",
@@ -188,10 +172,6 @@ const RoadmapsData = [
                         url: "https://www.youtube.com/playlist?list=PLF7JR1a3dLONdkRYU_8-5OcgOzrWe2549",
                     },
                     {
-                        title: "Web Security Academy",
-                        url: "https://www.youtube.com/c/RanaKhalil101/videos",
-                    },
-                    {
                         title: "Zero to Bug Bounty Hero!",
                         url: "https://www.youtube.com/watch?v=nXvP8j3QtHI&list=PLbyncTkpno5FaAbJJ7YHvMY9wtJ9fyqCH",
                     },
@@ -224,6 +204,10 @@ const RoadmapsData = [
                     {
                         title: "OrwaGodFather Methodology",
                         url: "https://www.youtube.com/playlist?list=PLiLvsecrejRhQ7lOGgZSga47Jwhf5YXwD",
+                    },
+                    {
+                        title: "Live Bug Hunting",
+                        url: "https://youtube.com/playlist?list=PLwfoGUoc87CvvBETVO64M9jgFpzvq68GM&si=vjA2GkJYippqQQ_l",
                     },
                 ],
             },

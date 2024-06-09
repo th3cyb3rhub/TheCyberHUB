@@ -53,7 +53,7 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 });
 
 // Update existing User
-export const updateUser = createAsyncThunk("user/update", async ({ userData }, thunkAPI) => {
+export const updateUser = createAsyncThunk("user/update", async (userData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
         return await authService.updateUser(userData, token);
@@ -96,6 +96,7 @@ export const authSlice = createSlice({
             .addCase(verifyEmailCode.fulfilled, (state, action) => {
                 state.isUserLoading = false;
                 state.isUserSuccess = true;
+                state.user = action.payload;
                 state.userMessage = action.payload;
             })
             .addCase(verifyEmailCode.rejected, (state, action) => {

@@ -21,7 +21,7 @@ export const Tags = styled.div`
     flex-wrap: wrap;
     word-wrap: break-word;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         flex-wrap: wrap;
         padding: 15px 0;
         width: 100%;

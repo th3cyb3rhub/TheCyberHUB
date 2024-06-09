@@ -16,29 +16,29 @@ export const InternshipProgramContainer = styled.div`
     width: 100%;
     max-width: 1500px;
 
-    @media screen and (max-width: 1300px) {
+    @media screen and (width <= 1300px) {
         grid-template-columns: 1fr 1fr;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
         grid-template-columns: 1fr;
     }
 `;
-
-export const ApplicationOpenTextSection = styled.div``;
 
 export const ApplicationOpenText = styled.p`
     font-size: 1rem;
     font-family: "Fira Code", monospace;
     color: #ff8100;
     text-align: center;
-    margin: 15px 0 10px 0;
+    margin: 15px 0 10px;
 `;
 export const ApplicationHeading = styled.h3`
     font-size: 1.3rem;
     font-family: "Fira Code", monospace;
     color: #00b2ff;
     text-align: center;
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
         font-size: 1.1rem;
     }
 `;
@@ -48,7 +48,7 @@ export const InternshipCard = styled.div`
     color: #d2d2d2;
     width: 100%;
     height: 100%;
-    padding: 25px 25px 25px 25px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -66,13 +66,13 @@ export const InternshipCard = styled.div`
     font-family: "Fira Code", monospace;
     font-size: 1.1rem;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         padding: 15px;
         font-size: 1rem;
     }
 
     ${(props) =>
-        props.isBetweenDates || props.appClosed
+        props.$isBetweenDates || props.$appClosed
             ? `
   padding: 0 25px 20px 25px;
   font-family: "Fira Code", monospace;
@@ -99,7 +99,7 @@ export const InternshipHeader = styled.div`
     justify-content: center;
     text-align: center;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         padding: 10px;
     }
 `;
@@ -107,13 +107,15 @@ export const InternshipHeader = styled.div`
 export const InternshipHeading = styled.h1`
     font-size: 5rem;
     font-style: oblique;
-    transition: 0.2s ease-in-out;
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
         transition: 0.2s ease-in-out;
         font-size: 3rem;
     }
+
     transition: 0.2s ease-in-out;
-    @media screen and (max-width: 500px) {
+
+    @media screen and (width <= 500px) {
         transition: 0.2s ease-in-out;
         font-size: 2rem;
     }
@@ -122,11 +124,13 @@ export const InternshipDesc = styled.h1`
     font-size: 25px;
     font-family: "Fira Code", monospace;
     transition: 0.2s ease-in-out;
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
         transition: 0.2s ease-in-out;
         font-size: 20px;
     }
-    @media screen and (max-width: 500px) {
+
+    @media screen and (width <= 500px) {
         transition: 0.2s ease-in-out;
         font-size: 25px;
     }

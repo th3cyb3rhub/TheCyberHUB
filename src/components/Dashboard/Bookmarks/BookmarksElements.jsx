@@ -7,6 +7,5 @@ export const BookmarksContainer = styled.div`
     width: 100%;
     max-width: 1200px;
     padding: 0 30px;
-
     color: #fff;
 `;

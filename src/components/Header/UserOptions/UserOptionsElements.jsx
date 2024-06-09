@@ -6,16 +6,17 @@ export const RouterLink = styled(LinkRouter)`
 `;
 
 export const UserOptionsContainer = styled.div`
-    //width: 100%;
-    //height: 100%;
+    /* width: 100%;
+    height: 100%; */
     display: flex;
-    //justify-content: flex-end;
 
-    @media screen and (max-width: 340px) {
-        //display: inline-flex;
-        //justify-content: center;
-        //text-align: center;
-        //margin-top: 45px;
+    /* justify-content: flex-end; */
+
+    @media screen and (width <= 340px) {
+        /* display: inline-flex;
+        justify-content: center;
+        text-align: center;
+        margin-top: 45px; */
     }
 `;
 export const UserOptionsDropdownContainer = styled.div`
@@ -26,7 +27,8 @@ export const UserOptionsDropdownContainer = styled.div`
     background-color: var(--bg);
     border: var(--border);
     border-radius: var(--border-radius);
-    /*padding: 1rem;*/
+
+    /* padding: 1rem; */
     overflow: hidden;
     transition: height var(--speed) ease;
 `;
@@ -37,5 +39,3 @@ export const NavbarNav = styled.ul`
     display: flex;
     justify-content: flex-end;
 `;
-
-export const LogoutButton = styled.button``;

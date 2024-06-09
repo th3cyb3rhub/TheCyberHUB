@@ -1,7 +1,7 @@
 import React from "react";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
-import ViewBlog from "../ViewBlog/ViewBlog";
-import { ContainerSingleBlog } from "./SingleBlogElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import ViewBlog from "src/components/Blogs/ViewBlog/ViewBlog";
+import { ContainerSingleBlog } from "src/components/Blogs/SingleBlog/SingleBlogElements";
 
 const SingleBlog = () => {
     return (

@@ -1,23 +1,25 @@
 import styled from "styled-components";
-import { ExploreContentContainer } from "../ExploreElements";
-import { LuVerified } from "react-icons/lu";
+import { ExploreContentContainer } from "src/components/Explore/ExploreElements";
+import { PiSealCheckDuotone } from "react-icons/pi";
 
 export const UsersContainer = styled(ExploreContentContainer)`
-    grid-auto-rows: ${(props) => (props.displayAt === "explore" ? "1fr" : "0fr")};
+    grid-auto-rows: ${(props) => (props.$displayAt === "explore" ? "1fr" : "0fr")};
     gap: 15px;
-    @media screen and (max-width: 800px) {
+
+    @media screen and (width <= 800px) {
         grid-auto-rows: 0fr;
         padding: 15px;
     }
 `;
 
-export const IconVerified = styled(LuVerified)`
-    color: #1da1f2;
+export const IconVerified = styled(PiSealCheckDuotone)`
+    /* color: #1da1f2; */
+    color: #ff6b08;
     font-size: 1.2rem;
 `;
 
 export const UserContainer = styled.div`
-    background: #000000;
+    background: #000;
     border: #2f2f2f 1px solid;
     display: flex;
     flex-direction: row;
@@ -35,7 +37,7 @@ export const UserPicture = styled.img`
     object-fit: cover;
     object-position: center;
     margin: 0 auto;
-    border: #222222 1px solid;
+    border: #222 1px solid;
     font-size: 12px;
     color: #999;
     word-break: break-all;
@@ -62,11 +64,10 @@ export const UserDetail = styled.div`
 
 export const Header = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: flex-start;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 25px;
+    gap: 10px;
     width: 100%;
 `;
 
@@ -76,6 +77,9 @@ export const Name = styled.p`
 `;
 export const Username = styled.p`
     color: #808080;
-`;
 
-export const UserBio = styled.p``;
+    &:hover {
+        color: #eee;
+        text-decoration: underline;
+    }
+`;

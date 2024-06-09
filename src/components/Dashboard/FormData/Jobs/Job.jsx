@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { JobContainer, JobHero, JobLocation, JobRole, JobRoleTitle, JobTitle } from "./JobsElements";
 import { Detail2, StatusButtonNoWidth } from "./JobDetailsElements";
-// import { Button, ButtonGreen } from "../CheckValuesElements";
 
 export default function Job(props) {
     const [values, setValues] = React.useState({

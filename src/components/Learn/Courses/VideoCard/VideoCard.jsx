@@ -6,7 +6,7 @@ import {
     BugHuntingCoursesData,
     RedTeamCoursesData,
     BlueTeamCoursesData,
-} from "../YoutubeCoursesData";
+} from "src/components/Learn/Courses/YoutubeCoursesData";
 
 import {
     Card,

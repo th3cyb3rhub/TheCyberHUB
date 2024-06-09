@@ -1,7 +1,7 @@
 import React from "react";
 import { UnderMaintenanceContainer, UnderMaintenanceLogo } from "./UnderMaintenanceElements";
 
-import UnderMaintenancePNG from "../../../assets/underMaintenance.png";
+import UnderMaintenancePNG from "src/assets/underMaintenance.png";
 const UnderMaintenance = () => {
     return (
         <UnderMaintenanceContainer>

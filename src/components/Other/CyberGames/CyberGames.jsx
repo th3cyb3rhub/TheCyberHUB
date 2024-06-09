@@ -1,6 +1,6 @@
 import React from "react";
 import { CTFGame, CyberGamesContainer, OSINTGame, CyberGamesImage } from "./CyberGamesElements";
-import { getCdnAssets } from "../../../features/apiUrl";
+import { getCdnAssets } from "src/features/apiUrl";
 const OSINTImage = `${getCdnAssets}/images/CyberGames/OSINT.png`;
 const CTFImage = `${getCdnAssets}/images/CyberGames/CTF.png`;
 const CyberGames = () => {

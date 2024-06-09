@@ -11,9 +11,10 @@ export const Overlay = styled.div`
     width: 20em;
     height: 5em;
     position: absolute;
-    //background: rgba(1, 6, 6, 0.8);
-    //opacity: 0.7;
-    margin: -5px 0 0 0;
+
+    /* background: rgb(1 6 6 / 80%);
+    opacity: 0.7; */
+    margin: -5px 0 0;
 `;
 
 export const OverlayDetails = styled.div`
@@ -21,15 +22,13 @@ export const OverlayDetails = styled.div`
     color: #d2d2d2;
     border-radius: 3px;
     margin: 5px 5em;
-    padding: 5px 5px;
+    padding: 5px;
     width: 8em;
-    background: #1a1c1d;
     transition: all 0.2s ease-in-out;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgb(42, 42, 42);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    background: linear-gradient(135deg, rgb(0 0 0 / 10%), rgb(255 255 255 / 0%));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgb(42 42 42);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
 `;
 
 export const RoadmapsContainer = styled.div`
@@ -39,15 +38,14 @@ export const RoadmapsContainer = styled.div`
     align-items: center;
     max-width: 1350px;
     width: 100%;
-    margin: 100px 0 0 0;
+    gap: 25px;
 `;
 
 export const RoadmapCardsContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     gap: 10px;
 `;
 
@@ -58,7 +56,6 @@ export const RoadmapCard = styled.div`
     justify-content: space-between;
     align-items: start;
     text-align: start;
-
     width: 100%;
     max-width: 400px;
     height: auto;
@@ -70,7 +67,7 @@ export const RoadmapCard = styled.div`
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         max-width: 90%;
     }
 
@@ -87,21 +84,21 @@ export const RoadmapHeading = styled.h3`
 export const RoadmapDesc = styled.p`
     padding: 5px 20px 0 5px;
     font-size: 15px;
-    color: #ffffff;
+    color: #fff;
 `;
 
 export const SectionHeading = styled.h1`
-    margin: -50px auto 60px auto;
+    margin: -50px auto 60px;
 `;
 export const SectionSubHeading = styled.h3`
-    margin: 50px auto 70px auto;
+    margin: 50px auto 70px;
 `;
 export const Heading = styled.h2`
     margin-top: 35px;
     text-align: center;
     color: #cecac3;
 
-    @media screen and (max-width: 760px) {
+    @media screen and (width <= 760px) {
         text-align: center;
     }
 `;

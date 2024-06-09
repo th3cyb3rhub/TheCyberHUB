@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const EmailNotVerifiedContainer = styled.div`
-    //background: transparent;
-    //background: #08ff00;
+    /* background: transparent;
+    background: #08ff00; */
     width: 100%;
     height: 50px;
     display: flex;
     justify-content: center;
-    background: ${({ scrollNav }) => (scrollNav ? "#000000" : "transparent")};
+    background: ${({ $scrollNav }) => ($scrollNav ? "#000000" : "transparent")};
     align-items: center;
     text-align: center;
     top: 80px;
@@ -16,10 +16,10 @@ export const EmailNotVerifiedContainer = styled.div`
 `;
 
 export const EmailNotVerifiedText = styled.div`
-    //color: #1a1c1d;
+    /* color: #1a1c1d; */
     color: #08ff00;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (width <= 500px) {
         padding: 5px;
         font-size: 14px;
     }
@@ -33,6 +33,7 @@ export const ResendButton = styled.button`
     border: 1px #545454 solid;
     border-radius: 5px;
     cursor: pointer;
+
     &:hover {
         scale: 1.1;
         transition: all 0.2s ease-in-out;

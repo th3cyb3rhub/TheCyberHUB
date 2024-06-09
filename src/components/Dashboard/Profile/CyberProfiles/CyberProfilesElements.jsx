@@ -6,5 +6,3 @@ export const CyberProfilesContainer = styled.div`
     flex-direction: column;
     align-items: center;
 `;
-
-export const CyberProfilesHeading = styled.h2``;

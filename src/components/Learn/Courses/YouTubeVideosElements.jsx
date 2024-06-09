@@ -14,13 +14,13 @@ export const FreeCoursesContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #000000;
+    background: #000;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         height: 1100px;
     }
 
-    @media screen and (max-width: 480px) {
+    @media screen and (width <= 480px) {
         height: 1300px;
     }
 `;
@@ -34,11 +34,11 @@ export const FreeCoursesWrapper = styled.div`
     grid-gap: 16px;
     padding: 0 50px;
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (width <= 1000px) {
         grid-template-columns: 1fr 1fr;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         grid-template-columns: 1fr;
         padding: 0 20px;
     }
@@ -54,7 +54,7 @@ export const FreeCoursesCard = styled.a`
     border-radius: 10px;
     max-height: 340px;
     padding: 30px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
     transition: all 0.2s ease-in-out;
 
     &:hover {
@@ -78,7 +78,7 @@ export const FreeCoursesH1 = styled.h1`
     color: #f5f5f5;
     margin-bottom: 64px;
 
-    @media screen and (max-width: 480px) {
+    @media screen and (width <= 480px) {
         font-size: 2rem;
     }
 `;
@@ -102,7 +102,7 @@ export const Container = styled.div`
     text-align: center;
     width: 100%;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         flex-direction: column-reverse;
     }
 `;
@@ -110,7 +110,7 @@ export const Container = styled.div`
 export const MainContent = styled.div`
     flex: 0.8;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         flex: 1;
         margin-top: 40px;
     }
@@ -128,7 +128,7 @@ export const SideBar = styled.div`
     max-width: 60em;
     width: 100%;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         flex-direction: column;
         max-width: fit-content;
     }
@@ -139,8 +139,8 @@ export const HeadingContainer = styled.div`
     padding: 15px;
     pointer-events: none;
     display: none;
-    //
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
         display: flex;
         box-shadow: 0 0 4px rgb(255 255 255 / 15%);
         cursor: pointer;
@@ -150,10 +150,12 @@ export const HeadingContainer = styled.div`
 
 export const IconContainer = styled.div`
     color: #f5f5f5;
-    //display: none;
-    //@media screen and (max-width: 768px) {
+
+    /* display: none;
+    @media screen and (max-width: 768px) { */
     display: flex;
-    //}
+
+    /* } */
 
     svg {
         height: 24px;
@@ -181,10 +183,12 @@ export const Content = styled.div`
     list-style: none;
     opacity: ${({ visible }) => (visible ? 1 : 0)};
     overflow: hidden;
-    // padding: ${({ visible }) => (visible ? "10px 10px" : 0)};
-    //transition: all .2s ease-in-out;
-    @media screen and (max-width: 768px) {
-        // padding: ${({ visible }) => (visible ? "10px 10px" : 0)};
+
+    /* padding: ${({ visible }) => (visible ? "10px 10px" : 0)}; */
+
+    /* transition: all .2s ease-in-out; */
+    @media screen and (width <= 768px) {
+        /* padding: ${({ visible }) => (visible ? "10px 10px" : 0)}; */
         display: flex;
         align-items: start;
         justify-content: start;
@@ -202,12 +206,12 @@ export const ListContent = styled.li`
     ${({ isActive }) =>
         isActive &&
         css`
-            //box-shadow: inset 10px 0 0 -7px #ff6b08;
-            background: #000000;
+            /* box-shadow: inset 10px 0 0 -7px #ff6b08; */
+            background: #000;
             border-bottom: 2px solid #ff6b08;
         `}
     &:hover {
-        background: #000000;
+        background: #000;
         border-bottom: 2px solid #ff6b08;
     }
 `;

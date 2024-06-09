@@ -79,9 +79,8 @@ export default function JobDetailsPage(props) {
                 <JobDetailsReq>
                     <h3> Learning Resources and Roadmap: </h3> <br />
                     <p>
-                        {" "}
-                        Complete below resources before applying{" "}
-                        {props.jobTitle === "Penetration Testing Internship" ? "(at least 1)" : null}{" "}
+                        Complete below resources before applying
+                        {props.jobTitle === "Penetration Testing Internship" ? "(at least 1)" : null}
                     </p>
                     <ListContainer>
                         {props?.jobResources?.resources.map((item, id) => (

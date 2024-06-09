@@ -10,12 +10,13 @@ export const LeftBlogSidebarContainer = styled.div`
     color: #e8e6e3;
     display: flex;
     flex-direction: column;
-    //height: 600px;
-    //min-width: 250px;
+
+    /* height: 600px;
+    min-width: 250px; */
     align-items: flex-start;
     justify-content: flex-start;
 
-    @media screen and (max-width: 970px) {
+    @media screen and (width <= 970px) {
         width: auto;
         min-width: auto;
     }
@@ -31,6 +32,7 @@ export const ExploreHeading = styled.p`
     gap: 10px;
     transition: 0.3s ease-in-out;
     color: #fff;
+
     &:hover {
         scale: 1.1;
         transition: 0.3s ease-in-out;

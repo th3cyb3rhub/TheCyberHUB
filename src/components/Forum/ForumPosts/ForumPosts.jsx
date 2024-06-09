@@ -19,7 +19,7 @@ const ForumPosts = ({ forums, searchTerm, forumBookmarksData, displayAt }) => {
         return !searchTerm || isBookmarked || contentIncludesSearchTerm || tagsIncludeSearchTerm;
     });
     return filteredData.length > 0 ? (
-        <Cards displayAt={displayAt}>
+        <Cards $displayAt={displayAt}>
             {filteredData.map((item, id) => (
                 <Card
                     key={id}

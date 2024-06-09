@@ -1,0 +1,9 @@
+{
+    "extends": ["stylelint-config-standard"],
+    "customSyntax": "postcss-styled-syntax",
+    "plugins": ["stylelint-plugin-styled-components"],
+    "rules": {
+        "plugin/styled-components-enforce-ampersand": true,
+        "named-grid-areas-no-invalid": null
+    }
+}

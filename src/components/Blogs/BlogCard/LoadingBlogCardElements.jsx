@@ -23,7 +23,7 @@ export const animate = keyframes`
 export const LoadingContainer = styled.div`
     background: #232323;
     width: 100%;
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
     overflow: hidden;
     border-radius: 5px;
 `;

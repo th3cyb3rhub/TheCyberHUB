@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/assets/images/ThecyberworldLogo/thecyberworld-logo-big.png"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap"
-          rel="stylesheet"/>
-    <meta property="og:image" content="https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/assets/images/TheCyberHUB.org.png">
-    <meta property="og:image:secure_url" content="https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/assets/images/TheCyberHUB.org.png">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="TheCyberHUB"/>
-    <meta property="og:title" content="Unlock the Power of Cybersecurity">
-    <meta property="og:description" content="Join a thriving community and explore the limitless possibilities.">
-    <meta property="og:url" content="https://thecyberhhub.org">
-    <meta property="og:type" content="website">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content="Empowering Cybersecurity Enthusiasts : 
+            Join a thriving community and unlock the limitless potential of cybersecurity."
+        />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/assets/images/ThecyberworldLogo/thecyberworld-logo-big.png"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <meta
+            property="og:image"
+            content="https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/assets/images/TheCyberHUB.org.png"
+        />
+        <meta
+            property="og:image:secure_url"
+            content="https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/assets/images/TheCyberHUB.org.png"
+        />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="TheCyberHUB" />
+        <meta property="og:title" content="Unlock the Power of Cybersecurity" />
+        <meta property="og:description" content="Join a thriving community and explore the limitless possibilities." />
+        <meta property="og:url" content="https://thecyberhhub.org" />
+        <meta property="og:type" content="website" />
 
-    <script type="text/javascript">
-        (function (l) {
-            if (l.search[1] === "/") {
-                var decoded = l.search
-                    .slice(1)
-                    .split("&")
-                    .map(function (s) {
-                        return s.replace(/~and~/g, "&");
-                    })
-                    .join("?");
-                window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        <script type="text/javascript">
+            if (window !== window.top) {
+                window.top.location = window.location;
             }
-        })(window.location);
-    </script>
+            (function (l) {
+                if (l.search[1] === "/") {
+                    var decoded = l.search
+                        .slice(1)
+                        .split("&")
+                        .map(function (s) {
+                            return s.replace(/~and~/g, "&");
+                        })
+                        .join("?");
+                    window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+                }
+            })(window.location);
+        </script>
 
-    <title>TheCyberHUB by Thecyberworld Community</title>
-    
-</head>
-<body>
-<div id="root"></div>
-<script type="module" src="./src/main.jsx"></script>
-
-</body>
+        <title>TheCyberHUB by Thecyberworld Community</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="./src/main.jsx"></script>
+    </body>
 </html>

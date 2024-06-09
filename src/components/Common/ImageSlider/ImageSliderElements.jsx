@@ -55,7 +55,6 @@ export const CloseButton = styled(ImCross)`
     position: absolute;
     top: 5px;
     right: 5px;
-    background: none;
     border: none;
     cursor: pointer;
     font-size: 25px;
@@ -63,8 +62,8 @@ export const CloseButton = styled(ImCross)`
     background: #ff6b08;
     border-radius: 50%;
     padding: 5px;
-
     transition: all 0.3s ease-in-out;
+
     &:hover {
         background: #f5f5f5;
         color: #000;

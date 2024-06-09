@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ContainerViewBlog, ViewBlogHeader } from "../../Blogs/ViewBlog/ViewBlogElements";
-import { EditProfileContainer, Form, Input, Label } from "./EditProfileElements";
-import { getUserDetail, updateUserDetail } from "../../../features/userDetail/userDetailSlice";
+import { ContainerViewBlog, ViewBlogHeader } from "src/components/Blogs/ViewBlog/ViewBlogElements";
+import { Form, Input } from "./EditProfileElements";
+import { getUserDetail, updateUserDetail } from "src/features/userDetail/userDetailSlice";
 import { CircleSpinner } from "react-spinners-kit";
 
 const EditUserDetails = ({ user }) => {
@@ -55,11 +55,11 @@ const EditUserDetails = ({ user }) => {
     };
 
     return (
-        <EditProfileContainer>
+        <div>
             <ContainerViewBlog>
                 <ViewBlogHeader>
                     <Form onSubmit={onSubmit}>
-                        <Label htmlFor="title">Name</Label>
+                        <label htmlFor="title">Name</label>
                         <Input
                             type="text"
                             name="name"
@@ -67,7 +67,7 @@ const EditUserDetails = ({ user }) => {
                             value={profileData.name || userDetail.name}
                             onChange={onChange}
                         />
-                        <Label htmlFor="title">Username</Label>
+                        <label htmlFor="title">Username</label>
                         <Input
                             type="text"
                             name="username"
@@ -86,7 +86,7 @@ const EditUserDetails = ({ user }) => {
                     </Form>
                 </ViewBlogHeader>
             </ContainerViewBlog>
-        </EditProfileContainer>
+        </div>
     );
 };
 

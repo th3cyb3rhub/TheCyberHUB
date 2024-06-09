@@ -6,7 +6,6 @@ import {
     ContactFormLabel,
     ContactFormSection,
     ContactFormSelect,
-    ContactFormSelectOption,
     ContactFormSubmit,
     ContactFormTextArea,
     Cover,
@@ -14,7 +13,6 @@ import {
     CoverRight,
     EmailIcon,
     ErrorMessage,
-    GlowingButton,
     H1,
     InternshipIcon,
     MessageIcon,
@@ -24,17 +22,18 @@ import {
     ResumeIcon,
 } from "./ContactFormElements.jsx";
 
-import { getApiUrl } from "../../../features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 import axios from "axios";
 import { toast } from "react-toastify";
-import InternshipProgramData from "../../Opportunities/Internship/InternshipProgramData";
-import { JobsData } from "../../Resources/Jobs/JobsData";
-import { LoadingButton } from "../../Other/MixComponents/Buttons/ButtonElements";
+import InternshipProgramData from "src/components/Opportunities/Internship/InternshipProgramData";
+import { JobsData } from "src/components/Resources/Jobs/JobsData";
+import { LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
-import apiStatus from "../../../features/apiStatus";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
-import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
-import { volunteerPrograms } from "../../Opportunities/Volunteer/VolunteerData";
+import { validateEmail } from "src/utils/validateEmail.js";
+import apiStatus from "src/features/apiStatus";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
+import { volunteerPrograms } from "src/components/Opportunities/Volunteer/VolunteerData";
 
 const ContactForm = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -117,16 +116,24 @@ const ContactForm = () => {
             submissionFrom: "thecyberhub.org",
         };
 
+        // Validate email
+        if (!validateEmail(email)) {
+            setError("Please enter a valid email address");
+            return; // Stop the form submission
+        }
+
         if (name.length === 0) {
             setError("Please add your name");
         } else if (email.length === 0) {
             setError("Please add your email");
         } else if (reason.length === 0) {
             setError("Please select a reason");
-        } else if (!resume.startsWith("http")) {
-            setError("please submit the correct link to your resume");
-        } else if ((reason === "internship" || reason === "volunteer") && resume.length === 0) {
-            setError("Please include the resume link");
+        } else if (reason === "internship" || reason === "volunteer") {
+            if (reasonType.length === 0) {
+                setError("Please include the resume link");
+            } else if (!resume.startsWith("http")) {
+                setError("please submit the correct link to your resume");
+            }
         } else {
             setIsLoading(true);
             axios
@@ -137,6 +144,11 @@ const ContactForm = () => {
                     if (response.data.message === "Form submitted successfully") {
                         setIsLoading(false);
                         setIsSuccess(true);
+                        toast.success("Form submitted successfully");
+                        setTimeout(() => {
+                            setIsSuccess(false);
+                        }, 50); // Reset after 0.005 seconds
+
                         setFormData({
                             name: "",
                             email: "",
@@ -225,17 +237,25 @@ const ContactForm = () => {
                         <ContactFormLabel htmlFor="reason">
                             <ReasonIcon />
                         </ContactFormLabel>
-                        <ContactFormSelect name="reason" id="reason" value={formData.reason} onChange={handleChange}>
-                            <ContactFormSelectOption value="">Select a reason</ContactFormSelectOption>
-                            <ContactFormSelectOption value="internship">
+                        <ContactFormSelect
+                            aria-label="reason"
+                            name="reason"
+                            id="reason"
+                            value={formData.reason}
+                            onChange={handleChange}
+                        >
+                            <option style={{ display: "none" }} value="">
+                                Select a reason
+                            </option>
+                            <option value="internship">
                                 Internship {isOpened ? "(Applications are Now Open!)" : null}
                                 {isClosed ? "(Applications Closed)" : null}
-                            </ContactFormSelectOption>
-                            {/* <ContactFormSelectOption value="volunteer"> */}
+                            </option>
+                            {/* <option value="volunteer"> */}
                             {/*    Volunteer (Contribute to the Community) */}
-                            {/* </ContactFormSelectOption> */}
-                            <ContactFormSelectOption value="feedback">Feedback</ContactFormSelectOption>
-                            <ContactFormSelectOption value="other">Other</ContactFormSelectOption>
+                            {/* </option> */}
+                            <option value="feedback">Feedback</option>
+                            <option value="other">Other</option>
                         </ContactFormSelect>
                     </CoverLeft>
 
@@ -251,11 +271,11 @@ const ContactForm = () => {
                                     value={formData.reasonType}
                                     onChange={handleChange}
                                 >
-                                    <ContactFormSelectOption value="">Select an Internship</ContactFormSelectOption>
+                                    <option value="">Select an Internship</option>
                                     {JobsData.map((job, id) => (
-                                        <ContactFormSelectOption value={job.id} key={id}>
+                                        <option value={job.id} key={id}>
                                             {job.id}
-                                        </ContactFormSelectOption>
+                                        </option>
                                     ))}
                                 </ContactFormSelect>
                             </CoverLeft>
@@ -306,18 +326,16 @@ const ContactForm = () => {
                                     value={formData.reasonType}
                                     onChange={handleChange}
                                 >
-                                    <ContactFormSelectOption value="">
-                                        Select a Volunteer Program (remote/online)
-                                    </ContactFormSelectOption>
+                                    <option value="">Select a Volunteer Program (remote/online)</option>
                                     {volunteerPrograms.map((volunteerProgram, id) => (
-                                        <ContactFormSelectOption value={volunteerProgram.volunteerFor} key={id}>
+                                        <option value={volunteerProgram.volunteerFor} key={id}>
                                             {volunteerProgram.volunteerFor}
-                                        </ContactFormSelectOption>
+                                        </option>
                                     ))}
 
-                                    <ContactFormSelectOption value={"other"}>
+                                    <option value={"other"}>
                                         Anything else you want to volunteer for (Please specify in the message)
-                                    </ContactFormSelectOption>
+                                    </option>
                                 </ContactFormSelect>
                             </CoverLeft>
                             <CoverLeft>
@@ -376,11 +394,11 @@ const ContactForm = () => {
                                 id="contextHeading"
                                 value={formData.contextHeading}
                                 onChange={handleChange}
-                                placeholder={"Title"}
+                                placeholder={"Subject"}
                             />
                         </CoverLeft>
                     )}
-                    {isClosed && reason === "internship" ? null : (
+                    {reason === "internship" && !isOpened ? null : (
                         <CoverLeft style={{ alignItems: "start" }}>
                             <ContactFormLabel htmlFor="message">
                                 <MessageIcon />
@@ -421,7 +439,6 @@ Including:
                         <ErrorMessage>{"Server Error - Please contact us on discord"}</ErrorMessage>
                     )}
                 </ContactFormSection>
-                {isSuccess && !error ? <GlowingButton>Submit Successfully</GlowingButton> : null}
             </ContactFormCard>
         </ContactFormContainer>
     );

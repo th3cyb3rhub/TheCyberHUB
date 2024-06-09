@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 
-import { Container, Heading, Overlay, Paragraph } from "../../Community/CommunityElements";
+import { Container, Heading, Overlay, Paragraph } from "src/components/Dashboard/Community/CommunityElements";
 import {
     JobIntroHeader,
     JobsCardSection,
@@ -14,7 +14,7 @@ import {
 
 import Job from "./Job";
 import { JobsData } from "./JobsData";
-import { Wrapper } from "../../Dashboard/UserProfile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Dashboard/UserProfile/ProfileElements";
 import JobDetailsPage from "./JobDetailsPage";
 
 const Jobs = () => {

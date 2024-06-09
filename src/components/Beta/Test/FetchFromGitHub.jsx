@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PreviewMarkdown from "../../Blogs/ViewBlog/PreviewMarkdown";
+import PreviewMarkdown from "src/components/Blogs/ViewBlog/PreviewMarkdown";
 
 const FetchFromGitHub = () => {
     const [content, setContent] = useState("");

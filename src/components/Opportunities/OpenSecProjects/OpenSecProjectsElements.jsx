@@ -26,7 +26,6 @@ export const OpenSecProjectsContainer = styled.div`
     align-items: center;
     width: 100%;
     flex-direction: column;
-
     gap: 25px;
     transition: all 1.3s ease-in-out;
 
@@ -37,9 +36,9 @@ export const OpenSecProjectsContainer = styled.div`
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 25px;
         background-color: #090909;
-
         transition: all 1.3s ease-in-out;
-        @media (max-width: 1000px) {
+
+        @media (width <= 1000px) {
             transition: all 1.3s ease-in-out;
             grid-template-columns: repeat(1, 1fr);
         }
@@ -52,12 +51,10 @@ export const OpenSecProjectsContainer = styled.div`
         align-items: start;
         background-color: #0c0c0c;
         border-radius: 10px;
-
         border: 1px solid #2c2c2c;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
         padding: 16px;
         width: 100%;
-
         transition: all 0.3s ease-in-out;
 
         &:hover {
@@ -78,7 +75,7 @@ export const OpenSecProjectsContainer = styled.div`
         justify-content: space-between;
         transition: all 0.3s ease-in-out;
 
-        @media (max-width: 620px) {
+        @media (width <= 620px) {
             flex-direction: column;
             justify-content: start;
             align-items: start;
@@ -125,7 +122,6 @@ export const OpenSecProjectsContainer = styled.div`
     .card-footer a {
         color: #ff6b08;
         transition: all 0.3s ease-in-out;
-
         width: 100%;
         text-decoration: none;
 

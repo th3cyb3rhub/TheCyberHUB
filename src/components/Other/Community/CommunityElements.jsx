@@ -1,18 +1,17 @@
 import styled from "styled-components";
-import { getCdnAssets } from "../../../features/apiUrl";
+import { getCdnAssets } from "src/features/apiUrl";
 import { FaDiscord } from "react-icons/fa";
 const bgImage = `${getCdnAssets}/images/WebsiteLogo/thecyberworld-green01.png`;
 
 export const CommunitySection = styled.section`
     color: white;
     margin: 150px 0;
-
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         margin: 100px 0;
     }
 `;
@@ -31,7 +30,7 @@ export const CommunityHeading = styled.h2`
     margin: 0.5rem 0;
     text-align: center;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         font-size: 1.5rem;
         margin: 0.5rem 0 1rem;
     }
@@ -94,7 +93,7 @@ export const Overlay = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    background: #000000;
+    background: #000;
     opacity: 0.9;
 `;
 
@@ -119,7 +118,7 @@ export const Heading = styled.h1`
     margin: 0.5rem 0;
     text-align: center;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (width <= 800px) {
         text-align: start;
         font-size: 2rem;
     }
@@ -132,7 +131,7 @@ export const Paragraph = styled.p`
     text-align: center;
     max-width: 1100px;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (width <= 800px) {
         font-size: 1rem;
         text-align: justify;
         text-justify: inter-word;
@@ -167,15 +166,16 @@ export const Button = styled.button`
     align-items: center;
     padding: 0.5rem;
     width: 100%;
-    //font-family: "Roboto Mono", monospace;
-    font-family: "Poppins", sans-serif;
+
+    /* font-family: "Roboto Mono", monospace; */
+    font-family: Poppins, sans-serif;
 
     & > span {
         margin: 0 10px;
         font-size: 18px;
         color: #dadada;
 
-        @media screen and (max-width: 480px) {
+        @media screen and (width <= 480px) {
             font-size: 18px;
             margin: 0 10px 0 0;
         }

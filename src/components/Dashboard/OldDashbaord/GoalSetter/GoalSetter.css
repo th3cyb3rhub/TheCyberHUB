@@ -48,7 +48,6 @@ h3 {
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
-    border-bottom: 1px solid #e6e6e6;
     margin-bottom: 60px;
 }
 
@@ -90,24 +89,30 @@ h3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    color: #1a1c1d;
 }
 
 .goal {
-    background-color: #f5f5f5;
-    margin: 5px;
-    padding: 20px 10px;
+    display: flex;
+    flex-direction: column !important;
     position: relative;
-    max-width: 250px;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background: transparent;
+    color: #e6e6e6;
+    font-weight: 100;
+    box-shadow: 0 0 50px 0 rgba(179, 162, 148, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.goal .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
+.close {
+    position: relative;
+    top: -10px;
+    right: -122px;
     cursor: pointer;
     border: none;
-    background: none;
+    font-size: large;
+    font-weight: 600;
 }
 
 .form,
@@ -118,23 +123,31 @@ h3 {
 
 .form-group {
     margin-bottom: 10px;
+    position: relative;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e6e6e6;
+    width: 93%;
+    height: 51px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #f5f5f5;
+    overflow: hidden;
+    background: #121212;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 5px;
-    margin-bottom: 10px;
-    font-family: inherit;
 }
 
 .form-group label {
     text-align: left;
     display: block;
     margin: 0 0 5px 3px;
+    font-weight: 600;
+    font-size: large;
 }
 
 .btn {
@@ -142,7 +155,7 @@ h3 {
     border: 1px solid #000;
     border-radius: 5px;
     background: #000;
-    color: #f5f5f5;
+    color: #fffbfb;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -158,17 +171,26 @@ h3 {
 }
 
 .btn-reverse {
-    background: #f5f5f5;
+    background: #d11d1d;
     color: #000;
 }
 
 .btn-block {
-    width: 100%;
-    margin-bottom: 20px;
+    width: 1%;
+    border: 2px solid rgba(160, 159, 159, 0.18);
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 50px;
+    background-color: transparent;
+    position: relative;
+    top: -50.3px;
+    font-size: 40px;
+    right: -93.5%;
 }
 
 .btn:hover {
     transform: scale(0.98);
+    background-color: #121212;
 }
 
 .loadingSpinnerContainer {
@@ -192,7 +214,12 @@ h3 {
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
 }
-
+.creation-date {
+    position: absolute;
+    bottom: 10px;
+    width: 250px;
+    margin-top: 20px;
+}
 @keyframes spin {
     0% {
         transform: rotate(0deg);

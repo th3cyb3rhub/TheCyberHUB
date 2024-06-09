@@ -1,0 +1,29 @@
+.icon {
+    color: #646464;
+    transition: all 0.3s ease;
+}
+.icon-edit {
+    color: #00a8ff;
+}
+
+.icon-delete,
+.icon-cancel,
+.icon-delete > path {
+    color: #f14844;
+    fill: #f14844;
+}
+
+.icon-save {
+    color: #00a8ff;
+}
+.icon-options:hover {
+    color: #00a8ff;
+}
+.icon:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+.icon-not-hover-effect:hover {
+    opacity: 1;
+    cursor: pointer;
+}

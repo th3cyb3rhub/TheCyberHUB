@@ -1,5 +1,5 @@
 import React from "react";
-import { CyberProfilesContainer, CyberProfilesHeading } from "./CyberProfilesElements";
+import { CyberProfilesContainer } from "./CyberProfilesElements";
 
 const CyberProfiles = ({ cyberProfiles, userDetailData, setUserDetailData, isEdit }) => {
     // const onChange = (e) => {
@@ -15,7 +15,7 @@ const CyberProfiles = ({ cyberProfiles, userDetailData, setUserDetailData, isEdi
 
     return (
         <CyberProfilesContainer>
-            <CyberProfilesHeading>Cyber Profiles</CyberProfilesHeading>
+            <h2>Cyber Profiles</h2>
             {isEdit ? (
                 <input />
             ) : (

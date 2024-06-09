@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 
@@ -12,6 +13,9 @@ if (process.env.VITE_API_URL) {
 }
 
 export default defineConfig({
+    resolve: {
+        alias: { src: path.resolve("./src") },
+    },
     server: {
         proxy: {
             // "/api": "http://localhost:5000",

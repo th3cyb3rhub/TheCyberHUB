@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ImageSliderContainer, Image, ImagesContainer, LeftArrow, RightArrow } from "./ImageSliderElements";
-import { cdnContentImagesUrl } from "../../../features/apiUrl";
+import { cdnContentImagesUrl } from "src/features/apiUrl";
 
 const ImageSlider = ({ images, selectedIndex, onClose, username }) => {
     const [currentIndex, setCurrentIndex] = useState(selectedIndex);

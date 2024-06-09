@@ -5,7 +5,8 @@ export const Section = styled.div`
     margin: 100px auto;
     padding: 0 24px;
     color: #cecac3;
-    @media screen and (max-width: 760px) {
+
+    @media screen and (width <= 760px) {
         text-align: center;
     }
 `;
@@ -18,13 +19,7 @@ export const WriteUpSection = styled.div`
     color: #cecac3;
     width: 45rem;
 
-    @media screen and (max-width: 1080px) {
-    }
-
-    @media screen and (max-width: 760px) {
-    }
-
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         width: 27rem;
     }
 `;
@@ -62,18 +57,16 @@ export const Content = styled.div`
 `;
 
 export const Heading = styled.h2`
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         font-size: 15px;
     }
 `;
 
 export const Paragraph = styled.p`
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         font-size: 13px;
     }
 `;
-
-export const ImageSection = styled.div``;
 
 export const Image = styled.img`
     border-radius: 5px;
@@ -87,7 +80,7 @@ export const ContentFooter = styled.div`
 `;
 
 export const Tag = styled.button`
-    margin: 5px 0 0 0;
+    margin: 5px 0 0;
     padding: 5px;
     border-radius: 10px;
     border-color: #1a1c1d;

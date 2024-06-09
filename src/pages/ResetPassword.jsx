@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { CenterCard, Container } from "../components/Homepage/Registration/CenterCard";
-import { Learn2CodePromotion } from "../components/Homepage/Registration/Learn2CodePromotion";
-import { CustomInputGroup } from "../components/Other/MixComponents/InputField/CustomInputField";
-import { RegistrationFormContainer } from "../components/Homepage/Registration/Form";
-import { ButtonGreen, LoadingButton } from "../components/Other/MixComponents/Buttons/ButtonElements";
+import { CenterCard, Container } from "src/components/Homepage/Registration/CenterCard";
+import { Learn2CodePromotion } from "src/components/Homepage/Registration/Learn2CodePromotion";
+import { CustomInputGroup } from "src/components/Other/MixComponents/InputField/CustomInputField";
+import { RegistrationFormContainer } from "src/components/Homepage/Registration/Form";
+import { ButtonGreen, LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { CgPassword } from "react-icons/cg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { reset, resetPasswordWithToken } from "../features/resetPassword/resetPasswordSlice";
+import { reset, resetPasswordWithToken } from "src/features/resetPassword/resetPasswordSlice";
 import { CircleSpinner } from "react-spinners-kit";
-import { RouterLink } from "../components/Events/EventsElement";
+import { RouterLink } from "src/components/Tools/ToolsElements";
 
 const ResetPassword = () => {
     const [formData, setFormData] = useState({
@@ -85,11 +85,11 @@ const ResetPassword = () => {
                     </div>
                 </Learn2CodePromotion>
                 <RegistrationFormContainer onSubmit={onSubmit}>
-                    <p className="registration__promotion__p">
+                    <p className="registration-promotion-p">
                         Master Cybersecurity. This path will prepare you to build you base strong in cyber security
                     </p>
-                    <h1 className="registration__promotion__h1">Reset Password</h1>
-                    <div className="registration__inputfields">
+                    <h1 className="registration-promotion-h1">Reset Password</h1>
+                    <div className="registration-inputfields">
                         <CustomInputGroup>
                             <span>
                                 <CgPassword />
@@ -102,7 +102,7 @@ const ResetPassword = () => {
                                 placeholder="Password"
                                 onChange={onChange}
                                 aria-label="Password"
-                                autoComplete={null}
+                                autoComplete="off"
                             />
                         </CustomInputGroup>
                         <CustomInputGroup>
@@ -117,11 +117,11 @@ const ResetPassword = () => {
                                 placeholder="Confirm Password"
                                 onChange={onChange}
                                 aria-label="Password"
-                                autoComplete={null}
+                                autoComplete="off"
                             />
                         </CustomInputGroup>
                     </div>
-                    <div className="registration__ctas">
+                    <div className="registration-ctas">
                         {!isLoading ? (
                             isPasswordReset ? (
                                 <p style={{ color: "white" }}>Password Reset Successful</p>

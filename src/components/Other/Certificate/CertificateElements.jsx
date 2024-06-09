@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { ButtonGreen } from "../MixComponents/Buttons/ButtonElements";
-import bgImage from "../../../assets/images/certificate-bg.png";
+import { ButtonGreen } from "src/components/Other/MixComponents/Buttons/ButtonElements";
+import bgImage from "src/assets/images/certificate-bg.png";
 
-// import {getCDNUrl} from "../../../features/apiUrl";
 // const bgImage = `${getCDNUrl}/images/certificate-bg.png`;
 
 export const CertificateContainer = styled.div`
@@ -35,7 +34,7 @@ export const TCWText = styled.p`
 
 export const CertificateContent = styled.div`
     padding: 0 5rem 1rem;
-    font-family: "Oswald", sans-serif;
+    font-family: Oswald, sans-serif;
     text-transform: uppercase;
     color: whitesmoke;
     align-items: center;
@@ -47,11 +46,13 @@ export const CertificateContent = styled.div`
 export const CertificateComponent = styled.div`
     margin: 50px;
     width: 70em;
-    //padding: 1rem 5rem;
-    font-family: "Oswald", sans-serif;
+
+    /* padding: 1rem 5rem; */
+    font-family: Oswald, sans-serif;
     text-transform: uppercase;
     color: whitesmoke;
-    //background: #0e0e0e;
+
+    /* background: #0e0e0e; */
     background-image: url(${bgImage});
     background-repeat: no-repeat;
     background-size: cover;
@@ -80,7 +81,7 @@ export const CertificateComponent = styled.div`
     }
 
     .full-name {
-        padding: 0 2rem 0.5rem 2rem;
+        padding: 0 2rem 0.5rem;
         margin-top: 3rem;
         font-weight: 300;
         font-size: 2rem;
@@ -126,7 +127,7 @@ export const CertificateFooter = styled.div`
 
     .date-block {
         .date {
-            padding: 0.7rem 1rem 0.5rem 1rem;
+            padding: 0.7rem 1rem 0.5rem;
             border-bottom: 2px solid #ccc;
         }
 
@@ -145,9 +146,9 @@ export const CertificateFooter = styled.div`
 
     .signature-block {
         .signature {
-            padding: 1rem 1rem 0.2rem 1rem;
+            padding: 1rem 1rem 0.2rem;
             border-bottom: 2px solid #ccc;
-            font-family: "Caveat", cursive;
+            font-family: Caveat, cursive;
         }
 
         .signature-word {
@@ -178,4 +179,46 @@ export const DownloadCertificateAs = styled.div`
 export const DownloadButton = styled(ButtonGreen)`
     margin: 5px;
     padding: 7px 25px;
+`;
+
+export const ShareCertificateSection = styled.div`
+    width: 100%;
+    align-items: center;
+    text-align: center;
+
+    & > p {
+        margin: 5px;
+        font-size: 20px;
+    }
+`;
+export const ShareCertificateSocials = styled.div`
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+`;
+export const Twitter = styled.a`
+    color: #f5f5f5;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    font-size: 15px;
+
+    &:hover {
+        color: #1d9bf0;
+        scale: 1.2;
+        transition: 0.3s ease-out;
+    }
+`;
+export const Linkedin = styled.a`
+    color: #f5f5f5;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    font-size: 15px;
+
+    &:hover {
+        color: #0072b1;
+        scale: 1.2;
+        transition: 0.3s ease-out;
+    }
 `;

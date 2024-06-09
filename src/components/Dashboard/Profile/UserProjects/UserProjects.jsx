@@ -1,17 +1,16 @@
 import React from "react";
 import {
-    AchievementHeading,
     AchievementItem,
     AchievementLink,
     AchievementList,
     AchievementsContainer,
     IconDot,
-} from "../Achievements/AchievementsElements";
+} from "src/components/Dashboard/Profile/Achievements/AchievementsElements";
 
 const UserProjects = ({ projects }) => {
     return (
         <AchievementsContainer>
-            <AchievementHeading>Projects</AchievementHeading>
+            <h3>Projects</h3>
             <AchievementList>
                 <AchievementItem>
                     {projects?.length > 0 &&

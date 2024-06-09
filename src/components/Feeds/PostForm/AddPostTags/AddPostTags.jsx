@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IconAdd, IconRemove, TagInput, TagsInput, TagsInputContainer } from "./AddPostTagsElements";
-import { PostTag, PostTags } from "../../FeedPosts/FeedPostsElements";
+import { PostTag, PostTags } from "src/components/Feeds/FeedPosts/FeedPostsElements";
 
 const AddFeedTags = ({ tags, setTags, size }) => {
     const [hideInput, setHideInput] = useState(true);

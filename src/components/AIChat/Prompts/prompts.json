@@ -1,0 +1,51 @@
+[
+  {
+    "title": "What is Cyber Security",
+    "description": "Explain in detail about it."
+  },
+  {
+    "title": "How to make website secure",
+    "description": "by adding an extra layer of security."
+  },
+  {
+    "title": "What is Data Breach",
+    "description": "How to prevent it."
+  },
+  {
+    "title": "What is Deep Web",
+    "description": "How to access it."
+  },
+  {
+    "title": "Importance of Encryption in Cyber Security",
+    "description": "How encryption helps protect data in cyber security."
+  },
+  {
+    "title": "Common Social Engineering Techniques",
+    "description": "Identify and protect against social engineering attacks."
+  },
+  {
+    "title": "Types of Malware and How to Combat Them",
+    "description": "Explore different types of malware and strategies to defend against them."
+  },
+  {
+    "title": "Best Practices for Password Security",
+    "description": "Tips for creating strong and secure passwords to enhance cyber security."
+  },
+  {
+    "title": "Web Application Security Best Practices",
+    "description": "Ensure the security of web applications through best practices."
+  },
+  {
+    "title": "SQL Injection and Prevention Measures",
+    "description": "Understand SQL injection attacks and how to prevent them in web applications."
+  },
+  {
+    "title": "Cross-Site Scripting (XSS) Vulnerabilities",
+    "description": "Identify and mitigate cross-site scripting vulnerabilities in websites."
+  },
+  {
+    "title": "Security Headers for Enhanced Web Security",
+    "description": "Implement security headers to enhance the security of web applications."
+  }
+]
+

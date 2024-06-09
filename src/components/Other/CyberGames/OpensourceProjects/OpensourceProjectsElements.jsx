@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { getCdnAssets } from "../../../../features/apiUrl";
+import { getCdnAssets } from "src/features/apiUrl";
 const projectImage = `${getCdnAssets}/images/projects-bg.png`;
 
 const whiteColor = "whitesmoke";
@@ -16,8 +16,7 @@ export const ProjectsContainer = styled.div`
 
 export const Projects = styled.div`
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     justify-content: center;
 `;
 
@@ -28,22 +27,20 @@ export const Project = styled.div`
     text-align: left;
     height: 100%;
     opacity: 1.8;
-
     width: 21rem;
-    background: #171717;
     max-width: 400px;
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
     border: 1px solid #262626;
-    background-size: cover;
-    // background: url(${projectImage}) center;
+
+    /* background: url(${projectImage}) center; */
 
     transition: all 0.2s ease-in-out;
-    background: linear-gradient(135deg, rgba(75, 75, 75, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgb(75 75 75 / 10%), rgb(255 255 255 / 0%));
+    background-size: cover;
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
 
     &:hover {
         transform: scale(1.05);
@@ -52,7 +49,7 @@ export const Project = styled.div`
 `;
 
 export const ContainerHeading = styled.h1`
-    margin: 20px 0 30px 0;
+    margin: 20px 0 30px;
     padding: 10px 0;
     text-align: center;
 `;

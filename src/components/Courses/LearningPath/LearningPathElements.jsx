@@ -6,14 +6,16 @@ export const LearningPathContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     max-width: 1500px;
-    //border: #2a2a2a 1px solid;
-    @media (max-width: 780px) {
+
+    /* border: #2a2a2a 1px solid; */
+
+    @media (width <= 780px) {
         flex-direction: column;
     }
 `;
 
 export const SectionHeading = styled.p`
-    font-family: "Roboto", sans-serif;
+    font-family: Roboto, sans-serif;
     display: flex;
     font-size: 30px;
     justify-content: center;
@@ -21,7 +23,7 @@ export const SectionHeading = styled.p`
 
 export const LoginToAccess = styled.p`
     margin: 100px 25px 25px;
-    font-family: "Roboto", sans-serif;
+    font-family: Roboto, sans-serif;
     display: flex;
     font-size: 30px;
     justify-content: center;
@@ -33,14 +35,15 @@ export const NavigationButtonContainer = styled.div`
     max-width: 350px;
     display: flex;
     justify-content: space-between;
-    @media (max-width: 420px) {
+
+    @media (width <= 420px) {
         flex-direction: column;
         align-items: center;
     }
 `;
 
 export const ButtonText = styled.p`
-    margin: 25px 25px;
+    margin: 25px;
     padding: 5px 25px;
     font-size: 20px;
 `;
@@ -59,7 +62,7 @@ export const LearningPathWrapper = styled.div`
 export const BackArrow = styled(IoMdArrowRoundBack)`
     background: #33e33c;
     border-radius: 50%;
-    color: #ffffff;
+    color: #fff;
     padding: 5px;
     font-size: 30px;
     cursor: pointer;
@@ -72,14 +75,14 @@ export const BackArrow = styled(IoMdArrowRoundBack)`
         scale: 1.1;
     }
 
-    //@media only screen and (min-width: 1200px) {
-    //    display: none;
-    //}
+    /* @media only screen and (min-width: 1200px) {
+        display: none;
+    } */
 `;
 export const ForwardArrow = styled(IoMdArrowRoundForward)`
     background: #33e33c;
     border-radius: 50%;
-    color: #ffffff;
+    color: #fff;
     padding: 5px;
     font-size: 30px;
     cursor: pointer;
@@ -92,20 +95,20 @@ export const ForwardArrow = styled(IoMdArrowRoundForward)`
         scale: 1.1;
     }
 
-    //@media only screen and (min-width: 1200px) {
-    //    display: none;
-    //}
+    /* @media only screen and (min-width: 1200px) {
+       display: none;
+    } */
 `;
 
 export const IFrameVideo = styled.iframe`
     width: 100%;
     height: 450px;
 
-    @media (max-width: 767px) {
+    @media (width <= 767px) {
         height: 300px;
     }
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
         height: 500px;
     }
 `;
@@ -118,7 +121,8 @@ export const LeftContainer = styled.div`
     padding: 25px;
     width: 100%;
     max-width: 350px;
-    @media (max-width: 1100px) {
+
+    @media (width <= 1100px) {
         width: 100%;
     }
 `;
@@ -136,7 +140,7 @@ export const TopicBox = styled.div`
     padding: 0 5px;
     cursor: pointer;
     ${(props) =>
-        props.isSelected &&
+        props.$isSelected &&
         `
       background: #505050;
   `}
@@ -155,19 +159,19 @@ export const CheckboxContainer = styled.div`
     padding: 10px;
 `;
 export const Checkbox = styled.input`
-    //height: 15px;
-    //width: 15px;
-    //border-radius: 100%;
+    /* height: 15px;
+    width: 15px;
+    border-radius: 100%; */
     width: 1.3em;
     height: 1.3em;
     border-radius: 50%;
     vertical-align: middle;
-    border: 1.5px solid #b0b0b0;
+    border: 1.5px solid #474747;
     appearance: none;
     cursor: pointer;
 
-    :checked {
-        background-color: #36cc24;
+    &:checked {
+        background-color: #ff6b08;
         border: 1.5px solid #313131;
     }
 `;
@@ -181,13 +185,14 @@ export const RightContainer = styled.div`
     text-align: center;
     flex-direction: column;
     width: 100%;
-    @media (max-width: 1100px) {
+
+    @media (width <= 1100px) {
         width: 100%;
     }
 `;
 
 export const Content = styled.div`
-    //width: 800px;
+    /* width: 800px; */
 `;
 export const ContentList = styled.div`
     width: 100%;
@@ -196,9 +201,6 @@ export const ContentList = styled.div`
     flex-direction: column;
 `;
 
-export const Weeks = styled.div``;
-
-export const Week = styled.h2``;
 export const Days = styled.div`
     margin: 25px 0;
     display: ${(props) => (props.isWrapped ? "none" : "block")};
@@ -209,9 +211,10 @@ export const VLine = styled.hr`
     height: auto;
     border: #1a1a1a 1px solid;
     background: #1a1a1a;
-    //@media (max-width: 1100px) {
-    //    display: none;
-    //}
+
+    /* @media (max-width: 1100px) {
+       display: none;
+    } */
 `;
 
 export const HLine = styled.hr`

@@ -8,7 +8,6 @@ import {
     SearchPlayerContainer,
     SearchPlayerItem,
     SearchPlayerList,
-    TeamContainer,
     TeamMember,
     TeamMembers,
     TeamName,
@@ -17,16 +16,21 @@ import { AiFillEdit } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 import { BsCheck } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
-import { registeredUser } from "../CTFData";
+import { registeredUser, teams } from "src/components/CaptureTheFlag/CTFData";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements.jsx";
 
-const Team = ({ team, isTeamEdit }) => {
+const Team = () => {
+    const [team, setTeam] = useState(teams[0]);
     const [editTeam, setEditTeam] = useState(false);
     const [teamName, setTeamName] = useState(team.teamName || "");
     const [teamMembersList, setTeamMembersList] = useState(team.teamMembers || []);
     const [searchResults, setSearchResults] = useState([]);
+    const [isTeamEdit, setIsTeamEdit] = useState(true);
 
     const handleEditTeamName = () => {
         setEditTeam(!editTeam);
+        setIsTeamEdit(false);
+        setTeam(teams[0]);
     };
 
     const handleTeamNameChange = (e) => {
@@ -70,7 +74,7 @@ const Team = ({ team, isTeamEdit }) => {
     };
 
     return (
-        <TeamContainer>
+        <Wrapper>
             <CreateTeam>
                 <TeamName>
                     {editTeam ? (
@@ -84,9 +88,9 @@ const Team = ({ team, isTeamEdit }) => {
                     ) : (
                         teamName
                     )}
-
                     {isTeamEdit ? <AiFillEdit onClick={handleEditTeamName} /> : null}
                 </TeamName>
+
                 {editTeam && teamMembersList.length < 2 ? (
                     <SearchPlayerContainer>
                         <SearchAddPlayer>
@@ -114,7 +118,7 @@ const Team = ({ team, isTeamEdit }) => {
                     </TeamMember>
                 ))}
             </TeamMembers>
-        </TeamContainer>
+        </Wrapper>
     );
 };
 

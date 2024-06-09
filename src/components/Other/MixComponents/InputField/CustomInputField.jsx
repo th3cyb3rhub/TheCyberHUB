@@ -23,7 +23,7 @@ export const CustomInputGroup = styled.div`
         font-size: 15px;
     }
 
-    & .codeInput {
+    & .code-input {
         display: flex;
         flex: 2;
         height: 100%;
@@ -60,7 +60,8 @@ export const VerificationCodeSection = styled.div`
         font-family: Roboto, sans-serif;
         font-size: 20px;
         padding: 5px;
-        //margin: 5px 25px 5px 5px;
+
+        /* margin: 5px 25px 5px 5px; */
         color: #b9b4b4;
         padding-right: 15px;
         display: flex;

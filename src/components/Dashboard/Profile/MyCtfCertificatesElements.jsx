@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const MyCtfCertificatesContainer = styled.div`
     width: 100%;
-
     background: #090909;
     padding: 10px;
     border-radius: 5px;
@@ -13,10 +12,12 @@ export const TheCyberCTFCertificates = styled.h3`
     font-size: 35px;
     align-items: center;
     text-align: center;
-    @media screen and (max-width: 1000px) {
+
+    @media screen and (width <= 1000px) {
         font-size: 25px;
     }
-    @media screen and (max-width: 500px) {
+
+    @media screen and (width <= 500px) {
         padding: 15px;
         font-size: 20px;
     }
@@ -44,7 +45,6 @@ export const CtfCertificateCard = styled.div`
 export const CtfName = styled.h1`
     overflow-wrap: break-word;
     word-wrap: break-word;
-
     font-size: 25px;
 `;
 export const CtfKind = styled.div`

@@ -12,13 +12,17 @@ import {
     SelectSection,
     Title,
 } from "./PortScannerElements";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
-import { getApiUrl } from "../../../features/apiUrl";
-import apiStatus from "../../../features/apiStatus";
-import UnderMaintenance from "../../Other/UnderMaintenance/UnderMaintenance";
+import { getApiUrl } from "src/features/apiUrl";
+import apiStatus from "src/features/apiStatus";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 import { CgOpenCollective } from "react-icons/cg";
-import { CopyButton, CopyButtonSection, DownloadButton } from "../SubdomainFinder/SubdomainFinderElements";
+import {
+    CopyButton,
+    CopyButtonSection,
+    DownloadButton,
+} from "src/components/Tools/SubdomainFinder/SubdomainFinderElements";
 
 const PortScanner = () => {
     const { isApiLoading, isApiWorking } = apiStatus();

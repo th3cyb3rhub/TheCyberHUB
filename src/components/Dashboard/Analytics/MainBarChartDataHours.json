@@ -1,0 +1,48 @@
+{
+  "options": [
+    {
+      "plugins": {
+        "legend": {
+          "display": true
+        }
+      },
+      "maintainAspectRatio": false,
+      "responsive": true
+    },
+    {
+      "plugins": {
+        "legend": {
+          "display": true,
+          "label": {
+            "display": false
+          }
+        }
+      },
+      "maintainAspectRatio": false,
+      "responsive": true
+    }
+  ],
+  "datasets": [
+    {
+      "label": "Contributions Hours",
+      "data": [567, 280, 453, 440, 564, 345, 280, 765, 676, 234, 876, 440],
+      "borderColor": "rgb(128, 128, 128)",
+      "backgroundColor": [
+        "rgb(255, 99, 132)",
+        "rgb(255, 106, 9)",
+        "rgb(54, 162, 235)",
+        "rgb(0, 47, 225)",
+        "rgb(255, 205, 86)",
+        "rgb(255, 99, 132)",
+        "rgb(255, 106, 9)",
+        "rgb(54, 162, 235)",
+        "rgb(0, 47, 225)",
+        "rgb(255, 205, 86)",
+        "rgb(169, 169, 169, 0.1)",
+        "rgb(169, 169, 169, 0.1)"
+      ],
+      "hoverOffset": 4
+    }
+  ],
+  "xDataSet": ["06:00","08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "23:00", "23:30", "00:00"]
+}

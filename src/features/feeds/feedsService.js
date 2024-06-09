@@ -1,20 +1,7 @@
 import axios from "axios";
-import { getApiUrl } from "../apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 
 const API_URL = getApiUrl("api/feeds/");
-const addComment = async (feedId, commentData, token) => {
-    try {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
-        const response = await axios.post(API_URL + feedId + "/comment", { comment: commentData }, config);
-        return response.data;
-    } catch (error) {
-        throw new Error(error);
-    }
-};
 
 // Get All feeds
 const getAllFeeds = async () => {
@@ -27,14 +14,14 @@ const getAllFeeds = async () => {
 };
 
 // Create new feed
-const createFeed = async (feedData, token) => {
+const createFeed = async (feedData, token, parentId = "") => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     };
 
-    const response = await axios.post(API_URL, feedData, config);
+    const response = await axios.post(API_URL, { ...feedData, parentId }, config);
 
     return response.data;
 };
@@ -61,7 +48,17 @@ const getFeeds = async (token) => {
     };
 
     const response = await axios.get(API_URL, config);
+    return response.data;
+};
 
+const getFeedLineage = async (feedId, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await axios.get(API_URL + feedId, config);
     return response.data;
 };
 
@@ -79,12 +76,12 @@ const deleteFeed = async (feedId, token) => {
 };
 
 const feedsService = {
-    addComment,
     getAllFeeds,
     createFeed,
     updateFeed,
     getFeeds,
     deleteFeed,
+    getFeedLineage,
 };
 
 export default feedsService;

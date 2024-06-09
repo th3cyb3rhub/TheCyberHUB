@@ -1,5 +1,5 @@
 import React from "react";
-import { IconAdd, TagInput, TagsInput } from "./CreateBlogV2Elements";
+import { IconAdd, TagInput, TagsInput } from "src/components/Blogs/ManageBlogs/CreateBlogV2/CreateBlogV2Elements";
 
 const AddBlogTags = ({ tags, setTags }) => {
     const handleTagChange = (index, value) => {

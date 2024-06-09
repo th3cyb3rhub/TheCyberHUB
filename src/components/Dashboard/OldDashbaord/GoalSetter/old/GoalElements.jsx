@@ -12,4 +12,7 @@ export const GoalsContainer = styled.div`
 
 export const GoalText = styled.h3`
     word-wrap: break-word;
+    font-weight: 500;
+    margin-bottom: 30px;
+    min-height: 60px;
 `;

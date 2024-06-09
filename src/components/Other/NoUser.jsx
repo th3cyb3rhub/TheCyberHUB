@@ -1,7 +1,11 @@
 import React from "react";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
-import { ButtonText, LoginToAccess, NavigationButtonContainer } from "../Resources/LearningPath/LearningPathElements";
-import { RouterLink } from "../Header/UserOptions/UserOptionsElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import {
+    ButtonText,
+    LoginToAccess,
+    NavigationButtonContainer,
+} from "src/components/Resources/LearningPath/LearningPathElements";
+import { RouterLink } from "src/components/Header/UserOptions/UserOptionsElements";
 
 export const NoUser = () => {
     return (

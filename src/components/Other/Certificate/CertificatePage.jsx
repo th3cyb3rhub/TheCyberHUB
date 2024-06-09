@@ -1,15 +1,3 @@
-// import React, { useState } from "react";
-// import {
-//     CertificateContainer,
-//     GetCertificateContainer,
-//     Heading2,
-//     InputBox,
-//     InvalidCertificate,
-// } from "../CyberGames/CTF/CTFElements";
-// import "../CyberGames/CTF/CTF.css";
-// import CertificateCard from "./CertificateCard";
-// import { RouterLink } from "../Learn/Roadmaps/RoadmapElements";
-//
 // const CertificatePage = () => {
 //     const [certId, setCert] = useState("");
 //     return (

@@ -7,15 +7,14 @@ export const AchievementsContainer = styled.div`
     border-radius: 5px;
 `;
 
-export const AchievementHeading = styled.h3``;
-
 export const AchievementList = styled.ul`
     display: flex;
-    //display: grid;
-    //grid-template-columns: 1fr 1fr;
-    //grid-template-rows: 1fr 1fr;
-    //grid-template-areas: "AchievementItem AchievementItem" "AchievementItem AchievementItem";
-    //grid-gap: 25px;
+
+    /* display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "AchievementItem AchievementItem" "AchievementItem AchievementItem";
+    grid-gap: 25px; */
     padding: 0;
 `;
 
@@ -24,7 +23,6 @@ export const AchievementItem = styled.li`
     flex-direction: column;
 `;
 
-export const AchievementCategoryH = styled.h3``;
 export const AchievementLink = styled.a`
     color: #fff;
     display: flex;
@@ -34,9 +32,10 @@ export const AchievementLink = styled.a`
     &:hover {
         color: #007bff;
     }
-    //@media (max-width: 700px) {
-    //  flex-wrap: wrap;
-    //}
+
+    /* @media (max-width: 700px) {
+      flex-wrap: wrap;
+    } */
 `;
 
 export const IconDot = styled(BsDot)`
@@ -67,7 +66,8 @@ export const EditTitle = styled.input`
     font-size: 18px;
     margin: 5px 0;
     padding: 7px 10px;
-    //min-width: 250px;
+
+    /* min-width: 250px; */
     width: 100%;
 
     &:focus {

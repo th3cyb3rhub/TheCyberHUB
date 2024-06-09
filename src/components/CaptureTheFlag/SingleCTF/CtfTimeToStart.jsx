@@ -1,6 +1,6 @@
 import React from "react";
 import { ChallengeName } from "./SingleCTFElements";
-import TimeToStart from "../TimeToStart";
+import TimeToStart from "src/components/CaptureTheFlag/TimeToStart";
 
 const CtfTimeToStart = ({ challenge }) => {
     return (

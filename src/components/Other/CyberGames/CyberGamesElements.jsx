@@ -8,13 +8,17 @@ export const CyberGamesContainer = styled.div`
     margin: 150px 20px;
     color: #cecac3;
 
-    @media screen and (max-width: 760px) {
+    @media screen and (width <= 760px) {
         text-align: center;
     }
 `;
 
-export const OSINTGame = styled(RouterLink)``;
-export const CTFGame = styled(RouterLink)``;
+export const OSINTGame = styled(RouterLink)`
+    /* RouterLink */
+`;
+export const CTFGame = styled(RouterLink)`
+    /* RouterLink */
+`;
 export const CyberGamesImage = styled.img`
     border-radius: 10px;
     height: 200px;

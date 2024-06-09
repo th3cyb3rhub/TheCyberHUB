@@ -1,6 +1,13 @@
 import React from "react";
-import { Form, Input, SectionCreateBlog, Submit, TagInput, TextArea } from "./CreateBlog/CreateBlogElements";
-import { LoadingButton, LoadingRedirectButton } from "../../Other/MixComponents/Buttons/ButtonElements";
+import {
+    Form,
+    Input,
+    SectionCreateBlog,
+    Submit,
+    TagInput,
+    TextArea,
+} from "src/components/Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+import { LoadingButton, LoadingRedirectButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { CircleSpinner } from "react-spinners-kit";
 
 const BlogPostForm = (props) => {

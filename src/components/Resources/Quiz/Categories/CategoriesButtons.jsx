@@ -16,7 +16,7 @@ export default function CategoriesButtons({
         const styles = {
             background: data.type === categoryToShow ? "white" : "",
             color: data.type === categoryToShow ? "black" : "",
-            borderBottom: data.type === categoryToShow ? "3px solid #22D400" : "",
+            borderBottom: data.type === categoryToShow ? "3px solid  #ff6b08" : "",
         };
 
         return (

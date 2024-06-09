@@ -31,18 +31,23 @@ export const SplashImageNeon = styled.img`
     width: 150px;
     height: 150px;
     object-fit: cover;
-    animation: fade-in 1s forwards, neon-effect 2s ease-in-out infinite;
+    animation:
+        fade-in 1s forwards,
+        neon-effect 2s ease-in-out infinite;
     font-size: 12px;
     color: #999;
     word-break: break-all;
+
     @keyframes neon-effect {
         0% {
             opacity: 0;
         }
+
         50% {
             opacity: 1;
             transition: opacity 0.5s ease-in-out;
         }
+
         100% {
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
@@ -54,18 +59,23 @@ export const SplashImageNeon2 = styled.img`
     width: 150px;
     height: 150px;
     object-fit: cover;
-    animation: fade-in 1s forwards, neon-effect 0.5s ease-in-out infinite;
+    animation:
+        fade-in 1s forwards,
+        neon-effect 0.5s ease-in-out infinite;
     font-size: 12px;
     color: #999;
     word-break: break-all;
+
     @keyframes neon-effect {
         0% {
             opacity: 0;
         }
+
         50% {
             opacity: 1;
             transition: opacity 0.5s ease-in-out;
         }
+
         100% {
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
@@ -77,7 +87,7 @@ export const SplashScreenTextContainer = styled.div`
     height: 50px;
 
     & > p {
-        color: #666666;
+        color: #666;
         font-size: 20px;
     }
 `;

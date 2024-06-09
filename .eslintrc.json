@@ -1,26 +1,27 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
-  },
-  "extends": [
-    "plugin:react/recommended",
-    "standard",
-    "prettier"
-  ],
-  "overrides": [],
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true,
-      "js": true
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": ["plugin:react/recommended", "standard", "prettier", "plugin:storybook/recommended"],
+    "overrides": [],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "js": true
+        }
+    },
+    "plugins": ["react", "no-relative-import-paths"],
+    "rules": {
+        "react/prop-types": "off",
+        "no-relative-import-paths/no-relative-import-paths": [
+            "error",
+            {
+                "allowSameFolder": true
+            }
+        ]
     }
-  },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "react/prop-types": "off"
-  }}
+}

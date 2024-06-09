@@ -1,18 +1,17 @@
 import React from "react";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import {
     List,
     TermsAndConditionContainer,
     TermsDescription,
     TermsHeading,
     RouterLink,
-    Heading,
 } from "./TermsAndConditionElements";
 
 const PrivacyPolicy = () => {
     return (
         <Wrapper>
-            <Heading>Privacy Policy</Heading>
+            <h1>Privacy Policy</h1>
             <TermsAndConditionContainer>
                 <TermsHeading> Introduction: </TermsHeading>
                 <TermsDescription>

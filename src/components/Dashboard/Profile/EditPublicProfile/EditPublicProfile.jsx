@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetail, userDetailReset, updateUserDetail } from "../../../../features/userDetail/userDetailSlice";
-import { ProfileContainer, ProfileDetailsSection, Wrapper } from "../ProfileElements";
+import { getUserDetail, userDetailReset, updateUserDetail } from "src/features/userDetail/userDetailSlice";
+import { ProfileContainer, ProfileDetailsSection, Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import { CircleSpinner } from "react-spinners-kit";
-import { NotFound } from "../../../index";
-import { UserDetailsContainer } from "../SkillSet/SkillSetElements";
+import { NotFound } from "src/components/index";
+import { UserDetailsContainer } from "src/components/Dashboard/Profile/SkillSet/SkillSetElements";
 import EditUserProjects from "./EditUserProjects";
 import EditAchievements from "./EditAchievements";
 import EditSkillSet from "./EditSkillSet";
@@ -17,7 +17,7 @@ const EditPublicProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    const { userDetail, isLoading, isError, message } = useSelector((state) => state.userDetail);
+    const { userDetail, isUserDetailLoading, isError, message } = useSelector((state) => state.userDetail);
 
     const [isSuccess, setIsSuccess] = useState(false);
 
@@ -28,12 +28,12 @@ const EditPublicProfile = () => {
             console.log(message);
         }
 
-        if (user !== null && user.username !== userDetail.username) {
-            navigate(`/@${username}`);
+        if (user !== null && user.username !== username) {
+            navigate(`/user/${username}`);
         }
 
         if (isSuccess) {
-            navigate(`/@${user.username}`);
+            navigate(`/user/${user.username}`);
         }
 
         dispatch(getUserDetail(user.username));
@@ -59,7 +59,7 @@ const EditPublicProfile = () => {
     useEffect(() => {
         setUserDetailData(getInitialUserDetailData());
         // if (isSuccess) {
-        //     navigate(`/@${user.username}`);
+        //     navigate(`/user/${user.username}`);
         // }
     }, [userDetail, isSuccess, navigate, user.username]);
 
@@ -68,14 +68,14 @@ const EditPublicProfile = () => {
 
         if (user && userDetail && user?.username === userDetail?.username) {
             await dispatch(updateUserDetail({ id: userDetail?.user, userData: userDetailData }));
-            navigate(`/@${user.username}`);
+            navigate(`/user/${user.username}`);
             setIsSuccess(true);
 
             setUserDetailData(getInitialUserDetailData());
         }
     };
 
-    if (isLoading) {
+    if (isUserDetailLoading) {
         return (
             <Wrapper>
                 <CircleSpinner size={20} color={"#ff6b08"} />

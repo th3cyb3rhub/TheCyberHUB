@@ -1,7 +1,6 @@
 import React from "react";
-import { AboutSection } from "../ProfileElements";
+import { AboutSection } from "src/components/Dashboard/Profile/ProfileElements";
 import styled from "styled-components";
-import { AchievementHeading } from "../Achievements/AchievementsElements";
 
 const AboutMe = ({ aboutMe, userDetailData, setUserDetailData }) => {
     const onChange = (e) => {
@@ -14,7 +13,7 @@ const AboutMe = ({ aboutMe, userDetailData, setUserDetailData }) => {
 
     return (
         <AboutSection>
-            <AchievementHeading>About Me</AchievementHeading>
+            <h3>About Me</h3>
             <AboutTextArea
                 value={userDetailData.aboutMe || aboutMe}
                 onChange={onChange}
@@ -32,13 +31,13 @@ export const AboutTextArea = styled.textarea`
     border-radius: 5px;
     resize: none;
     font-size: 18px;
-    font-family: "Arial", sans-serif;
+    font-family: Arial, sans-serif;
     color: #a2a2a2;
 
     /* Additional styles for the textarea when in edit mode */
     background-color: #131313;
     outline: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 
     /* Placeholder text color */
 

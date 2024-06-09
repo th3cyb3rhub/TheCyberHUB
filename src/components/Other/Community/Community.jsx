@@ -8,7 +8,7 @@ import {
     // DiscordButtonIcon,
     // DiscordButton,
 } from "./CommunityElements";
-import Socials from "../../Homepage/Socials/Socials";
+import Socials from "src/components/Homepage/Socials/Socials";
 
 const Community = () => {
     return (

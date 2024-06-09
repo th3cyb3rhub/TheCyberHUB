@@ -21,7 +21,6 @@ const spinAnimation = keyframes`
 export const SpinnerImage = styled.img`
     animation: ${spinAnimation} 10s linear infinite;
     width: 15px;
-
     text-align: center;
     display: flex;
     justify-content: center;

@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ContainerViewBlog, ViewBlogHeader } from "../../Blogs/ViewBlog/ViewBlogElements";
-import {
-    // UserImage,
-    Wrapper,
-} from "./ProfileElements";
-import { EditProfileContainer, Form, Input, Label } from "./EditProfileElements";
-import { updateUser } from "../../../features/auth/authSlice";
-// import { AddImage } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
-// import axios from "axios";
-// import { getUserDetail } from "../../../features/userDetail/userDetailSlice";
-import {
-    // getApiUrl, getCDNUrl,
-    webEnv,
-} from "../../../features/apiUrl";
+import { ContainerViewBlog, ViewBlogHeader } from "src/components/Blogs/ViewBlog/ViewBlogElements";
+import { Wrapper } from "./ProfileElements";
+import { Form, Input } from "./EditProfileElements";
+import { updateUser } from "src/features/auth/authSlice";
+import { webEnv } from "src/features/apiUrl";
 import { CircleSpinner } from "react-spinners-kit";
-import ComingSoon from "../../Other/MixComponents/ComingSoon";
+import ComingSoon from "src/components/Other/MixComponents/ComingSoon";
 
 const EditProfile = () => {
     if (webEnv === "production") {
@@ -74,11 +65,11 @@ const EditProfile = () => {
 
     return (
         <Wrapper>
-            <EditProfileContainer>
+            <div>
                 <ContainerViewBlog>
                     <ViewBlogHeader>
                         <Form onSubmit={onSubmit}>
-                            <Label htmlFor="title">Name</Label>
+                            <label htmlFor="title">Name</label>
                             <Input
                                 type="text"
                                 name="name"
@@ -86,7 +77,7 @@ const EditProfile = () => {
                                 value={profileData.name || user.name}
                                 onChange={onChange}
                             />
-                            <Label htmlFor="title">Username</Label>
+                            <label htmlFor="title">Username</label>
                             <Input
                                 type="text"
                                 name="username"
@@ -94,7 +85,7 @@ const EditProfile = () => {
                                 value={profileData.username || user.username}
                                 onChange={onChange}
                             />
-                            <Label htmlFor="title">Email</Label>
+                            <label htmlFor="title">Email</label>
                             <Input
                                 type="text"
                                 name="email"
@@ -117,7 +108,7 @@ const EditProfile = () => {
                         </Form>
                     </ViewBlogHeader>
                 </ContainerViewBlog>
-            </EditProfileContainer>
+            </div>
         </Wrapper>
     );
 };

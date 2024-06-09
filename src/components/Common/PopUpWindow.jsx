@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { CloseButton, PopupContainer } from "../../pages/AuthPopup/AuthPopupElements";
+import { CloseButton, PopupContainer } from "src/pages/AuthPopup/AuthPopupElements";
 
-const PopUpWindow = ({ onClose, children }) => {
+const PopUpWindow = ({ onClose, children, customStyles }) => {
     const [seen, setSeen] = useState(true);
 
     const togglePop = () => {
@@ -10,7 +10,7 @@ const PopUpWindow = ({ onClose, children }) => {
     };
 
     return (
-        <PopupContainer>
+        <PopupContainer style={customStyles}>
             <div className="popup-inner">
                 {children}
                 <CloseButton onClick={togglePop} />

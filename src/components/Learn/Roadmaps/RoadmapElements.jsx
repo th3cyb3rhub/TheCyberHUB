@@ -25,7 +25,7 @@ export const CircleIcon = styled(BiCircle)`
     font-size: 6px;
 `;
 export const HrLine = styled.hr`
-    //width: 100%;
+    /* width: 100%; */
     color: #2a2a2a;
 `;
 
@@ -43,17 +43,18 @@ export const RoadmapHeading = styled.h1`
     align-items: center;
     color: #d9d9d9;
     background: #090909;
-    font-size: 40px;
+    font-size: 50px;
     padding: 25px 0;
-    //background: #090909;
+
+    /* background: #090909; */
     width: 100%;
     border-radius: 5px;
 
-    @media screen and (max-width: 720px) {
+    @media screen and (width <= 720px) {
         font-size: 30px;
     }
 
-    @media screen and (max-width: 480px) {
+    @media screen and (width <= 480px) {
         padding: 50px 15px;
     }
 `;
@@ -77,7 +78,8 @@ export const RoadmapDetails = styled.div`
     background: #090909;
     width: 100%;
     border-radius: 5px;
-    padding: 25px;
+    padding: 15px 25px;
+    gap: 5px;
 `;
 
 export const RoadmapContentHeading = styled.p`
@@ -87,22 +89,23 @@ export const RoadmapContentHeading = styled.p`
     text-align: left;
     align-items: center;
     color: #c7c7c7;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
     background: #121212;
     margin: 5px;
-    padding: 5px 5px 5px 15px;
+    padding: 0 15px;
     width: 100%;
+    border-radius: 10px;
 
     &:hover {
         color: #00b2ff;
         transition: all 0.3s ease-in-out;
         scale: 1.02;
-        background: #222222;
+        background: #222;
     }
 
-    @media screen and (max-width: 500px) {
+    @media screen and (width <= 500px) {
         font-size: 17px;
     }
 `;
@@ -116,33 +119,33 @@ export const RoadmapDetailsCard = styled.div`
     width: 100%;
     gap: 10px;
 
-    //width: 30em;
-    //text-decoration: none;
-    //background: #0a0a0a;
-    //border: #383838 1px solid;
-    //border-radius: 3px;
-    //display: flex;
-    //margin: 0 0 5px 0;
-    //padding: 5px 15px;
-    //transition: all 0.3s ease-in-out;
-    //cursor: pointer;
-    //
-    //&:hover {
-    //    scale: 1.05;
-    //    border: #faf089 1px solid;
-    //    color: #faf089;
-    //    transition: all 0.3s ease-in-out;
-    //}
-    //
-    //@media screen and (max-width: 600px) {
-    //    width: 25em;
-    //}
-    //@media screen and (max-width: 500px) {
-    //    width: 20em;
-    //}
-    //@media screen and (max-width: 350px) {
-    //    width: 100%;
-    //}
+    /* width: 30em;
+    text-decoration: none;
+    background: #0a0a0a;
+    border: #383838 1px solid;
+    border-radius: 3px;
+    display: flex;
+    margin: 0 0 5px 0;
+    padding: 5px 15px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    
+    &:hover {
+        scale: 1.05;
+        border: #faf089 1px solid;
+        color: #faf089;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    @media screen and (max-width: 600px) {
+        width: 25em;
+    }
+    @media screen and (max-width: 500px) {
+        width: 20em;
+    }
+    @media screen and (max-width: 350px) {
+        width: 100%;
+    } */
 `;
 
 export const RoadmapSectionHeading = styled.h2`
@@ -151,25 +154,24 @@ export const RoadmapSectionHeading = styled.h2`
     justify-content: center;
     text-align: center;
     width: 100%;
-    color: #ffa317;
-    font-size: 30px;
+    color: #ff6b08;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 0.1rem;
-    margin: 0 0 25px 0;
+    margin: 0 0 25px;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (width <= 500px) {
         font-size: 17px;
     }
 `;
 
 export const RoadmapDesc = styled.p`
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
 `;
 
 export const RoadmapsFooter = styled.div`
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     align-items: center;
     justify-content: center;
     background: #151515;
@@ -185,7 +187,7 @@ export const RoadmapsContainer = styled.div`
     margin: 50px 0;
     display: inline;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         width: 100%;
         padding: 0 10px;
     }
@@ -203,7 +205,7 @@ export const RelatedRoadmaps = styled.button`
     border: #343434 1px solid;
     border-radius: 3px;
     display: flex;
-    margin: -15px 0 20px 0;
+    margin: -15px 0 20px;
     padding: 10px 15px;
     color: #ececec;
 `;
@@ -223,7 +225,7 @@ export const RoadmapInlineCard = styled.div`
     border: #383838 1px solid;
     border-radius: 3px;
     display: flex;
-    margin: 7px 0 5px 0;
+    margin: 7px 0 5px;
     padding: 5px 15px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
@@ -240,7 +242,7 @@ export const RouterLink = styled(Link)`
 `;
 
 export const RedirectLink = styled.a`
-    // buttom margin 5x for undeline
+    /* buttom margin 5x for undeline */
     width: 100%;
 `;
 

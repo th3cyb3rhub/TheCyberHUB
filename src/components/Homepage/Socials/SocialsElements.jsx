@@ -10,25 +10,32 @@ export const SocialWrapper = styled.div`
 
 export const SocialsCard = styled.a`
     color: white;
-    background: #131313;
     padding: 50px;
-
     font-size: 50px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     transition: all 0.2s ease-in-out;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%));
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
     gap: 10px;
 
     &:hover {
         transform: scale(1.05);
         transition: all 0.2s ease-in-out;
+    }
+
+    @media (width <= 780px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media (width <= 480px) {
+        padding: 25px;
     }
 `;
 
@@ -53,7 +60,7 @@ export const SocialCardTwitter = styled(SocialsCard)`
 
 export const SocialCardYoutube = styled(SocialsCard)`
     &:hover {
-        background: #ff0000;
+        background: #f00;
     }
 `;
 
@@ -82,6 +89,10 @@ export const SocialCardFacebook = styled(SocialsCard)`
 `;
 export const SocialH1 = styled.h1`
     font-size: 2rem;
+
+    @media (width <= 480px) {
+        font-size: 25px;
+    }
 `;
 
 export const SocialsContainer = styled.div`
@@ -89,7 +100,7 @@ export const SocialsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #000000;
+    background: #000;
     width: 100%;
     max-width: 1400px;
     margin: 150px auto;
@@ -98,18 +109,15 @@ export const SocialsContainer = styled.div`
 export const SocialsWrapper = styled.div`
     width: 100%;
     padding: 50px;
-
     font-size: 20px;
-
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-auto-rows: 1fr;
     grid-gap: 25px;
     border-radius: 5px;
 
-    @media screen and (max-width: 780px) {
+    @media screen and (width <= 780px) {
         padding: 25px;
-
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         grid-auto-rows: 1fr;
         grid-gap: 25px;
@@ -130,7 +138,7 @@ export const SocialsH1 = styled.h1`
         margin-bottom: 57px;
     }
 
-    @media screen and (max-width: 480px) {
+    @media screen and (width <= 480px) {
         font-size: 2rem;
     }
 `;

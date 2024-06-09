@@ -1,10 +1,8 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RoadmapsData from "./RoadmapsData";
-import { encodeURL } from "../../Blogs/util";
+import { encodeURL } from "src/components/Blogs/util";
 import {
-    HrLine,
     RedirectLink,
     RoadmapContainer,
     RoadmapContentHeading,
@@ -15,13 +13,33 @@ import {
     RoadmapHeadingSection,
     RoadmapSectionHeading,
 } from "./RoadmapElements";
-import { DotSymbol } from "../../Homepage/Info/InfoElements";
+import { DotSymbol } from "src/components/Homepage/Info/InfoElements";
+import { Checkbox, CheckboxContainer } from "src/components/Courses/LearningPath/LearningPathElements.jsx";
 
 const Roadmap = () => {
     const { title } = useParams();
     const SelectedRoadmap = RoadmapsData?.find(
         (roadmap) => encodeURL(roadmap?.title).toLowerCase() === title.toLowerCase(),
     );
+
+    const [checkboxState, setCheckboxState] = useState(() => {
+        return JSON.parse(localStorage.getItem(`roadmaps-localstorage`)) || {};
+    });
+
+    useEffect(() => {
+        localStorage.setItem(`roadmaps-localstorage`, JSON.stringify(checkboxState));
+    }, [checkboxState, title]);
+
+    const handleCheckboxChange = (section, resource) => {
+        const newState = {
+            ...checkboxState,
+            [section]: {
+                ...checkboxState[section],
+                [resource]: !checkboxState[section]?.[resource],
+            },
+        };
+        setCheckboxState(newState);
+    };
 
     return (
         <RoadmapContainer>
@@ -30,41 +48,27 @@ const Roadmap = () => {
             </RoadmapHeadingSection>
 
             <RoadmapDetailsContainer>
-                {SelectedRoadmap?.details.map((resources, id) => (
-                    <RoadmapDetails key={id}>
+                {SelectedRoadmap?.details.map((resources, sectionId) => (
+                    <RoadmapDetails key={sectionId}>
                         <RoadmapSectionHeading> {resources?.section} </RoadmapSectionHeading>
-                        {resources?.resources.map((resource, id) => (
-                            <RoadmapDetailsCard key={id}>
+                        {resources?.resources.map((resource, resourceId) => (
+                            <RoadmapDetailsCard key={resourceId}>
                                 <DotSymbol />
                                 <RedirectLink href={resource?.url} target={"_blank"}>
                                     <RoadmapContentHeading>{resource?.title}</RoadmapContentHeading>
                                 </RedirectLink>
+                                <CheckboxContainer>
+                                    <Checkbox
+                                        type="checkbox"
+                                        checked={checkboxState[resources.section]?.[resource.title] || false}
+                                        onChange={() => handleCheckboxChange(resources.section, resource.title)}
+                                    />
+                                </CheckboxContainer>
                             </RoadmapDetailsCard>
                         ))}
-                        {/* <HrLine/> */}
                     </RoadmapDetails>
                 ))}
             </RoadmapDetailsContainer>
-
-            <HrLine />
-
-            {/* <RoadmapsContainer> */}
-            {/*    <Container> */}
-            {/*        <RelatedRoadmaps>Related Roadmaps</RelatedRoadmaps> */}
-            {/*        <RouterLink to={"/learn/roadmaps"}> */}
-            {/*            <AllRoadmaps>All Roadmaps</AllRoadmaps> */}
-            {/*        </RouterLink> */}
-            {/*    </Container> */}
-            {/*    <Roadmaps /> */}
-            {/*    /!*{RoadmapsData.map((roadmap, id) => (*!/ */}
-            {/*    /!*    <RouterLink key={id} to={{ pathname: `../` + `${encodeURL(roadmap.title)}` }}>*!/ */}
-            {/*    /!*        <RoadmapInlineCard key={id}>*!/ */}
-            {/*    /!*            <RoadmapsHeading>{roadmap.title} </RoadmapsHeading>*!/ */}
-            {/*    /!*            <RoadmapsDesc>{roadmap.desc} </RoadmapsDesc>*!/ */}
-            {/*    /!*        </RoadmapInlineCard>*!/ */}
-            {/*    /!*    </RouterLink>*!/ */}
-            {/*    /!*))}*!/ */}
-            {/* </RoadmapsContainer> */}
         </RoadmapContainer>
     );
 };

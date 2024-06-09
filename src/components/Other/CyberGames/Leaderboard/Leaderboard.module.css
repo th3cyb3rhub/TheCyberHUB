@@ -1,0 +1,181 @@
+.container {
+    width: 390px;
+    height: 844px;
+    position: "relative";
+    background: "#151729";
+}
+
+.menuIcon,
+.backIcon,
+.header,
+.regionSelectBox,
+.leaderboardItem,
+.profileHighlight {
+    position: "absolute";
+}
+
+.menuIcon {
+    width: 32px;
+    height: 32px;
+    left: 341px;
+    top: 15px;
+}
+
+.dot {
+    width: 19.84px;
+    height: 7.04px;
+    left: 6.08px;
+    top: 12.48px;
+    background: "#699BF7";
+}
+
+.backIcon {
+    width: 35px;
+    height: 35px;
+    left: 14px;
+    top: 20px;
+}
+
+.arrow {
+    width: 10.21px;
+    height: 20.42px;
+    left: 11.66px;
+    top: 7.29px;
+    background: "#699BF7";
+}
+
+.header {
+    left: 133px;
+    top: 28px;
+    color: "white";
+    fontsize: 20px;
+    fontfamily: "Inter";
+    fontweight: "600";
+}
+
+.regionSelectBox,
+.leaderboardItem,
+.profileHighlight {
+    background: "#1E2237";
+    borderradius: 12px;
+}
+
+.regionSelectBox {
+    width: 342px;
+    height: 50px;
+    left: 24px;
+    top: 95px;
+}
+
+.leaderboardItem {
+    width: 342px;
+    height: 113px;
+    left: 27px;
+    top: 293px;
+}
+
+.profileHighlight {
+    width: 122px;
+    height: 159px;
+    left: 137px;
+    top: 247px;
+    bordertopleftradius: 30px;
+    bordertoprightradius: 30px;
+    background: "#252A40";
+}
+
+.region {
+    left: 48px;
+    top: 111px;
+    color: "white";
+    fontsize: 15px;
+}
+
+.playerName,
+.playerScore,
+.national,
+.global {
+    position: "absolute";
+    color: "white";
+    fontsize: 12px;
+    fontfamily: "Inter";
+    fontweight: "500";
+}
+
+.playerName {
+    left: 286px;
+    top: 333px;
+}
+
+.playerScore {
+    left: 296px;
+    top: 356px;
+    fontweight: "700";
+    fontsize: 15px;
+    color: "#00D95F";
+}
+
+.national {
+    left: 165px;
+    top: 111px;
+}
+
+.global {
+    left: 292px;
+    top: 111px;
+}
+
+.selector {
+    width: 45px;
+    height: 3px;
+    left: 48px;
+    top: 142px;
+    background: "#699BF7";
+    borderradius: 10px;
+}
+
+.mainBoard {
+    width: 390px;
+    height: 410px;
+    left: 0px;
+    top: 434px;
+}
+
+.profilePicLarge {
+    width: 74px;
+    height: 74px;
+    left: 159px;
+    top: 290px;
+    borderradius: "50%";
+}
+
+.crown {
+    width: 28px;
+    height: 22px;
+    left: 182px;
+    top: 270px;
+    background: "yellow"; /* Replace with a crown icon */
+}
+
+.positionLabel {
+    left: 165px;
+    top: 310px;
+    color: "#FFFF00"; /* Adjust as needed */
+}
+
+.playerNameSmall,
+.playerScoreSmall {
+    position: "absolute";
+    color: "white";
+    fontsize: 12px;
+}
+
+.playerNameSmall {
+    left: 165px;
+    top: 330px;
+}
+
+.playerScoreSmall {
+    left: 165px;
+    top: 350px;
+}

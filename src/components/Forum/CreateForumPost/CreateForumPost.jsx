@@ -2,25 +2,14 @@ import React, { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import BlogPostFormV2 from "./BlogPostFormV2";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
-import {
-    CreateBlogContainer,
-    Form,
-    Input,
-    SectionCreateBlog,
-    Submit,
-    // , TextArea
-} from "./CreateBlogV2Elements";
-// import {
-//     AddCoverImageSection, AddImage, ImageSelected, ImageUploadInput, ImageUploadLabel, TextGrey
-// } from "../../Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
-import { createForum, reset } from "../../../features/forum/forumSlice";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { CreateBlogContainer, Form, Input, SectionCreateBlog, Submit } from "./CreateBlogV2Elements";
+import { createForum, reset } from "src/features/forum/forumSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getApiUrl } from "../../../features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import AddBlogTags from "./AddBlogTags";
-import AddFeedTags from "../../Feeds/PostForm/AddPostTags/AddPostTags";
+import AddFeedTags from "src/components/Feeds/PostForm/AddPostTags/AddPostTags";
 
 const CreateForumPost = () => {
     const dispatch = useDispatch();

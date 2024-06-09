@@ -1,23 +1,27 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, getUserDetail, userDetailReset } from "../../../../features/userDetail/userDetailSlice";
+import { getAllUserDetails, getUserDetail, userDetailReset } from "src/features/userDetail/userDetailSlice";
 import {
     LeaderboardContainer,
     LeaderboardHeader,
     LeaderboardTable,
     LeaderboardTableData,
+    LeaderboardTablePoints,
     LeaderboardTableHeader,
+    LeaderboardTableHeaderPoints,
     LeaderboardTableRow,
     RefreshButton,
     TopPlayerSection,
     Username,
+    LeaderboardTextIconData,
+    LeaderboardFirstRow,
 } from "./LeaderboardElements";
-import { Wrapper } from "../../../Dashboard/Profile/ProfileElements";
-import { RouterLink } from "../../../Tools/ToolsElements";
-import { RankCgCrown } from "../../../Dashboard/Profile/UserPoints/UserPointsElements";
-import UnderMaintenance from "../../UnderMaintenance/UnderMaintenance";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { RouterLink } from "src/components/Tools/ToolsElements";
+import { RankTrophy } from "src/components/Dashboard/Profile/UserPoints/UserPointsElements";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 import { CircleSpinner } from "react-spinners-kit";
-import apiStatus from "../../../../features/apiStatus";
+import apiStatus from "src/features/apiStatus";
 
 const Leaderboard = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -70,7 +74,7 @@ const Leaderboard = () => {
                             <LeaderboardTableRow>
                                 <LeaderboardTableHeader>Rank</LeaderboardTableHeader>
                                 <LeaderboardTableHeader>Users</LeaderboardTableHeader>
-                                <LeaderboardTableHeader>Points</LeaderboardTableHeader>
+                                <LeaderboardTableHeaderPoints>Points</LeaderboardTableHeaderPoints>
                             </LeaderboardTableRow>
                             {userDetails &&
                                 [...userDetails]
@@ -78,17 +82,42 @@ const Leaderboard = () => {
                                     .sort((a, b) => (b?.exp || 0) - (a?.exp || 0))
                                     .map((user, index) => (
                                         <LeaderboardTableRow key={index}>
-                                            <LeaderboardTableData>{index + 1}</LeaderboardTableData>
+                                            <LeaderboardTableData>
+                                                <LeaderboardTextIconData>
+                                                    {index === 0 ? (
+                                                        <LeaderboardFirstRow>
+                                                            <RankTrophy style={{ color: "#FFD700" }} />
+                                                            {index + 1}
+                                                        </LeaderboardFirstRow>
+                                                    ) : (
+                                                        <>
+                                                            <RankTrophy /> {index + 1}
+                                                        </>
+                                                    )}
+                                                </LeaderboardTextIconData>
+                                            </LeaderboardTableData>
                                             <LeaderboardTableData>
                                                 <TopPlayerSection>
-                                                    {index === 0 ? <RankCgCrown style={{ margin: "0" }} /> : null}
-                                                    <RouterLink to={`/@${user?.username}`}>
-                                                        <Username>{user?.username}</Username>
+                                                    <RouterLink to={`/user/${user?.username}`}>
+                                                        {index === 0 ? (
+                                                            <Username>
+                                                                <LeaderboardFirstRow>
+                                                                    {user?.username}
+                                                                </LeaderboardFirstRow>
+                                                            </Username>
+                                                        ) : (
+                                                            <Username>{user?.username}</Username>
+                                                        )}
                                                     </RouterLink>
-                                                    {index === 0 ? <RankCgCrown style={{ margin: "0" }} /> : null}
                                                 </TopPlayerSection>
                                             </LeaderboardTableData>
-                                            <LeaderboardTableData>{user?.exp || 0}</LeaderboardTableData>
+                                            <LeaderboardTablePoints>
+                                                {index === 0 ? (
+                                                    <LeaderboardFirstRow>{user?.exp || 0}</LeaderboardFirstRow>
+                                                ) : (
+                                                    <>{user?.exp || 0}</>
+                                                )}
+                                            </LeaderboardTablePoints>
                                         </LeaderboardTableRow>
                                     ))}
                         </tbody>

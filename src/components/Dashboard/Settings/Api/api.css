@@ -1,0 +1,64 @@
+.api {
+    border-bottom: 1px solid #27272a;
+    max-width: 672px;
+    padding-block: 1em;
+}
+
+.api-heading {
+    margin-bottom: 0;
+}
+
+.api-info {
+    font-size: 14px;
+    color: #a1a1a1;
+}
+
+.api-form {
+    padding: 1.75em 0;
+    max-width: 672px;
+}
+
+.api-input-wrapper {
+    margin-bottom: 1em;
+}
+
+.api-form input {
+    background-color: #000000;
+    outline: none;
+    border: 1px solid #27272a;
+    height: 40px;
+    padding-inline-start: 1em;
+    border-radius: 6px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    width: 100%;
+    margin-top: 0.5em;
+    transition: 300ms;
+}
+
+.api-form input:is(:hover, :focus) {
+    border: 1px solid #ffffff;
+}
+
+.api-form input::placeholder {
+    color: #a1a1a1;
+}
+
+.newApibtn {
+    background-color: #ff6b08;
+    color: #000000;
+    font-family: Roboto, sans-serif;
+    /* width: 100%; */
+    height: 30px;
+    border-radius: 6px;
+    border: 2px solid #ff6b08;
+    transition: 300ms;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.newApibtn:is(:hover, :focus) {
+    background-color: #000000;
+    color: #ff6b08;
+    cursor: pointer;
+}

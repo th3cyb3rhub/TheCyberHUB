@@ -8,22 +8,27 @@ import {
     DownloadButton,
     DownloadCertificateAs,
     DownloadCertificateSection,
+    Linkedin,
     LogoSection,
+    ShareCertificateSection,
+    ShareCertificateSocials,
     TCWLogo,
     TCWText,
+    Twitter,
 } from "./CertificateElements";
-import { InvalidCertificate } from "../../CaptureTheFlag/CTFElements";
+import { InvalidCertificate } from "src/components/CaptureTheFlag/CTFElements";
 import { useParams } from "react-router-dom";
 import html2canvas from "html2canvas";
 import JsPDF from "jspdf";
 import { AiFillFileImage } from "react-icons/ai";
 import { VscFilePdf } from "react-icons/vsc";
-import { Wrapper } from "../../Dashboard/Profile/ProfileElements";
-import Logo from "../../../assets/images/Thecyberworld_logo_outlined.png";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import Logo from "src/assets/images/Thecyberworld_logo_outlined.png";
 import { CircleSpinner } from "react-spinners-kit";
-import { getApiUrl } from "../../../features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl";
+import { FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
-// import {getCDNUrl} from "../../../features/apiUrl";
 // const TCWlogo = `${getCDNUrl}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
 const CertificateCard = () => {
@@ -79,6 +84,24 @@ const CertificateCard = () => {
             .catch((err) => {
                 console.log(err);
             });
+    };
+    const shareOnTwitter = () => {
+        const tweet =
+            "I just got my certificate for " +
+            certificate?.ctf +
+            " from @thecyberw0rld community. Check it out at https://thecyberhub.org/ctf/certificate/" +
+            certificate?._id;
+        window.open("https://twitter.com/intent/tweet?text=" + tweet);
+    };
+
+    const shareOnLinkedIn = () => {
+        const text =
+            "I just got my certificate for " +
+            certificate?.ctf +
+            " from @thecyberworld community. Check it out at https://thecyberhub.org/ctf/certificate/" +
+            certificate?._id;
+        const url = "https://www.linkedin.com/feed/?shareActive=true&text=" + text;
+        window.open(url);
     };
 
     if (isLoading) {
@@ -146,6 +169,17 @@ const CertificateCard = () => {
                                 </CertificateFooter>
                             </CertificateContent>
                         </CertificateComponent>
+                        <ShareCertificateSection>
+                            <p>Share your certificate with your friends</p>
+                            <ShareCertificateSocials>
+                                <Twitter href="#" onClick={shareOnTwitter}>
+                                    <FaXTwitter size={40} />
+                                </Twitter>
+                                <Linkedin href="#" onClick={shareOnLinkedIn}>
+                                    <FaLinkedin size={40} />
+                                </Linkedin>
+                            </ShareCertificateSocials>
+                        </ShareCertificateSection>
                     </>
                 ) : // )
                 isLoading ? (

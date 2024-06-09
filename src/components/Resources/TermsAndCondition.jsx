@@ -1,11 +1,11 @@
 import React from "react";
-import { Wrapper } from "../Dashboard/Profile/ProfileElements";
-import { Heading, TermsAndConditionContainer, TermsDescription, TermsHeading } from "./TermsAndConditionElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { TermsAndConditionContainer, TermsDescription, TermsHeading } from "./TermsAndConditionElements";
 
 const TermsAndCondition = () => {
     return (
         <Wrapper>
-            <Heading> Terms and Conditions </Heading>
+            <h1> Terms and Conditions </h1>
             <TermsAndConditionContainer>
                 <TermsHeading> Terms and Conditions: </TermsHeading>
                 <TermsDescription>

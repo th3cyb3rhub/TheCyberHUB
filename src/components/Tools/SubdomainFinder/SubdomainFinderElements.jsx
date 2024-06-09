@@ -12,12 +12,11 @@ export const Title = styled.h1`
     background: transparent;
     display: flex;
     justify-content: center;
-    margin: 0 0 25px 0;
-
+    margin: 0 0 25px;
     align-items: center;
     gap: 5px;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         font-size: 1.5rem;
     }
 `;
@@ -29,7 +28,7 @@ export const Form = styled.form`
     gap: 1rem;
     align-items: center;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         flex-direction: column;
     }
 `;
@@ -44,7 +43,8 @@ export const Input = styled.input`
     background: #131313;
     border: 1px solid #212121;
     border-radius: 5px;
-    @media (max-width: 768px) {
+
+    @media (width <= 768px) {
         padding-left: 0.5rem;
         min-width: auto;
         width: 100%;
@@ -73,7 +73,7 @@ export const Button = styled.button`
         transition: all 0.2s ease-in-out;
     }
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         width: 100%;
 
         &:hover {
@@ -93,7 +93,7 @@ export const SubdomainList = styled.ul`
     background: #0e0e0e;
     border-radius: 10px;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         padding: 15px 10px;
     }
 `;
@@ -103,10 +103,11 @@ export const SubdomainItem = styled.li`
     line-height: 1.5;
     word-wrap: normal;
     word-break: break-all;
-    //color: #f5f5f5;
+
+    /* color: #f5f5f5; */
     color: #07b6f6;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         font-size: 20px;
     }
 `;
@@ -133,7 +134,6 @@ export const CopyButton = styled(MdContentCopy)`
     cursor: pointer;
     color: #ff8000;
     font-size: 1.5rem;
-
     transition: all 0.2s ease-in-out;
 
     &:hover {
@@ -147,7 +147,6 @@ export const DownloadButton = styled(CgSoftwareDownload)`
     cursor: pointer;
     color: #ff8000;
     font-size: 1.8rem;
-
     transition: all 0.2s ease-in-out;
 
     &:hover {
@@ -166,13 +165,12 @@ export const SubdomainFinderSpinner = styled.div`
     position: relative;
     background: #090909;
     border: 1px solid #1a1c1d;
-    box-shadow: 0 0 100px 0 rgba(40, 110, 157, 0.2);
+    box-shadow: 0 0 100px 0 rgb(40 110 157 / 20%);
     backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
-    padding: 25px 50px 50px 50px;
+    padding: 25px 50px 50px;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         padding: 20px;
     }
 `;

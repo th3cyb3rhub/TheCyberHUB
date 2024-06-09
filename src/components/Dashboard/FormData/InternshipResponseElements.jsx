@@ -23,19 +23,18 @@ export const SelectMonthSection = styled.div`
 export const MonthButton = styled.button`
     background: #080a10;
     color: #b9b9b9;
-    border: 1px solid #111111;
+    border: 1px solid #111;
     padding: 5px;
     margin: 10px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
-
     transition: all 0.3s ease;
 
     &:hover {
         background: orange;
         color: #101010;
-        border: 1px solid #111111;
+        border: 1px solid #111;
         scale: 1.1;
     }
 `;
@@ -54,19 +53,18 @@ export const SelectInternshipSection = styled.div`
 export const InternshipButton = styled.button`
     background: #080a10;
     color: #b9b9b9;
-    border: 1px solid #111111;
+    border: 1px solid #111;
     padding: 10px;
     margin: 5px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
-
     transition: all 0.3s ease;
 
     &:hover {
         background: orange;
         color: #101010;
-        border: 1px solid #111111;
+        border: 1px solid #111;
         scale: 1.1;
     }
 `;

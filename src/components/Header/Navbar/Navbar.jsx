@@ -12,11 +12,11 @@ import {
     NavMenu,
     NavUsersDetailsSection,
 } from "./NavbarElements";
-import Dropdown from "../Dropdowns/Dropdown";
-import UserOptions from "../UserOptions/UserOptions";
+import Dropdown from "src/components/Header/Dropdowns/Dropdown";
+import UserOptions from "src/components/Header/UserOptions/UserOptions";
 import { FaBars } from "react-icons/fa";
-import { getCdnAssets } from "../../../features/apiUrl";
-import { SideOptionsContainer } from "../ExpElemenets";
+import { getCdnAssets } from "src/features/apiUrl";
+import { SideOptionsContainer } from "src/components/Header/ExpElemenets";
 import { useLocation } from "react-router-dom";
 
 const logo = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo.png`;
@@ -71,10 +71,10 @@ const Navbar = ({ isOpen, toggle }) => {
     const showBottomBorder = pathName !== "";
 
     return (
-        <Nav onMouseLeave={() => setDrop(false)} scrollNav={scrollNav} showBottomBorder={showBottomBorder}>
+        <Nav onMouseLeave={() => setDrop(false)} $scrollNav={scrollNav} $showBottomBorder={showBottomBorder}>
             <NavbarContainer>
                 <NavLogoRouter to={"/"} onClick={toggleHome}>
-                    <NavLogo src={logo} />
+                    <NavLogo src={logo} alt="logo" />
                 </NavLogoRouter>
                 <NavMenu>
                     {[
@@ -83,13 +83,17 @@ const Navbar = ({ isOpen, toggle }) => {
                         { to: "blogs", title: "Blogs", dropdown: "blogs" },
                         // { to: "forum", title: "Forum", dropdown: "forum" },
                         // { to: "courses", title: "Courses", dropdown: "courses" },
+                        { to: "aiChat", title: "AI ", dropdown: "aiChat" },
                         { to: "ctf", title: "CTF", dropdown: "ctf" },
-                        { to: "tools", title: "Tools", dropdown: "tools" },
+                        { to: "websecurity", title: "Web Security", dropdown: "websecurity" },
                         {
                             title: (
                                 <>
                                     <p onClick={() => onClickResources()}>Resources</p>
-                                    <DropdownIcon onClick={() => onClickResources()} />
+                                    <DropdownIcon
+                                        onClick={() => onClickResources()}
+                                        clicked={resourcesClick && toggleDropdown ? "rotate(270deg)" : undefined}
+                                    />
                                 </>
                             ),
                             dropdown: "resources",
@@ -98,7 +102,10 @@ const Navbar = ({ isOpen, toggle }) => {
                             title: (
                                 <>
                                     <p onClick={() => onClickOpportunities()}>Opportunities</p>
-                                    <DropdownIcon onClick={() => onClickOpportunities()} />
+                                    <DropdownIcon
+                                        onClick={() => onClickOpportunities()}
+                                        clicked={opportunities && toggleDropdown ? "rotate(270deg)" : undefined}
+                                    />
                                 </>
                             ),
                             dropdown: "programs",
@@ -109,7 +116,8 @@ const Navbar = ({ isOpen, toggle }) => {
                             onMouseLeave={() => dropHandler(dropdown)}
                             key={dropdown}
                         >
-                            <NavLink to={to} className={location.pathname === `/${to}` ? "active" : ""}>
+                            <NavLink to={to} className={pathName === `${to}` ? "active" : ""}>
+                                {/* {location.pathname} */}
                                 {title}
                             </NavLink>
                             {dropdown === "resources" && resourcesClick && drop && (

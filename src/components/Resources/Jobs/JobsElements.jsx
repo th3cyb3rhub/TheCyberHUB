@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Button, Header } from "../../Other/Community/CommunityElements";
+import { Button, Header } from "src/components/Other/Community/CommunityElements";
 import { FaChevronDown } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -29,7 +29,7 @@ export const ScrollButton = styled(Button)`
             color: #1a1c1d;
         }
 
-        @media only screen and (max-width: 800px) {
+        @media only screen and (width <= 800px) {
             font-size: 15px;
         }
     }
@@ -72,7 +72,7 @@ export const JobsDetailContainer = styled.div`
     display: flex;
     justify-content: center;
 
-    @media only screen and (max-width: 1000px) {
+    @media only screen and (width <= 1000px) {
         flex-direction: column;
     }
 `;
@@ -80,10 +80,9 @@ export const JobsDetailContainer = styled.div`
 export const BackArrow = styled(IoMdArrowRoundBack)`
     background: linear-gradient(to right, #ffb933, #54f843);
     border-radius: 50%;
-    color: #ffffff;
+    color: #fff;
     padding: 5px;
     font-size: 30px;
-
     cursor: pointer;
     transition: 260ms all;
 
@@ -94,7 +93,7 @@ export const BackArrow = styled(IoMdArrowRoundBack)`
         scale: 1.1;
     }
 
-    @media only screen and (min-width: 1000px) {
+    @media only screen and (width >= 1000px) {
         display: none;
     }
 `;
@@ -114,13 +113,15 @@ export const JobsCardSection = styled.div`
 
     &.active {
         max-height: 1000px;
-        //overflow-y: scroll;
+
+        /* overflow-y: scroll; */
     }
 
-    @media only screen and (max-width: 1000px) {
+    @media only screen and (width <= 1000px) {
         max-height: 800px;
     }
-    @media only screen and (max-width: 400px) {
+
+    @media only screen and (width <= 400px) {
         grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
     }
 `;
@@ -128,17 +129,19 @@ export const JobsCardSection = styled.div`
 export const JobsDetailSection = styled.div`
     padding: 5px;
     min-width: 60%;
-    @media only screen and (max-width: 1000px) {
+
+    @media only screen and (width <= 1000px) {
         min-width: 100%;
     }
 `;
 
 export const JobContainer = styled.div`
-    background-color: rgba(32, 194, 14, 0.04);
+    background-color: rgb(32 194 14 / 4%);
     width: 100%;
-    //max-width: 440px;
-    //min-height: 450px;
-    //margin: 10px;
+
+    /* max-width: 440px;
+    min-height: 450px;
+    margin: 10px; */
     outline: 1px solid #2a2a2a;
     border-radius: 0.5rem;
     display: flex;
@@ -172,10 +175,11 @@ export const JobHeader = styled.div`
 
 export const JobTitle = styled.h2`
     color: orange;
-    //background: linear-gradient(to right, #b1faa9, #f6dbaa);
-    //background-clip: text;
-    //-webkit-background-clip: text;
-    //-webkit-text-fill-color: transparent;
+
+    /* background: linear-gradient(to right, #b1faa9, #f6dbaa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
     font-size: 18px;
     font-weight: bolder;
     letter-spacing: 0.1rem;
@@ -258,6 +262,7 @@ export const JobReq = styled.div`
     & > ul {
         font-weight: 400;
         letter-spacing: 0.08rem;
+
         /* list-style-position: inside; */
     }
 

@@ -1,18 +1,10 @@
 import React from "react";
-import { QuizProgressIndicator, IndicatorDot } from "../../components/Resources/Quiz/Categories/CategoriesElements";
+import { QuizProgressIndicator, ProgressBar } from "src/components/Resources/Quiz/Categories/CategoriesElements";
 
-export default function RenderProgressIndicator({ questionsArray, currentQuestion }) {
+export default function RenderProgressIndicator({ currentQuestion, length }) {
     return (
         <QuizProgressIndicator>
-            {questionsArray.map((e, i) => {
-                return (
-                    <IndicatorDot
-                        key={i + "key"}
-                        id={i}
-                        questionCompleted={currentQuestion === i || currentQuestion > i}
-                    />
-                );
-            })}
+            <ProgressBar max={length} value={currentQuestion} />
         </QuizProgressIndicator>
     );
 }
