@@ -22,7 +22,7 @@ const Exp = () => {
 
     useEffect(() => {
         if (user) {
-            dispatch(getUserDetail(user.username));
+            dispatch(getUserDetail(user?.username));
         }
 
         return () => dispatch(userDetailReset());

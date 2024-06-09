@@ -93,7 +93,7 @@ const CreateBlog = () => {
         const ImageNameWithExt = `${ImageName}cover.${ImageExt}`;
 
         if (title !== " ") {
-            const blog = blogs.find((blog) => blog.username === user.username && blog.title === title);
+            const blog = blogs.find((blog) => blog.username === user?.username && blog.title === title);
             if (blog !== undefined && title === blog.title) {
                 toast.error("You already have a blog with this title please change the title and try again");
                 return;

@@ -17,7 +17,7 @@ import { RouterLink } from "src/components/Tools/ToolsElements";
 const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
     const dispatch = useDispatch();
-    const getRegisteredUsers = registeredUsers?.map((user) => user.username);
+    const getRegisteredUsers = registeredUsers?.map((user) => user?.username);
 
     useEffect(() => {
         if (isError) {
@@ -56,7 +56,7 @@ const CTFLeaderboard = ({ ctfId, registeredUsers, flags }) => {
                             </LeaderboardTableRow>
                             {userDetails &&
                                 userDetails
-                                    .filter((user) => getRegisteredUsers.includes(user.username))
+                                    .filter((user) => getRegisteredUsers.includes(user?.username))
                                     .sort((a, b) => {
                                         const aFlagsCount = a.solved.reduce(
                                             (count, solved) => count + solved.flags.length,

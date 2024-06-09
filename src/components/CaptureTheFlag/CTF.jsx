@@ -22,7 +22,7 @@ const CTF = () => {
     useEffect(() => {
         dispatch(getAllCTFs());
         if (user) {
-            dispatch(getUserDetail(user.username));
+            dispatch(getUserDetail(user?.username));
         }
     }, [dispatch]);
 

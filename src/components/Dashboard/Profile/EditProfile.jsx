@@ -52,7 +52,7 @@ const EditProfile = () => {
         const updatedUserData = {
             name: profileData.name || user.name,
             // picture: file.name,
-            username: profileData.username || user.username,
+            username: profileData.username || user?.username,
             email: profileData.email || user.email,
         };
 
@@ -60,7 +60,7 @@ const EditProfile = () => {
         if (profileData.username === "") delete updatedUserData.username;
         if (profileData.email === "") delete updatedUserData.email;
 
-        dispatch(updateUser({ id: user._id, userData: updatedUserData }));
+        dispatch(updateUser({ id: user?._id, userData: updatedUserData }));
     };
 
     return (
@@ -82,7 +82,7 @@ const EditProfile = () => {
                                 type="text"
                                 name="username"
                                 id="username"
-                                value={profileData.username || user.username}
+                                value={profileData.username || user?.username}
                                 onChange={onChange}
                             />
                             <label htmlFor="title">Email</label>

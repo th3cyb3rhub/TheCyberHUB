@@ -45,13 +45,13 @@ const EditUserDetails = ({ user }) => {
 
         const updatedUserData = {
             name: profileData.name || userDetail.name,
-            username: profileData.username || userDetail.username,
+            username: profileData.username || userDetail?.username,
         };
 
         if (profileData.name === "") delete updatedUserData.name;
         if (profileData.username === "") delete updatedUserData.username;
 
-        dispatch(updateUserDetail({ id: user._id, userData: updatedUserData }));
+        dispatch(updateUserDetail({ id: user?._id, userData: updatedUserData }));
     };
 
     return (
@@ -72,7 +72,7 @@ const EditUserDetails = ({ user }) => {
                             type="text"
                             name="username"
                             id="username"
-                            value={profileData.username || userDetail.username}
+                            value={profileData.username || userDetail?.username}
                             onChange={onChange}
                         />
                         <div className="form-group">

@@ -37,7 +37,7 @@ const CreateCTF = () => {
 
     const [formData, setFormData] = useState({
         downloadableResources: [],
-        createdBy: { user, username: user.username },
+        createdBy: { user, username: user?.username },
         challengeName: "",
         subtitle: "",
         challengeDescription: "",

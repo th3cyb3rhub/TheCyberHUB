@@ -28,12 +28,12 @@ const UserTimestamps = ({ user }) => {
         if (isApiWorking && !checkTodayTimestamp?.includes(true)) {
             dispatch(
                 updateUserDetail({
-                    id: user._id,
+                    id: user?._id,
                     userData: { visitTimestamps: TodayDate },
                 }),
             );
         }
-    }, [dispatch, TodayDate, user._id, userTimestamps]);
+    }, [dispatch, TodayDate, user?._id, userTimestamps]);
 
     return null;
 };

@@ -13,7 +13,7 @@ export const Analytics = () => {
     // const feedData = useSelector((state) => state.feeds);
     // const feedViewsData = useSelector((state) => state.views);
     // const blogData = useSelector((state) => state.blogs);
-    const userId = user._id;
+    const userId = user?._id;
 
     useEffect(() => {
         if (userId) {

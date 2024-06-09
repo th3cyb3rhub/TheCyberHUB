@@ -104,12 +104,12 @@ const Submission = ({ ctfId, flags, user, userDetail, userDetailIsLoading, setIs
                 const flags = [...ctf.flags, { flagId, date: new Date() }];
                 const updatedCtf = { ...ctf, flags };
                 const updatedSolved = [...solved.slice(0, ctfIndex), updatedCtf, ...solved.slice(ctfIndex + 1)];
-                dispatch(updateUserDetail({ id: user._id, userData: { solved: updatedSolved } }));
+                dispatch(updateUserDetail({ id: user?._id, userData: { solved: updatedSolved } }));
                 setSolvedFlags([...solvedFlags, flagId]);
             } else {
                 const newCtf = { ctfId, flags: [{ flagId, date: new Date() }] };
                 const updatedSolved = [...solved, newCtf];
-                dispatch(updateUserDetail({ id: user._id, userData: { solved: updatedSolved } }));
+                dispatch(updateUserDetail({ id: user?._id, userData: { solved: updatedSolved } }));
                 setSolvedFlags([...solvedFlags, flagId]);
             }
         }

@@ -28,7 +28,7 @@ const Streak = () => {
         );
     }
 
-    const userData = userDetail.find((userDetail) => user._id === userDetail.user) || null;
+    const userData = userDetail.find((userDetail) => user?._id === userDetail?.user) || null;
     if (!userData) {
         return null;
     }

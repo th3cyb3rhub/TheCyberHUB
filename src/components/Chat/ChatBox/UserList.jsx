@@ -11,7 +11,7 @@ const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, se
     const allConnections = connections?.connections
         ?.filter((connection) => connection.isAccepted)
         ?.map((connection) => connection.user);
-    const userId = user._id;
+    const userId = user?._id;
     useEffect(() => {
         if (userId) {
             dispatch(getConnections(userId));

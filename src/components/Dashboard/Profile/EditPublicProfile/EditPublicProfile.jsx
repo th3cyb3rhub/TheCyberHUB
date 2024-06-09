@@ -28,17 +28,17 @@ const EditPublicProfile = () => {
             console.log(message);
         }
 
-        if (user !== null && user.username !== username) {
+        if (user !== null && user?.username !== username) {
             navigate(`/user/${username}`);
         }
 
         if (isSuccess) {
-            navigate(`/user/${user.username}`);
+            navigate(`/user/${user?.username}`);
         }
 
-        dispatch(getUserDetail(user.username));
+        dispatch(getUserDetail(user?.username));
         return () => dispatch(userDetailReset());
-    }, [isError, message, dispatch, user.username]);
+    }, [isError, message, dispatch, user?.username]);
 
     const { avatar, aboutMe, bio, skills, achievements, cyberProfiles, socialLinks, projects } = userDetail;
 
@@ -59,16 +59,16 @@ const EditPublicProfile = () => {
     useEffect(() => {
         setUserDetailData(getInitialUserDetailData());
         // if (isSuccess) {
-        //     navigate(`/user/${user.username}`);
+        //     navigate(`/user/${user?.username}`);
         // }
-    }, [userDetail, isSuccess, navigate, user.username]);
+    }, [userDetail, isSuccess, navigate, user?.username]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         if (user && userDetail && user?.username === userDetail?.username) {
             await dispatch(updateUserDetail({ id: userDetail?.user, userData: userDetailData }));
-            navigate(`/user/${user.username}`);
+            navigate(`/user/${user?.username}`);
             setIsSuccess(true);
 
             setUserDetailData(getInitialUserDetailData());

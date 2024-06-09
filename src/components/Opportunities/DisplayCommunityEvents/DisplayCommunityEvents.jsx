@@ -19,14 +19,14 @@ const DisplayCommunityEvents = () => {
             return;
         }
         if (user) {
-            dispatch(getUserDetail(user.username));
+            dispatch(getUserDetail(user?.username));
         }
     }, [dispatch, isUserDetailError, userDetailMessage]);
 
     const handleActionChange = (actionDisplay, eventId) => {
         if (!user) return;
         if (actionDisplay === "Join") {
-            dispatch(addParticipant({ eventId, userId: user._id }));
+            dispatch(addParticipant({ eventId, userId: user?._id }));
         } else {
             if (countLeaveEvent.current === 0) {
                 toast.info(
@@ -34,7 +34,7 @@ const DisplayCommunityEvents = () => {
                 );
                 return (countLeaveEvent.current = 1);
             }
-            dispatch(removeParticipant({ eventId, userId: user._id }));
+            dispatch(removeParticipant({ eventId, userId: user?._id }));
             countLeaveEvent.current = 0;
         }
     };

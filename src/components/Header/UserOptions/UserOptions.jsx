@@ -73,7 +73,7 @@ const DropdownMenu = () => {
                     </>
                 ) : (
                     <>
-                        <DropdownItem to={`/user/${user.username}`} leftIcon={<FaUserCircle />}>
+                        <DropdownItem to={`/user/${user?.username}`} leftIcon={<FaUserCircle />}>
                             Public Profile
                         </DropdownItem>
                         {(user?.userType === "admin" || user?.userType === "team") && (

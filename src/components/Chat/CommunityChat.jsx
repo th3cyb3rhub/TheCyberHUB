@@ -62,7 +62,7 @@ const CommunityChat = ({ userDetails }) => {
 
         uniquePeopleArray.forEach((person) => {
             userDetails.forEach((userDetail) => {
-                if (userDetail.user === person.userId) {
+                if (userDetail?.user === person.userId) {
                     onlinePeople.push(userDetail);
                 }
             });
@@ -101,7 +101,7 @@ const CommunityChat = ({ userDetails }) => {
             {
                 text: newMessageText,
                 recipient: selectedUserId,
-                sender: user._id,
+                sender: user?._id,
                 isOur: true,
             },
         ]);

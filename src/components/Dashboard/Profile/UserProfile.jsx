@@ -44,7 +44,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         if (userDetails) {
-            setUserDetail(userDetails.find((user) => user.username === username));
+            setUserDetail(userDetails.find((user) => user?.username === username));
         }
     }, [userDetails, username]);
 

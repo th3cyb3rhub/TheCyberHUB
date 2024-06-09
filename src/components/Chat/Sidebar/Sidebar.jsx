@@ -20,7 +20,7 @@ const Sidebar = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, set
     const allConnections = connections?.connections
         ?.filter((connection) => connection.isAccepted)
         ?.map((connection) => connection.user);
-    const userId = user._id;
+    const userId = user?._id;
     useEffect(() => {
         if (userId) {
             dispatch(getConnections(userId));

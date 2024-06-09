@@ -153,7 +153,7 @@ const ConnectionsAndFollows = ({ userDetail, isUserDetailsLoading, setShowAuthPo
     return (
         <FollowContainer>
             <div>
-                {user && userDetail && user._id === userDetail.user ? (
+                {user && userDetail && user?._id === userDetail?.user ? (
                     <RouterLink to={`/user/edit/${user?.username}`}>
                         <FollowButton>Edit Profile</FollowButton>
                     </RouterLink>

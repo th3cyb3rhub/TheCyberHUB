@@ -30,7 +30,7 @@ const ChatBox = () => {
     const { userDetails } = useSelector((state) => state.userDetail);
     const [isOpen, setIsOpen] = useState(false);
 
-    const userDetail = userDetails.find((userDetail) => userDetail.user === user?._id);
+    const userDetail = userDetails.find((userDetail) => userDetail?.user === user?._id);
 
     const [ws, setWs] = useState(null);
     const [onlinePeople, setOnlinePeople] = useState([]);
@@ -89,7 +89,7 @@ const ChatBox = () => {
 
         uniquePeopleArray.forEach((person) => {
             userDetails.forEach((userDetail) => {
-                if (userDetail.user === person.userId) {
+                if (userDetail?.user === person.userId) {
                     onlinePeople.push(userDetail);
                 }
             });
@@ -128,7 +128,7 @@ const ChatBox = () => {
             {
                 text: newMessageText,
                 recipient: selectedUserId,
-                sender: user._id,
+                sender: user?._id,
                 isOur: true,
             },
         ]);
@@ -180,7 +180,7 @@ const ChatBox = () => {
     }
 
     const filterUsers = (users) => {
-        return users.filter((user) => user.username.toLowerCase().includes(searchQuery.toLowerCase()));
+        return users.filter((user) => user?.username.toLowerCase().includes(searchQuery.toLowerCase()));
     };
 
     const filteredOnlinePeople = filterUsers(onlinePeopleExclOurUser);
