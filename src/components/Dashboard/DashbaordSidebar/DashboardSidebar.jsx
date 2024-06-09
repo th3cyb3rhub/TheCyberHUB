@@ -1,7 +1,7 @@
 import React from "react";
 import {
     BiHomeCircleIcon,
-    BiChatIcon,
+    // BiChatIcon,
     PiNotebookDuotoneIcon,
     // MdAnalyticsIcon,
     BiBookmarksIcon,
@@ -14,7 +14,7 @@ import { FiSettings } from "react-icons/fi";
 const DashboardSidebar = ({ userDetail }) => {
     const sidebarItems = [
         { to: "/", icon: <BiHomeCircleIcon />, label: "Home" },
-        { to: "/dashboard/chat", icon: <BiChatIcon />, label: "Chat" },
+        // { to: "/dashboard/chat", icon: <BiChatIcon />, label: "Chat" },
         { to: "/dashboard/notes", icon: <PiNotebookDuotoneIcon />, label: "Notes" },
         { to: "/dashboard/reconage", icon: <GiTridentShield size={30} />, label: "Reconage" },
         { to: "/dashboard/saved", icon: <BiBookmarksIcon />, label: "Saved" },

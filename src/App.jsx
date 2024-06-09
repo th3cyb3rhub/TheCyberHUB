@@ -68,7 +68,7 @@ import NewLeaderboard from "src/components/Other/CyberGames/Leaderboard/NewLeade
 import ForgotPassword from "src/pages/ForgotPassword";
 import ResetPassword from "src/pages/ResetPassword";
 import Register from "src/pages/Register";
-import ChatBox from "src/components/Chat/ChatBox/ChatBox";
+// import ChatBox from "src/components/Chat/ChatBox/ChatBox";
 import Checklist from "src/components/Resources/Checklist/Checklist.jsx";
 import Payloads from "src/components/Resources/Payloads/Payloads.jsx";
 
@@ -133,7 +133,7 @@ const App = () => {
                     <>
                         <Sidebar isOpen={isOpen} toggle={toggle} />
                         <Navbar toggle={toggle} />
-                        {user ? <ChatBox /> : null}
+                        {/* {user ? <ChatBox /> : null} */}
                     </>
                 )}
                 <ScrollToTop>

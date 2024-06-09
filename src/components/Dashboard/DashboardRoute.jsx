@@ -7,7 +7,7 @@ import { DashboardRoutesContainer } from "./DashboardElements";
 import Bookmarks from "./Bookmarks/Bookmarks";
 import NoteApp from "./Notetaker/NoteApp";
 import Tools from "src/components/Tools/Tools";
-import CommunityChat from "src/components/Chat/CommunityChat";
+// import CommunityChat from "src/components/Chat/CommunityChat";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserDetails } from "src/features/userDetail/userDetailSlice";
 import { Analytics } from "./Analytics/Analytics";
@@ -51,7 +51,7 @@ const DashboardRoute = () => {
                     <Route path={"saved"} element={<Bookmarks />} />
                     <Route path={"notes"} element={<NoteApp />} />
                     <Route path={"tools"} element={<Tools />} />
-                    <Route path={"chat/*"} element={<CommunityChat userDetails={userDetails} />} />
+                    {/* <Route path={"chat/*"} element={<CommunityChat userDetails={userDetails} />} /> */}
 
                     <Route path={"reconage"}>
                         <Route index element={<Reconage />} />
