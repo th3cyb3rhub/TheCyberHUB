@@ -85,4 +85,3 @@ This project needs a ⭐️ from you. Don't forget to leave a star ⭐️
 <a href="https://t.me/thecyberw0rld" ><img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" /></a>
 <a href="https://www.twitter.com/thecyberw0rld" ><img src="https://img.shields.io/badge/twitter-100000?style=for-the-badge&logo=x&logoColor=white" alt="Twitter" /></a>
 
-[Back to top 🖱](#thecyberhub-hub-of-cyber-security)
