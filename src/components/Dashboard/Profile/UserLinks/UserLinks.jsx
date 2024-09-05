@@ -9,6 +9,7 @@ import {
 import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
 import { CgWebsite } from "react-icons/cg";
 import ConnectionsAndFollows from "src/components/Dashboard/Profile/ConnectionsAndFollows/ConnectionsAndFollows";
+// import ExternalLinkPopUp from "src/components/Common/ExternalLink/ExternalLink.jsx";
 
 const UserLinks = ({ userDetail, userDetails, isUserDetailsLoading, setShowAuthPopup }) => {
     const socialUsernames = userDetail?.socialLinks?.map(
@@ -21,6 +22,7 @@ const UserLinks = ({ userDetail, userDetails, isUserDetailsLoading, setShowAuthP
         <UserLinksContainer>
             <UserInfo>{userDetail}</UserInfo>
 
+            {userDetail?.user}
             {userDetail?.user && (
                 <ConnectionsAndFollows
                     isUserDetailsLoading={isUserDetailsLoading}

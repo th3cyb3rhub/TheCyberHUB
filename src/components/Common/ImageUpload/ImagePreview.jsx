@@ -2,13 +2,14 @@ import React from "react";
 import { ImageContainer, ImagesContainer, PreviewImage, RemoveButton } from "./ImageElements";
 
 const ImagePreview = ({ files, onRemove }) => {
-    // console.log(files);
+    const closeIcon = <>&#10005;</>;
+
     return (
         <ImagesContainer>
             {files?.map((file, index) => (
-                <ImageContainer key={index}>
+                <ImageContainer key={file.name}>
                     <PreviewImage src={URL.createObjectURL(file)} alt={`Uploaded ${index + 1}`} />
-                    <RemoveButton onClick={() => onRemove(index)}>&#10005;</RemoveButton>
+                    <RemoveButton onClick={() => onRemove(index)}>{closeIcon}</RemoveButton>
                 </ImageContainer>
             ))}
         </ImagesContainer>

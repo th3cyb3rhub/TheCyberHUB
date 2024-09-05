@@ -10,26 +10,25 @@ import { CircleSpinner } from "react-spinners-kit";
 import { toast } from "react-toastify";
 import { ImageInput, ImagePreview, useUploadImages } from "src/components/Common/ImageUpload";
 
-const maxImageSizeByte = 1000000;
+const MAX_IMAGE_SIZE_BYTES = 1048576;
 const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) => {
     const {
         images,
-        setImages,
         imagesName,
-        setImagesName,
         onImageRemove,
         onImageChange,
         onImageDragOver,
         onImageDrop,
         onManyImageSubmit,
+        onImagePaste,
+        onResetImages,
     } = useUploadImages({
-        maxImageSizeByte,
+        maxImageSizeByte: MAX_IMAGE_SIZE_BYTES,
         pageName: "feed",
         initImages: editFeed?.images,
+        requiredImageWidth: 400,
     });
-
     const textareaRef = useRef(null);
-    const [resetRef, setResetRef] = useState(false);
     const { user } = useSelector((state) => state.auth);
 
     const [isFeedLoading, setIsFeedLoading] = useState(false);
@@ -38,12 +37,12 @@ const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) 
     const [tags, setTags] = useState(editFeed?.tags || []);
     const [showAuthPopup, setShowAuthPopup] = useState(false);
 
-    const maxCharacterCount = 1500;
+    const MAX_CHARACTER_COUNT = 1500;
 
-    const [remainingCharacters, setRemainingCharacters] = useState(maxCharacterCount);
+    const [remainingCharacters, setRemainingCharacters] = useState(MAX_CHARACTER_COUNT);
 
     useEffect(() => {
-        setRemainingCharacters(maxCharacterCount - content.length);
+        setRemainingCharacters(MAX_CHARACTER_COUNT - content.length);
     }, [content]);
 
     const handleChange = () => {
@@ -91,14 +90,12 @@ const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) 
             setIsFeedLoading(false);
             setContent("");
             setTags([]);
-            setImages([]);
-            setImagesName([]);
-            setResetRef(true);
+            onResetImages();
         }
     };
 
     const userDetail = userDetails?.find((userDetail) => userDetail?.user === user?._id);
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || editFeed?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || editFeed?.avatar || "avatar.png"));
     return (
         <AddFeedCommentContainer onDrop={(e) => onImageDrop(e, true, 4)} onDragOver={onImageDragOver}>
             {!editFeed && (
@@ -113,6 +110,7 @@ const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) 
                         placeholder="What's on your mind?"
                         value={content}
                         onChange={handleChange}
+                        onPaste={(e) => onImagePaste(e, true, 4)}
                     />
                     <p
                         style={{
@@ -137,13 +135,12 @@ const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) 
 
                 <FooterSection>
                     <ImageInput
-                        inputName={editFeed ? editFeed._id + "feedImage" : "feedImage"}
+                        inputName={editFeed ? `${editFeed._id}feedImage` : "feedImage"}
                         onChange={(e) => onImageChange(e, true, 4)}
                         labelStyles={{ background: "transparent", border: "transparent", padding: "0" }}
                         filesName={imagesName}
                         multiple
-                        key={editFeed ? editFeed._id + "feedImage" : "feedImage"}
-                        resetRef={resetRef}
+                        key={editFeed ? `${editFeed._id}feedImage` : "feedImage"}
                     />
 
                     {isFeedLoading ? (

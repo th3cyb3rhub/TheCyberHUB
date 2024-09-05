@@ -13,7 +13,7 @@ const NoteItem = ({ _id, title, pinned, onPick, onPin, isPicked }) => {
             <NoteItemElement $isPinned={pinned} onClick={() => onPick(_id)} $isPicked={isPicked}>
                 <NoteItemShortTitle>{title.slice(0, 23)}</NoteItemShortTitle>
             </NoteItemElement>
-            <NoteItemPinningContainer isPinned={pinned}>
+            <NoteItemPinningContainer $isPinned={pinned}>
                 <NotePinning isPinned={pinned} onPin={onPin} noteId={_id} />
             </NoteItemPinningContainer>
         </NoteItemElementContainer>

@@ -28,11 +28,11 @@ export const CardTool = styled.div`
     gap: 10px;
     width: 300px;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     background: transparent;
     box-shadow: 0 0 150px 0 rgb(241 115 12 / 25%);
     backdrop-filter: blur(25px);
-    border: 1px solid rgb(255 255 255 / 18%);
+    border: 1px solid rgb(122 122 122 / 18%);
 
     &:hover {
         transition: all 0.3s ease-in-out;

@@ -162,7 +162,7 @@ using the same logic we can break out of many different HTML tags
             },
             {
                 title: "Example of R-XSS 3",
-                content: `when input lands inside an attribute’s value within double quote of an HTML tag
+                content: `when input lands inside an attribute's value within double quote of an HTML tag
 \`\`\`html
 <input name="uname" value="inputReflectedHere">
 \`\`\`
@@ -549,6 +549,718 @@ mysqli_stmt_execute($stmt); // Execute prepared statement
             {
                 title: "Importance",
                 content: `SQL injection is one of the most common and dangerous web application vulnerabilities. By prioritizing the mitigation strategies mentioned above, developers and system administrators can significantly reduce the risk of these attacks and protect their databases and sensitive data.`,
+            },
+        ],
+    },
+
+    {
+        id: 8,
+        tags: ["Business Logic", "Web Security", "Code Review"],
+        level: "Beginner",
+        category: "Business Logic",
+        title: "Introduction to Business Logic Vulnerability",
+        desc: [
+            {
+                title: "Overview",
+                content:
+                    "Business Logic Vulnerabilities are the imperfections or flaws in the logical flow of the application. In other words, the flaws in the design and implementation of an application that allows an attacker to exploit lawful functions to achieve a harmful objective. These defects are typically the result of not preparing for rare application situations and hence failing to handle them appropriately.",
+            },
+            {
+                title: "Detailed Explanation",
+                content: `Let us take an example to understand in detail with simpler terms.
+
+Imagine you're leaving your house and locked it with a key, assuming it is secure. However, for a theif it might be easy to pick the lock using a safety pin, exploiting a known flaw in the lock mechanism and breaking into your house. 
+
+Similar to the locks, if these mistakes or flaws are present in the application logic in a software application, attackers can take advantage of them. For example, they may discover a way to purchase goods without paying for it legitimately, such as receiving an award in a videogame. Alternatively, they may interfere with the information handled by the app, such as setting an item's price to 0 dollars. 
+
+Sometimes the software does not correctly check if the data you provide is acceptable. It's as if you typed your date of birth as "banana" on a form instead of a date, and the application simply accepted it. Attackers can take advantage of this by providing the app with unusual information that it is unable to manage, potentially causing it to perform something unexpected or harmful.`,
+            },
+
+            {
+                title: "Examples",
+                content: `## **Example 1: Change another user's password**
+
+Assume an application has the functionality for customers to reset their passwords if needed, and for admins to reset passwords if customers forget theirs or are logged out and cannot access their accounts.
+
+Consider the logic to reset a password:
+
+\`\`\`python
+def reset_password(username, current_password, new_password, confirm_password):
+    if username not in users:
+        return "Error: Username not found."
+
+    if new_password != confirm_password:
+        return "Error: New password and confirm password do not match."
+
+    if current_password and users[username] != current_password:
+        return "Error: Current password is incorrect."
+
+    if not current_password:
+        users[username] = new_password
+        return "Password reset successfully."
+
+    users[username] = new_password
+    return "Password reset successfully."
+\`\`\`
+
+- Customers need to fill in the username, current password, new password, and confirm password fields to reset their password.
+- Admins only need to fill in the username, new password, and confirm password fields to reset a password.
+
+According to this logic, if a customer leaves the current password field empty, the application considers them an admin and will change the password. This allows a normal customer to change another user's password simply by knowing their username, enabling them to misuse other customers' accounts with malicious intent.",
+
+
+## Example 2: Beating a Business Limit
+
+Assume a banking application allows users to transfer funds between bank accounts. As a precaution against fraud, the application prevents users from transferring a value greater than $10,000.
+
+\`\`\`python 
+def transfer_funds(account_a, account_b, amount):
+    if amount > 10000:
+        return "Error: Cannot transfer more than $10,000."
+
+    account_a.balance -= amount
+    account_b.balance += amount
+    return "Transfer successful."
+\`\`\`
+
+- User logs in and enters the details of bank accounts A (sender) and B (receiver).
+- If the user enters an amount less than $10,000, the transaction will be processes.
+
+An attacker can exploit this by entering a negative amount, effectively reversing the transfer direction. Instead of transferring money from account A to account B, the application processes the transaction as if transferring money from account B to account A because a negative value is provided.`,
+            },
+
+            {
+                title: "Consequences",
+                content: `
+
+- Data breaches: Attackers might obtain sensitive data, including financial and personal information, without authorization. If client data is compromised, this could lead to significant financial losses for the company as well as legal complications.
+- Service Disruptions: Service delays may result from the manipulation or interruption of vital business operations due to weaknesses in business logic. 
+- Increased Personnel and Infrastructure Costs: Can result in bot attacks that increase traffic volume, which raises the cost of infrastructure. Organizations may also have to pay more for personnel as a result of the requirement for more cybersecurity monitoring and response activities.
+- Revenue Loss and User Confidence: Attackers can steal products, loyalty points, or manipulate sales of restricted quantities by taking advantage of loopholes in business logic. This results in revenue loss. This also results in a loss of user confidence.
+- Variable Impact Severity: Authentication mechanism flaws or privilege escalation can lead to unauthorized access to sensitive data and expose the company to additional vulnerabilities.
+- Inadequate Conventional Security Measures: Conventional security solutions such as Web Application Firewalls (WAFs) are frequently insufficient against business logic attacks. This emphasizes how certain security procedures are required in order to identify and stop these threats.
+- Complexity in Securing Modern Applications: Securing business logic components becomes more challenging as a result of distributed microservices, multi-cloud architectures, and the quick expansion of APIs.`,
+            },
+
+            {
+                title: "Mitigation",
+                content: `Below are some strategies to mitigate the business logic vulnerabilities:
+
+### 1. Understanding and Mapping Business Logic
+
+- Understand Your Business Logic: It's critical to have a thorough understanding of the workflows, procedures, and anticipated user behavior in your application. This helps in locating potential weak points and vulnerabilities.
+- Maintain Clear Design Documents: Thoroughly documenting the design and data flows, as well as the presumptions made at every step, helps identify logical errors early on.
+
+### 2. Implementing Advanced Security Measures
+
+- Advanced Application Security: Discover issues like broken authorization and bot attacks by investing in advanced security solutions.
+- Secure Coding Practices: Teach developers secure coding standards.
+
+### 3. Monitoring and Analyzing User Behavior
+
+- User Behavior Analysis: Make use of tools to keep an eye on application usage trends and spot anomalous activity that could point to a Business Logic Vulnerability.
+- Anomaly and Behavior - Based Analysis: Use methods to spot unusual behaviors or patterns that stand out from the ordinary, indicating Business Logiv Vulnerabilities.
+
+### 4. Input Validation and Access Controls
+
+- Input Validation: Put strict procedures in place to guarantee that only valid requests are handled, avoiding the injection of malicious code.
+- Access Controls: Limit API access based on user roles using concepts such as the principle of least privilege (POLP) to lessen the possible impact of an attack.
+
+### 5. Testing and Threat Modeling
+
+- Thorough Testing: Test the code thoroughly before deploying it, especially when adding new functionality.
+- Threat Modeling: During the design phase, identify and minimize potential threats by threat modeling.
+
+### 6. Regular Security Practices
+
+- Security Testing: Regularly test for vulnerabilities to address them before they can be exploited.
+- Software Updates: Update your apps with the most recent security fixes to address known vulnerabilities.
+
+### 7. Multi - Layered Defense Approach
+
+- Runtime Application Self - Protection(RASP) and Interactive Application Security Testing(IAST): These tools help in real - time detection and remediation of vulnerabilities.
+- Augmenting WAF Platforms: To detect and stop automated and signature - less attacks, improve Web Application Firewalls(WAF) with bot management and API security solutions.`,
+            },
+
+            {
+                title: "Importance",
+                content:
+                    "It should be noted that fixing business logic vulnerabilities is important yet occasionally neglected component of program security. These vulnerabilities result from logical flow issues in the application and can be used by malicious actors to modify authorized functions. You can significantly reduce the risk of these vulnerabilities by critically analyzing and challenging your presumptions about user behavior, making sure that input validation is done thoroughly, putting strong access controls in place, and using cutting-edge security measures like Runtime Application Self-Protection (RASP) and Interactive Application Security Testing (IAST). Furthermore, upholding transparent documentation, conducting frequent security assessments, and persistently observing user conduct are crucial procedures to ensure the safety of your applications. Identifying and fixing business logic vulnerabilities helps to preserve user confidence, guard against future financial and reputational harm, and preserve the integrity of your program. Keep in mind that protecting your application's business logic is a continuous process that calls for attention to detail, creativity, and a thorough understanding of the particular processes and user interactions that make up your application.",
+            },
+        ],
+    },
+
+    {
+        id: 9,
+        tags: ["Race Conditions", "Web Security", "Code Review"],
+        level: "Beginner",
+        category: "Race Conditions",
+        title: "Introduction to Race Conditions",
+        desc: [
+            {
+                title: "Overview",
+                content:
+                    "A race condition arises when a software system's behavior is depending on the relative time or overlapping of multiple threads or processes, potentially resulting in unpredictable and inaccurate outcomes. This is the result of several threads competing with one another to simultaneously change common resources or variables. ",
+            },
+            {
+                title: "Detailed Explanation",
+                content: `Let us understand Race Conditions with a simple example.
+
+Assume that the Avengers are on an important mission that requires precise coordination and timing. Every Avenger has a mission to do, and things can go terribly wrong if they don't finish them in the right order or at the appropriate moment.
+
+Let's say Iron Man is meant to take down an alarm system, allowing Black Widow to enter stealthily and obtain sensitive information. Black Widow runs the risk of being discovered if she tries to enter before Iron Man turns off the security system. However, she may lose her chance of opportunity if Iron Man stops the system too late.
+
+A "race condition" in computer systems is similar to this scenario. When multiple processes (like the Avengers) need to access and modify shared resources (like the alarm system), and the result ultimately depends on when they take certain actions at certain times. In the event that the operations are not carried out in the proper sequence or at the right moment, unexpected and possibly danger outcomes may arise.
+
+Attackers may take advantage of race conditions in software. They are able to control the sequence of events to bring about unexpected outcomes, such breaking into the system or obtaining illegal access.`,
+            },
+
+            {
+                title: "Types of Race Condtitions",
+                content: `We have classified Race Conditions into the following four categories:
+                    
+1. Limit Overrun Race Conditions
+2. Hidden Multi-step Race Conditions
+3. Single End-point Race Conditions
+4. Multi End-point Race Conditions`,
+            },
+
+            {
+                title: "1. Limit Overrun Race Conditions",
+                content: `When multiple processes or threads try to alter a shared resource in a way that goes over its predefined limit, a limit overrun race condition arises. This can frequently result in unexpected behavior or system failure. This may occur if there are insufficient synchronization measures in place to regulate resource access, enabling processes to "race" one another and exceed resource limits.
+
+Consider the scenario of Quicksilver and The Flash, who are both renowned for their extraordinary speed, to provide an example of this. Assume they are a component of a system meant to protect vulnerable citizens. Due to bandwidth limitations, the system can only do 100 rescue operations every minute. Both of them has the ability to start a rescue on their own.
+
+According to the described scenario:
+
+1. The Flash and Quicksilver both detect a need for rescues.
+2. They both check the system's current operation count, which is at 90.
+3. Both calculate they can safely initiate 10 more rescues each (since 90 + 10 ≤ 100).
+4. They simultaneously start 10 rescues each, pushing the total to 110 operations.
+
+Due to the lack of synchronization:
+
+- The system is now handling 110 operations, exceeding the limit of 100.
+- This overrun can cause the system to fail, miss rescues, or create bottlenecks, potentially endangering lives rather than saving them.
+
+In technical terms, this failure occurs because there was no mechanism to lock or synchronize access to the rescue system's operation count, allowing both superheroes to make decisions based on outdated information.
+
+## Examples of Limit Overrun Race Conditions:
+
+- **Redeeming a Limited-Use Coupon Multiple Times:**  Imagine an online store that offers limited-use coupons for a free item or a discount. Ideally, the system would stop a user from using the same coupon more than once. However, if there's a race condition, a user could potentially submit multiple requests simultaneously, leading to the coupon being redeemed multiple times.
+- **Voting Multiple Times in a Restricted Poll:** Consider an online survey in which each participant is only permitted to cast one vote. However, a person may cast more than one vote before the system changes to reflect their earlier vote due to a race condition. This could be used to unlawfully affect the results of polls.
+- **Exceeding Credit Card Transaction Limits:** Assume that a financial application places a cap on the total number of transactions a user may complete in a certain period of time in order prevent fraud. A race condition might make it possible for a user to start more than one transaction at once and go over this limit before the system updates to reflect the earlier transactions.
+- **Booking Multiple Seats in a Limited Capacity Event:** Users are usually not permitted to reserve more seats than permitted per transaction for events like conferences or concerts that have a limited number of seats available. On the other hand, if there is a race condition, users may be able to reserve more than one seat at once, going around the intended cap and possibly leading to overbooking.
+- **Claiming Limited Inventory Items Multiple Times:** There can be a limit on the quantity of rare or limited-edition items a customer can buy on an e-commerce platform. In order to claim more things than permitted, a user may need to meet a race condition and submit several requests at the same time, before the system changes to reflect the inventory drop.
+
+## Practical Demonstration:
+
+Let us understand the impact of this limit overrun race conditions with a practical demonstration:
+
+\`\`\`python
+import threading
+
+counter = 0
+
+def increment_counter():
+                    global counter
+    for _ in range(1000000):
+                counter += 1
+
+threads = []
+for _ in range(10):
+                thread = threading.Thread(target = increment_counter)
+    threads.append(thread)
+    thread.start()
+
+print("Number of threads:", len(threads))
+print("Final counter value:", counter)
+\`\`\`
+
+On running this program multiple times, you can see that the output is not 1000000 always different.
+![Limit Overrun Race Condition Practical Demonstration](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724586564599.png)
+In this example, we have a shared variable counter which is initially set to 0. We then create 10 threads, each of which calls the \`increment_counter\` function. Inside this function, each thread increments the counter variable by 1, 1 million times.
+
+Due to the concurrent execution of threads and the lack of synchronization mechanisms such as locks or semaphores, a race condition occurs. As a result, the final value of counter may exceed its expected limit (1,000,000) because multiple threads may read the current value of counter, increment it, and then write it back, all without proper coordination, leading to an unexpected final value.
+
+## How to detect these Limit Overrun Race-Conditions?
+
+Limit overrun race situations are easy to find and take control of. This is how you do it:
+
+1. Look for a system feature that is only utilized once, has a usage restriction, and has some significant practical or security impact.
+2. Quickly submit an excessive number of requests to this function to test if you can use it in excess of the allotted amount.
+
+The primary challenge is scheduling your requests in such a way that two or more of them reach to the system at the same time, which may take a few milliseconds.
+
+The server may process the requests in a different sequence or at a different time depending on unexpected events, even if you send them all at once.
+
+![Jitter Explained](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724586955343.png)
+
+This diagram illustrates the challenge of aligning two requests to create a race condition.
+
+- **Request 1 and Request 2**: Two separate requests are sent.
+- **Network Latency**: The time it takes for each request to travel from the client to the server.
+- **Jitter**: The variation in time it takes for requests to be processed due to network conditions.
+- **Internal Latency**: The time it takes for the server to handle each request once it has been received.
+
+Burp Suite 2023.9 gives Burp Repeater strong new features that make it simple to send multiple requests in parallel while significantly minimizing the effect of one of these factors—network jitter.
+
+- **Last Byte Sync Method:** Web Servers do not start processing the request until all the bytes are received. Hence we can hold the last bytes of each request and make the requests sync to trigger a race condition by sending all the bytes on hold at same time.
+- **Single Packet Attack:** In single packet attack, multiple requests are packet and sent all together so that they can trigger a race condition by running concurrently on the web server.
+
+ Burp automatically modifies its method to fit the HTTP version that the server supports:
+
+1. It employs the traditional last-byte synchronization method for HTTP/1.
+2. It makes advantage of the single-packet attack method for HTTP/2.
+
+With the single-packet attack, you can use a single TCP packet to fulfill 20-30 requests at once, effectively eliminating network jitter interference.
+
+![Last Byte Sync](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724587021831.png)
+
+This diagram demonstrates sending a large number of requests to increase the chances of exploiting a race condition. Sending several multiple in a single packet reduces internal latency, often called server-side jitter, even though exploits are frequently activated with just two requests. This is particularly helpful in the early stages of discovery.
+`,
+            },
+
+            {
+                title: "2. Hidden Multi-step Sequences",
+                content: `Hidden Multi-Step Sequence Race Condition Vulnerabilities are a type of concurrency problem in software systems where a program needs to run in a particular sequence, but the source code does not effectively maintain what order the steps should be performed in.
+
+This type of race condition comes under the category of **TOCTOU** which stands for "Time-Of-Check to Time-Of-Use." It refers to a class of software security vulnerabilities that occur when a program's behavior is dependent on the state of the system between the time a resource is checked (such as a file or a network connection) and the time it is used. 
+
+These vulnerabilities usually occur in distributed or concurrent systems, where a number of threads, processes, or other components may carry out different actions at the same time. Concurrency can cause unexpected and sometimes dangerous behavior, such as data corruption, inconsistent states, or security vulnerabilities, if the correct sequence of operations is not preserved.
+
+Assume a scenario of a game application where a well known hero known as Spiderman and his web-slinging abilities. In a software application simulating Spider-Man's web-swinging actions, there's a hidden multi-step sequence vulnerability in the web-slinging mechanism.
+
+1. **Hidden Sequence**: There are several processes involved in web slinging: shooting the web, securely attaching it to a building, and swinging from it. But the code assumes that every step will always occur in the correct order and does not expressly enforce this order.
+2. **Race Condition Vulnerability**: Suppose for a moment if Spider-Man deals with a bank heist and a building fire at the same time. He tries to approach the flaming building to save civilians and swing to the bank to stop the heist.
+3. **Concurrency Issue**: The hidden multi-step sequence vulnerability might cause Spider-Man's web-slinging moves to be incorrectly synchronized. He may fire a web at the bank, for example, and then rapidly switch to swinging towards the burning building, which would cause the web to break off too soon.
+4. **Unintended Consequences**: As a result of the race condition, Spider-Man's actions could lead to disastrous outcomes. He might end up swinging halfway to the bank before realizing the web detached, or worse, he might crash into a building while swinging due to the sudden change in direction.
+
+## Examples of Hidden Multi-Step Sequences:
+
+- **TOCTOU (Time of Check to Time of Use) in File Systems:** A race condition exists between using a file and verifying its properties (e.g. permissions), which an attacker can take advantage of. Before opening a file, a program verifies if it is accessible (has appropriate permissions). An attacker replaces the file—possibly with a symbolic link referring to a sensitive file—after the check but before it is opened. In the end, the application opens a file that it shouldn't have access to and might even change it.
+- **Database Transaction Race Conditions:** When several transactions interact in an unexpected way during database operations in web applications, race conditions may arise. An application for banking that facilitates inter-account transactions checks the balance before deducting and crediting the accounts. Two concurrent transfers are started by an attacker using the same account. If both checks execute roughly concurrently, they might pass. The attacker could be able to remove more money than is available if the account has a negative balance or both transactions are completed erroneously.
+- **Web Application Session Management:** In web application session management, race conditions can result in data leakage or session hijacking. A web application invalidates a session token after a logout request. Attackers send out multiple requests at once, one of which invalidates the session and the other one that takes benefit of it. Before the session token is invalidated, the attacker could be able to use it again and keep access to the user's session.
+- **File Locking Mechanisms:** When several programs access the same file at the same time, it might result in race condition caused by inconsistent file locking methods. To ensure exclusive access, two processes must employ a lock and write to a log file. An attacker may discover a window where the lock is not effectively enforced or figure out a way around it. The integrity of the log data may be compromised as a result of partial writes, interleaved writes, or data corruption.
+
+## Practical Demonstration
+
+Let us understand the impact of Hidden Multi-Step Sequence Race Conditions:
+\`\`\`python
+import os
+import threading
+import time
+
+# Path to the file being checked and read
+file_path = "example.txt"
+
+
+# Function to perform the check and read operations
+def check_and_read_file():
+    # Step 1: Check if the file exists
+    if os.path.exists(file_path):
+        print("File exists, proceeding to read...")
+        time.sleep(0.1)  # Simulate delay
+
+        # Step 2: Open and read the file
+        with open(file_path, "r") as file:
+            content = file.read()
+            print(f"File content: {content}")
+    else:
+        print("File does not exist.")
+
+
+# Function to simulate an attacker replacing the file
+def attacker_replace_file():
+    # Wait a moment to ensure the victim thread has checked the file's existence
+    time.sleep(0.05)
+
+    # Replace the file with new content
+    with open(file_path, "w") as file:
+        file.write("CHANGED CONTENT!!!")
+
+
+# Initial setup: create the file with initial content
+with open(file_path, "w") as file:
+    file.write("ORIGINAL CONTENT")
+
+# Create the victim and attacker threads
+victim_thread = threading.Thread(target=check_and_read_file)
+attacker_thread = threading.Thread(target=attacker_replace_file)
+
+# Start the threads
+victim_thread.start()
+attacker_thread.start()
+
+# Cleanup: remove the file
+os.remove(file_path)
+\`\`\`
+
+The above given program demonstrates a scenario to check for the presence of a file and read it's content. But due to the presence of a hidden multi-step race condition, an attacker may exploit this vulnerability and change the content of the file.
+
+![Hidden Multi-step Race Condition](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724587223619.png)
+
+## How to detect Hidden Multi-Step Sequences?
+
+To efficiently detect the hidden multi-step sequence race condition, the following methodology can be very beneficial. This includes the following three steps:
+
+1. **Predict potential collisions:** It is not practicable to test every endpoint. You can reduce the number of endpoints to test by considering the following questions after you've mapped out the target site:
+    - **Is the security of this endpoint essential?** (Testing many endpoints isn't worth it because they don't affect important functionality.)
+    - **Is there a chance of a collision?** (Two or more requests that initiate actions on the same record are required for a collision to be successful.)
+    - **How is the state stored?** (Data that's stored in a persistent server-side data structure is ideal for exploitation.)
+    - **Are we editing or appending?** (Operations that edit existing data have ample collision potential, whereas actions that simply append to existing data are unlikely to be vulnerable to anything other than limit-overrun attacks.)
+    - **What's the operation keyed on?** (Most endpoints operate on a specific record, which is looked up using a 'key', such as a username, password reset token, or filename. For a successful attack, we need two operations that use the same key.)
+2. **Probe for clues:** First benchmark the endpoint's behavior under typical circumstances in order to identify hints. Burp Repeater allows you to accomplish this by grouping all of your requests and sending them sequentially over different connections.
+    - To reduce network jitter, send the same set of requests all at once using the single-packet attack (or last-byte sync if HTTP/2 isn't supported). Using Burp Repeater, you can accomplish this by using the Send group in parallel option.
+    - Everything may possibly be a hint. All you need to do is search for any kind of divergence from what you noticed when benchmarking. This can include altering one or more responses, but pay attention to secondary consequences such as altered email content or observable changes to the application's behavior later.
+3. **Prove the concept:** Make an effort to fully understand the situation, eliminate unnecessary requests, and confirm that the results can still be replicated. Exceptional and distinct primitives can result from advanced race conditions, so the path to maximum impact isn't always immediately obvious. Consider each race condition as a systemic flaw rather than a singular vulnerability.`,
+            },
+
+            {
+                title: "3. Multi End-point Race Conditions",
+                content: `Multi-endpoint race conditions occur when concurrent transactions across various application or service endpoints result in inconsistent or unexpected outcomes. When many endpoints are accessed simultaneously, improper synchronization procedures lead to these vulnerabilities.
+
+The primary issue exists because of concurrent access to or modification of numerous endpoints, which creates race conditions in which the order of activities influences the outcome. Endpoints that are interdependent or share resources are particularly susceptible. Changes made via one endpoint might interfere with operations on another. These involve more complex interactions than single-endpoint race conditions since many endpoints must be taken into account in relation to one another.
+
+Imagine during Infinity War, Tony Stark (Iron Man) and Peter Parker (Spider-Man) are trying to catch Ebony Mow. Tony and Peter decide to approach from different directions to surround and capture him.
+
+Here's how the race condition might play out:
+
+1. **Tony's Approach**: Tony Stark starts from the north side of the city, flying in his Iron Man suit at high speed towards Ebony Maw's last known location.
+2. **Peter's Approach**: Meanwhile, Peter Parker swings into action as Spider-Man from the south side of the city, using his web-slinging abilities to quickly move towards the same location.
+3. **Race Condition**: Both heroes are trying to reach Ebony Maw before he can escape. The race condition occurs because Tony and Peter are not coordinating their movements and actions perfectly. They both have the same goal (capture Ebony Maw), but they are approaching from different points in the city.
+4. **Result**: Depending on traffic, obstacles, and other factors, either Tony or Peter might reach Ebony Maw first. If Tony gets there first, he might attempt to capture Ebony Maw alone, not realizing that Peter is close behind. This could lead to confusion or inefficiency in capturing the villain. Alternatively, if Peter arrives first, Tony's efforts might be redundant or wasted.
+
+In this scenario:
+
+- **Multi-endpoint**: Tony and Peter are the "endpoints" or actors in the scenario, approaching the same task from different points (north and south sides of the city).
+- **Race Condition**: The race condition arises because the outcome depends on which hero arrives first, and this can lead to inefficiencies or confusion in their efforts.
+
+In the context of software or computing, a race condition similarly occurs when multiple processes or threads (like Tony and Peter) access shared data (Ebony Maw) in an uncoordinated manner, potentially leading to unexpected or incorrect results.
+
+## Examples of Multi-endpoint Race Conditions:
+
+- **Banking Transactions:** Consider a situation where a banking app permits concurrent withdrawals and deposits from several devices or sessions. If there is a race condition, it could lead to inconsistencies in account balances. For example, if two withdrawals are made at the same time, they may both read the same balance and take out the same amount, which could lead to an overdraft.
+- **Online Ticket Reservation:** When several people attempt to reserve the final remaining ticket at the same time, ticket reservation systems sometimes encounter race conditions. Inadequate management of this could lead to excess or underselling of tickets, causing customer dissatisfaction or financial losses.
+- **File Access in a Shared System:** Several users may attempt to read and write to the same file at once in a shared file system. A race condition in the file locking system could allow one user to override another's modifications, resulting in inconsistent file states or corrupted data.
+- **Session Handling in Web Applications:** If session data is not synchronized correctly, web applications that handle user sessions may be subject to race situations. For example, an application may act unexpectedly and grant access to data that should be protected if a user signs out of one device while another device attempts to access the session concurrently.
+
+## Practical Demonstration
+
+Let us understand the practical impact of Multi-endpoint Race Conditions:
+
+\`\`\`python
+import threading
+
+# Shared variable
+counter = 0
+
+
+def increment_counter():
+    global counter
+    current_value = counter
+    # Simulate some processing time
+    for _ in range(1000000):
+        pass
+    counter = current_value + 1
+
+
+def multi_endpoint_race_condition_demo():
+    threads = []
+    num_threads = 5
+
+    # Create 5 threads, each incrementing the counter
+    for _ in range(num_threads):
+        thread = threading.Thread(target=increment_counter)
+        threads.append(thread)
+        thread.start()
+
+    # Wait for all threads to complete
+    for thread in threads:
+        thread.join()
+
+    print("Final counter value:", counter)
+
+
+multi_endpoint_race_condition_demo()
+\`\`\`
+
+On running this program, you will observe that the final counter value may not be 5 (which would be the expected value if each thread successfully incremented it once). Instead, due to race conditions, counter might end up being less than 5, demonstrating the inconsistent behavior caused by concurrent access without proper synchronization.
+
+![Multi End-point Race Conditions](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724587796117.png)
+
+## How to detect Multi-endpoint Race Conditions?
+
+Even if you use the single-packet technique and transmit all of the requests at exactly the same time, you could still run into problems aligning the race windows while testing for multi-endpoint race situations.
+
+![Multi End-point explained](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724587864225.png)
+
+There are two primary causes for this:
+
+- endpoint-specific processing times, which can differ significantly, and
+- network architecture delays, such those resulting from the front-end server connecting to the back-end.
+
+Race condition attacks are generally unaffected by back-end connection delays since these delays usually cause concurrent requests to be delayed equally, keeping the requests synchronized. It is important to be able to differentiate these delays from those produced by endpoint-specific variables. To normalize processing delays, you can try "connection warming," where you send a few harmless requests first to stabilize processing times.
+
+If the first request still has a longer processing time, but the rest of the requests are now processed within a short window, you can ignore the apparent delay and continue testing as normal.
+
+If connection warming is ineffective, you can introduce a brief client-side delay using Turbo Intruder. However, this method requires splitting your attack requests across multiple TCP packets, making the single-packet attack technique unusable and unreliable for high-jitter targets.
+
+![Multi endpoint explained](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724587924925.png)
+
+Alternatively, you can exploit a common security feature: web servers often slow down processing if they receive too many requests too quickly. By sending many dummy requests to trigger this rate limit, you can create a server-side delay, making single-packet attacks viable even when delays are needed.
+
+![Multi endpoint-explained](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724587975123.png)
+`,
+            },
+
+            {
+                title: "4. Single-endpoint Race Conditions",
+                content: `Severe race conditions may occur when a single endpoint receives multiple concurrent requests with different parameter values. Due to time dependencies and improper synchronization, concurrent requests might interact with shared resources or state within the endpoint, which can result in unexpected and incorrect actions.
+
+## Example of Single-endpoint race conditions:
+
+Consider a web application where Tony Stark watches over his Iron Man suit collection. The application consists of a single endpoint to update the inventory status of the suits, and it supports multiple requests to either return a suit to the inventory or reserve it for a mission.
+
+\`\`\`python
+import threading
+import time
+import random
+
+suits_in_inventory = 5
+inventory_lock = threading.Lock()
+
+
+def update_suits(action):
+    global suits_in_inventory
+
+    # Simulate a random delay to create variability
+    time.sleep(random.uniform(0.1, 0.5))
+
+    with inventory_lock:
+        if action == "reserve":
+            if suits_in_inventory > 0:
+                suits_in_inventory -= 1
+        elif action == "return":
+            suits_in_inventory += 1
+
+
+request1 = threading.Thread(target=update_suits, args=("reserve",))
+request2 = threading.Thread(target=update_suits, args=("reserve",))
+
+request1.start()
+request2.start()
+
+# Small sleep to create a window where the threads are likely still running
+time.sleep(random.uniform(0.1, 0.5))
+
+# Print the inventory count during the execution of the threads
+print(f"Suits in inventory: {suits_in_inventory}")
+\`\`\`
+
+1. The initial state of the application is that there are five suits in the inventory.
+2. Concurrent Requests: Tony sends two requests in parallel to reserve a suit because two missions are scheduled simultaneously.
+3. Execution: Both requests execute the update_suits function concurrently.
+    - **Thread 1 (Request 1):** Reads suits_in_inventory, determines that it is 5, and subtracts 1 from suits_in_inventory, which was supposed to be 4.
+    - **Thread 2 (Request 2):** Prior to Thread 1's update being written, suits_in_inventory is read and it is likewise discovered to be 5. Reduces suits_in_inventory by 1 (down from 4 expected).
+    - **Problem:** Because of the race condition, it is possible for both threads to independently update suits_in_inventory to 4 without being aware of one another's activities. Rather than the proper number of 3, the final value becomes 4.
+4. **Race Condition Outcome**: Due to the race condition, both threads sometimes might update the suits_in_inventory to 4 independently, without knowledge of each other's actions. The final value becomes 4 instead of the correct value of 3.
+5. **Result**: The inventory count is inconsistent and incorrect, leading to an overestimation of available suits.
+
+![Single End-point Race Condition](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/notes/1724588284449.png)
+`,
+            },
+
+            {
+                title: "Mitigation",
+                content: `It's necessary to eliminate race conditions because they can lead to serious security and operational issues in software systems.
+
+- **Avoid Mixing Data from Different Sources**: Mixing data from different sources can lead to inconsistencies and vulnerabilities. For example, when different components read data from separate locations, there might be mismatches or opportunities for attackers to exploit these discrepancies. Keeping data sources unified ensures consistency and reduces the attack surface.
+- **Ensure Atomic State-Changes**: Atomic operations are indivisible; they either complete fully or not at all. This is crucial for maintaining consistency. Using database transactions for operations that involve multiple steps ensures that partial updates do not occur, which could leave the system in an inconsistent state.
+- **Leverage Datastore Integrity/Consistency Features**: Databases offer built-in features to enforce data integrity, such as unique constraints, foreign keys, and checks. Utilizing these features can prevent common issues like duplicate entries or invalid data states.
+- **Avoid Cross-Layer Security Dependencies:** Relying on one layer (like sessions) to enforce security constraints on another layer (like the database) is unreliable. Each layer should have its own security measures appropriate to its function and potential threats.
+- **Maintain Session Consistency**: Sessions should be handled in a way that ensures their internal consistency. If session variables are updated individually, an error could leave the session in a broken state. By updating sessions atomically, the risk of such issues is minimized.
+- **Avoid Server-Side State in Some Architectures**: In some architectures, it might be beneficial to avoid maintaining state on the server entirely. Client-side state management using secure tokens like JWTs can offload state storage from the server, reducing complexity and potential attack vectors. However, this requires robust token handling and encryption to ensure security.
+- **Implement Proper Locking**: Use locks (mutexes, semaphores) to synchronize access to shared resources. Make sure that the locks are granular enough to avoid unnecessary contention but also broad enough to protect critical sections. Prefer using read-write locks where appropriate, allowing multiple readers but exclusive access for writers.
+- **Validate Input Consistently**: Ensure that all input validation checks are performed consistently at each stage of the process. Do not assume the input remains unchanged between the time of check and the time of use (TOCTOU).
+- **Use High-Level Synchronization Primitives**: Where possible, use high-level synchronization constructs provided by your programming environment or framework. These constructs are usually well-tested and less prone to errors compared to manual implementation of locks.
+- **Employ Transactional Memory**: Use transactional memory techniques that allow multiple operations to execute in a transaction-like manner. If the operations cannot be completed atomically, the transaction is rolled back.
+- **Code Review and Static Analysis**: Regularly conduct code reviews with a focus on identifying potential race conditions. Utilize static analysis tools to automatically detect race condition vulnerabilities in the codebase.
+- **Leverage Hardware Features**: Take advantage of hardware features that support synchronization, such as memory barriers and atomic instructions, to enforce proper ordering of operations.
+- **Design for Idempotency**: Design critical operations to be idempotent, meaning that applying the operation multiple times has the same effect as applying it once. This can help mitigate the impact of unintended repeated operations due to race conditions.
+- **Conduct Penetration Testing**: Regularly perform penetration testing to identify and mitigate race condition vulnerabilities. Simulate attacks to see how the system handles concurrent access and correct any issues found.`,
+            },
+
+            {
+                title: "Importance",
+                content:
+                    "Race conditions represent a critical challenge in software development, particularly in concurrent and distributed systems. By understanding the different types of race conditions—single-endpoint, hidden multi-step sequences, and multi-endpoint race conditions—developers can better anticipate and address potential vulnerabilities in their applications. The practical examples and strategies provided in this blog highlight the importance of implementing robust synchronization mechanisms, maintaining data consistency, and conducting thorough testing. As systems become increasingly complex and interconnected, proactive management of race conditions will be essential to ensuring the reliability, security, and integrity of software applications. Embracing best practices and continuous vigilance will help developers create resilient systems that can withstand the intricacies of concurrent processing and safeguard against potential threats.",
+            },
+        ],
+    },
+
+    {
+        id: 10,
+        title: "Introduction to Authentication",
+        tags: ["Authentication", "Web Security", "Database Security"],
+        level: "Beginner",
+        category: "Authentication",
+        desc: [
+            {
+                title: "Overview",
+                content: `Authentication is the process to verify the identity of the user accessing any service. 
+                \nAuthentication follows the \`KHA\` rule: \n1. Something you KNOW (e.g. password)\n2. Something you HAVE (mobile/security token)\n3. Something you ARE (biometrics). 
+                \nTo verify these factors, various methods are used.`,
+            },
+            {
+                title: "Common Question - Authentication vs Authorization",
+                content: `Authentication is the first step of the secure journey, focusing on verifying user identity. Authorization is the second step, checking for the rights or privileges that the verified user has. 
+###  For example
+Harry is an employee of XYZ company. At the main gate, he has to authenticate his identity using his RFID card or biometric method. Once verified, he can enter the office premises. However, access to various departments like the server room, developer office, etc., is checked via authorization.`,
+            },
+            {
+                title: "How Authentication Vulnerabilities Occur",
+                content: `Authentication vulnerabilities can arise mainly due to two wrong steps: 
+- Weaker Credentials making the system prone to brute-force attacks\n - Logic errors in the verification algorithm, sometimes called 'Broken Authentication'.`,
+            },
+            {
+                title: "How Authentication Vulnerabilities Affect Business",
+                content: `As the first step towards a secure journey, authentication is critical. Almost every internet-facing software and application uses various methods to verify user identity. 
+A logic flaw in the software can result in bypassing the method, giving hackers access to sensitive information. 
+### For example
+If an E-commerce site has a logic flaw in its login area, a hacker could access user data, leading to potential privilege escalation and significant impacts.`,
+            },
+            {
+                title: "Authentication Mechanisms and Their Vulnerabilities",
+                content: `
+## 1. Vulnerabilities in Password-based Authentication:
+
+Websites often use username and password combinations to authenticate users. If a hacker knows this combination, they can compromise the service.
+### \`Brute Forcing:\`
+
+Enumerating username and password using hit-and-trial can lead to success. Tools like Burp Suite for HTTP requests or ffuf/Hydra for other services can be used. 
+### \`\`\`How to brute force:\`\`\`
+- Turn on the proxy
+![turn_on_proxy](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721979126827.png)
+- Capture the request using Burp Suite.![Capture_the_request](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721979280162.png)
+- Send the request to Intruder and set the payload area.![Send_request_to_intruder](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721979394333.png)
+- Go to the payload option and set the payload.
+![Set_Payload](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721979451876.png)
+- Start the attack.![Start_Attack](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721979492526.png)    
+
+### \`\`\`Bypassing IP-based Rate Limiting:\`\`\` 
+\nUse the X-Forwarded-For header to change the perceived IP of the request. Apply a payload marker on the last octet to send multiple requests without getting blocked.
+![X-Forwarded-FOR](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721979546575.png)
+
+
+
+### \`\`\`Credential Stuffing\`\`\`
+\nUse breached username:password pairs to gain access to other websites, as users often reuse passwords.
+
+\n ## 2. Vulnerabilities in Multi-Factor Authentication (MFA):
+
+Multi-factor authentication uses multiple methods to verify user identity (e.g., Username+Password+OTP). However, this method can still be vulnerable.
+                            
+### \`\`\`Issues with Password + OTP via SMS/Email:\`\`\`
+\nSMS and email can be intercepted. SIM swapping can bypass this method. Tools like Google Authenticator improve security but can also be brute-forced if not properly implemented.
+                           
+### \`\`\`Example:\`\`\`
+\nInstagram allowed 250 requests per IP on their OTP page. An attacker could use multiple IPs and 250 payloads per IP to bypass the login.
+
+## 3. Vulnerabilities in Other Authentication Methods:
+### \`\`\`a. "Remember Me" feature:\`\`\`
+\nWebsites create a token to maintain the session, which may be easily guessable. An attacker can analyze and guess this information.
+### \n\`\`\`b. Password Reset:\`\`\`
+\nExamine methods used for password reset, such as temporary passwords or reset links, which may expose sensitive information.
+### \n\`\`\`Note:\`\`\`
+URL parameters can sometimes expose user information or token details
+\`\`\`javascript
+https://dev.thecyberhub.org/reset-password?username=ABC
+\`\`\``,
+            },
+            {
+                title: "Mitigation:",
+                content: `- No disclosure of sensitive information: Encrypt user credentials and important data.\n - Implement effective password policy: Ensure strong passwords during registration.\n - Implement IP-based rate limiting: Prevent bypassing by using robust rate limiting techniques.\n - Use generic error messages: Avoid giving specific error messages that aid brute-forcing.\n - Check verification logic: Remove logic flaws in password verification and other mechanisms.\n - Implement proper MFA: Ensure MFA is implemented correctly to provide additional security layers.`,
+            },
+            {
+                title: "Importance of Proper Authetication:",
+                content: `Authentication is the first critical step in securing any application. As attackers become more sophisticated, developers must also enhance their security measures. Implementing robust authentication mechanisms is essential to protect user data and maintain system integrity.`,
+            },
+        ],
+    },
+
+    {
+        id: 11,
+        title: "Introduction to Information Disclosure Vulnerability",
+        tags: ["Information Disclosure", "Web Security", "Database Security"],
+        level: "Beginner",
+        category: "Information Disclosure",
+        desc: [
+            {
+                title: "What is Information Disclosure Vulnerability?",
+                content:
+                    "As the name suggests, this vulnerability involves websites unintentionally disclosing sensitive information to unauthorized users. Information can include technical data, business-related information, or personal details of users. Among these, technical information can be the most fatal as it can be the first step towards a major attack. An attacker can note technical leaks and modify their attack strategy accordingly.",
+            },
+            {
+                title: "Examples",
+                content:
+                    "Examples of information disclosure include backend technology-related information in error messages, leaks about hidden directories in robots.txt, and hardcoded credentials or comments in source code.",
+            },
+            {
+                title: "How this Vulnerability Comes into Action",
+                content:
+                    "1. Developers forget to remove comments from code before pushing it to production.\n2. Poorly designed code gives different responses for different errors.\n3. Insecure configuration.",
+            },
+            {
+                title: "Impact of this Vulnerability",
+                content:
+                    "The impact of this vulnerability can vary. For example, a blog website showing server information is less fatal, whereas a shopping site leaking credit card details is extremely serious.",
+            },
+            {
+                title: "How to Categorize the Severity of this Vulnerability",
+                content:
+                    "The severity depends on the common sense of the attacker. It's like a hint given by the website, and it's up to the attacker what exploit they can derive from that information.",
+            },
+            {
+                title: "Finding Information Disclosure Vulnerability",
+                content:
+                    "The key to finding this vulnerability is paying close attention to the information received during testing.",
+            },
+            {
+                title: "Example",
+                content:
+                    "On a web page, information related to version can be found.![content_info](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721980064424.png) This information can be used to find exploits for this version on Exploit-DB. For instance, if a website reveals it uses MySQL version 8.0, this version information can be useful for finding specific exploits.![exploit_db](https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/production/notes/1721980155270.png)",
+            },
+            {
+                title: "Tools and Techniques to Discover this Vulnerability",
+                content: `## 1. FUZZING: 
+If you find any parameter expecting user input in your application, try adding fuzzy strings and observe the application's behavior. 
+### For example, 
+
+\`\`\`javascript
+GET /product?productId=1
+\`\`\`
+Suppose you capture a request. This request is sending a parameter (productid=1) which will fetch the details from the DB of product having ID = 1. 
+
+Now, if you fill anything else in this which is out of scope for the query this will throw an error 
+
+\`\`\`javascript
+Error - Product ID not found
+MySQL version 8.0
+\`\`\`
+
+## 2. Burp Suite Scanner: 
+Burp Suite Professional's Scanner feature can crawl the website and provide information on any leaks.`,
+            },
+            {
+                title: "Some Common Sources to Observe",
+                content:
+                    "1. Insecure Configuration: Leaving default credentials can be risky.\n2. Logic Flaw: Poorly implemented features can lead to significant breaches.\n3. Developer Comments: Comments left in the source code during development can be devastating if pushed to production.\n4. Error Messages: Technology error messages can provide version or other useful information.\n5. Version Control History: Searching for old source code in the “/.git” directory can be beneficial.",
+            },
+            {
+                title: "Mitigations",
+                content:
+                    "1. Never trust your user; provide minimal data necessary for the task.\n2. Never display error messages on the front end; use generic messages.\n3. Do not leave any comments/passkeys/hardcoded secrets in the code.\n4. Double-check for logic flaws.",
             },
         ],
     },

@@ -10,9 +10,9 @@ const initialState = {
 };
 
 // Fetch comments for a blog
-export const getBlogComments = createAsyncThunk("comments/fetchComments", async (_, thunkAPI) => {
+export const getBlogComments = createAsyncThunk("comments/fetchComments", async (blogId, thunkAPI) => {
     try {
-        return await blogCommentService.getComments();
+        return await blogCommentService.getComments(blogId);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -88,7 +88,7 @@ const commentSlice = createSlice({
             .addCase(addBlogComment.fulfilled, (state, action) => {
                 state.isBlogCommentLoading = false;
                 state.isBlogCommentSuccess = true;
-                state.blogComments = [...state.blogComments, action.payload];
+                state.blogComments = state.blogComments ? [...state.blogComments, action.payload] : [action.payload];
             })
             .addCase(addBlogComment.rejected, (state, action) => {
                 state.isBlogCommentLoading = false;

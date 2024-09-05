@@ -41,8 +41,8 @@ export const FilterButton = styled.button`
         border-bottom-right-radius: 7px;
     }
 
-    transition: all 0.3s ease;
     border: 1px solid #1e1e1e;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
         background: #ff6800;

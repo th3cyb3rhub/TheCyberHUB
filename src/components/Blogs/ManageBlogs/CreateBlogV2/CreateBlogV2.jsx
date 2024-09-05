@@ -27,21 +27,21 @@ import { LoadingButton } from "src/components/Other/MixComponents/Buttons/Button
 import { Option, Select } from "src/components/CaptureTheFlag/CTFElements";
 import { ImageInput, useUploadImages } from "src/components/Common/ImageUpload";
 
-const maxImageSizeByte = 1000000;
+const MAX_IMAGE_SIZE_BYTES = 1048576;
 const CreateBlogV2 = () => {
     const {
         images,
-        setImages,
         imagesName,
-        setImagesName,
         onImageChange,
         onImageFromContentSubmit,
         onImageSubmit,
         onImageDrop,
         onImageDragOver,
+        onResetImages,
     } = useUploadImages({
-        maxImageSizeByte,
+        maxImageSizeByte: MAX_IMAGE_SIZE_BYTES,
         pageName: "blog",
+        requiredImageWidth: 1280,
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -63,14 +63,14 @@ const CreateBlogV2 = () => {
     const [category, setCategory] = useState("Blog");
     const [tags, setTags] = useState([]);
 
-    const maxCharacterCount = 10000;
+    const MAX_CHARACTER_COUNT = 10000;
 
-    const [remainingCharacters, setRemainingCharacters] = useState(maxCharacterCount);
+    const [remainingCharacters, setRemainingCharacters] = useState(MAX_CHARACTER_COUNT);
 
     useEffect(() => {
         const filteredContentLength = content.replace(/<img src="data:image[^>]*>/g, "").length;
-        setRemainingCharacters(maxCharacterCount - filteredContentLength);
-    }, [content, maxCharacterCount]);
+        setRemainingCharacters(MAX_CHARACTER_COUNT - filteredContentLength);
+    }, [content, MAX_CHARACTER_COUNT]);
 
     useEffect(() => {
         if (isBlogError || errorMessage) {
@@ -154,10 +154,9 @@ const CreateBlogV2 = () => {
             setTitle("");
             setSummary("");
             setContent("");
-            setImagesName("");
             setCategory("");
             setTags([]);
-            setImages("");
+            onResetImages();
         }
     };
 
@@ -226,12 +225,13 @@ const CreateBlogV2 = () => {
                                 onChange={(ev) => setCategory(ev.target.value)}
                             >
                                 <Option value="Blog">Blog</Option>
-                                <Option value="CTF Walkthrough">CTF Walkthrough</Option>
-                                <Option value="Bug Hunting WriteUp">Bug Hunting WriteUp</Option>
-                                <Option value="Tools Walkthrough">Tools Walkthrough</Option>
-                                <Option value="Tips & Tricks">Tips & Tricks</Option>
                                 <Option value="News">News</Option>
-                                <Option value="Others">Others</Option>
+                                <Option value="Bug Hunting">Bug Hunting</Option>
+                                <Option value="CTF">CTF</Option>
+                                <Option value="ReconTools">ReconTools</Option>
+                                <Option value="Dark Web">Dark Web</Option>
+                                <Option value="Other">Other</Option>
+                                <Option value="Security">Security</Option>
                             </Select>
                         </CategorySection>
 

@@ -15,6 +15,11 @@
         }
     },
     "plugins": ["react", "no-relative-import-paths"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "rules": {
         "react/prop-types": "off",
         "no-relative-import-paths/no-relative-import-paths": [

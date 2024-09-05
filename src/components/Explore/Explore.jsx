@@ -5,14 +5,12 @@ import { ExploreContainer, LeftContainer, RightContainer } from "./ExploreElemen
 
 import { useDispatch, useSelector } from "react-redux";
 import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
-import { getAllCTFs } from "src/features/ctf/ctfSlice";
 import { blogReset, getAllBlogs } from "src/features/blogs/blogSlice";
 import { getAllUserDetails, userDetailReset } from "src/features/userDetail/userDetailSlice";
 import { feedReset, getAllFeeds } from "src/features/feeds/feedsSlice";
 import Users from "./Users/Users";
 import FeedsExplore from "./FeedsExplore";
 import BlogCards from "src/components/Blogs/BlogCard/BlogCards";
-import CtfChallenges from "src/components/CaptureTheFlag/CTFCards/CtfChallenges";
 import apiStatus from "src/features/apiStatus";
 import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner";
@@ -91,7 +89,6 @@ const Explore = () => {
     const { isUserDetailLoading } = useSelector((state) => state.userDetail);
     const { feeds, isFeedLoading } = useSelector((state) => state.feeds);
     const { blogs, isBlogLoading } = useSelector((state) => state.blogs);
-    const { ctf, isCtfLoading } = useSelector((state) => state.ctf);
     const { connections } = useSelector((state) => state.connectionData);
     const [userDetailsLocal, setUserDetailsLocal] = useState([]);
     const userId = user?._id;
@@ -111,7 +108,6 @@ const Explore = () => {
         });
         dispatch(getAllFeeds());
         dispatch(getAllBlogs());
-        dispatch(getAllCTFs());
 
         if (userId) {
             dispatch(getFollowData(userId));
@@ -130,11 +126,10 @@ const Explore = () => {
     }, [connections]);
 
     const blogTags = blogs?.map((blog) => blog && blog?.tags.map((tag) => tag.toLowerCase())).flat() || [];
-    const ctfTags = ctf?.map((ctf) => ctf && ctf?.tags.map((tag) => tag.toLowerCase())).flat() || [];
     const feedTags = feeds?.map((feed) => feed && feed?.tags.map((tag) => tag.toLowerCase())).flat() || [];
     // const forumTags = forums.map((forum) => forum && forum.tags).flat() || [];
 
-    const tags = [...new Set([...feedTags, ...blogTags, ...ctfTags])].sort();
+    const tags = [...new Set([...feedTags, ...blogTags])].sort();
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedTags, setSelectedTags] = useState([]);
@@ -148,7 +143,6 @@ const Explore = () => {
         { value: "all", label: "ALL" },
         { value: "users", label: "Users" },
         { value: "blogs", label: "Blogs" },
-        { value: "ctf", label: "CTF" },
         { value: "feeds", label: "Feeds" },
     ];
 
@@ -188,9 +182,6 @@ const Explore = () => {
         ?.slice(0, 10)
         .reverse();
 
-    const filteredCtf =
-        ctf?.filter((ctf) => ctf?.registeredUsers.find(({ user }) => selectedFilter?.includes(user))) || [];
-
     const filteredUsers = userDetailsLocal
         ?.filter((user) => selectedFilter?.includes(user?.user))
         .reverse()
@@ -215,12 +206,11 @@ const Explore = () => {
     ];
 
     const renderNotFoundComponents = () => {
-        const dataTypes = ["Users", "Feeds", "Blogs", "Ctfs"];
+        const dataTypes = ["Users", "Feeds", "Blogs"];
         const filteredData = {
             Users: filteredUsers,
             Feeds: filteredFeeds,
             Blogs: filteredBlogs,
-            Ctfs: filteredCtf,
         };
         const missingDataTypes = dataTypes.filter((type) => !filteredData[type].length);
 
@@ -237,7 +227,7 @@ const Explore = () => {
         return null;
     };
 
-    if (isApiLoading || isCtfLoading) return <LoadingSpinner />;
+    if (isApiLoading) return <LoadingSpinner />;
 
     if (!isApiWorking) return <UnderMaintenance />;
 
@@ -292,15 +282,6 @@ const Explore = () => {
                                     selectedTags={selectedTags}
                                 />
                             ) : null}
-                            {filteredCtf?.length ? (
-                                <CtfChallenges
-                                    ctf={filteredCtf}
-                                    isCtfLoading={isCtfLoading}
-                                    searchTerm={searchTerm}
-                                    displayAt={"explore"}
-                                    selectedTags={selectedTags}
-                                />
-                            ) : null}
                             {renderNotFoundComponents()}
                         </>
                     ) : (
@@ -330,16 +311,6 @@ const Explore = () => {
                                     searchTerm={searchTerm}
                                     selectedTags={selectedTags}
                                     displayAt={"explore"}
-                                />
-                            ) : null}
-
-                            {selectedType === "ctf" ? (
-                                <CtfChallenges
-                                    ctf={filteredCtf}
-                                    isCtfLoading={isCtfLoading}
-                                    searchTerm={searchTerm}
-                                    displayAt={"explore"}
-                                    selectedTags={selectedTags}
                                 />
                             ) : null}
                         </>

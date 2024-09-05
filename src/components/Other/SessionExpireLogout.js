@@ -28,12 +28,12 @@ const SessionExpireLogout = () => {
         dispatch(userReset());
         toast.warn("Your session has expired. Please login again to continue.", {
             position: "top-center",
-            autoClose: false,
+            autoClose: true,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
-            progress: undefined,
+            progress: true,
         });
     };
 

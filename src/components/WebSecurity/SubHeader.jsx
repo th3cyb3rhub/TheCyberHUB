@@ -1,4 +1,3 @@
-// In SubHeader.js
 import React from "react";
 import {
     Nav,
@@ -9,7 +8,7 @@ import {
     DropdownTitle,
     DropdownUl,
     DropdownLink,
-} from "./Common/SubHeaderElements"; // Make sure to provide the correct path
+} from "./Common/SubHeaderElements";
 import { useLocation } from "react-router-dom";
 
 const SubHeader = (props) => {

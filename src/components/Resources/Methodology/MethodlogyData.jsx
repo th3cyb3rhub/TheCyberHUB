@@ -212,7 +212,7 @@ export const MethodologyData = [
                             "Validate that the application’s security posture is improved.",
                             "Provide confidence in remediation efforts.",
                         ],
-                        Tools: ["Burp Suite", "Retest Tools"],
+                        Tools: ["Burp Suite", "Retest ReconTools"],
                     },
                 ],
             },

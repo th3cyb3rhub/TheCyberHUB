@@ -102,9 +102,9 @@ export const DropdownItem = styled.h2`
     text-align: start;
     font-size: 1.5rem;
     font-family: "Fira Code", monospace;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
-        transition: all 0.2s ease-in-out;
         transform: scale(1.01);
         border-bottom: 3px solid #ff6b08;
     }

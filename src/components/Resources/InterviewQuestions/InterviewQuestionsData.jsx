@@ -376,7 +376,7 @@ In this case, it's important to notify affected parties and consider implementin
     },
     {
         id: 5,
-        title: "Tools and Games",
+        title: "ReconTools and Games",
         level: "Beginner",
         desc: "Step by step guide to learn Cyber Security",
         details: [

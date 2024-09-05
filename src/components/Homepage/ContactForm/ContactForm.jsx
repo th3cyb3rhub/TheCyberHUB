@@ -33,7 +33,9 @@ import { validateEmail } from "src/utils/validateEmail.js";
 import apiStatus from "src/features/apiStatus";
 import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
-import { volunteerPrograms } from "src/components/Opportunities/Volunteer/VolunteerData";
+// import { volunteerPrograms } from "src/components/Opportunities/Volunteer/VolunteerData";
+import { RedirectLink } from "src/components/Learn/Roadmaps/RoadmapElements.jsx";
+import { DiscordButtonIcon } from "src/components/Other/Community/CommunityElements.jsx";
 
 const ContactForm = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -66,6 +68,7 @@ const ContactForm = () => {
             toast.error("Please fill all the fields");
         }
         toast(error || error2);
+
         InternshipProgramData.some(({ applicationOpenDate, applicationCloseDate, internshipStartTime }) => {
             const currentDate = new Date().toISOString();
 
@@ -100,10 +103,12 @@ const ContactForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         setIsLoading(false);
         setError(false);
         setError2(false);
         setIsSuccess(false);
+
         const filledFormData = {
             name,
             email,
@@ -119,21 +124,22 @@ const ContactForm = () => {
         // Validate email
         if (!validateEmail(email)) {
             setError("Please enter a valid email address");
-            return; // Stop the form submission
+            toast.error("Please enter a valid email address");
+            return;
         }
 
         if (name.length === 0) {
             setError("Please add your name");
+            toast.error("Please add your name");
         } else if (email.length === 0) {
             setError("Please add your email");
+            toast.error("Please add your email");
         } else if (reason.length === 0) {
             setError("Please select a reason");
-        } else if (reason === "internship" || reason === "volunteer") {
-            if (reasonType.length === 0) {
-                setError("Please include the resume link");
-            } else if (!resume.startsWith("http")) {
-                setError("please submit the correct link to your resume");
-            }
+            toast.error("Please select a reason");
+        } else if (reason === "internship" && !resume.startsWith("http")) {
+            setError("please submit the correct link to your resume");
+            toast.error("please submit the correct link to your resume");
         } else {
             setIsLoading(true);
             axios
@@ -298,6 +304,28 @@ const ContactForm = () => {
                             </Cover>
                         </>
                     )}
+                    {isOpened && reason === "internship" && (
+                        <>
+                            <Cover>
+                                <CoverLeft>
+                                    <CoverLeft style={{ maxWidth: "200px" }}>
+                                        <ContactFormLabel htmlFor="resume">
+                                            <DiscordButtonIcon size={16} />
+                                        </ContactFormLabel>
+                                        <RedirectLink
+                                            style={{ color: "white" }}
+                                            href={"https://discord.gg/thecyberworld-799183504759324672"}
+                                            target={"_blank"}
+                                        >
+                                            <u>Discord Link</u>
+                                        </RedirectLink>
+                                    </CoverLeft>
+                                    Make sure to join the discord server and submit your discord username in cover
+                                    letter.
+                                </CoverLeft>
+                            </Cover>
+                        </>
+                    )}
                     {!isOpened && reason === "internship" && (
                         <CoverLeft>
                             <ContactFormLabel htmlFor="reasonType">
@@ -313,60 +341,6 @@ const ContactForm = () => {
                                 onChange={handleChange}
                             />
                         </CoverLeft>
-                    )}
-                    {reason === "volunteer" && (
-                        <>
-                            <CoverLeft>
-                                <ContactFormLabel htmlFor="reasonType">
-                                    <InternshipIcon />
-                                </ContactFormLabel>
-                                <ContactFormSelect
-                                    name="reasonType"
-                                    id="reasonType"
-                                    value={formData.reasonType}
-                                    onChange={handleChange}
-                                >
-                                    <option value="">Select a Volunteer Program (remote/online)</option>
-                                    {volunteerPrograms.map((volunteerProgram, id) => (
-                                        <option value={volunteerProgram.volunteerFor} key={id}>
-                                            {volunteerProgram.volunteerFor}
-                                        </option>
-                                    ))}
-
-                                    <option value={"other"}>
-                                        Anything else you want to volunteer for (Please specify in the message)
-                                    </option>
-                                </ContactFormSelect>
-                            </CoverLeft>
-                            <CoverLeft>
-                                <ContactFormLabel htmlFor="isExperienced">
-                                    <ResumeIcon />
-                                </ContactFormLabel>
-                                <ContactFormInput
-                                    type="text"
-                                    name="isExperienced"
-                                    id="isExperienced"
-                                    value={formData.isExperienced}
-                                    onChange={handleChange}
-                                    placeholder={"Do you have any experience in this field? (Yes/No)"}
-                                />
-                            </CoverLeft>
-                            <CoverLeft>
-                                <ContactFormLabel htmlFor="resume">
-                                    <ResumeIcon />
-                                </ContactFormLabel>
-                                <ContactFormInput
-                                    type="text"
-                                    name="resume"
-                                    id="resume"
-                                    value={formData.resume}
-                                    onChange={handleChange}
-                                    placeholder={
-                                        "Resume link (You can upload in drive and make sure the link is accessible in incognito mode)"
-                                    }
-                                />
-                            </CoverLeft>
-                        </>
                     )}
                     {reason === "feedback" && (
                         <CoverLeft>
@@ -413,10 +387,11 @@ const ContactForm = () => {
                                     reason === "internship" || reason === "volunteer"
                                         ? `Cover Letter 
 
-Including: 
+Including (must share): 
 - Why u want to join this program
+- Discord Username
 - Share your previous work (links) / experience (if any) 
-- Must share your github, tryhackme and linkedin profile link (if any)
+- Your github, tryhackme and linkedin profile link (if any)
 `
                                         : "Message"
                                 }

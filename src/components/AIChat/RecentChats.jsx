@@ -1,12 +1,18 @@
 import React from "react";
-import { RecentChatsContainer, RecentChatsHeader, RecentChatsList } from "./RecentChatsElements";
+import { RecentChatsContainer, RecentChatsHeader, RecentChatsList, ToggleSection } from "./RecentChatsElements";
 import { TbMessage2Plus } from "react-icons/tb";
 import { ImCross } from "react-icons/im";
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
-const RecentChats = ({ chats, selectedChatId, setSelectedChatId, onNewChat, onDeleteChat }) => {
+const RecentChats = ({ chats, selectedChatId, setSelectedChatId, onNewChat, onDeleteChat, toggle, setToggle }) => {
     return (
         <RecentChatsContainer>
             <RecentChatsHeader>
+                {window.innerWidth <= 768 && (
+                    <ToggleSection onClick={() => setToggle(!toggle)}>
+                        {toggle ? <FaAngleRight /> : <FaAngleLeft />}
+                    </ToggleSection>
+                )}
                 <p>
                     TheCyberChat {"{"}AI{"}"}
                 </p>

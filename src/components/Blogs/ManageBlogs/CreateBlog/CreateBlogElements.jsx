@@ -64,9 +64,6 @@ export const Container = styled.div`
 export const Heading2 = styled.h2`
     color: #f5f5f5;
 `;
-export const ImageSelected = styled.p`
-    /* margin-left: 25px; */
-`;
 
 export const Form = styled.form`
     display: flex;
@@ -116,8 +113,6 @@ export const Input = styled.input`
 
     &:hover {
         background: transparent;
-
-        /* border: transparent; */
         color: #f5f5f5;
     }
 `;

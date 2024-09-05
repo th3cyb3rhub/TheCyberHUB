@@ -16,7 +16,7 @@ const CTF = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
-    const { ctf, isCtfLoading } = useSelector((state) => state.ctf);
+    const { ctfs, isCtfLoading } = useSelector((state) => state.ctfs);
     const { userDetail, isUserDetailLoading } = useSelector((state) => state.userDetail);
 
     useEffect(() => {
@@ -29,11 +29,11 @@ const CTF = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDifficulty, setSelectedDifficulty] = useState("all");
     const [selectedType, setSelectedType] = useState("all");
-    const [filteredCTFs, setFilteredCTFs] = useState(ctf);
+    const [filteredCTFs, setFilteredCTFs] = useState(ctfs);
 
     useEffect(() => {
-        const filteredCTFs = Array.isArray(ctf)
-            ? ctf.filter((challenge) => {
+        const filteredCTFs = Array.isArray(ctfs)
+            ? ctfs.filter((challenge) => {
                   const nameMatches = challenge?.challengeName?.toLowerCase().includes(searchTerm?.toLowerCase());
                   const difficultyMatches =
                       selectedDifficulty === "all" || challenge?.difficulty === selectedDifficulty;
@@ -42,7 +42,7 @@ const CTF = () => {
               })
             : [];
         setFilteredCTFs(filteredCTFs);
-    }, [ctf, searchTerm, selectedDifficulty, selectedType]);
+    }, [ctfs, searchTerm, selectedDifficulty, selectedType]);
 
     const handleSearchTermChange = (event) => {
         setSearchTerm(event.target.value);
@@ -134,7 +134,7 @@ const CTF = () => {
                     </RouteLink>
                 </SearchContainer>
 
-                <CtfChallenges ctf={filteredCTFs} userDetail={userDetail} user={user} />
+                <CtfChallenges ctfs={filteredCTFs} userDetail={userDetail} user={user} />
             </CTFContainer>
         </Wrapper>
     );

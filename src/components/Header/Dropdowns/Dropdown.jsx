@@ -48,11 +48,13 @@ export default function Dropdown({
 
     const resources = [
         // { title: "Cyber Security Complete Course", to: "/learning-path", desc: "Learn everything about Cyber Security" },
-        { title: "Methodology", to: "/resources/methodology", desc: "Master ethical hacking strategies" },
-        { title: "Checklist", to: "/resources/checklist", desc: "Secure your systems with our checklist" },
-        { title: "Payloads", to: "/resources/payloads", desc: "Learn about payloads (for educational purposes)" },
-        { title: "Tools", to: "/tools", desc: "Explore ethical hacking tools" },
         { title: "Roadmap", to: "/roadmaps", desc: "Chart your path to cybersecurity expertise" },
+        { title: "Methodology", to: "/resources/methodology", desc: "Master ethical hacking strategies" },
+        { title: "Checklist", to: "/resources/checklist", desc: "Find bugs in your systems with our checklist" },
+        { title: "Hacklist", to: "/resources/hacklist", desc: "Hacklist for your daily hacking activities" },
+        { title: "Cheatsheets", to: "/resources/cheatsheets", desc: "Cheatsheets for nerds" },
+        { title: "Payloads", to: "/resources/payloads", desc: "All about payloads" },
+        { title: "Tools", to: "/tools", desc: "Explore ethical hacking tools" },
         { title: "Interview Questions", to: "/interviewQuestions", desc: "Ace your cybersecurity interview" },
         { title: "Quiz", to: "/quiz", desc: "Challenge your cybersecurity knowledge" },
         { title: "Join our Community", to: "/community", desc: "Connect with fellow cybersecurity enthusiasts" },

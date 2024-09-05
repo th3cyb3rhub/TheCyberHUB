@@ -42,7 +42,7 @@ export default configureStore({
         blogLikes: blogLikeReduces,
 
         userDetail: userDetailReducer,
-        ctf: ctfReducer,
+        ctfs: ctfReducer,
         resetPassword: resetPasswordReducer,
         followData: followReducer,
         connectionData: connectionReducer,

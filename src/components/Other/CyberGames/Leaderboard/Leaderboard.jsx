@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, getUserDetail, userDetailReset } from "src/features/userDetail/userDetailSlice";
+import { getAllUserDetails, userDetailReset } from "src/features/userDetail/userDetailSlice";
 import {
     LeaderboardContainer,
     LeaderboardHeader,
@@ -25,16 +25,12 @@ import apiStatus from "src/features/apiStatus";
 
 const Leaderboard = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
-    const { user } = useSelector((state) => state.auth);
     const { userDetails, isLoading, isError, message } = useSelector((state) => state.userDetail);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (isError) {
             console.log(message);
-        }
-        if (user) {
-            dispatch(getUserDetail(user?.username));
         }
 
         dispatch(getAllUserDetails());
@@ -48,10 +44,10 @@ const Leaderboard = () => {
         dispatch(getAllUserDetails());
     };
 
-    if (isLoading || isApiLoading) {
+    if (isApiLoading || isLoading) {
         return (
             <Wrapper>
-                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isLoading || isApiLoading} />
+                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isApiLoading} />
             </Wrapper>
         );
     }

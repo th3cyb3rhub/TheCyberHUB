@@ -9,11 +9,11 @@ export const ContainerCard = styled.div`
     background: #111;
     justify-content: space-between;
     border-radius: 5px;
-    transition: transform 0.3s ease-in-out; /* Corrected property name */
+    transition: transform 0.3s ease-in-out;
     border: 1px solid #1f1f1f;
 
     &:hover {
-        transform: scale(1.03); /* Corrected property name */
+        transform: scale(1.03);
     }
 `;
 

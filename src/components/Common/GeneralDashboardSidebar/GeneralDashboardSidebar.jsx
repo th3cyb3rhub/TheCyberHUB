@@ -14,7 +14,7 @@ import {
 import { cdnContentImagesUrl } from "src/features/apiUrl";
 
 const GeneralDashboardSidebar = ({ userDetail, sidebarItems }) => {
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatar.png"));
 
     const [isOpen, setIsOpen] = useState(true);
 

@@ -48,8 +48,6 @@ const QuillContainer = styled(ReactQuill)`
         padding: 20px;
         background: #0c0c0c;
         font-size: 17px;
-
-        /* font-family: monospace; */
     }
 
     .ql-toolbar {

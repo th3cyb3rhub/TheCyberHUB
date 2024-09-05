@@ -46,7 +46,7 @@ export const volunteerPrograms = [
         volunteerFor: "Content Creator - Post",
         responsibilities: [
             "Create engaging written content for the community",
-            "Research and write articles, blog posts, or informative pieces",
+            "Research and write blogs, blog posts, or informative pieces",
             "Ensure content aligns with the community's interests and guidelines",
         ],
         requirements: [

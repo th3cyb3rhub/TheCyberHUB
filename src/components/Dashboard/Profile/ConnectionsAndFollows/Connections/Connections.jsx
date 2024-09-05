@@ -94,7 +94,7 @@ const Connections = () => {
             })) ||
         [];
 
-    const avatar = (userDetail) => cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+    const avatar = (userDetail) => cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatar.png"));
 
     return (
         <Wrapper>

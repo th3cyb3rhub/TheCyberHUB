@@ -12,8 +12,8 @@ const SidebarContainer = styled.div`
     top: 100px;
     height: 100%;
     width: 100%;
-    max-width: 400px;
-    min-width: 300px;
+    max-width: 350px;
+    min-width: 350px;
     background: #090909;
     color: #fff;
     padding: 20px;
@@ -34,6 +34,7 @@ const MainTitle = styled(Link)`
     border: 1px solid #3a3a3a;
     gap: 15px;
     transition: all 0.3s ease-in-out;
+    width: 100%;
 
     &:hover {
         background: #ff6b08;
@@ -115,6 +116,11 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                     display: "flex",
                     flexDirection: "column",
                     gap: "10px",
+
+                    alignItems: "flex-start",
+
+                    overflow: "auto",
+                    height: "70vh",
                 }}
             >
                 <div
@@ -122,13 +128,15 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                         display: "flex",
                         justifyContent: "center",
                         gap: "10px",
+                        textAlign: "center",
+                        alignItems: "center",
+                        width: "100%",
                     }}
                 >
                     <h3
                         style={{
                             color: "#ecf0f1",
                             fontSize: "20px",
-                            textAlign: "center",
                         }}
                     >
                         {sidebarHeader}
@@ -139,6 +147,7 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                         display: "flex",
                         flexDirection: "column",
                         gap: "10px",
+                        width: "100%",
                     }}
                 >
                     {onlyCat &&
@@ -170,7 +179,7 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
 
                 {topics.map((topic, index) =>
                     !onlyCat ? (
-                        <div key={topic.id}>
+                        <div key={index} style={{ width: "100%" }}>
                             <MainTitle
                                 to={`/websecurity/topic/${topic.id}`}
                                 onClick={() => toggleDropdown(index)}

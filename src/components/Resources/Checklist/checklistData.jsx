@@ -77,7 +77,7 @@ export const checklistData = [
                             "Understand the session management mechanism.",
                             "Identify potential vulnerabilities related to session handling.",
                         ],
-                        Tools: ["Browser Developer Tools", "Burp Suite"],
+                        Tools: ["Browser Developer ReconTools", "Burp Suite"],
                     },
                     {
                         Name: "Decode Cookies",
@@ -86,7 +86,7 @@ export const checklistData = [
                             "Understand the information stored in session cookies.",
                             "Identify potential security risks associated with cookie data.",
                         ],
-                        Tools: ["Base64 Decoder", "Online Tools"],
+                        Tools: ["Base64 Decoder", "Online ReconTools"],
                     },
                     // Add more subtopics here...
                 ],
@@ -137,7 +137,7 @@ export const checklistData = [
                             "Prevent unauthorized access to user profile images.",
                             "Ensure data privacy and user consent.",
                         ],
-                        Tools: ["Browser Developer Tools", "URL Analysis Tools"],
+                        Tools: ["Browser Developer ReconTools", "URL Analysis ReconTools"],
                     },
                     // Add more subtopics here...
                 ],

@@ -17,10 +17,8 @@ export const ImageUploadLabel = styled.label`
     }
 `;
 export const AddImage = styled(FcAddImage)`
-    font-size: 25px; /* font-size: 200%; */
+    font-size: 25px;
     cursor: pointer;
-
-    /* margin-right: 10px; */
 `;
 export const ImageContainer = styled.div`
     position: relative;
@@ -29,7 +27,7 @@ export const ImageContainer = styled.div`
 `;
 export const PreviewImage = styled.img`
     width: 100%;
-    height: 100px; /* Set a fixed height or adjust as needed */
+    height: 100px;
     object-fit: cover;
     border-radius: 5px;
     cursor: pointer;
@@ -62,6 +60,6 @@ export const RemoveButton = styled.button`
 `;
 export const ImagesContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust column width */
-    grid-gap: 10px; /* Adjust gap between images */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-gap: 10px;
 `;

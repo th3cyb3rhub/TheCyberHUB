@@ -66,7 +66,7 @@ export const NoteItemPinningContainer = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
-    display: ${(props) => (props?.isPinned ? "block" : "none")};
+    display: ${(props) => (props?.$isPinned ? "block" : "none")};
 `;
 export const NoteItemElementContainer = styled.div`
     position: relative;

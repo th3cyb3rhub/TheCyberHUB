@@ -10,7 +10,7 @@ const ChatMessage = ({ userDetails, message, sender, recipient, image, user, isO
         return null;
     }
 
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatar.png"));
 
     return (
         <MessageContainer isOur={isOur}>

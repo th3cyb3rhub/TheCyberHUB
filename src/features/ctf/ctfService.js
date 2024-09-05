@@ -12,6 +12,15 @@ const getAllCTFs = async () => {
     }
 };
 
+const getCTF = async (title) => {
+    try {
+        const response = await axios.get(API_URL + "/" + title);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.error);
+    }
+};
+
 // Create new CTF challenge
 const createCTF = async (token, ctfData) => {
     const config = {
@@ -58,6 +67,7 @@ const updateLikesAndViews = async (token, ctfId, view, like) => {
 
 const ctfService = {
     getAllCTFs,
+    getCTF,
     createCTF,
     registerCTF,
     updateLikesAndViews,

@@ -169,7 +169,7 @@ const ChatBox = () => {
         setIsOpen(!isOpen);
     };
 
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatar.png"));
 
     if (isApiLoading) {
         return;

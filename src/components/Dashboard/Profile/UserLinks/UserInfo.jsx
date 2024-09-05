@@ -7,7 +7,7 @@ import { UserInfoContainer } from "./UserLinksElements";
 const UserInfo = ({ children, heightSize, widthSize, fontSizeName, fontSizeUsername, avatarPath }) => {
     const avatar = avatarPath
         ? cdnContentImagesUrl(avatarPath)
-        : cdnContentImagesUrl("/user/" + (children?.avatar || "avatarDummy.png"));
+        : cdnContentImagesUrl("/user/" + (children?.avatar || "avatar.png"));
 
     const measurements = { height: heightSize || "200px", width: widthSize || "200px" };
 

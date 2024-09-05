@@ -35,6 +35,13 @@ export const RecentChatsContainer = styled.div`
     p {
         text-align: center;
     }
+
+    @media (width <= 48rem) {
+        position: absolute;
+        max-width: 1000px;
+        min-width: 0;
+        height: 100%;
+    }
 `;
 
 export const RecentChatsHeader = styled.div`
@@ -43,7 +50,6 @@ export const RecentChatsHeader = styled.div`
     align-items: center;
     height: 100%;
     max-height: 100px;
-    padding: 0 0 0 10px;
     border-bottom: 1px solid rgb(70 70 70 / 75%);
 
     p {
@@ -115,4 +121,8 @@ export const RecentChatsList = styled.ul`
             transform: scale3d(1.1, 1.1, 1.1);
         }
     }
+`;
+
+export const ToggleSection = styled.p`
+    z-index: -1;
 `;

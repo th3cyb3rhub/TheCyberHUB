@@ -51,14 +51,8 @@ const getFeeds = async (token) => {
     return response.data;
 };
 
-const getFeedLineage = async (feedId, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
-    const response = await axios.get(API_URL + feedId, config);
+const getFeedLineage = async (feedId) => {
+    const response = await axios.get(API_URL + feedId);
     return response.data;
 };
 

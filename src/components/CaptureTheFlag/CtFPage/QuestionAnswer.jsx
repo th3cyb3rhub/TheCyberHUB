@@ -7,10 +7,6 @@ import Submission from "./Submission";
 export default function QuestionAnswer(props) {
     const challenge = props.challenge;
     const user = props.user;
-    const setIsCompleted = props.setIsCompleted;
-    const setIsCertExisted = props.setIsCertExisted;
-    const isUserDetailLoading = props.isUserDetailLoading;
-    const userDetail = props.userDetail;
     return (
         <div>
             <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: "5px" }}>
@@ -34,10 +30,8 @@ export default function QuestionAnswer(props) {
                 ctfId={challenge?._id}
                 flags={challenge?.flags}
                 user={user}
-                setIsCompleted={setIsCompleted}
-                setIsCertExisted={setIsCertExisted}
-                userDetailIsLoading={isUserDetailLoading}
-                userDetail={userDetail}
+                setIsCompleted={true}
+                setIsCertExisted={true}
             />
         </div>
     );

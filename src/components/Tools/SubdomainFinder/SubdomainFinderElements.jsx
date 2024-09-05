@@ -27,6 +27,8 @@ export const Form = styled.form`
     justify-content: center;
     gap: 1rem;
     align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
 
     @media (width <= 768px) {
         flex-direction: column;
@@ -52,8 +54,8 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-    padding: 0.5rem 1rem;
-    font-size: 1.3rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 1rem;
     font-weight: 525;
     background-color: orange;
     color: #131313;
@@ -98,22 +100,23 @@ export const SubdomainList = styled.ul`
     }
 `;
 
-export const SubdomainItem = styled.li`
-    font-size: 17px;
+export const SubdomainItem = styled.ul`
+    font-size: 12px;
+`;
+
+export const SubdomainLink = styled.a`
+    font-size: 12px;
     line-height: 1.5;
     word-wrap: normal;
     word-break: break-all;
 
     /* color: #f5f5f5; */
-    color: #07b6f6;
+    color: #f5f5f5;
 
     @media (width <= 768px) {
         font-size: 20px;
     }
-`;
 
-export const SubdomainLink = styled.a`
-    color: #f5f5f5;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
 
@@ -157,18 +160,18 @@ export const DownloadButton = styled(CgSoftwareDownload)`
 `;
 
 export const SubdomainFinderSpinner = styled.div`
-    margin: 50px 0;
+    margin: 50px;
+    padding: 50px;
     width: 100%;
-    max-width: 1000px;
     justify-content: center;
     align-items: center;
     position: relative;
     background: #090909;
+    color: antiquewhite;
     border: 1px solid #1a1c1d;
     box-shadow: 0 0 100px 0 rgb(40 110 157 / 20%);
     backdrop-filter: blur(4px);
     border-radius: 10px;
-    padding: 25px 50px 50px;
 
     @media (width <= 768px) {
         padding: 20px;

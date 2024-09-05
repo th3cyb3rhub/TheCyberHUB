@@ -9,7 +9,7 @@ const CtfRoute = () => {
     return (
         <Routes>
             <Route index element={<CTF />} />
-            <Route path={":type/:difficulty/:ctfId"} element={<MainPage />} />
+            <Route path={":ctfId"} element={<MainPage />} />
             <Route path={"create"} element={<CreateCTF />} />
             <Route path={"teams"} element={<Team />} />
 

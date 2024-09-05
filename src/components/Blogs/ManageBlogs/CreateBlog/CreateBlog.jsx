@@ -8,7 +8,6 @@ import {
     AddCoverImageSection,
     AddImage,
     CreateBlogContainer,
-    ImageSelected,
     ImageUploadAndPreviewSection,
     ImageUploadLabel,
     TextGrey,
@@ -146,9 +145,9 @@ const CreateBlog = () => {
                             {!fileName ? (
                                 <> Add Cover Image </>
                             ) : (
-                                !preview && !fileName && <ImageSelected> Please select an image </ImageSelected>
+                                !preview && !fileName && <p> Please select an image </p>
                             )}
-                            <ImageSelected> {file && <p>{fileName.slice(0, 20)}..</p>} </ImageSelected>
+                            <p> {file && <p>{fileName.slice(0, 20)}..</p>} </p>
                         </ImageUploadLabel>
                         <input
                             type="file"

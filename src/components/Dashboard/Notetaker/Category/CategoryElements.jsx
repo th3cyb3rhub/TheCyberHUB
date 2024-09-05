@@ -1,10 +1,47 @@
 import styled from "styled-components";
 
+export const FunctionalityContainer = styled.div`
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: absolute;
+    bottom: 1px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+`;
+export const MultiSelectContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: ${({ $showDeleteAll }) => ($showDeleteAll ? "#10a010" : "orange")};
+    width: 125px;
+    cursor: pointer;
+`;
+export const ToggleButton = styled.button`
+    color: ${({ $showDeleteAll }) => ($showDeleteAll ? "#10a010" : "orange")};
+    margin-top: auto;
+
+    /* Push the button to the bottom */
+`;
+
+export const DeleteCategoryContainer = styled.div`
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+`;
+export const DeleteCategorySpan = styled.span`
+    margin-right: 5px;
+    color: orange;
+`;
+
 export const CategoriesSidebarContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 250px;
+    position: relative;
 
     @media screen and (width <= 800px) {
         width: 35%;
@@ -62,7 +99,10 @@ export const CategoryItemElementContainer = styled.div`
 `;
 
 export const CategoryItemElement = styled.li`
+    display: flex;
+    flex-direction: row;
     position: relative;
+    align-items: center;
     width: 100%;
     padding: 10px;
     gap: 5px;
@@ -160,4 +200,13 @@ export const CategoryMenuButtonLabel = styled.label`
 `;
 export const CategoryCreateContainer = styled.div`
     padding: 7px;
+`;
+
+export const CategoryItemElementChecked = styled.div`
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: ${({ $isSelected }) => ($isSelected ? "2px solid #8f6143" : "2px solid #efefef")};
+    background-color: ${({ $isSelected }) => $isSelected && "#ff6b08"};
+    box-shadow: ${({ $isSelected }) => $isSelected && " 0px 0px 10px #ff6b08"};
 `;

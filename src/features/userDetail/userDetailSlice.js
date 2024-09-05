@@ -56,10 +56,10 @@ export const deleteUserDetail = createAsyncThunk("userDetail/delete", async (id,
     }
 });
 
-export const updateUserDetail = createAsyncThunk("userDetail/update", async ({ id, userData }, thunkAPI) => {
+export const updateUserDetail = createAsyncThunk("userDetail/update", async ({ userData }, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await userDetailService.updateUserDetail(id, userData, token);
+        return await userDetailService.updateUserDetail(userData, token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

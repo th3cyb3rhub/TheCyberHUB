@@ -25,8 +25,6 @@ export const TagsContainer = styled.div`
 
 export const AllTags = styled.div`
     display: flex;
-
-    /* font-size: 150%; */
     flex-wrap: wrap;
     word-wrap: break-word;
 

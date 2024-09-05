@@ -1,64 +1,65 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { payloadsData } from "src/components/Resources/Payloads/payloadsData.jsx";
 import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements.jsx";
 import SyntaxHighlight from "src/components/WebSecurity/Common/SyntaxHighlight.jsx";
-
-const Sidebar = styled.div`
-    display: flex;
-    align-content: center;
-    flex-direction: column;
-    flex: 0 0 20%;
-    background: #171616;
-    padding: 25px;
-    height: fit-content;
-    border-radius: 10px;
-    gap: 10px;
-`;
-
-const PayloadsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 1500px;
-    gap: 25px;
-`;
-
-const SidebarItem = styled.li`
-    padding: 5px 10px;
-    background-color: ${({ isSelected }) => (isSelected ? "#3a3939" : "#252424")};
-    border-radius: 5px;
-    cursor: pointer;
-`;
-
-const PayloadGroup = styled.div`
-    margin-bottom: 20px;
-`;
-
-const PayloadTitle = styled.h2`
-    margin-bottom: 10px;
-`;
-
-const PayloadList = styled.ul`
-    list-style-type: none;
-    padding: 0;
-`;
+import {
+    CopyAllButton,
+    CopyButton,
+    MainContent,
+    PayloadGroup,
+    PayloadList,
+    PayloadsContainer,
+    PayloadTitle,
+    Sidebar,
+    SidebarItem,
+    StyledToastContainer,
+} from "src/components/Resources/Payloads/PayloadsElements.jsx";
 
 const Payloads = () => {
     const [selectedCategory, setSelectedCategory] = useState(payloadsData[0].vulnerabilityType);
     const [showAllPayloads, setShowAllPayloads] = useState(false);
 
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+            toast.dark("Copied to clipboard!", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        });
+    };
+
+    const copyAllPayloads = () => {
+        let payloadsToCopy;
+        if (showAllPayloads) {
+            payloadsToCopy = payloadsData.flatMap((group) => group.payloads);
+        } else {
+            const selectedGroup = payloadsData.find((group) => group.vulnerabilityType === selectedCategory);
+            payloadsToCopy = selectedGroup ? selectedGroup.payloads : [];
+        }
+        const allPayloads = payloadsToCopy.join("\n");
+        copyToClipboard(allPayloads);
+    };
+
+    console.log(selectedCategory);
+
     return (
         <Wrapper>
             <PayloadsContainer>
                 <Sidebar>
-                    <h2>Categories:</h2>
+                    <h1 style={{ color: "#e0e0e0" }}>Payloads</h1>
                     <ul
                         style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: "10px",
+                            gap: "5px",
+                            padding: 0,
                         }}
                     >
                         {payloadsData.map((payloadGroup, index) => (
@@ -71,11 +72,16 @@ const Payloads = () => {
                             </SidebarItem>
                         ))}
                     </ul>
+
                     <button onClick={() => setShowAllPayloads(!showAllPayloads)}>
-                        {showAllPayloads ? "Show Selected Category" : "Show All Payloads"}
+                        {showAllPayloads ? "Show Categories" : "Show All Payloads"}
                     </button>
                 </Sidebar>
-                <div>
+                <MainContent>
+                    <CopyAllButton onClick={copyAllPayloads}>
+                        Copy {showAllPayloads ? "All" : selectedCategory || "all"} Payloads
+                    </CopyAllButton>
+
                     {payloadsData.map(
                         (payloadGroup, index) =>
                             (showAllPayloads || selectedCategory === payloadGroup.vulnerabilityType) && (
@@ -83,19 +89,30 @@ const Payloads = () => {
                                     <PayloadTitle>{payloadGroup.vulnerabilityType} Payloads:</PayloadTitle>
                                     <PayloadList>
                                         {payloadGroup.payloads.map((payload, payloadIndex) => (
-                                            <div key={payloadIndex}>
+                                            <div
+                                                key={payloadIndex}
+                                                style={{
+                                                    position: "relative",
+                                                    alignItems: "center",
+                                                    gap: "10px",
+                                                }}
+                                            >
                                                 <SyntaxHighlight language={payloadGroup.language} code={payload} />
-                                                {/* <PayloadItem key={`payload${index}${payloadIndex}`}> */}
-                                                {/*    {payload} */}
-                                                {/* </PayloadItem> */}
+                                                <CopyButton
+                                                    onClick={() => copyToClipboard(payload)}
+                                                    style={{ position: "absolute", top: "5px", right: "5px" }}
+                                                >
+                                                    Copy
+                                                </CopyButton>
                                             </div>
                                         ))}
                                     </PayloadList>
                                 </PayloadGroup>
                             ),
                     )}
-                </div>
+                </MainContent>
             </PayloadsContainer>
+            <StyledToastContainer />
         </Wrapper>
     );
 };

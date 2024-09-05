@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 import {
     CategoryItemElement,
+    CategoryItemElementChecked,
     CategoryItemElementContainer,
     CategoryItemShortTitle,
     CategoryMenuButton,
@@ -27,6 +28,9 @@ const CategoryItem = ({
     defaultCategory,
     onEditCategory,
     stillEditing,
+    showCheckbox,
+    onToggleSelectCategory,
+    isSelected,
 }) => {
     const dispatch = useDispatch();
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
@@ -62,11 +66,19 @@ const CategoryItem = ({
         onPick({});
         handleCloseEdit();
     };
+    const handlePickCategory = (category) => {
+        if (requiredCategory && showCheckbox) return;
+        if (showCheckbox || !onPick) {
+            onToggleSelectCategory(category._id);
+        } else {
+            onPick(category);
+        }
+    };
 
     if (requiredCategory) {
         return (
             <CategoryItemElementContainer>
-                <CategoryItemElement onClick={() => onPick(category)} $isPicked={isPicked}>
+                <CategoryItemElement onClick={() => handlePickCategory(category)} $isPicked={isPicked}>
                     <CategoryItemShortTitle>{category.name.slice(0, 23)}</CategoryItemShortTitle>
                 </CategoryItemElement>
             </CategoryItemElementContainer>
@@ -84,9 +96,11 @@ const CategoryItem = ({
                 />
             ) : (
                 <CategoryItemElementContainer>
-                    <CategoryItemElement onClick={() => onPick(category)} $isPicked={isPicked}>
+                    <CategoryItemElement onClick={() => handlePickCategory(category)} $isPicked={isPicked}>
+                        {showCheckbox && <CategoryItemElementChecked $isSelected={isSelected} />}
                         <CategoryItemShortTitle>{category.name.slice(0, 23)}</CategoryItemShortTitle>
                     </CategoryItemElement>
+
                     <CategoryOptionsMenuContainer>
                         <SlOptionsVertical
                             size="16"

@@ -18,7 +18,7 @@ jobs:
 
       - run: npm install
       - run: npm run build
-      - run: cp 404.html dist/
+
         env:
           PUBLIC_BASE_PATH: /Thecyberhub.org
 

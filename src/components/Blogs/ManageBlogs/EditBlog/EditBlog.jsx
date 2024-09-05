@@ -9,7 +9,6 @@ import {
     CategorySection,
     CreateBlogContainer,
     Form,
-    ImageSelected,
     ImageUploadAndPreviewSection,
     ImageUploadLabel,
     Input,
@@ -208,12 +207,8 @@ const EditBlog = () => {
                     <AddCoverImageSection>
                         <ImageUploadLabel style={{ color: "grey" }} htmlFor="addCoverImage">
                             <AddImage />
-                            {!fileName ? (
-                                <> Add Cover Image </>
-                            ) : (
-                                !fileName && <ImageSelected> Please select an image </ImageSelected>
-                            )}
-                            <ImageSelected> {fileName && <>{fileName.slice(0, 20)}..</>} </ImageSelected>
+                            {!fileName ? <> Add Cover Image </> : !fileName && <p> Please select an image </p>}
+                            <p> {fileName && <>{fileName.slice(0, 20)}..</>} </p>
                             {/* <img src={file ? URL.createObjectURL(file) : coverImagePreview}  alt={""} style={{height: "100px", width:"auto"}}/> */}
                         </ImageUploadLabel>
                         <input
@@ -259,7 +254,7 @@ const EditBlog = () => {
                                 <Option value="Blog">Blog</Option>
                                 <Option value="CTF Walkthrough">CTF Walkthrough</Option>
                                 <Option value="Bug Hunting WriteUp">Bug Hunting WriteUp</Option>
-                                <Option value="Tools Walkthrough">Tools Walkthrough</Option>
+                                <Option value="ReconTools Walkthrough">ReconTools Walkthrough</Option>
                                 <Option value="Tips & Tricks">Tips & Tricks</Option>
                                 <Option value="News">News</Option>
                                 <Option value="Others">Others</Option>

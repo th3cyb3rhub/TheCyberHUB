@@ -21,7 +21,7 @@ import ModifyFeed from "src/components/Feeds/PostForm/ModifyFeed";
 
 const ReplyCard = ({ reply, user, comments, likes, bookmarks, views, displayAt, updateFeedView }) => {
     const [editMode, setEditMode] = useState(false);
-    const avatar = cdnContentImagesUrl("/user/" + (reply?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (reply?.avatar || "avatar.png"));
     const dispatch = useDispatch();
     const handleCommentDelete = () => {
         dispatch(deleteFeed(reply._id));

@@ -39,7 +39,7 @@ const NewLeaderboard = () => {
     const top3 = [...third, ...ist, ...sec];
     const rest = allUsers.slice(3);
 
-    const avatar = (user) => cdnContentImagesUrl("/user/" + (user?.avatar || "avatarDummy.png"));
+    const avatar = (user) => cdnContentImagesUrl("/user/" + (user?.avatar || "avatar.png"));
 
     if (isLoading || isApiLoading) {
         return (

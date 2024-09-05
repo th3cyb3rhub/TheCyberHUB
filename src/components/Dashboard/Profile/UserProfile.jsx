@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ProfileContainer, ProfileDetailsSection, Wrapper } from "./ProfileElements";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, userDetailReset } from "src/features/userDetail/userDetailSlice";
-import { getAllBlogs } from "src/features/blogs/blogSlice";
+import { getAllUserDetails, getUserDetail, userDetailReset } from "src/features/userDetail/userDetailSlice";
 import { useParams } from "react-router-dom";
 import { CircleSpinner } from "react-spinners-kit";
 import UserLinks from "./UserLinks/UserLinks";
@@ -21,48 +20,37 @@ import apiStatus from "src/features/apiStatus";
 import AuthPopup from "src/pages/AuthPopup/AuthPopup";
 
 const UserProfile = () => {
+    const dispatch = useDispatch();
+
     const { isApiLoading, isApiWorking } = apiStatus();
 
-    const dispatch = useDispatch();
-    const { userDetails, isUserDetailLoading, isError, message } = useSelector((state) => state.userDetail);
+    const { userDetail, userDetails, isUserDetailLoading, isError, message } = useSelector((state) => state.userDetail);
 
-    const { blogs, isBlogLoading } = useSelector((state) => state.blogs);
     const { username } = useParams();
 
-    const [userDetail, setUserDetail] = useState({});
     const [showAuthPopup, setShowAuthPopup] = useState(false);
+
     useEffect(() => {
         if (isError) {
             console.log(message);
         }
 
-        dispatch(getAllBlogs());
-        dispatch(getAllUserDetails());
+        dispatch(getAllUserDetails);
+        dispatch(getUserDetail(username));
 
         return () => dispatch(userDetailReset());
     }, [isError, message, dispatch, username]);
 
-    useEffect(() => {
-        if (userDetails) {
-            setUserDetail(userDetails.find((user) => user?.username === username));
-        }
-    }, [userDetails, username]);
-
-    if (isUserDetailLoading || isBlogLoading || isApiLoading) {
+    if (isApiLoading || isUserDetailLoading) {
         return (
             <Wrapper>
-                <CircleSpinner
-                    size={20}
-                    color={"#ff6b08"}
-                    isLoading={isUserDetailLoading || isBlogLoading || isApiLoading}
-                />
+                <CircleSpinner size={20} color={"#ff6b08"} isLoading={isApiLoading || isUserDetailLoading} />
             </Wrapper>
         );
     }
 
     if (!isApiWorking) return <UnderMaintenance />;
 
-    console.log(!userDetail);
     if (
         !userDetail ||
         userDetail?.length === 0 ||
@@ -77,6 +65,7 @@ const UserProfile = () => {
     }
 
     const { aboutMe, skills, achievements, projects } = userDetail || {};
+
     return (
         <Wrapper>
             {showAuthPopup && (
@@ -96,7 +85,7 @@ const UserProfile = () => {
                         setShowAuthPopup={setShowAuthPopup}
                     />
                     <UserDetailsContainer>
-                        <UserPoints userDetail={userDetail} allUserDetail={userDetails} blogs={blogs} />
+                        <UserPoints userDetail={userDetail} />
                         {(aboutMe && aboutMe?.length === 0) || aboutMe === undefined ? null : (
                             <AboutMe aboutMe={aboutMe} />
                         )}

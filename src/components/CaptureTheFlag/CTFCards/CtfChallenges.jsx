@@ -5,17 +5,15 @@ import CtfCard from "src/components/CaptureTheFlag/CtfCard";
 import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner";
 import NotFound from "src/NotFound";
 
-const CtfChallenges = ({ ctf, user, userDetail, isCtfLoading, searchTerm, ctfBookmarksData, selectedTags }) => {
+const CtfChallenges = ({ ctfs, user, userDetail, isCtfLoading, searchTerm, ctfBookmarksData, selectedTags }) => {
     if (isCtfLoading) return <LoadingSpinner />;
-    if (!ctf.length) return <NotFound title="CTFs Not Found" description="There are no ctfs" />;
+    if (!ctfs?.length) return <NotFound title="CTFs Not Found" description="There are no ctfs" />;
 
-    const filteredData = ctf.filter((challenge) => {
-        // Check if ctf is bookmarked
+    const filteredData = ctfs.filter((challenge) => {
         const isBookmarked = ctfBookmarksData
             ? ctfBookmarksData.some((bookmark) => bookmark.itemId === challenge._id)
             : false;
 
-        // Check if ctf content or tags match the search term
         const contentIncludesSearchTerm =
             !searchTerm || challenge?.challengeName?.toLowerCase().includes(searchTerm?.toLowerCase()) || false;
         const allFilterTagsIncluded =
@@ -34,14 +32,7 @@ const CtfChallenges = ({ ctf, user, userDetail, isCtfLoading, searchTerm, ctfBoo
                 ?.slice()
                 .reverse()
                 .map((challenge, index) => (
-                    <CTFLink
-                        to={{
-                            pathname: `/ctf/${encodeURL(challenge.type)}/${encodeURL(challenge.difficulty)}/${encodeURL(
-                                challenge.challengeName,
-                            )}`,
-                        }}
-                        key={index}
-                    >
+                    <CTFLink to={{ pathname: `/ctf/${encodeURL(challenge.challengeName)}` }} key={index}>
                         <CtfCard challenge={challenge} user={user} userDetail={userDetail} index={index} />
                     </CTFLink>
                 ))}

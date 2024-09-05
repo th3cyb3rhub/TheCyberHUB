@@ -141,6 +141,15 @@ const AiChat = () => {
         }
     };
 
+    const handleIsUserExit = () => {
+        if (!user) {
+            setIsLoading(true);
+            setShowAuthPopup(true);
+            setIsLoading(false);
+            
+        }
+    };
+
     const getMessages = async () => {
         try {
             const response = await axios.get(`${API_BASE_URL}/get`, {
@@ -244,6 +253,8 @@ const AiChat = () => {
                         onNewChat={handleNewChat}
                         selectedChatId={selectedChatId}
                         onDeleteChat={handleDeleteChat}
+                        toggle={toggle}
+                        setToggle={setToggle}
                     />
                 )}
 
@@ -267,7 +278,7 @@ const AiChat = () => {
                                     />
 
                                     {!isTrailEnded ? (
-                                        <div>
+                                        <>
                                             {chat.title !== "New Chat" ? null : (
                                                 <Prompts handleSendDummyMessage={handleSendDummyMessage} />
                                             )}
@@ -288,7 +299,7 @@ const AiChat = () => {
                                                     </button>
                                                 )}
                                             </ChatInput>
-                                        </div>
+                                        </>
                                     ) : null}
                                 </ChatBox>
                             ),
@@ -300,10 +311,10 @@ const AiChat = () => {
                                 {toggle ? <FaAngleRight /> : <FaAngleLeft />}
                             </ToggleSection>
                             <ChatTitle>{"New Chat"}</ChatTitle>
-                            <SlOptionsVertical />
+                            <SlOptionsVertical className="hidden" />
                         </ChatHeader>
 
-                        <ChatInput onSubmit={handleSendMessage}>
+                        <ChatInput onClick={handleIsUserExit} className="cursor-pointer" onSubmit={handleSendMessage}>
                             <p>Start a New Chat</p>
                             <RecentChatsHeader>
                                 <div className="new-chat-button" onClick={handleNewChat}>

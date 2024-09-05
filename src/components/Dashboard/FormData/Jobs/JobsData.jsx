@@ -243,7 +243,7 @@ export const JobsData = [
         jobRes: [
             "Collaborate with team on content creation projects",
             "Create and edit written content for websites, blogs, and social media",
-            "Research and gather information for articles and blog posts",
+            "Research and gather information for blogs and blog posts",
             "Optimize content for SEO and social media algorithms",
             "Familiarize yourself with digital content creation tools and techniques",
         ],
@@ -643,7 +643,7 @@ export const JobsData = [
     //     jobDesc:  <p>
     //
     //     </p>,
-    //     jobReq: ["Produce a minimum of 5 articles per month.", "Curate travel content for a global readership."],
+    //     jobReq: ["Produce a minimum of 5 blogs per month.", "Curate travel content for a global readership."],
     //     jobTimeline: {
     //         datePosted: "Hiring ongoing",
     //         separator: (

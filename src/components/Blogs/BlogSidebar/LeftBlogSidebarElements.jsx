@@ -10,9 +10,6 @@ export const LeftBlogSidebarContainer = styled.div`
     color: #e8e6e3;
     display: flex;
     flex-direction: column;
-
-    /* height: 600px;
-    min-width: 250px; */
     align-items: flex-start;
     justify-content: flex-start;
 

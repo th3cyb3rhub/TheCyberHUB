@@ -34,8 +34,6 @@ const Room = ({ roomData }) => {
     const correctAnswer = data?.answer;
     const [showHint, setShowHint] = useState(false);
 
-    console.log(correctAnswer);
-
     const handleSubmitAnswer = () => {
         if (userInput === correctAnswer) {
             toast("Correct answer. Well done!", {

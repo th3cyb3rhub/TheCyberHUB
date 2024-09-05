@@ -58,8 +58,7 @@ export const getAllFeeds = createAsyncThunk("feed/getAllFeeds", async (_, thunkA
 
 export const getFeedLineage = createAsyncThunk("feed/getFeedLineage", async (feedId, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token;
-        return await feedsService.getFeedLineage(feedId, token);
+        return await feedsService.getFeedLineage(feedId);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

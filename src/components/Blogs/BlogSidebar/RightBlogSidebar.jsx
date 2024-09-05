@@ -16,7 +16,7 @@ const RightBlogSidebar = () => {
                     <h4> Blog Status </h4>
                     <SeeAll to={"/dashboard"}> Dashboard </SeeAll>
                 </SubContainerTop>
-                Pageviews Articles Appreciations <br />
+                Pageviews Blogs Appreciations <br />
                 Pageviews <br />7 Days 30 Days
             </BlogStatus>
 

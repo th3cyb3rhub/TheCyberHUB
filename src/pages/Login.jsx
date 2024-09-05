@@ -31,7 +31,6 @@ const Login = () => {
     const { user, isUserLoading, isUserError, isUserSuccess, userMessage } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        console.log("user", user && user?.username);
         if ((user && !user?._id && user?.message !== "email sent" && isUserSuccess) || user?._id) {
             navigate("/");
         }
@@ -93,10 +92,6 @@ const Login = () => {
             navigate("/");
         }
     }, [user, isEmailSent, isUserSuccess, navigate]);
-
-    console.log("user", user);
-    console.log("isEmailSent", isEmailSent);
-    console.log("showVerifyForm", showVerifyForm);
 
     return (
         <Container>

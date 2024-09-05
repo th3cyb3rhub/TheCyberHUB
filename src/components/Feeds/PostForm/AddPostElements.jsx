@@ -38,8 +38,6 @@ export const FooterSection = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    /* padding: 0 10px 0 12px; */
     width: 100%;
 `;
 
@@ -76,7 +74,7 @@ export const ImageContainer = styled.div`
 
 export const FeedImage = styled.img`
     width: 100%;
-    height: 100px; /* Set a fixed height or adjust as needed */
+    height: 100px;
     object-fit: cover;
     border-radius: 5px;
     cursor: pointer;
@@ -90,12 +88,6 @@ export const FeedImage = styled.img`
         transform: scale(1.1);
     }
 `;
-
-// const ImageGrid = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust column width */
-//   grid-gap: 8px; /* Adjust gap between images */
-// `;
 
 export const RemoveButton = styled.button`
     position: absolute;
@@ -117,6 +109,6 @@ export const RemoveButton = styled.button`
 
 export const ImagesContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust column width */
-    grid-gap: 10px; /* Adjust gap between images */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-gap: 10px;
 `;

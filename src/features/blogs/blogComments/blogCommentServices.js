@@ -4,9 +4,9 @@ import { getApiUrl } from "src/features/apiUrl";
 const API_URL = getApiUrl("api/blogs"); // Replace with the actual API endpoint for comments
 
 // Get comments for a feed
-const getComments = async () => {
+const getComments = async (blogId) => {
     try {
-        const response = await axios.get(`${API_URL}/comments`);
+        const response = await axios.get(`${API_URL}/comments/${blogId}`);
         return response.data;
     } catch (error) {
         console.error(error);

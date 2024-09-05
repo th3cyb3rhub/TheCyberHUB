@@ -17,7 +17,7 @@ import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSp
 import NotFound from "src/NotFound";
 import { LeftSection } from "src/components/Feeds/FeedPosts/FeedPostsElements";
 
-const Users = ({ userDetails, searchTerm, isUserDetailLoading }) => {
+const Users = ({ userDetails, searchTerm, isUserDetailLoading, displayAt }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -42,11 +42,11 @@ const Users = ({ userDetails, searchTerm, isUserDetailLoading }) => {
     const displayedUsers = searchTerm.length === 0 ? filteredUsers.slice(0, 10) : filteredUsers;
 
     const avatar = ({ user }) => {
-        return cdnContentImagesUrl("/user/" + (user?.avatar || "avatarDummy.png"));
+        return cdnContentImagesUrl("/user/" + (user?.avatar || "avatar.png"));
     };
 
     return filteredUsers.length > 0 ? (
-        <UsersContainer>
+        <UsersContainer displayAt={displayAt}>
             {displayedUsers?.map((user, id) => (
                 <RouteLink to={`/user/${user?.username}`} key={user?.username}>
                     <UserContainer>

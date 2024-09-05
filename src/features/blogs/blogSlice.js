@@ -3,6 +3,7 @@ import blogService from "./blogService";
 
 const initialState = {
     blogs: [],
+    blog: {},
     isBlogError: false,
     isBlogSuccess: false,
     isBlogLoading: false,
@@ -38,6 +39,17 @@ export const getBlogs = createAsyncThunk("blogs/getUserBlogs", async (_, thunkAP
     try {
         const token = thunkAPI.getState().auth.user.token;
         return await blogService.getBlogs(token);
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
+// Get user blogs
+export const getBlog = createAsyncThunk("blogs/id", async (id, thunkAPI) => {
+    try {
+        return await blogService.getBlog(id);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -128,6 +140,19 @@ export const blogSlice = createSlice({
                 state.blogs = action.payload;
             })
             .addCase(getAllBlogs.rejected, (state, action) => {
+                state.isBlogLoading = false;
+                state.isBlogError = true;
+                state.blogMessage = action.payload;
+            })
+            .addCase(getBlog.pending, (state) => {
+                state.isBlogLoading = true;
+            })
+            .addCase(getBlog.fulfilled, (state, action) => {
+                state.isBlogLoading = false;
+                state.isBlogSuccess = true;
+                state.blog = action.payload;
+            })
+            .addCase(getBlog.rejected, (state, action) => {
                 state.isBlogLoading = false;
                 state.isBlogError = true;
                 state.blogMessage = action.payload;

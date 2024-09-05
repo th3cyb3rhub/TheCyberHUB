@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     EditUserBioTextarea,
     UserBio,
@@ -15,19 +15,20 @@ import { IoMdSave } from "react-icons/io";
 import { FollowButton } from "src/components/Dashboard/Profile/ConnectionsAndFollows/Follow/FollowElements";
 import { CgWebsite } from "react-icons/cg";
 import { UserPicture } from "src/components/Explore/Users/UsersElements";
-import { EditButton } from "src/components/Dashboard/Profile/SkillSet/SkillSetElements";
+// import { EditButton } from "src/components/Dashboard/Profile/SkillSet/SkillSetElements";
 import { getApiUrl, cdnContentImagesUrl } from "src/features/apiUrl";
 import { toast } from "react-toastify";
-import {
-    AddCoverImageSection,
-    AddImage,
-    ImageUploadLabel,
-} from "src/components/Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
+// import {
+//     AddCoverImageSection,
+//     AddImage,
+//     ImageUploadLabel,
+// } from "src/components/Blogs/ManageBlogs/CreateBlog/CreateBlogElements";
 import axios from "axios";
 import { FaXTwitter } from "react-icons/fa6";
 
 const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) => {
-    const [file, setFile] = useState("");
+    // const [file, setFile] = useState("");
+    let file;
     const updateUserLinks = (index, field, value) => {
         const updatedSocialLinksData = [...userDetailData.socialLinks]; // create a new array reference
         updatedSocialLinksData[index] = {
@@ -42,20 +43,20 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
         setUserDetailData({ ...userDetailData, bio: value });
     };
 
-    const onFileChange = (e) => {
-        const file = e.target.files[0];
-        const fileName = `user-${Date.now()}.${file && file.type.split("/")[1]}`;
-
-        setUserDetailData({ ...userDetailData, avatar: fileName.split("-")[1] });
-
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setFile();
-            const newFile = new File([reader.result], fileName, { type: file && file.type });
-            setFile(newFile);
-        };
-        reader.readAsArrayBuffer(file);
-    };
+    // const onFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     const fileName = `user-${Date.now()}.${file && file.type.split("/")[1]}`;
+    //
+    //     setUserDetailData({ ...userDetailData, avatar: fileName.split("-")[1] });
+    //
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //         setFile();
+    //         const newFile = new File([reader.result], fileName, { type: file && file.type });
+    //         setFile(newFile);
+    //     };
+    //     reader.readAsArrayBuffer(file);
+    // };
 
     const handleSave = async (e) => {
         onSubmit(e);
@@ -73,7 +74,7 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
 
         if (file) await uploadCoverImage();
     };
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatar.png"));
     return (
         <UserLinksContainer>
             <UserInfoContainer>
@@ -82,23 +83,23 @@ const UserLinks = ({ userDetail, userDetailData, setUserDetailData, onSubmit }) 
                         style={{ height: "200px", width: "200px" }}
                         src={file ? URL.createObjectURL(file) : avatar}
                     />
-                    <EditButton>
-                        <AddCoverImageSection>
-                            <ImageUploadLabel
-                                style={{ color: "grey", background: "transparent", border: "transparent" }}
-                                htmlFor="avatar"
-                            >
-                                <AddImage />
-                            </ImageUploadLabel>
-                            <input
-                                type="file"
-                                name="avatar"
-                                id="avatar"
-                                onChange={onFileChange}
-                                style={{ display: "none" }}
-                            />
-                        </AddCoverImageSection>
-                    </EditButton>
+                    {/* <EditButton> */}
+                    {/*    <AddCoverImageSection> */}
+                    {/*        <ImageUploadLabel */}
+                    {/*            style={{ color: "grey", background: "transparent", border: "transparent" }} */}
+                    {/*            htmlFor="avatar" */}
+                    {/*        > */}
+                    {/*            <AddImage /> */}
+                    {/*        </ImageUploadLabel> */}
+                    {/*        <input */}
+                    {/*            type="file" */}
+                    {/*            name="avatar" */}
+                    {/*            id="avatar" */}
+                    {/*            onChange={onFileChange} */}
+                    {/*            style={{ display: "none" }} */}
+                    {/*        /> */}
+                    {/*    </AddCoverImageSection> */}
+                    {/* </EditButton> */}
                 </div>
                 <span className={"name"}>{userDetail?.name}</span>
                 <span className={"username"}>@{userDetail?.username}</span>

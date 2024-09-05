@@ -60,8 +60,6 @@ export const Input = styled.input`
 
     &:hover {
         background: transparent;
-
-        /* border: transparent; */
         color: #fff;
     }
 `;

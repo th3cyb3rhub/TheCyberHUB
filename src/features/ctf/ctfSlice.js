@@ -5,18 +5,28 @@ import { userDetailSlice } from "src/features/userDetail/userDetailSlice";
 const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
+    ctfs: [],
+    ctf: [],
     user: user || null,
     isCtfError: false,
     isCtfSuccess: false,
     isCtfLoading: false,
     ctfMessage: "",
     logout: false,
-    ctf: [],
 };
 
-export const getAllCTFs = createAsyncThunk("ctf/getAll", async (_, thunkAPI) => {
+export const getAllCTFs = createAsyncThunk("ctfs/getAll", async (_, thunkAPI) => {
     try {
         return await ctfService.getAllCTFs();
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+export const getCTF = createAsyncThunk("ctfs/title", async (title, thunkAPI) => {
+    try {
+        return await ctfService.getCTF(title);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -76,7 +86,7 @@ export const updateLikesAndViews = createAsyncThunk(
 // Slice
 
 export const ctfSlice = createSlice({
-    name: "ctf",
+    name: "ctfs",
     initialState,
     reducers: {
         reset: (state) => initialState,
@@ -89,9 +99,22 @@ export const ctfSlice = createSlice({
             .addCase(getAllCTFs.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.ctf = action.payload;
+                state.ctfs = action.payload;
             })
             .addCase(getAllCTFs.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getCTF.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCTF.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.ctf = action.payload;
+            })
+            .addCase(getCTF.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
@@ -101,7 +124,7 @@ export const ctfSlice = createSlice({
                 state.error = null;
             })
             .addCase(createCTF.fulfilled, (state, action) => {
-                state.ctf.push(action.payload);
+                state.ctfs.push(action.payload);
                 state.isLoading = false;
                 state.error = null;
             })
@@ -117,7 +140,7 @@ export const ctfSlice = createSlice({
                 // Update state as needed after successful registration
                 state.isLoading = false;
                 state.error = null;
-                state.ctf = { ...state.ctf, ...action.payload };
+                state.ctfs = { ...state.ctfs, ...action.payload };
             })
             .addCase(registerCTF.rejected, (state, action) => {
                 state.isLoading = false;
@@ -134,7 +157,7 @@ export const ctfSlice = createSlice({
             .addCase(updateLikesAndViews.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message;
-                state.ctf = { ...state.ctf, ...action.payload };
+                state.ctfs = { ...state.ctfs, ...action.payload };
             });
     },
 });

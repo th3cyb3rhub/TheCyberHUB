@@ -38,7 +38,7 @@ const AddFeedComment = ({ feedId, userDetails }) => {
         setAddReply({ content: textarea.value }); // Update only the 'content' property in the state
     };
 
-    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatar.png"));
 
     return (
         <AddFeedCommentContainer>

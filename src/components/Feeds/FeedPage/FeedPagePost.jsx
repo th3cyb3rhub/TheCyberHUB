@@ -38,7 +38,7 @@ const FeedPagePost = ({ feed, user, comments, likes, bookmarks, views, updateFee
     };
     const navigate = useNavigate();
 
-    const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatar.png"));
 
     const feedImage = (image) => cdnContentImagesUrl(`/feed/${image}`);
     const handleDeleteFeed = () => {

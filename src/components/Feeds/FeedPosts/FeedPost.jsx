@@ -27,7 +27,7 @@ const FeedPost = ({ feed, user, comments, likes, bookmarks, views, setStopRefres
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
 
-    const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatarDummy.png"));
+    const avatar = cdnContentImagesUrl("/user/" + (feed?.avatar || "avatar.png"));
     const feedImage = (image) => cdnContentImagesUrl(`/feed/${image}`);
     const handleDeleteFeed = () => dispatch(deleteFeed(feed?._id));
     const handleEditFeed = () => {

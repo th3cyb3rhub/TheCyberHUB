@@ -35,7 +35,6 @@ const CtfCard = ({ challenge, user, userDetail, index }) => {
                     {challenge?.tags
                         .slice(0, 3)
                         .map((tag, index) => tag.length > 0 && <CTFTag key={index}>{tag}</CTFTag>)}
-
                     {challenge?.tags.length > 3 && <CTFTag key={index}> + {challenge.tags.length - 3}</CTFTag>}
                 </CTFTags>
                 <CTFType>{challenge?.difficulty}</CTFType>

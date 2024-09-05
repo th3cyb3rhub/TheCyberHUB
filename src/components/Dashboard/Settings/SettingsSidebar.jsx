@@ -48,7 +48,7 @@ export default function Sidebar() {
     const { pathname } = useLocation();
 
     return (
-        <article className="settings-sidebar-wrapper">
+        <blog className="settings-sidebar-wrapper">
             {SIDEBAR_LINKS.map(({ id, label, href }) => {
                 return (
                     <Link key={id} to={href} className={`${pathname === href ? "active" : ""}`}>
@@ -56,6 +56,6 @@ export default function Sidebar() {
                     </Link>
                 );
             })}
-        </article>
+        </blog>
     );
 }

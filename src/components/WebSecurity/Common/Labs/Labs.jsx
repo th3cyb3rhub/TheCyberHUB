@@ -48,8 +48,6 @@ const Labs = ({ LabData, heading }) => {
                     data?.tags.some((tag) => tag.toLowerCase().includes(searchInput.toLowerCase()))),
         ) || [];
 
-    console.log(categoryActive);
-
     return (
         <>
             <div style={{ width: "100%", maxWidth: "1200px", margin: "5px auto" }}>

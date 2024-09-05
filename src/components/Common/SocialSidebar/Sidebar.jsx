@@ -90,9 +90,13 @@ const Sidebar = ({
         <SidebarContainer $sidebarType={sidebarType}>
             {sidebarType === "blogs" && (
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
-                    <RouterNavCreateButtonLink to={"/blogs/create"}>Create Blog</RouterNavCreateButtonLink>
-                    <RouterNavCreateButtonLink to={"/blogs/my-blogs"}>View My Blogs</RouterNavCreateButtonLink>
-                    <RouterNavCreateButtonLink to={"/dashboard/saved"}>Saved</RouterNavCreateButtonLink>
+                    {user?.type === "admin" ? (
+                        <>
+                            <RouterNavCreateButtonLink to={"/blogs/create"}>Create Blog</RouterNavCreateButtonLink>
+                            <RouterNavCreateButtonLink to={"/blogs/my-blogs"}>My Blogs</RouterNavCreateButtonLink>
+                        </>
+                    ) : null}
+                    <RouterNavCreateButtonLink to={"/blogs/saved"}>Saved</RouterNavCreateButtonLink>
                 </div>
             )}
 
@@ -103,7 +107,7 @@ const Sidebar = ({
                 </div>
             )}
 
-            {user && <FilterContainer>{renderFollowingFilterButtons()}</FilterContainer>}
+            {sidebarType === "feeds" && user && <FilterContainer>{renderFollowingFilterButtons()}</FilterContainer>}
 
             <SearchContainer>
                 <SearchInputBox

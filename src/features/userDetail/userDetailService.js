@@ -15,8 +15,12 @@ const createUserDetail = async (userDetailData, token) => {
 
 // Get user userDetail
 const getUserDetail = async (username) => {
-    const response = await axios.get(API_URL + username);
-    return response.data;
+    try {
+        const response = await axios.get(API_URL + username);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const getAllUserDetails = async () => {
@@ -40,13 +44,13 @@ const deleteUserDetail = async (userDetailId, token) => {
 };
 
 // Update user userDetail
-const updateUserDetail = async (id, userData, token) => {
+const updateUserDetail = async (userData, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     };
-    const response = await axios.put(API_URL + id, userData, config);
+    const response = await axios.put(API_URL, userData, config);
     return response.data;
 };
 

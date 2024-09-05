@@ -17,8 +17,8 @@ const PreviewBlogContent = (props) => {
                         ? props.tags.split(/,\s*/).map((tag, id) => <Tag key={id}>{tag}</Tag>)
                         : "Please add some Tags"
                     : props?.tags?.length !== 0 && props?.tags[0] !== ""
-                    ? props.tags.map((tag, id) => <Tag key={id}>{tag}</Tag>)
-                    : "Please add some Tags"}
+                      ? props.tags.map((tag, id) => <Tag key={id}>{tag}</Tag>)
+                      : "Please add some Tags"}
             </Tags>
         </div>
     );

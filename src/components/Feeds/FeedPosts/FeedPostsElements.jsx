@@ -7,8 +7,8 @@ export const FeedPostsContainer = styled(ExploreContentContainer)`
     grid-auto-rows: minmax(min-content, max-content);
     gap: ${({ $displayAt }) => ($displayAt === "explore" ? "25px" : "0")};
 
-    @media screen and (width <= 1230px) {
-        grid-auto-rows: 0fr;
+    @media (width <= 1230px) {
+        grid-auto-rows: auto;
         gap: 15px;
     }
 `;
@@ -22,8 +22,6 @@ export const PostForm = styled.div`
 `;
 
 export const FeedPostContainer = styled.div`
-    /* border: 1px solid #a8e827;
-    border-radius: 5px; */
     border-bottom: 1px solid #1a1a1a;
     background: #000;
     padding: 15px;
@@ -137,13 +135,10 @@ export const PostActions = styled.div`
 `;
 
 export const PostActionsAndStatsContainer = styled.div`
-    /* border-top: 1px solid #1a1a1a; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-
-    /* padding: 15px 0 0; */
     font-size: 14px;
     color: #999;
     width: 100%;
@@ -151,8 +146,6 @@ export const PostActionsAndStatsContainer = styled.div`
 
 export const PostStat = styled.div`
     display: flex;
-
-    /* align-items: center; */
     gap: 7px;
 `;
 

@@ -7,8 +7,6 @@ export const TagsInputContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 5px;
-
-    /* padding: 10px 0; */
     border: ${({ size }) => (size === "lg" ? "#222222 1px solid" : "transparent")};
     background: ${({ size }) => (size === "lg" ? "#0c0c0c" : "transparent")};
 `;
@@ -22,10 +20,6 @@ export const TagsInput = styled.div`
     text-underline-offset: 5px;
     font-family: Poppins, sans-serif;
     gap: 5px;
-
-    /* border: #222222 1px solid; */
-
-    /* props */
     font-size: ${({ size }) => (size === "lg" ? "11rem" : "0.8rem")};
 `;
 
@@ -35,13 +29,9 @@ export const TagInput = styled.input`
     justify-content: flex-start;
     align-items: center;
     border-radius: 5px;
-
-    /* background: transparent; */
     background: #2d2d2d;
     color: #f5f5f5;
     text-underline-offset: 5px;
-
-    /* border: #222 1px solid; */
     border: transparent;
     transition: all 0.1s ease-in-out;
     font-family: Poppins, sans-serif;
@@ -49,7 +39,6 @@ export const TagInput = styled.input`
     padding: ${({ size }) => (size === "lg" ? "3px 5px" : "2px 5px")};
 
     &::placeholder {
-        /* transition: all 0.1s ease-in-out; */
         color: #f5f5f5;
     }
 

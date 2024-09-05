@@ -67,7 +67,7 @@ const EditPublicProfile = () => {
         e.preventDefault();
 
         if (user && userDetail && user?.username === userDetail?.username) {
-            await dispatch(updateUserDetail({ id: userDetail?.user, userData: userDetailData }));
+            await dispatch(updateUserDetail({ userData: userDetailData }));
             navigate(`/user/${user?.username}`);
             setIsSuccess(true);
 
