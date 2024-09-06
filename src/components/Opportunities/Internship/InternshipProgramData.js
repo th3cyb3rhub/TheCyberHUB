@@ -49,7 +49,7 @@ const InternshipProgramData = [
         applicationOpenDate: "2024-09-06T00:00:00.000Z",
         applicationCloseDate: "2024-09-13T00:00:00.000Z",
         internshipStartTime: "2024-09-14T00:00:00.000Z",
-        interviewDate: "Aug",
+        interviewDate: "Interview === 1st two weeks of Performance",
         internshipPeriod: "Sep to Nov",
         roles: "Description of internship roles and responsibilities",
         eligibility: "Eligibility requirements",
