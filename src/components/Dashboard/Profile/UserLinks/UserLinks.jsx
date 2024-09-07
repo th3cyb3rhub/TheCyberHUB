@@ -22,7 +22,6 @@ const UserLinks = ({ userDetail, userDetails, isUserDetailsLoading, setShowAuthP
         <UserLinksContainer>
             <UserInfo>{userDetail}</UserInfo>
 
-            {userDetail?.user}
             {userDetail?.user && (
                 <ConnectionsAndFollows
                     isUserDetailsLoading={isUserDetailsLoading}
