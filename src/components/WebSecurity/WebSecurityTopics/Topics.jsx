@@ -14,6 +14,7 @@ import {
     TopicsContainer,
     Container,
 } from "src/components/WebSecurity/WebSecurityTopics/TopicElements.jsx";
+import { getApiUrl } from "src/features/apiUrl.js";
 
 const Topics = () => {
     const [topics, setTopics] = useState([]);
@@ -24,7 +25,7 @@ const Topics = () => {
         // Fetch data from the API
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/topics");
+                const response = await axios.get(getApiUrl("/api/topics"));
                 setTopics(response.data); // Update state with the fetched data
                 setLoading(false); // Stop loading when data is received
             } catch (err) {

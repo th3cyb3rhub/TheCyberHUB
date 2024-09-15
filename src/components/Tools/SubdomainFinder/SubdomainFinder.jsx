@@ -18,6 +18,7 @@ import { CircleSpinner } from "react-spinners-kit";
 import apiStatus from "src/features/apiStatus";
 import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 import { RiEarthFill } from "react-icons/ri";
+import { getApiUrl } from "src/features/apiUrl.js";
 
 const SubdomainFinder = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
@@ -41,7 +42,7 @@ const SubdomainFinder = () => {
             return;
         }
         try {
-            const response = await axios.get(`http://localhost:5000/api/subdomains?domain=${domainName}`);
+            const response = await axios.get(getApiUrl(`/api/subdomains?domain=${domainName}`));
             setSubdomains(response?.data?.subdomains);
             setIsLoading(false);
         } catch (error) {

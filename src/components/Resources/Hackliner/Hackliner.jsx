@@ -12,6 +12,7 @@ import {
 } from "src/components/Resources/Hacklist/HacklistElements.jsx";
 import { CodeBlock } from "src/components/Resources/Hacklist/Hacklist.jsx";
 import { useParams } from "react-router-dom";
+import { getApiUrl } from "src/features/apiUrl.js";
 
 const Hackliners = () => {
     const { title } = useParams();
@@ -22,7 +23,7 @@ const Hackliners = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/resources/${title}`);
+                const response = await axios.get(getApiUrl(`/api/resources/${title}`));
                 setData(response?.data);
                 console.log("Fetched data:", response?.data);
             } catch (error) {
