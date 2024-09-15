@@ -17,10 +17,10 @@ const Topic = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const topicsResponse = await axios.get(getApiUrl("/api/topics/sidebar"));
+                const topicsResponse = await axios.get(getApiUrl("api/topics/sidebar"));
                 setTopics(topicsResponse.data);
 
-                const topicResponse = await axios.get(getApiUrl(`/api/topics/${id}`));
+                const topicResponse = await axios.get(getApiUrl(`api/topics/${id}`));
                 setTopic(topicResponse.data);
 
                 setLoading(false); // Stops loading after both requests complete

@@ -24,7 +24,7 @@ const Hackliners = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(getApiUrl(`/api/resources/${title}`));
+                const response = await axios.get(getApiUrl(`api/resources/${title}`));
                 setData(response?.data);
             } catch (error) {
                 setError(error);

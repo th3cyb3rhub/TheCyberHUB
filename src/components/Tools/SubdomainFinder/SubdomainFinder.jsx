@@ -42,7 +42,7 @@ const SubdomainFinder = () => {
             return;
         }
         try {
-            const response = await axios.get(getApiUrl(`/api/subdomains?domain=${domainName}`));
+            const response = await axios.get(getApiUrl(`api/subdomains?domain=${domainName}`));
             setSubdomains(response?.data?.subdomains);
             setIsLoading(false);
         } catch (error) {
