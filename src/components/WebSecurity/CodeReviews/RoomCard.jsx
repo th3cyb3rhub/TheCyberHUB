@@ -59,7 +59,7 @@ export default function CodeReviewCard(props) {
                         background: "#090909",
                     }}
                 >
-                    {props.tags.map((data) => {
+                    {props.tags?.map((data) => {
                         return <RoomTags key={data}>{data}</RoomTags>;
                     })}
                 </div>

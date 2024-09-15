@@ -54,7 +54,7 @@ const Topics = () => {
     };
 
     const renderLevelButtons = (levels) => {
-        return levels.map((level, index) => (
+        return levels?.map((level, index) => (
             <LevelButton
                 key={index}
                 style={{
@@ -70,14 +70,15 @@ const Topics = () => {
 
     const levels = ["All", "Beginner", "Intermediate", "Advance"];
 
-    const filteredTopics =
-        topics.filter(
-            (topic) =>
-                (topic.level === levelActive || levelActive === "All") &&
-                (topic.category === categoryActive || categoryActive === "All") &&
-                (topic.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-                    topic.tags.some((tag) => tag.toLowerCase().includes(searchInput.toLowerCase()))),
-        ) || [];
+    const filteredTopics = topics
+        ? topics?.filter(
+              (topic) =>
+                  (topic.level === levelActive || levelActive === "All") &&
+                  (topic.category === categoryActive || categoryActive === "All") &&
+                  (topic.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+                      topic.tags.some((tag) => tag.toLowerCase().includes(searchInput.toLowerCase()))),
+          ) || []
+        : [];
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -98,7 +99,7 @@ const Topics = () => {
                     <Input placeholder="Search" value={searchInput} onChange={handleSearchInputChange} />
                 </div>
                 <TopicCards className={"room-cards-container"}>
-                    {filteredTopics.map((topic) => (
+                    {filteredTopics?.map((topic) => (
                         <RouterLink
                             to={`/websecurity/topic/${topic._id}`}
                             style={{ textDecoration: "none", width: "100%" }}

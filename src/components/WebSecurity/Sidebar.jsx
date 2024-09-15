@@ -105,7 +105,7 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
 
     // get unique and sorted categories
 
-    const categories = [...new Set(topics.map((topic) => topic.category))].sort();
+    const categories = [...new Set(topics?.map((topic) => topic.category))].sort();
 
     const sidebarHeader = heading || topic?.category;
 
@@ -151,7 +151,7 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                     }}
                 >
                     {onlyCat &&
-                        categories.map((category, index) => (
+                        categories?.map((category, index) => (
                             <MainTitle
                                 key={index}
                                 onClick={() => setCategoryActive(category)}
@@ -177,7 +177,7 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                         ))}
                 </div>
 
-                {topics.map((topic, index) =>
+                {topics?.map((topic, index) =>
                     !onlyCat ? (
                         <div key={index} style={{ width: "100%" }}>
                             <MainTitle

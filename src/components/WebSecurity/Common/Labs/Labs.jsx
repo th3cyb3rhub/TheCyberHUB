@@ -20,7 +20,7 @@ const Labs = ({ LabData, heading }) => {
     };
 
     const renderLevelButtons = (levels) => {
-        return levels.map((level, index) => (
+        return levels?.map((level, index) => (
             <LevelButton
                 key={index}
                 style={{
@@ -37,16 +37,17 @@ const Labs = ({ LabData, heading }) => {
     const levels = ["All", "Beginner", "Intermediate", "Advance"];
 
     // Filtered LabData based on search input
-    const filteredLabData =
-        LabData?.filter(
-            (data) =>
-                (data?.level === levelActive || levelActive === "All") &&
-                (data?.category === categoryActive || categoryActive === "All") &&
-                (data?.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-                    data?.description.toLowerCase().includes(searchInput.toLowerCase()) ||
-                    data?.level.toLowerCase().includes(searchInput.toLowerCase()) ||
-                    data?.tags.some((tag) => tag.toLowerCase().includes(searchInput.toLowerCase()))),
-        ) || [];
+    const filteredLabData = LabData
+        ? LabData?.filter(
+              (data) =>
+                  (data?.level === levelActive || levelActive === "All") &&
+                  (data?.category === categoryActive || categoryActive === "All") &&
+                  (data?.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+                      data?.description.toLowerCase().includes(searchInput.toLowerCase()) ||
+                      data?.level.toLowerCase().includes(searchInput.toLowerCase()) ||
+                      data?.tags.some((tag) => tag.toLowerCase().includes(searchInput.toLowerCase()))),
+          ) || []
+        : [];
 
     return (
         <>
@@ -66,7 +67,7 @@ const Labs = ({ LabData, heading }) => {
                             <Input placeholder="Search" value={searchInput} onChange={handleSearchInputChange} />
                         </div>
                         <div className="room-cards-container">
-                            {filteredLabData.map((data, index) => (
+                            {filteredLabData?.map((data, index) => (
                                 <RoomCard
                                     key={index}
                                     title={data?.title}

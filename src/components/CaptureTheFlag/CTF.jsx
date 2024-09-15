@@ -32,8 +32,8 @@ const CTF = () => {
     const [setFilteredCTFs] = useState(ctfs);
 
     useEffect(() => {
-        const filteredCTFs = Array.isArray(ctfs)
-            ? ctfs.filter((challenge) => {
+        const filteredCTFs = Array?.isArray(ctfs)
+            ? ctfs?.filter((challenge) => {
                   const nameMatches = challenge?.challengeName?.toLowerCase().includes(searchTerm?.toLowerCase());
                   const difficultyMatches =
                       selectedDifficulty === "all" || challenge?.difficulty === selectedDifficulty;
