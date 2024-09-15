@@ -13,8 +13,8 @@ import {
     Subtitle,
     TextWrapper,
     TopLine,
-    YouTubeVideoContainer,
-    YouTubeVideoIFrame,
+    // YouTubeVideoContainer,
+    // YouTubeVideoIFrame,
 } from "./InfoElements";
 
 const InfoSection = ({
@@ -23,7 +23,7 @@ const InfoSection = ({
     buttonType2,
     link1,
     link2,
-    lightBg,
+    // lightBg,
     lightText,
     topLine,
     headline,
@@ -32,7 +32,7 @@ const InfoSection = ({
     buttonLabel2,
     imgStart,
     img,
-    video,
+    // video,
     alt,
     dark,
     dark2,
@@ -123,21 +123,21 @@ const InfoSection = ({
                         </TextWrapper>
                     </Column1>
                     <Column2>
-                        {img ? (
-                            <ImgWrap>
-                                <Img src={img} alt={alt} />
-                            </ImgWrap>
-                        ) : (
-                            <YouTubeVideoContainer>
-                                <YouTubeVideoIFrame
-                                    src="https://www.youtube.com/embed/r5CDqVnWFFQ"
-                                    title="Community Introduction | Thecyberworld"
-                                    frameBorder="0"
-                                    allow="web-share"
-                                    allowFullScreen
-                                ></YouTubeVideoIFrame>
-                            </YouTubeVideoContainer>
-                        )}
+                        {/* {img ? ( */}
+                        <ImgWrap>
+                            <Img src={img} alt={alt} />
+                        </ImgWrap>
+                        {/* ) : ( */}
+                        {/*    <YouTubeVideoContainer> */}
+                        {/*        <YouTubeVideoIFrame */}
+                        {/*            src="https://www.youtube.com/embed/r5CDqVnWFFQ" */}
+                        {/*            title="Community Introduction | Thecyberworld" */}
+                        {/*            frameBorder="0" */}
+                        {/*            allow="web-share" */}
+                        {/*            allowFullScreen */}
+                        {/*        ></YouTubeVideoIFrame> */}
+                        {/*    </YouTubeVideoContainer> */}
+                        {/* )} */}
                     </Column2>
                 </InfoRow>
             </InfoWrapper>

@@ -8,10 +8,13 @@ import {
 } from "src/components/Dashboard/Profile/UserSocialLinks/UserSocialLinksElements";
 import { FaGithub, FaInstagram, FaLinkedin, FaMedium, FaTwitter } from "react-icons/fa";
 import { CgWebsite } from "react-icons/cg";
-import ConnectionsAndFollows from "src/components/Dashboard/Profile/ConnectionsAndFollows/ConnectionsAndFollows";
+// import ConnectionsAndFollows from "src/components/Dashboard/Profile/ConnectionsAndFollows/ConnectionsAndFollows";
 // import ExternalLinkPopUp from "src/components/Common/ExternalLink/ExternalLink.jsx";
 
-const UserLinks = ({ userDetail, userDetails, isUserDetailsLoading, setShowAuthPopup }) => {
+const UserLinks = ({
+    userDetail,
+    // , isUserDetailsLoading, setShowAuthPopup
+}) => {
     const socialUsernames = userDetail?.socialLinks?.map(
         (item) => item?.profileUsername !== "" && item?.profileUsername,
     );
@@ -22,14 +25,13 @@ const UserLinks = ({ userDetail, userDetails, isUserDetailsLoading, setShowAuthP
         <UserLinksContainer>
             <UserInfo>{userDetail}</UserInfo>
 
-            {userDetail?.user && (
-                <ConnectionsAndFollows
-                    isUserDetailsLoading={isUserDetailsLoading}
-                    userDetail={userDetail}
-                    userDetails={userDetails}
-                    setShowAuthPopup={setShowAuthPopup}
-                />
-            )}
+            {/* {userDetail?.user && ( */}
+            {/*    <ConnectionsAndFollows */}
+            {/*        isUserDetailsLoading={isUserDetailsLoading} */}
+            {/*        userDetail={userDetail} */}
+            {/*        setShowAuthPopup={setShowAuthPopup} */}
+            {/*    /> */}
+            {/* )} */}
 
             {userDetail?.bio?.length === 0 || !userDetail?.bio ? null : (
                 <UserBio>

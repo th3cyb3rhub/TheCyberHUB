@@ -8,6 +8,7 @@ export const AddFeedCommentContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
+    padding-bottom: 20px;
 `;
 
 export const PostFormTextarea = styled.textarea`

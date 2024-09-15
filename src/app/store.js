@@ -16,8 +16,8 @@ import blogCommentsReducer from "src/features/blogs/blogComments/blogCommentSlic
 import ctfReducer from "src/features/ctf/ctfSlice";
 import bookmarkReduces from "src/features/bookmarks/bookmarkSlice";
 import resetPasswordReducer from "src/features/resetPassword/resetPasswordSlice";
-import followReducer from "src/features/follow/followSlice";
-import connectionReducer from "src/features/connections/connectionSlice";
+import followReducer from "src/features/userDetail/follow/followSlice";
+import connectionReducer from "src/features/userDetail/connections/connectionSlice";
 
 import eventsReducer from "src/features/events/eventsSlice";
 
@@ -44,7 +44,7 @@ export default configureStore({
         userDetail: userDetailReducer,
         ctfs: ctfReducer,
         resetPassword: resetPasswordReducer,
-        followData: followReducer,
+        follow: followReducer,
         connectionData: connectionReducer,
 
         events: eventsReducer,

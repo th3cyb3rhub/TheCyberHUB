@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ProfileContainer, ProfileDetailsSection, Wrapper } from "./ProfileElements";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserDetails, getUserDetail, userDetailReset } from "src/features/userDetail/userDetailSlice";
+import { getUserDetail, userDetailReset } from "src/features/userDetail/userDetailSlice";
 import { useParams } from "react-router-dom";
 import { CircleSpinner } from "react-spinners-kit";
 import UserLinks from "./UserLinks/UserLinks";
@@ -24,7 +24,7 @@ const UserProfile = () => {
 
     const { isApiLoading, isApiWorking } = apiStatus();
 
-    const { userDetail, userDetails, isUserDetailLoading, isError, message } = useSelector((state) => state.userDetail);
+    const { userDetail, isUserDetailLoading, isError, message } = useSelector((state) => state.userDetail);
 
     const { username } = useParams();
 
@@ -35,7 +35,6 @@ const UserProfile = () => {
             console.log(message);
         }
 
-        dispatch(getAllUserDetails);
         dispatch(getUserDetail(username));
 
         return () => dispatch(userDetailReset());
@@ -81,7 +80,6 @@ const UserProfile = () => {
                     <UserLinks
                         userDetail={userDetail}
                         isUserDetailsLoading={isUserDetailLoading}
-                        userDetails={userDetails}
                         setShowAuthPopup={setShowAuthPopup}
                     />
                     <UserDetailsContainer>

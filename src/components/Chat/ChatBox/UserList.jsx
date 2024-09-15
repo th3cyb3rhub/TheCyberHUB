@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getConnections } from "src/features/connections/connectionSlice";
+import { getConnections } from "src/features/userDetail/connections/connectionSlice";
 import { RouteLink, UserListContainer } from "src/components/Chat/Sidebar/SidebarElements";
 import Contact from "src/components/Chat/Contact";
 
-const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, setSelectedUserId }) => {
+const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, setSelectedUserId, userDetails }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { connections } = useSelector((state) => state.connectionData);
@@ -45,6 +45,7 @@ const UserList = ({ hideSidebar, onlinePeople, offlinePeople, selectedUserId, se
     const OfflineConnections = filteredOfflinePeople?.filter((person) => {
         return allConnections?.includes(person && person?.user);
     });
+
     return (
         <UserListContainer>
             {onlineConnections &&

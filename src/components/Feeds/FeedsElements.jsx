@@ -17,8 +17,6 @@ export const MiddleSection = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 15px;
-    border-left: 1px solid #1a1a1a;
-    border-right: 1px solid #1a1a1a;
 `;
 export const ModifyFeedContainer = styled.div`
     padding: 15px;

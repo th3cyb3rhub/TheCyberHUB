@@ -20,7 +20,7 @@ const ChatMessages = ({ messages, isTrailEnded, trailMessage }) => {
     return (
         <MessagesContainer>
             <Messages ref={messagesContainerRef}>
-                {messages.map((message, index) =>
+                {messages?.map((message, index) =>
                     message.type === "bot" ? (
                         <MarkdownPreview key={index} source={message.content} />
                     ) : (

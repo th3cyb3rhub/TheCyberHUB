@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import connectionService from "./connectionService";
+import connectionService from "./connectionService.js";
 
 const initialState = {
     connections: [],

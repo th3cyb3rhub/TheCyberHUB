@@ -17,7 +17,7 @@ const FeedPosts = ({ feeds, searchTerm, showOnlyFollowingPosts, isFeedLoading, d
     const { feedLikes } = useSelector((state) => state.feedLikes);
     const { bookmarks } = useSelector((state) => state.bookmarks);
     const { views } = useSelector((state) => state.views);
-    const { followData } = useSelector((state) => state.followData);
+    const { followData } = useSelector((state) => state.follow);
 
     // const [numPostsToShow, setNumPostsToShow] = useState(50);
 

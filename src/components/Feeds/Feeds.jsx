@@ -10,7 +10,7 @@ import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSp
 import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "src/features/apiStatus";
 import { LeftContainer } from "src/components/Explore/ExploreElements";
-import { getFollowData, reset } from "src/features/follow/followSlice";
+import { getFollowData, reset } from "src/features/userDetail/follow/followSlice";
 import Sidebar from "src/components/Common/SocialSidebar/Sidebar";
 
 const Feeds = () => {

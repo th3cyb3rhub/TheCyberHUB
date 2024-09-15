@@ -7,7 +7,7 @@ import LoadingBlogCard from "src/components/Blogs/BlogCard/LoadingBlogCard";
 import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "src/features/apiStatus";
 import BlogCards from "src/components/Blogs/BlogCard/BlogCards";
-import { getFollowData, reset } from "src/features/follow/followSlice";
+import { getFollowData, reset } from "src/features/userDetail/follow/followSlice";
 import Sidebar from "src/components/Common/SocialSidebar/Sidebar";
 import { getBookmarks } from "src/features/bookmarks/bookmarkSlice.js";
 

@@ -6,7 +6,7 @@ import { CTFContainer, CTFHeader, CTFHeading, Option, SearchContainer, SearchDif
 import { getUserDetail } from "src/features/userDetail/userDetailSlice";
 import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 import apiStatus from "src/features/apiStatus";
-import CtfChallenges from "./CTFCards/CtfChallenges";
+// import CtfChallenges from "./CTFCards/CtfChallenges";
 import { RankTrophy } from "src/components/Header/Navbar/NavbarElements";
 import { RouteLink } from "src/components/Common/GeneralDashboardSidebar/GeneralDashboardSidebarElements";
 import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner";
@@ -17,7 +17,7 @@ const CTF = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { ctfs, isCtfLoading } = useSelector((state) => state.ctfs);
-    const { userDetail, isUserDetailLoading } = useSelector((state) => state.userDetail);
+    const { isUserDetailLoading } = useSelector((state) => state.userDetail);
 
     useEffect(() => {
         dispatch(getAllCTFs());
@@ -29,7 +29,7 @@ const CTF = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDifficulty, setSelectedDifficulty] = useState("all");
     const [selectedType, setSelectedType] = useState("all");
-    const [filteredCTFs, setFilteredCTFs] = useState(ctfs);
+    const [setFilteredCTFs] = useState(ctfs);
 
     useEffect(() => {
         const filteredCTFs = Array.isArray(ctfs)
@@ -134,7 +134,11 @@ const CTF = () => {
                     </RouteLink>
                 </SearchContainer>
 
-                <CtfChallenges ctfs={filteredCTFs} userDetail={userDetail} user={user} />
+                <CTFHeader>
+                    <CTFHeading> Coming Soon </CTFHeading>
+                </CTFHeader>
+
+                {/* <CtfChallenges ctfs={filteredCTFs} userDetail={userDetail} user={user} /> */}
             </CTFContainer>
         </Wrapper>
     );

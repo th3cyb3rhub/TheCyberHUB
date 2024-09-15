@@ -1,34 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
-import { AIChatContainer, ChatHeader, ChatInput, ChatBox, ChatTitle, ToggleSection } from "./AIChatElements";
-import ChatMessages from "./ChatMessages";
+import { AIChatContainer } from "./AIChatElements";
 import RecentChats from "./RecentChats";
 import { useSelector } from "react-redux";
-import { BiSend } from "react-icons/bi";
-import { CircleSpinner } from "react-spinners-kit";
 import { getApiUrl } from "src/features/apiUrl";
 import { toast } from "react-toastify";
-import { SlOptionsVertical } from "react-icons/sl";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import AuthPopup from "src/pages/AuthPopup/AuthPopup";
-import Prompts from "./Prompts/Prompts";
-import { TbMessage2Plus } from "react-icons/tb";
-import { RecentChatsHeader } from "src/components/AIChat/RecentChatsElements.jsx";
+import { Route, Routes } from "react-router-dom";
+import Chat from "src/components/AIChat/Chat.jsx";
+import NewChat from "src/components/AIChat/NewChat.jsx";
 
 const API_BASE_URL = getApiUrl("api/aiChat");
 
 const AiChat = () => {
-    // const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-
-    // if (!user) {
-    //     navigate("/login");
-    // }
-
     const [chats, setChats] = useState([]);
+    const [chat, setChat] = useState({});
     const [isTrailEnded, setIsTrailEnded] = useState(false);
-
     const trailMessage = [
         {
             type: "user",
@@ -43,13 +32,12 @@ const AiChat = () => {
             _id: "65b7507df24f3468473bb983",
         },
     ];
-
     const [userInput, setUserInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [selectedChatId, setSelectedChatId] = useState(null);
-
     const [toggle, setToggle] = useState(false);
     const [showAuthPopup, setShowAuthPopup] = useState(false);
+    const [fetchError, setFetchError] = useState(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -64,6 +52,7 @@ const AiChat = () => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
     const handleSendDummyMessage = async (dummyMessage) => {
         setUserInput(dummyMessage);
         setIsLoading(true);
@@ -111,6 +100,8 @@ const AiChat = () => {
             return;
         }
 
+        console.log(userInput);
+
         try {
             const response = await axios.post(
                 `${API_BASE_URL}/ask/${selectedChatId}`,
@@ -123,7 +114,9 @@ const AiChat = () => {
                 },
             );
 
-            const { chats } = response.data;
+            const { chats, updatedChat } = response.data;
+
+            setChat(updatedChat);
             setChats(chats);
             setUserInput("");
         } catch (error) {
@@ -132,9 +125,6 @@ const AiChat = () => {
                 toast("Your trial period has ended");
                 return;
             }
-            // toast("Please enter your API Key");
-
-            // toast(error.response.data);
             console.error(error);
         } finally {
             setIsLoading(false);
@@ -146,7 +136,6 @@ const AiChat = () => {
             setIsLoading(true);
             setShowAuthPopup(true);
             setIsLoading(false);
-            
         }
     };
 
@@ -158,13 +147,39 @@ const AiChat = () => {
                     Authorization: `Bearer ${user.token}`,
                 },
             });
-            const { chats } = response.data;
-            setChats(chats);
+            setChats(response.data);
             setSelectedChatId(chats.length > 0 ? chats.reverse()[0]?._id : null);
         } catch (error) {
             console.error(error);
         }
     };
+
+    const getChat = useCallback(async () => {
+        try {
+            setFetchError(null);
+            const response = await axios.get(`${API_BASE_URL}/${selectedChatId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+            setChat(response.data);
+        } catch (error) {
+            console.error("Error fetching chat:", error);
+            setFetchError("Failed to load chat. Please try again.");
+        }
+    }, [API_BASE_URL, selectedChatId, user.token]);
+
+    useEffect(() => {
+        if (!user) return;
+        getMessages();
+    }, []);
+
+    useEffect(() => {
+        if (!selectedChatId) return;
+
+        getChat();
+    }, [getChat, selectedChatId]);
 
     const handleNewChat = async () => {
         setIsLoading(true);
@@ -225,10 +240,9 @@ const AiChat = () => {
         }
     };
 
-    useEffect(() => {
-        if (!user) return;
-        getMessages();
-    }, []);
+    const handleCloseAuthPopup = () => {
+        setShowAuthPopup(false);
+    };
 
     useEffect(() => {
         if (chats.length === 0) {
@@ -238,9 +252,7 @@ const AiChat = () => {
         }
     }, []);
 
-    const handleCloseAuthPopup = () => {
-        setShowAuthPopup(false);
-    };
+    console.log(fetchError);
 
     return (
         <Wrapper>
@@ -258,72 +270,50 @@ const AiChat = () => {
                     />
                 )}
 
-                {selectedChatId ? (
-                    chats.map(
-                        (chat) =>
-                            chat._id === selectedChatId && (
-                                <ChatBox key={chat?._id}>
-                                    <ChatHeader>
-                                        <ToggleSection onClick={() => setToggle(!toggle)}>
-                                            {toggle ? <FaAngleRight /> : <FaAngleLeft />}
-                                        </ToggleSection>
-                                        <ChatTitle>{chat?.title}</ChatTitle>
-                                        <SlOptionsVertical />
-                                    </ChatHeader>
+                <Routes>
+                    <Route
+                        index
+                        exac
+                        path={""}
+                        element={
+                            <NewChat
+                                trailMessage={trailMessage}
+                                setToggle={setToggle}
+                                toggle={toggle}
+                                handleIsUserExit={handleIsUserExit}
+                                handleNewChat={handleNewChat}
+                                handleSendMessage={handleSendMessage}
+                            />
+                        }
+                    />
 
-                                    <ChatMessages
-                                        messages={chat.messages}
-                                        isTrailEnded={isTrailEnded}
-                                        trailMessage={trailMessage}
-                                    />
-
-                                    {!isTrailEnded ? (
-                                        <>
-                                            {chat.title !== "New Chat" ? null : (
-                                                <Prompts handleSendDummyMessage={handleSendDummyMessage} />
-                                            )}
-
-                                            <ChatInput onSubmit={handleSendMessage}>
-                                                <input
-                                                    type="text"
-                                                    value={userInput}
-                                                    onChange={(e) => setUserInput(e.target.value)}
-                                                />
-                                                {isLoading ? (
-                                                    <button>
-                                                        <CircleSpinner size={20} color={"#131313"} />
-                                                    </button>
-                                                ) : (
-                                                    <button type="submit">
-                                                        <BiSend size={25} />
-                                                    </button>
-                                                )}
-                                            </ChatInput>
-                                        </>
-                                    ) : null}
-                                </ChatBox>
-                            ),
-                    )
-                ) : (
-                    <ChatBox key={selectedChatId}>
-                        <ChatHeader>
-                            <ToggleSection onClick={() => setToggle(!toggle)}>
-                                {toggle ? <FaAngleRight /> : <FaAngleLeft />}
-                            </ToggleSection>
-                            <ChatTitle>{"New Chat"}</ChatTitle>
-                            <SlOptionsVertical className="hidden" />
-                        </ChatHeader>
-
-                        <ChatInput onClick={handleIsUserExit} className="cursor-pointer" onSubmit={handleSendMessage}>
-                            <p>Start a New Chat</p>
-                            <RecentChatsHeader>
-                                <div className="new-chat-button" onClick={handleNewChat}>
-                                    <TbMessage2Plus size={30} />
-                                </div>
-                            </RecentChatsHeader>
-                        </ChatInput>
-                    </ChatBox>
-                )}
+                    <Route
+                        path={"/:id"}
+                        element={
+                            <Chat
+                                selectedChatId={selectedChatId}
+                                isTrailEnded={isTrailEnded}
+                                isLoading={isLoading}
+                                userInput={userInput}
+                                setUserInput={setUserInput}
+                                handleSendDummyMessage={handleSendDummyMessage}
+                                handleSendMessage={handleSendMessage}
+                                handleIsUserExit={handleIsUserExit}
+                                API_BASE_URL={API_BASE_URL}
+                                setToggle={setToggle}
+                                toggle={toggle}
+                                user={user}
+                                chats={chats}
+                                chat={chat}
+                                setChats={setChats}
+                                handleDeleteChat={handleDeleteChat}
+                                handleNewChat={handleNewChat}
+                                trailMessage={trailMessage}
+                                setSelectedChatId={setSelectedChatId}
+                            />
+                        }
+                    />
+                </Routes>
             </AIChatContainer>
         </Wrapper>
     );

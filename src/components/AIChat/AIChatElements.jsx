@@ -152,7 +152,7 @@ export const UserMessage = styled.div`
     align-self: flex-end;
     border: 1px solid #333;
     margin-top: 10px;
-    border-radius: 10px 1px 0 0;
+    border-radius: 10px 10px 0 0;
     font-size: 18px;
     font-weight: bold;
     padding: 15px 20px;

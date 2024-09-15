@@ -37,7 +37,7 @@ const FeedPost = ({ feed, user, comments, likes, bookmarks, views, setStopRefres
         dispatch(updateFeed({ id: feed?._id, feedData: data }));
     };
     return (
-        <FeedPostContainer $displayAt={displayAt}>
+        <FeedPostContainer displayAt={displayAt}>
             <RightSection>
                 {editMode && (
                     <>

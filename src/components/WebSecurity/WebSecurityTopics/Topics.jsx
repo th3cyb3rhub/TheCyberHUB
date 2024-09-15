@@ -1,87 +1,41 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import { RouterLink } from "src/components/Tools/ToolsElements";
-import topics from "./topicsData";
 import Sidebar from "src/components/WebSecurity/Sidebar";
 import { StyledTag } from "./TopicsElements";
 import { LevelContainer } from "src/components/WebSecurity/Common/Labs/LabsElement";
 import { Input } from "src/components/WebSecurity/Common/SubmissionBoxElements";
 import { LevelButton } from "src/components/WebSecurity/Common/Labs/RoomCardElement";
-
-// Styled component for the container
-export const TopicsContainer = styled.div`
-    width: 100%;
-    max-width: 1500px;
-    height: 100%;
-
-    /* background-color: #090909; */
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    margin: 5px auto;
-`;
-
-export const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
-    .header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 0;
-        margin: 0;
-    }
-
-    .room-cards-container {
-        /* display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 20px; */
-        padding: 0;
-        margin: 0;
-    }
-`;
-
-export const TopicCards = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 15px;
-    width: 100%;
-    justify-content: center;
-`;
-
-export const TopicCard = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    height: 100%;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid rgb(255 255 255 / 18%);
-    transition: all 0.3s ease-in-out;
-    background: #090909;
-
-    &:hover {
-        transform: translateY(-1px);
-        background: #232323;
-    }
-`;
-
-export const Tags = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
+import {
+    Tags,
+    TopicCard,
+    TopicCards,
+    TopicsContainer,
+    Container,
+} from "src/components/WebSecurity/WebSecurityTopics/TopicElements.jsx";
 
 const Topics = () => {
+    const [topics, setTopics] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/topics");
+                setTopics(response.data); // Update state with the fetched data
+                setLoading(false); // Stop loading when data is received
+            } catch (err) {
+                setError(err.message); // Set error if request fails
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array ensures this runs once after component mounts
+
     const handleSelectSubtopic = (subtopicId) => {
         console.log(subtopicId);
     };
@@ -124,6 +78,9 @@ const Topics = () => {
                     topic.tags.some((tag) => tag.toLowerCase().includes(searchInput.toLowerCase()))),
         ) || [];
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+
     return (
         <TopicsContainer>
             <Sidebar
@@ -142,11 +99,11 @@ const Topics = () => {
                 <TopicCards className={"room-cards-container"}>
                     {filteredTopics.map((topic) => (
                         <RouterLink
-                            to={`/websecurity/topic/${topic.id}`}
+                            to={`/websecurity/topic/${topic._id}`}
                             style={{ textDecoration: "none", width: "100%" }}
-                            key={topic.id}
+                            key={topic._id}
                         >
-                            <TopicCard key={topic.id}>
+                            <TopicCard key={topic._id}>
                                 <h3
                                     style={{
                                         marginBottom: "10px",

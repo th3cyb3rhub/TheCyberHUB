@@ -90,7 +90,7 @@ const Sidebar = ({
         <SidebarContainer $sidebarType={sidebarType}>
             {sidebarType === "blogs" && (
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
-                    {user?.type === "admin" ? (
+                    {user?.role === "admin" || user?.role === "team" ? (
                         <>
                             <RouterNavCreateButtonLink to={"/blogs/create"}>Create Blog</RouterNavCreateButtonLink>
                             <RouterNavCreateButtonLink to={"/blogs/my-blogs"}>My Blogs</RouterNavCreateButtonLink>

@@ -25,19 +25,19 @@ import {
     WebsiteRights,
 } from "./FooterElements";
 
-import { FaDiscord, FaGithub, FaInstagram, FaTelegram, FaYoutube } from "react-icons/fa";
-import { FaThreads, FaXTwitter } from "react-icons/fa6";
+import { FaDiscord, FaGithub, FaInstagram, FaLinkedin, FaTelegram, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { animateScroll as scroll } from "react-scroll";
 
 const SocialLinks = {
     github: "https://www.github.com/thecyberworld",
     instagram: "https://www.instagram.com/thecyberw0rld",
     twitter: "https://www.twitter.com/thecyberw0rld",
-    threads: "https://www.threads.net/thecyberw0rld",
     discord: "https://discord.gg/QHBPq6xP5p",
     telegram: "https://t.me/thecyberw0rld",
     linktree: "https://linktr.ee/thecyberworld",
     youtube: "https://www.youtube.com/c/thecyberworld",
+    linkedin: "https://linkedin.com/company/thecyberw0rld",
 };
 
 const toggleHome = () => {
@@ -85,10 +85,8 @@ const Footer = () => {
                         <FooterLinkItems>
                             <FooterLinkTitle>Opportunities</FooterLinkTitle>
                             <FooterRouterLink to="/internship">Internships</FooterRouterLink>
-                            <FooterRouterLink to="/volunteer">Volunteer</FooterRouterLink>
-                            <FooterRouterLink to="/opensec-projects ">OpenSec Projects</FooterRouterLink>
-                            <FooterRouterLink to="/thecyberxcel">TheCyberXcel</FooterRouterLink>
-                            <FooterRouterLink to="/thecyberspeak">TheCyberSpeak</FooterRouterLink>
+                            <FooterRouterLink to="/community-events">Community Events</FooterRouterLink>
+                            <FooterRouterLink to="/opensec-projects">OpenSec Projects</FooterRouterLink>
                         </FooterLinkItems>
 
                         <FooterLinkItems>
@@ -129,6 +127,9 @@ const Footer = () => {
                             <SocialIconLinkYoutube href={SocialLinks.youtube} target="_blank" aria-label="YouTube">
                                 <FaYoutube />
                             </SocialIconLinkYoutube>
+                            <SocialIconLinkTwitter href={SocialLinks.linkedin} target="_blank" aria-label="Linkedin">
+                                <FaLinkedin />
+                            </SocialIconLinkTwitter>
                             <SocialIconLinkDiscord href={SocialLinks.discord} target="_blank" aria-label="Discord">
                                 <FaDiscord />
                             </SocialIconLinkDiscord>
@@ -141,9 +142,6 @@ const Footer = () => {
                             <SocialIconLinkTwitter href={SocialLinks.twitter} target="_blank" aria-label="Twitter">
                                 <FaXTwitter />
                             </SocialIconLinkTwitter>
-                            <SocialIconLinkInstagram href={SocialLinks.threads} target="_blank" aria-label="Twitter">
-                                <FaThreads />
-                            </SocialIconLinkInstagram>
                             <SocialIconLinkInstagram
                                 href={SocialLinks.instagram}
                                 target="_blank"

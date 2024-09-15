@@ -11,7 +11,7 @@ import { getApiUrl } from "src/features/apiUrl";
 const FormData = () => {
     const { user } = useSelector((state) => state.auth);
 
-    if (!user) {
+    if (!user || user.role !== "admin" || user.role === "team") {
         return <NotFound />;
     }
 

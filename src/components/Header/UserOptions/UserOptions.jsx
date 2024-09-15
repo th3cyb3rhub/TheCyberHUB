@@ -75,7 +75,7 @@ const DropdownMenu = () => {
                         <DropdownItem to={`/user/${user?.username}`} leftIcon={<FaUserCircle />}>
                             Public Profile
                         </DropdownItem>
-                        {(user?.userType === "admin" || user?.userType === "team") && (
+                        {(user?.role === "admin" || user?.role === "team") && (
                             <DropdownItem to={"/admin-dashboard"} leftIcon={<RiAdminFill />}>
                                 Admin Dashboard
                             </DropdownItem>

@@ -3,13 +3,16 @@ import { Route, Routes } from "react-router-dom";
 import { ChatRoutesContainer } from "./Chat/ChatElement";
 import Sidebar from "./Sidebar/Sidebar";
 import { Chat } from "src/components/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getApiUrl, getApiUrlWs } from "src/features/apiUrl";
 import axios from "axios";
 import { encryptData, decryptData } from "./encryptData";
-// import cryptoJS from "crypto-js";
-const CommunityChat = ({ userDetails }) => {
+import { getAllUserDetails } from "src/features/userDetail/userDetailSlice.js";
+
+const CommunityChat = () => {
+    const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
+    const { userDetails } = useSelector((state) => state.userDetail);
     const [ws, setWs] = useState(null);
     const [onlinePeople, setOnlinePeople] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
@@ -18,10 +21,25 @@ const CommunityChat = ({ userDetails }) => {
     const [hideSidebar, setHideSidebar] = useState(false);
     const divUnderMessage = useRef();
 
+    // Fetch user details only once when the component mounts
     useEffect(() => {
-        if (userDetails.length > 0) {
+        if (user && userDetails.length === 0) {
+            dispatch(getAllUserDetails());
+        }
+    }, [dispatch, user, userDetails.length]);
+
+    // Connect to WebSocket when userDetails is available and ws is not set
+    useEffect(() => {
+        if (userDetails.length > 0 && !ws) {
             connectToWs();
         }
+
+        // Cleanup WebSocket on component unmount
+        return () => {
+            if (ws) {
+                ws.close();
+            }
+        };
     }, [userDetails]);
 
     const connectToWs = () => {
@@ -32,13 +50,13 @@ const CommunityChat = ({ userDetails }) => {
         setWs(newWs);
 
         newWs.addEventListener("open", () => {
-            // console.log("WebSocket connection opened");
+            console.log("WebSocket connection opened");
         });
 
         newWs.addEventListener("message", handleMessages);
         newWs.addEventListener("close", () => {
+            console.log("WebSocket connection closed. Reconnecting...");
             setTimeout(() => {
-                // console.log("WebSocket connection closed. Reconnecting...");
                 connectToWs();
             }, 1000);
         });
@@ -138,10 +156,13 @@ const CommunityChat = ({ userDetails }) => {
         return !foundOnlinePerson;
     });
 
+    console.log(userDetails);
+
     return (
         <ChatRoutesContainer>
-            {hideSidebar ? null : (
+            {!hideSidebar && (
                 <Sidebar
+                    userDetails={userDetails}
                     hideSidebar={hideSidebar}
                     onlinePeople={onlinePeopleExclOurUser}
                     offlinePeople={offlinePeopleData}
@@ -183,4 +204,5 @@ const CommunityChat = ({ userDetails }) => {
         </ChatRoutesContainer>
     );
 };
+
 export default CommunityChat;

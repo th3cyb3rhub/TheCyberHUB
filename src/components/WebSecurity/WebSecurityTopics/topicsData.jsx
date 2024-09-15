@@ -552,7 +552,6 @@ mysqli_stmt_execute($stmt); // Execute prepared statement
             },
         ],
     },
-
     {
         id: 8,
         tags: ["Business Logic", "Web Security", "Code Review"],
@@ -689,7 +688,6 @@ An attacker can exploit this by entering a negative amount, effectively reversin
             },
         ],
     },
-
     {
         id: 9,
         tags: ["Race Conditions", "Web Security", "Code Review"],
@@ -1098,7 +1096,6 @@ print(f"Suits in inventory: {suits_in_inventory}")
             },
         ],
     },
-
     {
         id: 10,
         title: "Introduction to Authentication",
@@ -1188,7 +1185,6 @@ https://dev.thecyberhub.org/reset-password?username=ABC
             },
         ],
     },
-
     {
         id: 11,
         title: "Introduction to Information Disclosure Vulnerability",

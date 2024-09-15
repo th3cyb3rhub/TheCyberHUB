@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DotIcon, FollowButton, FollowContainer, FollowCount } from "./FollowElements";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser, getFollowData, reset, unfollowUser } from "src/features/follow/followSlice";
+import { followUser, getFollowData, reset, unfollowUser } from "src/features/userDetail/follow/followSlice";
 import { RouterLink } from "src/components/Tools/ToolsElements";
 import { CircleSpinner } from "react-spinners-kit";
 

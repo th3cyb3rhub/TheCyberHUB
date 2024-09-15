@@ -48,7 +48,7 @@ const Users = ({ userDetails, searchTerm, isUserDetailLoading, displayAt }) => {
     return filteredUsers.length > 0 ? (
         <UsersContainer displayAt={displayAt}>
             {displayedUsers?.map((user, id) => (
-                <RouteLink to={`/user/${user?.username}`} key={user?.username}>
+                <RouteLink to={`/user/${user?.username}`} key={user?._id}>
                     <UserContainer>
                         <UserPicture src={avatar(user)} />
                         <UserDetail>

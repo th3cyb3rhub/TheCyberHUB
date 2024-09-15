@@ -181,7 +181,7 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                     !onlyCat ? (
                         <div key={index} style={{ width: "100%" }}>
                             <MainTitle
-                                to={`/websecurity/topic/${topic.id}`}
+                                to={`/websecurity/topic/${topic?._id ? topic?._id : topic?.id}`}
                                 onClick={() => toggleDropdown(index)}
                                 style={{
                                     display: "flex",
@@ -200,15 +200,15 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                                     </>
                                 )}
                                 <DropdownList $isOpen={openDropdown === index}>
-                                    {topic.desc.map((subtopic) => (
+                                    {topic?.desc?.map((subtopic) => (
                                         <DropdownItem
-                                            key={subtopic.title}
+                                            key={subtopic}
                                             onClick={() => {
-                                                onSelectSubtopic(subtopic.title);
+                                                onSelectSubtopic(subtopic);
                                                 // toggleDropdown(index);
                                             }}
                                         >
-                                            {subtopic.title}
+                                            {subtopic}
                                         </DropdownItem>
                                     ))}
                                 </DropdownList>

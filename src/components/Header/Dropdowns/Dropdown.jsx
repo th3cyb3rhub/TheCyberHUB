@@ -51,13 +51,15 @@ export default function Dropdown({
         { title: "Roadmap", to: "/roadmaps", desc: "Chart your path to cybersecurity expertise" },
         { title: "Methodology", to: "/resources/methodology", desc: "Master ethical hacking strategies" },
         { title: "Checklist", to: "/resources/checklist", desc: "Find bugs in your systems with our checklist" },
-        { title: "Hacklist", to: "/resources/hacklist", desc: "Hacklist for your daily hacking activities" },
         { title: "Cheatsheets", to: "/resources/cheatsheets", desc: "Cheatsheets for nerds" },
-        { title: "Payloads", to: "/resources/payloads", desc: "All about payloads" },
         { title: "Tools", to: "/tools", desc: "Explore ethical hacking tools" },
         { title: "Interview Questions", to: "/interviewQuestions", desc: "Ace your cybersecurity interview" },
         { title: "Quiz", to: "/quiz", desc: "Challenge your cybersecurity knowledge" },
         { title: "Join our Community", to: "/community", desc: "Connect with fellow cybersecurity enthusiasts" },
+        { title: "Hacklist", to: "/resources/hacklist", desc: "Hacklist for your daily hacking activities" },
+        { title: "Hackliner", to: "/resources/hackliner", desc: "Hacklist for your daily hacking activities" },
+        { title: "Wordlist", to: "/resources/wordlist", desc: "Hacklist for your daily hacking activities" },
+        { title: "Payloads", to: "/resources/payloads", desc: "All about payloads" },
         // { title: "Support", to: "/support", desc: "Support us" },
     ];
 

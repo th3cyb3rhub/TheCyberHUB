@@ -114,7 +114,7 @@ const App = () => {
                         <Route exact path={"/resetPassword/:token"} element={<ResetPassword />} />
                         <Route exact path={"/register"} element={<Register />} />
 
-                        <Route exact path={"/aichat"} element={<AiChat />} />
+                        <Route exact path={"/aichat/*"} element={<AiChat />} />
 
                         <Route path={"/explore/*"} element={<ExploreRoutes />} />
                         <Route path={"/feeds/*"} element={<FeedsRoute />} />
@@ -192,6 +192,7 @@ const App = () => {
                 {/* <ChatBot /> */}
                 {!hideHomeHeader() && <Footer />}
             </Container>
+
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

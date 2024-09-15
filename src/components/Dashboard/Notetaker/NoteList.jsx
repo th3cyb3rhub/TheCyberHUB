@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NotesListContainer, NotesListNoFound } from "./NoteElements";
 import NoteItem from "./NoteItem";
 import { Reorder, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { notesReorder, updateNoteId } from "src/features/notes/notesSlice";
+import { notesReorder } from "src/features/notes/notesSlice";
 
 const NoteList = ({ children, onPick, onPin, pickedNoteId }) => {
     const dispatch = useDispatch();
@@ -20,11 +20,11 @@ const NoteList = ({ children, onPick, onPin, pickedNoteId }) => {
 
     const sortedNotes = sortByNoteId(children);
 
-    useEffect(() => {
-        return () => {
-            dispatch(updateNoteId(sortedNotes));
-        };
-    }, [sortedNotes]);
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(updateNoteId(sortedNotes));
+    //     };
+    // }, [sortedNotes]);
 
     const rearrangeNoteId = (arr, sortedNotes) => {
         return arr.map((item, index) => {

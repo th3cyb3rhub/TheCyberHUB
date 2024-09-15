@@ -12,6 +12,9 @@ import apiStatus from "src/features/apiStatus.jsx";
 
 const UserBlogs = () => {
     const { isApiLoading, isApiWorking } = apiStatus();
+    const pathname = window.location.pathname;
+    const isDashboard = pathname === "/blogs/my-blogs";
+    const { user } = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
     const { blogs, isBlogLoading, isBlogError, blogMessage } = useSelector((state) => state.blogs);
@@ -23,6 +26,8 @@ const UserBlogs = () => {
         dispatch(getBlogs());
         return () => dispatch(blogReset());
     }, [dispatch, isBlogError, blogMessage]);
+
+    const filteredBlogs = isDashboard ? blogs.filter((blog) => blog?.user === user?._id) : blogs;
 
     if (isApiLoading) return <LoadingSpinner />;
 
@@ -43,11 +48,13 @@ const UserBlogs = () => {
                 ) : (
                     <MiddleContainer>
                         <AllBlogs>
-                            {blogs && blogs.length > 0 ? (
-                                blogs
+                            {filteredBlogs && filteredBlogs.length > 0 ? (
+                                filteredBlogs
                                     .slice()
                                     .reverse()
-                                    .map((blog) => <BlogCard key={blog?._id} blog={blog} />)
+                                    .map((blog) => (
+                                        <BlogCard key={blog?._id} blog={blog} isDashboard={isDashboard} user={user} />
+                                    ))
                             ) : (
                                 <h1 style={{ color: "white" }}>There are no blogs to display</h1>
                             )}

@@ -44,6 +44,7 @@ export const MarkdownContent = styled(ReactMarkdown)`
 
     p {
         margin-bottom: 10px;
+        white-space: pre-wrap;
     }
 
     ul,

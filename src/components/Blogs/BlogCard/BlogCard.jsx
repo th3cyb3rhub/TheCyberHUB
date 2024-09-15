@@ -21,7 +21,7 @@ import { encodeURL } from "src/components/Blogs/util";
 
 import { cdnContentImagesUrl } from "src/features/apiUrl";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { deleteBlog } from "src/features/blogs/blogSlice";
 import { AiFillDelete } from "react-icons/ai";
@@ -31,13 +31,10 @@ import { addBookmark, removeBookmark } from "src/features/bookmarks/bookmarkSlic
 
 const image = "https://user-images.githubusercontent.com/44284877/210166161-ad2f71a7-df74-43b9-8330-af9740d9e8ba.png";
 
-const BlogCard = ({ blog, bookmarks }) => {
-    const pathname = window.location.pathname;
-    const isDashboard = pathname.split("/").includes("my-blogs");
+const BlogCard = ({ blog, bookmarks, isDashboard, user }) => {
     const dispatch = useDispatch();
     const coverImage = blog?.coverImage;
     const coverImageUrl = cdnContentImagesUrl(`/blog/${coverImage}`) || image;
-    const { user } = useSelector((state) => state.auth);
 
     const userId = user?._id;
 

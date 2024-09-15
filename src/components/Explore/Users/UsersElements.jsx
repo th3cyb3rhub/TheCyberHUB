@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { ExploreContentContainer } from "src/components/Explore/ExploreElements";
 import { PiSealCheckDuotone } from "react-icons/pi";
 export const UsersContainer = styled(ExploreContentContainer)`
-    grid-auto-rows: ${(props) => (props.$displayAt === "explore" ? "2fr" : "0fr")};
+    display: grid;
     gap: 15px;
 
     @media (width <= 800px) {
-        grid-auto-rows: 0fr;
+        grid-template-rows: 0fr;
         padding: 15px;
     }
 `;

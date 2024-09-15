@@ -9,41 +9,31 @@ import {
     removeConnectionRequest,
     reset,
     removeConnection,
-} from "src/features/connections/connectionSlice";
-import { getAllUserDetails, userDetailReset } from "src/features/userDetail/userDetailSlice";
+} from "src/features/userDetail/connections/connectionSlice";
 import { RouterLink } from "src/components/Tools/ToolsElements";
 import { cdnContentImagesUrl } from "src/features/apiUrl";
 
 const Connections = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
-    const { userDetails, isError, message } = useSelector((state) => state.userDetail);
-
-    // connections
     const { connections: connectionData } = useSelector((state) => state.connectionData);
+
     // const [isPending, setIsPending] = useState(false);
     const [connections, setConnections] = useState([]);
     const connectionUserId = user?._id;
     const userId = user?._id;
 
-    // const isConnection = (connectionId) => {
-    //     return connections?.find((connection) => connection?.user === connectionId && connection?.isAccepted)
-    // }
-    //
-    // const isPendingConnection = (connectionId) => {
-    //     return connections?.find((connection) => connection?.user === connectionId && !connection?.isAccepted)
-    // }
+    const isConnection = (connectionId) => {
+        return connections?.find((connection) => connection?.user === connectionId && connection?.isAccepted);
+    };
+
+    const isPendingConnection = (connectionId) => {
+        return connections?.find((connection) => connection?.user === connectionId && !connection?.isAccepted);
+    };
 
     useEffect(() => {
-        if (isError) {
-            console.log(message);
-        }
-
-        dispatch(getAllUserDetails());
         dispatch(getConnections());
-
-        return () => dispatch(userDetailReset());
-    }, [isError, message, dispatch]);
+    }, []);
 
     useEffect(() => {
         if (connectionUserId) {
@@ -60,8 +50,6 @@ const Connections = () => {
             setConnections(connectionData?.connections);
         }
     }, [connectionData]);
-
-    // const userDetail = userDetails?.find((userDetail) => userDetail?.user === user?._id);
 
     const handleRemoveConnectionRequest = async (connectionUserId) => {
         if (connectionUserId) {
@@ -94,7 +82,9 @@ const Connections = () => {
             })) ||
         [];
 
-    const avatar = (userDetail) => cdnContentImagesUrl("/user/" + (userDetail?.avatar || "avatar.png"));
+    const avatar = (connection) => cdnContentImagesUrl("/user/" + (connection?.avatar || "avatar.png"));
+
+    console.log(isConnection(connectionUserId), isPendingConnection(connectionUserId));
 
     return (
         <Wrapper>
@@ -116,23 +106,16 @@ const Connections = () => {
                     </p>
 
                     {sortedConnections.map((connection) => {
-                        const username = userDetails?.find(
-                            (userDetail) => userDetail?.user === connection?.user,
-                        )?.username;
                         return (
                             <ConnectionWrapper key={connection.user}>
-                                <RouterLink to={`/user/${username}`}>
+                                <RouterLink to={`/user/${connection.username}`}>
                                     <ConnectionUsername>
                                         <img
-                                            src={avatar(
-                                                userDetails?.find(
-                                                    (userDetail) => userDetail?.user === connection?.user,
-                                                ),
-                                            )}
+                                            src={avatar(connection)}
                                             style={{ width: "40px", height: "40px", borderRadius: "50%" }}
                                             alt="Profile"
                                         />
-                                        {username}
+                                        {connection.username}
                                     </ConnectionUsername>
                                 </RouterLink>
 

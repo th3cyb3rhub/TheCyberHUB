@@ -2,14 +2,39 @@ import styled from "styled-components";
 import { ExploreContentContainer } from "src/components/Explore/ExploreElements";
 
 export const FeedPostsContainer = styled(ExploreContentContainer)`
-    background-color: ${({ $displayAt }) => ($displayAt === "explore" ? "#090909" : "#000000")};
-    padding: ${({ $displayAt }) => ($displayAt === "explore" ? "15px" : "0")};
-    grid-auto-rows: minmax(min-content, max-content);
-    gap: ${({ $displayAt }) => ($displayAt === "explore" ? "25px" : "0")};
-
-    @media (width <= 1230px) {
+    ${({ $displayAt }) =>
+        $displayAt === "explore"
+            ? `
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: auto;
         gap: 15px;
+        padding: 15px;
+    `
+            : `
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        gap: 10px;
+    `}
+
+    @media (width <= 1230px) {
+        ${({ $displayAt }) =>
+            $displayAt === "explore" &&
+            `
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        `}
+    }
+
+    @media (width <= 800px) {
+        ${({ $displayAt }) =>
+            $displayAt === "explore" &&
+            `
+            grid-template-columns: 1fr;
+            gap: 10px;
+        `}
     }
 `;
 
@@ -22,8 +47,8 @@ export const PostForm = styled.div`
 `;
 
 export const FeedPostContainer = styled.div`
-    border-bottom: 1px solid #1a1a1a;
-    background: #000;
+    border-radius: 5px;
+    background-color: #101010;
     padding: 15px;
     display: flex;
     width: 100%;

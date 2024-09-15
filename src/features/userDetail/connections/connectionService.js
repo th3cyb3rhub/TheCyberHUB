@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getApiUrl } from "src/features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl.js";
 
 const API_URL = getApiUrl("api/connections/");
 
