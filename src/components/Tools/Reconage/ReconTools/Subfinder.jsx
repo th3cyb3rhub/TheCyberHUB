@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdContentCopy, MdFileDownload, MdSearch } from "react-icons/md";
+import { getReconageUrl } from "src/features/apiUrl.js";
 
 const Container = styled.div`
     min-height: 100vh;
@@ -132,7 +133,7 @@ const Subfinder = () => {
         setSubdomains([]);
 
         try {
-            const response = await fetch("https://reconage-api.thecyberhub.org/api/subdomains", {
+            const response = await fetch(getReconageUrl("api/subdomains"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

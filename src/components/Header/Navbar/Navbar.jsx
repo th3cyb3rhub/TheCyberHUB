@@ -20,11 +20,8 @@ import { SideOptionsContainer } from "src/components/Header/ExpElemenets";
 import { useLocation } from "react-router-dom";
 
 const logo = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo.png`;
-// const logoThecyberworld = `${getCdnAssets}/images/ThecyberworldLogo/thecyberworld-logo-big.png`;
 
 const Navbar = ({ isOpen, toggle }) => {
-    // const { theme, toggleTheme } = useContext(ThemeContext);
-
     const [scrollNav, setScrollNav] = useState(false);
     const [drop, setDrop] = useState(false);
     const [resourcesClick, setResourcesClick] = useState(true);
@@ -81,8 +78,6 @@ const Navbar = ({ isOpen, toggle }) => {
                         { to: "explore", title: "Explore", dropdown: "explore" },
                         { to: "feeds", title: "Feeds", dropdown: "feeds" },
                         { to: "blogs", title: "Blogs", dropdown: "blogs" },
-                        // { to: "forum", title: "Forum", dropdown: "forum" },
-                        // { to: "courses", title: "Courses", dropdown: "courses" },
                         { to: "aiChat", title: "AI ", dropdown: "aiChat" },
                         { to: "ctf", title: "CTF", dropdown: "ctf" },
                         { to: "websecurity", title: "Web Security", dropdown: "websecurity" },

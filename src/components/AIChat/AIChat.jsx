@@ -70,7 +70,7 @@ const AiChat = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${user.token}`,
+                        Authorization: `Bearer ${user?.token}`,
                     },
                 },
             );
@@ -109,7 +109,7 @@ const AiChat = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${user.token}`,
+                        Authorization: `Bearer ${user?.token}`,
                     },
                 },
             );
@@ -144,7 +144,7 @@ const AiChat = () => {
             const response = await axios.get(`${API_BASE_URL}/get`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
+                    Authorization: `Bearer ${user?.token}`,
                 },
             });
             setChats(response.data);
@@ -160,7 +160,7 @@ const AiChat = () => {
             const response = await axios.get(`${API_BASE_URL}/${selectedChatId}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
+                    Authorization: `Bearer ${user?.token}`,
                 },
             });
             setChat(response.data);
@@ -168,7 +168,7 @@ const AiChat = () => {
             console.error("Error fetching chat:", error);
             setFetchError("Failed to load chat. Please try again.");
         }
-    }, [API_BASE_URL, selectedChatId, user.token]);
+    }, [API_BASE_URL, selectedChatId, user?.token]);
 
     useEffect(() => {
         if (!user) return;
@@ -203,7 +203,7 @@ const AiChat = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${user.token}`,
+                        Authorization: `Bearer ${user?.token}`,
                     },
                 },
             );
@@ -225,7 +225,7 @@ const AiChat = () => {
             await axios.delete(`${API_BASE_URL}/delete/${chatId}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
+                    Authorization: `Bearer ${user?.token}`,
                 },
             });
 

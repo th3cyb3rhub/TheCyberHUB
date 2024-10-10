@@ -1,5 +1,4 @@
-import React from // ,{useEffect, useState}
-"react";
+import React from "react"; // ,{useEffect, useState}
 import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
 // import {getAllCTFs} from "src/features/ctf/ctfSlice";
 // import {useDispatch, useSelector} from "react-redux";
@@ -8,8 +7,8 @@ import { CTFContainer, CTFHeader, CTFHeading, Option, SearchContainer, SearchDif
 // import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
 // import apiStatus from "src/features/apiStatus";
 // import CtfChallenges from "./CTFCards/CtfChallenges";
-import { RankTrophy } from "src/components/Header/Navbar/NavbarElements";
-import { RouteLink } from "src/components/Common/GeneralDashboardSidebar/GeneralDashboardSidebarElements";
+// import { RankTrophy } from "src/components/Header/Navbar/NavbarElements";
+// import { RouteLink } from "src/components/Common/GeneralDashboardSidebar/GeneralDashboardSidebarElements";
 // import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner";
 import SearchInputBox from "src/components/Common/SearchInputBox";
 // import {Link} from "react-router-dom";
@@ -70,7 +69,7 @@ const CTF = () => {
                     <CTFHeading> Capture The Flag</CTFHeading>
                 </CTFHeader>
 
-                {/* {user && user.role === 'admin' || user.role === 'team' ? ( */}
+                {/* {user && user.role === 'admin' || user.role !== 'team' ? ( */}
                 {/*    <Link to={`create`}> */}
                 {/*        <Heading2>Create</Heading2> */}
                 {/*    </Link> */}
@@ -111,39 +110,39 @@ const CTF = () => {
                         </Select>
                     </SearchDifficulty>
 
-                    <RouteLink to="teams">
-                        <SearchDifficulty
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                textDecoration: "none",
-                                gap: "5px",
-                                padding: "6px 15px 6px 10px",
-                                borderRadius: "5px",
-                                backgroundColor: "#252525",
-                            }}
-                        >
-                            <RankTrophy style={{ fontSize: "1rem" }} />
-                            <span> Teams </span>
-                        </SearchDifficulty>
-                    </RouteLink>
-
-                    <RouteLink to="/leaderboard">
-                        <SearchDifficulty
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                textDecoration: "none",
-                                gap: "5px",
-                                padding: "6px 15px 6px 10px",
-                                borderRadius: "5px",
-                                backgroundColor: "#252525",
-                            }}
-                        >
-                            <RankTrophy style={{ fontSize: "1rem" }} />
-                            <span> Leaderboard </span>
-                        </SearchDifficulty>
-                    </RouteLink>
+                    {/* <RouteLink to="teams"> */}
+                    {/*    <SearchDifficulty */}
+                    {/*        style={{ */}
+                    {/*            display: "flex", */}
+                    {/*            justifyContent: "center", */}
+                    {/*            textDecoration: "none", */}
+                    {/*            gap: "5px", */}
+                    {/*            padding: "6px 15px 6px 10px", */}
+                    {/*            borderRadius: "5px", */}
+                    {/*            backgroundColor: "#252525", */}
+                    {/*        }} */}
+                    {/*    > */}
+                    {/*        <RankTrophy style={{ fontSize: "1rem" }} /> */}
+                    {/*        <span> Teams </span> */}
+                    {/*    </SearchDifficulty> */}
+                    {/* </RouteLink> */}
+                    {/**/}
+                    {/* <RouteLink to="/leaderboard"> */}
+                    {/*    <SearchDifficulty */}
+                    {/*        style={{ */}
+                    {/*            display: "flex", */}
+                    {/*            justifyContent: "center", */}
+                    {/*            textDecoration: "none", */}
+                    {/*            gap: "5px", */}
+                    {/*            padding: "6px 15px 6px 10px", */}
+                    {/*            borderRadius: "5px", */}
+                    {/*            backgroundColor: "#252525", */}
+                    {/*        }} */}
+                    {/*    > */}
+                    {/*        <RankTrophy style={{ fontSize: "1rem" }} /> */}
+                    {/*        <span> Leaderboard </span> */}
+                    {/*    </SearchDifficulty> */}
+                    {/* </RouteLink> */}
                 </SearchContainer>
 
                 <CTFHeader>

@@ -15,6 +15,7 @@ import {
     Container,
 } from "src/components/WebSecurity/WebSecurityTopics/TopicElements.jsx";
 import { getApiUrl } from "src/features/apiUrl.js";
+import LoadingSpinner from "src/components/Other/MixComponents/Spinner/LoadingSpinner.jsx";
 
 const Topics = () => {
     const [topics, setTopics] = useState([]);
@@ -80,7 +81,7 @@ const Topics = () => {
           ) || []
         : [];
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <LoadingSpinner />;
     if (error) return <p>Error: {error}</p>;
 
     return (

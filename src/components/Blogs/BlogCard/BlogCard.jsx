@@ -30,11 +30,14 @@ import { BsBookmarks, BsBookmarksFill } from "react-icons/bs";
 import { addBookmark, removeBookmark } from "src/features/bookmarks/bookmarkSlice.js";
 
 const image = "https://user-images.githubusercontent.com/44284877/210166161-ad2f71a7-df74-43b9-8330-af9740d9e8ba.png";
+const darkImage =
+    "https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/development/blog/1727036400323.png";
 
 const BlogCard = ({ blog, bookmarks, isDashboard, user }) => {
     const dispatch = useDispatch();
     const coverImage = blog?.coverImage;
     const coverImageUrl = cdnContentImagesUrl(`/blog/${coverImage}`) || image;
+    const coverErrorImageUrl = darkImage;
 
     const userId = user?._id;
 
@@ -72,7 +75,14 @@ const BlogCard = ({ blog, bookmarks, isDashboard, user }) => {
                 <DetailsSection>
                     <BlogImageSection>
                         <RouterLink to={{ pathname: blogURL }}>
-                            <BlogCardImage src={coverImageUrl || image} alt={""} />
+                            <BlogCardImage
+                                src={coverImageUrl || image}
+                                alt="Blog Cover"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = coverErrorImageUrl;
+                                }}
+                            />
                         </RouterLink>
                         <Username> @{blog?.username}</Username>
                     </BlogImageSection>

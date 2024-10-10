@@ -22,6 +22,7 @@ const Feeds = () => {
     );
     const { user } = useSelector((state) => state.auth);
     const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         if (isFeedError) console.log(feedMessage);
         if (isUserDetailError) console.log(userDetailMessage);
@@ -40,6 +41,7 @@ const Feeds = () => {
     const [showOnlyFollowingPosts, setShowOnlyFollowingPosts] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedTags, setSelectedTags] = useState([]);
+
     const handleSearchTermChange = (event) => {
         setSearchTerm(event.target.value);
     };
@@ -55,13 +57,13 @@ const Feeds = () => {
         return { ...feed, username, avatar, verified };
     });
 
-    if (isApiLoading || isUserDetailLoading || isFeedLoading || isLoading) return <LoadingSpinner />;
-
-    if (!isApiWorking) return <UnderMaintenance />;
-
     const handleSaveCreatedFeed = (data) => {
         dispatch(createFeed({ feedData: data }));
     };
+
+    if (isApiLoading || isUserDetailLoading || isFeedLoading || isLoading) return <LoadingSpinner />;
+
+    if (!isApiWorking) return <UnderMaintenance />;
 
     return (
         <Wrapper style={{ marginTop: "80px" }}>
@@ -74,6 +76,7 @@ const Feeds = () => {
                             showPostTags={true}
                             userDetails={userDetails}
                             onModifyFeed={handleSaveCreatedFeed}
+                            token={user?.token}
                         />
                     </ModifyFeedContainer>
                     <FeedPosts

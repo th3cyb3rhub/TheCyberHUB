@@ -38,7 +38,12 @@ const ReplyCard = ({ reply, user, comments, likes, bookmarks, views, displayAt, 
                 <PostHeaderImg src={avatar} alt={reply?.username + `avatar`} />
             </LeftSection>
             {editMode ? (
-                <ModifyFeed showPostTags={true} editFeed={reply} onModifyFeed={handleSaveEditedFeed} />
+                <ModifyFeed
+                    showPostTags={true}
+                    editFeed={reply}
+                    onModifyFeed={handleSaveEditedFeed}
+                    token={user?.token}
+                />
             ) : (
                 <RightSection>
                     {/* <RouteLink to={`/feeds/${reply?._id}`}> */}

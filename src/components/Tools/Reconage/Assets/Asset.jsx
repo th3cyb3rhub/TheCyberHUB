@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { getReconageUrl } from "src/features/apiUrl.js";
 
 const Container = styled.div`
     background-color: #191919;
@@ -69,7 +70,7 @@ const AccordionTrigger = styled.button`
         font-size: 1.25rem;
     }
 
-    &[aria-expanded="true"]::after {
+    &[aria-expanded="true"]&::after {
         content: "-";
     }
 
@@ -103,7 +104,7 @@ const Asset = () => {
     useEffect(() => {
         const fetchAsset = async () => {
             try {
-                const response = await axios.get(`https://reconage-api.thecyberhub.org/api/assets/${id}`);
+                const response = await axios.get(getReconageUrl(`api/assets/${id}`));
                 setAsset(response.data);
                 setLoading(false);
             } catch (error) {

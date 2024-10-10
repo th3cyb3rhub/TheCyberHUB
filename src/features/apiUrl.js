@@ -5,7 +5,9 @@
 // const apiUrl = "https://api-thecyberhub-org.azurewebsites.net";
 // const cdnAssets = "https://thecyberhub.nyc3.cdn.digitaloceanspaces.com";
 const localUrl = "http://localhost:5000";
+const localUrlReconage = "http://localhost:5001";
 const apiUrl = import.meta.env.VITE_API_URL || "https://api.thecyberhub.org";
+const reconageUrl = import.meta.env.VITE_API_URL || "https://reconage-api.thecyberhub.org";
 const devUrl = "https://dev.api.thecyberhub.org";
 const securityUrl = "https://security.api.thecyberhub.org";
 
@@ -39,6 +41,18 @@ export const getApiUrl = (props) => {
         return `${devUrl}/${props}`;
     } else {
         return `${localUrl}/${props}`;
+    }
+};
+
+export const getReconageUrl = (props) => {
+    if (webEnv === "production") {
+        return `${reconageUrl}/${props}`;
+    } else if (webEnv === "security") {
+        return `${reconageUrl}/${props}`;
+    } else if (webEnv === "development") {
+        return `${reconageUrl}/${props}`;
+    } else {
+        return `${localUrlReconage}/${props}`;
     }
 };
 

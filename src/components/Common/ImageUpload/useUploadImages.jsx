@@ -8,10 +8,12 @@ const useUploadImages = ({
     requiredImageWidth,
     initImages = [],
     requiredImageHeight = 0,
+    user,
 }) => {
     const [images, setImages] = useState([]);
     const [imagesName, setImagesName] = useState(initImages || []);
     const [workerAction, setWorkerAction] = useState(null);
+
     useEffect(() => {
         const imageUploadWorker = new Worker("/src/utils/workers/imageUploadWorker.js");
         imageUploadWorker.onmessage = (event) => {
@@ -133,7 +135,7 @@ const useUploadImages = ({
     const handleSubmit = async (file) => {
         const formData = new FormData();
         formData.append("image", file);
-        await uploadImages(formData);
+        await uploadImages(formData, user.token);
     };
 
     const handleSubmitManyImages = async (files) => {

@@ -58,6 +58,10 @@ const NoteApp = () => {
         dispatch(pinNote({ id: noteId, noteData }));
     };
 
+    if (isNoteLoading) {
+        return "loading";
+    }
+
     return (
         <NotesContainer>
             <CategorySidebar

@@ -17,7 +17,7 @@ import {
 
 const InternshipResponse = () => {
     const { user } = useSelector((state) => state.auth);
-    if (!user || user.role !== "admin" || user.role === "team") {
+    if (!user || user.role !== "admin" || user.role !== "team") {
         return <NotFound />;
     }
 

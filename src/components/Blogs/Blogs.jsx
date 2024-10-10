@@ -114,22 +114,24 @@ const Blogs = () => {
                                     wordWrap: "break-word",
                                 }}
                             >
-                                {categories.map((category, index) => (
-                                    <li
-                                        key={index}
-                                        onClick={() => handleCategoryClick(category)}
-                                        style={{
-                                            cursor: "pointer",
-                                            fontWeight: selectedCategory === category ? "bold" : "normal",
-                                            backgroundColor: "#1d1d1d",
-                                            padding: "0.5rem 1rem", // Use rem for padding
-                                            borderRadius: "5px",
-                                            fontSize: "1rem", // Use rem for font size
-                                        }}
-                                    >
-                                        {category}
-                                    </li>
-                                ))}
+                                {categories.map((category, index) =>
+                                    category && category.length > 0 ? (
+                                        <li
+                                            key={index}
+                                            onClick={() => handleCategoryClick(category)}
+                                            style={{
+                                                cursor: "pointer",
+                                                fontWeight: selectedCategory === category ? "bold" : "normal",
+                                                backgroundColor: "#1d1d1d",
+                                                padding: "0.5rem 1rem",
+                                                borderRadius: "5px",
+                                                fontSize: "1rem",
+                                            }}
+                                        >
+                                            {category}
+                                        </li>
+                                    ) : null,
+                                )}
                             </ul>
                         </header>
 

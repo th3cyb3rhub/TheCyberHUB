@@ -29,6 +29,7 @@ import { ImageInput, useUploadImages } from "src/components/Common/ImageUpload";
 
 const MAX_IMAGE_SIZE_BYTES = 1048576;
 const CreateBlogV2 = () => {
+    const { user } = useSelector((state) => state.auth);
     const {
         images,
         imagesName,
@@ -42,10 +43,10 @@ const CreateBlogV2 = () => {
         maxImageSizeByte: MAX_IMAGE_SIZE_BYTES,
         pageName: "blog",
         requiredImageWidth: 1280,
+        user,
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user } = useSelector((state) => state.auth);
     const [showAuthPopup, setShowAuthPopup] = useState(false);
     const {
         // blogs,

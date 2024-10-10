@@ -12,6 +12,7 @@ import { ImageInput, ImagePreview, useUploadImages } from "src/components/Common
 
 const MAX_IMAGE_SIZE_BYTES = 1048576;
 const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) => {
+    const { user } = useSelector((state) => state.auth);
     const {
         images,
         imagesName,
@@ -27,9 +28,9 @@ const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) 
         pageName: "feed",
         initImages: editFeed?.images,
         requiredImageWidth: 400,
+        user,
     });
     const textareaRef = useRef(null);
-    const { user } = useSelector((state) => state.auth);
 
     const [isFeedLoading, setIsFeedLoading] = useState(false);
 

@@ -22,17 +22,17 @@ import {
     ResumeIcon,
 } from "./ContactFormElements.jsx";
 
-import { getApiUrl } from "src/features/apiUrl";
+import { getApiUrl } from "src/features/apiUrl.js";
 import axios from "axios";
 import { toast } from "react-toastify";
-import InternshipProgramData from "src/components/Opportunities/Internship/InternshipProgramData";
-import { JobsData } from "src/components/Resources/Jobs/JobsData";
-import { LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements";
+import InternshipProgramData from "src/components/Opportunities/Internship/InternshipProgramData.js";
+import { JobsData } from "src/components/Resources/Jobs/JobsData.jsx";
+import { LoadingButton } from "src/components/Other/MixComponents/Buttons/ButtonElements.jsx";
 import { CircleSpinner } from "react-spinners-kit";
 import { validateEmail } from "src/utils/validateEmail.js";
-import apiStatus from "src/features/apiStatus";
-import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
-import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance";
+import apiStatus from "src/features/apiStatus.jsx";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements.jsx";
+import UnderMaintenance from "src/components/Other/UnderMaintenance/UnderMaintenance.jsx";
 // import { volunteerPrograms } from "src/components/Opportunities/Volunteer/VolunteerData";
 import { RedirectLink } from "src/components/Learn/Roadmaps/RoadmapElements.jsx";
 import { DiscordButtonIcon } from "src/components/Other/Community/CommunityElements.jsx";

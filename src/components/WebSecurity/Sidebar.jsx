@@ -116,9 +116,7 @@ const Sidebar = ({ heading, topic, topics, onSelectSubtopic, setCategoryActive, 
                     display: "flex",
                     flexDirection: "column",
                     gap: "10px",
-
                     alignItems: "flex-start",
-
                     overflow: "auto",
                     height: "70vh",
                 }}

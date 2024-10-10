@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { RouterLink } from "src/components/Tools/ToolsElements.jsx";
+import { getReconageUrl } from "src/features/apiUrl.js";
 
 const Container = styled.div`
     min-height: 100vh;
@@ -59,7 +60,7 @@ const Assets = () => {
     useEffect(() => {
         const fetchAssets = async () => {
             try {
-                const response = await axios.get("https://reconage-api.thecyberhub.org/api/assets");
+                const response = await axios.get(getReconageUrl("api/assets"));
                 setAssets(response.data.assets);
                 setLoading(false);
             } catch (error) {

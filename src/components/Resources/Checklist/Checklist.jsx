@@ -1,8 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
+import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements.jsx";
 import { checklistData } from "./checklistData.jsx";
-import { HideDataContainer, MainTitleContainer, MethodologyHeading } from "src/components/Resources/Methodology/MethodologyElement";
-import { HintIcon } from "src/components/WebSecurity/Common/HintElements";
+import {
+    HideDataContainer,
+    MainTitleContainer,
+    MethodologyHeading,
+} from "src/components/Resources/Methodology/MethodologyElement.jsx";
+import { HintIcon } from "src/components/WebSecurity/Common/HintElements.jsx";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { Checkbox, CheckboxContainer } from "src/components/Courses/LearningPath/LearningPathElements.jsx";
 import {

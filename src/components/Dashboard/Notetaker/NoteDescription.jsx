@@ -17,6 +17,7 @@ import { FaSave } from "react-icons/fa";
 import { TbEditCircle } from "react-icons/tb";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { RiMore2Fill } from "react-icons/ri";
+import DOMPurify from "dompurify";
 
 const NoteDescription = ({
     children,
@@ -94,6 +95,9 @@ const NoteDescription = ({
         onChangePickedNote(newNote);
         handleClose();
     };
+
+    const purifiedCode = DOMPurify.sanitize(showNote.content);
+
     return (
         <NotesDescriptionContainer>
             <NotesDescriptionHeader>
@@ -153,7 +157,7 @@ const NoteDescription = ({
                             pageName="notes"
                         />
                     ) : (
-                        <MarkdownEditor content={showNote.content || ""} previewModeOnly pageName="notes" />
+                        <MarkdownEditor content={purifiedCode || ""} previewModeOnly pageName="notes" />
                     )}
                 </div>
             </NotesDescription>
