@@ -105,8 +105,8 @@ const CTF = () => {
                             <Option value="info"> info </Option>
                             <Option value="easy"> easy </Option>
                             <Option value="medium"> medium </Option>
-                            <Option value="hard"> hard </Option>
-                            <Option value="insane"> insane </Option>
+                            {/* <Option value="hard"> hard </Option> */}
+                            {/* <Option value="insane"> insane </Option> */}
                         </Select>
                     </SearchDifficulty>
 
