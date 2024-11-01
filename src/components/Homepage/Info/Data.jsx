@@ -7,10 +7,11 @@ import { List, ListContainer, ListContent, ListIcon } from "src/components/Resou
 import contributeSvg from "src/assets/images/open-source-contribution.svg";
 import ResourcesSvg from "src/assets/images/undraw_firmware_re_fgdy.svg";
 import VersionControlSvg from "src/assets/images/undraw_version_control_re_mg66.svg";
-import desktopApp from "src/assets/images/TheCyberHUB-Desktop.png";
 import { PiWindowsLogoFill } from "react-icons/pi";
 
 const logoThecyberworld = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+const desktopApp =
+    "https://thecyberhub-assets.s3.ap-south-1.amazonaws.com/thecyberhub-assets/assets/images/TheCyberHUB-Desktop.png";
 
 export const aboutData = {
     id: "about",
