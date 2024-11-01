@@ -6,6 +6,7 @@ import {
     Column2,
     Heading,
     Img,
+    FloatingImage,
     ImgWrap,
     InfoContainer,
     InfoRow,
@@ -13,6 +14,8 @@ import {
     Subtitle,
     TextWrapper,
     TopLine,
+    YouTubeVideoContainer,
+    YouTubeVideoIFrame,
     // YouTubeVideoContainer,
     // YouTubeVideoIFrame,
 } from "./InfoElements";
@@ -123,21 +126,25 @@ const InfoSection = ({
                         </TextWrapper>
                     </Column1>
                     <Column2>
-                        {/* {img ? ( */}
-                        <ImgWrap>
-                            <Img src={img} alt={alt} />
-                        </ImgWrap>
-                        {/* ) : ( */}
-                        {/*    <YouTubeVideoContainer> */}
-                        {/*        <YouTubeVideoIFrame */}
-                        {/*            src="https://www.youtube.com/embed/r5CDqVnWFFQ" */}
-                        {/*            title="Community Introduction | Thecyberworld" */}
-                        {/*            frameBorder="0" */}
-                        {/*            allow="web-share" */}
-                        {/*            allowFullScreen */}
-                        {/*        ></YouTubeVideoIFrame> */}
-                        {/*    </YouTubeVideoContainer> */}
-                        {/* )} */}
+                        {img ? (
+                            <ImgWrap>
+                                {img?.includes("Thecyberworld_logo_outlined") ? (
+                                    <FloatingImage src={img} alt={alt} />
+                                ) : (
+                                    <Img src={img} alt={alt} />
+                                )}
+                            </ImgWrap>
+                        ) : (
+                            <YouTubeVideoContainer>
+                                <YouTubeVideoIFrame
+                                    src="https://www.youtube.com/embed/r5CDqVnWFFQ"
+                                    title="Community Introduction | TheCyberHUB"
+                                    frameBorder="0"
+                                    allow="web-share"
+                                    allowFullScreen
+                                ></YouTubeVideoIFrame>
+                            </YouTubeVideoContainer>
+                        )}
                     </Column2>
                 </InfoRow>
             </InfoWrapper>

@@ -27,6 +27,11 @@ export const SearchBox = styled.div`
     align-items: center;
     background: #252525;
     border-radius: 5px;
+    width: auto;
+
+    @media screen and (width <= 980px) {
+        width: 100%;
+    }
 `;
 
 export const SearchIcon = styled.div`

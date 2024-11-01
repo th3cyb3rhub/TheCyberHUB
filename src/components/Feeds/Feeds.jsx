@@ -100,6 +100,7 @@ const Feeds = () => {
                         data={feeds}
                         selectedTags={selectedTags}
                         setSelectedTags={setSelectedTags}
+                        hideNav={true}
                     />
                 </LeftContainer>
             </FeedsContainer>

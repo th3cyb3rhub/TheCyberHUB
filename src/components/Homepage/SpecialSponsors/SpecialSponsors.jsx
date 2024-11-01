@@ -39,10 +39,10 @@ const SpecialSponsors = () => {
                             </SponsorsH1>
                         </SponsorsGridColTop>
                         <SponsorsGridColTop>
-                            <SponsorsH1 href="">Thecyberworld</SponsorsH1>
+                            <SponsorsH1 href="">TheCyberHUB</SponsorsH1>
                         </SponsorsGridColTop>
                         <SponsorsGridColTop>
-                            {/* <SponsorsH1>Thecyberworld</SponsorsH1> */}
+                            {/* <SponsorsH1>TheCyberHUB</SponsorsH1> */}
                             {/* <SponsorsImg src={tailwind} alt="tailwind"/> */}
                         </SponsorsGridColTop>
                     </SponsorsGrid1>
@@ -109,8 +109,8 @@ const SpecialSponsors = () => {
                         <SponsorsH2>{""}</SponsorsH2>
                     </SponsorsFooterBar>
                 </SponsorsLayout>
-                <SponsorButton href={"https://github.com/sponsors/Thecyberworld"} target={"_blank"} rel={"noreferrer"}>
-                    Sponsor Thecyberworld Community
+                <SponsorButton href={"https://github.com/sponsors/th3cyb3rhub"} target={"_blank"} rel={"noreferrer"}>
+                    Sponsor TheCyberHUB Community
                 </SponsorButton>
             </SponsorsContainer>
         </SponsorsWrapper>

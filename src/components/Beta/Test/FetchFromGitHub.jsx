@@ -6,7 +6,7 @@ const FetchFromGitHub = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const res = await fetch("https://raw.githubusercontent.com/thecyberworld/hackliner/main/README.md");
+            const res = await fetch("https://raw.githubusercontent.com/th3cyb3rhub/hackliner/main/README.md");
             const data = await res.text();
             setContent(data);
         }

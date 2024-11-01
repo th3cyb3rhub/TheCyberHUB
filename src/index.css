@@ -20,3 +20,9 @@ code {
     background-color: #ff6b08;
     color: #000000;
 }
+
+@media (width <= 980px) {
+    .hide-nav {
+        display: none !important;
+    }
+}

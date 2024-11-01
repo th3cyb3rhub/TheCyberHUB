@@ -14,21 +14,21 @@ export const registeredUser = [
                 teamRequests: [
                     {
                         id: 123123,
-                        teamName: "Thecyberworld",
+                        teamName: "TheCyberHUB",
                         teamMembers: [
                             { id: 123123, teamMember: "kabir0x23", isAccepted: true, isRegistered: true },
-                            { id: 245312, teamMember: "thecyberw0rld", isAccepted: false, isRegistered: true },
+                            { id: 245312, teamMember: "th3cyb3rhub", isAccepted: false, isRegistered: true },
                         ],
-                        InviteBy: "thecyberw0rld",
+                        InviteBy: "th3cyb3rhub",
                     },
                     {
                         id: 123123,
                         teamName: "King of Hackers",
                         teamMembers: [
                             { id: 123123, teamMember: "kabir0x23", isAccepted: true, isRegistered: true },
-                            { id: 245312, teamMember: "thecyberw0rld", isAccepted: false, isRegistered: true },
+                            { id: 245312, teamMember: "th3cyb3rhub", isAccepted: false, isRegistered: true },
                         ],
-                        InviteBy: "thecyberw0rld",
+                        InviteBy: "th3cyb3rhub",
                     },
                 ],
             },
@@ -36,7 +36,7 @@ export const registeredUser = [
     },
     {
         id: 245312,
-        player: "thecyberw0rld",
+        player: "th3cyb3rhub",
         isAccepted: false,
         isRegistered: true,
     },
@@ -68,9 +68,9 @@ export const registeredUser = [
 export const teams = [
     {
         teamId: 1,
-        teamName: "Thecyberworld",
+        teamName: "TheCyberHUB",
         teamMembers: [
-            { id: 123123, teamMember: "thecyberw0rld", isAccepted: false, isRegistered: true },
+            { id: 123123, teamMember: "th3cyb3rhub", isAccepted: false, isRegistered: true },
             { id: 245312, teamMember: "kabir0x23", isAccepted: true, isRegistered: true },
         ],
         teamLeader: "kabir0x23",

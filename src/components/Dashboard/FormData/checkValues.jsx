@@ -69,7 +69,7 @@ https://thecyberhub.org/roadmaps
 Other Links:
 Official Website: https://thecyber-sec.com
 Community Website: https://thecyberhub.org
-Discord Link: https://discord.gg/QHBPq6xP5p
+Discord Link: https://discord.com/invite/thecyberhub-799183504759324672
 
 Best Regards,
 TheCyberSEC Team`,
@@ -105,7 +105,7 @@ Resources:
 https://thecyberhub.org/roadmaps
 Official Website: https://thecyber-sec.com
 Community Website: https://thecyberhub.org
-Discord Link: https://discord.gg/QHBPq6xP5p
+Discord Link: https://discord.com/invite/thecyberhub-799183504759324672
              
 Best Regards,
 TheCyberSEC Team`,
@@ -130,7 +130,7 @@ https://thecyberhub.org/roadmaps
 Other Links:
 Official Website: https://thecyber-sec.com
 Community Website: https://thecyberhub.org
-Discord Link: https://discord.gg/QHBPq6xP5p
+Discord Link: https://discord.com/invite/thecyberhub-799183504759324672
 
 Best Regards,
 TheCyberSEC Team`,

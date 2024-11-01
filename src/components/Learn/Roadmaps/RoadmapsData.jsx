@@ -10,7 +10,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Discord - Join the Community & Learn with others",
-                        url: "https://discord.gg/QHBPq6xP5p",
+                        url: "https://discord.com/invite/thecyberhub-799183504759324672",
                     },
                 ],
             },
@@ -143,7 +143,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Discord - Join the Community & Learn with others",
-                        url: "https://discord.gg/QHBPq6xP5p",
+                        url: "https://discord.com/invite/thecyberhub-799183504759324672",
                     },
                 ],
             },
@@ -233,7 +233,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Discord - Join the Community & Learn with others",
-                        url: "https://discord.gg/QHBPq6xP5p",
+                        url: "https://discord.com/invite/thecyberhub-799183504759324672",
                     },
                 ],
             },
@@ -338,7 +338,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Discord - Join the Community & Learn with others",
-                        url: "https://discord.gg/QHBPq6xP5p",
+                        url: "https://discord.com/invite/thecyberhub-799183504759324672",
                     },
                 ],
             },
@@ -403,7 +403,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Do Open Source Contributions [fix bugs, add features to existing projects]",
-                        url: "https://github.com/thecyberworld/TheCyberHUB",
+                        url: "https://github.com/th3cyb3rhub/TheCyberHUB",
                     },
                 ],
             },
@@ -429,7 +429,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Discord - Join the Community & Learn with others",
-                        url: "https://discord.gg/QHBPq6xP5p",
+                        url: "https://discord.com/invite/thecyberhub-799183504759324672",
                     },
                 ],
             },
@@ -473,7 +473,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Do Open Source Contributions [fix bugs, add features to existing projects]",
-                        url: "https://github.com/thecyberworld",
+                        url: "https://github.com/th3cyb3rhub",
                     },
                 ],
             },
@@ -499,7 +499,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Discord - Join the Community & Learn with others",
-                        url: "https://discord.gg/QHBPq6xP5p",
+                        url: "https://discord.com/invite/thecyberhub-799183504759324672",
                     },
                 ],
             },
@@ -542,7 +542,7 @@ const RoadmapsData = [
                 resources: [
                     {
                         title: "Do Open Source Contributions [fix bugs, add features to existing projects]",
-                        url: "https://github.com/thecyberworld/thecyberhub-app",
+                        url: "https://github.com/th3cyb3rhub/thecyberhub-app",
                     },
                 ],
             },

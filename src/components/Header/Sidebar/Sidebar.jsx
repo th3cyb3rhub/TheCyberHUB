@@ -66,10 +66,9 @@ const Sidebar = (props) => {
                             { to: "explore", title: "Explore", dropdown: "explore" },
                             { to: "feeds", title: "Feeds", dropdown: "feeds" },
                             { to: "blogs", title: "Blogs", dropdown: "blogs" },
-                            // { to: "forum", title: "Forum", dropdown: "forum" },
-                            // { to: "courses", title: "Courses", dropdown: "courses" },
-                            { to: "ctf", title: "CTF", dropdown: "ctf" },
+                            // { to: "ctf", title: "CTF", dropdown: "ctf" },
                             { to: "tools", title: "Tools", dropdown: "tools" },
+                            { to: "aiChat", title: "AI", dropdown: "ai" },
                             {
                                 title: (
                                     <>

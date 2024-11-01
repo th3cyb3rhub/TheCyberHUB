@@ -14,19 +14,19 @@ Front-end:
 
 ## 💥 How to Contribute
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/thecyberworld/TheCyberHUB/pulls)
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/thecyberworld/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/th3cyb3rhub/TheCyberHUB/pulls)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/th3cyb3rhub/)
 
--   Take a look at the existing [Issues](https://github.com/thecyberworld/TheCyberHUB/issues) or [create a new issue](https://github.com/thecyberworld/TheCyberHUB/issues/new/choose)!
--   [Fork the Repo](https://github.com/thecyberworld/TheCyberHUB/fork). Then, create a branch for any issue that you are working on. Finally, commit your work.
--   Create a **[Pull Request](https://github.com/thecyberworld/TheCyberHUB/compare)** (_PR_), which will be promptly reviewed and given suggestions for improvements by the community.
+-   Take a look at the existing [Issues](https://github.com/th3cyb3rhub/TheCyberHUB/issues) or [create a new issue](https://github.com/th3cyb3rhub/TheCyberHUB/issues/new/choose)!
+-   [Fork the Repo](https://github.com/th3cyb3rhub/TheCyberHUB/fork). Then, create a branch for any issue that you are working on. Finally, commit your work.
+-   Create a **[Pull Request](https://github.com/th3cyb3rhub/TheCyberHUB/compare)** (_PR_), which will be promptly reviewed and given suggestions for improvements by the community.
 -   Add screenshots or screen captures to your Pull Request to help us understand the effects of the changes proposed in your PR.
 
 ---
 
 ## ⭐ HOW TO MAKE A PULL REQUEST:
 
-**1.** Start by making a Fork of the [**thecyberhub.org**](https://github.com/thecyberworld/TheCyberHUB) repository. Click on the <a href="https://github.com/thecyberworld/TheCyberHUB/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="21" width="21"></a>Fork symbol at the top right corner.
+**1.** Start by making a Fork of the [**thecyberhub.org**](https://github.com/th3cyb3rhub/TheCyberHUB) repository. Click on the <a href="https://github.com/th3cyb3rhub/TheCyberHUB/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="21" width="21"></a>Fork symbol at the top right corner.
 
 **2.** Clone your new fork of the repository in the terminal/CLI on your computer with the following command:
 
@@ -43,7 +43,7 @@ cd thecyberhub.org
 **4.** Set upstream command:
 
 ```bash
-git remote add upstream https://github.com/thecyberworld/TheCyberHUB.git
+git remote add upstream https://github.com/th3cyb3rhub/TheCyberHUB.git
 ```
 
 **5.** Create a new branch:
@@ -93,7 +93,7 @@ git push origin YourBranchName
 
 **10.** Create a [Pull Request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)!
 
-**11.** **Congratulations!** You've made your first contribution to [**thecyberhub.org**](https://github.com/thecyberworld/TheCyberHUB/graphs/contributors)! 🙌🏼
+**11.** **Congratulations!** You've made your first contribution to [**thecyberhub.org**](https://github.com/th3cyb3rhub/TheCyberHUB/graphs/contributors)! 🙌🏼
 
 **_:trophy: After this, the maintainers will review the PR and will merge it if it helps move the Cryptoverse project forward. Otherwise, it will be given constructive feedback and suggestions for the changes needed to add the PR to the codebase._**
 
@@ -123,12 +123,11 @@ Open the browser to visit the website at http://localhost:3000
 -   Do not end the subject line with a period.
 -   Wrap the body at _72 characters_.
 -   Use the body to explain the _what_, _why_, _vs_, and _how_.
--   Reference [Issues](https://github.com/thecyberworld/TheCyberHUB/issues) and [Pull Requests](https://github.com/thecyberworld/TheCyberHUB/pulls) liberally after the first line.
+-   Reference [Issues](https://github.com/th3cyb3rhub/TheCyberHUB/issues) and [Pull Requests](https://github.com/th3cyb3rhub/TheCyberHUB/pulls) liberally after the first line.
 
 ---
 
-
-## Storybook : 
+## Storybook :
 
 ### Introduction
 
@@ -141,6 +140,7 @@ To view and run Storybook, use the following command in your terminal:
 ```
 npm run storybook
 ```
+
 This will start the Storybook server on port 6006.
 
 Open your browser and navigate to http://localhost:6006 to access the Storybook interface.
@@ -151,7 +151,7 @@ For more info and examples you can check storybook [documentaion](https://storyb
 
 ## 💥 Issues
 
-In order to discuss changes, you are welcome to [open an issue](https://github.com/thecyberworld/TheCyberHUB/issues/new/choose) about what you would like to contribute. Enhancements are always encouraged and appreciated.
+In order to discuss changes, you are welcome to [open an issue](https://github.com/th3cyb3rhub/TheCyberHUB/issues/new/choose) about what you would like to contribute. Enhancements are always encouraged and appreciated.
 
 ## All the best! 🥇
 

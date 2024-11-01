@@ -89,7 +89,7 @@ const CertificateCard = () => {
         const tweet =
             "I just got my certificate for " +
             certificate?.ctf +
-            " from @thecyberw0rld community. Check it out at https://thecyberhub.org/ctf/certificate/" +
+            " from @th3cyb3rhub community. Check it out at https://thecyberhub.org/ctf/certificate/" +
             certificate?._id;
         window.open("https://twitter.com/intent/tweet?text=" + tweet);
     };
@@ -137,7 +137,7 @@ const CertificateCard = () => {
                         <CertificateComponent id="certificate">
                             <LogoSection>
                                 <TCWLogo src={Logo} />
-                                <TCWText> Thecyberworld </TCWText>
+                                <TCWText> TheCyberHUB </TCWText>
                                 <TCWText> TheCyberHUB.org </TCWText>
                                 <TCWText> thecyber-sec.com </TCWText>
                                 <TCWLogo src={Logo} />
@@ -163,7 +163,7 @@ const CertificateCard = () => {
                                         <p>Id: {certificate._id}</p>
                                     </div>
                                     <div className="signature-block">
-                                        <div className="signature">thecyberworld</div>
+                                        <div className="signature">th3cyb3rhub</div>
                                         <div className="signature-word">signature</div>
                                     </div>
                                 </CertificateFooter>

@@ -23,8 +23,6 @@ export const Nav = styled.nav`
     /* if showBottomBorder then show bottom border */
 
     /* border-bottom: ${({ $showBottomBorder }) => ($showBottomBorder ? "1px solid #2a2a2a" : "none")}; */
-    background: rgb(0 0 0 / 34%);
-    backdrop-filter: blur(40px);
 
     @media screen and (width <= 960px) {
         transition: 0.8s all ease;
@@ -89,25 +87,20 @@ export const MobileIcon = styled.div`
 
 export const NavMenu = styled.div`
     display: flex;
+    flex-direction: row;
     align-items: center;
     list-style: none;
     text-align: center;
-    gap: 5px;
-    z-index: 0;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(31 38 135 / 9%);
+    border-radius: 5px;
+    border: 1px solid rgb(255 255 255 / 12.5%);
 
-    @media screen and (width <= 870px) {
-        gap: 0;
-    }
-
-    @media screen and (width <= 820px) {
+    @media screen and (width <= 1100px) {
         display: none;
-    }
-
-    &.active {
-        font-size: 125%;
-        transition: all 0.3s ease-in-out;
-        transform: scale(1.05);
-        border-bottom: 3px solid #ff6b08;
     }
 `;
 export const NavMenu2 = styled.div`
@@ -131,45 +124,35 @@ export const NavMenu2 = styled.div`
 `;
 
 export const NavItem = styled.div`
-    height: 80px;
+    font-family: "Space Mono", monospace;
+    color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 15px;
     flex-direction: column;
 
-    @media screen and (width <= 768px) {
-        /* height: max-content; */
-        position: relative;
+    &:hover {
+        background: #ff6a00;
+        color: black;
+        transition: all 0.2s ease-in-out;
+        font-weight: bold;
+    }
+
+    &.active {
+        border-bottom: 3px solid #ff6a00;
     }
 `;
 
 export const NavLink = styled(LinkRouter)`
-    color: #f5f5f5;
+    color: #fff;
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0 0.8rem;
-    height: 98%;
+    height: 100%;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    /* margin: 1rem; */
-    @media screen and (width <= 920px) {
-        transition: all 0.3s ease-in-out;
-        padding: 0 0.5rem;
-    }
-
-    &:hover {
-        transition: all 0.3s ease-in-out;
-        transform: scale(1.05);
-    }
-
-    &.active {
-        font-size: 125%;
-        transition: all 0.3s ease-in-out;
-        transform: scale(1.05);
-        border-bottom: 2px solid #ff6b08;
-    }
+    width: 100%;
 `;
 export const NavButtonsSection = styled.div`
     display: flex;
@@ -218,6 +201,11 @@ export const RouterNavCreateButtonLink = styled(Link)`
 
     @media screen and (width <= 600px) {
         font-size: 12px;
+    }
+
+    @media screen and (width <= 1280px) {
+        min-width: 10px;
+        font-size: 14px;
     }
 
     /* @media screen and (max-width: 1150px) {

@@ -6,18 +6,23 @@ const HacktoberfestXthecyberworld = `${getCdnAssets}/images/Events/Hacktoberfest
 const HacktoberfestEventData = [
     {
         id: 1,
-        title: "We are happy to announce that Thecyberworld is participating in Hacktoberfest 2022.",
+        title: "We are happy to announce that TheCyberHUB is participating in Hacktoberfest 2022.",
         date: "1st October 2022",
         image: HacktoberfestXthecyberworld,
         venue: (
             <>
-                <a style={{ color: "white" }} href={"https://discord.gg/QHBPq6xP5p"} target={"_blank"} rel="noreferrer">
+                <a
+                    style={{ color: "white" }}
+                    href={"https://discord.com/invite/thecyberhub-799183504759324672"}
+                    target={"_blank"}
+                    rel="noreferrer"
+                >
                     Discord
                 </a>
                 ,
                 <a
                     style={{ color: "white" }}
-                    href={"https://github.com/thecyberworld/"}
+                    href={"https://github.com/th3cyb3rhub/"}
                     target={"_blank"}
                     rel="noreferrer"
                 >
@@ -34,8 +39,8 @@ const HacktoberfestEventData = [
                     your reward. <br />
                     Contributions/pull requests can be made to the following repositories under the
                     <b>
-                        <Link href={"https://github.com/thecyberworld/"} target={"_blank"}>
-                            Thecyberworld
+                        <Link href={"https://github.com/th3cyb3rhub/"} target={"_blank"}>
+                            TheCyberHUB
                         </Link>
                     </b>
                     organization: <br />
@@ -43,37 +48,37 @@ const HacktoberfestEventData = [
                         <ListContent>
                             <List>
                                 Thecyberhub website:
-                                <Link href={"https://github.com/thecyberworld/TheCyberHUB"} target={"_blank"}>
+                                <Link href={"https://github.com/th3cyb3rhub/TheCyberHUB"} target={"_blank"}>
                                     link
                                 </Link>
                             </List>
                             <List>
                                 Thecyberhub App:
-                                <Link href={"https://github.com/thecyberworld/thecyberhub-app"} target={"_blank"}>
+                                <Link href={"https://github.com/th3cyb3rhub/thecyberhub-app"} target={"_blank"}>
                                     link
                                 </Link>
                             </List>
                             <List>
                                 Thecyberbot discord:
-                                <Link href={"https://github.com/thecyberworld/thecyberbot-discord"} target={"_blank"}>
+                                <Link href={"https://github.com/th3cyb3rhub/thecyberbot-discord"} target={"_blank"}>
                                     link
                                 </Link>
                             </List>
                             <List>
                                 Thecyberhub Extension:
-                                <Link href={"https://github.com/thecyberworld/thecyberhub-ext"} target={"_blank"}>
+                                <Link href={"https://github.com/th3cyb3rhub/thecyberhub-ext"} target={"_blank"}>
                                     link
                                 </Link>
                             </List>
                             <List>
                                 Port scanner:
-                                <Link href={"https://github.com/thecyberworld/port-scanner"} target={"_blank"}>
+                                <Link href={"https://github.com/th3cyb3rhub/port-scanner"} target={"_blank"}>
                                     link
                                 </Link>
                             </List>
                             <List>
                                 Subdomain finder:
-                                <Link href={"https://github.com/thecyberworld/subdomain-finder"} target={"_blank"}>
+                                <Link href={"https://github.com/th3cyb3rhub/subdomain-finder"} target={"_blank"}>
                                     link
                                 </Link>
                             </List>
@@ -81,10 +86,10 @@ const HacktoberfestEventData = [
                     </div>
                     Read the
                     <Link
-                        href={"https://github.com/thecyberworld/TheCyberHUB/blob/main/CONTRIBUTING.md"}
+                        href={"https://github.com/th3cyb3rhub/TheCyberHUB/blob/main/CONTRIBUTING.md"}
                         target={"_blank"}
                     >
-                        Thecyberworld Contributing Guide
+                        TheCyberHUB Contributing Guide
                     </Link>
                     . If you are a beginner, please check out the curated
                     <Link
@@ -95,17 +100,17 @@ const HacktoberfestEventData = [
                     >
                         Hacktoberfest issues
                     </Link>
-                    on the main Thecyberworld org. If you would like to challenge yourself, you can create some issues
-                    and features requests on
+                    on the main TheCyberHUB org. If you would like to challenge yourself, you can create some issues and
+                    features requests on
                     <b>
-                        <Link href={"https://github.com/thecyberworld"} target={"_blank"}>
-                            Thecyberworld
+                        <Link href={"https://github.com/th3cyb3rhub"} target={"_blank"}>
+                            TheCyberHUB
                         </Link>
                     </b>
                     and work on those issues.
                     <br />
                     <br />
-                    <Link href={"https://github.com/thecyberworld/"} target={"_blank"}></Link>
+                    <Link href={"https://github.com/th3cyb3rhub/"} target={"_blank"}></Link>
                     Some good resources to get started for beginners:
                     <div style={{ margin: "10px 20px" }}>
                         <ListContent>

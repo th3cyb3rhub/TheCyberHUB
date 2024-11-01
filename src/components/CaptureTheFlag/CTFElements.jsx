@@ -241,7 +241,7 @@ export const SearchContainer = styled.div`
     /* margin: 10px 0; */
     background: #090909;
     border-radius: 4px;
-    padding: 25px;
+    padding: 5px;
 `;
 
 export const SearchDifficulty = styled.div`

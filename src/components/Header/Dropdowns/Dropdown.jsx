@@ -60,7 +60,6 @@ export default function Dropdown({
         { title: "Hackliner", to: "/resources/hackliner", desc: "Hacklist for your daily hacking activities" },
         { title: "Wordlist", to: "/resources/wordlist", desc: "Hacklist for your daily hacking activities" },
         { title: "Payloads", to: "/resources/payloads", desc: "All about payloads" },
-        // { title: "Support", to: "/support", desc: "Support us" },
     ];
 
     return (

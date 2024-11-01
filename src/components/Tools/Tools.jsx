@@ -8,6 +8,7 @@ import { TbHash } from "react-icons/tb";
 import HeadingBanner from "src/components/Common/HeadingBanner/HeadingBanner";
 import { RiEarthFill } from "react-icons/ri";
 import { FaGoogle, FaInternetExplorer } from "react-icons/fa";
+import { HiCode } from "react-icons/hi";
 
 const Tools = () => {
     const tools = [
@@ -21,6 +22,7 @@ const Tools = () => {
         { name: "IP Info", link: "/tools/ipinfo", icon: <FaInternetExplorer /> },
         { name: "Sub Generator", link: "/tools/subdomain-generator", icon: <FaInternetExplorer /> },
         { name: "Markdown Editor", link: "/tools/markdown-editor", icon: <FaInternetExplorer /> },
+        { name: "CodeSnippet", link: "/tools/code-snippet", icon: <HiCode /> },
 
         // {name: "Binary Exploits", link: "/tools/binaryexploitation", icon: <RiEarthFill/>,},
         // {name: "jwt Decoder", link: "/tools/jwtdecoder", icon: <RiEarthFill/>,},
@@ -30,7 +32,7 @@ const Tools = () => {
     return (
         <Wrapper>
             <ContainerTools>
-                <HeadingBanner heading={"Hacking ReconTools"} />
+                <HeadingBanner heading={"Hacking Tools"} />
                 <CardTools>
                     {tools.slice(0, 1).map((tool, index) => {
                         return (

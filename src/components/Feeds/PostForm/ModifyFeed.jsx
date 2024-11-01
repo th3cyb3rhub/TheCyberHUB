@@ -9,6 +9,9 @@ import { cdnContentImagesUrl } from "src/features/apiUrl";
 import { CircleSpinner } from "react-spinners-kit";
 import { toast } from "react-toastify";
 import { ImageInput, ImagePreview, useUploadImages } from "src/components/Common/ImageUpload";
+import { SearchContainer } from "src/components/CaptureTheFlag/CTFElements";
+import SearchInputBox from "src/components/Common/SearchInputBox";
+import { RouterNavCreateButtonLink } from "src/components/Header/Navbar/NavbarElements";
 
 const MAX_IMAGE_SIZE_BYTES = 1048576;
 const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) => {
@@ -37,10 +40,14 @@ const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) 
     const [content, setContent] = useState(editFeed?.content || "");
     const [tags, setTags] = useState(editFeed?.tags || []);
     const [showAuthPopup, setShowAuthPopup] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const MAX_CHARACTER_COUNT = 1500;
 
     const [remainingCharacters, setRemainingCharacters] = useState(MAX_CHARACTER_COUNT);
+    const handleSearchTermChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
 
     useEffect(() => {
         setRemainingCharacters(MAX_CHARACTER_COUNT - content.length);
@@ -98,65 +105,87 @@ const ModifyPost = ({ showPostTags, userDetails, onModifyFeed, editFeed = "" }) 
     const userDetail = userDetails?.find((userDetail) => userDetail?.user === user?._id);
     const avatar = cdnContentImagesUrl("/user/" + (userDetail?.avatar || editFeed?.avatar || "avatar.png"));
     return (
-        <AddFeedCommentContainer onDrop={(e) => onImageDrop(e, true, 4)} onDragOver={onImageDragOver}>
-            {!editFeed && (
-                <LeftSection>
-                    <PostHeaderImg src={avatar} alt="Profile picture" />
-                </LeftSection>
-            )}
-            <RightSection>
-                <div>
-                    <FeedCommentInput
-                        ref={textareaRef}
-                        placeholder="What's on your mind?"
-                        value={content}
-                        onChange={handleChange}
-                        onPaste={(e) => onImagePaste(e, true, 4)}
+        <>
+            <div id="main-searchbar" className="my-4">
+                <SearchContainer>
+                    {/* <input placeholder="search" /> */}
+                    <SearchInputBox
+                        placeholder="Search by name"
+                        value={searchTerm}
+                        onChange={handleSearchTermChange}
+                        setValue={setSearchTerm}
+                        hideNav={true}
                     />
-                    <p
-                        style={{
-                            color:
-                                remainingCharacters <= 99 ? "#ff2525" : remainingCharacters <= 500 ? "#ff6b08" : "grey",
-                            width: "100%",
-                            textAlign: "right",
-                            fontSize: "12px",
-                            fontWeight: "bold",
-                            // border: '1px solid #ff6b08',
-                            marginTop: "-15px",
-                            marginBottom: "-10px",
-                        }}
-                    >
-                        {remainingCharacters < 0 ? "-" : ""} {Math.abs(remainingCharacters)}
-                    </p>
+                </SearchContainer>
+                <div className="flex justify-between p-2">
+                    <RouterNavCreateButtonLink to={"/feeds/my-feeds"}>View My Feeds</RouterNavCreateButtonLink>
+                    <RouterNavCreateButtonLink to={"/dashboard/saved"}>Saved</RouterNavCreateButtonLink>
                 </div>
+            </div>
+            <AddFeedCommentContainer onDrop={(e) => onImageDrop(e, true, 4)} onDragOver={onImageDragOver}>
+                {!editFeed && (
+                    <LeftSection>
+                        <PostHeaderImg src={avatar} alt="Profile picture" />
+                    </LeftSection>
+                )}
+                <RightSection>
+                    <div>
+                        <FeedCommentInput
+                            ref={textareaRef}
+                            placeholder="What's on your mind?"
+                            value={content}
+                            onChange={handleChange}
+                            onPaste={(e) => onImagePaste(e, true, 4)}
+                        />
+                        <p
+                            style={{
+                                color:
+                                    remainingCharacters <= 99
+                                        ? "#ff2525"
+                                        : remainingCharacters <= 500
+                                          ? "#ff6b08"
+                                          : "grey",
+                                width: "100%",
+                                textAlign: "right",
+                                fontSize: "12px",
+                                fontWeight: "bold",
+                                // border: '1px solid #ff6b08',
+                                marginTop: "-15px",
+                                marginBottom: "-10px",
+                            }}
+                        >
+                            {remainingCharacters < 0 ? "-" : ""} {Math.abs(remainingCharacters)}
+                        </p>
+                    </div>
 
-                <ImagePreview files={images} filesName={imagesName} onRemove={onImageRemove} />
+                    <ImagePreview files={images} filesName={imagesName} onRemove={onImageRemove} />
 
-                {showPostTags && <AddPostTags tags={tags} setTags={setTags} />}
+                    {showPostTags && <AddPostTags tags={tags} setTags={setTags} />}
 
-                <FooterSection>
-                    <ImageInput
-                        inputName={editFeed ? `${editFeed._id}feedImage` : "feedImage"}
-                        onChange={(e) => onImageChange(e, true, 4)}
-                        labelStyles={{ background: "transparent", border: "transparent", padding: "0" }}
-                        filesName={imagesName}
-                        multiple
-                        key={editFeed ? `${editFeed._id}feedImage` : "feedImage"}
-                    />
+                    <FooterSection>
+                        <ImageInput
+                            inputName={editFeed ? `${editFeed._id}feedImage` : "feedImage"}
+                            onChange={(e) => onImageChange(e, true, 4)}
+                            labelStyles={{ background: "transparent", border: "transparent", padding: "0" }}
+                            filesName={imagesName}
+                            multiple
+                            key={editFeed ? `${editFeed._id}feedImage` : "feedImage"}
+                        />
 
-                    {isFeedLoading ? (
-                        <PostFormButton>
-                            <CircleSpinner size={17} />
-                        </PostFormButton>
-                    ) : (
-                        <PostFormButton onClick={handleSubmit}>{editFeed ? "Update" : "Create"}</PostFormButton>
-                    )}
-                </FooterSection>
-            </RightSection>
+                        {isFeedLoading ? (
+                            <PostFormButton>
+                                <CircleSpinner size={17} />
+                            </PostFormButton>
+                        ) : (
+                            <PostFormButton onClick={handleSubmit}>{editFeed ? "Update" : "Create"}</PostFormButton>
+                        )}
+                    </FooterSection>
+                </RightSection>
 
-            {/* Render the AuthPopup component */}
-            {showAuthPopup && <AuthPopup onClose={() => setShowAuthPopup(false)} />}
-        </AddFeedCommentContainer>
+                {/* Render the AuthPopup component */}
+                {showAuthPopup && <AuthPopup onClose={() => setShowAuthPopup(false)} />}
+            </AddFeedCommentContainer>
+        </>
     );
 };
 

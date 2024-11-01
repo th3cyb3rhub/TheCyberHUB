@@ -11,7 +11,7 @@ const OpenSecProjects = () => {
     const [repositories, setRepositories] = useState([]);
 
     useEffect(() => {
-        fetch("https://api.github.com/users/thecyberworld/repos")
+        fetch("https://api.github.com/users/th3cyb3rhub/repos")
             .then((response) => response.json())
             .then((data) => setRepositories(data))
             .catch((error) => console.log(error));

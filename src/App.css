@@ -54,3 +54,9 @@ html {
 ::-webkit-resizer {
     background-color: #666;
 }
+
+@media (min-width: 980px) {
+    #main-searchbar {
+        display: none;
+    }
+}

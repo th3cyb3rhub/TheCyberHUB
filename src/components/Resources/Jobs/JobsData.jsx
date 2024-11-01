@@ -87,7 +87,7 @@ export const JobsData = [
                 form.
                 <br />
                 <br />
-                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                TheCyberHUB is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>
@@ -184,7 +184,7 @@ export const JobsData = [
         ],
         jobDesc1: (
             <p>
-                Thecyberworld is a leading cyber security company seeking highly motivated interns for exciting projects
+                TheCyberHUB is a leading cyber security company seeking highly motivated interns for exciting projects
                 in the field.
             </p>
         ),
@@ -220,7 +220,7 @@ export const JobsData = [
                 form.
                 <br />
                 <br />
-                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                TheCyberHUB is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>

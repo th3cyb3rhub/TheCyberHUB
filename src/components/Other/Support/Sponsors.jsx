@@ -18,13 +18,13 @@ const Sponsors = () => {
             <SponsorsContainer>
                 <SponsorsH1>
                     Now you can support
-                    <TextGreenBG> Thecyberworld Community </TextGreenBG>
+                    <TextGreenBG> TheCyberHUB Community </TextGreenBG>
                 </SponsorsH1>
                 <SponsorsDescriptionContainer>
                     <SponsorsDescription>
                         <DotSymbol />
                         <SponsorsP>
-                            Thecyberhub is an initiative by Thecyberworld Community to provide the best cyber security
+                            Thecyberhub is an initiative by TheCyberHUB Community to provide the best cyber security
                             resources to everyone for free.
                         </SponsorsP>
                     </SponsorsDescription>
@@ -54,8 +54,8 @@ const Sponsors = () => {
                         </SponsorsP>
                     </SponsorsDescription>
                 </SponsorsDescriptionContainer>
-                <SponsorsLink href="https://www.buymeacoffee.com/thecyberw0rld" target={"_blank"}>
-                    <BuyMeACoffeeImage src="https://img.buymeacoffee.com/button-api/?text=Support our work from here&emoji=💰&slug=thecyberw0rld&button_colour=ff6b08&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ff6b08" />
+                <SponsorsLink href="https://www.buymeacoffee.com/th3cyb3rhub" target={"_blank"}>
+                    <BuyMeACoffeeImage src="https://img.buymeacoffee.com/button-api/?text=Support our work from here&emoji=💰&slug=th3cyb3rhub&button_colour=ff6b08&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ff6b08" />
                 </SponsorsLink>
             </SponsorsContainer>
         </Wrapper>

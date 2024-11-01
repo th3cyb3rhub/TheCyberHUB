@@ -1,6 +1,6 @@
 <h1 align="center"> TheCyberHUB </h1>
 
-![TheCyberHUB by Thecyberworld Community](https://github.com/thecyberworld/TheCyberHUB/assets/44284877/e56a35cc-9f6c-4032-a209-efaa1d328894)
+![TheCyberHUB by TheCyberHUB Community](https://github.com/th3cyb3rhub/TheCyberHUB/assets/44284877/e56a35cc-9f6c-4032-a209-efaa1d328894)
 
 [//]: # "![thecyberhub](https://user-images.githubusercontent.com/44284877/180642062-a9a66f83-746c-468e-97a8-707c259a92cd.png)"
 
@@ -13,7 +13,6 @@
     <a href="https://dev.thecyberhub.org/"> TheCyberHUB Dev </a>
 </p>
 <div align="center">
-
 
 ![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![image](https://img.shields.io/badge/CSS3-20232A?style=for-the-badge&logo=css3&logoColor=white)
@@ -54,7 +53,7 @@ Before installation, please make sure you have already installed the following t
 7. Run `npm run dev` to start the server
 8. Open the browser to visit the website at http://localhost:3000/
 
-> If you are new to Git and GitHub, then must check out **[first-contribution](https://github.com/thecyberworld/first-contribution)** repository **first** and contribute to it before you contributing to other open-source projects.
+> If you are new to Git and GitHub, then must check out **[first-contribution](https://github.com/th3cyb3rhub/first-contribution)** repository **first** and contribute to it before you contributing to other open-source projects.
 
 ---
 
@@ -80,8 +79,8 @@ This project needs a ⭐️ from you. Don't forget to leave a star ⭐️
 
 ## 📨 Follow / Contact Us
 
-<a href="https://discord.gg/QHBPq6xP5p" ><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
-<a href="https://www.github.com/thecyberworld" ><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="Github" /></a>
-<a href="https://www.linkedin.com/company/thecyberw0rld/" ><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" ></a>
-<a href="https://t.me/thecyberw0rld" ><img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" /></a>
-<a href="https://www.twitter.com/thecyberw0rld" ><img src="https://img.shields.io/badge/twitter-100000?style=for-the-badge&logo=x&logoColor=white" alt="Twitter" /></a>
+<a href="https://discord.com/invite/thecyberhub-799183504759324672" ><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
+<a href="https://www.github.com/th3cyb3rhub" ><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="Github" /></a>
+<a href="https://www.linkedin.com/company/th3cyb3rhub/" ><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" ></a>
+<a href="https://t.me/th3cyb3rhub" ><img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" /></a>
+<a href="https://www.twitter.com/th3cyb3rhub" ><img src="https://img.shields.io/badge/twitter-100000?style=for-the-badge&logo=x&logoColor=white" alt="Twitter" /></a>

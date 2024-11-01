@@ -15,19 +15,19 @@ export const SideCloseIcon = styled(CloseIcon)`
 `;
 
 export const DropdownContainer = styled.div`
-    border-radius: 0;
     width: 100%;
     height: auto;
     padding: 1rem;
     position: absolute;
-    top: 80px;
+    top: 65px;
     left: 0;
     z-index: 999;
-    display: block;
-    background: #0e0e0e;
-    backdrop-filter: blur(40px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @media screen and (width <= 821px) {
+        padding: 0;
         display: flex;
         background: transparent;
         position: static;
@@ -42,13 +42,15 @@ export const DropdownItemsContainer = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     text-align: center;
-    max-width: 60rem;
+    min-width: 60rem;
     height: auto;
     margin: 0 auto;
     z-index: 999;
     width: max-content;
     padding: 25px;
     gap: 25px;
+    background: #0e0e0e;
+    border-radius: 5px;
 
     /* sidebar */
     @media screen and (width <= 821px) {
@@ -57,9 +59,11 @@ export const DropdownItemsContainer = styled.div`
         grid-template-rows: repeat(6, auto);
         text-align: center;
         width: 100%;
-        padding: 0;
+        padding: 10px;
         margin: 0;
+        gap: 0;
         height: 100%;
+        background: #0e0e0e;
 
         @media screen and (width <= 380px) {
             grid-template-columns: 1fr;
@@ -86,10 +90,9 @@ export const DropdownItemContainer = styled.div`
         align-items: flex-start;
         justify-content: center;
         flex-direction: column;
-        padding: 0 1rem;
         gap: 10px;
-        width: 100%;
-        background: rgb(26 26 29 / 53%);
+        background: transparent;
+        width: auto;
 
         @media screen and (width <= 768px) {
             /* height: max-content; */
@@ -110,7 +113,7 @@ export const DropdownItem = styled.h2`
     }
 
     @media screen and (width <= 768px) {
-        font-size: 1.1rem;
+        font-size: 16px;
         width: max-content;
         margin: 0;
     }
@@ -140,24 +143,9 @@ export const DropdownRouterLink = styled(LinkRouter)`
     flex-direction: column;
 
     @media screen and (width <= 821px) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        padding: 8px;
-        text-decoration: none;
-        list-style: none;
-        color: #f5f5f5;
-        cursor: pointer;
-
-        /* width: 80%; */
-        width: 100%;
-        margin: 10px auto;
-        background: rgb(26 26 26);
-
-        /* border: 1px solid rgb(194 113 62 / 20%); */
-        border-radius: 10px;
-        transition: all 0.3s ease-in-out;
+        font-size: 0.5rem;
+        margin-left: 30px;
+        padding: 5px 10px;
 
         &:hover {
             /* color: #ff6b08; */

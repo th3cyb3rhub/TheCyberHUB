@@ -127,7 +127,7 @@ export const JobsData = [
         ],
         jobDesc1: (
             <p>
-                Thecyberworld is a leading cyber security company seeking highly motivated interns for exciting projects
+                TheCyberHUB is a leading cyber security company seeking highly motivated interns for exciting projects
                 in the field.
             </p>
         ),
@@ -144,7 +144,7 @@ export const JobsData = [
                 form.
                 <br />
                 <br />
-                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                TheCyberHUB is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>
@@ -394,7 +394,7 @@ export const JobsData = [
                 form.
                 <br />
                 <br />
-                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                TheCyberHUB is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>
@@ -460,8 +460,7 @@ export const JobsData = [
         ],
         jobDesc1: (
             <p>
-                Join the team at Thecyberworld as a SOC Analyst Intern and help protect businesses against cyber
-                threats.
+                Join the team at TheCyberHUB as a SOC Analyst Intern and help protect businesses against cyber threats.
             </p>
         ),
         jobDesc2: (
@@ -477,7 +476,7 @@ export const JobsData = [
                 form.
                 <br />
                 <br />
-                Thecyberworld is committed to diversity and equal opportunity and does not discriminate based on race,
+                TheCyberHUB is committed to diversity and equal opportunity and does not discriminate based on race,
                 religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or
                 disability status.
             </p>

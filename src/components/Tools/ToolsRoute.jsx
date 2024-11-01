@@ -12,6 +12,7 @@ import GoogleDorks from "./GoogleDork/GoogleDorkMain";
 import IPInfo from "src/components/Tools/IPInfo.jsx";
 import SubdomainGenerator from "src/components/Tools/SubdomainGenerator.jsx";
 import MarkdownEditor from "src/components/Tools/MarkdownEditor.jsx";
+import CodeSnippet from "src/components/Tools/CodeSnippet/CodeSnippet.jsx";
 
 const ToolsRoutes = () => {
     return (
@@ -29,6 +30,7 @@ const ToolsRoutes = () => {
             <Route path={"/ipinfo/"} element={<IPInfo />} />
             <Route path={"/subdomain-generator/"} element={<SubdomainGenerator />} />
             <Route path={"/markdown-editor/"} element={<MarkdownEditor />} />
+            <Route path={"/code-snippet/"} element={<CodeSnippet />} />
 
             {/* <Route path={"portScanner"} element={<PortScanner/>}/> */}
             <Route path={"*"} element={<NotFound />} />

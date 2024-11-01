@@ -33,7 +33,7 @@ Incorrect ways to mark a box:
 
 ## Code of Conduct
 
--   [ ] By submitting this pull request, I confirm I've read and complied with the [CoC](https://github.com/thecyberworld/TheCyberHUB/blob/dev/CODE_OF_CONDUCT.md) 🖖
+-   [ ] By submitting this pull request, I confirm I've read and complied with the [CoC](https://github.com/th3cyb3rhub/TheCyberHUB/blob/dev/CODE_OF_CONDUCT.md) 🖖
 
 ## Check List (Check all the applicable boxes) <!-- Follow the above conventions to check the box -->
 
@@ -46,6 +46,6 @@ Incorrect ways to mark a box:
 
 ---
 
-You can also join our [Discord](https://discord.gg/QHBPq6xP5p) community.
-Feel free to check out other cool repositories of the [Thecyberworld](https://github.com/thecyberworld).
-Join the Thecyberworld GitHub Organisation by raising an [issue](https://github.com/thecyberworld/Support/issues/new?assignees=&labels=invite+me+to+the+organisation&template=invitation.yml&title=Please+invite+me+to+the+GitHub+Community+Organization) (you will be sent an invitation).
+You can also join our [Discord](https://discord.com/invite/thecyberhub-799183504759324672) community.
+Feel free to check out other cool repositories of the [TheCyberHUB](https://github.com/th3cyb3rhub).
+Join the TheCyberHUB GitHub Organisation by raising an [issue](https://github.com/th3cyb3rhub/Support/issues/new?assignees=&labels=invite+me+to+the+organisation&template=invitation.yml&title=Please+invite+me+to+the+GitHub+Community+Organization) (you will be sent an invitation).

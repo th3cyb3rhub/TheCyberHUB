@@ -42,7 +42,7 @@ export const ScrollButton = styled(ScrollLink)`
 `;
 
 export const RouterButton = styled(RouterLink)`
-    margin: auto 10px 10px;
+    margin: auto 5px 5px;
     text-decoration: none;
     border-radius: 5px;
     border-width: 1px;

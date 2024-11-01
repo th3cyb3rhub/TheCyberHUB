@@ -79,7 +79,7 @@ const Navbar = ({ isOpen, toggle }) => {
                         { to: "feeds", title: "Feeds", dropdown: "feeds" },
                         { to: "blogs", title: "Blogs", dropdown: "blogs" },
                         { to: "aiChat", title: "AI ", dropdown: "aiChat" },
-                        { to: "ctf", title: "CTF", dropdown: "ctf" },
+                        // { to: "ctf", title: "CTF", dropdown: "ctf" },
                         { to: "websecurity", title: "Web Security", dropdown: "websecurity" },
                         {
                             title: (
@@ -136,10 +136,10 @@ const Navbar = ({ isOpen, toggle }) => {
                 </NavMenu>
                 <NavUsersDetailsSection>
                     <SideOptionsContainer>
+                        <UserOptions />
                         <MobileIcon onClick={toggle}>
                             <FaBars />
                         </MobileIcon>
-                        <UserOptions />
                     </SideOptionsContainer>
                 </NavUsersDetailsSection>
             </NavbarContainer>

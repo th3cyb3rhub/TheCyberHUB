@@ -22,6 +22,7 @@ const Sidebar = ({
     data,
     selectedTags,
     setSelectedTags,
+    hideNav = false,
 }) => {
     const renderFollowingFilterButtons = () => (
         <>
@@ -87,7 +88,7 @@ const Sidebar = ({
     );
 
     return (
-        <SidebarContainer $sidebarType={sidebarType}>
+        <SidebarContainer $sidebarType={sidebarType} className={hideNav ? "hide-nav" : ""}>
             {sidebarType === "blogs" && (
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
                     {user?.role === "admin" || user?.role === "team" ? (

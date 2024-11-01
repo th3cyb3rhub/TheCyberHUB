@@ -1,11 +1,9 @@
 import React from "react";
 import { getCdnAssets } from "src/features/apiUrl";
-
 import { FaGithub } from "react-icons/fa";
 import { IconsSpacing, IconsSpacing2 } from "src/components/Other/MixComponents/Buttons/ButtonElements";
 import { BsFillPlayFill } from "react-icons/bs";
 import { List, ListContainer, ListContent, ListIcon } from "src/components/Resources/Jobs/JobDetailsElements";
-
 import contributeSvg from "src/assets/images/open-source-contribution.svg";
 import ResourcesSvg from "src/assets/images/undraw_firmware_re_fgdy.svg";
 import VersionControlSvg from "src/assets/images/undraw_version_control_re_mg66.svg";
@@ -17,43 +15,34 @@ export const aboutData = {
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: "TheCyberworld Community",
+    topLine: "TheCyberHUB Community",
     headline: "Empowering the Next Generation of Cybersecurity Experts",
     description: (
         <>
             Welcome to TheCyberHUB, the ultimate destination for cybersecurity enthusiasts.
             <br />
             <br />
-            Explore what we offer:
-            <ListContainer style={{ background: "initial" }}>
+            Explore our offerings:
+            <ListContainer>
                 <List>
                     <ListIcon />
-                    <ListContent style={{ fontSize: "initial" }}>
-                        Access Cyber Security courses for FREE (coming soon).
-                    </ListContent>
+                    <ListContent>Free Cybersecurity courses (coming soon).</ListContent>
                 </List>
                 <List>
                     <ListIcon />
-                    <ListContent style={{ fontSize: "initial" }}>
-                        Our community&apos;s goal is to help newcomers get started with Opensource and Cybersecurity.
-                    </ListContent>
+                    <ListContent>Guidance for newcomers in open-source and cybersecurity.</ListContent>
                 </List>
                 <List>
                     <ListIcon />
-                    <ListContent style={{ fontSize: "initial" }}>
-                        Join a community with more than 150,000 members.
-                    </ListContent>
+                    <ListContent>A community of over 150,000 members.</ListContent>
                 </List>
                 <List>
                     <ListIcon />
-                    <ListContent style={{ fontSize: "initial" }}>
-                        Contribute to Opensource projects; our Website, Mobile App, Web Extensions, and Bots are built
-                        by TheCyberworld community.
-                    </ListContent>
+                    <ListContent>Contribute to open-source projects, including our website and apps.</ListContent>
                 </List>
                 <List>
                     <ListIcon />
-                    <ListContent style={{ fontSize: "initial" }}>Become a part of a Hub of Cyber Security.</ListContent>
+                    <ListContent>Become part of a hub for cybersecurity.</ListContent>
                 </List>
             </ListContainer>
         </>
@@ -61,12 +50,12 @@ export const aboutData = {
     buttonLabel1: "Join our Community",
     link1: "/community",
     buttonType1: "router",
-    buttonLabel2: "Contribute to Opensource",
+    buttonLabel2: "Contribute to Open Source",
     link2: "/opensec-projects",
     buttonType2: "router",
     imgStart: false,
     img: logoThecyberworld,
-    alt: "Thecyberworld Community Logo",
+    alt: "TheCyberHUB Community Logo",
     dark: true,
     primary: true,
     darkText: false,
@@ -83,8 +72,8 @@ export const ResourcesData = {
     headline: "Cyber Sec Resources",
     description: (
         <>
-            Explore Cyber Security Resources. <br />
-            Courses, CTFs, Events, Blogs, Tools, WriteUps, Roadmaps, and much more.
+            Explore a variety of Cyber Security Resources, including courses, CTFs, events, blogs, tools, write-ups, and
+            roadmaps.
         </>
     ),
     buttonLabel1: (
@@ -106,27 +95,24 @@ export const ResourcesData = {
 export const communityData = {
     id: "community",
     idTo: "join",
-    buttonLabel1: "Join community",
-    link1: "https://discord.gg/thecyberworld-799183504759324672",
+    buttonLabel1: "Join Community",
+    link1: "https://discord.com/invite/thecyberhub-799183504759324672",
     buttonType1: "redirect",
-    buttonLabel2: "All community links",
-    link2: "https://linktr.ee/thecyberworld",
+    buttonLabel2: "All Community Links",
+    link2: "https://linktr.ee/th3cyb3rhub",
     buttonType2: "redirect",
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
     topLine: "Join our Community",
-    headline: "150,000+ members",
+    headline: "150,000+ Members",
     description: (
         <>
-            Community&apos;s goal is to help new folks to get started with open-source, cyber-security and to help
-            existing folks get more involved in the open-source and cyber-security communities.
+            Our community helps newcomers get started with open-source and cybersecurity while encouraging existing
+            members to engage further.
         </>
     ),
     imgStart: true,
-    // img: communitySvg,
-    // video: true,
-    // alt: "Community Video",
     dark: true,
     primary: true,
     darkText: false,
@@ -137,13 +123,12 @@ export const contributeData = {
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: "Contribute to Thecyberworld",
-    headline: "Want to contribute?",
+    topLine: "Contribute to TheCyberworld",
+    headline: "Want to Contribute?",
     description: (
         <>
-            That&apos;s great! We welcome all sorts of contributions from raising issues, starting discussions, adding
-            documentation, making pull requests and so much more! Help each other and make improvements! Check the
-            contributing guidelines in each repository for guidance on how to get started.
+            We welcome contributions such as raising issues, discussions, documentation, and pull requests. Check the
+            contributing guidelines in each repository to get started.
         </>
     ),
     buttonLabel1: (
@@ -154,21 +139,21 @@ export const contributeData = {
             Contribute to Projects
         </>
     ),
-    link1: "https://github.com/thecyberworld",
+    link1: "https://github.com/th3cyb3rhub",
     buttonType1: "redirect",
-    buttonLabel2: <>Contribute to Community</>,
+    buttonLabel2: "Contribute to Community",
     link2: "/community",
     buttonType2: "router",
     imgStart: false,
     img: contributeSvg,
-    alt: "Opensource contribution SVG",
+    alt: "Open Source Contribution SVG",
     dark: true,
     primary: true,
     darkText: false,
 };
 
 export const OpenSource = {
-    id: "contribute",
+    id: "open-source",
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
@@ -176,8 +161,8 @@ export const OpenSource = {
     headline: "What is Open Source?",
     description: (
         <p>
-            Open source software (OSS) is software that is distributed with its source code, making it available for
-            use, modification, and distribution with its original rights.
+            Open source software (OSS) is distributed with its source code, allowing for use, modification, and
+            redistribution under its original rights.
         </p>
     ),
     buttonLabel_ContributeToOpensource: (
@@ -185,13 +170,13 @@ export const OpenSource = {
             <IconsSpacing>
                 <FaGithub />
             </IconsSpacing>
-            Contribute now
+            Contribute Now
         </>
     ),
     buttonLabelNew: "Open Source Projects",
     imgStart: false,
     img: VersionControlSvg,
-    alt: "Secure data",
+    alt: "Secure Data",
     dark: true,
     primary: true,
     darkText: false,

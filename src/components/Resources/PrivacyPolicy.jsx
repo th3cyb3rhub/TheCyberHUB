@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
             <TermsAndConditionContainer>
                 <TermsHeading> Introduction: </TermsHeading>
                 <TermsDescription>
-                    At Thecyberhub.org and Thecyberworld Community, we are committed to protecting the privacy of our
+                    At Thecyberhub.org and TheCyberHUB Community, we are committed to protecting the privacy of our
                     users. This Privacy Policy explains how we collect, use, disclose, and protect the information that
                     we receive from you when you use our website and services.
                 </TermsDescription>

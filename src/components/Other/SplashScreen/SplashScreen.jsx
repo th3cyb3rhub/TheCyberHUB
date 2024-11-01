@@ -40,7 +40,7 @@ const SplashScreen = () => {
                 )}
             </SplashImageContainer>
             <SplashScreenTextContainer>
-                <TextGreenBG>By Thecyberworld Community </TextGreenBG>
+                <TextGreenBG>By TheCyberHUB Community </TextGreenBG>
             </SplashScreenTextContainer>
         </SplashScreenContainer>
     );

@@ -8,6 +8,11 @@ export const FeedsContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+
+    @media screen and (width <= 1160px) {
+        gap: 1%;
+    }
+    
 `;
 
 export const MiddleSection = styled.div`

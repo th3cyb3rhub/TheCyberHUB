@@ -9,7 +9,7 @@ export const AssistLinksData = [
             },
             {
                 text: "Join Our Discord Server",
-                url: "https://discord.gg/QHBPq6xP5p",
+                url: "https://discord.com/invite/thecyberhub-799183504759324672",
                 id: 2,
             },
         ],
