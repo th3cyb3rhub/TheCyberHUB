@@ -79,6 +79,7 @@ const InfoSection = ({
                                 )}
                                 {buttonType1 === "redirect" && (
                                     <RedirectButton
+                                        target={"_blank"}
                                         href={link1}
                                         primary={primary ? "true" : ""}
                                         dark={dark ? 1 : 0}

@@ -7,6 +7,8 @@ import { List, ListContainer, ListContent, ListIcon } from "src/components/Resou
 import contributeSvg from "src/assets/images/open-source-contribution.svg";
 import ResourcesSvg from "src/assets/images/undraw_firmware_re_fgdy.svg";
 import VersionControlSvg from "src/assets/images/undraw_version_control_re_mg66.svg";
+import desktopApp from "src/assets/images/TheCyberHUB-Desktop.png";
+import { PiWindowsLogoFill } from "react-icons/pi";
 
 const logoThecyberworld = `${getCdnAssets}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
 
@@ -61,6 +63,37 @@ export const aboutData = {
     darkText: false,
 };
 
+export const desktopAppDownloadData = {
+    id: "desktop-download",
+    buttonLabel1: (
+        <>
+            Download for Windows{" "}
+            <IconsSpacing style={{ marginLeft: "10px" }}>
+                <PiWindowsLogoFill />
+            </IconsSpacing>
+        </>
+    ),
+    link1: "https://github.com/th3cyb3rhub/TheCyberHUB-Desktop/releases",
+    buttonType1: "redirect",
+    lightBg: false,
+    lightText: true,
+    lightTextDesc: true,
+    topLine: "Download TheCyberHUB Desktop App",
+    headline: "Join 150,000+ Users Enhancing Their Cybersecurity Skills",
+    description: (
+        <>
+            TheCyberHUB Desktop App offers seamless access to essential resources and tools for cybersecurity
+            enthusiasts. Join a community of users advancing their skills with our intuitive application, featuring
+            regular updates to keep you informed and equipped.
+        </>
+    ),
+    img: desktopApp,
+    imgStart: true,
+    dark: true,
+    primary: true,
+    darkText: false,
+};
+
 export const ResourcesData = {
     id: "resources",
     buttonType1: "router",
@@ -84,35 +117,9 @@ export const ResourcesData = {
             </IconsSpacing2>
         </>
     ),
-    imgStart: true,
+    imgStart: false,
     img: ResourcesSvg,
     alt: "Free Cyber Security Course SVG",
-    dark: true,
-    primary: true,
-    darkText: false,
-};
-
-export const communityData = {
-    id: "community",
-    idTo: "join",
-    buttonLabel1: "Join Community",
-    link1: "https://discord.com/invite/thecyberhub-799183504759324672",
-    buttonType1: "redirect",
-    buttonLabel2: "All Community Links",
-    link2: "https://linktr.ee/th3cyb3rhub",
-    buttonType2: "redirect",
-    lightBg: false,
-    lightText: true,
-    lightTextDesc: true,
-    topLine: "Join our Community",
-    headline: "150,000+ Members",
-    description: (
-        <>
-            Our community helps newcomers get started with open-source and cybersecurity while encouraging existing
-            members to engage further.
-        </>
-    ),
-    imgStart: true,
     dark: true,
     primary: true,
     darkText: false,
@@ -144,9 +151,35 @@ export const contributeData = {
     buttonLabel2: "Contribute to Community",
     link2: "/community",
     buttonType2: "router",
-    imgStart: false,
+    imgStart: true,
     img: contributeSvg,
     alt: "Open Source Contribution SVG",
+    dark: true,
+    primary: true,
+    darkText: false,
+};
+
+export const communityData = {
+    id: "community",
+    idTo: "join",
+    buttonLabel1: "Join Community",
+    link1: "https://discord.com/invite/thecyberhub-799183504759324672",
+    buttonType1: "redirect",
+    buttonLabel2: "All Community Links",
+    link2: "https://linktr.ee/th3cyb3rhub",
+    buttonType2: "redirect",
+    lightBg: false,
+    lightText: true,
+    lightTextDesc: true,
+    topLine: "Join our Community",
+    headline: "150,000+ Members",
+    description: (
+        <>
+            Our community helps newcomers get started with open-source and cybersecurity while encouraging existing
+            members to engage further.
+        </>
+    ),
+    imgStart: false,
     dark: true,
     primary: true,
     darkText: false,
