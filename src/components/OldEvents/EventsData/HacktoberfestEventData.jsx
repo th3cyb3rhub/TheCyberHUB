@@ -94,7 +94,7 @@ const HacktoberfestEventData = [
                     . If you are a beginner, please check out the curated
                     <Link
                         href={
-                            "https://github.com/search?q=org%3Athecyberworld+is%3Aopen+is%3Aissue+label%3AHacktoberFest"
+                            "https://github.com/search?q=org%3Ath3cyb3rhub+is%3Aopen+is%3Aissue+label%3AHacktoberFest"
                         }
                         target={"_blank"}
                     >

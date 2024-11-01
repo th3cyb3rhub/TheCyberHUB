@@ -123,7 +123,7 @@ export const contributeData = {
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: "Contribute to TheCyberworld",
+    topLine: "Contribute to TheCyberHUB",
     headline: "Want to Contribute?",
     description: (
         <>

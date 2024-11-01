@@ -98,7 +98,7 @@ const CertificateCard = () => {
         const text =
             "I just got my certificate for " +
             certificate?.ctf +
-            " from @thecyberworld community. Check it out at https://thecyberhub.org/ctf/certificate/" +
+            " from @th3cyb3rhub community. Check it out at https://thecyberhub.org/ctf/certificate/" +
             certificate?._id;
         const url = "https://www.linkedin.com/feed/?shareActive=true&text=" + text;
         window.open(url);
