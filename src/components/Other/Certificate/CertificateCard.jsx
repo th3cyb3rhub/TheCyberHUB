@@ -23,13 +23,13 @@ import JsPDF from "jspdf";
 import { AiFillFileImage } from "react-icons/ai";
 import { VscFilePdf } from "react-icons/vsc";
 import { Wrapper } from "src/components/Dashboard/Profile/ProfileElements";
-import Logo from "src/assets/images/Thecyberworld_logo_outlined.png";
+import Logo from "src/assets/images/TheCyberHUB_logo_outlined.png";
 import { CircleSpinner } from "react-spinners-kit";
 import { getApiUrl } from "src/features/apiUrl";
 import { FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
-// const TCWlogo = `${getCDNUrl}/images/ThecyberworldLogo/Thecyberworld_logo_outlined.png`;
+// const TCWlogo = `${getCDNUrl}/images/ThecyberworldLogo/TheCyberHUB_logo_outlined.png`;
 
 const CertificateCard = () => {
     const [certificate, setCertificate] = useState();

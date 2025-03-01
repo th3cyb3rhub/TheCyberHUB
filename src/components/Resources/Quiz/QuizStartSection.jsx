@@ -1,4 +1,4 @@
-import Logo from "src/assets/images/Thecyberworld_logo_outlined.png";
+import Logo from "src/assets/images/TheCyberHUB_logo_outlined.png";
 import { ResetButton } from "./Categories/CategoriesElements";
 import React from "react";
 import styled from "styled-components";

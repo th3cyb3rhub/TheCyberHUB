@@ -1,22 +1,20 @@
 import React from "react";
-import {
-    // RankContainer,
-    // RankNumber,
-    // RankNumberContainer,
-    // RankTrophy,
-    StreakNumber,
-    StreakNumberContainer,
-    UserPointsContainer,
-    UserStreakContainer,
-} from "./UserPointsElements";
-import { getStreak } from "src/components/Header/Exp";
+import { StreakNumber, StreakNumberContainer, UserPointsContainer, UserStreakContainer } from "./UserPointsElements";
 import { ExpIcon } from "src/components/Header/ExpElemenets";
 
 const UserPoints = ({ userDetail }) => {
     const isCompleted = userDetail?.solved?.map((ctf) => (ctf?.isCompleted ? 1 : 0));
     const roomCompleted = isCompleted?.reduce((a, b) => a + b, 0);
 
-    // const userRank = getUserRank(userDetail);
+    const getStreak = (userDetail) => {
+        const ActivityDates = userDetail?.solved?.map((ctf) => ctf?.flags?.map((flag) => flag?.date)).flat() || [];
+        const visitTimestamps = userDetail?.visitTimestamps || [];
+        const allDates = [...ActivityDates, ...visitTimestamps];
+        const dates = allDates.map((date) => date && date.split("T")[0]);
+        const streak = [...new Set(dates)].length || 1;
+        return streak - 1;
+    };
+
     return (
         <UserPointsContainer>
             {/* <RankContainer> */}
