@@ -5,10 +5,12 @@ import { BsTrophyFill } from "react-icons/bs";
 
 export const DropdownIcon = styled(AiFillCaretDown)`
     margin: 2px 0 0 5px;
+    transition: transform 0.3s ease;
 `;
 
 export const Nav = styled.nav`
-    /* background: ${({ $scrollNav }) => ($scrollNav ? "0000007F" : "transparent")}; */
+    background: ${({ $scrollNav }) => ($scrollNav ? "#0a0a0a" : "rgba(10, 10, 10, 0.95)")};
+    backdrop-filter: blur(10px);
     height: 80px;
     margin-top: -80px;
     display: flex;
@@ -19,10 +21,9 @@ export const Nav = styled.nav`
     z-index: 10;
     top: 0;
     padding: 0 25px;
-
-    /* if showBottomBorder then show bottom border */
-
-    /* border-bottom: ${({ $showBottomBorder }) => ($showBottomBorder ? "1px solid #2a2a2a" : "none")}; */
+    border-bottom: ${({ $showBottomBorder }) => ($showBottomBorder ? "1px solid #2a2a2a" : "none")};
+    box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
+    transition: all 0.3s ease-in-out;
 
     @media screen and (width <= 960px) {
         transition: 0.8s all ease;
@@ -37,8 +38,63 @@ export const NavbarContainer = styled.div`
     z-index: 1;
     width: 100%;
     max-width: 1500px;
+`;
 
-    /* display: none; */
+export const CommunityBadge = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-right: 15px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    background: rgb(255 106 0 / 15%);
+    color: #ff6a00;
+    border: 1px solid rgb(255 106 0 / 30%);
+    gap: 6px;
+
+    @media screen and (width <= 1100px) {
+        display: none;
+    }
+`;
+
+export const SearchBarContainer = styled.div`
+    position: relative;
+    width: 250px;
+    margin: 0 20px;
+
+    @media screen and (width <= 1100px) {
+        display: none;
+    }
+`;
+
+export const SearchInput = styled.input`
+    width: 100%;
+    padding: 8px 15px 8px 35px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    background: rgb(25 25 25 / 70%);
+    color: #f5f5f5;
+    font-size: 0.9rem;
+
+    &:focus {
+        outline: none;
+        border-color: #ff6a00;
+        box-shadow: 0 0 0 1px rgb(255 106 0 / 30%);
+    }
+
+    &::placeholder {
+        color: #999;
+    }
+`;
+
+export const SearchIcon = styled.div`
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
 `;
 
 export const NavUsersDetailsSection = styled.div`
@@ -48,6 +104,7 @@ export const NavUsersDetailsSection = styled.div`
     background: transparent;
     gap: 5px;
 `;
+
 export const NavLogoRouter = styled(LinkRouter)`
     display: flex;
     justify-self: center;
@@ -57,11 +114,13 @@ export const NavLogoRouter = styled(LinkRouter)`
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
-
-    /* background: #0e0e0e;
-    border: 1px solid #262626; */
     border-radius: 50%;
     padding: 7px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 `;
 
 export const NavLogo = styled.img`
@@ -94,15 +153,15 @@ export const NavMenu = styled.div`
     justify-content: space-evenly;
     margin: 0 10px;
     backdrop-filter: blur(16px) saturate(180%);
-    backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgb(31 38 135 / 9%);
-    border-radius: 5px;
-    border: 1px solid rgb(255 255 255 / 12.5%);
+    background-color: rgb(25 25 25 / 40%);
+    border-radius: 8px;
+    border: 1px solid rgb(255 255 255 / 5%);
 
     @media screen and (width <= 1100px) {
         display: none;
     }
 `;
+
 export const NavMenu2 = styled.div`
     display: flex;
     align-items: center;
@@ -132,16 +191,35 @@ export const NavItem = styled.div`
     cursor: pointer;
     padding: 15px;
     flex-direction: column;
+    position: relative;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
-        background: #ff6a00;
-        color: black;
+        background: rgb(255 106 0 / 10%);
         transition: all 0.2s ease-in-out;
-        font-weight: bold;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 3px;
+        bottom: 0;
+        left: 50%;
+        background-color: #ff6a00;
+        transition: all 0.3s ease;
+    }
+
+    &:hover::after {
+        width: 70%;
+        left: 15%;
     }
 
     &.active {
-        border-bottom: 3px solid #ff6a00;
+        &::after {
+            width: 70%;
+            left: 15%;
+        }
     }
 `;
 
@@ -153,7 +231,20 @@ export const NavLink = styled(LinkRouter)`
     height: 100%;
     cursor: pointer;
     width: 100%;
+    transition: color 0.2s ease;
+    gap: 6px;
+    font-weight: 500;
+
+    &:hover {
+        color: #ff6a00;
+    }
+
+    &.active {
+        color: #ff6a00;
+        font-weight: 600;
+    }
 `;
+
 export const NavButtonsSection = styled.div`
     display: flex;
     justify-content: center;
@@ -193,11 +284,12 @@ export const RankTrophy = styled(BsTrophyFill)`
 export const RouterNavCreateButtonLink = styled(Link)`
     display: initial;
     height: fit-content;
-    background: #181818;
+    background: rgb(24 24 24 / 80%);
     border-radius: 5px;
     color: #ff6b08;
     padding: 10px 15px;
     transition: 0.2s ease-in-out;
+    border: 1px solid rgb(255 107 8 / 30%);
 
     @media screen and (width <= 600px) {
         font-size: 12px;
@@ -208,42 +300,33 @@ export const RouterNavCreateButtonLink = styled(Link)`
         font-size: 14px;
     }
 
-    /* @media screen and (max-width: 1150px) {
-     display: none;
-    }
-    @media screen and (max-width: 900px) {
-     display: initial;
-    } */
-
     &:hover {
         transition: 0.2s ease-in-out;
-        scale: 1.1;
+        scale: 1.05;
+        background: rgb(255 107 8 / 10%);
     }
 `;
+
 export const RouterNavCreateButton = styled.button`
     margin: ${(props) => (props.noCenter ? 0 : "0 auto")};
     margin-bottom: 2rem;
     display: initial;
     height: fit-content;
-    background: #111;
+    background: rgb(17 17 17 / 80%);
     border-radius: 5px;
     color: #ff6b08;
-    padding: 5px 15px;
-    transition: 0.2s ease-in-out;
+    border: 1px solid rgb(255 107 8 / 30%);
+    padding: 8px 18px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
 
     @media screen and (width <= 600px) {
         font-size: 12px;
     }
 
-    /* @media screen and (max-width: 1150px) {
-     display: none;
-    }
-    @media screen and (max-width: 900px) {
-     display: initial;
-    } */
-
     &:hover {
         transition: 0.2s ease-in-out;
-        scale: 1.1;
+        scale: 1.05;
+        background: rgb(255 107 8 / 10%);
     }
 `;

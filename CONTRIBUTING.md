@@ -115,6 +115,15 @@ Open the browser to visit the website at http://localhost:3000
 
 **How you can add more value to your contribution logs:**
 
+-   Use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) way when writing your commit messages.
+-   The most important prefixes you should have in mind are:
+
+    -   `fix:` which represents bug fixes, and correlates to a [SemVer](https://semver.org/)
+        patch.
+    -   `feat:` which represents a new feature, and correlates to a SemVer minor.
+    -   `feat!:`, or `fix!:`, `refactor!:`, etc., which represent a breaking change
+        (indicated by the `!`) and will result in a SemVer major.
+
 -   Use the present tense. (Example: "Add feature" instead of "Added feature")
 -   Use the imperative mood. (Example: "Move item to...", instead of "Moves item to...")
 -   Limit the first line (also called the Subject Line) to _50 characters or fewer_.
