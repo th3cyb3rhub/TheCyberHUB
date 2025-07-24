@@ -23,6 +23,7 @@ import {
     Calendar,
     Users
 } from 'lucide-react';
+import Image from "next/image";
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -80,14 +81,20 @@ const Navbar = () => {
                 {/* Logo */}
                 <div className="flex items-center space-x-3">
                     <div className="relative group">
-                            <img
+                            <Image
+                                width={40}
+                                height={40}
                                 src="/tch_title.png"
                                 alt="TheCyberHUB Logo"
                                 className="h-10 w-10 object-contain"
                             />
                         <div className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300 -z-10"></div>
-                    </div>
 
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold text-white tracking-tight">TheCyberHub</span>
+                        <span className="text-xs text-orange-400 font-medium -mt-1">Security Community</span>
+                    </div>
                 </div>
 
                 {/* Desktop Navigation */}
