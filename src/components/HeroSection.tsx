@@ -37,7 +37,7 @@ const HeroSection = () => {
                                     <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent"> Cybersecurity Experts</span>
                                 </h1>
                                 <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
-                                    Join TheCyberHub's community of 150,000+ security professionals. Access powerful tools, comprehensive resources, and expert knowledge to advance your cybersecurity career.
+                                    Join TheCyberHub&apos;s community of 150,000+ security professionals. Access powerful tools, comprehensive resources, and expert knowledge to advance your cybersecurity career.
                                 </p>
                             </div>
 
