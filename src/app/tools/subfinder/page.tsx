@@ -497,7 +497,7 @@ const SubfinderPage = () => {
                                             <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-0.5">1</div>
                                             <div>
                                                 <div className="font-medium text-white">Certificate Issuance</div>
-                                                <div className="text-sm">When SSL certificates are issued, they're logged in public CT logs</div>
+                                                <div className="text-sm">When SSL certificates are issued, they&apos;re logged in public CT logs</div>
                                             </div>
                                         </div>
                                         <div className="flex items-start space-x-3">

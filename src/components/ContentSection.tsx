@@ -266,7 +266,7 @@ const ContentSection = () => {
                                         <div className="text-orange-400 text-sm">{testimonial.role}</div>
                                     </div>
                                 </div>
-                                <p className="text-gray-300 mb-4 leading-relaxed">"{testimonial.content}"</p>
+                                <p className="text-gray-300 mb-4 leading-relaxed">&quot;{testimonial.content}&quot;</p>
                                 <div className="flex space-x-1">
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <Star key={i} className="h-4 w-4 text-orange-400 fill-current" />
