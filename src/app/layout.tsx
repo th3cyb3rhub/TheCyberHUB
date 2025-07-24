@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-    title: 'TheCyberHUB - Empowering Cybersecurity Experts',
+    title: 'TheCyberHub - Empowering Cybersecurity Experts',
     description: 'Join the ultimate destination for cybersecurity enthusiasts to learn, connect, and grow together.',
 }
 
