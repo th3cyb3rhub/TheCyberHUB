@@ -1,3 +1,0 @@
-# Dir
-
-Directory brute forcing
