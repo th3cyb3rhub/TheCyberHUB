@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Shield, Menu, X, ChevronDown, Search, Bell, User, Users, Github, Code, BookOpen, Award, Star, Twitter, Linkedin, Mail, Calendar, Briefcase, Globe, ArrowRight, Play, Download, ExternalLink, TrendingUp, Zap, Target, ChevronRight } from "lucide-react"
+import { Shield, Menu, Search, Bell, User, Users, Github, Code, BookOpen, Award, Star, Twitter, Linkedin, Mail, Calendar, Briefcase, ArrowRight, Play, ExternalLink, Zap, Target, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     NavigationMenu,
@@ -411,7 +411,7 @@ export default function CyberHubHomepage() {
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-white mb-4">Why Choose TheCyberHUB?</h2>
                         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                            Join the world's largest cybersecurity community and accelerate your career with our comprehensive platform.
+                            Join the world&apos;s largest cybersecurity community and accelerate your career with our comprehensive platform.
                         </p>
                     </div>
 
@@ -602,7 +602,7 @@ export default function CyberHubHomepage() {
                                     </div>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-gray-300 mb-4">"{testimonial.content}"</p>
+                                    <p className="text-gray-300 mb-4">&quot;{testimonial.content}&quot;</p>
                                     <div className="flex space-x-1">
                                         {[...Array(testimonial.rating)].map((_, i) => (
                                             <Star key={i} className="h-4 w-4 text-orange-400 fill-current" />
