@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import {
     Search,
     Download,
-    Copy,
     FileText,
     Terminal,
     Database,
@@ -15,9 +14,7 @@ import {
     List,
     Zap,
     Bug,
-    Network,
-    X,
-    ChevronRight
+    Network
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 
@@ -51,9 +48,11 @@ interface CheatSheetItem {
 const CheatsheetsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
-    const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+    const [selectedDifficulty   , setSelectedDifficulty] = useState('all');
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+/*
     const [expandedSheet, setExpandedSheet] = useState<string | null>(null);
+*/
 
     // Sample cheatsheet data
     const cheatsheets: CheatSheet[] = [
@@ -215,10 +214,6 @@ const CheatsheetsPage = () => {
     });
 
     const featuredCheatsheets = filteredCheatsheets.filter(sheet => sheet.featured);
-
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text);
-    };
 
     const downloadCheatsheet = (sheet: CheatSheet) => {
         // Generate content for download
