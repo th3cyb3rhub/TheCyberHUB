@@ -64,12 +64,12 @@ function CyberHubNavbar() {
 
                 {/* Logo */}
                 <div className="flex items-center space-x-3">
-                    {/*<div className="relative group">
+                    <div className="relative group">
                         <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-orange-500/25 group-hover:shadow-orange-500/40 transition-all duration-300">
                             <Shield className="h-6 w-6 text-black" />
                         </div>
                         <div className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300 -z-10"></div>
-                    </div>*/}
+                    </div>
                     <div className="flex flex-col">
                         <span className="text-xl font-bold text-white tracking-tight">TheCyberHUB</span>
                         <span className="text-xs text-orange-400 font-medium -mt-1">Security Community</span>
