@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({
     subsets: ['latin'],
     display: 'swap',
-    preload: true, // Added for better performance
+    preload: true,
 })
 
 export const metadata: Metadata = {
@@ -42,6 +42,10 @@ export const metadata: Metadata = {
         email: false,
         address: false,
         telephone: false,
+    },
+    // Favicon - Simple favicon.ico only
+    icons: {
+        icon: '/favicon.ico',
     },
     openGraph: {
         type: 'website',
@@ -98,14 +102,15 @@ export const metadata: Metadata = {
     },
     category: 'technology',
     classification: 'Cybersecurity Platform',
-    // Added app-specific metadata
-    manifest: '/manifest.json',
+    // Manifest will be handled by manifest.ts file
     appleWebApp: {
         capable: true,
-        statusBarStyle: 'default',
+        statusBarStyle: 'black-translucent',
         title: 'TheCyberHub',
+        startupImage: [
+            '/apple-touch-icon.png',
+        ],
     },
-    // Added for better mobile experience
     other: {
         'mobile-web-app-capable': 'yes',
         'apple-mobile-web-app-status-bar-style': 'black-translucent',
@@ -132,12 +137,6 @@ export default function RootLayout({
     return (
         <html lang="en" className="dark">
         <head>
-            {/* Favicon and Icons - Improved */}
-            <link rel="icon" href="/favicon.ico" sizes="32x32" />
-            <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-            <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-            <link rel="manifest" href="/manifest.json" />
-
             {/* Preconnect to external domains - Performance optimization */}
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
