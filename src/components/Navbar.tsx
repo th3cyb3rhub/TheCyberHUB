@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-   /* Shield,*/
+    /* Shield,*/
     ChevronDown,
     Menu,
     X,
@@ -21,9 +21,11 @@ import {
     Wrench,
     PenTool,
     Calendar,
-    Users
+    Users,
+    Key
 } from 'lucide-react';
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -48,21 +50,21 @@ const Navbar = () => {
             title: "Resources",
             items: [
                 { icon: <FileText className="w-4 h-4" />, title: "Cheatsheets", description: "Quick reference guides", href: "/cheatsheets" },
-                { icon: <Database className="w-4 h-4" />, title: "Payloads", description: "Security testing payloads", href: "/payloads" },
+       /*         { icon: <Database className="w-4 h-4" />, title: "Payloads", description: "Security testing payloads", href: "/payloads" },
                 { icon: <BookOpen className="w-4 h-4" />, title: "Methodology", description: "Step-by-step guides", href: "/methodology" },
-                { icon: <Terminal className="w-4 h-4" />, title: "Learning Paths", description: "Structured curricula", href: "/paths" }
+                { icon: <Terminal className="w-4 h-4" />, title: "Learning Paths", description: "Structured curricula", href: "/paths" }*/
             ]
         },
         tools: {
             title: "Tools",
             items: [
-                { icon: <Globe className="w-4 h-4" />, title: "Subdomain Finder", description: "Find subdomains", href: "/tools/subfinder" },
-                { icon: <ExternalLink className="w-4 h-4" />, title: "URL Scanner", description: "Analyze URLs", href: "/tools/url-scanner" },
-                { icon: <ShieldCheck className="w-4 h-4" />, title: "SSL Scanner", description: "SSL certificate analysis", href: "/tools/ssl-scan" },
+                { icon: <Globe className="w-4 h-4" />, title: "Subdomain Finder", description: "Discover hidden subdomains", href: "/tools/subfinder" },
+                { icon: <Key className="w-4 h-4" />, title: "JWT Analyzer", description: "Analyze JWT tokens & security", href: "/tools/jwt-analyzer" },
+           /*     { icon: <ShieldCheck className="w-4 h-4" />, title: "SSL Scanner", description: "SSL certificate analysis", href: "/tools/ssl-scan" },
                 { icon: <Wrench className="w-4 h-4" />, title: "All Tools", description: "Browse all security tools", href: "/tools" }
-            ]
+        */    ]
         },
-        content: {
+     /*   content: {
             title: "Content",
             items: [
                 { icon: <PenTool className="w-4 h-4" />, title: "Blog Posts", description: "Latest security insights", href: "/blog" },
@@ -70,7 +72,7 @@ const Navbar = () => {
                 { icon: <Calendar className="w-4 h-4" />, title: "Events", description: "Webinars & workshops", href: "/events" },
                 { icon: <Users className="w-4 h-4" />, title: "Community", description: "Join discussions", href: "/community" }
             ]
-        }
+        }*/
     };
 
     return (
@@ -79,23 +81,23 @@ const Navbar = () => {
         }`}>
             <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
-                <div className="flex items-center space-x-3">
-                    <div className="relative group">
-                            <Image
-                                width={40}
-                                height={40}
-                                src="/tch_title.png"
-                                alt="TheCyberHUB Logo"
-                                className="h-10 w-10 object-contain"
-                            />
-                        <div className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300 -z-10"></div>
 
+                <Link href="/" className="flex items-center space-x-3">
+                    <div className="relative group">
+                        <Image
+                            width={40}
+                            height={40}
+                            src="/tch_title.png"
+                            alt="TheCyberHUB Logo"
+                            className="h-10 w-10 object-contain"
+                        />
+                        <div className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300 -z-10"></div>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xl font-bold text-white tracking-tight">TheCyberHub</span>
                         <span className="text-xs text-orange-400 font-medium -mt-1">Security Community</span>
                     </div>
-                </div>
+                </Link>
 
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex items-center space-x-1">
@@ -133,15 +135,15 @@ const Navbar = () => {
                         </div>
                     ))}
 
-                    <a href="/internships" className="flex items-center space-x-1 px-4 py-2 text-gray-300 hover:text-orange-400 hover:bg-gray-800/50 rounded-md transition-all duration-200">
+                    {/*<a href="/internships" className="flex items-center space-x-1 px-4 py-2 text-gray-300 hover:text-orange-400 hover:bg-gray-800/50 rounded-md transition-all duration-200">
                         <Briefcase className="w-4 h-4" />
                         <span>Internships</span>
                         <span className="ml-2 bg-orange-500/20 text-orange-400 border border-orange-500/30 text-xs px-2 py-0.5 rounded-full">New</span>
-                    </a>
+                    </a>*/}
                 </div>
 
                 {/* Search Bar */}
-{/*                <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+                {/*                <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
                     <div className="relative w-full">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                         <input
@@ -206,17 +208,17 @@ const Navbar = () => {
                             />
                         </div>
 
-                        {Object.entries(navItems).map(([key, section]) => (
-                            <div key={key} className="space-y-2">
-                                <div className="text-orange-400 font-semibold text-sm uppercase tracking-wide">{section.title}</div>
-                                {section.items.map((item, index) => (
-                                    <a key={index} href={item.href} className="flex items-center space-x-3 py-2 px-3 text-gray-300 hover:text-orange-400 hover:bg-gray-800/50 rounded-md transition-all duration-200">
-                                        {item.icon}
-                                        <span>{item.title}</span>
-                                    </a>
-                                ))}
-                            </div>
-                        ))}
+                        {/*{Object.entries(navItems).map(([key, section]) => (*/}
+                        {/*    <div key={key} className="space-y-2">*/}
+                        {/*        <div className="text-orange-400 font-semibold text-sm uppercase tracking-wide">{section.title}</div>*/}
+                        {/*        {section.items.map((item, index) => (*/}
+                        {/*            <a key={index} href={item.href} className="flex items-center space-x-3 py-2 px-3 text-gray-300 hover:text-orange-400 hover:bg-gray-800/50 rounded-md transition-all duration-200">*/}
+                        {/*                {item.icon}*/}
+                        {/*                <span>{item.title}</span>*/}
+                        {/*            </a>*/}
+                        {/*        ))}*/}
+                        {/*    </div>*/}
+                        {/*))}*/}
 
                         <div className="pt-4 border-t border-gray-800">
                             <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold py-2 rounded-lg">

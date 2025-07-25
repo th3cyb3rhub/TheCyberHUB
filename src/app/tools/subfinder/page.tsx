@@ -54,49 +54,41 @@ const SubfinderPage = () => {
 
     const searchSubdomains = async () => {
         if (!domain.trim()) {
-            setError('Please enter a domain name');
+            setError('Please enter a domain name.');
             return;
         }
 
         if (!validateDomain(domain.trim())) {
-            setError('Please enter a valid domain name');
+            setError('The domain name entered is not valid. Please try again.');
             return;
         }
 
         setLoading(true);
         setError('');
         setResults([]);
-
         const startTime = Date.now();
 
         try {
             const response = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain.trim())}&output=json`);
-
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const data: SubdomainResult[] = await response.json();
-
             if (!Array.isArray(data) || data.length === 0) {
-                setError('No subdomains found for this domain');
+                setError('No subdomains found. This may be due to no public certificates being issued for this domain.');
                 setLoading(false);
                 return;
             }
 
-            // Process and deduplicate results
             const subdomainMap = new Map<string, ProcessedSubdomain>();
-
             data.forEach((cert) => {
                 const subdomains = cert.name_value.split('\n');
-
                 subdomains.forEach((sub) => {
                     const cleanSub = sub.trim().toLowerCase();
-                    if (cleanSub && !cleanSub.startsWith('*')) {
+                    if (cleanSub && !cleanSub.startsWith('*.')) {
                         const existing = subdomainMap.get(cleanSub);
                         const currentDate = new Date(cert.not_before);
-
-                        // Use the certificate ID from the API response
                         const certificateId = cert.min_cert_id || cert.id || 0;
 
                         if (!existing || new Date(existing.firstSeen) > currentDate) {
@@ -105,7 +97,7 @@ const SubfinderPage = () => {
                                 firstSeen: cert.not_before,
                                 lastSeen: cert.not_after,
                                 certificateId: certificateId,
-                                issuer: cert.ca_name || 'Unknown CA'
+                                issuer: cert.ca_name || 'N/A'
                             });
                         }
                     }
@@ -122,7 +114,7 @@ const SubfinderPage = () => {
 
         } catch (err) {
             console.error('Error fetching subdomains:', err);
-            setError('Failed to fetch subdomains. Please try again.');
+            setError('An unexpected error occurred while fetching subdomains. The service might be temporarily unavailable.');
         } finally {
             setLoading(false);
         }
@@ -139,14 +131,9 @@ const SubfinderPage = () => {
     );
 
     const sortedResults = [...filteredResults].sort((a, b) => {
-        switch (sortBy) {
-            case 'firstSeen':
-                return new Date(b.firstSeen).getTime() - new Date(a.firstSeen).getTime();
-            case 'lastSeen':
-                return new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime();
-            default:
-                return a.subdomain.localeCompare(b.subdomain);
-        }
+        if (sortBy === 'firstSeen') return new Date(b.firstSeen).getTime() - new Date(a.firstSeen).getTime();
+        if (sortBy === 'lastSeen') return new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime();
+        return a.subdomain.localeCompare(b.subdomain);
     });
 
     const copyToClipboard = (text: string) => {
@@ -166,13 +153,15 @@ const SubfinderPage = () => {
             )
         ].join('\n');
 
-        const blob = new Blob([csvContent], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = `${domain}_subdomains.csv`;
+        document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     };
 
     const formatDate = (dateString: string) => {
@@ -183,165 +172,115 @@ const SubfinderPage = () => {
         });
     };
 
+    // Main component return
     return (
-        <div className="min-h-screen bg-black text-white">
+        <div className="min-h-screen bg-black text-slate-300">
             <Navbar />
 
-            <div className="pt-20 pb-12">
+            <main className="pt-24 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
                     {/* Hero Section */}
-                    <div className="relative overflow-hidden mb-16">
-                        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-orange-600/5"></div>
-                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-500/10 via-transparent to-transparent"></div>
+                    <section className="text-center mb-20">
+                        <div className="flex items-center justify-center space-x-4 mb-5">
+                            <div className="w-16 h-16 bg-gradient-to-br from-orange-500/20 to-orange-600/20 border border-orange-500/30 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/10">
+                                <Globe className="h-8 w-8 text-orange-400" />
+                            </div>
+                            <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
+                                Subdomain Finder
+                            </h1>
+                        </div>
+                        <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8">
+                            Discover hidden subdomains using Certificate Transparency logs to expand your attack surface analysis and security assessments.
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-3 text-sm">
+                            <span className="bg-orange-500/10 text-orange-400 border border-orange-500/30 px-3 py-1 rounded-full">Certificate Transparency</span>
+                            <span className="bg-green-500/10 text-green-400 border border-green-500/30 px-3 py-1 rounded-full">Real-time Data</span>
+                            <span className="bg-blue-500/10 text-blue-400 border border-blue-500/30 px-3 py-1 rounded-full">Free & Open Source</span>
+                        </div>
+                    </section>
 
-                        <div className="relative text-center py-16">
-                            <div className="flex items-center justify-center space-x-4 mb-6">
-                                <div className="relative">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/25">
-                                        <Globe className="h-8 w-8 text-black" />
-                                    </div>
-                                    <div className="absolute inset-0 bg-orange-500/20 rounded-xl blur-md -z-10"></div>
-                                </div>
-                                <div>
-                                    <h1 className="text-5xl md:text-6xl font-bold text-white">Subdomain Finder</h1>
-                                    <div className="flex items-center justify-center space-x-2 mt-2">
-                                        <span className="bg-orange-500/20 text-orange-400 border border-orange-500/30 text-sm px-3 py-1 rounded-full">Certificate Transparency</span>
-                                        <span className="bg-green-500/20 text-green-400 border border-green-500/30 text-sm px-3 py-1 rounded-full">Real-time</span>
-                                    </div>
-                                </div>
+                    {/* Search Section */}
+                    <section className="max-w-4xl mx-auto mb-16">
+                        <div className="bg-gray-950/60 border border-gray-800/80 rounded-2xl p-8 shadow-2xl shadow-black/20 backdrop-blur-sm">
+                            <div className="relative">
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                                <input
+                                    type="text"
+                                    value={domain}
+                                    onChange={(e) => setDomain(e.target.value)}
+                                    onKeyPress={handleKeyPress}
+                                    placeholder="Enter target domain, e.g., google.com"
+                                    className="w-full pl-12 pr-4 py-4 bg-gray-900/80 border border-gray-700/60 rounded-xl text-slate-100 placeholder:text-gray-500 focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/30 transition-all duration-300 outline-none text-base backdrop-blur-sm"
+                                    disabled={loading}
+                                />
                             </div>
 
-                            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
-                                Discover hidden subdomains using Certificate Transparency logs. Leverage public SSL/TLS certificate records
-                                to expand your attack surface analysis and security assessments.
-                            </p>
+                            {error && (
+                                <div className="flex items-center space-x-3 text-red-400 bg-red-500/10 border border-red-500/30 rounded-xl p-4 mt-6 backdrop-blur-sm">
+                                    <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">{error}</span>
+                                </div>
+                            )}
 
-                            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
-                                <div className="bg-gray-900/30 border border-gray-800/50 rounded-lg p-4">
-                                    <div className="text-orange-400 font-bold text-2xl mb-1">150M+</div>
-                                    <div className="text-gray-400 text-sm">Certificates Indexed</div>
-                                </div>
-                                <div className="bg-gray-900/30 border border-gray-800/50 rounded-lg p-4">
-                                    <div className="text-orange-400 font-bold text-2xl mb-1">Real-time</div>
-                                    <div className="text-gray-400 text-sm">CT Log Updates</div>
-                                </div>
-                                <div className="bg-gray-900/30 border border-gray-800/50 rounded-lg p-4">
-                                    <div className="text-orange-400 font-bold text-2xl mb-1">100%</div>
-                                    <div className="text-gray-400 text-sm">Free & Open Source</div>
-                                </div>
+                            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+                                <button
+                                    onClick={searchSubdomains}
+                                    disabled={loading || !domain.trim()}
+                                    className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-700 disabled:to-gray-800 disabled:text-gray-500 text-black disabled:text-gray-400 font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-3 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 disabled:shadow-none transform hover:scale-105 disabled:hover:scale-100"
+                                >
+                                    {loading ? (
+                                        <>
+                                            <Loader2 className="h-5 w-5 animate-spin" />
+                                            <span>Scanning...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Search className="h-5 w-5" />
+                                            <span>Find Subdomains</span>
+                                        </>
+                                    )}
+                                </button>
+                                <button
+                                    onClick={() => { setDomain(''); setResults([]); setError(''); }}
+                                    className="px-6 py-4 bg-gray-800/80 hover:bg-gray-700/80 text-slate-200 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 border border-gray-700/50 hover:border-gray-600/50"
+                                >
+                                    <RefreshCw className="h-4 w-4" />
+                                    <span>Clear</span>
+                                </button>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Professional Search Section */}
-                    <div className="max-w-5xl mx-auto mb-16">
-                        <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 shadow-2xl">
-                            <div className="text-center mb-8">
-                                <h2 className="text-2xl font-bold text-white mb-2">Start Your Reconnaissance</h2>
-                                <p className="text-gray-400">Enter a target domain to discover its subdomain infrastructure</p>
-                            </div>
-
-                            <div className="space-y-6">
-                                <div className="relative group">
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
-                                    <div className="relative">
-                                        <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400 group-hover:text-orange-400 transition-colors" />
-                                        <input
-                                            type="text"
-                                            value={domain}
-                                            onChange={(e) => setDomain(e.target.value)}
-                                            onKeyPress={handleKeyPress}
-                                            placeholder="Enter target domain (e.g., example.com, google.com, github.com)"
-                                            className="w-full pl-14 pr-6 py-5 bg-gray-800/90 border border-gray-600 rounded-xl text-white placeholder:text-gray-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 transition-all duration-300 outline-none text-lg font-mono"
-                                            disabled={loading}
-                                        />
-                                    </div>
-                                </div>
-
-                                {error && (
-                                    <div className="flex items-center space-x-3 text-red-400 bg-red-400/10 border border-red-400/30 rounded-xl p-4 backdrop-blur-sm">
-                                        <AlertCircle className="h-6 w-6 flex-shrink-0" />
-                                        <span className="font-medium">{error}</span>
-                                    </div>
-                                )}
-
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                    <button
-                                        onClick={searchSubdomains}
-                                        disabled={loading || !domain.trim()}
-                                        className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-600 disabled:to-gray-700 text-black font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100 flex items-center justify-center space-x-3 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40"
-                                    >
-                                        {loading ? (
-                                            <>
-                                                <Loader2 className="h-6 w-6 animate-spin" />
-                                                <span className="text-lg">Scanning Certificate Logs...</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Search className="h-6 w-6" />
-                                                <span className="text-lg">Launch Subdomain Scan</span>
-                                            </>
-                                        )}
-                                    </button>
-
-                                    <button
-                                        onClick={() => { setDomain(''); setResults([]); setError(''); }}
-                                        className="px-6 py-4 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
-                                    >
-                                        <RefreshCw className="h-5 w-5" />
-                                        <span>Clear</span>
-                                    </button>
-                                </div>
-
-                                <div className="text-center">
-                                    <div className="text-sm text-gray-500 mb-2">Popular targets to try:</div>
-                                    <div className="flex flex-wrap justify-center gap-2">
-                                        {['google.com', 'github.com', 'microsoft.com', 'amazon.com'].map((example) => (
-                                            <button
-                                                key={example}
-                                                onClick={() => setDomain(example)}
-                                                className="px-3 py-1.5 bg-gray-800/50 hover:bg-orange-500/20 border border-gray-700 hover:border-orange-500/50 text-gray-400 hover:text-orange-400 rounded-lg text-sm transition-all duration-200 font-mono"
-                                            >
-                                                {example}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </section>
 
                     {/* Results Section */}
                     {(results.length > 0 || loading) && (
-                        <div className="max-w-7xl mx-auto">
+                        <section>
                             {/* Results Header */}
-                            {results.length > 0 && (
+                            {results.length > 0 && !loading && (
                                 <div className="mb-6">
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                                        <div className="flex items-center space-x-4 mb-4 sm:mb-0">
-                                            <div className="flex items-center space-x-2">
-                                                <CheckCircle className="h-5 w-5 text-green-400" />
-                                                <span className="text-lg font-semibold text-white">
-                          Found {totalResults} subdomains
-                        </span>
-                                            </div>
-                                            <div className="flex items-center space-x-2 text-gray-400">
+                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                        <div className="flex items-center space-x-3">
+                                            <CheckCircle className="h-6 w-6 text-green-400" />
+                                            <span className="text-lg font-semibold text-slate-100">
+                                                {totalResults} {totalResults === 1 ? 'subdomain' : 'subdomains'} found
+                                            </span>
+                                            <div className="flex items-center space-x-1.5 text-gray-500">
                                                 <Clock className="h-4 w-4" />
-                                                <span className="text-sm">{searchTime}ms</span>
+                                                <span className="text-sm">{(searchTime / 1000).toFixed(2)}s</span>
                                             </div>
                                         </div>
 
                                         <div className="flex items-center space-x-3">
                                             <button
                                                 onClick={copyAllSubdomains}
-                                                className="flex items-center space-x-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all duration-200"
+                                                className="flex items-center space-x-2 px-4 py-2 bg-gray-800/80 hover:bg-gray-700/80 text-slate-200 rounded-lg transition-all duration-200 border border-gray-700/50 hover:border-gray-600/50"
                                             >
                                                 <Copy className="h-4 w-4" />
-                                                <span>Copy All</span>
+                                                <span>Copy List</span>
                                             </button>
                                             <button
                                                 onClick={downloadResults}
-                                                className="flex items-center space-x-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-black font-semibold rounded-lg transition-all duration-200"
+                                                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold rounded-lg transition-all duration-200 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transform hover:scale-105"
                                             >
                                                 <Download className="h-4 w-4" />
                                                 <span>Download CSV</span>
@@ -350,26 +289,23 @@ const SubfinderPage = () => {
                                     </div>
 
                                     {/* Filters */}
-                                    <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                                        <div className="relative flex-1 max-w-md">
-                                            <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                    <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
+                                        <div className="relative w-full sm:max-w-xs">
+                                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                                             <input
                                                 type="text"
                                                 value={filter}
                                                 onChange={(e) => setFilter(e.target.value)}
-                                                placeholder="Filter subdomains..."
-                                                className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder:text-gray-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 outline-none"
+                                                placeholder="Filter results..."
+                                                className="w-full pl-9 pr-4 py-2 bg-gray-900/80 border border-gray-700/60 rounded-lg text-slate-200 placeholder:text-gray-500 focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/30 outline-none transition-all duration-200"
                                             />
                                         </div>
-
                                         <select
                                             value={sortBy}
-                                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                                                setSortBy(e.target.value as "subdomain" | "firstSeen" | "lastSeen")
-                                            }
-                                            className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 outline-none"
+                                            onChange={(e) => setSortBy(e.target.value as any)}
+                                            className="w-full sm:w-auto px-4 py-2 bg-gray-900/80 border border-gray-700/60 rounded-lg text-slate-200 focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/30 outline-none transition-all duration-200"
                                         >
-                                            <option value="subdomain">Sort by Subdomain</option>
+                                            <option value="subdomain">Sort by Name</option>
                                             <option value="firstSeen">Sort by First Seen</option>
                                             <option value="lastSeen">Sort by Last Seen</option>
                                         </select>
@@ -378,48 +314,42 @@ const SubfinderPage = () => {
                             )}
 
                             {/* Results Table */}
-                            <div className="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden">
+                            <div className="bg-gray-950/70 border border-gray-800/80 rounded-xl overflow-hidden backdrop-blur-sm shadow-xl">
                                 {loading ? (
-                                    <div className="p-12 text-center">
+                                    <div className="p-16 text-center">
                                         <Loader2 className="h-8 w-8 animate-spin text-orange-400 mx-auto mb-4" />
-                                        <p className="text-gray-300">Searching for subdomains...</p>
+                                        <p className="text-gray-400">Querying Certificate Transparency Logs...</p>
                                     </div>
                                 ) : (
                                     <div className="overflow-x-auto">
-                                        <table className="w-full">
-                                            <thead className="bg-gray-800/50">
+                                        <table className="w-full text-sm">
+                                            <thead className="bg-black/50">
                                             <tr>
-                                                <th className="text-left py-4 px-6 text-orange-400 font-semibold">Subdomain</th>
-                                                <th className="text-left py-4 px-6 text-orange-400 font-semibold">First Seen</th>
-                                                <th className="text-left py-4 px-6 text-orange-400 font-semibold">Last Seen</th>
-                                                <th className="text-left py-4 px-6 text-orange-400 font-semibold">Certificate ID</th>
-                                                <th className="text-left py-4 px-6 text-orange-400 font-semibold">Actions</th>
+                                                {['Subdomain', 'First Seen', 'Last Seen', 'Certificate ID', 'Actions'].map(h => (
+                                                    <th key={h} className="text-left py-4 px-4 text-orange-400 font-semibold tracking-wide border-b border-gray-800/80">{h}</th>
+                                                ))}
                                             </tr>
                                             </thead>
                                             <tbody>
                                             {sortedResults.map((result, index) => (
-                                                <tr key={index} className="border-t border-gray-800 hover:bg-gray-800/30 transition-colors">
-                                                    <td className="py-4 px-6">
-                                                        <div className="flex items-center space-x-2">
-                                                            <Globe className="h-4 w-4 text-orange-400" />
-                                                            <span className="text-white font-mono">{result.subdomain}</span>
+                                                <tr key={index} className="border-b border-gray-900/50 hover:bg-gray-900/30 transition-all duration-200">
+                                                    <td className="py-3 px-4">
+                                                        <div className="flex items-center space-x-2.5">
+                                                            <Globe className="h-4 w-4 text-orange-400 flex-shrink-0" />
+                                                            <span className="font-mono text-slate-200">{result.subdomain}</span>
                                                         </div>
                                                     </td>
-                                                    <td className="py-4 px-6 text-gray-300">{formatDate(result.firstSeen)}</td>
-                                                    <td className="py-4 px-6 text-gray-300">{formatDate(result.lastSeen)}</td>
-                                                    <td className="py-4 px-6">
-                                                        {result.certificateId > 0 ? (
-                                                            <span className="text-orange-400 font-mono">{result.certificateId}</span>
-                                                        ) : (
-                                                            <span className="text-gray-500 font-mono">N/A</span>
-                                                        )}
+                                                    <td className="py-3 px-4 text-slate-400 whitespace-nowrap">{formatDate(result.firstSeen)}</td>
+                                                    <td className="py-3 px-4 text-slate-400 whitespace-nowrap">{formatDate(result.lastSeen)}</td>
+                                                    <td className="py-3 px-4 font-mono text-slate-400">
+                                                        {result.certificateId > 0 ? result.certificateId : <span className="text-gray-600">N/A</span>}
                                                     </td>
-                                                    <td className="py-4 px-6">
-                                                        <div className="flex items-center space-x-2">
+                                                    <td className="py-3 px-4">
+                                                        <div className="flex items-center space-x-1">
                                                             <button
                                                                 onClick={() => copyToClipboard(result.subdomain)}
-                                                                className="p-1 hover:bg-gray-700 rounded text-gray-400 hover:text-white transition-colors"
                                                                 title="Copy subdomain"
+                                                                className="p-2 text-gray-400 hover:text-orange-400 hover:bg-gray-800/60 rounded-md transition-all duration-200"
                                                             >
                                                                 <Copy className="h-4 w-4" />
                                                             </button>
@@ -427,8 +357,8 @@ const SubfinderPage = () => {
                                                                 href={`https://${result.subdomain}`}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
-                                                                className="p-1 hover:bg-gray-700 rounded text-gray-400 hover:text-orange-400 transition-colors"
                                                                 title="Visit subdomain"
+                                                                className="p-2 text-gray-400 hover:text-orange-400 hover:bg-gray-800/60 rounded-md transition-all duration-200"
                                                             >
                                                                 <ExternalLink className="h-4 w-4" />
                                                             </a>
@@ -437,16 +367,16 @@ const SubfinderPage = () => {
                                                                     href={`https://crt.sh/?id=${result.certificateId}`}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="p-1 hover:bg-gray-700 rounded text-gray-400 hover:text-orange-400 transition-colors"
-                                                                    title="View certificate"
+                                                                    title="View certificate on crt.sh"
+                                                                    className="p-2 text-gray-400 hover:text-orange-400 hover:bg-gray-800/60 rounded-md transition-all duration-200"
                                                                 >
                                                                     <Eye className="h-4 w-4" />
                                                                 </a>
                                                             ) : (
                                                                 <button
                                                                     disabled
-                                                                    className="p-1 rounded text-gray-600 cursor-not-allowed"
                                                                     title="Certificate ID not available"
+                                                                    className="p-2 text-gray-700 cursor-not-allowed"
                                                                 >
                                                                     <Eye className="h-4 w-4" />
                                                                 </button>
@@ -460,242 +390,15 @@ const SubfinderPage = () => {
                                     </div>
                                 )}
                             </div>
-
-                            {/* Results Summary */}
                             {sortedResults.length > 0 && (
-                                <div className="mt-6 text-center text-gray-400">
-                                    <p>
-                                        Showing {sortedResults.length} of {totalResults} subdomains
-                                        {filter && ` (filtered by "${filter}")`}
-                                    </p>
+                                <div className="mt-4 text-center text-gray-500 text-sm">
+                                    <p>Showing {sortedResults.length} of {totalResults} subdomains {filter && `(filtered)`}</p>
                                 </div>
                             )}
-                        </div>
+                        </section>
                     )}
-
-                    {/* Enhanced Information & Documentation Section */}
-                    <div className="max-w-7xl mx-auto mt-20 space-y-8">
-                        {/* Main Info Card */}
-                        <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm">
-                            <div className="text-center mb-8">
-                                <div className="flex items-center justify-center space-x-3 mb-4">
-                                    <Shield className="h-8 w-8 text-orange-400" />
-                                    <h3 className="text-3xl font-bold text-white">Professional Subdomain Intelligence</h3>
-                                </div>
-                                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                                    Leverage Certificate Transparency for comprehensive subdomain discovery and security reconnaissance
-                                </p>
-                            </div>
-
-                            <div className="grid lg:grid-cols-2 gap-8">
-                                {/* How It Works */}
-                                <div className="space-y-6">
-                                    <h4 className="text-xl font-semibold text-orange-400 flex items-center">
-                                        <Globe className="h-5 w-5 mr-2" />
-                                        How Certificate Transparency Works
-                                    </h4>
-                                    <div className="space-y-4 text-gray-300">
-                                        <div className="flex items-start space-x-3">
-                                            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-0.5">1</div>
-                                            <div>
-                                                <div className="font-medium text-white">Certificate Issuance</div>
-                                                <div className="text-sm">When SSL certificates are issued, they&apos;re logged in public CT logs</div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-start space-x-3">
-                                            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-0.5">2</div>
-                                            <div>
-                                                <div className="font-medium text-white">Data Aggregation</div>
-                                                <div className="text-sm">CT logs are monitored and indexed by services like crt.sh</div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-start space-x-3">
-                                            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-0.5">3</div>
-                                            <div>
-                                                <div className="font-medium text-white">Subdomain Discovery</div>
-                                                <div className="text-sm">Certificate Subject Alternative Names reveal subdomains</div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-start space-x-3">
-                                            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-black font-bold text-sm mt-0.5">4</div>
-                                            <div>
-                                                <div className="font-medium text-white">Real-time Results</div>
-                                                <div className="text-sm">Our tool queries these logs to provide instant subdomain intelligence</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Features & Capabilities */}
-                                <div className="space-y-6">
-                                    <h4 className="text-xl font-semibold text-orange-400 flex items-center">
-                                        <CheckCircle className="h-5 w-5 mr-2" />
-                                        Advanced Features & Capabilities
-                                    </h4>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                            <div className="flex items-center space-x-2 mb-2">
-                                                <RefreshCw className="h-4 w-4 text-orange-400" />
-                                                <span className="font-medium text-white text-sm">Real-time Scanning</span>
-                                            </div>
-                                            <p className="text-xs text-gray-400">Live CT log monitoring with instant results</p>
-                                        </div>
-                                        <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                            <div className="flex items-center space-x-2 mb-2">
-                                                <Download className="h-4 w-4 text-orange-400" />
-                                                <span className="font-medium text-white text-sm">Data Export</span>
-                                            </div>
-                                            <p className="text-xs text-gray-400">CSV export with comprehensive metadata</p>
-                                        </div>
-                                        <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                            <div className="flex items-center space-x-2 mb-2">
-                                                <Filter className="h-4 w-4 text-orange-400" />
-                                                <span className="font-medium text-white text-sm">Smart Filtering</span>
-                                            </div>
-                                            <p className="text-xs text-gray-400">Advanced search and sorting capabilities</p>
-                                        </div>
-                                        <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
-                                            <div className="flex items-center space-x-2 mb-2">
-                                                <Eye className="h-4 w-4 text-orange-400" />
-                                                <span className="font-medium text-white text-sm">Certificate Details</span>
-                                            </div>
-                                            <p className="text-xs text-gray-400">Direct links to certificate information</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Use Cases & Applications */}
-                        <div className="grid md:grid-cols-3 gap-6">
-                            <div className="bg-gray-900/50 border border-gray-800/50 rounded-xl p-6 hover:border-orange-500/50 transition-all duration-300 group">
-                                <div className="text-orange-400 mb-4 group-hover:scale-110 transition-transform">
-                                    <Shield className="h-8 w-8" />
-                                </div>
-                                <h4 className="text-lg font-semibold text-white mb-3">Security Assessment</h4>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                                    Discover attack surface and potential entry points during security assessments and penetration testing engagements.
-                                </p>
-                                <ul className="text-xs text-gray-500 space-y-1">
-                                    <li>• Asset discovery and enumeration</li>
-                                    <li>• Attack surface mapping</li>
-                                    <li>• Security posture evaluation</li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-gray-900/50 border border-gray-800/50 rounded-xl p-6 hover:border-orange-500/50 transition-all duration-300 group">
-                                <div className="text-orange-400 mb-4 group-hover:scale-110 transition-transform">
-                                    <Globe className="h-8 w-8" />
-                                </div>
-                                <h4 className="text-lg font-semibold text-white mb-3">Infrastructure Mapping</h4>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                                    Map organizational infrastructure and understand the digital footprint of target domains.
-                                </p>
-                                <ul className="text-xs text-gray-500 space-y-1">
-                                    <li>• Digital asset inventory</li>
-                                    <li>• Infrastructure reconnaissance</li>
-                                    <li>• Technology stack analysis</li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-gray-900/50 border border-gray-800/50 rounded-xl p-6 hover:border-orange-500/50 transition-all duration-300 group">
-                                <div className="text-orange-400 mb-4 group-hover:scale-110 transition-transform">
-                                    <Eye className="h-8 w-8" />
-                                </div>
-                                <h4 className="text-lg font-semibold text-white mb-3">Threat Intelligence</h4>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                                    Monitor domain changes and certificate issuance patterns for threat intelligence and brand protection.
-                                </p>
-                                <ul className="text-xs text-gray-500 space-y-1">
-                                    <li>• Brand monitoring</li>
-                                    <li>• Threat hunting</li>
-                                    <li>• Domain intelligence</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Technical Details & Limitations */}
-                        <div className="bg-gray-900/30 border border-gray-800/50 rounded-xl p-8">
-                            <div className="grid lg:grid-cols-2 gap-8">
-                                <div>
-                                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
-                                        <AlertCircle className="h-5 w-5 text-orange-400 mr-2" />
-                                        Important Considerations
-                                    </h4>
-                                    <div className="space-y-3 text-sm text-gray-300">
-                                        <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3">
-                                            <div className="font-medium text-amber-400 mb-1">Certificate Dependency</div>
-                                            <div className="text-amber-200">Only discovers subdomains with SSL/TLS certificates. Some subdomains may not appear.</div>
-                                        </div>
-                                        <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
-                                            <div className="font-medium text-blue-400 mb-1">Historical Data</div>
-                                            <div className="text-blue-200">Results include both active and inactive subdomains from certificate history.</div>
-                                        </div>
-                                        <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
-                                            <div className="font-medium text-purple-400 mb-1">Rate Limiting</div>
-                                            <div className="text-purple-200">CT log queries may be rate-limited during high-traffic periods.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
-                                        <Globe className="h-5 w-5 text-orange-400 mr-2" />
-                                        Data Sources & API
-                                    </h4>
-                                    <div className="space-y-4 text-sm text-gray-300">
-                                        <div>
-                                            <div className="font-medium text-white mb-2">Certificate Transparency Logs</div>
-                                            <div className="text-gray-400">Powered by crt.sh, which monitors major CT logs including Google, Cloudflare, and DigiCert logs.</div>
-                                        </div>
-                                        <div>
-                                            <div className="font-medium text-white mb-2">Update Frequency</div>
-                                            <div className="text-gray-400">CT logs are updated in real-time as new certificates are issued and logged.</div>
-                                        </div>
-                                        <div>
-                                            <div className="font-medium text-white mb-2">Coverage</div>
-                                            <div className="text-gray-400">Includes certificates from all major Certificate Authorities and public CT logs.</div>
-                                        </div>
-                                        <div className="pt-4 border-t border-gray-700">
-                                            <a
-                                                href="https://crt.sh"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center space-x-2 text-orange-400 hover:text-orange-300 transition-colors"
-                                            >
-                                                <span>Learn more about crt.sh</span>
-                                                <ExternalLink className="h-4 w-4" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Footer CTA */}
-                        <div className="text-center bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl p-8">
-                            <h4 className="text-2xl font-bold text-white mb-4">Ready to explore more security tools?</h4>
-                            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                                Discover our complete suite of cybersecurity tools for comprehensive security assessment and reconnaissance.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a
-                                    href="/tools"
-                                    className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-                                >
-                                    Explore All Tools
-                                </a>
-                                <a
-                                    href="/tools/ssl-scan"
-                                    className="border border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300"
-                                >
-                                    Try SSL Scanner
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </main>
         </div>
     );
 };
