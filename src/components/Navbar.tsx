@@ -3,26 +3,26 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-    /* Shield,*/
     ChevronDown,
     Menu,
     X,
     Search,
     Bell,
     User,
-    Briefcase,
     FileText,
+    Globe,
+    Key
+/*    Shield,
     Database,
     BookOpen,
     Terminal,
-    Globe,
+    Briefcase,
     ExternalLink,
     ShieldCheck,
     Wrench,
     PenTool,
     Calendar,
-    Users,
-    Key
+    Users,*/
 } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
@@ -87,8 +87,8 @@ const Navbar = () => {
                         <Image
                             width={40}
                             height={40}
-                            src="/tch_title.png"
-                            alt="TheCyberHUB Logo"
+                            src="/logo.png"
+                            alt="TheCyberHub Logo"
                             className="h-10 w-10 object-contain"
                         />
                         <div className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300 -z-10"></div>
