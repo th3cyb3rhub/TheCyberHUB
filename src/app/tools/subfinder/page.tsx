@@ -8,7 +8,6 @@ import {
     Download,
     Copy,
     ExternalLink,
-    Shield,
     AlertCircle,
     CheckCircle,
     Loader2,
@@ -172,6 +171,8 @@ const SubfinderPage = () => {
         });
     };
 
+    type SortByType = 'subdomain' | 'firstSeen' | 'lastSeen';
+
     // Main component return
     return (
         <div className="min-h-screen bg-black text-slate-300">
@@ -302,7 +303,7 @@ const SubfinderPage = () => {
                                         </div>
                                         <select
                                             value={sortBy}
-                                            onChange={(e) => setSortBy(e.target.value as any)}
+                                            onChange={(e) => setSortBy(e.target.value as SortByType)}
                                             className="w-full sm:w-auto px-4 py-2 bg-gray-900/80 border border-gray-700/60 rounded-lg text-slate-200 focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/30 outline-none transition-all duration-200"
                                         >
                                             <option value="subdomain">Sort by Name</option>

@@ -21,8 +21,8 @@ import {
 import Navbar from '@/components/Navbar';
 
 interface DecodedJWT {
-    header: any;
-    payload: any;
+    header: Record<string, unknown>;
+    payload: Record<string, unknown>;
     signature: string;
     isValid: boolean;
     algorithm: string;
@@ -63,7 +63,7 @@ const JWTAnalyzerPage = () => {
                 str += '=';
             }
             return atob(str);
-        } catch (e) {
+        } catch {
             throw new Error('Invalid base64url encoding');
         }
     };
@@ -94,14 +94,14 @@ const JWTAnalyzerPage = () => {
                 throw new Error('Invalid JWT format. Token must have exactly 3 parts separated by dots.');
             }
 
-            const headerDecoded = JSON.parse(base64UrlDecode(parts[0]));
-            const payloadDecoded = JSON.parse(base64UrlDecode(parts[1]));
+            const headerDecoded = JSON.parse(base64UrlDecode(parts[0])) as Record<string, unknown>;
+            const payloadDecoded = JSON.parse(base64UrlDecode(parts[1])) as Record<string, unknown>;
             const signature = parts[2];
 
             let expiry: Date | null = null;
             let isExpired = false;
 
-            if (payloadDecoded.exp) {
+            if (payloadDecoded.exp && typeof payloadDecoded.exp === 'number') {
                 expiry = new Date(payloadDecoded.exp * 1000);
                 isExpired = expiry < new Date();
             }
@@ -111,7 +111,7 @@ const JWTAnalyzerPage = () => {
                 payload: payloadDecoded,
                 signature,
                 isValid: true,
-                algorithm: headerDecoded.alg || 'Unknown',
+                algorithm: (headerDecoded.alg as string) || 'Unknown',
                 expiry,
                 isExpired
             };
@@ -123,8 +123,9 @@ const JWTAnalyzerPage = () => {
 
             setAnalysisTime(Date.now() - startTime);
 
-        } catch (err: any) {
-            setError(err.message || 'Failed to analyze JWT token');
+        } catch (err) {
+            const error = err as Error;
+            setError(error.message || 'Failed to analyze JWT token');
         }
     };
 
@@ -257,8 +258,9 @@ const JWTAnalyzerPage = () => {
                 setVerificationResult(null);
                 setError('Signature verification for this algorithm is not supported in browser environment');
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            const error = err as Error;
+            setError(error.message);
             setVerificationResult(false);
         } finally {
             setIsVerifying(false);
@@ -279,7 +281,8 @@ const JWTAnalyzerPage = () => {
         );
 
         const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
-        const signatureBase64 = base64UrlEncode(String.fromCharCode(...new Uint8Array(signature)));
+        const signatureString = new Uint8Array(signature).reduce((str, byte) => str + String.fromCharCode(byte), '');
+        const signatureBase64 = base64UrlEncode(signatureString);
 
         setVerificationResult(signatureBase64 === decodedToken!.signature);
     };
@@ -304,7 +307,8 @@ const JWTAnalyzerPage = () => {
                 );
 
                 const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
-                const signatureBase64 = base64UrlEncode(String.fromCharCode(...new Uint8Array(signature)));
+                const signatureString = new Uint8Array(signature).reduce((str, byte) => str + String.fromCharCode(byte), '');
+                const signatureBase64 = base64UrlEncode(signatureString);
 
                 if (signatureBase64 === decodedToken.signature) {
                     setSecretKey(secret);
@@ -321,7 +325,7 @@ const JWTAnalyzerPage = () => {
                     setIsVerifying(false);
                     return;
                 }
-            } catch (e) {
+            } catch {
                 continue;
             }
         }
@@ -380,7 +384,7 @@ const JWTAnalyzerPage = () => {
         }
     };
 
-    const formatJSON = (obj: any) => JSON.stringify(obj, null, 2);
+    const formatJSON = (obj: Record<string, unknown>) => JSON.stringify(obj, null, 2);
 
     const sampleTokens = [
         {
@@ -395,9 +399,13 @@ const JWTAnalyzerPage = () => {
 
     // Auto-analyze default token on component mount
     useEffect(() => {
-        if (token) {
-            analyzeJWT(token);
-        }
+        const analyzeDefaultToken = () => {
+            if (token) {
+                analyzeJWT(token);
+            }
+        };
+
+        analyzeDefaultToken();
     }, []);
 
     return (

@@ -23,7 +23,8 @@
     "recharts": "^3.0.2",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^1.1.2"
+    "vaul": "^1.1.2",
+    "webpack": "^5.100.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
