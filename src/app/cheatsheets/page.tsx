@@ -16,7 +16,6 @@ import {
     Bug,
     Network
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 
 interface CheatSheet {
     id: string;
@@ -257,8 +256,6 @@ const CheatsheetsPage = () => {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            <Navbar />
-
             <div className="pt-20 pb-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Hero Section */}

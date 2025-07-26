@@ -11,8 +11,8 @@ import {
     User,
     FileText,
     Globe,
-    Key
-/*    Shield,
+    Key, Wrench
+    /*    Shield,
     Database,
     BookOpen,
     Terminal,
@@ -49,6 +49,7 @@ const Navbar = () => {
         resources: {
             title: "Resources",
             items: [
+                { icon: <FileText className="w-4 h-4" />, title: "Roadmaps", description: "Quick reference guides", href: "/roadmaps" },
                 { icon: <FileText className="w-4 h-4" />, title: "Cheatsheets", description: "Quick reference guides", href: "/cheatsheets" },
        /*         { icon: <Database className="w-4 h-4" />, title: "Payloads", description: "Security testing payloads", href: "/payloads" },
                 { icon: <BookOpen className="w-4 h-4" />, title: "Methodology", description: "Step-by-step guides", href: "/methodology" },
@@ -60,9 +61,8 @@ const Navbar = () => {
             items: [
                 { icon: <Globe className="w-4 h-4" />, title: "Subdomain Finder", description: "Discover hidden subdomains", href: "/tools/subfinder" },
                 { icon: <Key className="w-4 h-4" />, title: "JWT Analyzer", description: "Analyze JWT tokens & security", href: "/tools/jwt-analyzer" },
-           /*     { icon: <ShieldCheck className="w-4 h-4" />, title: "SSL Scanner", description: "SSL certificate analysis", href: "/tools/ssl-scan" },
                 { icon: <Wrench className="w-4 h-4" />, title: "All Tools", description: "Browse all security tools", href: "/tools" }
-        */    ]
+            ]
         },
      /*   content: {
             title: "Content",
