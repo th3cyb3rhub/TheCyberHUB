@@ -19,7 +19,11 @@ import {
     Star,
     Clock,
     Users,
-    TrendingUp
+    TrendingUp,
+    Edit,
+    ArrowUpRight,
+    Target,
+    Wifi
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
@@ -49,6 +53,22 @@ const ToolsPage = () => {
     const [sortBy, setSortBy] = useState<'name' | 'popularity' | 'updated'>('popularity');
 
     const tools: Tool[] = [
+        {
+            id: 'google-dork',
+            name: 'Google Dork Tool',
+            description: 'Advanced Google search operators for security testing with categorized dorks, target domain integration, and automated search functionality.',
+            category: 'Reconnaissance',
+            difficulty: 'Beginner',
+            status: 'Available',
+            popularity: 94,
+            usageCount: '32.1K',
+            lastUpdated: '2025-01-27',
+            icon: <Search className="w-6 h-6" />,
+            href: '/tools/google-dork',
+            tags: ['google', 'dork', 'osint', 'reconnaissance', 'search'],
+            features: ['50+ Google Dorks', 'Category Organization', 'Target Domain Support', 'One-click Search'],
+            featured: true
+        },
         {
             id: 'jwt-analyzer',
             name: 'JWT Security Scanner',
@@ -80,6 +100,54 @@ const ToolsPage = () => {
             tags: ['subdomain', 'reconnaissance', 'certificate', 'enumeration'],
             features: ['Certificate Transparency', 'Real-time Scanning', 'Export Results', 'Domain Validation'],
             featured: true
+        },
+        {
+            id: 'markdown-editor',
+            name: 'Markdown Editor',
+            description: 'Real-time markdown editor with live preview, syntax highlighting, and export functionality for documentation and writeups.',
+            category: 'Utilities',
+            difficulty: 'Beginner',
+            status: 'Coming Soon',
+            popularity: 78,
+            usageCount: '0',
+            lastUpdated: '2025-01-25',
+            icon: <Edit className="w-6 h-6" />,
+            href: '/tools/markdown-editor',
+            tags: ['markdown', 'editor', 'documentation', 'writeup'],
+            features: ['Live Preview', 'Syntax Highlighting', 'Export Options', 'Template Library'],
+            featured: false
+        },
+        {
+            id: 'ssrf-tester',
+            name: 'SSRF Tester',
+            description: 'Server-Side Request Forgery testing tool with payload generation, blind SSRF detection, and internal network scanning capabilities.',
+            category: 'Web Security',
+            difficulty: 'Advanced',
+            status: 'Coming Soon',
+            popularity: 86,
+            usageCount: '0',
+            lastUpdated: '2025-01-23',
+            icon: <Zap className="w-6 h-6" />,
+            href: '/tools/ssrf-tester',
+            tags: ['ssrf', 'web', 'vulnerability', 'server-side', 'network'],
+            features: ['Payload Generation', 'Blind SSRF Detection', 'Internal Scanning', 'Protocol Support'],
+            featured: false
+        },
+        {
+            id: 'sub-takeover',
+            name: 'Subdomain Takeover',
+            description: 'Check for subdomain takeover vulnerabilities by identifying dangling DNS records and unclaimed services across multiple platforms.',
+            category: 'Reconnaissance',
+            difficulty: 'Intermediate',
+            status: 'Coming Soon',
+            popularity: 89,
+            usageCount: '0',
+            lastUpdated: '2025-01-21',
+            icon: <ArrowUpRight className="w-6 h-6" />,
+            href: '/tools/sub-takeover',
+            tags: ['subdomain', 'takeover', 'dns', 'vulnerability', 'reconnaissance'],
+            features: ['DNS Record Analysis', 'Service Detection', 'Multi-platform Support', 'Risk Assessment'],
+            featured: false
         },
         {
             id: 'ssl-scanner',
@@ -187,22 +255,38 @@ const ToolsPage = () => {
             popularity: 75,
             usageCount: '0',
             lastUpdated: '2025-01-01',
-            icon: <Zap className="w-6 h-6" />,
+            icon: <Target className="w-6 h-6" />,
             href: '/tools/payload-encoder',
             tags: ['encoding', 'decoding', 'payloads', 'utilities'],
             features: ['Multiple Formats', 'Batch Processing', 'Custom Schemes', 'URL Safe Encoding'],
+            featured: false
+        },
+        {
+            id: 'wifi-analyzer',
+            name: 'WiFi Security Analyzer',
+            description: 'Wireless network security assessment tool for identifying weak encryption, rogue access points, and configuration issues.',
+            category: 'Network Security',
+            difficulty: 'Advanced',
+            status: 'Coming Soon',
+            popularity: 81,
+            usageCount: '0',
+            lastUpdated: '2024-12-28',
+            icon: <Wifi className="w-6 h-6" />,
+            href: '/tools/wifi-analyzer',
+            tags: ['wifi', 'wireless', 'network', 'security', 'analysis'],
+            features: ['Network Discovery', 'Encryption Analysis', 'Rogue AP Detection', 'Signal Analysis'],
             featured: false
         }
     ];
 
     const categories = [
         { id: 'all', name: 'All Categories', count: tools.length },
-        { id: 'authentication', name: 'Authentication', count: tools.filter(t => t.category === 'Authentication').length },
         { id: 'reconnaissance', name: 'Reconnaissance', count: tools.filter(t => t.category === 'Reconnaissance').length },
-        { id: 'network-security', name: 'Network Security', count: tools.filter(t => t.category === 'Network Security').length },
+        { id: 'authentication', name: 'Authentication', count: tools.filter(t => t.category === 'Authentication').length },
         { id: 'web-security', name: 'Web Security', count: tools.filter(t => t.category === 'Web Security').length },
-        { id: 'cryptography', name: 'Cryptography', count: tools.filter(t => t.category === 'Cryptography').length },
+        { id: 'network-security', name: 'Network Security', count: tools.filter(t => t.category === 'Network Security').length },
         { id: 'api-security', name: 'API Security', count: tools.filter(t => t.category === 'API Security').length },
+        { id: 'cryptography', name: 'Cryptography', count: tools.filter(t => t.category === 'Cryptography').length },
         { id: 'utilities', name: 'Utilities', count: tools.filter(t => t.category === 'Utilities').length }
     ];
 
@@ -238,6 +322,10 @@ const ToolsPage = () => {
 
     const featuredTools = tools.filter(tool => tool.featured);
     const availableTools = tools.filter(tool => tool.status === 'Available');
+    const totalUsage = tools.reduce((sum, tool) => {
+        const usage = tool.usageCount.replace('K', '000').replace('.', '');
+        return sum + (parseInt(usage) || 0);
+    }, 0);
 
     const getDifficultyColor = (difficulty: string) => {
         switch (difficulty.toLowerCase()) {
@@ -265,6 +353,13 @@ const ToolsPage = () => {
         });
     };
 
+    const formatUsage = (usage: number) => {
+        if (usage >= 1000) {
+            return `${(usage / 1000).toFixed(0)}K`;
+        }
+        return usage.toString();
+    };
+
     return (
         <div className="min-h-screen bg-black text-white">
             <Navbar />
@@ -290,13 +385,14 @@ const ToolsPage = () => {
                                     <div className="flex items-center justify-center space-x-2 mt-2">
                                         <span className="bg-orange-500/20 text-orange-400 border border-orange-500/30 text-sm px-3 py-1 rounded-full">Professional Grade</span>
                                         <span className="bg-green-500/20 text-green-400 border border-green-500/30 text-sm px-3 py-1 rounded-full">Free to Use</span>
+                                        <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-sm px-3 py-1 rounded-full">Open Source</span>
                                     </div>
                                 </div>
                             </div>
 
                             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
                                 Comprehensive collection of security testing tools built by professionals for professionals.
-                                From authentication testing to vulnerability scanning - everything you need for security assessments.
+                                From reconnaissance to vulnerability scanning - everything you need for security assessments.
                             </p>
 
                             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
@@ -309,7 +405,7 @@ const ToolsPage = () => {
                                     <div className="text-gray-400 text-sm">Available Now</div>
                                 </div>
                                 <div className="bg-gray-900/30 border border-gray-800/50 rounded-lg p-4">
-                                    <div className="text-orange-400 font-bold text-2xl mb-1">56K+</div>
+                                    <div className="text-orange-400 font-bold text-2xl mb-1">{formatUsage(totalUsage)}+</div>
                                     <div className="text-gray-400 text-sm">Total Usage</div>
                                 </div>
                             </div>
@@ -554,7 +650,7 @@ const ToolsPage = () => {
                     <div className="text-center bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl p-8">
                         <h3 className="text-2xl font-bold text-white mb-4">Need a Custom Tool?</h3>
                         <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                            Can't find what you're looking for? Request a custom security tool or suggest new features for existing ones.
+                            Can&#39;t find what you&#39;re looking for? Request a custom security tool or suggest new features for existing ones.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
@@ -576,22 +672,22 @@ const ToolsPage = () => {
                             {[
                                 {
                                     quarter: "Q1 2025",
-                                    tools: ["SSL/TLS Scanner", "Hash Analyzer"],
+                                    tools: ["Google Dork Tool", "Markdown Editor", "SSRF Tester"],
                                     status: "In Development"
                                 },
                                 {
                                     quarter: "Q2 2025",
-                                    tools: ["SQL Injection Tester", "XSS Scanner"],
+                                    tools: ["SSL/TLS Scanner", "Hash Analyzer", "Subdomain Takeover"],
                                     status: "Planned"
                                 },
                                 {
                                     quarter: "Q3 2025",
-                                    tools: ["API Security Tester", "CSRF Tester"],
+                                    tools: ["SQL Injection Tester", "XSS Scanner", "API Security Tester"],
                                     status: "Research"
                                 },
                                 {
                                     quarter: "Q4 2025",
-                                    tools: ["Mobile App Scanner", "IoT Security Tools"],
+                                    tools: ["WiFi Analyzer", "Mobile App Scanner", "IoT Security Tools"],
                                     status: "Roadmap"
                                 }
                             ].map((roadmap, index) => (
