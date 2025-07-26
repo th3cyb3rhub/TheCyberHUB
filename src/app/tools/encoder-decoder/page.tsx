@@ -1,16 +1,14 @@
 // app/tools/encoder-decoder/page.tsx
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     ArrowLeftRight,
     Copy,
     Download,
-    Upload,
     RefreshCw,
     ArrowLeft,
     Eye,
-    EyeOff,
     Zap,
     Hash,
     Globe,
@@ -19,7 +17,6 @@ import {
     FileText,
     AlertTriangle,
     CheckCircle,
-    Info,
     Settings,
     Shuffle
 } from 'lucide-react';
@@ -65,7 +62,7 @@ const EncoderDecoderTool = () => {
     const [detectedFormats, setDetectedFormats] = useState<string[]>([]);
 
     // Encoding Methods
-    const encodingMethods: EncodingMethod[] = [
+    const encodingMethods: EncodingMethod[] = React.useMemo(() => [
         {
             id: 'base64',
             name: 'Base64',
@@ -314,7 +311,7 @@ const EncoderDecoderTool = () => {
             },
             validation: (input: string) => /^[.\-\/\s]*$/.test(input)
         }
-    ];
+    ], []);
 
     const categories = [
         'All',
@@ -325,17 +322,7 @@ const EncoderDecoderTool = () => {
         'Security'
     ];
 
-    // Initialize method options
-    const initializeOptions = React.useCallback((methodId: string) => {
-        const method = encodingMethods.find(m => m.id === methodId);
-        if (method?.options) {
-            const options: Record<string, string | number | boolean> = {};
-            method.options.forEach(option => {
-                options[option.key] = option.default;
-            });
-            setMethodOptions(prev => ({ ...prev, [methodId]: options }));
-        }
-    }, [encodingMethods]);
+
 
     // Process input based on selected method and mode
     const processInput = React.useCallback(() => {
@@ -371,27 +358,6 @@ const EncoderDecoderTool = () => {
         return detected;
     }, [encodingMethods]);
 
-    // Process batch input
-    const processBatch = () => {
-        const lines = batchInput.split('\n').filter(line => line.trim());
-        const results = lines.map(line => {
-            try {
-                const method = encodingMethods.find(m => m.id === selectedMethod);
-                if (!method) throw new Error('Method not found');
-
-                const options = methodOptions[selectedMethod] || {};
-                const output = mode === 'encode' ?
-                    method.encode(line.trim(), options) :
-                    method.decode(line.trim(), options);
-
-                return { input: line.trim(), output, success: true };
-            } catch (error) {
-                return { input: line.trim(), output: (error as Error).message, success: false };
-            }
-        });
-        setBatchResults(results);
-    };
-
     // Initialize method options
     const initializeMethodOptions = React.useCallback((methodId: string) => {
         const method = encodingMethods.find(m => m.id === methodId);
@@ -405,14 +371,14 @@ const EncoderDecoderTool = () => {
     }, [encodingMethods]);
 
     // Copy to clipboard
-    const copyToClipboard = (text: string, field: string) => {
+    const copyToClipboard = React.useCallback((text: string, field: string) => {
         navigator.clipboard.writeText(text);
         setCopiedField(field);
         setTimeout(() => setCopiedField(''), 2000);
-    };
+    }, []);
 
     // Download results
-    const downloadResults = () => {
+    const downloadResults = React.useCallback(() => {
         const method = encodingMethods.find(m => m.id === selectedMethod);
         const content = batchMode ?
             batchResults.map(r => `${r.input} -> ${r.output}`).join('\n') :
@@ -425,7 +391,7 @@ const EncoderDecoderTool = () => {
         a.download = `encoded-decoded-${selectedMethod}-${Date.now()}.txt`;
         a.click();
         URL.revokeObjectURL(url);
-    };
+    }, [encodingMethods, selectedMethod, batchMode, batchResults, inputText, outputText, mode]);
 
     // Effects
     React.useEffect(() => {
