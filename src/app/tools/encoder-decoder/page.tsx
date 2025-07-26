@@ -904,7 +904,7 @@ const EncoderDecoderTool = () => {
                                     </p>
                                     <p>
                                         <strong>Security Testing:</strong> This tool is designed for legitimate security testing and educational purposes.
-                                        Always ensure you have proper authorization before testing systems you don't own.
+                                        Always ensure you have proper authorization before testing systems you don&apos;t own.
                                     </p>
                                     <p>
                                         <strong>Data Handling:</strong> Be cautious when processing sensitive data. While this tool runs locally,
