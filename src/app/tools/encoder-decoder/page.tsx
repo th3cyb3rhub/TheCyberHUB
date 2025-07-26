@@ -1,3 +1,4 @@
+// app/tools/encoder-decoder/page.tsx
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -5,9 +6,11 @@ import {
     ArrowLeftRight,
     Copy,
     Download,
+    Upload,
     RefreshCw,
     ArrowLeft,
     Eye,
+    EyeOff,
     Zap,
     Hash,
     Globe,
@@ -16,10 +19,19 @@ import {
     FileText,
     AlertTriangle,
     CheckCircle,
+    Info,
     Settings,
     Shuffle
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+
+interface MethodOption {
+    key: string;
+    label: string;
+    type: 'text' | 'number' | 'select' | 'checkbox';
+    default: string | number | boolean;
+    choices?: string[];
+}
 
 interface EncodingMethod {
     id: string;
@@ -27,15 +39,9 @@ interface EncodingMethod {
     description: string;
     category: string;
     icon: React.ReactNode;
-    encode: (input: string, options?: any) => string;
-    decode: (input: string, options?: any) => string;
-    options?: Array<{
-        key: string;
-        label: string;
-        type: 'text' | 'number' | 'select' | 'checkbox';
-        default: any;
-        choices?: string[];
-    }>;
+    encode: (input: string, options?: Record<string, string | number | boolean>) => string;
+    decode: (input: string, options?: Record<string, string | number | boolean>) => string;
+    options?: MethodOption[];
     validation?: (input: string) => boolean;
     examples?: Array<{
         input: string;
@@ -51,7 +57,7 @@ const EncoderDecoderTool = () => {
     const [mode, setMode] = useState<'encode' | 'decode'>('encode');
     const [copiedField, setCopiedField] = useState('');
     const [showOptions, setShowOptions] = useState(false);
-    const [methodOptions, setMethodOptions] = useState<Record<string, any>>({});
+    const [methodOptions, setMethodOptions] = useState<Record<string, Record<string, string | number | boolean>>>({});
     const [batchMode, setBatchMode] = useState(false);
     const [batchInput, setBatchInput] = useState('');
     const [batchResults, setBatchResults] = useState<Array<{input: string, output: string, success: boolean}>>([]);
@@ -232,15 +238,15 @@ const EncoderDecoderTool = () => {
             description: 'Caesar cipher with custom shift',
             category: 'Cipher',
             icon: <Lock className="w-4 h-4" />,
-            encode: (input: string, options: any) => {
-                const shift = options?.shift || 3;
+            encode: (input: string, options: Record<string, string | number | boolean> = {}) => {
+                const shift = (options?.shift as number) || 3;
                 return input.replace(/[a-zA-Z]/g, char => {
                     const start = char <= 'Z' ? 65 : 97;
                     return String.fromCharCode(((char.charCodeAt(0) - start + shift) % 26) + start);
                 });
             },
-            decode: (input: string, options: any) => {
-                const shift = options?.shift || 3;
+            decode: (input: string, options: Record<string, string | number | boolean> = {}) => {
+                const shift = (options?.shift as number) || 3;
                 return input.replace(/[a-zA-Z]/g, char => {
                     const start = char <= 'Z' ? 65 : 97;
                     return String.fromCharCode(((char.charCodeAt(0) - start - shift + 26) % 26) + start);
@@ -256,7 +262,7 @@ const EncoderDecoderTool = () => {
             description: 'JWT token header and payload decoding',
             category: 'Security',
             icon: <Lock className="w-4 h-4" />,
-            encode: (input: string) => 'JWT encoding not supported - use JWT creation tools',
+            encode: () => 'JWT encoding not supported - use JWT creation tools',
             decode: (input: string) => {
                 try {
                     const parts = input.split('.');
@@ -319,21 +325,20 @@ const EncoderDecoderTool = () => {
         'Security'
     ];
 
-    // Auto-detect encoding formats
-    const detectFormats = (input: string): string[] => {
-        const detected: string[] = [];
-
-        encodingMethods.forEach(method => {
-            if (method.validation && method.validation(input)) {
-                detected.push(method.id);
-            }
-        });
-
-        return detected;
-    };
+    // Initialize method options
+    const initializeOptions = React.useCallback((methodId: string) => {
+        const method = encodingMethods.find(m => m.id === methodId);
+        if (method?.options) {
+            const options: Record<string, string | number | boolean> = {};
+            method.options.forEach(option => {
+                options[option.key] = option.default;
+            });
+            setMethodOptions(prev => ({ ...prev, [methodId]: options }));
+        }
+    }, [encodingMethods]);
 
     // Process input based on selected method and mode
-    const processInput = () => {
+    const processInput = React.useCallback(() => {
         try {
             const method = encodingMethods.find(m => m.id === selectedMethod);
             if (!method) return;
@@ -351,7 +356,20 @@ const EncoderDecoderTool = () => {
         } catch (error) {
             setOutputText(`Error: ${(error as Error).message}`);
         }
-    };
+    }, [selectedMethod, mode, inputText, methodOptions, encodingMethods]);
+
+    // Auto-detect encoding formats
+    const detectFormats = React.useCallback((input: string): string[] => {
+        const detected: string[] = [];
+
+        encodingMethods.forEach(method => {
+            if (method.validation && method.validation(input)) {
+                detected.push(method.id);
+            }
+        });
+
+        return detected;
+    }, [encodingMethods]);
 
     // Process batch input
     const processBatch = () => {
@@ -375,16 +393,16 @@ const EncoderDecoderTool = () => {
     };
 
     // Initialize method options
-    const initializeOptions = (methodId: string) => {
+    const initializeMethodOptions = React.useCallback((methodId: string) => {
         const method = encodingMethods.find(m => m.id === methodId);
         if (method?.options) {
-            const options: Record<string, any> = {};
+            const options: Record<string, string | number | boolean> = {};
             method.options.forEach(option => {
                 options[option.key] = option.default;
             });
             setMethodOptions(prev => ({ ...prev, [methodId]: options }));
         }
-    };
+    }, [encodingMethods]);
 
     // Copy to clipboard
     const copyToClipboard = (text: string, field: string) => {
@@ -410,7 +428,7 @@ const EncoderDecoderTool = () => {
     };
 
     // Effects
-    useEffect(() => {
+    React.useEffect(() => {
         if (inputText) {
             processInput();
             if (autoDetect) {
@@ -420,11 +438,11 @@ const EncoderDecoderTool = () => {
             setOutputText('');
             setDetectedFormats([]);
         }
-    }, [inputText, selectedMethod, mode, methodOptions]);
+    }, [inputText, selectedMethod, mode, methodOptions, processInput, autoDetect, detectFormats]);
 
-    useEffect(() => {
-        initializeOptions(selectedMethod);
-    }, [selectedMethod]);
+    React.useEffect(() => {
+        initializeMethodOptions(selectedMethod);
+    }, [selectedMethod, initializeMethodOptions]);
 
     const currentMethod = encodingMethods.find(m => m.id === selectedMethod);
     const filteredMethods = encodingMethods;
