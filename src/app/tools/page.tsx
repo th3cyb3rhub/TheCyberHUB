@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import {
     Search,
-    Filter,
     Key,
     Globe,
     Shield,
@@ -22,8 +21,8 @@ import {
     TrendingUp,
     Edit,
     ArrowUpRight,
-    Target,
-    Wifi
+    Wifi,
+    ArrowLeftRight
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
@@ -246,20 +245,20 @@ const ToolsPage = () => {
             featured: false
         },
         {
-            id: 'payload-encoder',
-            name: 'Payload Encoder/Decoder',
-            description: 'Multi-format payload encoder and decoder supporting URL, Base64, HTML, Unicode, and custom encoding schemes.',
+            id: 'encoder-decoder',
+            name: 'Encoder/Decoder Tool',
+            description: 'Ultimate encoding and decoding tool with 12+ methods including Base64, URL, HTML, Unicode, JWT, and cryptographic ciphers.',
             category: 'Utilities',
             difficulty: 'Beginner',
-            status: 'Coming Soon',
-            popularity: 75,
-            usageCount: '0',
-            lastUpdated: '2025-01-01',
-            icon: <Target className="w-6 h-6" />,
-            href: '/tools/payload-encoder',
-            tags: ['encoding', 'decoding', 'payloads', 'utilities'],
-            features: ['Multiple Formats', 'Batch Processing', 'Custom Schemes', 'URL Safe Encoding'],
-            featured: false
+            status: 'Available',
+            popularity: 89,
+            usageCount: '14.2K',
+            lastUpdated: '2025-01-27',
+            icon: <ArrowLeftRight className="w-6 h-6" />,
+            href: '/tools/encoder-decoder',
+            tags: ['encoding', 'decoding', 'base64', 'url', 'html', 'jwt', 'cipher'],
+            features: ['12+ Encoding Methods', 'Batch Processing', 'Auto-detection', 'Real-time Conversion'],
+            featured: true
         },
         {
             id: 'wifi-analyzer',
@@ -650,7 +649,7 @@ const ToolsPage = () => {
                     <div className="text-center bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl p-8">
                         <h3 className="text-2xl font-bold text-white mb-4">Need a Custom Tool?</h3>
                         <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                            Can&#39;t find what you&#39;re looking for? Request a custom security tool or suggest new features for existing ones.
+                            Can't find what you're looking for? Request a custom security tool or suggest new features for existing ones.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">

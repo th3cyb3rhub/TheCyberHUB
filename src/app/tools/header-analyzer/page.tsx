@@ -1,4 +1,3 @@
-// app/tools/header-analyzer/page.tsx
 "use client"
 
 import React, { useState } from 'react';
@@ -16,7 +15,6 @@ import {
     ChevronUp
 } from 'lucide-react';
 
-// --- Type Definitions for API Response ---
 interface HeaderAnalysis {
     title: string;
     score: 'good' | 'warning' | 'bad';

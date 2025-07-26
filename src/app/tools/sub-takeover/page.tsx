@@ -93,9 +93,14 @@ const SubtakerPage = () => {
             const data: ScanResult = await response.json();
             setResults(data);
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Scan error:', err);
-            setError(err.message || 'An unexpected error occurred. The service might be down.');
+
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An unexpected error occurred. The service might be down.');
+            }
         } finally {
             setLoading(false);
         }

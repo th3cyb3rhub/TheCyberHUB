@@ -1,4 +1,3 @@
-// app/tools/markdown-editor/page.tsx
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -61,7 +60,7 @@ nmap -sS -sV target.com
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
-    const [securityWarnings, setSecurityWarnings] = useState<string[]>([]);
+    const [, setSecurityWarnings] = useState<string[]>([]);
 
     // HTML entity escaping function
     const escapeHtml = (text: string): string => {
@@ -171,7 +170,7 @@ nmap -sS -sV target.com
     // Process markdown tables properly
     const processMarkdownTables = (text: string): string => {
         const lines = text.split('\n');
-        let result = [];
+        const result = [];
         let i = 0;
 
         while (i < lines.length) {
@@ -225,7 +224,7 @@ nmap -sS -sV target.com
     // Process markdown lists properly
     const processMarkdownLists = (text: string): string => {
         const lines = text.split('\n');
-        let result = [];
+        const result = [];
         let i = 0;
 
         while (i < lines.length) {

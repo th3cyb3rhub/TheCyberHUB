@@ -1,4 +1,3 @@
-// app/tools/jwt-analyzer/page.tsx
 "use client"
 
 import React, { useState, useEffect } from 'react';

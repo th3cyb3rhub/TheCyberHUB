@@ -17,7 +17,8 @@ import {
     Edit,
     Zap,
     ArrowUpRight,
-    Target
+    Target,
+    ArrowLeftRight
 } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
@@ -66,6 +67,12 @@ const Navbar = () => {
                     title: "Google Dork",
                     description: "Advanced Google search operators",
                     href: "/tools/google-dork"
+                },
+                {
+                    icon: <ArrowLeftRight className="w-4 h-4" />,
+                    title: "Encoder/Decoder",
+                    description: "Multi-format encoding & decoding",
+                    href: "/tools/encoder-decoder"
                 },
                 {
                     icon: <Globe className="w-4 h-4" />,
