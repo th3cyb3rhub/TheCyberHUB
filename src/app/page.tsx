@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import React from 'react';
-import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import ToolsSection from '@/components/ToolsSection';
@@ -46,7 +45,6 @@ export const metadata: Metadata = {
 const Homepage = () => {
     return (
         <div className="min-h-screen bg-black text-white">
-            <Navbar />
             <HeroSection />
             <FeaturesSection />
             <ToolsSection />
