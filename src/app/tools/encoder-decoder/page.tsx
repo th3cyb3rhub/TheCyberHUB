@@ -30,14 +30,17 @@ interface MethodOption {
     choices?: string[];
 }
 
+type MethodOptionValue = string | number | boolean;
+
+
 interface EncodingMethod {
     id: string;
     name: string;
     description: string;
     category: string;
     icon: React.ReactNode;
-    encode: (input: string, options?: Record<string, string | number | boolean>) => string;
-    decode: (input: string, options?: Record<string, string | number | boolean>) => string;
+    encode: (input: string, options?: Record<string, MethodOptionValue>) => string;
+    decode: (input: string, options?: Record<string, MethodOptionValue>) => string;
     options?: MethodOption[];
     validation?: (input: string) => boolean;
     examples?: Array<{
@@ -60,7 +63,6 @@ const EncoderDecoderTool = () => {
     const [batchResults, setBatchResults] = useState<Array<{input: string, output: string, success: boolean}>>([]);
     const [autoDetect, setAutoDetect] = useState(false);
     const [detectedFormats, setDetectedFormats] = useState<string[]>([]);
-
     // Encoding Methods
     const encodingMethods: EncodingMethod[] = React.useMemo(() => [
         {
@@ -165,12 +167,30 @@ const EncoderDecoderTool = () => {
             description: 'Hexadecimal encoding/decoding',
             category: 'Basic',
             icon: <Hash className="w-4 h-4" />,
-            encode: (input: string) => Array.from(new TextEncoder().encode(input))
-                .map(byte => byte.toString(16).padStart(2, '0'))
-                .join(''),
+
+            encode: (input: string, options: Record<string, MethodOptionValue> = {}) => {
+                const { uppercase = false, delimiter = 'none' } = options;
+                const hexChars = Array.from(new TextEncoder().encode(input))
+                    .map(byte => {
+                        const hex = byte.toString(16).padStart(2, '0');
+                        return uppercase ? hex.toUpperCase() : hex;
+                    });
+
+                switch (delimiter) {
+                    case 'space':
+                        return hexChars.join(' ');
+                    case 'colon':
+                        return hexChars.join(':');
+                    case '0x':
+                        return hexChars.map(hex => `0x${hex}`).join(' ');
+                    default:
+                        return hexChars.join('');
+                }
+            },
+            // --- FIX END ---
             decode: (input: string) => {
                 try {
-                    const hex = input.replace(/\s/g, '');
+                    const hex = input.replace(/\s/g, '').replace(/0x/g, '').replace(/:/g, '');
                     if (hex.length % 2 !== 0) throw new Error('Invalid hex length');
                     const bytes = [];
                     for (let i = 0; i < hex.length; i += 2) {
@@ -181,7 +201,7 @@ const EncoderDecoderTool = () => {
                     throw new Error('Invalid hexadecimal string');
                 }
             },
-            validation: (input: string) => /^[0-9a-fA-F\s]*$/.test(input),
+            validation: (input: string) => /^[0-9a-fA-F\s:x]*$/.test(input.replace(/0x/g, '')),
             options: [
                 { key: 'uppercase', label: 'Uppercase', type: 'checkbox', default: false },
                 { key: 'delimiter', label: 'Delimiter', type: 'select', default: 'none', choices: ['none', 'space', 'colon', '0x'] }
@@ -235,15 +255,15 @@ const EncoderDecoderTool = () => {
             description: 'Caesar cipher with custom shift',
             category: 'Cipher',
             icon: <Lock className="w-4 h-4" />,
-            encode: (input: string, options: Record<string, string | number | boolean> = {}) => {
-                const shift = (options?.shift as number) || 3;
+            encode: (input: string, options: Record<string, MethodOptionValue> = {}) => {
+                const shift = Number(options?.shift) || 3;
                 return input.replace(/[a-zA-Z]/g, char => {
                     const start = char <= 'Z' ? 65 : 97;
                     return String.fromCharCode(((char.charCodeAt(0) - start + shift) % 26) + start);
                 });
             },
-            decode: (input: string, options: Record<string, string | number | boolean> = {}) => {
-                const shift = (options?.shift as number) || 3;
+            decode: (input: string, options: Record<string, MethodOptionValue> = {}) => {
+                const shift = Number(options?.shift) || 3;
                 return input.replace(/[a-zA-Z]/g, char => {
                     const start = char <= 'Z' ? 65 : 97;
                     return String.fromCharCode(((char.charCodeAt(0) - start - shift + 26) % 26) + start);
@@ -265,8 +285,8 @@ const EncoderDecoderTool = () => {
                     const parts = input.split('.');
                     if (parts.length !== 3) throw new Error('Invalid JWT format');
 
-                    const header = JSON.parse(atob(parts[0].replace(/-/g, '+').replace(/_/g, '/')));
-                    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+                    const header = JSON.parse(decodeURIComponent(escape(atob(parts[0].replace(/-/g, '+').replace(/_/g, '/')))));
+                    const payload = JSON.parse(decodeURIComponent(escape(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')))));
 
                     return JSON.stringify({
                         header,
@@ -322,8 +342,6 @@ const EncoderDecoderTool = () => {
         'Security'
     ];
 
-
-
     // Process input based on selected method and mode
     const processInput = React.useCallback(() => {
         try {
@@ -344,6 +362,29 @@ const EncoderDecoderTool = () => {
             setOutputText(`Error: ${(error as Error).message}`);
         }
     }, [selectedMethod, mode, inputText, methodOptions, encodingMethods]);
+
+    // --- FIX START: Added missing processBatch function ---
+    const processBatch = React.useCallback(() => {
+        const method = encodingMethods.find(m => m.id === selectedMethod);
+        if (!method || !batchInput.trim()) return;
+
+        const options = methodOptions[selectedMethod] || {};
+        const lines = batchInput.split('\n').filter(line => line.trim() !== '');
+
+        const results = lines.map(line => {
+            try {
+                const output = mode === 'encode'
+                    ? method.encode(line, options)
+                    : method.decode(line, options);
+                return { input: line, output, success: true };
+            } catch (error) {
+                const message = error instanceof Error ? error.message : 'Unknown error';
+                return { input: line, output: `Error: ${message}`, success: false };
+            }
+        });
+        setBatchResults(results);
+    }, [batchInput, encodingMethods, selectedMethod, mode, methodOptions]);
+    // --- FIX END ---
 
     // Auto-detect encoding formats
     const detectFormats = React.useCallback((input: string): string[] => {
@@ -547,11 +588,11 @@ const EncoderDecoderTool = () => {
                                                 {option.type === 'checkbox' ? (
                                                     <input
                                                         type="checkbox"
-                                                        checked={methodOptions[selectedMethod]?.[option.key] || false}
+                                                        checked={methodOptions[selectedMethod]?.[option.key] as boolean ?? option.default as boolean}
                                                         onChange={(e) => setMethodOptions(prev => ({
                                                             ...prev,
                                                             [selectedMethod]: {
-                                                                ...prev[selectedMethod],
+                                                                ...(prev[selectedMethod] || {}),
                                                                 [option.key]: e.target.checked
                                                             }
                                                         }))}
@@ -559,11 +600,11 @@ const EncoderDecoderTool = () => {
                                                     />
                                                 ) : option.type === 'select' ? (
                                                     <select
-                                                        value={methodOptions[selectedMethod]?.[option.key] || option.default}
+                                                        value={methodOptions[selectedMethod]?.[option.key] as string ?? option.default as string}
                                                         onChange={(e) => setMethodOptions(prev => ({
                                                             ...prev,
                                                             [selectedMethod]: {
-                                                                ...prev[selectedMethod],
+                                                                ...(prev[selectedMethod] || {}),
                                                                 [option.key]: e.target.value
                                                             }
                                                         }))}
@@ -576,12 +617,12 @@ const EncoderDecoderTool = () => {
                                                 ) : (
                                                     <input
                                                         type={option.type}
-                                                        value={methodOptions[selectedMethod]?.[option.key] || option.default}
+                                                        value={methodOptions[selectedMethod]?.[option.key] as string | number ?? option.default}
                                                         onChange={(e) => setMethodOptions(prev => ({
                                                             ...prev,
                                                             [selectedMethod]: {
-                                                                ...prev[selectedMethod],
-                                                                [option.key]: option.type === 'number' ? parseInt(e.target.value) : e.target.value
+                                                                ...(prev[selectedMethod] || {}),
+                                                                [option.key]: option.type === 'number' ? parseInt(e.target.value, 10) || 0 : e.target.value
                                                             }
                                                         }))}
                                                         className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded text-white text-sm"
@@ -797,8 +838,8 @@ const EncoderDecoderTool = () => {
                                         <div className="flex items-center justify-between">
                                             <div className="text-sm text-gray-400">
                                                 Processed {batchResults.length} items •
-                                                {batchResults.filter(r => r.success).length} successful •
-                                                {batchResults.filter(r => !r.success).length} failed
+                                                {' '}{batchResults.filter(r => r.success).length} successful •
+                                                {' '}{batchResults.filter(r => !r.success).length} failed
                                             </div>
                                             <button
                                                 onClick={() => {
@@ -904,7 +945,7 @@ const EncoderDecoderTool = () => {
                                     </p>
                                     <p>
                                         <strong>Security Testing:</strong> This tool is designed for legitimate security testing and educational purposes.
-                                        Always ensure you have proper authorization before testing systems you don&apos;t own.
+                                        Always ensure you have proper authorization before testing systems you don&#39;t own.
                                     </p>
                                     <p>
                                         <strong>Data Handling:</strong> Be cautious when processing sensitive data. While this tool runs locally,
