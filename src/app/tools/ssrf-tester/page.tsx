@@ -18,7 +18,6 @@ import {
     Server,
     Network,
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 
 interface SSRFPayload {
     id: string;
@@ -320,8 +319,6 @@ const SSRFTesterPage = () => {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            <Navbar />
-
             <main className="pt-20 pb-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
