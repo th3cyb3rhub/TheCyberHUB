@@ -1,4 +1,3 @@
-// app/cheatsheets/linux-commands/page.tsx
 "use client"
 
 import React, { useState } from 'react';

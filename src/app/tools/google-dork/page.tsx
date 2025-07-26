@@ -1,4 +1,3 @@
-// app/tools/google-dork/page.tsx
 "use client"
 
 import React, { useState } from 'react';
@@ -11,10 +10,8 @@ import {
     Database,
     FileText,
     Server,
-    Key,
     Bug,
     Camera,
-    Wifi,
     Globe,
     ArrowLeft,
     Filter,
