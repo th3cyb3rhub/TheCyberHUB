@@ -11,18 +11,13 @@ import {
     User,
     FileText,
     Globe,
-    Key, Wrench
-    /*    Shield,
-    Database,
-    BookOpen,
-    Terminal,
-    Briefcase,
-    ExternalLink,
-    ShieldCheck,
+    Key,
     Wrench,
-    PenTool,
-    Calendar,
-    Users,*/
+    Shield,
+    Edit,
+    Zap,
+    ArrowUpRight,
+    Target
 } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
@@ -49,30 +44,67 @@ const Navbar = () => {
         resources: {
             title: "Resources",
             items: [
-                { icon: <FileText className="w-4 h-4" />, title: "Roadmaps", description: "Quick reference guides", href: "/roadmaps" },
-                { icon: <FileText className="w-4 h-4" />, title: "Cheatsheets", description: "Quick reference guides", href: "/cheatsheets" },
-       /*         { icon: <Database className="w-4 h-4" />, title: "Payloads", description: "Security testing payloads", href: "/payloads" },
-                { icon: <BookOpen className="w-4 h-4" />, title: "Methodology", description: "Step-by-step guides", href: "/methodology" },
-                { icon: <Terminal className="w-4 h-4" />, title: "Learning Paths", description: "Structured curricula", href: "/paths" }*/
+                {
+                    icon: <Target className="w-4 h-4" />,
+                    title: "Roadmaps",
+                    description: "Career guidance & learning paths",
+                    href: "/roadmaps"
+                },
+                {
+                    icon: <FileText className="w-4 h-4" />,
+                    title: "Cheatsheets",
+                    description: "Quick reference guides",
+                    href: "/cheatsheets"
+                },
             ]
         },
         tools: {
             title: "Tools",
             items: [
-                { icon: <Globe className="w-4 h-4" />, title: "Subdomain Finder", description: "Discover hidden subdomains", href: "/tools/subfinder" },
-                { icon: <Key className="w-4 h-4" />, title: "JWT Analyzer", description: "Analyze JWT tokens & security", href: "/tools/jwt-analyzer" },
-                { icon: <Wrench className="w-4 h-4" />, title: "All Tools", description: "Browse all security tools", href: "/tools" }
+                {
+                    icon: <Search className="w-4 h-4" />,
+                    title: "Google Dork",
+                    description: "Advanced Google search operators",
+                    href: "/tools/google-dork"
+                },
+                {
+                    icon: <Globe className="w-4 h-4" />,
+                    title: "Subdomain Finder",
+                    description: "Discover hidden subdomains",
+                    href: "/tools/subfinder"
+                },
+                {
+                    icon: <Key className="w-4 h-4" />,
+                    title: "JWT Analyzer",
+                    description: "Analyze JWT tokens & security",
+                    href: "/tools/jwt-analyzer"
+                },
+                {
+                    icon: <Edit className="w-4 h-4" />,
+                    title: "Markdown Editor",
+                    description: "Real-time markdown editor",
+                    href: "/tools/markdown-editor"
+                },
+                {
+                    icon: <Zap className="w-4 h-4" />,
+                    title: "SSRF Tester",
+                    description: "Server-Side Request Forgery testing",
+                    href: "/tools/ssrf-tester"
+                },
+                {
+                    icon: <ArrowUpRight className="w-4 h-4" />,
+                    title: "Subdomain Takeover",
+                    description: "Check for subdomain takeover risks",
+                    href: "/tools/sub-takeover"
+                },
+                {
+                    icon: <Wrench className="w-4 h-4" />,
+                    title: "All Tools",
+                    description: "Browse complete tool collection",
+                    href: "/tools"
+                }
             ]
         },
-     /*   content: {
-            title: "Content",
-            items: [
-                { icon: <PenTool className="w-4 h-4" />, title: "Blog Posts", description: "Latest security insights", href: "/blog" },
-                { icon: <FileText className="w-4 h-4" />, title: "Writeups", description: "Detailed analysis & tutorials", href: "/writeups" },
-                { icon: <Calendar className="w-4 h-4" />, title: "Events", description: "Webinars & workshops", href: "/events" },
-                { icon: <Users className="w-4 h-4" />, title: "Community", description: "Join discussions", href: "/community" }
-            ]
-        }*/
     };
 
     return (
@@ -81,7 +113,6 @@ const Navbar = () => {
         }`}>
             <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
-
                 <Link href="/" className="flex items-center space-x-3">
                     <div className="relative group">
                         <Image
@@ -115,10 +146,11 @@ const Navbar = () => {
                                 <div className="absolute top-full left-0 mt-2 w-80 bg-gray-900/95 backdrop-blur-md border border-gray-800 rounded-lg shadow-xl p-2 z-50">
                                     <div className="grid gap-1">
                                         {section.items.map((item, index) => (
-                                            <a
+                                            <Link
                                                 key={index}
                                                 href={item.href}
                                                 className="flex items-start space-x-3 p-3 rounded-md hover:bg-gray-800/50 hover:text-orange-400 transition-all duration-200 group"
+                                                onClick={() => setActiveDropdown(null)}
                                             >
                                                 <div className="text-orange-400 mt-0.5 group-hover:scale-110 transition-transform">
                                                     {item.icon}
@@ -127,31 +159,31 @@ const Navbar = () => {
                                                     <div className="font-medium text-white group-hover:text-orange-400">{item.title}</div>
                                                     <div className="text-sm text-gray-400">{item.description}</div>
                                                 </div>
-                                            </a>
+                                            </Link>
                                         ))}
                                     </div>
+
+                                    {/* Tools Section Footer */}
+                                    {key === 'tools' && (
+                                        <div className="border-t border-gray-800 mt-2 pt-2">
+                                            <Link
+                                                href="/tools"
+                                                className="flex items-center justify-between p-3 rounded-md hover:bg-orange-500/10 hover:text-orange-400 transition-all duration-200 group"
+                                                onClick={() => setActiveDropdown(null)}
+                                            >
+                                                <div className="flex items-center space-x-2">
+                                                    <Shield className="w-4 h-4 text-orange-400" />
+                                                    <span className="font-medium text-orange-400">Browse All Security Tools</span>
+                                                </div>
+                                                <ArrowUpRight className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
+                                            </Link>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
                     ))}
-
-                    {/*<a href="/internships" className="flex items-center space-x-1 px-4 py-2 text-gray-300 hover:text-orange-400 hover:bg-gray-800/50 rounded-md transition-all duration-200">
-                        <Briefcase className="w-4 h-4" />
-                        <span>Internships</span>
-                        <span className="ml-2 bg-orange-500/20 text-orange-400 border border-orange-500/30 text-xs px-2 py-0.5 rounded-full">New</span>
-                    </a>*/}
                 </div>
-
-                {/* Search Bar */}
-                {/*                <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-                    <div className="relative w-full">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <input
-                            placeholder="Search tools, writeups, resources..."
-                            className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder:text-gray-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 outline-none"
-                        />
-                    </div>
-                </div>*/}
 
                 {/* Right Side Actions */}
                 <div className="flex items-center space-x-3">
@@ -203,22 +235,31 @@ const Navbar = () => {
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                             <input
-                                placeholder="Search..."
+                                placeholder="Search tools, resources..."
                                 className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder:text-gray-400"
                             />
                         </div>
 
-                        {/*{Object.entries(navItems).map(([key, section]) => (*/}
-                        {/*    <div key={key} className="space-y-2">*/}
-                        {/*        <div className="text-orange-400 font-semibold text-sm uppercase tracking-wide">{section.title}</div>*/}
-                        {/*        {section.items.map((item, index) => (*/}
-                        {/*            <a key={index} href={item.href} className="flex items-center space-x-3 py-2 px-3 text-gray-300 hover:text-orange-400 hover:bg-gray-800/50 rounded-md transition-all duration-200">*/}
-                        {/*                {item.icon}*/}
-                        {/*                <span>{item.title}</span>*/}
-                        {/*            </a>*/}
-                        {/*        ))}*/}
-                        {/*    </div>*/}
-                        {/*))}*/}
+                        {/* Mobile Navigation Items */}
+                        {Object.entries(navItems).map(([key, section]) => (
+                            <div key={key} className="space-y-2">
+                                <div className="text-orange-400 font-semibold text-sm uppercase tracking-wide">{section.title}</div>
+                                {section.items.map((item, index) => (
+                                    <Link
+                                        key={index}
+                                        href={item.href}
+                                        className="flex items-center space-x-3 py-2 px-3 text-gray-300 hover:text-orange-400 hover:bg-gray-800/50 rounded-md transition-all duration-200"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        {item.icon}
+                                        <div>
+                                            <div className="font-medium">{item.title}</div>
+                                            <div className="text-xs text-gray-500">{item.description}</div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        ))}
 
                         <div className="pt-4 border-t border-gray-800">
                             <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold py-2 rounded-lg">
