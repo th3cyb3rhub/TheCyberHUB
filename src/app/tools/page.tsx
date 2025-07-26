@@ -649,7 +649,7 @@ const ToolsPage = () => {
                     <div className="text-center bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl p-8">
                         <h3 className="text-2xl font-bold text-white mb-4">Need a Custom Tool?</h3>
                         <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                            Can't find what you're looking for? Request a custom security tool or suggest new features for existing ones.
+                            Can&#39;t find what you&#39;re looking for? Request a custom security tool or suggest new features for existing ones.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
