@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         siteName: 'TheCyberHub',
         images: [
             {
-                url: '/og-image.png',
+                url: '/img.png',
                 width: 1200,
                 height: 630,
                 alt: 'TheCyberHub - Cybersecurity Platform',
