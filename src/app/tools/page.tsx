@@ -361,8 +361,6 @@ const ToolsPage = () => {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            <Navbar />
-
             <div className="pt-20 pb-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

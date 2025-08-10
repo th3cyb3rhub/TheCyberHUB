@@ -412,8 +412,6 @@ nmap -sS -sV target.com
 
     return (
         <div className="min-h-screen bg-black text-white">
-            <Navbar />
-
             <main className="pt-20 pb-8">
                 <div className={`mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${isFullscreen ? 'max-w-none' : 'max-w-7xl'}`}>
 
