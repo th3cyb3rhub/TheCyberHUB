@@ -145,6 +145,19 @@ export default function RootLayout({
             <link rel="dns-prefetch" href="https://www.google-analytics.com" />
             <link rel="dns-prefetch" href="https://crt.sh" />
 
+            {/* Google Analytics */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-3S13VM7RP6"></script>
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-3S13VM7RP6');
+                    `,
+                }}
+            />
+
             {/* Enhanced Security headers */}
             <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
             <meta httpEquiv="X-Frame-Options" content="DENY" />
@@ -186,13 +199,13 @@ export default function RootLayout({
                 }}
             />
         </head>
-            <body className={`${inter.className} cyberhub-bg`} suppressHydrationWarning>
-                <Navbar />
-                <main>
-                    {children}
-                </main>
-                <Analytics />
-            </body>
+        <body className={`${inter.className} cyberhub-bg`} suppressHydrationWarning>
+        <Navbar />
+        <main>
+            {children}
+        </main>
+        <Analytics />
+        </body>
         </html>
     )
 }
