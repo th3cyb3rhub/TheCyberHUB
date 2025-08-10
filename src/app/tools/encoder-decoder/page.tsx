@@ -20,7 +20,6 @@ import {
     Settings,
     Shuffle
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 
 interface MethodOption {
     key: string;

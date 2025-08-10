@@ -17,7 +17,6 @@ import {
     Clock,
     Info
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 
 interface LambdaSubdomain {
     subdomain: string;

@@ -13,7 +13,6 @@ import {
     ShieldCheck,
     ShieldAlert
 } from 'lucide-react';
-import Navbar from '@/components/Navbar'; // Assuming you have a Navbar component
 
 // --- Type Definitions for API Response ---
 interface Finding {
