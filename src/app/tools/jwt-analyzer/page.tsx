@@ -409,8 +409,6 @@ const JWTAnalyzerPage = () => {
 
     return (
         <div className="min-h-screen bg-black text-slate-300">
-            <Navbar />
-
             <main className="pt-24 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

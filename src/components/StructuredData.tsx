@@ -1,9 +1,11 @@
-/*
+// components/StructuredData.tsx
+import React from 'react';
+
 interface StructuredDataProps {
-    data: any
+    data: Record<string, any>;
 }
 
-export default function StructuredData({ data }: StructuredDataProps) {
+const StructuredData: React.FC<StructuredDataProps> = ({ data }) => {
     return (
         <script
             type="application/ld+json"
@@ -12,4 +14,6 @@ export default function StructuredData({ data }: StructuredDataProps) {
             }}
         />
     );
-}*/
+};
+
+export default StructuredData;
