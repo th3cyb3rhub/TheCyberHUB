@@ -20,7 +20,6 @@ import {
     Info,
     RefreshCw
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 
 interface GoogleDork {
     id: string;

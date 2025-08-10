@@ -24,7 +24,6 @@ import {
     Wifi,
     ArrowLeftRight
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 
 interface Tool {

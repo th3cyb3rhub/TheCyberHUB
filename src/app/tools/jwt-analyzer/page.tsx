@@ -17,7 +17,6 @@ import {
     Shield,
     Info
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 
 interface DecodedJWT {
     header: Record<string, unknown>;

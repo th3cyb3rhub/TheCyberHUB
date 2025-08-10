@@ -23,7 +23,6 @@ import {
     Heading2,
     Table
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 
 const MarkdownEditorPage = () => {
     const [markdown, setMarkdown] = useState(`# Welcome to Markdown Editor
