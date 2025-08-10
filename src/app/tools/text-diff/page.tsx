@@ -63,7 +63,7 @@ const TextDiffTool = () => {
     };
 
     // Enhanced syntax highlighting for multiple languages
-    const highlightSyntax = (text, language = syntaxMode) => {
+    const highlightSyntax = (text: string, language = syntaxMode) => {
         if (language === 'none' || !text) return text;
 
         let highlighted = text;
@@ -277,7 +277,7 @@ const TextDiffTool = () => {
         };
     }, [computeDiff, leftText, rightText]);
 
-    const copyToClipboard = (text, side) => {
+    const copyToClipboard = (text: string, side: React.SetStateAction<string>) => {
         navigator.clipboard.writeText(text);
         setCopiedSide(side);
         setTimeout(() => setCopiedSide(''), 2000);
@@ -324,7 +324,7 @@ const TextDiffTool = () => {
         setRightText(temp);
     };
 
-    const getLineBackground = (type) => {
+    const getLineBackground = (type: string) => {
         switch (type) {
             case 'added': return 'bg-green-500/10 border-l-4 border-green-500';
             case 'removed': return 'bg-red-500/10 border-l-4 border-red-500';
@@ -333,7 +333,7 @@ const TextDiffTool = () => {
         }
     };
 
-    const getLineIcon = (type) => {
+    const getLineIcon = (type: string) => {
         switch (type) {
             case 'added': return <Plus className="w-4 h-4 text-green-400" />;
             case 'removed': return <Minus className="w-4 h-4 text-red-400" />;
@@ -342,14 +342,14 @@ const TextDiffTool = () => {
         }
     };
 
-    const renderWhitespace = (text) => {
+    const renderWhitespace = (text: string) => {
         if (!showWhitespace) return text;
         return text
             .replace(/ /g, '·')
             .replace(/\t/g, '→');
     };
 
-    const convertToBytes = (text) => {
+    const convertToBytes = (text: string) => {
         if (!text) return '';
         const bytes = new TextEncoder().encode(text);
         return Array.from(bytes).map(b => b.toString(16).padStart(2, '0').toUpperCase()).join(' ');
