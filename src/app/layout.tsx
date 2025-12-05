@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/next"
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -39,7 +40,6 @@ export const metadata: Metadata = {
     applicationName: 'TheCyberHub',
     generator: 'Next.js',
     referrer: 'origin-when-cross-origin',
-    colorScheme: 'dark',
     formatDetection: {
         email: false,
         address: false,
@@ -132,80 +132,83 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout({
-                                       children,
-                                   }: {
+    children,
+}: {
     children: React.ReactNode
 }) {
     return (
         <html lang="en" className="dark">
-        <head>
-            {/* Preconnect to external domains - Performance optimization */}
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-            <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-            <link rel="dns-prefetch" href="https://crt.sh" />
+            <head>
+                {/* Preconnect to external domains - Performance optimization */}
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+                <link rel="dns-prefetch" href="https://crt.sh" />
 
-            {/* Google Analytics */}
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-3S13VM7RP6"></script>
-            <script
-                dangerouslySetInnerHTML={{
-                    __html: `
+                {/* Google Analytics */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-3S13VM7RP6"></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
                         gtag('js', new Date());
                         gtag('config', 'G-3S13VM7RP6');
                     `,
-                }}
-            />
+                    }}
+                />
 
-            {/* Enhanced Security headers */}
-            <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-            <meta httpEquiv="X-Frame-Options" content="DENY" />
-            <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
-            <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-            <meta httpEquiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+                {/* Enhanced Security headers */}
+                <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+                <meta httpEquiv="X-Frame-Options" content="DENY" />
+                <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+                <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+                <meta httpEquiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+                {/* CSP removed for development - configure in next.config.js for production */}
 
-            {/* Enhanced Structured Data */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "WebSite",
-                        "name": "TheCyberHub",
-                        "alternateName": "The Cyber Hub",
-                        "url": "https://thecyberhub.org",
-                        "description": "Ultimate destination for cybersecurity enthusiasts to learn, connect, and grow together.",
-                        "keywords": "cybersecurity, penetration testing, security tools, ethical hacking",
-                        "inLanguage": "en-US",
-                        "potentialAction": {
-                            "@type": "SearchAction",
-                            "target": {
-                                "@type": "EntryPoint",
-                                "urlTemplate": "https://thecyberhub.org/search?q={search_term_string}"
-                            },
-                            "query-input": "required name=search_term_string"
-                        },
-                        "publisher": {
-                            "@type": "Organization",
+                {/* Enhanced Structured Data */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "WebSite",
                             "name": "TheCyberHub",
+                            "alternateName": "The Cyber Hub",
                             "url": "https://thecyberhub.org",
-                            "logo": {
-                                "@type": "ImageObject",
-                                "url": "https://thecyberhub.org/logo.png"
+                            "description": "Ultimate destination for cybersecurity enthusiasts to learn, connect, and grow together.",
+                            "keywords": "cybersecurity, penetration testing, security tools, ethical hacking",
+                            "inLanguage": "en-US",
+                            "potentialAction": {
+                                "@type": "SearchAction",
+                                "target": {
+                                    "@type": "EntryPoint",
+                                    "urlTemplate": "https://thecyberhub.org/search?q={search_term_string}"
+                                },
+                                "query-input": "required name=search_term_string"
+                            },
+                            "publisher": {
+                                "@type": "Organization",
+                                "name": "TheCyberHub",
+                                "url": "https://thecyberhub.org",
+                                "logo": {
+                                    "@type": "ImageObject",
+                                    "url": "https://thecyberhub.org/logo.png"
+                                }
                             }
-                        }
-                    })
-                }}
-            />
-        </head>
-        <body className={`${inter.className} cyberhub-bg`} suppressHydrationWarning>
-        <Navbar />
-        <main>
-            {children}
-        </main>
-        <Analytics />
-        </body>
+                        })
+                    }}
+                />
+            </head>
+            <body className={`${inter.className} cyberhub-bg`} suppressHydrationWarning>
+                <AuthProvider>
+                    <Navbar />
+                    <main>
+                        {children}
+                    </main>
+                </AuthProvider>
+                <Analytics />
+            </body>
         </html>
     )
 }
