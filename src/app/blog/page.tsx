@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Calendar, User, Clock, ArrowRight, Tag, Loader2 } from 'lucide-react';
+import { Search, Calendar, User, Clock, ArrowRight, BookOpen, Loader2, PenLine } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
 
@@ -77,12 +78,27 @@ const BlogPage = () => {
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
                 
                 <div className="relative max-w-4xl mx-auto text-center">
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/10 bg-white/5">
+                        <BookOpen className="w-4 h-4 text-orange-500" />
+                        <span className="text-sm text-gray-400">Community Articles</span>
+                    </div>
+
                     <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-6">
-                        Community <span className="text-orange-500">Blog</span>
+                        Community <span className="gradient-text">Blog</span>
                     </h1>
-                    <p className="text-lg text-gray-400 max-w-xl mx-auto">
+                    <p className="text-lg text-gray-400 max-w-xl mx-auto mb-8">
                         Security insights, tutorials, and write-ups from the community.
                     </p>
+
+                    {/* Write CTA */}
+                    <Link
+                        href="/blog/write"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 rounded-xl text-sm text-orange-400 font-medium transition-all"
+                    >
+                        <PenLine className="w-4 h-4" />
+                        Write an Article
+                    </Link>
                 </div>
             </section>
 
@@ -96,7 +112,7 @@ const BlogPage = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search articles..."
-                            className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                            className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-all"
                         />
                     </div>
                 </div>
@@ -152,7 +168,7 @@ const BlogPage = () => {
                             <Link
                                 key={blog._id}
                                 href={`/blog/${blog._id}`}
-                                className="group rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden hover:border-orange-500/30 transition-all"
+                                className="group rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden hover:border-orange-500/30 transition-all duration-300 card-hover"
                             >
                                 {/* Cover Image */}
                                 {blog.coverImage && (
@@ -213,6 +229,8 @@ const BlogPage = () => {
                     </div>
                 )}
             </section>
+
+            <Footer />
         </div>
     );
 };

@@ -14,8 +14,11 @@ import {
     Play,
     BookOpen,
     Youtube,
-    Loader2
+    Loader2,
+    ArrowRight,
+    Sparkles
 } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
 
@@ -454,7 +457,7 @@ const RoadmapsPage = () => {
 
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6">
                         Learning
-                        <span className="text-orange-500"> Roadmaps</span>
+                        <span className="gradient-text"> Roadmaps</span>
                     </h1>
 
                     <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
@@ -481,7 +484,7 @@ const RoadmapsPage = () => {
 
             {/* Search */}
             <section className="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                     <div className="flex-1 relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                         <input
@@ -489,28 +492,34 @@ const RoadmapsPage = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search roadmaps..."
-                            className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                            className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-all"
                         />
                     </div>
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:border-orange-500/50 focus:outline-none transition-colors"
-                    >
+                    <div className="flex gap-2">
                         {categories.map(cat => (
-                            <option key={cat.id} value={cat.id} className="bg-neutral-900">{cat.name}</option>
+                            <button
+                                key={cat.id}
+                                onClick={() => setSelectedCategory(cat.id)}
+                                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${selectedCategory === cat.id
+                                    ? 'bg-orange-500 text-white'
+                                    : 'bg-white/5 text-gray-400 hover:text-white border border-white/10 hover:border-white/20'
+                                }`}
+                            >
+                                {cat.name}
+                            </button>
                         ))}
-                    </select>
+                    </div>
                 </div>
             </section>
 
             {/* Roadmaps */}
             <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-20">
                 <div className="space-y-6">
-                    {filteredRoadmaps.map((roadmap) => (
+                    {filteredRoadmaps.map((roadmap, index) => (
                         <div 
                             key={roadmap.id} 
-                            className="rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden hover:border-orange-500/30 transition-colors"
+                            className="group rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden hover:border-orange-500/30 transition-all duration-300"
+                            style={{ animationDelay: `${index * 100}ms` }}
                         >
                             {/* Header */}
                             <div className="p-6 border-b border-white/5">
@@ -615,7 +624,11 @@ const RoadmapsPage = () => {
 
                     {filteredRoadmaps.length === 0 && (
                         <div className="text-center py-16">
-                            <p className="text-gray-500">No roadmaps found matching your search.</p>
+                            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/5 flex items-center justify-center">
+                                <Search className="w-8 h-8 text-gray-600" />
+                            </div>
+                            <p className="text-gray-400 mb-2">No roadmaps found</p>
+                            <p className="text-sm text-gray-600">Try adjusting your search or filter</p>
                         </div>
                     )}
                 </div>
@@ -623,19 +636,31 @@ const RoadmapsPage = () => {
 
             {/* CTA */}
             <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-20">
-                <div className="text-center p-8 rounded-xl border border-white/10 bg-white/[0.02]">
-                    <h3 className="text-xl font-semibold text-white mb-2">Want to contribute?</h3>
-                    <p className="text-gray-400 text-sm mb-6">Help us improve these roadmaps or suggest new ones.</p>
-                    <a 
-                        href="https://discord.gg/d3gBSNrVKb"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors"
-                    >
-                        Join Community
-                    </a>
+                <div className="relative text-center p-10 rounded-2xl border border-white/10 bg-gradient-to-b from-orange-500/5 to-transparent overflow-hidden">
+                    {/* Background glow */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[150px] bg-orange-500/10 rounded-full blur-[80px] pointer-events-none" />
+                    
+                    <div className="relative z-10">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full border border-orange-500/20 bg-orange-500/10">
+                            <Sparkles className="w-4 h-4 text-orange-500" />
+                            <span className="text-sm text-orange-400 font-medium">Open Source</span>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-3">Want to contribute?</h3>
+                        <p className="text-gray-400 mb-6 max-w-md mx-auto">Help us improve these roadmaps or suggest new learning paths for the community.</p>
+                        <a 
+                            href="https://discord.gg/d3gBSNrVKb"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 btn-press"
+                        >
+                            Join Community
+                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </a>
+                    </div>
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 };

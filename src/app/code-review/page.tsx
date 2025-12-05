@@ -15,6 +15,7 @@ import {
     ChevronRight,
     AlertTriangle
 } from 'lucide-react';
+import Footer from '@/components/Footer';
 import { codeSnippets, categories, difficulties } from '@/data/codeSnippets';
 
 const severityColors = {
@@ -67,7 +68,7 @@ const CodeReviewPage = () => {
                     </div>
 
                     <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-6">
-                        Code <span className="text-orange-500">Review</span>
+                        Code <span className="gradient-text">Review</span>
                     </h1>
 
                     <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
@@ -201,12 +202,16 @@ const CodeReviewPage = () => {
                 {/* Empty State */}
                 {filteredSnippets.length === 0 && (
                     <div className="text-center py-20">
-                        <Code className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/5 flex items-center justify-center">
+                            <Code className="w-8 h-8 text-gray-600" />
+                        </div>
                         <h3 className="text-lg font-medium text-white mb-2">No snippets found</h3>
                         <p className="text-gray-400">Try adjusting your filters or search query</p>
                     </div>
                 )}
             </section>
+
+            <Footer />
         </div>
     );
 };

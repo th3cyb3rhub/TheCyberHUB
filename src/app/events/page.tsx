@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import {
     Calendar,
@@ -18,9 +18,13 @@ import {
     Sparkles,
     ArrowRight,
     Globe,
-    Timer
+    Timer,
+    Loader2
 } from 'lucide-react';
 import { sampleEvents, eventCategories, Event } from '@/data/events';
+import Footer from '@/components/Footer';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
 
 const categoryIcons: Record<string, React.ReactNode> = {
     ctf: <Flag className="w-4 h-4" />,
@@ -220,49 +224,109 @@ function EventCard({ event }: { event: Event }) {
 }
 
 export default function EventsPage() {
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
+    // Fetch events from API
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${API_URL}/api/events`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    // Transform API response to match Event interface
+                    const apiEvents = data.data?.map((event: any) => ({
+                        id: event._id,
+                        title: event.title,
+                        slug: event.slug,
+                        description: event.description || '',
+                        shortDescription: event.shortDescription || '',
+                        image: event.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800',
+                        bannerImage: event.bannerImage,
+                        startDate: event.startDate,
+                        endDate: event.endDate,
+                        timezone: event.timezone || 'Asia/Kolkata',
+                        locationType: event.locationType || 'online',
+                        location: event.location || 'Online',
+                        venue: event.venue,
+                        eventLink: event.eventLink,
+                        registrationLink: event.registrationLink,
+                        category: event.category,
+                        tags: event.tags || [],
+                        organizer: event.organizer || 'TheCyberHub',
+                        organizerLogo: event.organizerLogo,
+                        speakers: event.speakers || [],
+                        status: event.status || 'upcoming',
+                        isFeatured: event.isFeatured || false,
+                    })) || [];
+                    
+                    setEvents(apiEvents.length > 0 ? apiEvents : sampleEvents);
+                } else {
+                    // Fallback to sample data
+                    setEvents(sampleEvents);
+                }
+            } catch (err) {
+                console.error('Failed to fetch events:', err);
+                // Fallback to sample data on error
+                setEvents(sampleEvents);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
     const filteredEvents = useMemo(() => {
-        return sampleEvents.filter((event) => {
+        return events.filter((event) => {
             const matchesCategory = selectedCategory === 'all' || event.category === selectedCategory;
             const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 event.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
-    }, [selectedCategory, searchQuery]);
+    }, [events, selectedCategory, searchQuery]);
 
     const featuredEvents = filteredEvents.filter(e => e.isFeatured);
     const regularEvents = filteredEvents.filter(e => !e.isFeatured);
 
-    return (
-        <div className="min-h-screen bg-gray-950">
-            {/* Hero */}
-            <div className="relative border-b border-white/5 overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-gray-950 to-gray-950" />
-                <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
-
-                <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-20">
-                    <div className="max-w-3xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm font-medium mb-6">
-                            <CalendarDays className="w-4 h-4" />
-                            Upcoming Events
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                            Learn, Compete & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Connect</span>
-                        </h1>
-                        <p className="text-lg text-gray-400">
-                            Join CTF competitions, workshops, webinars, and meetups.
-                            Connect with the cybersecurity community and level up your skills.
-                        </p>
-                    </div>
-                </div>
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
             </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen bg-black">
+            {/* Hero */}
+            <section className="relative pt-32 pb-16 px-4 sm:px-6 border-b border-white/5 overflow-hidden">
+                {/* Background glow */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+                <div className="relative max-w-5xl mx-auto text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/10 bg-white/5">
+                        <CalendarDays className="w-4 h-4 text-orange-500" />
+                        <span className="text-sm text-gray-400">Upcoming Events</span>
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                        Learn, Compete & <span className="gradient-text">Connect</span>
+                    </h1>
+                    <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+                        Join CTF competitions, workshops, webinars, and meetups.
+                        Connect with the cybersecurity community and level up your skills.
+                    </p>
+                </div>
+            </section>
 
             {/* Filters Bar */}
-            <div className="sticky top-0 z-20 bg-gray-950/80 backdrop-blur-xl border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-4 py-4">
+            <div className="sticky top-16 z-20 bg-black/80 backdrop-blur-xl border-b border-white/5">
+                <div className="max-w-5xl mx-auto px-4 py-4">
                     <div className="flex flex-col md:flex-row gap-4">
                         {/* Search */}
                         <div className="relative md:w-80">
@@ -342,7 +406,7 @@ export default function EventsPage() {
                 {/* Empty State */}
                 {filteredEvents.length === 0 && (
                     <div className="text-center py-20">
-                        <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <Calendar className="w-8 h-8 text-gray-600" />
                         </div>
                         <h3 className="text-xl font-medium text-white mb-2">No events found</h3>
@@ -350,6 +414,8 @@ export default function EventsPage() {
                     </div>
                 )}
             </div>
+
+            <Footer />
         </div>
     );
 }

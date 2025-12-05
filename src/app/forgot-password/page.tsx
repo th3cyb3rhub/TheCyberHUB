@@ -28,26 +28,31 @@ const ForgotPasswordPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black flex items-center justify-center px-4 py-20">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="min-h-screen bg-black flex items-center justify-center px-4 py-20 overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-500/8 rounded-full blur-[150px]" />
+                <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-orange-600/5 rounded-full blur-[100px]" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]" />
+            </div>
 
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-md animate-fade-in">
                 {/* Logo */}
-                <div className="text-center mb-10">
-                    <Link href="/" className="inline-flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <div className="text-center mb-8">
+                    <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:shadow-orange-500/40 transition-shadow">
                             <Shield className="w-6 h-6 text-white" />
                         </div>
                         <span className="text-2xl font-bold text-white">TheCyberHub</span>
                     </Link>
-                    <h1 className="text-2xl font-bold text-white mb-2">Reset your password</h1>
-                    <p className="text-gray-400 text-sm">
+                    <h1 className="text-3xl font-bold text-white mb-3">Reset your password</h1>
+                    <p className="text-gray-400">
                         Enter your email and we&apos;ll send you a reset link
                     </p>
                 </div>
 
                 {/* Card */}
-                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-8">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8 shadow-2xl">
                     {success ? (
                         <div className="text-center">
                             <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -92,7 +97,7 @@ const ForgotPasswordPage = () => {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full flex items-center justify-center gap-2 py-3.5 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-lg transition-colors"
+                                    className="w-full flex items-center justify-center gap-2 py-3.5 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25"
                                 >
                                     {loading ? (
                                         <Loader2 className="w-5 h-5 animate-spin" />

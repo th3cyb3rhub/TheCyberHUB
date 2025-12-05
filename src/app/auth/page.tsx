@@ -3,18 +3,26 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Shield, Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react';
+import { Shield, Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2, CheckCircle2, Zap, Users, BookOpen } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 type AuthMode = 'login' | 'register';
+
+const features = [
+    { icon: Zap, text: 'Access 45+ security tools' },
+    { icon: BookOpen, text: 'Learning roadmaps & resources' },
+    { icon: Users, text: 'Join the community' },
+];
 
 const AuthPage = () => {
     const router = useRouter();
     const { user, loading: authLoading, login, register } = useAuth();
     const [mode, setMode] = useState<AuthMode>('login');
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -23,6 +31,20 @@ const AuthPage = () => {
         password: '',
         confirmPassword: '',
     });
+
+    // Password strength indicator
+    const getPasswordStrength = (password: string) => {
+        let strength = 0;
+        if (password.length >= 8) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^A-Za-z0-9]/.test(password)) strength++;
+        return strength;
+    };
+
+    const passwordStrength = getPasswordStrength(formData.password);
+    const strengthLabels = ['Weak', 'Fair', 'Good', 'Strong'];
+    const strengthColors = ['bg-red-500', 'bg-yellow-500', 'bg-blue-500', 'bg-green-500'];
 
     // Redirect if already logged in
     useEffect(() => {
@@ -59,11 +81,13 @@ const AuthPage = () => {
                 }
 
                 await register(formData.name, formData.email, formData.password, formData.username || undefined);
+                setSuccess('Account created successfully!');
             } else {
                 await login(formData.email, formData.password);
+                setSuccess('Welcome back!');
             }
 
-            router.push('/profile');
+            setTimeout(() => router.push('/profile'), 500);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Something went wrong');
         } finally {
@@ -83,31 +107,44 @@ const AuthPage = () => {
         <div className="min-h-screen bg-black flex items-center justify-center px-4 py-20 overflow-hidden">
             {/* Background elements */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-orange-500/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-orange-600/5 rounded-full blur-[100px]" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-500/8 rounded-full blur-[150px]" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[400px] bg-orange-600/5 rounded-full blur-[120px]" />
+                <div className="absolute top-1/2 right-0 w-[300px] h-[300px] bg-orange-400/5 rounded-full blur-[100px]" />
                 {/* Grid pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,black,transparent)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]" />
             </div>
 
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-md animate-fade-in">
                 {/* Logo */}
-                <div className="text-center mb-10">
-                    <Link href="/" className="inline-flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <div className="text-center mb-8">
+                    <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:shadow-orange-500/40 transition-shadow">
                             <Shield className="w-6 h-6 text-white" />
                         </div>
                         <span className="text-2xl font-bold text-white">TheCyberHub</span>
                     </Link>
-                    <h1 className="text-2xl font-bold text-white mb-2">
-                        {mode === 'login' ? 'Welcome back' : 'Create your account'}
+                    <h1 className="text-3xl font-bold text-white mb-3">
+                        {mode === 'login' ? 'Welcome back' : 'Join TheCyberHub'}
                     </h1>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400">
                         {mode === 'login'
                             ? 'Sign in to access your dashboard and tools'
-                            : 'Join thousands of security enthusiasts'
+                            : 'Create your account and start learning'
                         }
                     </p>
                 </div>
+
+                {/* Features (only on register) */}
+                {mode === 'register' && (
+                    <div className="flex justify-center gap-6 mb-8">
+                        {features.map((feature, i) => (
+                            <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+                                <feature.icon className="w-4 h-4 text-orange-500" />
+                                <span className="hidden sm:inline">{feature.text}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 {/* Auth Card */}
                 <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8 shadow-2xl">
@@ -133,9 +170,17 @@ const AuthPage = () => {
                         </button>
                     </div>
 
+                    {/* Success Message */}
+                    {success && (
+                        <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm flex items-center gap-3">
+                            <CheckCircle2 className="w-5 h-5 shrink-0" />
+                            {success}
+                        </div>
+                    )}
+
                     {/* Error Message */}
                     {error && (
-                        <div className="mb-6 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                        <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm animate-shake">
                             {error}
                         </div>
                     )}
@@ -228,11 +273,31 @@ const AuthPage = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-400"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-400 transition-colors"
                                 >
                                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                 </button>
                             </div>
+                            {/* Password Strength Indicator */}
+                            {mode === 'register' && formData.password && (
+                                <div className="mt-2">
+                                    <div className="flex gap-1 mb-1">
+                                        {[0, 1, 2, 3].map((i) => (
+                                            <div
+                                                key={i}
+                                                className={`h-1 flex-1 rounded-full transition-all ${
+                                                    i < passwordStrength
+                                                        ? strengthColors[passwordStrength - 1]
+                                                        : 'bg-white/10'
+                                                }`}
+                                            />
+                                        ))}
+                                    </div>
+                                    <p className={`text-xs ${passwordStrength > 0 ? strengthColors[passwordStrength - 1].replace('bg-', 'text-') : 'text-gray-500'}`}>
+                                        {passwordStrength > 0 ? strengthLabels[passwordStrength - 1] : 'Enter a password'}
+                                    </p>
+                                </div>
+                            )}
                         </div>
 
                         {/* Confirm Password (Register only) */}
@@ -242,16 +307,37 @@ const AuthPage = () => {
                                 <div className="relative">
                                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                     <input
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={showConfirmPassword ? 'text' : 'password'}
                                         name="confirmPassword"
                                         value={formData.confirmPassword}
                                         onChange={handleChange}
                                         placeholder="••••••••"
                                         required
                                         minLength={8}
-                                        className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                        className={`w-full pl-11 pr-12 py-3 bg-white/5 border rounded-lg text-white placeholder:text-gray-500 focus:outline-none transition-colors ${
+                                            formData.confirmPassword
+                                                ? formData.password === formData.confirmPassword
+                                                    ? 'border-green-500/50 focus:border-green-500'
+                                                    : 'border-red-500/50 focus:border-red-500'
+                                                : 'border-white/10 focus:border-orange-500/50'
+                                        }`}
                                     />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-400 transition-colors"
+                                    >
+                                        {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                    </button>
                                 </div>
+                                {formData.confirmPassword && formData.password !== formData.confirmPassword && (
+                                    <p className="text-xs text-red-400 mt-1">Passwords do not match</p>
+                                )}
+                                {formData.confirmPassword && formData.password === formData.confirmPassword && (
+                                    <p className="text-xs text-green-400 mt-1 flex items-center gap-1">
+                                        <CheckCircle2 className="w-3 h-3" /> Passwords match
+                                    </p>
+                                )}
                             </div>
                         )}
 

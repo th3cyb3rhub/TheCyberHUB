@@ -117,34 +117,38 @@ const ProfilePage = () => {
     if (!user) return null;
 
     return (
-        <div className="min-h-screen bg-black pt-20 pb-12 px-4">
-            <div className="max-w-4xl mx-auto">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-2xl font-bold text-white">
-                            {user.name.charAt(0).toUpperCase()}
+        <div className="min-h-screen bg-black">
+            {/* Background glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
+            
+            <div className="relative pt-28 pb-12 px-4">
+                <div className="max-w-4xl mx-auto">
+                    {/* Header */}
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-10">
+                        <div className="flex items-center gap-5">
+                            <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-orange-500/20">
+                                {user.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <h1 className="text-2xl font-bold text-white mb-1">{user.name}</h1>
+                                <Link 
+                                    href={`/user/${user.username}`}
+                                    className="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors text-sm"
+                                >
+                                    @{user.username}
+                                    <ExternalLink className="w-3 h-3" />
+                                </Link>
+                                <p className="text-gray-500 text-sm mt-0.5">{user.email}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h1 className="text-2xl font-bold text-white">{user.name}</h1>
-                            <Link 
-                                href={`/user/${user.username}`}
-                                className="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors"
-                            >
-                                @{user.username}
-                                <ExternalLink className="w-3 h-3" />
-                            </Link>
-                            <p className="text-gray-500 text-sm">{user.email}</p>
-                        </div>
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/10 text-gray-400 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/5 transition-all"
+                        >
+                            <LogOut className="w-4 h-4" />
+                            Logout
+                        </button>
                     </div>
-                    <button
-                        onClick={handleLogout}
-                        className="flex items-center gap-2 px-4 py-2 text-gray-400 hover:text-red-400 transition-colors"
-                    >
-                        <LogOut className="w-4 h-4" />
-                        Logout
-                    </button>
-                </div>
 
                 {/* Tabs */}
                 <div className="flex gap-4 mb-8 border-b border-white/10">
@@ -170,9 +174,9 @@ const ProfilePage = () => {
                     </button>
                 </div>
 
-                {/* Profile Tab */}
-                {activeTab === 'profile' && (
-                    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-6">
+                    {/* Profile Tab */}
+                    {activeTab === 'profile' && (
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8">
                         <h2 className="text-lg font-semibold text-white mb-6">Profile Information</h2>
 
                         {profileError && (
@@ -250,7 +254,7 @@ const ProfilePage = () => {
                             <button
                                 type="submit"
                                 disabled={profileLoading}
-                                className="flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-lg transition-colors"
+                                className="flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 btn-press"
                             >
                                 {profileLoading ? (
                                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -261,11 +265,11 @@ const ProfilePage = () => {
                             </button>
                         </form>
                     </div>
-                )}
+                    )}
 
-                {/* Security Tab */}
-                {activeTab === 'security' && (
-                    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-6">
+                    {/* Security Tab */}
+                    {activeTab === 'security' && (
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8">
                         <h2 className="text-lg font-semibold text-white mb-6">Change Password</h2>
 
                         {passwordError && (
@@ -333,7 +337,7 @@ const ProfilePage = () => {
                             <button
                                 type="submit"
                                 disabled={passwordLoading}
-                                className="flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-lg transition-colors"
+                                className="flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 btn-press"
                             >
                                 {passwordLoading ? (
                                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -344,7 +348,8 @@ const ProfilePage = () => {
                             </button>
                         </form>
                     </div>
-                )}
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -18,7 +18,8 @@ import {
     LogOut,
     Calendar,
     Code2,
-    GraduationCap
+    GraduationCap,
+    Ticket
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -187,6 +188,13 @@ const Navbar = () => {
                                                 >
                                                     <User className="w-4 h-4" />
                                                     Profile
+                                                </Link>
+                                                <Link
+                                                    href="/my-events"
+                                                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                                                >
+                                                    <Ticket className="w-4 h-4" />
+                                                    My Events
                                                 </Link>
                                                 <button
                                                     onClick={logout}

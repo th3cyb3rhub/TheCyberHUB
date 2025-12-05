@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState } from 'react';
+import { use, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
@@ -23,9 +23,157 @@ import {
     Timer,
     Ticket,
     Copy,
-    Check
+    Check,
+    Loader2
 } from 'lucide-react';
 import { sampleEvents, Event } from '@/data/events';
+import Footer from '@/components/Footer';
+import { useAuth } from '@/context/AuthContext';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+
+// Registration Button Component
+function RegistrationButton({ eventId, registrationLink }: { eventId: string; registrationLink?: string }) {
+    const { user, token } = useAuth();
+    const [isRegistered, setIsRegistered] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [checkingStatus, setCheckingStatus] = useState(true);
+    const [registeredCount, setRegisteredCount] = useState(0);
+
+    useEffect(() => {
+        const checkRegistration = async () => {
+            if (!user || !token) {
+                setCheckingStatus(false);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/events/${eventId}/registration`, {
+                    headers: { 'Authorization': `Bearer ${token}` },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsRegistered(data.data?.isRegistered || false);
+                    setRegisteredCount(data.data?.registeredCount || 0);
+                }
+            } catch (err) {
+                console.error('Failed to check registration:', err);
+            } finally {
+                setCheckingStatus(false);
+            }
+        };
+
+        checkRegistration();
+    }, [eventId, user, token]);
+
+    const handleRegister = async () => {
+        if (!user || !token) {
+            window.location.href = '/auth';
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await fetch(`${API_URL}/api/events/${eventId}/register`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+            });
+            if (response.ok) {
+                setIsRegistered(true);
+                setRegisteredCount(prev => prev + 1);
+            }
+        } catch (err) {
+            console.error('Failed to register:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleUnregister = async () => {
+        if (!token) return;
+
+        setLoading(true);
+        try {
+            const response = await fetch(`${API_URL}/api/events/${eventId}/register`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` },
+            });
+            if (response.ok) {
+                setIsRegistered(false);
+                setRegisteredCount(prev => Math.max(0, prev - 1));
+            }
+        } catch (err) {
+            console.error('Failed to unregister:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (checkingStatus) {
+        return (
+            <div className="flex items-center gap-2 px-6 py-3 bg-white/10 text-white rounded-xl">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>Loading...</span>
+            </div>
+        );
+    }
+
+    if (isRegistered) {
+        return (
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <div className="flex items-center gap-2 px-6 py-3 bg-green-500/20 text-green-400 rounded-xl border border-green-500/30">
+                    <Check className="w-5 h-5" />
+                    <span className="font-medium">Registered</span>
+                </div>
+                <button
+                    onClick={handleUnregister}
+                    disabled={loading}
+                    className="text-sm text-gray-400 hover:text-red-400 transition-colors"
+                >
+                    {loading ? 'Cancelling...' : 'Cancel Registration'}
+                </button>
+                {registeredCount > 0 && (
+                    <span className="text-sm text-gray-500">
+                        {registeredCount} registered
+                    </span>
+                )}
+            </div>
+        );
+    }
+
+    return (
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <button
+                onClick={handleRegister}
+                disabled={loading}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-orange-500/25 disabled:opacity-50"
+            >
+                {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                    <Ticket className="w-5 h-5" />
+                )}
+                {user ? 'Register Now' : 'Sign in to Register'}
+            </button>
+            {registrationLink && (
+                <a
+                    href={registrationLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                >
+                    External Registration
+                    <ExternalLink className="w-4 h-4" />
+                </a>
+            )}
+            {registeredCount > 0 && (
+                <span className="text-sm text-gray-500">
+                    {registeredCount} registered
+                </span>
+            )}
+        </div>
+    );
+}
 
 const categoryIcons: Record<string, React.ReactNode> = {
     ctf: <Flag className="w-5 h-5" />,
@@ -214,7 +362,71 @@ function CountdownTimer({ dateString }: { dateString: string }) {
 
 export default function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
-    const event = sampleEvents.find(e => e.slug === slug);
+    const [event, setEvent] = useState<Event | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchEvent = async () => {
+            try {
+                const response = await fetch(`${API_URL}/api/events/${slug}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success && data.data) {
+                        const e = data.data;
+                        setEvent({
+                            id: e._id,
+                            title: e.title,
+                            slug: e.slug,
+                            description: e.description || '',
+                            shortDescription: e.shortDescription || '',
+                            image: e.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800',
+                            bannerImage: e.bannerImage,
+                            startDate: e.startDate,
+                            endDate: e.endDate,
+                            timezone: e.timezone || 'Asia/Kolkata',
+                            locationType: e.locationType || 'online',
+                            location: e.location || 'Online',
+                            venue: e.venue,
+                            eventLink: e.eventLink,
+                            registrationLink: e.registrationLink,
+                            category: e.category,
+                            tags: e.tags || [],
+                            organizer: e.organizer || 'TheCyberHub',
+                            organizerLogo: e.organizerLogo,
+                            speakers: e.speakers || [],
+                            status: e.status || 'upcoming',
+                            isFeatured: e.isFeatured || false,
+                        });
+                    } else {
+                        // Fallback to sample data
+                        const sampleEvent = sampleEvents.find(e => e.slug === slug);
+                        setEvent(sampleEvent || null);
+                    }
+                } else {
+                    // Fallback to sample data
+                    const sampleEvent = sampleEvents.find(e => e.slug === slug);
+                    setEvent(sampleEvent || null);
+                }
+            } catch (err) {
+                console.error('Failed to fetch event:', err);
+                // Fallback to sample data
+                const sampleEvent = sampleEvents.find(e => e.slug === slug);
+                setEvent(sampleEvent || null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvent();
+    }, [slug]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+            </div>
+        );
+    }
 
     if (!event) {
         notFound();
@@ -223,7 +435,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
     const colors = categoryColors[event.category];
 
     return (
-        <div className="min-h-screen bg-gray-950">
+        <div className="min-h-screen bg-black">
             {/* Hero */}
             <div className="relative">
                 {/* Background Image */}
@@ -233,7 +445,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                         alt={event.title}
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-gray-950/60 via-gray-950/80 to-gray-950" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
                 </div>
 
                 {/* Nav */}
@@ -273,19 +485,8 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex flex-wrap gap-3">
-                        {event.registrationLink && (
-                            <a
-                                href={event.registrationLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-cyan-500/25"
-                            >
-                                <Ticket className="w-5 h-5" />
-                                Register Now
-                                <ExternalLink className="w-4 h-4" />
-                            </a>
-                        )}
+                    <div className="flex flex-wrap items-center gap-3">
+                        <RegistrationButton eventId={event.id} registrationLink={event.registrationLink} />
                         <AddToCalendarDropdown event={event} />
                         <ShareButton event={event} />
                     </div>
@@ -429,6 +630,8 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }
