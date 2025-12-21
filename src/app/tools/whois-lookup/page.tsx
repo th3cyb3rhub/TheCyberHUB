@@ -67,7 +67,7 @@ const WhoisLookupPage = () => {
                 updatedDate: data.updated_date,
                 nameServers: data.name_servers,
             });
-        } catch (err) {
+        } catch {
             // Show domain with external link option
             setResult({
                 domain: cleanDomain,

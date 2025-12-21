@@ -81,6 +81,26 @@ const CheatsheetsPage = () => {
             icon: <Terminal className="w-5 h-5" />,
             color: 'from-orange-500/20 to-orange-600/10'
         },
+        {
+            id: 'web-security',
+            title: 'Web Security',
+            description: 'Web application vulnerabilities and attack vectors',
+            category: 'Web Security',
+            commandCount: 50,
+            href: '/cheatsheets/web-security',
+            icon: <Code className="w-5 h-5" />,
+            color: 'from-indigo-500/20 to-indigo-600/10'
+        },
+        {
+            id: 'osint',
+            title: 'OSINT',
+            description: 'Open-source intelligence gathering techniques',
+            category: 'Reconnaissance',
+            commandCount: 45,
+            href: '/cheatsheets/osint',
+            icon: <FileText className="w-5 h-5" />,
+            color: 'from-teal-500/20 to-teal-600/10'
+        },
     ];
 
     const categories = ['all', ...Array.from(new Set(cheatsheets.map(s => s.category)))];

@@ -1,8 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5005';
+import { API_URL } from '@/lib/api';
 
 interface User {
     id: string;
@@ -11,6 +10,25 @@ interface User {
     email: string;
     avatar: string | null;
     role: string;
+    provider?: 'local' | 'google' | 'github';
+    isVerified?: boolean;
+    stats?: {
+        eventsAttended: number;
+        challengesSolved: number;
+        points: number;
+    };
+    bookmarks?: {
+        roadmaps: string[];
+        cheatsheets: string[];
+        tools: string[];
+    };
+    progress?: {
+        roadmaps: {
+            roadmapId: string;
+            completedSteps: string[];
+            percent: number;
+        }[];
+    };
     createdAt?: string;
 }
 
@@ -25,6 +43,12 @@ interface AuthContextType {
     updatePassword: (currentPassword: string, newPassword: string) => Promise<void>;
     forgotPassword: (email: string) => Promise<string>;
     resetPassword: (token: string, password: string) => Promise<void>;
+    requestVerification: () => Promise<string>;
+    verifyEmail: (token: string) => Promise<void>;
+    loginWithGoogle: (idToken: string) => Promise<void>;
+    loginWithGithub: (code: string) => Promise<void>;
+    updateBookmarks: (data: Partial<NonNullable<User['bookmarks']>>) => Promise<void>;
+    updateProgress: (payload: { roadmapId: string; completedSteps: string[]; percent: number }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -195,6 +219,119 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
+    const requestVerification = async (): Promise<string> => {
+        const response = await fetch(`${API_URL}/api/auth/verify/request`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Verification request failed');
+        }
+
+        return result.message;
+    };
+
+    const verifyEmail = async (verificationToken: string) => {
+        const response = await fetch(`${API_URL}/api/auth/verify/confirm`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: verificationToken }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Verification failed');
+        }
+
+        if (result.token) {
+            localStorage.setItem('token', result.token);
+            setToken(result.token);
+        }
+
+        if (result.data) {
+            setUser(result.data);
+        }
+    };
+
+    const loginWithGoogle = async (idToken: string) => {
+        const response = await fetch(`${API_URL}/api/auth/oauth/google`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idToken }),
+        });
+
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(result.error || 'Google login failed');
+        }
+
+        localStorage.setItem('token', result.token);
+        setToken(result.token);
+        setUser(result.data);
+    };
+
+    const loginWithGithub = async (code: string) => {
+        const response = await fetch(`${API_URL}/api/auth/oauth/github`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code }),
+        });
+
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(result.error || 'GitHub login failed');
+        }
+
+        localStorage.setItem('token', result.token);
+        setToken(result.token);
+        setUser(result.data);
+    };
+
+    const updateBookmarks = async (data: Partial<NonNullable<User['bookmarks']>>) => {
+        const response = await fetch(`${API_URL}/api/auth/bookmarks`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Bookmark update failed');
+        }
+
+        if (result.data) setUser(result.data);
+    };
+
+    const updateProgress = async (payload: { roadmapId: string; completedSteps: string[]; percent: number }) => {
+        const response = await fetch(`${API_URL}/api/auth/progress`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Progress update failed');
+        }
+
+        if (result.data) setUser(result.data);
+    };
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -207,6 +344,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             updatePassword,
             forgotPassword,
             resetPassword,
+            requestVerification,
+            verifyEmail,
+            loginWithGoogle,
+            loginWithGithub,
+            updateBookmarks,
+            updateProgress,
         }}>
             {children}
         </AuthContext.Provider>

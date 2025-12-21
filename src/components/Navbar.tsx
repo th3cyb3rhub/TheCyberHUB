@@ -12,14 +12,19 @@ import {
     FileText,
     Map as MapIcon,
     ArrowRight,
-    Terminal,
     User,
     BookOpen,
     LogOut,
     Calendar,
     Code2,
     GraduationCap,
-    Ticket
+    Ticket,
+    LayoutDashboard,
+    MessageCircle,
+    Search,
+    Command,
+    Flag,
+    Shield
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -52,12 +57,15 @@ const Navbar = () => {
 
     // Learn dropdown items
     const learnLinks = [
+        { title: "Challenges", href: "/challenges", icon: <Flag className="w-4 h-4" />, description: "CTF challenges" },
+        { title: "Labs", href: "/labs", icon: <Shield className="w-4 h-4" />, description: "Hands-on labs (coming soon)" },
         { title: "Events", href: "/events", icon: <Calendar className="w-4 h-4" />, description: "CTFs & workshops" },
         { title: "Code Review", href: "/code-review", icon: <Code2 className="w-4 h-4" />, description: "Security exercises" },
     ];
 
     // All nav links for mobile
-    const allNavLinks = [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _allNavLinks = [
         { title: "Tools", href: "/tools", icon: <Wrench className="w-4 h-4" /> },
         ...learnLinks,
         ...resourceLinks,
@@ -156,10 +164,40 @@ const Navbar = () => {
                             label="Resources"
                             items={resourceLinks}
                         />
+
+                        {/* Community Link */}
+                        <Link
+                            href="https://discord.gg/d3gBSNrVKb"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors group"
+                        >
+                            <MessageCircle className="w-4 h-4 text-indigo-400 group-hover:text-indigo-300" />
+                            Discord
+                        </Link>
                     </div>
 
                     {/* Right side */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        {/* Search Trigger */}
+                        <button
+                            onClick={() => {
+                                const event = new KeyboardEvent('keydown', {
+                                    key: 'k',
+                                    metaKey: true,
+                                    bubbles: true
+                                });
+                                document.dispatchEvent(event);
+                            }}
+                            className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all"
+                        >
+                            <Search className="w-4 h-4" />
+                            <span className="hidden lg:inline">Search</span>
+                            <kbd className="hidden md:flex items-center gap-0.5 px-1.5 py-0.5 text-xs bg-white/5 rounded border border-white/10">
+                                <Command className="w-3 h-3" />K
+                            </kbd>
+                        </button>
+
                         {!loading && (
                             user ? (
                                 // Logged in - show user menu
@@ -182,6 +220,13 @@ const Navbar = () => {
                                                     <p className="text-sm font-medium text-white truncate">{user.name}</p>
                                                     <p className="text-xs text-gray-500 truncate">{user.email}</p>
                                                 </div>
+                                                <Link
+                                                    href="/dashboard"
+                                                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                                                >
+                                                    <LayoutDashboard className="w-4 h-4" />
+                                                    Dashboard
+                                                </Link>
                                                 <Link
                                                     href="/profile"
                                                     className="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all"
@@ -218,15 +263,6 @@ const Navbar = () => {
                                 </Link>
                             )
                         )}
-                        <Link
-                            href="https://discord.gg/d3gBSNrVKb"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25"
-                        >
-                            <Terminal className="w-4 h-4" />
-                            Join Community
-                        </Link>
                         <button
                             className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -329,10 +365,10 @@ const Navbar = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="flex items-center justify-center gap-2 p-4 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors font-medium"
+                                className="flex items-center justify-center gap-2 p-4 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 rounded-lg transition-colors font-medium"
                             >
-                                <Terminal className="w-4 h-4" />
-                                Join Community
+                                <MessageCircle className="w-4 h-4" />
+                                Join Discord
                             </Link>
                         </div>
                     </div>

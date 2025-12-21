@@ -12,7 +12,6 @@ import {
     Wrench,
     Building,
     Code,
-    ExternalLink,
     Search,
     CalendarDays,
     Sparkles,
@@ -23,8 +22,7 @@ import {
 } from 'lucide-react';
 import { sampleEvents, eventCategories, Event } from '@/data/events';
 import Footer from '@/components/Footer';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { API_URL } from '@/lib/api';
 
 const categoryIcons: Record<string, React.ReactNode> = {
     ctf: <Flag className="w-4 h-4" />,
@@ -226,7 +224,8 @@ function EventCard({ event }: { event: Event }) {
 export default function EventsPage() {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_error, _setError] = useState<string | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -240,7 +239,7 @@ export default function EventsPage() {
                 if (response.ok) {
                     const data = await response.json();
                     // Transform API response to match Event interface
-                    const apiEvents = data.data?.map((event: any) => ({
+                    const apiEvents = data.data?.map((event: { _id: string; title: string; slug: string; description?: string; shortDescription?: string; image?: string; bannerImage?: string; startDate: string; endDate: string }) => ({
                         id: event._id,
                         title: event.title,
                         slug: event.slug,
@@ -317,10 +316,18 @@ export default function EventsPage() {
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                         Learn, Compete & <span className="gradient-text">Connect</span>
                     </h1>
-                    <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-6">
                         Join CTF competitions, workshops, webinars, and meetups.
                         Connect with the cybersecurity community and level up your skills.
                     </p>
+                    
+                    <Link 
+                        href="/events/calendar"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white transition-colors"
+                    >
+                        <Calendar className="w-4 h-4" />
+                        View Calendar
+                    </Link>
                 </div>
             </section>
 

@@ -7,15 +7,17 @@ import {
     User, 
     Calendar, 
     Shield, 
-    Loader2, 
-    ExternalLink,
     Github,
     Twitter,
     Globe,
-    MapPin
+    MapPin,
+    Flag,
+    Star,
+    BookOpen,
+    Trophy
 } from 'lucide-react';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5005';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { API_URL } from '@/lib/api';
 
 interface PublicUser {
     id: string;
@@ -29,6 +31,12 @@ interface PublicUser {
     website?: string;
     github?: string;
     twitter?: string;
+    stats?: {
+        blogs: number;
+        ctfSolves: number;
+        ctfPoints: number;
+        contributions: number;
+    };
 }
 
 const PublicProfilePage = () => {
@@ -71,8 +79,21 @@ const PublicProfilePage = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+            <div className="min-h-screen bg-black">
+                <div className="h-48 bg-gradient-to-br from-orange-500/20 to-orange-600/10" />
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 -mt-20 pb-20">
+                    <Skeleton className="w-32 h-32 rounded-full border-4 border-black" />
+                    <div className="mt-4 space-y-3">
+                        <Skeleton className="h-8 w-48" />
+                        <Skeleton className="h-5 w-32" />
+                        <Skeleton className="h-4 w-96 max-w-full" />
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                            <Skeleton key={i} className="h-20 rounded-xl" />
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -188,21 +209,33 @@ const PublicProfilePage = () => {
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                        <p className="text-2xl font-bold text-white">0</p>
-                        <p className="text-sm text-gray-500">Blog Posts</p>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
+                        <div className="flex items-center gap-2 mb-2">
+                            <BookOpen className="w-4 h-4 text-blue-400" />
+                            <p className="text-sm text-gray-500">Blog Posts</p>
+                        </div>
+                        <p className="text-2xl font-bold text-white">{user.stats?.blogs || 0}</p>
                     </div>
-                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                        <p className="text-2xl font-bold text-white">0</p>
-                        <p className="text-sm text-gray-500">Roadmaps</p>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Flag className="w-4 h-4 text-green-400" />
+                            <p className="text-sm text-gray-500">CTF Solves</p>
+                        </div>
+                        <p className="text-2xl font-bold text-white">{user.stats?.ctfSolves || 0}</p>
                     </div>
-                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                        <p className="text-2xl font-bold text-white">0</p>
-                        <p className="text-sm text-gray-500">CTF Solves</p>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Star className="w-4 h-4 text-yellow-400" />
+                            <p className="text-sm text-gray-500">CTF Points</p>
+                        </div>
+                        <p className="text-2xl font-bold text-white">{user.stats?.ctfPoints || 0}</p>
                     </div>
-                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                        <p className="text-2xl font-bold text-white">0</p>
-                        <p className="text-sm text-gray-500">Contributions</p>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Trophy className="w-4 h-4 text-orange-400" />
+                            <p className="text-sm text-gray-500">Contributions</p>
+                        </div>
+                        <p className="text-2xl font-bold text-white">{user.stats?.contributions || 0}</p>
                     </div>
                 </div>
 

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Server, Search, Copy, Check, Loader2, ExternalLink } from 'lucide-react';
+import { Server, Search, Copy, Check, Loader2 } from 'lucide-react';
 
 interface DNSRecord {
     type: string;
@@ -63,7 +63,7 @@ const DNSLookupPage = () => {
             } else {
                 setRecords(results);
             }
-        } catch (err) {
+        } catch {
             setError('Failed to lookup DNS records');
         } finally {
             setLoading(false);

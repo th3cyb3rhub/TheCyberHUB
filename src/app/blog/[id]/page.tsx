@@ -4,8 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Clock, Eye, Share2, Bookmark, Loader2 } from 'lucide-react';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { API_URL } from '@/lib/api';
 
 interface Blog {
     _id: string;

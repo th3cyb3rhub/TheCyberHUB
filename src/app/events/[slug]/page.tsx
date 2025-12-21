@@ -2,7 +2,7 @@
 
 import { use, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import {
     Calendar,
     MapPin,
@@ -17,24 +17,24 @@ import {
     ArrowLeft,
     CalendarPlus,
     Share2,
-    Globe,
     Linkedin,
     ChevronDown,
     Timer,
     Ticket,
-    Copy,
     Check,
     Loader2
 } from 'lucide-react';
 import { sampleEvents, Event } from '@/data/events';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/context/AuthContext';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { useToast } from '@/context/ToastContext';
+import { API_URL } from '@/lib/api';
 
 // Registration Button Component
 function RegistrationButton({ eventId, registrationLink }: { eventId: string; registrationLink?: string }) {
     const { user, token } = useAuth();
+    const router = useRouter();
+    const { addToast } = useToast();
     const [isRegistered, setIsRegistered] = useState(false);
     const [loading, setLoading] = useState(false);
     const [checkingStatus, setCheckingStatus] = useState(true);
@@ -68,7 +68,13 @@ function RegistrationButton({ eventId, registrationLink }: { eventId: string; re
 
     const handleRegister = async () => {
         if (!user || !token) {
-            window.location.href = '/auth';
+            const redirectUrl = `${window.location.pathname}${window.location.search}`;
+            addToast({
+                variant: 'info',
+                title: 'Sign in required',
+                message: 'Create an account or sign in to register for this event.',
+            });
+            router.push(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
             return;
         }
 
@@ -305,7 +311,8 @@ function AddToCalendarDropdown({ event }: { event: Event }) {
     );
 }
 
-function ShareButton({ event }: { event: Event }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function ShareButton({ event: _event }: { event: Event }) {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {

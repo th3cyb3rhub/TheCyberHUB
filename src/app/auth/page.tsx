@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Shield, Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2, CheckCircle2, Zap, Users, BookOpen } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 
 type AuthMode = 'login' | 'register';
 
@@ -17,6 +18,9 @@ const features = [
 const AuthPage = () => {
     const router = useRouter();
     const { user, loading: authLoading, login, register } = useAuth();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get('redirect') || '/profile';
+    const { addToast } = useToast();
     const [mode, setMode] = useState<AuthMode>('login');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -46,12 +50,11 @@ const AuthPage = () => {
     const strengthLabels = ['Weak', 'Fair', 'Good', 'Strong'];
     const strengthColors = ['bg-red-500', 'bg-yellow-500', 'bg-blue-500', 'bg-green-500'];
 
-    // Redirect if already logged in
     useEffect(() => {
         if (!authLoading && user) {
-            router.push('/profile');
+            router.push(redirect);
         }
-    }, [authLoading, user, router]);
+    }, [authLoading, user, router, redirect]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(prev => ({
@@ -82,14 +85,30 @@ const AuthPage = () => {
 
                 await register(formData.name, formData.email, formData.password, formData.username || undefined);
                 setSuccess('Account created successfully!');
+                addToast({
+                    variant: 'success',
+                    title: 'Account created',
+                    message: 'Your account has been created successfully.',
+                });
             } else {
                 await login(formData.email, formData.password);
                 setSuccess('Welcome back!');
+                addToast({
+                    variant: 'success',
+                    title: 'Signed in',
+                    message: 'You have been signed in successfully.',
+                });
             }
 
-            setTimeout(() => router.push('/profile'), 500);
+            setTimeout(() => router.push(redirect), 500);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Something went wrong');
+            const message = err instanceof Error ? err.message : 'Something went wrong';
+            setError(message);
+            addToast({
+                variant: 'error',
+                title: 'Authentication failed',
+                message,
+            });
         } finally {
             setLoading(false);
         }
@@ -132,6 +151,11 @@ const AuthPage = () => {
                             : 'Create your account and start learning'
                         }
                     </p>
+                    {redirect !== '/profile' && (
+                        <p className="mt-1 text-xs text-gray-500 break-all">
+                            You need to sign in to continue to <span className="text-gray-300">{redirect}</span>.
+                        </p>
+                    )}
                 </div>
 
                 {/* Features (only on register) */}

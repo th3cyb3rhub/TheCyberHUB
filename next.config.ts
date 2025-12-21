@@ -155,4 +155,7 @@ const nextConfig: NextConfig = {
     },
 }
 
+// Sentry is optional - only wrap if @sentry/nextjs is installed and DSN is configured
+// To enable Sentry: npm install @sentry/nextjs && set NEXT_PUBLIC_SENTRY_DSN env var
+
 export default nextConfig

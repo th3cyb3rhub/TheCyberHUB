@@ -1,8 +1,10 @@
 // components/StructuredData.tsx
 import React from 'react';
 
+type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+
 interface StructuredDataProps {
-    data: Record<string, any>;
+    data: Record<string, JsonValue>;
 }
 
 const StructuredData: React.FC<StructuredDataProps> = ({ data }) => {

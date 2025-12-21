@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Search, Copy, ExternalLink, ArrowLeft, Check } from 'lucide-react';
+import { Copy, ExternalLink, ArrowLeft, Check } from 'lucide-react';
 import Link from 'next/link';
 
 interface Dork {

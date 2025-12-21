@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
     Map,
     Clock,
@@ -14,13 +15,15 @@ import {
     Play,
     BookOpen,
     Youtube,
-    Loader2,
     ArrowRight,
-    Sparkles
+    Sparkles,
+    Bookmark
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { SkeletonRoadmapsGrid } from '@/components/ui/SkeletonRoadmap';
+import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
+import { API_URL } from '@/lib/api';
 
 interface LearningStep {
     id: string;
@@ -57,10 +60,63 @@ interface Roadmap {
 }
 
 const RoadmapsPage = () => {
+    const { user, updateBookmarks } = useAuth();
+    const router = useRouter();
+    const { addToast } = useToast();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [loading, setLoading] = useState(true);
+    const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
+
+    // Load bookmarks from user
+    useEffect(() => {
+        if (user?.bookmarks?.roadmaps) {
+            setBookmarkedIds(new Set(user.bookmarks.roadmaps));
+        }
+    }, [user]);
+
+    const toggleBookmark = async (roadmapId: string) => {
+        if (!user) {
+            addToast({
+                variant: 'info',
+                title: 'Sign in required',
+                message: 'Create an account or sign in to bookmark roadmaps.',
+            });
+            const redirectUrl = `${window.location.pathname}${window.location.search}`;
+            router.push(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
+            return;
+        }
+
+        const newBookmarks = new Set(bookmarkedIds);
+        if (newBookmarks.has(roadmapId)) {
+            newBookmarks.delete(roadmapId);
+        } else {
+            newBookmarks.add(roadmapId);
+        }
+        
+        setBookmarkedIds(newBookmarks);
+
+        try {
+            await updateBookmarks({ roadmaps: Array.from(newBookmarks) });
+            addToast({
+                variant: 'success',
+                title: newBookmarks.has(roadmapId) ? 'Roadmap bookmarked' : 'Bookmark removed',
+                message: newBookmarks.has(roadmapId)
+                    ? 'You can find this roadmap in your saved items.'
+                    : 'This roadmap was removed from your bookmarks.',
+            });
+        } catch (err) {
+            console.error('Failed to update bookmarks:', err);
+            // Revert on error
+            setBookmarkedIds(bookmarkedIds);
+            addToast({
+                variant: 'error',
+                title: 'Failed to update bookmarks',
+                message: 'Please try again in a moment.',
+            });
+        }
+    };
 
     // Fetch roadmaps from backend
     useEffect(() => {
@@ -435,8 +491,10 @@ const RoadmapsPage = () => {
     // Loading state
     if (loading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
+            <div className="min-h-screen bg-black pt-32 pb-16 px-4 sm:px-6">
+                <div className="max-w-6xl mx-auto">
+                    <SkeletonRoadmapsGrid />
+                </div>
             </div>
         );
     }
@@ -547,6 +605,17 @@ const RoadmapsPage = () => {
                                             </span>
                                         </div>
                                     </div>
+                                    <button
+                                        onClick={() => toggleBookmark(roadmap.id)}
+                                        className={`shrink-0 p-2 rounded-lg border transition-all ${
+                                            bookmarkedIds.has(roadmap.id)
+                                                ? 'bg-orange-500/10 border-orange-500/50 text-orange-400'
+                                                : 'border-white/10 text-gray-400 hover:border-orange-500/30 hover:text-orange-400'
+                                        }`}
+                                        title={bookmarkedIds.has(roadmap.id) ? 'Remove bookmark' : 'Bookmark roadmap'}
+                                    >
+                                        <Bookmark className={`w-5 h-5 ${bookmarkedIds.has(roadmap.id) ? 'fill-current' : ''}`} />
+                                    </button>
                                 </div>
                             </div>
 

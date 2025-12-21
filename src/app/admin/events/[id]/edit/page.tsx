@@ -16,8 +16,7 @@ import {
     Trash2
 } from 'lucide-react';
 import Link from 'next/link';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { API_URL } from '@/lib/api';
 
 const categories = [
     { id: 'ctf', name: 'CTF' },
@@ -98,7 +97,8 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
     // Check if user is admin
     useEffect(() => {
         if (!authLoading && (!user || user.role !== 'admin')) {
-            router.push('/auth');
+            const redirectUrl = `${window.location.pathname}${window.location.search}`;
+            router.push(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
         }
     }, [user, authLoading, router]);
 
@@ -187,7 +187,7 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
                 const data = await response.json();
                 setError(data.error || 'Failed to update event');
             }
-        } catch (err) {
+        } catch {
             setError('Failed to update event');
         } finally {
             setSaving(false);
@@ -210,7 +210,7 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
             } else {
                 setError('Failed to delete event');
             }
-        } catch (err) {
+        } catch {
             setError('Failed to delete event');
         }
         setShowDeleteModal(false);

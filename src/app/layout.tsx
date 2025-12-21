@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import '@/lib/monitoring'
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/next"
 import { AuthProvider } from "@/context/AuthContext";
+import GlobalSearch from "@/components/GlobalSearch";
+import { ToastProvider } from "@/context/ToastContext";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -137,7 +140,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className="dark">
+        <html lang="en" className="dark" suppressHydrationWarning>
             <head>
                 {/* Preconnect to external domains - Performance optimization */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -164,6 +167,9 @@ export default function RootLayout({
                 <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
                 <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
                 <meta httpEquiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+                
+                {/* Disable Dark Reader - site is already dark themed */}
+                <meta name="darkreader-lock" />
                 {/* CSP removed for development - configure in next.config.js for production */}
 
                 {/* Enhanced Structured Data */}
@@ -202,10 +208,13 @@ export default function RootLayout({
             </head>
             <body className={`${inter.className} cyberhub-bg`} suppressHydrationWarning>
                 <AuthProvider>
-                    <Navbar />
-                    <main>
-                        {children}
-                    </main>
+                    <ToastProvider>
+                        <Navbar />
+                        <GlobalSearch />
+                        <main>
+                            {children}
+                        </main>
+                    </ToastProvider>
                 </AuthProvider>
                 <Analytics />
             </body>

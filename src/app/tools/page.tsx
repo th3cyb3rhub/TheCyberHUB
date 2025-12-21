@@ -2,7 +2,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Search, Key, Globe, Terminal, ArrowRight, ArrowLeftRight, Hash, Wifi, Server, Wrench, Sparkles } from 'lucide-react';
+import { Search, Key, Globe, Terminal, ArrowRight, ArrowLeftRight, Hash, Wifi, Server, Wrench, Sparkles, Code, Database, Shield, Lock, Radio } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
@@ -112,6 +112,72 @@ const ToolsPage = () => {
             href: '/tools/dns-lookup',
             icon: <Server className="w-5 h-5" />
         },
+        {
+            id: 'reverse-shell',
+            name: 'Reverse Shell Generator',
+            description: 'Generate reverse shell payloads for pentesting',
+            status: 'available',
+            href: '/tools/reverse-shell',
+            icon: <Terminal className="w-5 h-5" />,
+            popular: true
+        },
+        {
+            id: 'xss-payloads',
+            name: 'XSS Payloads',
+            description: 'Collection of XSS payloads with encoder',
+            status: 'available',
+            href: '/tools/xss-payloads',
+            icon: <Code className="w-5 h-5" />,
+            popular: true
+        },
+        {
+            id: 'sql-injection',
+            name: 'SQL Injection Payloads',
+            description: 'SQLi payloads for different databases',
+            status: 'available',
+            href: '/tools/sql-injection',
+            icon: <Database className="w-5 h-5" />
+        },
+        {
+            id: 'cors-tester',
+            name: 'CORS Tester',
+            description: 'Test CORS misconfigurations',
+            status: 'available',
+            href: '/tools/cors-tester',
+            icon: <Globe className="w-5 h-5" />
+        },
+        {
+            id: 'ssl-checker',
+            name: 'SSL/TLS Checker',
+            description: 'Analyze SSL certificate security',
+            status: 'available',
+            href: '/tools/ssl-checker',
+            icon: <Lock className="w-5 h-5" />
+        },
+        {
+            id: 'port-scanner',
+            name: 'Port Scanner',
+            description: 'Info about port scanning tools and techniques',
+            status: 'available',
+            href: '/tools/port-scanner',
+            icon: <Radio className="w-5 h-5" />
+        },
+        {
+            id: 'cve-search',
+            name: 'CVE Search',
+            description: 'Search CVE vulnerability database',
+            status: 'available',
+            href: '/tools/cve-search',
+            icon: <Shield className="w-5 h-5" />
+        },
+        {
+            id: 'exploit-db',
+            name: 'Exploit-DB Search',
+            description: 'Search exploits and proof-of-concept code',
+            status: 'available',
+            href: '/tools/exploit-db',
+            icon: <Database className="w-5 h-5" />
+        },
     ];
 
     const filteredTools = tools.filter(tool => {
@@ -134,7 +200,7 @@ const ToolsPage = () => {
                     <div className="flex items-center gap-2 mb-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5">
                             <Wrench className="w-4 h-4 text-orange-500" />
-                            <span className="text-sm text-gray-400">{tools.length} Free Tools</span>
+                            <span className="text-sm text-gray-400">18 Free Tools</span>
                         </div>
                     </div>
 

@@ -21,8 +21,7 @@ import {
     Ticket
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { API_URL } from '@/lib/api';
 
 interface Event {
     _id: string;
@@ -185,7 +184,8 @@ export default function MyEventsPage() {
 
     useEffect(() => {
         if (!authLoading && !user) {
-            router.push('/auth');
+            const redirectUrl = `${window.location.pathname}${window.location.search}`;
+            router.push(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
         }
     }, [user, authLoading, router]);
 
@@ -213,7 +213,7 @@ export default function MyEventsPage() {
                                     registeredEvents.push(event);
                                 }
                             }
-                        } catch (err) {
+                        } catch {
                             // Skip this event
                         }
                     }
@@ -278,7 +278,7 @@ export default function MyEventsPage() {
                         My <span className="gradient-text">Events</span>
                     </h1>
                     <p className="text-gray-400 max-w-xl">
-                        View and manage your event registrations. Don't miss out on upcoming workshops, CTFs, and meetups!
+                        View and manage your event registrations. Don&apos;t miss out on upcoming workshops, CTFs, and meetups!
                     </p>
                 </div>
             </section>
@@ -292,7 +292,7 @@ export default function MyEventsPage() {
                         </div>
                         <h2 className="text-xl font-semibold text-white mb-3">No registered events</h2>
                         <p className="text-gray-500 mb-6 max-w-md mx-auto">
-                            You haven't registered for any events yet. Browse our upcoming events and join the community!
+                            You haven&apos;t registered for any events yet. Browse our upcoming events and join the community!
                         </p>
                         <Link
                             href="/events"
@@ -322,7 +322,7 @@ export default function MyEventsPage() {
                         {/* Past Events */}
                         {pastEvents.length > 0 && (
                             <section>
-                                <h2 className="text-xl font-semibold text-white mb-6 text-gray-400">
+                                <h2 className="text-xl font-semibold text-gray-400 mb-6">
                                     Past Events ({pastEvents.length})
                                 </h2>
                                 <div className="space-y-4 opacity-60">

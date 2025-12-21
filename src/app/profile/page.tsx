@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 import {
     User,
     Mail,
@@ -15,12 +16,14 @@ import {
     Loader2,
     CheckCircle,
     AlertCircle,
-    ExternalLink
+    ExternalLink,
+    BadgeCheck,
+    Clock3
 } from 'lucide-react';
 
 const ProfilePage = () => {
     const router = useRouter();
-    const { user, loading, logout, updateProfile, updatePassword } = useAuth();
+    const { user, loading, logout, updateProfile, updatePassword, requestVerification } = useAuth();
     const [activeTab, setActiveTab] = useState<'profile' | 'security'>('profile');
 
     // Profile form
@@ -37,6 +40,12 @@ const ProfilePage = () => {
     const [passwordLoading, setPasswordLoading] = useState(false);
     const [passwordSuccess, setPasswordSuccess] = useState(false);
     const [passwordError, setPasswordError] = useState<string | null>(null);
+
+    // Verification
+    const [verificationLoading, setVerificationLoading] = useState(false);
+    const [verificationMessage, setVerificationMessage] = useState<string | null>(null);
+    const [verificationError, setVerificationError] = useState<string | null>(null);
+    const { addToast } = useToast();
 
     // Initialize form when user loads
     React.useEffect(() => {
@@ -62,9 +71,19 @@ const ProfilePage = () => {
         try {
             await updateProfile({ name, username });
             setProfileSuccess(true);
+            addToast({
+                variant: 'success',
+                title: 'Profile updated',
+                message: 'Your profile information has been saved.',
+            });
             setTimeout(() => setProfileSuccess(false), 3000);
         } catch (err) {
             setProfileError(err instanceof Error ? err.message : 'Update failed');
+            addToast({
+                variant: 'error',
+                title: 'Update failed',
+                message: err instanceof Error ? err.message : 'Could not update profile.',
+            });
         } finally {
             setProfileLoading(false);
         }
@@ -90,12 +109,22 @@ const ProfilePage = () => {
         try {
             await updatePassword(currentPassword, newPassword);
             setPasswordSuccess(true);
+            addToast({
+                variant: 'success',
+                title: 'Password updated',
+                message: 'Your password has been changed successfully.',
+            });
             setCurrentPassword('');
             setNewPassword('');
             setConfirmPassword('');
             setTimeout(() => setPasswordSuccess(false), 3000);
         } catch (err) {
             setPasswordError(err instanceof Error ? err.message : 'Update failed');
+            addToast({
+                variant: 'error',
+                title: 'Password update failed',
+                message: err instanceof Error ? err.message : 'Could not update password.',
+            });
         } finally {
             setPasswordLoading(false);
         }
@@ -103,6 +132,11 @@ const ProfilePage = () => {
 
     const handleLogout = () => {
         logout();
+        addToast({
+            variant: 'info',
+            title: 'Signed out',
+            message: 'You have been logged out.',
+        });
         router.push('/');
     };
 
@@ -139,6 +173,14 @@ const ProfilePage = () => {
                                     <ExternalLink className="w-3 h-3" />
                                 </Link>
                                 <p className="text-gray-500 text-sm mt-0.5">{user.email}</p>
+                                <div className="flex items-center gap-2 mt-2">
+                                    <span className="text-xs px-2 py-1 rounded border border-white/10 text-gray-400">
+                                        {user.provider ? `${user.provider} account` : 'local account'}
+                                    </span>
+                                    <span className={`text-xs px-2 py-1 rounded border ${user.isVerified ? 'border-green-500/40 text-green-400 bg-green-500/10' : 'border-yellow-500/40 text-yellow-400 bg-yellow-500/10'}`}>
+                                        {user.isVerified ? 'Verified' : 'Not verified'}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <button
@@ -235,7 +277,62 @@ const ProfilePage = () => {
                                         className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-gray-500 cursor-not-allowed"
                                     />
                                 </div>
-                                <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                                <p className="text-xs text-gray-500 mt-1 flex items-center gap-2">
+                                    Email cannot be changed
+                                    {!user.isVerified && user.provider === 'local' && (
+                                        <span className="inline-flex items-center gap-1 text-yellow-400">
+                                            <Clock3 className="w-3 h-3" />
+                                            Verify to unlock all features
+                                        </span>
+                                    )}
+                                </p>
+
+                                {!user.isVerified && user.provider === 'local' && (
+                                    <div className="mt-4 flex items-center gap-3">
+                                        <button
+                                            type="button"
+                                            onClick={async () => {
+                                                setVerificationError(null);
+                                                setVerificationMessage(null);
+                                                setVerificationLoading(true);
+                                                try {
+                                                    const message = await requestVerification();
+                                                    setVerificationMessage(message);
+                                                    addToast({
+                                                        variant: 'success',
+                                                        title: 'Verification email sent',
+                                                        message,
+                                                    });
+                                                } catch (err) {
+                                                    const message = err instanceof Error ? err.message : 'Failed to send verification';
+                                                    setVerificationError(message);
+                                                    addToast({
+                                                        variant: 'error',
+                                                        title: 'Verification failed',
+                                                        message,
+                                                    });
+                                                } finally {
+                                                    setVerificationLoading(false);
+                                                }
+                                            }}
+                                            disabled={verificationLoading}
+                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-white hover:border-orange-500/40 hover:bg-orange-500/10 transition-all"
+                                        >
+                                            {verificationLoading ? (
+                                                <Loader2 className="w-4 h-4 animate-spin" />
+                                            ) : (
+                                                <BadgeCheck className="w-4 h-4" />
+                                            )}
+                                            Send verification email
+                                        </button>
+                                        {verificationMessage && (
+                                            <span className="text-sm text-green-400">{verificationMessage}</span>
+                                        )}
+                                        {verificationError && (
+                                            <span className="text-sm text-red-400">{verificationError}</span>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             <div>
@@ -270,7 +367,14 @@ const ProfilePage = () => {
                     {/* Security Tab */}
                     {activeTab === 'security' && (
                         <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8">
-                        <h2 className="text-lg font-semibold text-white mb-6">Change Password</h2>
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-lg font-semibold text-white">Change Password</h2>
+                            {user.provider !== 'local' && (
+                                <span className="text-xs px-2 py-1 rounded border border-white/10 text-gray-400">
+                                    Password not available for {user.provider}
+                                </span>
+                            )}
+                        </div>
 
                         {passwordError && (
                             <div className="mb-6 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-2">
@@ -297,6 +401,7 @@ const ProfilePage = () => {
                                         onChange={(e) => setCurrentPassword(e.target.value)}
                                         placeholder="••••••••"
                                         required
+                                        disabled={user.provider !== 'local'}
                                         className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
                                     />
                                 </div>
@@ -312,6 +417,7 @@ const ProfilePage = () => {
                                         onChange={(e) => setNewPassword(e.target.value)}
                                         placeholder="••••••••"
                                         required
+                                        disabled={user.provider !== 'local'}
                                         minLength={8}
                                         className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
                                     />
@@ -328,6 +434,7 @@ const ProfilePage = () => {
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         placeholder="••••••••"
                                         required
+                                        disabled={user.provider !== 'local'}
                                         minLength={8}
                                         className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
                                     />
@@ -336,7 +443,7 @@ const ProfilePage = () => {
 
                             <button
                                 type="submit"
-                                disabled={passwordLoading}
+                                disabled={passwordLoading || user.provider !== 'local'}
                                 className="flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 btn-press"
                             >
                                 {passwordLoading ? (

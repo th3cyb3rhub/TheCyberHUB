@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Calendar, User, Clock, ArrowRight, BookOpen, Loader2, PenLine } from 'lucide-react';
+import { Search, Calendar, User, Clock, BookOpen, PenLine } from 'lucide-react';
 import Footer from '@/components/Footer';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { SkeletonBlogGrid } from '@/components/ui/Skeleton';
+import { API_URL } from '@/lib/api';
 
 interface Blog {
     _id: string;
@@ -150,9 +150,7 @@ const BlogPage = () => {
             {/* Blog Grid */}
             <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
                 {loading ? (
-                    <div className="flex justify-center py-20">
-                        <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
-                    </div>
+                    <SkeletonBlogGrid />
                 ) : filteredBlogs.length === 0 ? (
                     <div className="text-center py-20">
                         <p className="text-gray-500">

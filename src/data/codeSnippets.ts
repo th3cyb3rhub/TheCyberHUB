@@ -5,7 +5,7 @@ export interface CodeSnippet {
     title: string;
     description: string;
     language: 'javascript' | 'python' | 'php' | 'java' | 'sql' | 'go';
-    category: 'sqli' | 'xss' | 'ssrf' | 'idor' | 'auth' | 'crypto' | 'injection';
+    category: 'sqli' | 'xss' | 'ssrf' | 'idor' | 'auth' | 'crypto' | 'injection' | 'xxe' | 'deserialization' | 'redirect' | 'traversal' | 'rng';
     difficulty: 'easy' | 'medium' | 'hard';
     vulnerableCode: string;
     exploitedCode: string; // Vulnerable code with malicious payload injected
@@ -1267,6 +1267,578 @@ GET /api/invoice/INV-0003`,
 ✓ Competitor pricing exposed
 ✓ Customer lists leaked`
         }
+    },
+    {
+        id: 'xxe-xml-parser-easy',
+        title: 'XXE in XML Parser',
+        description: 'XML External Entity vulnerability allowing file disclosure through unsafe XML parsing.',
+        language: 'python',
+        category: 'xxe',
+        difficulty: 'easy',
+        vulnerableCode: `from lxml import etree
+
+def parse_user_data(xml_string):
+    # Parse XML from user input
+    parser = etree.XMLParser()
+    doc = etree.fromstring(xml_string, parser)
+    
+    user_data = {
+        'name': doc.find('name').text,
+        'email': doc.find('email').text,
+        'role': doc.find('role').text
+    }
+    
+    return user_data`,
+        exploitedCode: `from lxml import etree
+
+def parse_user_data(xml_string):
+    # Parse XML from user input
+    parser = etree.XMLParser()
+    # Malicious XXE payload:
+    # <?xml version="1.0"?>
+    # <!DOCTYPE data [
+    #   <!ENTITY xxe SYSTEM "file:///etc/passwd">
+    # ]>
+    # <user><name>&xxe;</name><email>test@test.com</email><role>user</role></user>
+    doc = etree.fromstring(xml_string, parser)
+    
+    user_data = {
+        'name': doc.find('name').text,  # Returns contents of /etc/passwd
+        'email': doc.find('email').text,
+        'role': doc.find('role').text
+    }
+    
+    return user_data`,
+        secureCode: `from lxml import etree
+
+def parse_user_data(xml_string):
+    # Secure parser - disable external entities
+    parser = etree.XMLParser(
+        resolve_entities=False,
+        no_network=True,
+        dtd_validation=False,
+        load_dtd=False
+    )
+    
+    try:
+        doc = etree.fromstring(xml_string, parser)
+        
+        user_data = {
+            'name': doc.find('name').text,
+            'email': doc.find('email').text,
+            'role': doc.find('role').text
+        }
+        
+        return user_data
+    except etree.XMLSyntaxError:
+        raise ValueError("Invalid XML format")`,
+        secureExploitedCode: `from lxml import etree
+
+def parse_user_data(xml_string):
+    # Secure parser - disable external entities
+    parser = etree.XMLParser(
+        resolve_entities=False,  # Prevents XXE
+        no_network=True,
+        dtd_validation=False,
+        load_dtd=False
+    )
+    
+    try:
+        # XXE payload blocked by secure parser
+        doc = etree.fromstring(xml_string, parser)
+        
+        user_data = {
+            'name': doc.find('name').text,  # External entity ignored
+            'email': doc.find('email').text,
+            'role': doc.find('role').text
+        }
+        
+        return user_data
+    except etree.XMLSyntaxError:
+        raise ValueError("Invalid XML format")`,
+        vulnerableLines: [5, 6],
+        explanation: 'The vulnerable code uses XMLParser without disabling external entity resolution. Attackers can inject DTD declarations to read local files or perform SSRF. The secure version disables resolve_entities, no_network, and DTD loading.',
+        hints: [
+            'Check how the XMLParser is configured',
+            'External entities can reference local files',
+            'Look for parser options that prevent external resource loading'
+        ],
+        vulnerabilityType: 'XML External Entity (XXE)',
+        severity: 'high',
+        cwe: 'CWE-611',
+        owasp: 'A05:2021 – Security Misconfiguration',
+        exploitExample: {
+            title: 'Read /etc/passwd',
+            description: 'Inject DTD to read sensitive system files',
+            payload: '<?xml version="1.0"?><!DOCTYPE data [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><user><name>&xxe;</name><email>x@x.com</email><role>user</role></user>',
+            result: 'Returns /etc/passwd contents in name field'
+        }
+    },
+    {
+        id: 'path-traversal-easy',
+        title: 'Path Traversal in File Read',
+        description: 'Directory traversal vulnerability allowing unauthorized file access through path manipulation.',
+        language: 'python',
+        category: 'traversal',
+        difficulty: 'easy',
+        vulnerableCode: `import os
+
+def read_user_file(filename):
+    # Read files from user uploads directory
+    base_dir = '/var/www/uploads'
+    file_path = os.path.join(base_dir, filename)
+    
+    with open(file_path, 'r') as f:
+        return f.read()`,
+        exploitedCode: `import os
+
+def read_user_file(filename):
+    # Read files from user uploads directory
+    base_dir = '/var/www/uploads'
+    # Attacker sends: ../../etc/passwd
+    file_path = os.path.join(base_dir, filename)  # Results in /var/www/uploads/../../etc/passwd
+    
+    with open(file_path, 'r') as f:  # Opens /etc/passwd
+        return f.read()`,
+        secureCode: `import os
+from pathlib import Path
+
+def read_user_file(filename):
+    # Read files from user uploads directory
+    base_dir = Path('/var/www/uploads').resolve()
+    
+    # Prevent directory traversal
+    requested_path = (base_dir / filename).resolve()
+    
+    # Ensure the resolved path is within base_dir
+    if not str(requested_path).startswith(str(base_dir)):
+        raise ValueError("Access denied: Path traversal detected")
+    
+    with open(requested_path, 'r') as f:
+        return f.read()`,
+        secureExploitedCode: `import os
+from pathlib import Path
+
+def read_user_file(filename):
+    # Read files from user uploads directory
+    base_dir = Path('/var/www/uploads').resolve()
+    
+    # Prevent directory traversal
+    # Attacker sends: ../../etc/passwd
+    requested_path = (base_dir / filename).resolve()  # Resolves to /etc/passwd
+    
+    # Ensure the resolved path is within base_dir
+    if not str(requested_path).startswith(str(base_dir)):  # /etc/passwd doesn't start with /var/www/uploads
+        raise ValueError("Access denied: Path traversal detected")  # Blocked!
+    
+    with open(requested_path, 'r') as f:
+        return f.read()`,
+        vulnerableLines: [6],
+        explanation: 'The vulnerable code directly concatenates user input to the base directory without validation. Attackers can use ../ sequences to escape the intended directory. The secure version resolves paths and validates they remain within the base directory.',
+        hints: [
+            'Look at how filename is combined with base_dir',
+            'What happens if filename contains ../?',
+            'How can you ensure the final path stays within base_dir?'
+        ],
+        vulnerabilityType: 'Path Traversal',
+        severity: 'high',
+        cwe: 'CWE-22',
+        owasp: 'A01:2021 – Broken Access Control',
+        exploitExample: {
+            title: 'Read /etc/passwd',
+            description: 'Use directory traversal to escape uploads folder',
+            payload: '../../etc/passwd',
+            result: 'Reads /etc/passwd instead of files in uploads'
+        }
+    },
+    {
+        id: 'open-redirect-easy',
+        title: 'Open Redirect in Login',
+        description: 'Unvalidated redirect vulnerability allowing phishing attacks through malicious URLs.',
+        language: 'javascript',
+        category: 'redirect',
+        difficulty: 'easy',
+        vulnerableCode: `app.get('/login', (req, res) => {
+    const { returnUrl } = req.query;
+    
+    if (req.session.user) {
+        // Redirect to returnUrl after login
+        return res.redirect(returnUrl || '/dashboard');
+    }
+    
+    res.render('login', { returnUrl });
+});
+
+app.post('/login', (req, res) => {
+    const { username, password, returnUrl } = req.body;
+    
+    if (validateCredentials(username, password)) {
+        req.session.user = username;
+        res.redirect(returnUrl || '/dashboard');
+    } else {
+        res.render('login', { error: 'Invalid credentials' });
+    }
+});`,
+        exploitedCode: `app.get('/login', (req, res) => {
+    // Attacker sends: /login?returnUrl=https://evil.com/phishing
+    const { returnUrl } = req.query;
+    
+    if (req.session.user) {
+        // Redirects to evil.com after login
+        return res.redirect(returnUrl || '/dashboard');
+    }
+    
+    res.render('login', { returnUrl });
+});
+
+app.post('/login', (req, res) => {
+    const { username, password, returnUrl } = req.body;
+    
+    if (validateCredentials(username, password)) {
+        req.session.user = username;
+        res.redirect(returnUrl || '/dashboard');  // Redirects to attacker site
+    } else {
+        res.render('login', { error: 'Invalid credentials' });
+    }
+});`,
+        secureCode: `app.get('/login', (req, res) => {
+    const { returnUrl } = req.query;
+    const safeReturnUrl = validateReturnUrl(returnUrl);
+    
+    if (req.session.user) {
+        return res.redirect(safeReturnUrl);
+    }
+    
+    res.render('login', { returnUrl: safeReturnUrl });
+});
+
+app.post('/login', (req, res) => {
+    const { username, password, returnUrl } = req.body;
+    const safeReturnUrl = validateReturnUrl(returnUrl);
+    
+    if (validateCredentials(username, password)) {
+        req.session.user = username;
+        res.redirect(safeReturnUrl);
+    } else {
+        res.render('login', { error: 'Invalid credentials' });
+    }
+});
+
+function validateReturnUrl(url) {
+    if (!url) return '/dashboard';
+    
+    // Only allow relative paths or same-origin URLs
+    try {
+        const parsed = new URL(url, 'http://localhost');
+        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+            return '/dashboard';
+        }
+        // Only allow paths (relative URLs)
+        if (url.startsWith('/') && !url.startsWith('//')) {
+            return url;
+        }
+        return '/dashboard';
+    } catch {
+        return '/dashboard';
+    }
+}`,
+        secureExploitedCode: `app.get('/login', (req, res) => {
+    // Attacker sends: /login?returnUrl=https://evil.com/phishing
+    const { returnUrl } = req.query;
+    const safeReturnUrl = validateReturnUrl(returnUrl);  // Returns /dashboard
+    
+    if (req.session.user) {
+        return res.redirect(safeReturnUrl);  // Redirects to /dashboard
+    }
+    
+    res.render('login', { returnUrl: safeReturnUrl });
+});
+
+app.post('/login', (req, res) => {
+    const { username, password, returnUrl } = req.body;
+    const safeReturnUrl = validateReturnUrl(returnUrl);
+    
+    if (validateCredentials(username, password)) {
+        req.session.user = username;
+        res.redirect(safeReturnUrl);  // Safe redirect
+    } else {
+        res.render('login', { error: 'Invalid credentials' });
+    }
+});
+
+function validateReturnUrl(url) {
+    if (!url) return '/dashboard';
+    
+    // Only allow relative paths or same-origin URLs
+    try {
+        const parsed = new URL(url, 'http://localhost');
+        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+            return '/dashboard';
+        }
+        // Only allow paths (relative URLs) - blocks https://evil.com
+        if (url.startsWith('/') && !url.startsWith('//')) {
+            return url;
+        }
+        return '/dashboard';  // Blocked external redirect
+    } catch {
+        return '/dashboard';
+    }
+}`,
+        vulnerableLines: [6, 18],
+        explanation: 'The vulnerable code blindly redirects to user-controlled URLs, enabling phishing attacks. Attackers craft login links that redirect to fake sites after authentication. The secure version validates returnUrl to only allow relative paths within the application.',
+        hints: [
+            'What controls the redirect destination?',
+            'Can returnUrl point to external sites?',
+            'How can you restrict redirects to your application?'
+        ],
+        vulnerabilityType: 'Open Redirect',
+        severity: 'medium',
+        cwe: 'CWE-601',
+        owasp: 'A01:2021 – Broken Access Control',
+        exploitExample: {
+            title: 'Phishing via Open Redirect',
+            description: 'Redirect users to attacker site that looks like legitimate login',
+            payload: 'https://legitimate.com/login?returnUrl=https://evil.com/steal-creds',
+            result: 'User logs in successfully then gets redirected to evil.com'
+        }
+    },
+    {
+        id: 'weak-rng-session',
+        title: 'Weak RNG for Session Tokens',
+        description: 'Predictable session token generation using weak random number generator.',
+        language: 'python',
+        category: 'rng',
+        difficulty: 'medium',
+        vulnerableCode: `import random
+import time
+
+def generate_session_token():
+    # Use time-seeded random for session token
+    random.seed(int(time.time()))
+    token = ''.join([str(random.randint(0, 9)) for _ in range(20)])
+    return token
+
+def create_session(user_id):
+    token = generate_session_token()
+    sessions[token] = {
+        'user_id': user_id,
+        'created_at': time.time()
+    }
+    return token`,
+        exploitedCode: `import random
+import time
+
+def generate_session_token():
+    # Use time-seeded random for session token
+    # Attacker knows approximate time of token generation
+    random.seed(int(time.time()))  # Predictable seed based on current second
+    token = ''.join([str(random.randint(0, 9)) for _ in range(20)])
+    return token  # Token can be predicted/brute-forced
+
+def create_session(user_id):
+    token = generate_session_token()
+    sessions[token] = {
+        'user_id': user_id,
+        'created_at': time.time()
+    }
+    return token
+
+# Attacker can generate all possible tokens for a given time window:
+# for timestamp in range(current_time - 60, current_time + 60):
+#     random.seed(timestamp)
+#     possible_token = ''.join([str(random.randint(0, 9)) for _ in range(20)])
+#     # Try using possible_token to hijack sessions`,
+        secureCode: `import secrets
+import hashlib
+import time
+
+def generate_session_token():
+    # Use cryptographically secure random
+    random_bytes = secrets.token_bytes(32)
+    token = secrets.token_urlsafe(32)
+    return token
+
+def create_session(user_id):
+    token = generate_session_token()
+    # Hash token before storing for additional security
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    
+    sessions[token_hash] = {
+        'user_id': user_id,
+        'created_at': time.time()
+    }
+    return token`,
+        secureExploitedCode: `import secrets
+import hashlib
+import time
+
+def generate_session_token():
+    # Use cryptographically secure random - unpredictable
+    random_bytes = secrets.token_bytes(32)
+    token = secrets.token_urlsafe(32)  # Uses os.urandom, not seeded
+    return token
+
+def create_session(user_id):
+    token = generate_session_token()
+    # Hash token before storing for additional security
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    
+    sessions[token_hash] = {
+        'user_id': user_id,
+        'created_at': time.time()
+    }
+    return token
+
+# Attacker cannot predict tokens:
+# secrets.token_urlsafe uses OS-level random source
+# Each token has 256 bits of entropy
+# No seed to exploit - brute force infeasible`,
+        vulnerableLines: [6, 7],
+        explanation: 'The vulnerable code uses random.seed() with time.time(), making tokens predictable. Attackers who know the approximate generation time can reproduce the random sequence. The secure version uses secrets module for cryptographically strong randomness.',
+        hints: [
+            'Is the random module suitable for security-sensitive tokens?',
+            'What happens when you seed random with time.time()?',
+            'What Python module should be used for cryptographic random?'
+        ],
+        vulnerabilityType: 'Weak Random Number Generation',
+        severity: 'critical',
+        cwe: 'CWE-338',
+        owasp: 'A02:2021 – Cryptographic Failures',
+        exploitExample: {
+            title: 'Session Hijacking',
+            description: 'Predict session tokens by brute-forcing time-based seeds',
+            payload: 'for t in range(time.time()-60, time.time()+60): random.seed(t); generate_possible_tokens()',
+            result: 'Attacker gains access to other user sessions'
+        }
+    },
+    {
+        id: 'deserialization-pickle',
+        title: 'Unsafe Deserialization with Pickle',
+        description: 'Insecure deserialization allowing arbitrary code execution through crafted pickle payloads.',
+        language: 'python',
+        category: 'deserialization',
+        difficulty: 'hard',
+        vulnerableCode: `import pickle
+import base64
+
+def load_user_preferences(encoded_data):
+    # Deserialize user preferences from cookie
+    data = base64.b64decode(encoded_data)
+    preferences = pickle.loads(data)
+    return preferences
+
+@app.route('/preferences', methods=['POST'])
+def update_preferences():
+    prefs_cookie = request.cookies.get('preferences')
+    if prefs_cookie:
+        preferences = load_user_preferences(prefs_cookie)
+        # Apply user preferences
+        apply_theme(preferences.get('theme'))
+        set_language(preferences.get('language'))
+    return jsonify({'success': True})`,
+        exploitedCode: `import pickle
+import base64
+
+def load_user_preferences(encoded_data):
+    # Deserialize user preferences from cookie
+    data = base64.b64decode(encoded_data)
+    # Malicious pickle payload can execute arbitrary code:
+    # class RCE:
+    #     def __reduce__(self):
+    #         import os
+    #         return (os.system, ('rm -rf /',))
+    # payload = pickle.dumps(RCE())
+    preferences = pickle.loads(data)  # Executes attacker code!
+    return preferences
+
+@app.route('/preferences', methods=['POST'])
+def update_preferences():
+    prefs_cookie = request.cookies.get('preferences')
+    if prefs_cookie:
+        preferences = load_user_preferences(prefs_cookie)  # RCE here
+        # Apply user preferences
+        apply_theme(preferences.get('theme'))
+        set_language(preferences.get('language'))
+    return jsonify({'success': True})`,
+        secureCode: `import json
+import base64
+
+def load_user_preferences(encoded_data):
+    # Use JSON instead of pickle - no code execution
+    data = base64.b64decode(encoded_data)
+    preferences = json.loads(data.decode('utf-8'))
+    
+    # Validate schema
+    allowed_keys = {'theme', 'language', 'timezone'}
+    if not isinstance(preferences, dict):
+        raise ValueError("Invalid preferences format")
+    
+    # Only allow expected keys
+    preferences = {k: v for k, v in preferences.items() if k in allowed_keys}
+    
+    return preferences
+
+@app.route('/preferences', methods=['POST'])
+def update_preferences():
+    prefs_cookie = request.cookies.get('preferences')
+    if prefs_cookie:
+        try:
+            preferences = load_user_preferences(prefs_cookie)
+            # Apply user preferences safely
+            apply_theme(preferences.get('theme', 'dark'))
+            set_language(preferences.get('language', 'en'))
+        except (ValueError, json.JSONDecodeError):
+            return jsonify({'error': 'Invalid preferences'}), 400
+    return jsonify({'success': True})`,
+        secureExploitedCode: `import json
+import base64
+
+def load_user_preferences(encoded_data):
+    # Use JSON instead of pickle - no code execution
+    data = base64.b64decode(encoded_data)
+    # Attacker's malicious pickle payload fails here
+    # JSON only deserializes data, not objects with __reduce__
+    preferences = json.loads(data.decode('utf-8'))  # Raises JSONDecodeError on pickle data
+    
+    # Validate schema
+    allowed_keys = {'theme', 'language', 'timezone'}
+    if not isinstance(preferences, dict):
+        raise ValueError("Invalid preferences format")
+    
+    # Only allow expected keys
+    preferences = {k: v for k, v in preferences.items() if k in allowed_keys}
+    
+    return preferences
+
+@app.route('/preferences', methods=['POST'])
+def update_preferences():
+    prefs_cookie = request.cookies.get('preferences')
+    if prefs_cookie:
+        try:
+            preferences = load_user_preferences(prefs_cookie)  # Malicious pickle rejected
+            # Apply user preferences safely
+            apply_theme(preferences.get('theme', 'dark'))
+            set_language(preferences.get('language', 'en'))
+        except (ValueError, json.JSONDecodeError):
+            return jsonify({'error': 'Invalid preferences'}), 400  # Attack blocked
+    return jsonify({'success': True})`,
+        vulnerableLines: [7],
+        explanation: 'Pickle can execute arbitrary Python code during deserialization via __reduce__ magic method. Never unpickle untrusted data. The secure version uses JSON which only handles data, not code, and validates the structure.',
+        hints: [
+            'Can pickle execute code during deserialization?',
+            'Is the data coming from a trusted source?',
+            'What safer serialization formats exist?'
+        ],
+        vulnerabilityType: 'Insecure Deserialization',
+        severity: 'critical',
+        cwe: 'CWE-502',
+        owasp: 'A08:2021 – Software and Data Integrity Failures',
+        exploitExample: {
+            title: 'Remote Code Execution',
+            description: 'Craft pickle payload to execute system commands',
+            payload: 'class RCE:\\n  def __reduce__(self): return (os.system, ("cat /etc/passwd",))',
+            result: 'Arbitrary code execution on server'
+        }
     }
 ];
 
@@ -1277,7 +1849,12 @@ export const categories = [
     { id: 'idor', name: 'IDOR', icon: 'Key' },
     { id: 'auth', name: 'Authentication', icon: 'Lock' },
     { id: 'crypto', name: 'Cryptography', icon: 'Shield' },
-    { id: 'injection', name: 'Other Injection', icon: 'Terminal' },
+    { id: 'injection', name: 'Command Injection', icon: 'Terminal' },
+    { id: 'xxe', name: 'XXE', icon: 'FileCode' },
+    { id: 'deserialization', name: 'Deserialization', icon: 'Package' },
+    { id: 'redirect', name: 'Open Redirect', icon: 'ExternalLink' },
+    { id: 'traversal', name: 'Path Traversal', icon: 'FolderTree' },
+    { id: 'rng', name: 'Weak RNG', icon: 'Dices' },
 ];
 
 export const difficulties = [

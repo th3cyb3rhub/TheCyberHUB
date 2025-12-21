@@ -10,15 +10,12 @@ import {
     Calendar,
     MapPin,
     Link as LinkIcon,
-    Tag,
     Image as ImageIcon,
-    Users,
     AlertCircle,
     CheckCircle
 } from 'lucide-react';
 import Link from 'next/link';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.thecyberhub.org';
+import { API_URL } from '@/lib/api';
 
 const categories = [
     { id: 'ctf', name: 'CTF' },
@@ -87,7 +84,8 @@ export default function NewEventPage() {
     // Check if user is admin
     useEffect(() => {
         if (!authLoading && (!user || user.role !== 'admin')) {
-            router.push('/auth');
+            const redirectUrl = `${window.location.pathname}${window.location.search}`;
+            router.push(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
         }
     }, [user, authLoading, router]);
 
@@ -131,7 +129,7 @@ export default function NewEventPage() {
                 const data = await response.json();
                 setError(data.error || 'Failed to create event');
             }
-        } catch (err) {
+        } catch {
             setError('Failed to create event');
         } finally {
             setLoading(false);

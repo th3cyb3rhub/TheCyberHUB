@@ -1,36 +1,101 @@
-# Logs
-logs
-*.log
+# Dependencies
+node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+*.lcov
+.nyc_output
+/playwright-report
+/test-results
+/playwright/.cache
+
+# Next.js
+/.next/
+/out/
+.next
+dist
+dist-ssr
+build
+
+# Production
+*.local
+*.production
+
+# Misc
+.DS_Store
+*.pem
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+TheCyberHUB.iml
+
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+*storybook.log
+.eslintcache
 
-# Beta features
+# Local env files
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs
+logs
+*.log
+
+# Beta features (if any)
 .fleet
 src/BetaFeatures
 src/assets/BetaFeatures
 src/components/BetaFeatures
 
-node_modules
-dist
-dist-ssr
-*.local
-.next
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# OS
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.eslintcache
-.env
-TheCyberHUB.iml
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-*storybook.log
-/.next
+# IDE
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# Sentry
+.sentryclirc
+
+# Turbopack
+.turbo
