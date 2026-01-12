@@ -309,11 +309,10 @@ const AuthPage = () => {
                                         {[0, 1, 2, 3].map((i) => (
                                             <div
                                                 key={i}
-                                                className={`h-1 flex-1 rounded-full transition-all ${
-                                                    i < passwordStrength
+                                                className={`h-1 flex-1 rounded-full transition-all ${i < passwordStrength
                                                         ? strengthColors[passwordStrength - 1]
                                                         : 'bg-white/10'
-                                                }`}
+                                                    }`}
                                             />
                                         ))}
                                     </div>
@@ -338,13 +337,12 @@ const AuthPage = () => {
                                         placeholder="••••••••"
                                         required
                                         minLength={8}
-                                        className={`w-full pl-11 pr-12 py-3 bg-white/5 border rounded-lg text-white placeholder:text-gray-500 focus:outline-none transition-colors ${
-                                            formData.confirmPassword
+                                        className={`w-full pl-11 pr-12 py-3 bg-white/5 border rounded-lg text-white placeholder:text-gray-500 focus:outline-none transition-colors ${formData.confirmPassword
                                                 ? formData.password === formData.confirmPassword
                                                     ? 'border-green-500/50 focus:border-green-500'
                                                     : 'border-red-500/50 focus:border-red-500'
                                                 : 'border-white/10 focus:border-orange-500/50'
-                                        }`}
+                                            }`}
                                     />
                                     <button
                                         type="button"
@@ -396,6 +394,15 @@ const AuthPage = () => {
                     <div className="grid grid-cols-2 gap-4">
                         <button
                             type="button"
+                            onClick={() => {
+                                const clientId = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID;
+                                if (!clientId) {
+                                    setError('GitHub login not configured');
+                                    return;
+                                }
+                                const redirectUri = `${window.location.origin}/auth/callback/github`;
+                                window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user:email`;
+                            }}
                             className="group flex items-center justify-center gap-2 py-3 border border-white/10 rounded-xl text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-300"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -405,6 +412,15 @@ const AuthPage = () => {
                         </button>
                         <button
                             type="button"
+                            onClick={() => {
+                                const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+                                if (!clientId) {
+                                    setError('Google login not configured');
+                                    return;
+                                }
+                                const redirectUri = `${window.location.origin}/auth/callback/google`;
+                                window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=id_token&scope=openid%20email%20profile&nonce=${Date.now()}`;
+                            }}
                             className="group flex items-center justify-center gap-2 py-3 border border-white/10 rounded-xl text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-300"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">

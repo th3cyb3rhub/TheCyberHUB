@@ -1,28 +1,12 @@
 // Monitoring utilities for error tracking and performance
-// Works with Sentry when installed and DSN is configured, otherwise no-ops safely
-// To enable: npm install @sentry/nextjs && set NEXT_PUBLIC_SENTRY_DSN
-
-const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
-const isEnabled = !!dsn && process.env.NODE_ENV === 'production';
-
-// Lazy-load Sentry to avoid errors when not installed
-let Sentry: typeof import('@sentry/nextjs') | null = null;
-if (isEnabled) {
-    try {
-        // Dynamic import for optional dependency
-        Sentry = require('@sentry/nextjs');
-    } catch {
-        console.warn('[Monitoring] @sentry/nextjs not installed, error tracking disabled');
-    }
-}
+// This is a lightweight wrapper that logs to console in development
+// For production error tracking, configure Sentry separately via sentry.client.config.ts
 
 /**
- * Capture an exception and send to Sentry
+ * Capture an exception and log it
  */
 export function captureException(error: Error, context?: Record<string, unknown>): void {
-    if (isEnabled && Sentry) {
-        Sentry.captureException(error, { extra: context });
-    } else {
+    if (process.env.NODE_ENV === 'development') {
         console.error('[Monitoring] Exception:', error, context);
     }
 }
@@ -31,9 +15,7 @@ export function captureException(error: Error, context?: Record<string, unknown>
  * Capture a message/event
  */
 export function captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info'): void {
-    if (isEnabled && Sentry) {
-        Sentry.captureMessage(message, level);
-    } else {
+    if (process.env.NODE_ENV === 'development') {
         console.log(`[Monitoring] ${level.toUpperCase()}: ${message}`);
     }
 }
@@ -41,10 +23,8 @@ export function captureMessage(message: string, level: 'info' | 'warning' | 'err
 /**
  * Set user context for error tracking
  */
-export function setUser(user: { id: string; email?: string; username?: string } | null): void {
-    if (isEnabled && Sentry) {
-        Sentry.setUser(user);
-    }
+export function setUser(_user: { id: string; email?: string; username?: string } | null): void {
+    // No-op - Sentry handles this via sentry.client.config.ts
 }
 
 /**
@@ -56,25 +36,16 @@ export function addBreadcrumb(breadcrumb: {
     level?: 'debug' | 'info' | 'warning' | 'error';
     data?: Record<string, unknown>;
 }): void {
-    if (isEnabled && Sentry) {
-        Sentry.addBreadcrumb(breadcrumb);
+    if (process.env.NODE_ENV === 'development') {
+        console.debug(`[Breadcrumb] ${breadcrumb.category}: ${breadcrumb.message}`, breadcrumb.data);
     }
 }
 
 /**
  * Start a performance transaction
  */
-export function startTransaction(name: string, op: string): { finish: () => void } {
-    if (isEnabled && Sentry) {
-        const transaction = Sentry.startInactiveSpan({
-            name,
-            op,
-        });
-        return {
-            finish: () => transaction?.end(),
-        };
-    }
-    return { finish: () => {} };
+export function startTransaction(_name: string, _op: string): { finish: () => void } {
+    return { finish: () => { } };
 }
 
 /**

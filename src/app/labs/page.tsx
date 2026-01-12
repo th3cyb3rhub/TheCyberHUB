@@ -64,22 +64,30 @@ const LabsPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black pt-28 pb-16 px-4 sm:px-6">
-            <div className="max-w-4xl mx-auto">
-                {/* Hero */}
-                <div className="text-center mb-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-300 text-xs font-medium">
-                        <Flag className="w-3.5 h-3.5" />
-                        Labs • Coming Soon
+        <div className="min-h-screen bg-black">
+            {/* Hero Section */}
+            <section className="relative pt-32 pb-16 px-4 sm:px-6">
+                {/* Background glow */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+                <div className="relative max-w-4xl mx-auto text-center">
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/10 bg-white/5">
+                        <Flag className="w-4 h-4 text-orange-500" />
+                        <span className="text-sm text-gray-400">Coming Soon</span>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-                        Hands-on Cybersecurity Labs
+
+                    <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+                        Hands-on <span className="gradient-text">Labs</span>
                     </h1>
-                    <p className="text-gray-400 max-w-xl mx-auto">
+                    <p className="text-lg text-gray-400 max-w-xl mx-auto">
                         Dedicated, isolated environments for practicing real-world attacks and defenses.
                         Infrastructure is being prepared — labs will roll out gradually.
                     </p>
                 </div>
+            </section>
+
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-20">
 
                 {/* Planned labs */}
                 <div className="mb-10">

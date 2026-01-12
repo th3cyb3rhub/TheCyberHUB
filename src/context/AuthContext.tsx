@@ -53,6 +53,54 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Helper to check if we're on the client with working localStorage
+const isClient = (): boolean => {
+    if (typeof window === 'undefined') return false;
+    try {
+        // Check if localStorage exists AND has proper methods (functions)
+        // This handles the case where Node.js --localstorage-file flag creates a broken localStorage
+        const storage = window.localStorage;
+        if (!storage || typeof storage.getItem !== 'function' || typeof storage.setItem !== 'function') {
+            return false;
+        }
+        // Test if localStorage is actually functional
+        const testKey = '__storage_test__';
+        storage.setItem(testKey, testKey);
+        storage.removeItem(testKey);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
+// Helper to safely access localStorage (client-side only)
+const safeLocalStorage = {
+    getItem: (key: string): string | null => {
+        if (!isClient()) return null;
+        try {
+            return window.localStorage.getItem(key);
+        } catch {
+            return null;
+        }
+    },
+    setItem: (key: string, value: string): void => {
+        if (!isClient()) return;
+        try {
+            window.localStorage.setItem(key, value);
+        } catch {
+            // Ignore storage errors (e.g., quota exceeded, private browsing)
+        }
+    },
+    removeItem: (key: string): void => {
+        if (!isClient()) return;
+        try {
+            window.localStorage.removeItem(key);
+        } catch {
+            // Ignore storage errors
+        }
+    },
+};
+
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
@@ -65,17 +113,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+    const [mounted, setMounted] = useState(false);
 
-    // Load token from localStorage on mount
+    // Mark as mounted on client
     useEffect(() => {
-        const savedToken = localStorage.getItem('token');
+        setMounted(true);
+    }, []);
+
+    // Load token from localStorage on mount (client-side only)
+    useEffect(() => {
+        if (!mounted) return;
+
+        const savedToken = safeLocalStorage.getItem('token');
         if (savedToken) {
             setToken(savedToken);
             fetchUser(savedToken);
         } else {
             setLoading(false);
         }
-    }, []);
+    }, [mounted]);
 
     const fetchUser = async (authToken: string) => {
         try {
@@ -88,7 +144,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 setUser(data.data);
             } else {
                 // Token invalid, clear it
-                localStorage.removeItem('token');
+                safeLocalStorage.removeItem('token');
                 setToken(null);
             }
         } catch (error) {
@@ -111,7 +167,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(data.error || 'Login failed');
         }
 
-        localStorage.setItem('token', data.token);
+        safeLocalStorage.setItem('token', data.token);
         setToken(data.token);
         setUser(data.data);
     };
@@ -129,13 +185,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(data.error || 'Registration failed');
         }
 
-        localStorage.setItem('token', data.token);
+        safeLocalStorage.setItem('token', data.token);
         setToken(data.token);
         setUser(data.data);
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        safeLocalStorage.removeItem('token');
         setToken(null);
         setUser(null);
     };
@@ -177,7 +233,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         // Update token if returned
         if (result.token) {
-            localStorage.setItem('token', result.token);
+            safeLocalStorage.setItem('token', result.token);
             setToken(result.token);
         }
     };
@@ -213,7 +269,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         // Auto-login after reset
         if (result.token) {
-            localStorage.setItem('token', result.token);
+            safeLocalStorage.setItem('token', result.token);
             setToken(result.token);
             await fetchUser(result.token);
         }
@@ -251,7 +307,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
 
         if (result.token) {
-            localStorage.setItem('token', result.token);
+            safeLocalStorage.setItem('token', result.token);
             setToken(result.token);
         }
 
@@ -272,7 +328,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(result.error || 'Google login failed');
         }
 
-        localStorage.setItem('token', result.token);
+        safeLocalStorage.setItem('token', result.token);
         setToken(result.token);
         setUser(result.data);
     };
@@ -289,7 +345,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(result.error || 'GitHub login failed');
         }
 
-        localStorage.setItem('token', result.token);
+        safeLocalStorage.setItem('token', result.token);
         setToken(result.token);
         setUser(result.data);
     };

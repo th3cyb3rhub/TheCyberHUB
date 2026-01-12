@@ -24,11 +24,15 @@ import {
     Search,
     Command,
     Flag,
-    Shield
+    Shield,
+    Users,
+    MessagesSquare
 } from 'lucide-react';
+import { useMentorshipNotifications } from '@/hooks/useMentorshipNotifications';
 
 const Navbar = () => {
     const { user, loading, logout } = useAuth();
+    const { totalCount: mentorshipNotifications } = useMentorshipNotifications();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -61,14 +65,7 @@ const Navbar = () => {
         { title: "Labs", href: "/labs", icon: <Shield className="w-4 h-4" />, description: "Hands-on labs (coming soon)" },
         { title: "Events", href: "/events", icon: <Calendar className="w-4 h-4" />, description: "CTFs & workshops" },
         { title: "Code Review", href: "/code-review", icon: <Code2 className="w-4 h-4" />, description: "Security exercises" },
-    ];
-
-    // All nav links for mobile
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _allNavLinks = [
-        { title: "Tools", href: "/tools", icon: <Wrench className="w-4 h-4" /> },
-        ...learnLinks,
-        ...resourceLinks,
+        { title: "Mentorship", href: "/mentorship", icon: <Users className="w-4 h-4" />, description: "Find a mentor", badge: mentorshipNotifications },
     ];
 
     const DropdownMenu = ({
@@ -81,40 +78,59 @@ const Navbar = () => {
         label: string;
         items: typeof resourceLinks;
         icon?: React.ReactNode;
-    }) => (
-        <div
-            className="relative"
-            onMouseEnter={() => setActiveDropdown(id)}
-            onMouseLeave={() => setActiveDropdown(null)}
-        >
-            <button className="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">
-                {icon && <span className="text-orange-400">{icon}</span>}
-                {label}
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === id ? 'rotate-180' : ''}`} />
-            </button>
+    }) => {
+        const totalBadge = items.reduce((sum, item) => sum + ((item as { badge?: number }).badge || 0), 0);
 
-            {activeDropdown === id && (
-                <div className="absolute top-full left-0 pt-2 w-64">
-                    <div className="bg-black/95 backdrop-blur-xl rounded-xl border border-white/10 shadow-2xl overflow-hidden">
-                        {items.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                className="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all group"
-                            >
-                                <span className="text-orange-400 group-hover:text-orange-300">{link.icon}</span>
-                                <div className="flex-1">
-                                    <div className="font-medium">{link.title}</div>
-                                    <div className="text-xs text-gray-500 group-hover:text-gray-400">{link.description}</div>
-                                </div>
-                                <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                            </Link>
-                        ))}
+        return (
+            <div
+                className="relative"
+                onMouseEnter={() => setActiveDropdown(id)}
+                onMouseLeave={() => setActiveDropdown(null)}
+            >
+                <button className="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors relative">
+                    {icon && <span className="text-orange-400">{icon}</span>}
+                    {label}
+                    {totalBadge > 0 && (
+                        <span className="ml-1 min-w-[18px] h-[18px] px-1 flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full">
+                            {totalBadge > 99 ? '99+' : totalBadge}
+                        </span>
+                    )}
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === id ? 'rotate-180' : ''}`} />
+                </button>
+
+                {activeDropdown === id && (
+                    <div className="absolute top-full left-0 pt-2 w-64">
+                        <div className="bg-black/95 backdrop-blur-xl rounded-xl border border-white/10 shadow-2xl overflow-hidden">
+                            {items.map((link) => {
+                                const badge = (link as { badge?: number }).badge;
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all group"
+                                    >
+                                        <span className="text-orange-400 group-hover:text-orange-300">{link.icon}</span>
+                                        <div className="flex-1">
+                                            <div className="font-medium flex items-center gap-2">
+                                                {link.title}
+                                                {badge && badge > 0 && (
+                                                    <span className="min-w-[18px] h-[18px] px-1 flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full">
+                                                        {badge > 99 ? '99+' : badge}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="text-xs text-gray-500 group-hover:text-gray-400">{link.description}</div>
+                                        </div>
+                                        <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                    </Link>
+                                );
+                            })}
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
-    );
+                )}
+            </div>
+        );
+    };
 
     return (
         <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
@@ -166,6 +182,15 @@ const Navbar = () => {
                         />
 
                         {/* Community Link */}
+                        <Link
+                            href="/forums"
+                            className="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors group"
+                        >
+                            <MessagesSquare className="w-4 h-4 text-green-400 group-hover:text-green-300" />
+                            Forums
+                        </Link>
+
+                        {/* Discord Link */}
                         <Link
                             href="https://discord.gg/d3gBSNrVKb"
                             target="_blank"
@@ -293,20 +318,30 @@ const Navbar = () => {
                         {/* Learn Section */}
                         <div className="pb-3 mb-3 border-b border-white/10">
                             <p className="text-xs font-medium text-gray-500 uppercase tracking-wider px-4 mb-2">Learn</p>
-                            {learnLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="flex items-center gap-3 p-4 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                                >
-                                    <span className="text-orange-400">{link.icon}</span>
-                                    <div>
-                                        <div>{link.title}</div>
-                                        <div className="text-xs text-gray-500">{link.description}</div>
-                                    </div>
-                                </Link>
-                            ))}
+                            {learnLinks.map((link) => {
+                                const badge = (link as { badge?: number }).badge;
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="flex items-center gap-3 p-4 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                                    >
+                                        <span className="text-orange-400">{link.icon}</span>
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-2">
+                                                {link.title}
+                                                {badge && badge > 0 && (
+                                                    <span className="min-w-[18px] h-[18px] px-1 flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full">
+                                                        {badge > 99 ? '99+' : badge}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="text-xs text-gray-500">{link.description}</div>
+                                        </div>
+                                    </Link>
+                                );
+                            })}
                         </div>
 
                         {/* Resources Section */}
@@ -326,6 +361,22 @@ const Navbar = () => {
                                     </div>
                                 </Link>
                             ))}
+                        </div>
+
+                        {/* Community Section */}
+                        <div className="pb-3 mb-3 border-b border-white/10">
+                            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider px-4 mb-2">Community</p>
+                            <Link
+                                href="/forums"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="flex items-center gap-3 p-4 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                            >
+                                <span className="text-green-400"><MessagesSquare className="w-4 h-4" /></span>
+                                <div>
+                                    <div>Forums</div>
+                                    <div className="text-xs text-gray-500">Community discussions</div>
+                                </div>
+                            </Link>
                         </div>
 
                         {/* User Section */}

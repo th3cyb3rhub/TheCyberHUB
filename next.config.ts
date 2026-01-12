@@ -136,9 +136,16 @@ const nextConfig: NextConfig = {
     },
 
     // Output configuration for better performance
-    output: 'standalone',
+    // Note: 'standalone' output is for production deployments only
+    ...(process.env.NODE_ENV === 'production' ? { output: 'standalone' as const } : {}),
     poweredByHeader: false,
     compress: true,
+
+    // Disable caching in development
+    onDemandEntries: {
+        maxInactiveAge: 15 * 1000,
+        pagesBufferLength: 2,
+    },
 
     // Webpack optimizations with proper typing
     webpack: (config: Configuration, { isServer }: { isServer: boolean }) => {

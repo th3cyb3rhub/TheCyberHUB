@@ -1,79 +1,143 @@
-// components/FeaturesSection.tsx
 "use client"
 
 import React from 'react';
 import Link from 'next/link';
-import { Wrench, FileText, Map, Users, ArrowUpRight } from 'lucide-react';
+import {
+    Terminal,
+    Flag,
+    FileText,
+    Users,
+    Calendar,
+    Code2,
+    Map,
+    BookOpen,
+    ArrowRight,
+    Sparkles
+} from 'lucide-react';
 
 const FeaturesSection = () => {
     const features = [
         {
-            icon: <Wrench className="w-5 h-5" />,
+            icon: <Terminal className="w-6 h-6" />,
             title: "Security Tools",
-            description: "Subdomain finder, SSL scanner, JWT analyzer, and more.",
+            description: "22+ tools including subdomain finder, JWT analyzer, hash cracker, and more.",
             href: "/tools",
-            gradient: "from-orange-500/20 to-orange-600/10"
+            stats: "22+ tools",
+            color: "orange"
         },
         {
-            icon: <FileText className="w-5 h-5" />,
+            icon: <Flag className="w-6 h-6" />,
+            title: "CTF Challenges",
+            description: "Practice with real-world challenges across web, crypto, forensics, and pwn.",
+            href: "/ctf",
+            stats: "100+ challenges",
+            color: "red"
+        },
+        {
+            icon: <FileText className="w-6 h-6" />,
             title: "Cheatsheets",
-            description: "Quick references for Linux, networking, and pentesting.",
+            description: "Quick reference guides for Linux, networking, SQL injection, XSS, and more.",
             href: "/cheatsheets",
-            gradient: "from-blue-500/20 to-blue-600/10"
+            stats: "8 categories",
+            color: "blue"
         },
         {
-            icon: <Map className="w-5 h-5" />,
+            icon: <Users className="w-6 h-6" />,
+            title: "Mentorship",
+            description: "Connect with experienced security professionals to accelerate your growth.",
+            href: "/mentorship",
+            stats: "1-on-1 guidance",
+            color: "green"
+        },
+        {
+            icon: <Calendar className="w-6 h-6" />,
+            title: "Events",
+            description: "Join CTF competitions, workshops, and community meetups.",
+            href: "/events",
+            stats: "Live events",
+            color: "purple"
+        },
+        {
+            icon: <Code2 className="w-6 h-6" />,
+            title: "Code Review",
+            description: "Learn to spot vulnerabilities through secure code review exercises.",
+            href: "/code-review",
+            stats: "Hands-on",
+            color: "yellow"
+        },
+        {
+            icon: <Map className="w-6 h-6" />,
             title: "Roadmaps",
-            description: "Structured learning paths for your security journey.",
+            description: "Structured learning paths from beginner to advanced security expert.",
             href: "/roadmaps",
-            gradient: "from-green-500/20 to-green-600/10"
+            stats: "Career paths",
+            color: "cyan"
         },
         {
-            icon: <Users className="w-5 h-5" />,
-            title: "Community",
-            description: "Connect with security professionals and learners.",
-            href: "https://discord.gg/d3gBSNrVKb",
-            gradient: "from-purple-500/20 to-purple-600/10"
+            icon: <BookOpen className="w-6 h-6" />,
+            title: "Blog",
+            description: "Articles, tutorials, and writeups from the community.",
+            href: "/blog",
+            stats: "Fresh content",
+            color: "pink"
         }
     ];
 
+    const colorClasses: Record<string, { bg: string; text: string; border: string; hover: string }> = {
+        orange: { bg: "bg-orange-500/10", text: "text-orange-400", border: "border-orange-500/20", hover: "hover:border-orange-500/40" },
+        red: { bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/20", hover: "hover:border-red-500/40" },
+        blue: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/20", hover: "hover:border-blue-500/40" },
+        green: { bg: "bg-green-500/10", text: "text-green-400", border: "border-green-500/20", hover: "hover:border-green-500/40" },
+        purple: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/20", hover: "hover:border-purple-500/40" },
+        yellow: { bg: "bg-yellow-500/10", text: "text-yellow-400", border: "border-yellow-500/20", hover: "hover:border-yellow-500/40" },
+        cyan: { bg: "bg-cyan-500/10", text: "text-cyan-400", border: "border-cyan-500/20", hover: "hover:border-cyan-500/40" },
+        pink: { bg: "bg-pink-500/10", text: "text-pink-400", border: "border-pink-500/20", hover: "hover:border-pink-500/40" }
+    };
+
     return (
-        <section className="bg-black py-20 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-5xl mx-auto">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+            <div className="max-w-6xl mx-auto">
                 {/* Section header */}
-                <div className="text-center mb-12">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                        Everything you need to <span className="gradient-text">level up</span>
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full border border-white/10 bg-white/5">
+                        <Sparkles className="w-4 h-4 text-orange-400" />
+                        <span className="text-sm text-gray-400">Everything you need</span>
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                        One Platform, <span className="gradient-text">Endless Learning</span>
                     </h2>
-                    <p className="text-gray-400 max-w-xl mx-auto">
-                        Free resources, tools, and community support for your cybersecurity journey.
+                    <p className="text-gray-400 max-w-2xl mx-auto">
+                        From beginner to expert, we provide all the resources you need to master cybersecurity.
                     </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {features.map((feature, index) => (
-                        <Link
-                            key={index}
-                            href={feature.href}
-                            target={feature.href.startsWith('http') ? '_blank' : undefined}
-                            rel={feature.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                            className="group relative p-6 rounded-2xl border border-white/10 hover:border-orange-500/40 bg-white/[0.02] transition-all duration-300 card-hover overflow-hidden"
-                        >
-                            {/* Gradient background on hover */}
-                            <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                            
-                            <div className="relative z-10">
-                                <div className="flex items-start justify-between mb-4">
-                                    <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 group-hover:bg-orange-500/20 group-hover:scale-110 transition-all duration-300">
-                                        {feature.icon}
-                                    </div>
-                                    <ArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-orange-500 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300" />
+                {/* Features grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {features.map((feature, index) => {
+                        const colors = colorClasses[feature.color];
+                        return (
+                            <Link
+                                key={index}
+                                href={feature.href}
+                                className={`group p-5 rounded-xl border border-white/10 ${colors.hover} bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300`}
+                            >
+                                <div className={`w-12 h-12 rounded-lg ${colors.bg} ${colors.border} border flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
+                                    <span className={colors.text}>{feature.icon}</span>
                                 </div>
-                                <h3 className="text-white font-semibold mb-2 group-hover:text-orange-400 transition-colors">{feature.title}</h3>
-                                <p className="text-sm text-gray-500 leading-relaxed group-hover:text-gray-400 transition-colors">{feature.description}</p>
-                            </div>
-                        </Link>
-                    ))}
+                                <div className="flex items-center justify-between mb-2">
+                                    <h3 className="text-base font-semibold text-white group-hover:text-orange-400 transition-colors">
+                                        {feature.title}
+                                    </h3>
+                                    <span className={`text-xs px-2 py-0.5 rounded-full ${colors.bg} ${colors.text}`}>
+                                        {feature.stats}
+                                    </span>
+                                </div>
+                                <p className="text-sm text-gray-500 leading-relaxed">
+                                    {feature.description}
+                                </p>
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </section>

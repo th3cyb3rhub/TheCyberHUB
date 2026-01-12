@@ -1839,6 +1839,635 @@ def update_preferences():
             payload: 'class RCE:\\n  def __reduce__(self): return (os.system, ("cat /etc/passwd",))',
             result: 'Arbitrary code execution on server'
         }
+    },
+    // NEW SNIPPETS - MVP Completion
+    {
+        id: 'ssrf-dns-rebinding',
+        title: 'DNS Rebinding SSRF',
+        description: 'Advanced SSRF attack using DNS rebinding to bypass IP-based blocklists.',
+        language: 'javascript',
+        category: 'ssrf',
+        difficulty: 'hard',
+        vulnerableCode: `const dns = require('dns');
+const fetch = require('node-fetch');
+
+async function fetchUrl(url) {
+    const parsedUrl = new URL(url);
+    
+    // Check if IP is internal (blocklist approach)
+    const addresses = await dns.promises.resolve4(parsedUrl.hostname);
+    const isInternal = addresses.some(ip => 
+        ip.startsWith('10.') || ip.startsWith('192.168.') || ip === '127.0.0.1'
+    );
+    
+    if (isInternal) {
+        throw new Error('Internal IPs not allowed');
+    }
+    
+    // Fetch the URL (DNS may resolve differently now!)
+    const response = await fetch(url);
+    return response.text();
+}`,
+        exploitedCode: `// 🔴 DNS REBINDING ATTACK
+// Attacker controls DNS for evil.com with very low TTL (1 second)
+
+// Step 1: First DNS lookup returns external IP
+// evil.com → 1.2.3.4 (attacker's server)
+
+async function fetchUrl(url) {  // url = "http://evil.com/steal"
+    const parsedUrl = new URL(url);
+    
+    // DNS lookup #1: Returns 1.2.3.4 (external)
+    const addresses = await dns.promises.resolve4(parsedUrl.hostname);
+    const isInternal = addresses.some(ip => 
+        ip.startsWith('10.') || ip.startsWith('192.168.') || ip === '127.0.0.1'
+    );
+    // isInternal = false ✓ Passes check!
+    
+    // TTL expires, DNS cache cleared...
+    // DNS lookup #2 (by fetch): Now returns 169.254.169.254!
+    const response = await fetch(url);
+    // ✓ Fetches from AWS metadata endpoint!
+    return response.text();
+}`,
+        secureCode: `const dns = require('dns');
+const fetch = require('node-fetch');
+const { Agent } = require('http');
+
+async function fetchUrl(url) {
+    const parsedUrl = new URL(url);
+    
+    // Resolve DNS once and pin the IP
+    const addresses = await dns.promises.resolve4(parsedUrl.hostname);
+    const ip = addresses[0];
+    
+    // Check resolved IP
+    const isInternal = ip.startsWith('10.') || 
+                       ip.startsWith('192.168.') || 
+                       ip.startsWith('169.254.') ||
+                       ip === '127.0.0.1';
+    
+    if (isInternal) {
+        throw new Error('Internal IPs not allowed');
+    }
+    
+    // Use the resolved IP directly, bypassing DNS
+    const agent = new Agent({
+        lookup: (hostname, options, callback) => {
+            callback(null, ip, 4);
+        }
+    });
+    
+    const response = await fetch(url, { agent });
+    return response.text();
+}`,
+        secureExploitedCode: `// ✅ SAFE: DNS rebinding attack blocked
+async function fetchUrl(url) {  // url = "http://evil.com/steal"
+    const parsedUrl = new URL(url);
+    
+    // Resolve DNS once and PIN the IP
+    const addresses = await dns.promises.resolve4(parsedUrl.hostname);
+    const ip = addresses[0];  // 1.2.3.4 (first resolution)
+    
+    const isInternal = ip.startsWith('10.') || 
+                       ip.startsWith('192.168.') || 
+                       ip.startsWith('169.254.') ||
+                       ip === '127.0.0.1';
+    
+    if (isInternal) {
+        throw new Error('Internal IPs not allowed');
+    }
+    
+    // Custom agent forces use of pinned IP
+    const agent = new Agent({
+        lookup: (hostname, options, callback) => {
+            callback(null, ip, 4);  // Always use 1.2.3.4
+        }
+    });
+    
+    // Even if DNS changes, we use the validated IP
+    const response = await fetch(url, { agent });
+    // ✅ Connects to 1.2.3.4, not 169.254.169.254!
+    return response.text();
+}`,
+        vulnerableLines: [15, 16],
+        explanation: 'DNS rebinding exploits the time gap between DNS validation and actual request. Attacker controls a domain with low TTL, first returning a safe IP to pass validation, then switching to an internal IP for the actual request.',
+        hints: [
+            'What happens if DNS returns different IPs at different times?',
+            'How can you ensure the validated IP is used for the request?',
+            'Research DNS rebinding attacks'
+        ],
+        vulnerabilityType: 'Server-Side Request Forgery (DNS Rebinding)',
+        severity: 'critical',
+        cwe: 'CWE-918',
+        owasp: 'A10:2021 - SSRF',
+        exploitExample: {
+            title: 'DNS Rebinding to Access Metadata',
+            description: 'Attacker uses DNS rebinding to bypass IP validation',
+            payload: `1. Attacker sets up evil.com with TTL=1
+2. First lookup: evil.com → 1.2.3.4 (passes check)
+3. Wait for TTL to expire
+4. Second lookup: evil.com → 169.254.169.254`,
+            result: 'Server fetches from AWS metadata endpoint, leaking credentials'
+        }
+    },
+    {
+        id: 'idor-jwt-claim',
+        title: 'IDOR via JWT Claim Manipulation',
+        description: 'Authorization bypass by modifying JWT claims when signature is not properly validated.',
+        language: 'javascript',
+        category: 'idor',
+        difficulty: 'hard',
+        vulnerableCode: `const jwt = require('jsonwebtoken');
+
+app.get('/api/admin/users', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    // Decode without verification
+    const decoded = jwt.decode(token);
+    
+    if (decoded.role !== 'admin') {
+        return res.status(403).json({ error: 'Admin access required' });
+    }
+    
+    // Return all users
+    const users = db.users.find({});
+    res.json(users);
+});`,
+        exploitedCode: `// 🔴 EXPLOITED: Attacker modifies JWT payload
+// Original token payload: {"userId": "123", "role": "user"}
+// Attacker decodes, changes role, re-encodes (no signature needed!)
+
+// Attacker's modified token:
+// Header: {"alg":"none","typ":"JWT"}
+// Payload: {"userId": "123", "role": "admin"}
+// Signature: (empty)
+
+app.get('/api/admin/users', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    // jwt.decode() does NOT verify signature!
+    const decoded = jwt.decode(token);
+    // decoded = {"userId": "123", "role": "admin"}
+    
+    if (decoded.role !== 'admin') {  // "admin" === "admin" ✓
+        return res.status(403).json({ error: 'Admin access required' });
+    }
+    
+    // ✓ Attacker gets all user data!
+    const users = db.users.find({});
+    res.json(users);
+});`,
+        secureCode: `const jwt = require('jsonwebtoken');
+
+app.get('/api/admin/users', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    try {
+        // Verify signature with secret and allowed algorithms
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, {
+            algorithms: ['HS256']  // Only allow specific algorithm
+        });
+        
+        if (decoded.role !== 'admin') {
+            return res.status(403).json({ error: 'Admin access required' });
+        }
+        
+        const users = db.users.find({});
+        res.json(users);
+    } catch (err) {
+        return res.status(401).json({ error: 'Invalid token' });
+    }
+});`,
+        secureExploitedCode: `// ✅ SAFE: Same attack with modified JWT
+app.get('/api/admin/users', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    // Attacker's token: {"alg":"none"} + {"role":"admin"} + (no sig)
+    
+    try {
+        // jwt.verify() validates signature!
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, {
+            algorithms: ['HS256']  // Rejects "none" algorithm
+        });
+        // ✅ Throws JsonWebTokenError: invalid algorithm
+        
+        if (decoded.role !== 'admin') {
+            return res.status(403).json({ error: 'Admin access required' });
+        }
+        
+        const users = db.users.find({});
+        res.json(users);
+    } catch (err) {
+        return res.status(401).json({ error: 'Invalid token' });
+        // ✅ Returns 401 - attack blocked!
+    }
+});`,
+        vulnerableLines: [6, 7],
+        explanation: 'Using jwt.decode() instead of jwt.verify() allows attackers to modify token claims without detection. The "none" algorithm attack removes signature verification entirely.',
+        hints: [
+            'What is the difference between jwt.decode() and jwt.verify()?',
+            'What happens if you change the algorithm to "none"?',
+            'Should you trust claims from an unverified token?'
+        ],
+        vulnerabilityType: 'Broken Access Control / JWT Manipulation',
+        severity: 'critical',
+        cwe: 'CWE-639',
+        owasp: 'A01:2021 - Broken Access Control',
+        exploitExample: {
+            title: 'JWT None Algorithm Attack',
+            description: 'Modify JWT claims and remove signature',
+            payload: `Original: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxMjMiLCJyb2xlIjoidXNlciJ9.signature
+Modified: eyJhbGciOiJub25lIn0.eyJ1c2VySWQiOiIxMjMiLCJyb2xlIjoiYWRtaW4ifQ.`,
+            result: 'Attacker gains admin access without valid credentials'
+        }
+    },
+    {
+        id: 'cmdi-basic',
+        title: 'Basic Command Injection',
+        description: 'Simple command injection through unsanitized user input in shell commands.',
+        language: 'python',
+        category: 'injection',
+        difficulty: 'easy',
+        vulnerableCode: `import os
+
+def check_domain(domain):
+    # Check if domain is reachable
+    result = os.popen(f"nslookup {domain}").read()
+    return result`,
+        exploitedCode: `import os
+
+def check_domain(domain):
+    # 🔴 EXPLOITED: domain = "google.com; cat /etc/passwd"
+    result = os.popen(f"nslookup google.com; cat /etc/passwd").read()
+    #                                       ↑ Command separator!
+    # Shell executes:
+    # 1. nslookup google.com
+    # 2. cat /etc/passwd
+    # ✓ Returns DNS results + password file contents!
+    return result`,
+        secureCode: `import subprocess
+import re
+
+def check_domain(domain):
+    # Validate domain format
+    if not re.match(r'^[a-zA-Z0-9][a-zA-Z0-9.-]+[a-zA-Z0-9]$', domain):
+        raise ValueError("Invalid domain format")
+    
+    # Use subprocess with list arguments (no shell)
+    result = subprocess.run(
+        ['nslookup', domain],
+        capture_output=True,
+        text=True,
+        timeout=10
+    )
+    return result.stdout`,
+        secureExploitedCode: `import subprocess
+import re
+
+def check_domain(domain):
+    # domain = "google.com; cat /etc/passwd"
+    
+    # Regex validation catches the attack
+    if not re.match(r'^[a-zA-Z0-9][a-zA-Z0-9.-]+[a-zA-Z0-9]$', domain):
+        raise ValueError("Invalid domain format")
+        # ✅ Raises error - semicolon not allowed!
+    
+    # Even without validation, list args prevent injection:
+    result = subprocess.run(
+        ['nslookup', domain],  # domain is ONE argument
+        capture_output=True,
+        text=True,
+        timeout=10
+    )
+    # Would try: nslookup "google.com; cat /etc/passwd"
+    # ✅ Treated as literal domain name, not commands
+    return result.stdout`,
+        vulnerableLines: [5],
+        explanation: 'os.popen() executes commands through the shell, allowing command chaining with ; | && etc. User input should never be interpolated into shell commands.',
+        hints: [
+            'What shell metacharacters can chain commands?',
+            'Does os.popen use a shell?',
+            'How can subprocess.run be used safely?'
+        ],
+        vulnerabilityType: 'OS Command Injection',
+        severity: 'critical',
+        cwe: 'CWE-78',
+        owasp: 'A03:2021 - Injection',
+        exploitExample: {
+            title: 'Command Chaining',
+            description: 'Use semicolon to execute additional commands',
+            payload: `domain = "google.com; whoami; id"`,
+            result: 'Returns DNS lookup + current user + user ID'
+        }
+    },
+    {
+        id: 'cmdi-filter-bypass',
+        title: 'Command Injection Filter Bypass',
+        description: 'Bypassing weak command injection filters using encoding and alternative syntax.',
+        language: 'python',
+        category: 'injection',
+        difficulty: 'hard',
+        vulnerableCode: `import subprocess
+
+def run_diagnostic(target):
+    # "Security" filter - block dangerous characters
+    blocked = [';', '|', '&', '$', '\`', '>', '<']
+    for char in blocked:
+        if char in target:
+            return "Invalid input"
+    
+    cmd = f"ping -c 1 {target}"
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    return result.stdout`,
+        exploitedCode: `import subprocess
+
+def run_diagnostic(target):
+    # 🔴 EXPLOITED: Attacker uses newline bypass
+    # target = "8.8.8.8\\ncat /etc/passwd"
+    
+    blocked = [';', '|', '&', '$', '\`', '>', '<']
+    for char in blocked:
+        if char in target:  # Newline not in blocklist!
+            return "Invalid input"
+    
+    # Command becomes:
+    # ping -c 1 8.8.8.8
+    # cat /etc/passwd
+    cmd = f"ping -c 1 {target}"
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    # ✓ Both commands execute!
+    return result.stdout`,
+        secureCode: `import subprocess
+import shlex
+
+def run_diagnostic(target):
+    # Allowlist approach - only permit valid IP/hostname characters
+    import re
+    if not re.match(r'^[a-zA-Z0-9.-]+$', target):
+        return "Invalid input"
+    
+    # Never use shell=True with user input
+    result = subprocess.run(
+        ['ping', '-c', '1', target],
+        capture_output=True,
+        text=True,
+        timeout=10
+    )
+    return result.stdout`,
+        secureExploitedCode: `import subprocess
+import re
+
+def run_diagnostic(target):
+    # target = "8.8.8.8\\ncat /etc/passwd"
+    
+    # Allowlist validation - only alphanumeric, dots, hyphens
+    if not re.match(r'^[a-zA-Z0-9.-]+$', target):
+        return "Invalid input"
+        # ✅ Newline not in allowlist - blocked!
+    
+    # Even if it passed, no shell interpretation:
+    result = subprocess.run(
+        ['ping', '-c', '1', target],  # List args, no shell
+        capture_output=True,
+        text=True,
+        timeout=10
+    )
+    # ✅ Attack blocked at validation
+    return result.stdout`,
+        vulnerableLines: [4, 5, 6, 7, 8, 9, 10],
+        explanation: 'Blocklist filters are easily bypassed. Newlines, tabs, and encoded characters can inject commands. Always use allowlist validation and avoid shell=True.',
+        hints: [
+            'What characters are NOT in the blocklist?',
+            'Can newlines separate commands in shell?',
+            'Why is allowlist better than blocklist?'
+        ],
+        vulnerabilityType: 'OS Command Injection (Filter Bypass)',
+        severity: 'critical',
+        cwe: 'CWE-78',
+        owasp: 'A03:2021 - Injection',
+        exploitExample: {
+            title: 'Newline Injection',
+            description: 'Bypass blocklist using newline character',
+            payload: `target = "8.8.8.8\\nwhoami"
+target = "8.8.8.8%0aid"  # URL encoded newline`,
+            result: 'Executes ping then whoami/id command'
+        }
+    },
+    {
+        id: 'traversal-partial-sanitize',
+        title: 'Path Traversal with Partial Sanitization',
+        description: 'Incomplete path sanitization that can be bypassed with double encoding or nested sequences.',
+        language: 'javascript',
+        category: 'traversal',
+        difficulty: 'medium',
+        vulnerableCode: `const express = require('express');
+const path = require('path');
+const fs = require('fs');
+
+app.get('/files/:filename', (req, res) => {
+    let filename = req.params.filename;
+    
+    // "Sanitize" by removing ../
+    filename = filename.replace('../', '');
+    
+    const filepath = path.join('/var/app/data', filename);
+    
+    if (fs.existsSync(filepath)) {
+        res.sendFile(filepath);
+    } else {
+        res.status(404).send('File not found');
+    }
+});`,
+        exploitedCode: `app.get('/files/:filename', (req, res) => {
+    // 🔴 EXPLOITED: filename = "....//....//etc/passwd"
+    let filename = req.params.filename;
+    
+    // Only removes first occurrence of ../
+    filename = filename.replace('../', '');
+    // "....//....//etc/passwd" → "..../....//etc/passwd"
+    //                            Still contains ../!
+    
+    // Or use: "..%2F..%2Fetc/passwd" (URL encoded)
+    // Express decodes AFTER this check!
+    
+    const filepath = path.join('/var/app/data', filename);
+    // filepath = "/etc/passwd"
+    
+    if (fs.existsSync(filepath)) {
+        res.sendFile(filepath);  // ✓ Sends /etc/passwd!
+    }
+});`,
+        secureCode: `const express = require('express');
+const path = require('path');
+const fs = require('fs');
+
+app.get('/files/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const baseDir = '/var/app/data';
+    
+    // Resolve to absolute path and normalize
+    const filepath = path.resolve(baseDir, filename);
+    
+    // Verify the resolved path is within allowed directory
+    if (!filepath.startsWith(baseDir + path.sep)) {
+        return res.status(403).send('Access denied');
+    }
+    
+    if (fs.existsSync(filepath)) {
+        res.sendFile(filepath);
+    } else {
+        res.status(404).send('File not found');
+    }
+});`,
+        secureExploitedCode: `app.get('/files/:filename', (req, res) => {
+    // ✅ SAFE: filename = "....//....//etc/passwd"
+    const filename = req.params.filename;
+    const baseDir = '/var/app/data';
+    
+    // path.resolve normalizes ALL traversal sequences
+    const filepath = path.resolve(baseDir, filename);
+    // filepath = "/etc/passwd" (fully resolved)
+    
+    // Check if resolved path is within allowed directory
+    if (!filepath.startsWith(baseDir + path.sep)) {
+        return res.status(403).send('Access denied');
+        // ✅ "/etc/passwd" doesn't start with "/var/app/data/"
+        // ✅ Returns 403!
+    }
+    
+    if (fs.existsSync(filepath)) {
+        res.sendFile(filepath);
+    }
+});`,
+        vulnerableLines: [8, 9],
+        explanation: 'String.replace() only removes the first occurrence. Attackers use nested sequences (....//), double encoding (%252e%252e/), or mixed encoding to bypass.',
+        hints: [
+            'Does replace() remove ALL occurrences?',
+            'What about ....// or ..././?',
+            'When does URL decoding happen?'
+        ],
+        vulnerabilityType: 'Path Traversal (Filter Bypass)',
+        severity: 'high',
+        cwe: 'CWE-22',
+        owasp: 'A01:2021 - Broken Access Control',
+        exploitExample: {
+            title: 'Nested Traversal Bypass',
+            description: 'Use nested sequences to bypass single replace',
+            payload: `....//....//etc/passwd
+..././..././etc/passwd
+..%2F..%2Fetc/passwd`,
+            result: 'After replace: ../etc/passwd - still traverses!'
+        }
+    },
+    {
+        id: 'traversal-encoding-bypass',
+        title: 'Path Traversal Double Encoding Bypass',
+        description: 'Bypassing path traversal filters using double URL encoding.',
+        language: 'python',
+        category: 'traversal',
+        difficulty: 'hard',
+        vulnerableCode: `from flask import Flask, request, send_file
+from urllib.parse import unquote
+import os
+
+app = Flask(__name__)
+
+@app.route('/download')
+def download():
+    filename = request.args.get('file', '')
+    
+    # Decode URL encoding
+    filename = unquote(filename)
+    
+    # Check for path traversal
+    if '..' in filename:
+        return "Invalid path", 400
+    
+    filepath = os.path.join('/var/uploads', filename)
+    return send_file(filepath)`,
+        exploitedCode: `@app.route('/download')
+def download():
+    # 🔴 EXPLOITED: file = "%252e%252e%252fetc%252fpasswd"
+    # %25 = %, so %252e = %2e (still encoded)
+    filename = request.args.get('file', '')
+    # filename = "%2e%2e%2fetc%2fpasswd"
+    
+    # First decode
+    filename = unquote(filename)
+    # filename = "../etc/passwd" - but wait, Flask already decoded once!
+    
+    # Actually: Flask decodes %252e → %2e
+    # Then unquote decodes %2e → .
+    # So: %252e%252e%252f → .. /
+    
+    if '..' in filename:  # Check happens BEFORE second decode!
+        return "Invalid path", 400
+    
+    # But the filesystem interprets the path...
+    filepath = os.path.join('/var/uploads', filename)
+    return send_file(filepath)  # ✓ Sends /etc/passwd!`,
+        secureCode: `from flask import Flask, request, send_file, abort
+import os
+
+app = Flask(__name__)
+UPLOAD_DIR = '/var/uploads'
+
+@app.route('/download')
+def download():
+    filename = request.args.get('file', '')
+    
+    # Normalize and resolve the full path
+    # os.path.realpath resolves symlinks and normalizes
+    filepath = os.path.realpath(os.path.join(UPLOAD_DIR, filename))
+    
+    # Verify the resolved path is within allowed directory
+    if not filepath.startswith(os.path.realpath(UPLOAD_DIR) + os.sep):
+        abort(403)
+    
+    # Verify file exists
+    if not os.path.isfile(filepath):
+        abort(404)
+    
+    return send_file(filepath)`,
+        secureExploitedCode: `@app.route('/download')
+def download():
+    # ✅ SAFE: file = "%252e%252e%252fetc%252fpasswd"
+    filename = request.args.get('file', '')
+    # After all decoding: "../etc/passwd"
+    
+    # realpath resolves ALL path components
+    filepath = os.path.realpath(os.path.join(UPLOAD_DIR, filename))
+    # filepath = "/etc/passwd" (fully resolved)
+    
+    # Check against resolved base directory
+    if not filepath.startswith(os.path.realpath(UPLOAD_DIR) + os.sep):
+        abort(403)
+        # ✅ "/etc/passwd" doesn't start with "/var/uploads/"
+        # ✅ Returns 403 Forbidden!
+    
+    if not os.path.isfile(filepath):
+        abort(404)
+    
+    return send_file(filepath)`,
+        vulnerableLines: [11, 12, 13, 14, 15],
+        explanation: 'Double encoding (%252e = %2e after first decode = . after second) bypasses filters that check after only one decode. Always validate the final resolved path.',
+        hints: [
+            'How many times is the input decoded?',
+            'What is %25 in URL encoding?',
+            'When should path validation happen?'
+        ],
+        vulnerabilityType: 'Path Traversal (Double Encoding)',
+        severity: 'high',
+        cwe: 'CWE-22',
+        owasp: 'A01:2021 - Broken Access Control',
+        exploitExample: {
+            title: 'Double URL Encoding',
+            description: 'Encode dots and slashes twice to bypass filters',
+            payload: `%252e%252e%252f = ../ (double encoded)
+%252e = %2e (after 1st decode) = . (after 2nd)
+..%c0%af = ../ (overlong UTF-8)`,
+            result: 'Bypasses filter, accesses /etc/passwd'
+        }
     }
 ];
 

@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Copy, ExternalLink, ArrowLeft, Check } from 'lucide-react';
-import Link from 'next/link';
+import { Copy, ExternalLink, Check, Search } from 'lucide-react';
+import ToolPageLayout from '@/components/ui/ToolPageLayout';
 
 interface Dork {
     id: string;
@@ -47,83 +47,73 @@ const GoogleDorkTool = () => {
     };
 
     return (
-        <div className="min-h-screen pt-20">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-                {/* Header */}
-                <div className="mb-8">
-                    <Link 
-                        href="/tools" 
-                        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white mb-4 transition-colors"
+        <ToolPageLayout
+            title="Google Dork Tool"
+            description="Advanced Google search operators for security reconnaissance and OSINT."
+            icon={Search}
+            badge="OSINT Tool"
+            tags={[
+                { label: 'Reconnaissance', color: 'bg-blue-500/10 text-blue-400 border-blue-500/30' },
+                { label: 'OSINT', color: 'bg-green-500/10 text-green-400 border-green-500/30' },
+            ]}
+        >
+            {/* Domain Input */}
+            <div className="mb-8 p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+                <label className="block text-sm text-gray-400 mb-2">
+                    Target Domain (optional)
+                </label>
+                <input
+                    type="text"
+                    value={domain}
+                    onChange={(e) => setDomain(e.target.value)}
+                    placeholder="example.com"
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
+                />
+                <p className="text-xs text-gray-600 mt-2">
+                    Leave empty for general-purpose dorks
+                </p>
+            </div>
+
+            {/* Dorks List */}
+            <div className="space-y-3">
+                {dorks.map((dork) => (
+                    <div
+                        key={dork.id}
+                        className="p-4 rounded-xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-colors"
                     >
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Tools
-                    </Link>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                        Google Dork Tool
-                    </h1>
-                    <p className="text-gray-400">
-                        Advanced Google search operators for security reconnaissance.
-                    </p>
-                </div>
-
-                {/* Domain Input */}
-                <div className="mb-8 p-5 rounded-xl border border-white/10 bg-white/[0.02]">
-                    <label className="block text-sm text-gray-400 mb-2">
-                        Target Domain (optional)
-                    </label>
-                    <input
-                        type="text"
-                        value={domain}
-                        onChange={(e) => setDomain(e.target.value)}
-                        placeholder="example.com"
-                        className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
-                    />
-                    <p className="text-xs text-gray-600 mt-2">
-                        Leave empty for general-purpose dorks
-                    </p>
-                </div>
-
-                {/* Dorks List */}
-                <div className="space-y-3">
-                    {dorks.map((dork) => (
-                        <div 
-                            key={dork.id}
-                            className="p-4 rounded-xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-colors"
-                        >
-                            <div className="flex items-start justify-between gap-4">
-                                <div className="flex-1 min-w-0">
-                                    <h3 className="text-white font-medium mb-1">{dork.name}</h3>
-                                    <p className="text-sm text-gray-500 mb-3">{dork.description}</p>
-                                    <code className="block text-sm text-orange-500 bg-black/50 px-3 py-2 rounded-lg overflow-x-auto">
-                                        {buildQuery(dork.query)}
-                                    </code>
-                                </div>
-                                <div className="flex items-center gap-2 flex-shrink-0">
-                                    <button
-                                        onClick={() => copyToClipboard(dork)}
-                                        className="p-2 rounded-lg border border-white/10 hover:border-white/20 text-gray-400 hover:text-white transition-colors"
-                                        title="Copy"
-                                    >
-                                        {copiedId === dork.id ? (
-                                            <Check className="w-4 h-4 text-green-500" />
-                                        ) : (
-                                            <Copy className="w-4 h-4" />
-                                        )}
-                                    </button>
-                                    <button
-                                        onClick={() => searchGoogle(dork)}
-                                        className="p-2 rounded-lg bg-orange-500 hover:bg-orange-600 text-white transition-colors"
-                                        title="Search"
-                                    >
-                                        <ExternalLink className="w-4 h-4" />
-                                    </button>
-                                </div>
+                        <div className="flex items-start justify-between gap-4">
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-white font-medium mb-1">{dork.name}</h3>
+                                <p className="text-sm text-gray-500 mb-3">{dork.description}</p>
+                                <code className="block text-sm text-orange-500 bg-black/50 px-3 py-2 rounded-lg overflow-x-auto">
+                                    {buildQuery(dork.query)}
+                                </code>
+                            </div>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                                <button
+                                    onClick={() => copyToClipboard(dork)}
+                                    className="p-2 rounded-lg border border-white/10 hover:border-white/20 text-gray-400 hover:text-white transition-colors"
+                                    title="Copy"
+                                >
+                                    {copiedId === dork.id ? (
+                                        <Check className="w-4 h-4 text-green-500" />
+                                    ) : (
+                                        <Copy className="w-4 h-4" />
+                                    )}
+                                </button>
+                                <button
+                                    onClick={() => searchGoogle(dork)}
+                                    className="p-2 rounded-lg bg-orange-500 hover:bg-orange-600 text-white transition-colors"
+                                    title="Search"
+                                >
+                                    <ExternalLink className="w-4 h-4" />
+                                </button>
                             </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
-        </div>
+        </ToolPageLayout>
     );
 };
 

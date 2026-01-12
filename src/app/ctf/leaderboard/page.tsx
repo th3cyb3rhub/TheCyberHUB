@@ -2,21 +2,27 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { Trophy, Medal, Award, Crown, ArrowLeft } from 'lucide-react';
+import { Trophy, Medal, Award, Crown, ArrowLeft, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import { API_URL } from '@/lib/api';
+import { useAuth } from '@/context/AuthContext';
 
 interface LeaderboardEntry {
     rank: number;
     username: string;
     solves: number;
     points: number;
+    lastSolveAt?: string; // For tie-breaking display
 }
 
+const ITEMS_PER_PAGE = 20;
+
 const LeaderboardPage = () => {
+    const { user } = useAuth();
     const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         fetchLeaderboard();
@@ -26,7 +32,7 @@ const LeaderboardPage = () => {
         try {
             const response = await fetch(`${API_URL}/api/challenges/leaderboard`);
             const result = await response.json();
-            
+
             if (result.success) {
                 setLeaderboard(result.data);
             }
@@ -68,9 +74,9 @@ const LeaderboardPage = () => {
             {/* Header */}
             <section className="relative pt-32 pb-16 px-4 sm:px-6">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
-                
+
                 <div className="relative max-w-4xl mx-auto">
-                    <Link 
+                    <Link
                         href="/ctf"
                         className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors"
                     >
@@ -151,27 +157,79 @@ const LeaderboardPage = () => {
 
                             {/* Full Rankings */}
                             <div className="space-y-2">
-                                {leaderboard.map((entry) => (
-                                    <div
-                                        key={entry.rank}
-                                        className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${getRankColor(entry.rank)}`}
-                                    >
-                                        <div className="flex items-center justify-center w-12 shrink-0">
-                                            {getRankIcon(entry.rank)}
-                                        </div>
+                                {leaderboard
+                                    .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+                                    .map((entry) => {
+                                        const isCurrentUser = user && (user as { username?: string }).username === entry.username;
 
-                                        <div className="flex-1">
-                                            <div className="font-semibold text-white">{entry.username}</div>
-                                            <div className="text-sm text-gray-400">{entry.solves} challenges solved</div>
-                                        </div>
+                                        return (
+                                            <div
+                                                key={entry.rank}
+                                                className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${isCurrentUser
+                                                        ? 'bg-orange-500/10 border-orange-500/30 ring-1 ring-orange-500/20'
+                                                        : getRankColor(entry.rank)
+                                                    }`}
+                                            >
+                                                <div className="flex items-center justify-center w-12 shrink-0">
+                                                    {getRankIcon(entry.rank)}
+                                                </div>
 
-                                        <div className="text-right">
-                                            <div className="text-xl font-bold text-orange-500">{entry.points}</div>
-                                            <div className="text-xs text-gray-500">points</div>
-                                        </div>
-                                    </div>
-                                ))}
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="font-semibold text-white">{entry.username}</span>
+                                                        {isCurrentUser && (
+                                                            <span className="text-xs px-1.5 py-0.5 bg-orange-500/20 text-orange-400 rounded">You</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                                                        <span>{entry.solves} challenges solved</span>
+                                                        {entry.lastSolveAt && (
+                                                            <span className="flex items-center gap-1 text-xs text-gray-500">
+                                                                <Clock className="w-3 h-3" />
+                                                                {new Date(entry.lastSolveAt).toLocaleDateString()}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                <div className="text-right">
+                                                    <div className="text-xl font-bold text-orange-500">{entry.points}</div>
+                                                    <div className="text-xs text-gray-500">points</div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
                             </div>
+
+                            {/* Pagination */}
+                            {leaderboard.length > ITEMS_PER_PAGE && (
+                                <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
+                                    <span className="text-sm text-gray-500">
+                                        Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1}-{Math.min(currentPage * ITEMS_PER_PAGE, leaderboard.length)} of {leaderboard.length}
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                            disabled={currentPage === 1}
+                                            className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            <ChevronLeft className="w-4 h-4" />
+                                            Prev
+                                        </button>
+                                        <span className="text-sm text-gray-400">
+                                            Page {currentPage} of {Math.ceil(leaderboard.length / ITEMS_PER_PAGE)}
+                                        </span>
+                                        <button
+                                            onClick={() => setCurrentPage(p => Math.min(Math.ceil(leaderboard.length / ITEMS_PER_PAGE), p + 1))}
+                                            disabled={currentPage >= Math.ceil(leaderboard.length / ITEMS_PER_PAGE)}
+                                            className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            Next
+                                            <ChevronRight className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                         </>
                     )}
                 </div>

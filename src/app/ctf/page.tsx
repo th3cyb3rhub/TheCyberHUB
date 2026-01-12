@@ -1,8 +1,8 @@
 // app/ctf/page.tsx
 "use client"
 
-import React, { useState, useEffect } from 'react';
-import { Flag, Trophy, Target, Users, Star, ChevronRight, Lock, Search, Filter } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Flag, Trophy, Target, Users, Star, ChevronRight, Lock, Search, Filter, X, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import { API_URL } from '@/lib/api';
@@ -22,7 +22,9 @@ interface Challenge {
 
 const CTFPage = () => {
     const [challenges, setChallenges] = useState<Challenge[]>([]);
+    const [totalChallenges, setTotalChallenges] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [filterLoading, setFilterLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedDifficulty, setSelectedDifficulty] = useState('all');
@@ -47,6 +49,9 @@ const CTFPage = () => {
 
     useEffect(() => {
         const fetchChallenges = async () => {
+            // Only show filter loading if initial load is complete
+            if (!loading) setFilterLoading(true);
+
             try {
                 let url = `${API_URL}/api/challenges?status=active`;
                 if (selectedCategory !== 'all') url += `&category=${selectedCategory}`;
@@ -54,19 +59,34 @@ const CTFPage = () => {
 
                 const response = await fetch(url);
                 const result = await response.json();
-                
+
                 if (result.success) {
                     setChallenges(result.data);
+                    // Set total on first load
+                    if (selectedCategory === 'all' && selectedDifficulty === 'all') {
+                        setTotalChallenges(result.data.length);
+                    }
                 }
             } catch (error) {
                 console.error('Failed to fetch challenges:', error);
             } finally {
                 setLoading(false);
+                setFilterLoading(false);
             }
         };
 
         fetchChallenges();
-    }, [selectedCategory, selectedDifficulty]);
+    }, [selectedCategory, selectedDifficulty, loading]);
+
+    // Check if any filters are active
+    const hasActiveFilters = selectedCategory !== 'all' || selectedDifficulty !== 'all' || searchQuery !== '';
+
+    // Clear all filters
+    const clearFilters = useCallback(() => {
+        setSelectedCategory('all');
+        setSelectedDifficulty('all');
+        setSearchQuery('');
+    }, []);
 
     const filteredChallenges = challenges.filter(challenge =>
         challenge.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -101,7 +121,7 @@ const CTFPage = () => {
             {/* Hero Section */}
             <section className="relative pt-32 pb-16 px-4 sm:px-6 border-b border-white/5">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
-                
+
                 <div className="relative max-w-5xl mx-auto text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/10 bg-white/5">
                         <Flag className="w-4 h-4 text-orange-500" />
@@ -116,7 +136,7 @@ const CTFPage = () => {
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Link 
+                        <Link
                             href="/ctf/leaderboard"
                             className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white transition-colors"
                         >
@@ -142,16 +162,37 @@ const CTFPage = () => {
             <section className="sticky top-16 z-20 bg-black/80 backdrop-blur-xl border-b border-white/5">
                 <div className="max-w-5xl mx-auto px-4 py-4">
                     <div className="flex flex-col gap-4">
-                        {/* Search */}
-                        <div className="relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                            <input
-                                type="text"
-                                placeholder="Search challenges..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 transition-all"
-                            />
+                        {/* Search with results count */}
+                        <div className="flex items-center gap-3">
+                            <div className="relative flex-1">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                <input
+                                    type="text"
+                                    placeholder="Search challenges..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 transition-all"
+                                />
+                            </div>
+
+                            {/* Results count and clear filters */}
+                            <div className="flex items-center gap-3 shrink-0">
+                                {filterLoading && (
+                                    <Loader2 className="w-4 h-4 text-orange-500 animate-spin" />
+                                )}
+                                <span className="text-sm text-gray-400">
+                                    {filteredChallenges.length}{totalChallenges > 0 ? ` of ${totalChallenges}` : ''} challenges
+                                </span>
+                                {hasActiveFilters && (
+                                    <button
+                                        onClick={clearFilters}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-all"
+                                    >
+                                        <X className="w-3.5 h-3.5" />
+                                        Clear
+                                    </button>
+                                )}
+                            </div>
                         </div>
 
                         {/* Category Filter */}
@@ -161,11 +202,10 @@ const CTFPage = () => {
                                 <button
                                     key={cat.id}
                                     onClick={() => setSelectedCategory(cat.id)}
-                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
-                                        selectedCategory === cat.id
-                                            ? 'bg-orange-500 text-white'
-                                            : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
-                                    }`}
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === cat.id
+                                        ? 'bg-orange-500 text-white'
+                                        : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                                        }`}
                                 >
                                     {cat.icon}
                                     {cat.name}
@@ -179,11 +219,10 @@ const CTFPage = () => {
                                 <button
                                     key={diff.id}
                                     onClick={() => setSelectedDifficulty(diff.id)}
-                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                                        selectedDifficulty === diff.id
-                                            ? 'bg-orange-500 text-white'
-                                            : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
-                                    }`}
+                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${selectedDifficulty === diff.id
+                                        ? 'bg-orange-500 text-white'
+                                        : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                                        }`}
                                 >
                                     {diff.name}
                                 </button>
@@ -226,7 +265,7 @@ const CTFPage = () => {
                                                     {challenge.category}
                                                 </span>
                                             </div>
-                                            
+
                                             {challenge.shortDescription && (
                                                 <p className="text-sm text-gray-400 mb-3">
                                                     {challenge.shortDescription}

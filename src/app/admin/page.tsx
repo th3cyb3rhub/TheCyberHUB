@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
@@ -12,8 +12,12 @@ import {
     Settings,
     Loader2,
     ArrowRight,
-    Shield
+    Shield,
+    Flag,
+    TrendingUp,
+    Activity
 } from 'lucide-react';
+import { API_URL } from '@/lib/api';
 
 const adminSections = [
     {
@@ -44,11 +48,28 @@ const adminSections = [
         href: '/admin/users',
         color: 'from-green-500 to-emerald-500',
     },
+    {
+        title: 'CTF Challenges',
+        description: 'Manage CTF challenges, flags, and scoring',
+        icon: Flag,
+        href: '/admin/challenges',
+        color: 'from-yellow-500 to-amber-500',
+    },
 ];
+
+interface AdminStats {
+    totalUsers: number;
+    totalChallenges: number;
+    activeChallenges: number;
+    totalEvents: number;
+    totalSolves: number;
+}
 
 export default function AdminDashboard() {
     const router = useRouter();
     const { user, loading } = useAuth();
+    const [stats, setStats] = useState<AdminStats | null>(null);
+    const [statsLoading, setStatsLoading] = useState(true);
 
     useEffect(() => {
         if (!loading && (!user || user.role !== 'admin')) {
@@ -56,6 +77,27 @@ export default function AdminDashboard() {
             router.push(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
         }
     }, [user, loading, router]);
+
+    // Fetch admin stats
+    useEffect(() => {
+        const fetchStats = async () => {
+            if (!user || user.role !== 'admin') return;
+            try {
+                const response = await fetch(`${API_URL}/api/admin/stats`, {
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setStats(data.data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch admin stats:', error);
+            } finally {
+                setStatsLoading(false);
+            }
+        };
+        fetchStats();
+    }, [user]);
 
     if (loading) {
         return (
@@ -107,8 +149,48 @@ export default function AdminDashboard() {
                     ))}
                 </div>
 
-                {/* Quick Stats */}
-                <div className="mt-10 p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
+                {/* Stats Overview */}
+                <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Users className="w-4 h-4 text-green-400" />
+                            <span className="text-sm text-gray-500">Total Users</span>
+                        </div>
+                        <p className="text-2xl font-bold text-white">
+                            {statsLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (stats?.totalUsers ?? 0)}
+                        </p>
+                    </div>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Flag className="w-4 h-4 text-yellow-400" />
+                            <span className="text-sm text-gray-500">Active Challenges</span>
+                        </div>
+                        <p className="text-2xl font-bold text-white">
+                            {statsLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (stats?.activeChallenges ?? 0)}
+                        </p>
+                    </div>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Activity className="w-4 h-4 text-blue-400" />
+                            <span className="text-sm text-gray-500">Total Solves</span>
+                        </div>
+                        <p className="text-2xl font-bold text-white">
+                            {statsLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (stats?.totalSolves ?? 0)}
+                        </p>
+                    </div>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Calendar className="w-4 h-4 text-purple-400" />
+                            <span className="text-sm text-gray-500">Total Events</span>
+                        </div>
+                        <p className="text-2xl font-bold text-white">
+                            {statsLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (stats?.totalEvents ?? 0)}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="mt-6 p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
                     <h2 className="text-lg font-semibold text-white mb-4">Quick Actions</h2>
                     <div className="flex flex-wrap gap-3">
                         <Link

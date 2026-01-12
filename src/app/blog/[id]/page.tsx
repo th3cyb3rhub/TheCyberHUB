@@ -3,8 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Calendar, User, Clock, Eye, Share2, Bookmark, Loader2 } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Clock, Eye, Loader2 } from 'lucide-react';
 import { API_URL } from '@/lib/api';
+import { useAuth } from '@/context/AuthContext';
+import CommentSection from '@/components/blog/CommentSection';
+import BlogActions from '@/components/blog/BlogActions';
 
 interface Blog {
     _id: string;
@@ -18,10 +21,13 @@ interface Blog {
     };
     createdAt: string;
     views?: number;
+    likeCount?: number;
+    likes?: string[];
 }
 
 const BlogPostPage = () => {
     const params = useParams();
+    const { user } = useAuth();
     const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -32,7 +38,7 @@ const BlogPostPage = () => {
                 const response = await fetch(`${API_URL}/api/blogs/${params.id}`);
                 if (!response.ok) throw new Error('Blog not found');
                 const data = await response.json();
-                setBlog(data);
+                setBlog(data.data || data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to load blog');
             } finally {
@@ -55,17 +61,9 @@ const BlogPostPage = () => {
         return Math.ceil(words / 200);
     };
 
-    const sharePost = async () => {
-        if (navigator.share) {
-            await navigator.share({
-                title: blog?.title,
-                url: window.location.href
-            });
-        } else {
-            await navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
-        }
-    };
+    // Check if user has liked/bookmarked
+    const isLiked = user && blog?.likes?.includes(user.id);
+    const isBookmarked = user?.bookmarks?.roadmaps?.includes(blog?._id || '');
 
     if (loading) {
         return (
@@ -80,7 +78,7 @@ const BlogPostPage = () => {
             <div className="min-h-screen bg-black flex flex-col items-center justify-center px-4">
                 <h1 className="text-2xl font-bold text-white mb-4">Blog not found</h1>
                 <p className="text-gray-400 mb-8">{error || 'The requested blog post does not exist.'}</p>
-                <Link 
+                <Link
                     href="/blog"
                     className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300"
                 >
@@ -96,10 +94,10 @@ const BlogPostPage = () => {
             {/* Header */}
             <section className="relative pt-32 pb-8 px-4 sm:px-6">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
-                
+
                 <div className="relative max-w-3xl mx-auto">
                     {/* Back Link */}
-                    <Link 
+                    <Link
                         href="/blog"
                         className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
                     >
@@ -111,7 +109,7 @@ const BlogPostPage = () => {
                     {blog.tags && blog.tags.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-4">
                             {blog.tags.map(tag => (
-                                <span 
+                                <span
                                     key={tag}
                                     className="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded"
                                 >
@@ -149,20 +147,13 @@ const BlogPostPage = () => {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-3 mb-8">
-                        <button
-                            onClick={sharePost}
-                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white border border-white/10 hover:border-white/20 rounded-lg transition-colors"
-                        >
-                            <Share2 className="w-4 h-4" />
-                            Share
-                        </button>
-                        <button
-                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white border border-white/10 hover:border-white/20 rounded-lg transition-colors"
-                        >
-                            <Bookmark className="w-4 h-4" />
-                            Save
-                        </button>
+                    <div className="mb-8">
+                        <BlogActions
+                            blogId={blog._id}
+                            initialLikeCount={blog.likeCount || 0}
+                            initialIsLiked={!!isLiked}
+                            initialIsBookmarked={!!isBookmarked}
+                        />
                     </div>
                 </div>
             </section>
@@ -171,8 +162,8 @@ const BlogPostPage = () => {
             {blog.coverImage && (
                 <section className="max-w-4xl mx-auto px-4 sm:px-6 mb-8">
                     <div className="rounded-xl overflow-hidden">
-                        <img 
-                            src={blog.coverImage} 
+                        <img
+                            src={blog.coverImage}
                             alt={blog.title}
                             className="w-full h-auto"
                         />
@@ -183,7 +174,7 @@ const BlogPostPage = () => {
             {/* Content */}
             <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-20">
                 <article className="prose prose-invert prose-orange max-w-none">
-                    <div 
+                    <div
                         className="text-gray-300 leading-relaxed whitespace-pre-wrap"
                         dangerouslySetInnerHTML={{ __html: blog.content }}
                     />
@@ -201,6 +192,9 @@ const BlogPostPage = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* Comments Section */}
+                <CommentSection blogId={blog._id} />
             </section>
         </div>
     );

@@ -37,6 +37,7 @@ interface Challenge {
     category: string;
     difficulty: 'easy' | 'medium' | 'hard' | 'insane';
     points: number;
+    basePoints?: number; // Original points before dynamic scoring
     solves: number;
     author?: {
         username: string;
@@ -44,6 +45,7 @@ interface Challenge {
     };
     tags?: string[];
     hints?: Hint[];
+    hintsUsed?: number; // Number of hints unlocked
     solved?: boolean;
     files?: { name: string; url: string }[];
     createdAt: string;
@@ -226,8 +228,8 @@ const ChallengePage = () => {
         <div className="min-h-screen bg-black pt-24 pb-16 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto">
                 {/* Back link */}
-                <Link 
-                    href="/challenges" 
+                <Link
+                    href="/challenges"
                     className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white mb-6 transition-colors"
                 >
                     <ArrowLeft className="w-4 h-4" />
@@ -255,15 +257,34 @@ const ChallengePage = () => {
                         <span className="px-3 py-1 rounded-full text-sm bg-white/5 text-gray-400 border border-white/10 capitalize">
                             {challenge.category}
                         </span>
+
+                        {/* Dynamic scoring display */}
                         <span className="flex items-center gap-1.5 text-sm text-gray-400">
                             <Star className="w-4 h-4 text-yellow-400" />
-                            {challenge.points} points
+                            {challenge.basePoints && challenge.basePoints !== challenge.points ? (
+                                <span className="flex items-center gap-1">
+                                    <span className="line-through text-gray-600">{challenge.basePoints}</span>
+                                    <span className="text-yellow-400 font-medium">{challenge.points}</span>
+                                    <span className="text-xs text-gray-500">pts</span>
+                                </span>
+                            ) : (
+                                <span>{challenge.points} points</span>
+                            )}
                         </span>
+
                         <span className="flex items-center gap-1.5 text-sm text-gray-400">
                             <Users className="w-4 h-4" />
                             {challenge.solves} solves
                         </span>
                     </div>
+
+                    {/* Dynamic scoring note */}
+                    {challenge.solves > 0 && challenge.basePoints && challenge.basePoints !== challenge.points && (
+                        <div className="flex items-center gap-2 text-xs text-gray-500 mb-4 px-3 py-2 bg-yellow-500/5 border border-yellow-500/10 rounded-lg">
+                            <Star className="w-3.5 h-3.5 text-yellow-500/70" />
+                            <span>Points decrease as more people solve. Original: {challenge.basePoints} pts</span>
+                        </div>
+                    )}
 
                     {challenge.tags && challenge.tags.length > 0 && (
                         <div className="flex flex-wrap gap-2">
@@ -374,11 +395,10 @@ const ChallengePage = () => {
                     ) : user ? (
                         <form onSubmit={handleSubmit}>
                             {result && (
-                                <div className={`flex items-center gap-3 p-4 rounded-xl mb-4 ${
-                                    result.success 
-                                        ? 'bg-green-500/10 border border-green-500/20' 
-                                        : 'bg-red-500/10 border border-red-500/20'
-                                }`}>
+                                <div className={`flex items-center gap-3 p-4 rounded-xl mb-4 ${result.success
+                                    ? 'bg-green-500/10 border border-green-500/20'
+                                    : 'bg-red-500/10 border border-red-500/20'
+                                    }`}>
                                     {result.success ? (
                                         <CheckCircle className="w-5 h-5 text-green-400" />
                                     ) : (
@@ -429,7 +449,7 @@ const ChallengePage = () => {
                 {challenge.author && (
                     <div className="mt-6 text-center text-sm text-gray-500">
                         Challenge by{' '}
-                        <Link 
+                        <Link
                             href={`/user/${challenge.author.username}`}
                             className="text-orange-400 hover:text-orange-300"
                         >
