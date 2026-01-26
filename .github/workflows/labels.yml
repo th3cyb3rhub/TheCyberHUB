@@ -1,0 +1,17 @@
+name: Import standard labels
+
+on: [workflow_dispatch]
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - uses: th3cyb3rhub/gh-action-labels@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          owner-name: "TheCyberHUB"
+          repository-name: "thecyberhub.org"
