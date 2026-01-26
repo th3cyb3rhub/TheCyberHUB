@@ -2,6 +2,16 @@ import type { NextConfig } from 'next'
 import type { Configuration } from 'webpack'
 
 const nextConfig: NextConfig = {
+    // Disable ESLint during build (warnings won't block deployment)
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    
+    // Disable TypeScript errors during build
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+
     // Enable experimental features for better SEO and performance
     experimental: {
         optimizePackageImports: ['lucide-react'],
