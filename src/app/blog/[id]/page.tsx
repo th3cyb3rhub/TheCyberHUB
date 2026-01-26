@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { ArrowLeft, Calendar, User, Clock, Eye, Loader2 } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { ArrowLeft, Calendar, User, Clock, Eye, Loader2, Edit, Trash2 } from 'lucide-react';
 import { API_URL } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 import CommentSection from '@/components/blog/CommentSection';
 import BlogActions from '@/components/blog/BlogActions';
 
@@ -16,6 +17,7 @@ interface Blog {
     coverImage?: string;
     tags?: string[];
     author?: {
+        _id: string;
         username: string;
         name?: string;
     };
@@ -27,10 +29,13 @@ interface Blog {
 
 const BlogPostPage = () => {
     const params = useParams();
-    const { user } = useAuth();
+    const router = useRouter();
+    const { user, token } = useAuth();
+    const { addToast } = useToast();
     const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(() => {
         const fetchBlog = async () => {
@@ -61,9 +66,61 @@ const BlogPostPage = () => {
         return Math.ceil(words / 200);
     };
 
+    // Check if user is owner or admin
+    const isOwner = user && blog?.author?._id && user.id === blog.author._id;
+    const isAdmin = user?.role === 'admin';
+    const canEdit = isOwner || isAdmin;
+    const canDelete = isOwner || isAdmin;
+
     // Check if user has liked/bookmarked
     const isLiked = user && blog?.likes?.includes(user.id);
     const isBookmarked = user?.bookmarks?.roadmaps?.includes(blog?._id || '');
+
+    const handleEdit = () => {
+        router.push(`/blog/edit/${blog?._id}`);
+    };
+
+    const handleDelete = async () => {
+        if (!blog || !token) return;
+
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this blog post? This action cannot be undone.'
+        );
+
+        if (!confirmed) return;
+
+        setDeleting(true);
+
+        try {
+            const response = await fetch(`${API_URL}/api/blogs/${blog._id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error?.message || 'Failed to delete blog');
+            }
+
+            addToast({
+                variant: 'success',
+                title: 'Blog deleted',
+                message: 'Your blog post has been deleted successfully.',
+            });
+
+            router.push('/blog');
+        } catch (err) {
+            addToast({
+                variant: 'error',
+                title: 'Delete failed',
+                message: err instanceof Error ? err.message : 'Failed to delete blog post.',
+            });
+        } finally {
+            setDeleting(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -146,14 +203,43 @@ const BlogPostPage = () => {
                         )}
                     </div>
 
-                    {/* Actions */}
-                    <div className="mb-8">
+                    {/* Actions Row */}
+                    <div className="flex items-center justify-between mb-8">
                         <BlogActions
                             blogId={blog._id}
                             initialLikeCount={blog.likeCount || 0}
                             initialIsLiked={!!isLiked}
                             initialIsBookmarked={!!isBookmarked}
                         />
+
+                        {/* Edit/Delete Buttons (Owner or Admin only) */}
+                        {(canEdit || canDelete) && (
+                            <div className="flex items-center gap-2">
+                                {canEdit && (
+                                    <button
+                                        onClick={handleEdit}
+                                        className="flex items-center gap-2 px-4 py-2 text-sm text-blue-400 hover:text-blue-300 border border-blue-500/20 hover:border-blue-500/40 rounded-lg transition-colors"
+                                    >
+                                        <Edit className="w-4 h-4" />
+                                        Edit
+                                    </button>
+                                )}
+                                {canDelete && (
+                                    <button
+                                        onClick={handleDelete}
+                                        disabled={deleting}
+                                        className="flex items-center gap-2 px-4 py-2 text-sm text-red-400 hover:text-red-300 border border-red-500/20 hover:border-red-500/40 rounded-lg transition-colors disabled:opacity-50"
+                                    >
+                                        {deleting ? (
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                        ) : (
+                                            <Trash2 className="w-4 h-4" />
+                                        )}
+                                        Delete
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

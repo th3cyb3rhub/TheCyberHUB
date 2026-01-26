@@ -74,9 +74,9 @@ export default function VoteButtons({
     };
 
     const sizeClasses = {
-        sm: { button: 'p-1', icon: 'w-4 h-4', text: 'text-sm' },
-        md: { button: 'p-1.5', icon: 'w-5 h-5', text: 'text-base' },
-        lg: { button: 'p-2', icon: 'w-6 h-6', text: 'text-lg' },
+        sm: { button: 'p-1.5', icon: 'w-5 h-5', text: 'text-sm' },
+        md: { button: 'p-2', icon: 'w-6 h-6', text: 'text-base' },
+        lg: { button: 'p-2.5', icon: 'w-7 h-7', text: 'text-lg' },
     };
 
     const s = sizeClasses[size];
@@ -88,15 +88,15 @@ export default function VoteButtons({
                 disabled={disabled || isVoting}
                 className={cn(
                     s.button,
-                    'rounded-lg transition-all duration-200',
+                    'rounded-lg transition-all duration-200 active:scale-90',
                     currentVote === 1
-                        ? 'bg-green-500/20 text-green-400'
-                        : 'text-gray-500 hover:bg-white/5 hover:text-green-400',
+                        ? 'bg-green-500/20 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.2)]'
+                        : 'text-gray-500 hover:bg-green-500/10 hover:text-green-400',
                     (disabled || isVoting) && 'opacity-50 cursor-not-allowed'
                 )}
                 title="Upvote"
             >
-                <ChevronUp className={s.icon} />
+                <ChevronUp className={cn(s.icon, isVoting && 'animate-pulse')} />
             </button>
 
             <span
@@ -116,15 +116,15 @@ export default function VoteButtons({
                 disabled={disabled || isVoting}
                 className={cn(
                     s.button,
-                    'rounded-lg transition-all duration-200',
+                    'rounded-lg transition-all duration-200 active:scale-90',
                     currentVote === -1
-                        ? 'bg-red-500/20 text-red-400'
-                        : 'text-gray-500 hover:bg-white/5 hover:text-red-400',
+                        ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(239,68,68,0.2)]'
+                        : 'text-gray-500 hover:bg-red-500/10 hover:text-red-400',
                     (disabled || isVoting) && 'opacity-50 cursor-not-allowed'
                 )}
                 title="Downvote"
             >
-                <ChevronDown className={s.icon} />
+                <ChevronDown className={cn(s.icon, isVoting && 'animate-pulse')} />
             </button>
         </div>
     );

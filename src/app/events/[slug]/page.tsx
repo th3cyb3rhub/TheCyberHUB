@@ -346,7 +346,7 @@ function CountdownTimer({ dateString }: { dateString: string }) {
 
     return (
         <div className="flex items-center gap-4">
-            <Timer className="w-5 h-5 text-cyan-400" />
+            <Timer className="w-5 h-5 text-orange-400" />
             <div className="flex gap-3">
                 <div className="text-center">
                     <div className="text-2xl font-bold text-white">{countdown.days}</div>
@@ -506,17 +506,17 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                     {/* Left Column - Details */}
                     <div className="lg:col-span-2 space-y-8">
                         {/* About */}
-                        <section className="bg-gray-900/50 border border-white/5 rounded-2xl p-6 md:p-8">
+                        <section className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
                             <h2 className="text-xl font-semibold text-white mb-6">About This Event</h2>
                             <div className="prose prose-invert prose-gray max-w-none">
                                 {event.description.split('\n').map((line, i) => {
                                     if (line.startsWith('## ')) {
-                                        return <h3 key={i} className="text-lg font-semibold mt-8 mb-4 text-cyan-400 first:mt-0">{line.replace('## ', '')}</h3>;
+                                        return <h3 key={i} className="text-lg font-semibold mt-8 mb-4 text-orange-400 first:mt-0">{line.replace('## ', '')}</h3>;
                                     }
                                     if (line.startsWith('- ')) {
                                         return (
                                             <div key={i} className="flex gap-3 my-2">
-                                                <span className="text-cyan-500 mt-0.5">•</span>
+                                                <span className="text-orange-500 mt-0.5">•</span>
                                                 <span className="text-gray-300">{line.replace('- ', '')}</span>
                                             </div>
                                         );
@@ -532,12 +532,12 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
 
                         {/* Speakers */}
                         {event.speakers && event.speakers.length > 0 && (
-                            <section className="bg-gray-900/50 border border-white/5 rounded-2xl p-6 md:p-8">
+                            <section className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
                                 <h2 className="text-xl font-semibold text-white mb-6">Speakers</h2>
                                 <div className="grid gap-4">
                                     {event.speakers.map((speaker, i) => (
                                         <div key={i} className="flex items-center gap-4 p-4 bg-white/5 rounded-xl">
-                                            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white text-xl font-bold shrink-0">
+                                            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-xl font-bold shrink-0">
                                                 {speaker.name.charAt(0)}
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -551,7 +551,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                                                     rel="noopener noreferrer"
                                                     className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                                                 >
-                                                    <Linkedin className="w-5 h-5 text-gray-400 hover:text-cyan-400" />
+                                                    <Linkedin className="w-5 h-5 text-gray-400 hover:text-orange-400" />
                                                 </a>
                                             )}
                                         </div>
@@ -564,12 +564,12 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                     {/* Right Column - Info Cards */}
                     <div className="space-y-6">
                         {/* Date & Time */}
-                        <div className="bg-gray-900/50 border border-white/5 rounded-2xl p-6">
+                        <div className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/30 transition-colors">
                             <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-4">Date & Time</h3>
                             <div className="space-y-4">
                                 <div className="flex items-start gap-3">
-                                    <div className="p-2 bg-cyan-500/10 rounded-lg">
-                                        <Calendar className="w-5 h-5 text-cyan-400" />
+                                    <div className="p-2 bg-orange-500/10 rounded-lg">
+                                        <Calendar className="w-5 h-5 text-orange-400" />
                                     </div>
                                     <div>
                                         <p className="font-medium text-white">{formatDate(event.startDate)}</p>
@@ -579,8 +579,8 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
-                                    <div className="p-2 bg-cyan-500/10 rounded-lg">
-                                        <Clock className="w-5 h-5 text-cyan-400" />
+                                    <div className="p-2 bg-orange-500/10 rounded-lg">
+                                        <Clock className="w-5 h-5 text-orange-400" />
                                     </div>
                                     <div>
                                         <p className="font-medium text-white">{formatTime(event.startDate)}</p>
@@ -594,11 +594,11 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                         </div>
 
                         {/* Location */}
-                        <div className="bg-gray-900/50 border border-white/5 rounded-2xl p-6">
+                        <div className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/30 transition-colors">
                             <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-4">Location</h3>
                             <div className="flex items-start gap-3">
-                                <div className="p-2 bg-cyan-500/10 rounded-lg">
-                                    <MapPin className="w-5 h-5 text-cyan-400" />
+                                <div className="p-2 bg-orange-500/10 rounded-lg">
+                                    <MapPin className="w-5 h-5 text-orange-400" />
                                 </div>
                                 <div>
                                     <p className="font-medium text-white">{event.location}</p>
@@ -608,10 +608,10 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                         </div>
 
                         {/* Organizer */}
-                        <div className="bg-gray-900/50 border border-white/5 rounded-2xl p-6">
+                        <div className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/30 transition-colors">
                             <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-4">Organized By</h3>
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold">
+                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold">
                                     {event.organizer.charAt(0)}
                                 </div>
                                 <div>
@@ -621,7 +621,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                         </div>
 
                         {/* Tags */}
-                        <div className="bg-gray-900/50 border border-white/5 rounded-2xl p-6">
+                        <div className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/30 transition-colors">
                             <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-4">Tags</h3>
                             <div className="flex flex-wrap gap-2">
                                 {event.tags.map((tag) => (

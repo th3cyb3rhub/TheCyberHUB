@@ -111,7 +111,7 @@ const CTFPage = () => {
             reverse: 'text-purple-400',
             forensics: 'text-green-400',
             misc: 'text-gray-400',
-            osint: 'text-cyan-400',
+            osint: 'text-orange-400',
         };
         return colors[category] || 'text-gray-400';
     };

@@ -65,8 +65,8 @@ const SubfinderPage = () => {
     const [sortBy, setSortBy] = useState<'subdomain' | 'firstSeen' | 'lastSeen'>('subdomain');
     const [apiMetadata, setApiMetadata] = useState<LambdaResponse['metadata'] | null>(null);
 
-    // Lambda API endpoint
-    const LAMBDA_API_URL = 'https://9b5gemj3ff.execute-api.us-east-1.amazonaws.com/default/subfinder';
+    // Lambda API endpoint - using environment variable for security
+    const LAMBDA_API_URL = process.env.NEXT_PUBLIC_SUBFINDER_API_URL || '';
 
     const validateDomain = (domain: string): boolean => {
         const domainRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9](?:\.[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])*$/;

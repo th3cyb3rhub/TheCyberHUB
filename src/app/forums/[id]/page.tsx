@@ -16,8 +16,10 @@ import {
     Trash2,
     Loader2,
     AlertCircle,
+    Share2,
+    Link as LinkIcon,
 } from 'lucide-react';
-import { Discussion, Reply, CATEGORY_INFO } from '@/types/forum';
+import { Discussion, Reply, CATEGORY_INFO, ROLE_BADGES } from '@/types/forum';
 import {
     getDiscussion,
     getReplies,
@@ -264,14 +266,19 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
                                 <img
                                     src={discussion.author.avatar}
                                     alt={discussion.author.username}
-                                    className="w-6 h-6 rounded-full"
+                                    className="w-8 h-8 rounded-full ring-2 ring-orange-500/30"
                                 />
                             ) : (
-                                <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center text-xs text-orange-400">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-sm text-white font-medium">
                                     {discussion.author.username[0].toUpperCase()}
                                 </div>
                             )}
                             <span>{discussion.author.username}</span>
+                            {discussion.author.role && discussion.author.role !== 'user' && ROLE_BADGES[discussion.author.role] && (
+                                <span className={`text-xs px-1.5 py-0.5 rounded ${ROLE_BADGES[discussion.author.role].bgColor} ${ROLE_BADGES[discussion.author.role].color} ${ROLE_BADGES[discussion.author.role].borderColor} border`}>
+                                    {ROLE_BADGES[discussion.author.role].label}
+                                </span>
+                            )}
                         </Link>
                         <span className="flex items-center gap-1">
                             <Clock className="w-4 h-4" />
@@ -319,6 +326,29 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
                                     ))}
                                 </div>
                             )}
+
+                            {/* Share button */}
+                            <div className="flex items-center gap-4 mt-6 pt-6 border-t border-white/10">
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        // You could add a toast notification here
+                                    }}
+                                    className="flex items-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-sm rounded-lg transition-colors"
+                                >
+                                    <Share2 className="w-4 h-4" />
+                                    Share
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(window.location.href);
+                                    }}
+                                    className="flex items-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-sm rounded-lg transition-colors"
+                                >
+                                    <LinkIcon className="w-4 h-4" />
+                                    Copy Link
+                                </button>
+                            </div>
 
                             {/* Actions */}
                             {(canEdit || canDelete || canModerate) && (

@@ -54,6 +54,10 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 
+# Environment files (keep out of git)
+.env.local
+.env.example
+
 # Vercel
 .vercel
 
@@ -99,3 +103,19 @@ Thumbs.db
 
 # Turbopack
 .turbo
+
+# Temporary documentation (internal development notes - not for open source)
+*_COMPLETE.md
+*_FIXES.md
+*_APPLIED.md
+*_ANALYSIS.md
+*_SUMMARY.md
+*_READY.md
+*_CHECKLIST.md
+*_COMPARISON.md
+*_VERIFICATION.md
+*_PLAN.md
+*_ACTION_PLAN.md
+*_DEPLOYMENT_SUMMARY.md
+*_REVIEW_AND_IMPROVEMENTS.md
+.cleanup-docs.md

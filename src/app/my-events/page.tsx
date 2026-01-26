@@ -194,30 +194,15 @@ export default function MyEventsPage() {
             if (!token) return;
 
             try {
-                // Fetch all events and filter by registration
-                const response = await fetch(`${API_URL}/api/events?limit=100`);
+                const response = await fetch(`${API_URL}/api/events/my-registrations`, {
+                    headers: { 'Authorization': `Bearer ${token}` },
+                });
+                
                 if (response.ok) {
                     const data = await response.json();
-                    const allEvents = data.data || [];
-                    
-                    // Check registration status for each event
-                    const registeredEvents: Event[] = [];
-                    for (const event of allEvents) {
-                        try {
-                            const regResponse = await fetch(`${API_URL}/api/events/${event._id}/registration`, {
-                                headers: { 'Authorization': `Bearer ${token}` },
-                            });
-                            if (regResponse.ok) {
-                                const regData = await regResponse.json();
-                                if (regData.data?.isRegistered) {
-                                    registeredEvents.push(event);
-                                }
-                            }
-                        } catch {
-                            // Skip this event
-                        }
-                    }
-                    setEvents(registeredEvents);
+                    setEvents(data.data || []);
+                } else {
+                    console.error('Failed to fetch registered events');
                 }
             } catch (err) {
                 console.error('Failed to fetch events:', err);

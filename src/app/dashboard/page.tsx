@@ -37,20 +37,20 @@ interface ChallengeSummary {
 
 // Quick access tools data
 const quickTools = [
-    { id: 'google-dork', name: 'Google Dork', href: '/tools/google-dork', icon: Search, color: 'from-blue-500 to-blue-600' },
-    { id: 'jwt-analyzer', name: 'JWT Analyzer', href: '/tools/jwt-analyzer', icon: Key, color: 'from-purple-500 to-purple-600' },
-    { id: 'subfinder', name: 'Subfinder', href: '/tools/subfinder', icon: Globe, color: 'from-green-500 to-green-600' },
-    { id: 'encoder-decoder', name: 'Encoder/Decoder', href: '/tools/encoder-decoder', icon: Terminal, color: 'from-orange-500 to-orange-600' },
-    { id: 'hash-analyzer', name: 'Hash Analyzer', href: '/tools/hash-analyzer', icon: Hash, color: 'from-pink-500 to-pink-600' },
-    { id: 'password-generator', name: 'Password Gen', href: '/tools/password-generator', icon: Key, color: 'from-cyan-500 to-cyan-600' },
+    { id: 'google-dork', name: 'Google Dork', href: '/tools', icon: Search, color: 'from-blue-500 to-blue-600' },
+    { id: 'jwt-decoder', name: 'JWT Decoder', href: '/tools', icon: Key, color: 'from-purple-500 to-purple-600' },
+    { id: 'base64', name: 'Base64 Tool', href: '/tools', icon: Terminal, color: 'from-orange-500 to-orange-600' },
+    { id: 'hash-generator', name: 'Hash Generator', href: '/tools', icon: Hash, color: 'from-pink-500 to-pink-600' },
+    { id: 'password-generator', name: 'Password Gen', href: '/tools', icon: Key, color: 'from-teal-500 to-teal-600' },
+    { id: 'url-encoder', name: 'URL Encoder', href: '/tools', icon: Globe, color: 'from-green-500 to-green-600' },
 ];
 
 // Learning resources
 const learningResources = [
     { title: 'Cybersecurity Roadmap', href: '/roadmaps', icon: Map, description: 'Start your security journey' },
     { title: 'Cheatsheets', href: '/cheatsheets', icon: BookOpen, description: 'Quick reference guides' },
-    { title: 'Security Tools', href: '/tools', icon: Wrench, description: 'Explore all 15+ tools' },
-    { title: 'Labs (Coming Soon)', href: '/labs', icon: Shield, description: 'Hands-on practice environments' },
+    { title: 'Security Tools', href: '/tools', icon: Wrench, description: 'Explore all 9+ tools' },
+    { title: 'Practice Labs', href: '/labs', icon: Shield, description: 'Coming soon - Hands-on environments' },
 ];
 
 // Stats cards
@@ -385,16 +385,14 @@ const GettingStartedCard = ({
 }) => (
     <Link
         href={href}
-        className={`group p-4 rounded-xl border transition-all ${
-            completed
+        className={`group p-4 rounded-xl border transition-all ${completed
                 ? 'border-green-500/30 bg-green-500/5'
                 : 'border-white/10 bg-white/[0.02] hover:border-orange-500/40'
-        }`}
+            }`}
     >
         <div className="flex items-start gap-3">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                completed ? 'bg-green-500/20' : 'bg-white/5 group-hover:bg-orange-500/10'
-            } transition-colors`}>
+            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${completed ? 'bg-green-500/20' : 'bg-white/5 group-hover:bg-orange-500/10'
+                } transition-colors`}>
                 {completed ? (
                     <Star className="w-4 h-4 text-green-500" />
                 ) : (

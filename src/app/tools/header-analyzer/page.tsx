@@ -61,8 +61,8 @@ const HeaderAnalyzerPage = () => {
     const [error, setError] = useState('');
     const [showOtherHeaders, setShowOtherHeaders] = useState(false);
 
-    // --- FIX: API endpoint for the httpHeaderAnalyzer Lambda function ---
-    const LAMBDA_URL = 'https://9b5gemj3ff.execute-api.us-east-1.amazonaws.com/default/httpHeaderAnalyzer';
+    // API endpoint for the httpHeaderAnalyzer Lambda function - using environment variable for security
+    const LAMBDA_URL = process.env.NEXT_PUBLIC_HEADER_ANALYZER_API_URL || '';
 
     const handleScan = async () => {
         if (!url.trim()) {

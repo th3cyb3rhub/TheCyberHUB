@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { CheckCircle, MessageSquare, MoreHorizontal, Pencil, Trash2, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Reply } from '@/types/forum';
+import { ROLE_BADGES } from '@/types/forum';
 import VoteButtons from './VoteButtons';
 import MarkdownContent from './MarkdownContent';
 import ReplyForm from './ReplyForm';
@@ -84,8 +85,8 @@ export default function ReplyThread({
                 className={cn(
                     'rounded-lg p-4',
                     reply.isAccepted
-                        ? 'bg-green-500/5 border border-green-500/30'
-                        : 'bg-white/[0.02] border border-white/5'
+                        ? 'bg-green-500/10 border border-green-500/30'
+                        : 'bg-black/40 backdrop-blur-sm border border-white/10'
                 )}
             >
                 {/* Accepted badge */}
@@ -122,13 +123,18 @@ export default function ReplyThread({
                                         className="w-6 h-6 rounded-full"
                                     />
                                 ) : (
-                                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center text-xs text-orange-400">
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-sm text-white font-medium">
                                         {reply.author.username[0].toUpperCase()}
                                     </div>
                                 )}
                                 <span className="text-sm font-medium text-white">
                                     {reply.author.username}
                                 </span>
+                                {reply.author.role && reply.author.role !== 'user' && ROLE_BADGES[reply.author.role] && (
+                                    <span className={`text-xs px-1.5 py-0.5 rounded ${ROLE_BADGES[reply.author.role].bgColor} ${ROLE_BADGES[reply.author.role].color} ${ROLE_BADGES[reply.author.role].borderColor} border`}>
+                                        {ROLE_BADGES[reply.author.role].label}
+                                    </span>
+                                )}
                             </Link>
                             <span className="text-xs text-gray-500 flex items-center gap-1">
                                 <Clock className="w-3 h-3" />

@@ -46,9 +46,9 @@ function DiscussionCard({ discussion }: { discussion: Discussion }) {
 
     return (
         <Link href={`/forums/${discussion._id}`} className="block group">
-            <div className={`relative rounded-xl border bg-white/[0.02] p-5 transition-all duration-200 ${discussion.isPinned
+            <div className={`relative rounded-xl border bg-black/40 backdrop-blur-sm p-5 transition-all duration-200 ${discussion.isPinned
                 ? 'border-orange-500/30 bg-orange-500/5'
-                : 'border-white/10 hover:border-white/20 hover:bg-white/[0.04]'
+                : 'border-white/10 hover:border-orange-500/20 hover:bg-black/60'
                 }`}>
                 {/* Pinned/Locked indicators */}
                 <div className="absolute top-4 right-4 flex items-center gap-2">
@@ -122,9 +122,12 @@ function DiscussionCard({ discussion }: { discussion: Discussion }) {
                                 <Clock className="w-3.5 h-3.5" />
                                 {formatTimeAgo(discussion.lastActivityAt)}
                             </span>
-                            <span className="text-gray-600">
-                                by <span className="text-gray-400">{discussion.author.username}</span>
-                            </span>
+                            <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-xs text-white font-medium">
+                                    {discussion.author.username[0].toUpperCase()}
+                                </div>
+                                <span className="text-gray-400 hover:text-orange-400 transition-colors">{discussion.author.username}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,7 +148,7 @@ function CategorySidebar({
     const totalCount = stats.reduce((sum, s) => sum + s.count, 0);
 
     return (
-        <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+        <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm p-4">
             <h3 className="text-sm font-semibold text-white mb-3">Categories</h3>
             <div className="space-y-1">
                 <button
@@ -192,7 +195,7 @@ function PopularTagsSection({
     if (tags.length === 0) return null;
 
     return (
-        <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 mt-4">
+        <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm p-4 mt-4">
             <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                 <Tag className="w-4 h-4 text-orange-500" />
                 Popular Tags
@@ -203,8 +206,8 @@ function PopularTagsSection({
                         key={t.tag}
                         onClick={() => onSelectTag(selectedTag === t.tag ? null : t.tag)}
                         className={`px-2.5 py-1 rounded text-xs transition-colors ${selectedTag === t.tag
-                                ? 'bg-orange-500/20 text-orange-400'
-                                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                            ? 'bg-orange-500/20 text-orange-400'
+                            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                             }`}
                     >
                         {t.tag}
@@ -371,8 +374,8 @@ export default function ForumsPage() {
                                         key={value}
                                         onClick={() => updateParams({ sort: value })}
                                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm transition-colors ${sortBy === value
-                                                ? 'bg-orange-500/20 text-orange-400'
-                                                : 'text-gray-400 hover:text-white'
+                                            ? 'bg-orange-500/20 text-orange-400'
+                                            : 'text-gray-400 hover:text-white'
                                             }`}
                                     >
                                         <Icon className="w-4 h-4" />

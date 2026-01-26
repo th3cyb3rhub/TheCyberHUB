@@ -40,8 +40,8 @@ const SubtakerPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    // API endpoint
-    const LAMBDA_URL = 'https://9b5gemj3ff.execute-api.us-east-1.amazonaws.com/default/sub-takeover';
+    // API endpoint - using environment variable for security
+    const LAMBDA_URL = process.env.NEXT_PUBLIC_SUB_TAKEOVER_API_URL || '';
 
     const handleScan = async () => {
         if (!inputValue.trim()) {

@@ -124,7 +124,7 @@ const ProfilePage = () => {
         const fetchStats = async () => {
             if (!user) return;
             try {
-                const response = await fetch(`${API_URL}/api/users/me/stats`, {
+                const response = await fetch(`${API_URL}/api/users/${user.username}/stats`, {
                     credentials: 'include'
                 });
                 if (response.ok) {
@@ -663,13 +663,13 @@ const ProfilePage = () => {
                                         <h3 className="text-white font-medium mb-1">Active Sessions</h3>
                                         <p className="text-sm text-gray-400">Manage your logged-in devices</p>
                                     </div>
-                                    <Link
-                                        href="/profile/sessions"
-                                        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-white/20 transition-colors"
+                                    <button
+                                        disabled
+                                        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-gray-500 cursor-not-allowed opacity-50"
                                     >
                                         <Shield className="w-4 h-4" />
-                                        Manage Sessions
-                                    </Link>
+                                        Manage Sessions (Coming Soon)
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -702,10 +702,12 @@ const ProfilePage = () => {
                                             setPrivacyLoading(true);
                                             try {
                                                 const newValue = !isProfilePublic;
-                                                const response = await fetch(`${API_URL}/api/users/me/privacy`, {
-                                                    method: 'PATCH',
-                                                    headers: { 'Content-Type': 'application/json' },
-                                                    credentials: 'include',
+                                                const response = await fetch(`${API_URL}/api/users/profile`, {
+                                                    method: 'PUT',
+                                                    headers: { 
+                                                        'Content-Type': 'application/json',
+                                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                                    },
                                                     body: JSON.stringify({ isPublic: newValue })
                                                 });
                                                 if (response.ok) {

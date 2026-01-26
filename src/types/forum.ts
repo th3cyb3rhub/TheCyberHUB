@@ -6,6 +6,7 @@ export interface Discussion {
         _id: string;
         username: string;
         avatar?: string;
+        role?: 'user' | 'moderator' | 'admin';
     };
     category: Category;
     tags: string[];
@@ -35,6 +36,7 @@ export interface Reply {
         _id: string;
         username: string;
         avatar?: string;
+        role?: 'user' | 'moderator' | 'admin';
     };
     upvotes: number;
     downvotes: number;
@@ -49,6 +51,21 @@ export interface Reply {
     children?: Reply[];
     userVote?: number;
 }
+
+export const ROLE_BADGES: Record<string, { label: string; color: string; bgColor: string; borderColor: string }> = {
+    admin: {
+        label: 'Admin',
+        color: 'text-red-400',
+        bgColor: 'bg-red-500/10',
+        borderColor: 'border-red-500/30',
+    },
+    moderator: {
+        label: 'Mod',
+        color: 'text-purple-400',
+        bgColor: 'bg-purple-500/10',
+        borderColor: 'border-purple-500/30',
+    },
+};
 
 export type Category =
     | 'ctf-help'
@@ -133,9 +150,9 @@ export const CATEGORY_INFO: Record<Category, { label: string; color: string; bgC
     },
     'tools': {
         label: 'Tools & Scripts',
-        color: 'text-cyan-400',
-        bgColor: 'bg-cyan-500/10',
-        borderColor: 'border-cyan-500/30',
+        color: 'text-teal-400',
+        bgColor: 'bg-teal-500/10',
+        borderColor: 'border-teal-500/30',
         description: 'Custom tools and automation',
     },
     'news': {

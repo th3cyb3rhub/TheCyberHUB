@@ -83,6 +83,16 @@ const AuthPage = () => {
                     return;
                 }
 
+                // Check password complexity
+                if (!/[A-Z]/.test(formData.password) ||
+                    !/[a-z]/.test(formData.password) ||
+                    !/[0-9]/.test(formData.password) ||
+                    !/[^A-Za-z0-9]/.test(formData.password)) {
+                    setError('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+                    setLoading(false);
+                    return;
+                }
+
                 await register(formData.name, formData.email, formData.password, formData.username || undefined);
                 setSuccess('Account created successfully!');
                 addToast({
@@ -102,7 +112,15 @@ const AuthPage = () => {
 
             setTimeout(() => router.push(redirect), 500);
         } catch (err) {
-            const message = err instanceof Error ? err.message : 'Something went wrong';
+            let message = 'Something went wrong';
+            if (err instanceof Error) {
+                message = err.message;
+            }
+            // Handle API error response format
+            if (typeof message === 'object' && message !== null) {
+                const errorObj = message as { message?: string; details?: { message: string }[] };
+                message = errorObj.details?.[0]?.message || errorObj.message || 'Something went wrong';
+            }
             setError(message);
             addToast({
                 variant: 'error',
@@ -302,23 +320,45 @@ const AuthPage = () => {
                                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                 </button>
                             </div>
-                            {/* Password Strength Indicator */}
+                            {/* Password Requirements Checklist */}
                             {mode === 'register' && formData.password && (
-                                <div className="mt-2">
-                                    <div className="flex gap-1 mb-1">
+                                <div className="mt-3 space-y-1.5">
+                                    <div className="flex gap-1 mb-2">
                                         {[0, 1, 2, 3].map((i) => (
                                             <div
                                                 key={i}
                                                 className={`h-1 flex-1 rounded-full transition-all ${i < passwordStrength
-                                                        ? strengthColors[passwordStrength - 1]
-                                                        : 'bg-white/10'
+                                                    ? strengthColors[passwordStrength - 1]
+                                                    : 'bg-white/10'
                                                     }`}
                                             />
                                         ))}
                                     </div>
-                                    <p className={`text-xs ${passwordStrength > 0 ? strengthColors[passwordStrength - 1].replace('bg-', 'text-') : 'text-gray-500'}`}>
+                                    <p className={`text-xs mb-2 ${passwordStrength > 0 ? strengthColors[passwordStrength - 1].replace('bg-', 'text-') : 'text-gray-500'}`}>
                                         {passwordStrength > 0 ? strengthLabels[passwordStrength - 1] : 'Enter a password'}
                                     </p>
+                                    <div className="grid grid-cols-2 gap-1 text-xs">
+                                        <div className={`flex items-center gap-1.5 ${formData.password.length >= 8 ? 'text-green-400' : 'text-gray-500'}`}>
+                                            {formData.password.length >= 8 ? <CheckCircle2 className="w-3 h-3" /> : <span className="w-3 h-3 rounded-full border border-current flex items-center justify-center text-[8px]">✕</span>}
+                                            8+ characters
+                                        </div>
+                                        <div className={`flex items-center gap-1.5 ${/[A-Z]/.test(formData.password) ? 'text-green-400' : 'text-gray-500'}`}>
+                                            {/[A-Z]/.test(formData.password) ? <CheckCircle2 className="w-3 h-3" /> : <span className="w-3 h-3 rounded-full border border-current flex items-center justify-center text-[8px]">✕</span>}
+                                            Uppercase
+                                        </div>
+                                        <div className={`flex items-center gap-1.5 ${/[a-z]/.test(formData.password) ? 'text-green-400' : 'text-gray-500'}`}>
+                                            {/[a-z]/.test(formData.password) ? <CheckCircle2 className="w-3 h-3" /> : <span className="w-3 h-3 rounded-full border border-current flex items-center justify-center text-[8px]">✕</span>}
+                                            Lowercase
+                                        </div>
+                                        <div className={`flex items-center gap-1.5 ${/[0-9]/.test(formData.password) ? 'text-green-400' : 'text-gray-500'}`}>
+                                            {/[0-9]/.test(formData.password) ? <CheckCircle2 className="w-3 h-3" /> : <span className="w-3 h-3 rounded-full border border-current flex items-center justify-center text-[8px]">✕</span>}
+                                            Number
+                                        </div>
+                                        <div className={`flex items-center gap-1.5 ${/[^A-Za-z0-9]/.test(formData.password) ? 'text-green-400' : 'text-gray-500'}`}>
+                                            {/[^A-Za-z0-9]/.test(formData.password) ? <CheckCircle2 className="w-3 h-3" /> : <span className="w-3 h-3 rounded-full border border-current flex items-center justify-center text-[8px]">✕</span>}
+                                            Special char
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -338,10 +378,10 @@ const AuthPage = () => {
                                         required
                                         minLength={8}
                                         className={`w-full pl-11 pr-12 py-3 bg-white/5 border rounded-lg text-white placeholder:text-gray-500 focus:outline-none transition-colors ${formData.confirmPassword
-                                                ? formData.password === formData.confirmPassword
-                                                    ? 'border-green-500/50 focus:border-green-500'
-                                                    : 'border-red-500/50 focus:border-red-500'
-                                                : 'border-white/10 focus:border-orange-500/50'
+                                            ? formData.password === formData.confirmPassword
+                                                ? 'border-green-500/50 focus:border-green-500'
+                                                : 'border-red-500/50 focus:border-red-500'
+                                            : 'border-white/10 focus:border-orange-500/50'
                                             }`}
                                     />
                                     <button

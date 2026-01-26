@@ -1,47 +1,52 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 import {
     ArrowLeft,
-    Loader2,
     Save,
-    Calendar,
-    MapPin,
-    Link as LinkIcon,
+    Eye,
+    EyeOff,
     Image as ImageIcon,
-    AlertCircle,
+    Bold,
+    Italic,
+    List,
+    ListOrdered,
+    Link as LinkIcon,
+    Code,
+    Heading1,
+    Heading2,
+    Quote,
+    Loader2,
+    X,
+    Plus,
     CheckCircle,
-    Trash2
+    AlertCircle,
+    Trash2,
+    GripVertical,
+    Calendar,
+    Clock,
+    MapPin,
+    Globe,
+    Users
 } from 'lucide-react';
-import Link from 'next/link';
 import { API_URL } from '@/lib/api';
 
-const categories = [
-    { id: 'ctf', name: 'CTF' },
-    { id: 'webinar', name: 'Webinar' },
-    { id: 'workshop', name: 'Workshop' },
-    { id: 'meetup', name: 'Meetup' },
-    { id: 'conference', name: 'Conference' },
-    { id: 'hackathon', name: 'Hackathon' },
-];
-
-const locationTypes = [
-    { id: 'online', name: 'Online' },
-    { id: 'in-person', name: 'In-Person' },
-    { id: 'hybrid', name: 'Hybrid' },
-];
-
-const statuses = [
-    { id: 'upcoming', name: 'Upcoming' },
-    { id: 'live', name: 'Live' },
-    { id: 'ended', name: 'Ended' },
-    { id: 'cancelled', name: 'Cancelled' },
-];
+// Interfaces
+interface Speaker {
+    id: string;
+    name: string;
+    role: string;
+    bio: string;
+    image: string;
+}
 
 interface EventFormData {
     title: string;
+    slug: string;
     shortDescription: string;
     description: string;
     image: string;
@@ -49,31 +54,135 @@ interface EventFormData {
     startDate: string;
     endDate: string;
     timezone: string;
-    locationType: string;
+    locationType: 'online' | 'in-person' | 'hybrid';
     location: string;
     venue: string;
     eventLink: string;
     registrationLink: string;
     category: string;
-    tags: string;
+    tags: string[];
     organizer: string;
-    status: string;
+    organizerLogo: string;
+    status: 'upcoming' | 'live' | 'ended' | 'cancelled';
     isFeatured: boolean;
-    maxParticipants: string;
+    maxParticipants: number | null;
+    speakers: Speaker[];
 }
 
-export default function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params);
-    const router = useRouter();
-    const { user, loading: authLoading, token } = useAuth();
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+interface ValidationErrors {
+    [key: string]: string;
+}
 
+// Common timezones
+const commonTimezones = [
+    { value: 'Asia/Kolkata', label: 'India (IST)' },
+    { value: 'America/New_York', label: 'Eastern Time (ET)' },
+    { value: 'America/Chicago', label: 'Central Time (CT)' },
+    { value: 'America/Denver', label: 'Mountain Time (MT)' },
+    { value: 'America/Los_Angeles', label: 'Pacific Time (PT)' },
+    { value: 'Europe/London', label: 'London (GMT/BST)' },
+    { value: 'Europe/Paris', label: 'Central European Time (CET)' },
+    { value: 'Asia/Tokyo', label: 'Japan (JST)' },
+    { value: 'Asia/Shanghai', label: 'China (CST)' },
+    { value: 'Australia/Sydney', label: 'Sydney (AEDT)' },
+    { value: 'UTC', label: 'UTC' },
+];
+
+const categories = [
+    { value: 'ctf', label: 'CTF' },
+    { value: 'webinar', label: 'Webinar' },
+    { value: 'workshop', label: 'Workshop' },
+    { value: 'meetup', label: 'Meetup' },
+    { value: 'conference', label: 'Conference' },
+    { value: 'hackathon', label: 'Hackathon' },
+];
+
+const statusOptions = [
+    { value: 'upcoming', label: 'Upcoming' },
+    { value: 'live', label: 'Live' },
+    { value: 'ended', label: 'Ended' },
+    { value: 'cancelled', label: 'Cancelled' },
+];
+
+const locationTypes = [
+    { value: 'online', label: 'Online' },
+    { value: 'in-person', label: 'In-Person' },
+    { value: 'hybrid', label: 'Hybrid' },
+];
+
+// Default placeholder image for speakers
+const DEFAULT_SPEAKER_IMAGE = 'https://via.placeholder.com/150?text=Speaker';
+
+// Utility functions
+const generateSlug = (title: string): string => {
+    return title
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-+|-+$/g, '');
+};
+
+const isValidUrl = (url: string): boolean => {
+    if (!url) return true; // Empty URLs are valid (optional fields)
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
+const renderMarkdown = (text: string): string => {
+    return text
+        .replace(/^### (.*$)/gim, '<h3 class="text-lg font-semibold text-white mt-4 mb-2">$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2 class="text-xl font-semibold text-white mt-6 mb-3">$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold text-white mt-6 mb-4">$1</h1>')
+        .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-black/50 border border-white/10 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-orange-400 text-sm">$2</code></pre>')
+        .replace(/`(.*?)`/g, '<code class="bg-white/10 px-1.5 py-0.5 rounded text-orange-400 text-sm">$1</code>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-orange-400 hover:text-orange-300 underline" target="_blank">$1</a>')
+        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full my-4" />')
+        .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-orange-500 pl-4 my-4 text-gray-400 italic">$1</blockquote>')
+        .replace(/^\d+\. (.*$)/gim, '<li class="ml-6 list-decimal text-gray-300">$1</li>')
+        .replace(/^- (.*$)/gim, '<li class="ml-6 list-disc text-gray-300">$1</li>')
+        .replace(/\n\n/g, '</p><p class="text-gray-300 mb-4">')
+        .replace(/\n/g, '<br />');
+};
+
+const formatDateForInput = (dateString: string): string => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 16);
+};
+
+const formatDateForDisplay = (dateString: string): string => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+};
+
+export default function AdminEventEditPage() {
+    const router = useRouter();
+    const params = useParams();
+    const { user, token, loading: authLoading } = useAuth();
+    const { addToast } = useToast();
+    const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+    // Form state
     const [formData, setFormData] = useState<EventFormData>({
         title: '',
+        slug: '',
         shortDescription: '',
         description: '',
         image: '',
@@ -82,19 +191,32 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
         endDate: '',
         timezone: 'Asia/Kolkata',
         locationType: 'online',
-        location: 'Online',
+        location: '',
         venue: '',
         eventLink: '',
         registrationLink: '',
-        category: 'workshop',
-        tags: '',
-        organizer: 'TheCyberHub',
+        category: 'ctf',
+        tags: [],
+        organizer: '',
+        organizerLogo: '',
         status: 'upcoming',
         isFeatured: false,
-        maxParticipants: '',
+        maxParticipants: null,
+        speakers: [],
     });
 
-    // Check if user is admin
+    // UI state
+    const [isPreview, setIsPreview] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState(false);
+    const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+    const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
+    const [tagInput, setTagInput] = useState('');
+    const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
+
+    // Check admin access
     useEffect(() => {
         if (!authLoading && (!user || user.role !== 'admin')) {
             const redirectUrl = `${window.location.pathname}${window.location.search}`;
@@ -105,115 +227,289 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
     // Fetch event data
     useEffect(() => {
         const fetchEvent = async () => {
+            if (!params.id) return;
+
             try {
-                const response = await fetch(`${API_URL}/api/events/${id}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.success && data.data) {
-                        const e = data.data;
-                        setFormData({
-                            title: e.title || '',
-                            shortDescription: e.shortDescription || '',
-                            description: e.description || '',
-                            image: e.image || '',
-                            bannerImage: e.bannerImage || '',
-                            startDate: e.startDate ? new Date(e.startDate).toISOString().slice(0, 16) : '',
-                            endDate: e.endDate ? new Date(e.endDate).toISOString().slice(0, 16) : '',
-                            timezone: e.timezone || 'Asia/Kolkata',
-                            locationType: e.locationType || 'online',
-                            location: e.location || 'Online',
-                            venue: e.venue || '',
-                            eventLink: e.eventLink || '',
-                            registrationLink: e.registrationLink || '',
-                            category: e.category || 'workshop',
-                            tags: e.tags?.join(', ') || '',
-                            organizer: e.organizer || 'TheCyberHub',
-                            status: e.status || 'upcoming',
-                            isFeatured: e.isFeatured || false,
-                            maxParticipants: e.maxParticipants?.toString() || '',
-                        });
-                    }
-                }
+                const response = await fetch(`${API_URL}/api/events/${params.id}`);
+                if (!response.ok) throw new Error('Event not found');
+
+                const data = await response.json();
+                const event = data.data || data;
+
+                setFormData({
+                    title: event.title || '',
+                    slug: event.slug || '',
+                    shortDescription: event.shortDescription || '',
+                    description: event.description || '',
+                    image: event.image || '',
+                    bannerImage: event.bannerImage || '',
+                    startDate: formatDateForInput(event.startDate),
+                    endDate: formatDateForInput(event.endDate),
+                    timezone: event.timezone || 'Asia/Kolkata',
+                    locationType: event.locationType || 'online',
+                    location: event.location || '',
+                    venue: event.venue || '',
+                    eventLink: event.eventLink || '',
+                    registrationLink: event.registrationLink || '',
+                    category: event.category || 'ctf',
+                    tags: event.tags || [],
+                    organizer: event.organizer || '',
+                    organizerLogo: event.organizerLogo || '',
+                    status: event.status || 'upcoming',
+                    isFeatured: event.isFeatured || false,
+                    maxParticipants: event.maxParticipants || null,
+                    speakers: event.speakers || [],
+                });
+
+                setSlugManuallyEdited(true); // Existing event has a slug
             } catch (err) {
-                console.error('Failed to fetch event:', err);
-                setError('Failed to load event');
+                setError(err instanceof Error ? err.message : 'Failed to load event');
+                addToast({
+                    variant: 'error',
+                    title: 'Error',
+                    message: 'Failed to load event for editing.',
+                });
             } finally {
                 setLoading(false);
             }
         };
 
-        if (user?.role === 'admin' && id) {
+        if (!authLoading && user?.role === 'admin') {
             fetchEvent();
         }
-    }, [user, id]);
+    }, [authLoading, user, params.id, addToast]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value, type } = e.target;
+    // Auto-generate slug from title
+    useEffect(() => {
+        if (!slugManuallyEdited && formData.title) {
+            setFormData(prev => ({
+                ...prev,
+                slug: generateSlug(formData.title)
+            }));
+        }
+    }, [formData.title, slugManuallyEdited]);
+
+    // Auto-save functionality
+    useEffect(() => {
+        const AUTO_SAVE_KEY = `event-edit-autosave-${params.id}`;
+        const AUTO_SAVE_DELAY = 2000;
+
+        const timer = setTimeout(() => {
+            if (formData.title) {
+                setAutoSaveStatus('saving');
+                localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify({
+                    formData,
+                    timestamp: Date.now()
+                }));
+                setAutoSaveStatus('saved');
+                setTimeout(() => setAutoSaveStatus('idle'), 2000);
+            }
+        }, AUTO_SAVE_DELAY);
+
+        return () => clearTimeout(timer);
+    }, [formData, params.id]);
+
+    // Validation
+    const validateForm = (): boolean => {
+        const errors: ValidationErrors = {};
+
+        if (!formData.title.trim()) {
+            errors.title = 'Title is required';
+        }
+
+        if (!formData.shortDescription.trim()) {
+            errors.shortDescription = 'Short description is required';
+        } else if (formData.shortDescription.length > 150) {
+            errors.shortDescription = 'Short description must be 150 characters or less';
+        }
+
+        if (!formData.startDate) {
+            errors.startDate = 'Start date is required';
+        }
+
+        if (formData.endDate && new Date(formData.startDate) > new Date(formData.endDate)) {
+            errors.endDate = 'End date must be after start date';
+        }
+
+        const urlFields = ['image', 'bannerImage', 'eventLink', 'registrationLink', 'organizerLogo'];
+        urlFields.forEach(field => {
+            const value = formData[field as keyof EventFormData] as string;
+            if (value && !isValidUrl(value)) {
+                errors[field] = 'Please enter a valid URL';
+            }
+        });
+
+        formData.speakers.forEach((speaker, index) => {
+            if (!speaker.name.trim()) {
+                errors[`speaker-${index}-name`] = 'Speaker name is required';
+            }
+            if (speaker.image && !isValidUrl(speaker.image)) {
+                errors[`speaker-${index}-image`] = 'Please enter a valid image URL';
+            }
+        });
+
+        setValidationErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
+    // Markdown toolbar
+    const insertMarkdown = (before: string, after: string = '', placeholder: string = '') => {
+        const textarea = descriptionRef.current;
+        if (!textarea) return;
+
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const selectedText = formData.description.substring(start, end) || placeholder;
+
+        const newContent =
+            formData.description.substring(0, start) +
+            before + selectedText + after +
+            formData.description.substring(end);
+
+        setFormData(prev => ({ ...prev, description: newContent }));
+
+        setTimeout(() => {
+            textarea.focus();
+            const newCursorPos = start + before.length + selectedText.length;
+            textarea.setSelectionRange(newCursorPos, newCursorPos);
+        }, 0);
+    };
+
+    const toolbarButtons = [
+        { icon: Bold, action: () => insertMarkdown('**', '**', 'bold text'), title: 'Bold' },
+        { icon: Italic, action: () => insertMarkdown('*', '*', 'italic text'), title: 'Italic' },
+        { icon: Heading1, action: () => insertMarkdown('# ', '', 'Heading'), title: 'Heading 1' },
+        { icon: Heading2, action: () => insertMarkdown('## ', '', 'Heading'), title: 'Heading 2' },
+        { icon: List, action: () => insertMarkdown('- ', '', 'List item'), title: 'Bullet List' },
+        { icon: ListOrdered, action: () => insertMarkdown('1. ', '', 'List item'), title: 'Numbered List' },
+        { icon: Quote, action: () => insertMarkdown('> ', '', 'Quote'), title: 'Quote' },
+        { icon: Code, action: () => insertMarkdown('`', '`', 'code'), title: 'Inline Code' },
+        { icon: LinkIcon, action: () => insertMarkdown('[', '](url)', 'link text'), title: 'Link' },
+        { icon: ImageIcon, action: () => insertMarkdown('![', '](image-url)', 'alt text'), title: 'Image' },
+    ];
+
+    // Speaker management
+    const addSpeaker = () => {
+        if (formData.speakers.length >= 10) {
+            addToast({
+                variant: 'error',
+                title: 'Maximum speakers reached',
+                message: 'You can add up to 10 speakers per event.',
+            });
+            return;
+        }
+
+        const newSpeaker: Speaker = {
+            id: `speaker-${Date.now()}`,
+            name: '',
+            role: '',
+            bio: '',
+            image: DEFAULT_SPEAKER_IMAGE,
+        };
+
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+            speakers: [...prev.speakers, newSpeaker]
         }));
     };
 
+    const updateSpeaker = (id: string, field: keyof Speaker, value: string) => {
+        setFormData(prev => ({
+            ...prev,
+            speakers: prev.speakers.map(speaker =>
+                speaker.id === id ? { ...speaker, [field]: value } : speaker
+            )
+        }));
+    };
+
+    const removeSpeaker = (id: string) => {
+        setFormData(prev => ({
+            ...prev,
+            speakers: prev.speakers.filter(speaker => speaker.id !== id)
+        }));
+    };
+
+    // Tag management
+    const addTag = () => {
+        const tag = tagInput.trim().toLowerCase();
+        if (tag && !formData.tags.includes(tag) && formData.tags.length < 10) {
+            setFormData(prev => ({
+                ...prev,
+                tags: [...prev.tags, tag]
+            }));
+            setTagInput('');
+        }
+    };
+
+    const removeTag = (tagToRemove: string) => {
+        setFormData(prev => ({
+            ...prev,
+            tags: prev.tags.filter(t => t !== tagToRemove)
+        }));
+    };
+
+    // Form submission
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!token) return;
+
+        if (!validateForm()) {
+            setError('Please fix the validation errors before submitting');
+            return;
+        }
 
         setSaving(true);
         setError(null);
 
         try {
-            const eventData = {
-                ...formData,
-                tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
-                maxParticipants: formData.maxParticipants ? parseInt(formData.maxParticipants) : undefined,
-            };
-
-            const response = await fetch(`${API_URL}/api/events/${id}`, {
+            const response = await fetch(`${API_URL}/api/events/${params.id}`, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(eventData),
+                body: JSON.stringify({
+                    ...formData,
+                    startDate: new Date(formData.startDate).toISOString(),
+                    endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
+                    tags: formData.tags.filter(t => t.trim()),
+                    speakers: formData.speakers.map(s => ({
+                        name: s.name.trim(),
+                        role: s.role.trim(),
+                        bio: s.bio.trim(),
+                        image: s.image.trim() || DEFAULT_SPEAKER_IMAGE
+                    })),
+                })
             });
 
-            if (response.ok) {
-                setSuccess(true);
-                setTimeout(() => {
-                    router.push('/admin/events');
-                }, 1500);
-            } else {
-                const data = await response.json();
-                setError(data.error || 'Failed to update event');
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error?.message || 'Failed to update event');
             }
-        } catch {
-            setError('Failed to update event');
+
+            // Clear auto-save
+            localStorage.removeItem(`event-edit-autosave-${params.id}`);
+
+            setSuccess(true);
+            addToast({
+                variant: 'success',
+                title: 'Event updated',
+                message: 'Your event has been updated successfully.',
+            });
+
+            setTimeout(() => {
+                router.push('/admin/events');
+            }, 1500);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to update event');
+            addToast({
+                variant: 'error',
+                title: 'Update failed',
+                message: err instanceof Error ? err.message : 'Failed to update event.',
+            });
         } finally {
             setSaving(false);
         }
-    };
-
-    const handleDelete = async () => {
-        if (!token) return;
-
-        try {
-            const response = await fetch(`${API_URL}/api/events/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            if (response.ok) {
-                router.push('/admin/events');
-            } else {
-                setError('Failed to delete event');
-            }
-        } catch {
-            setError('Failed to delete event');
-        }
-        setShowDeleteModal(false);
     };
 
     if (authLoading || loading) {
@@ -229,378 +525,711 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
     }
 
     return (
-        <div className="min-h-screen bg-black pt-24 pb-12 px-4">
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-black">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 pb-12">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <Link
                             href="/admin/events"
-                            className="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-4 transition-colors"
+                            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white mb-2 transition-colors"
                         >
                             <ArrowLeft className="w-4 h-4" />
                             Back to Events
                         </Link>
                         <h1 className="text-2xl font-bold text-white">Edit Event</h1>
+                        {autoSaveStatus === 'saved' && (
+                            <p className="text-xs text-green-400 mt-1">Auto-saved</p>
+                        )}
                     </div>
-                    <button
-                        onClick={() => setShowDeleteModal(true)}
-                        className="flex items-center gap-2 px-4 py-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-colors"
-                    >
-                        <Trash2 className="w-4 h-4" />
-                        Delete
-                    </button>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => setIsPreview(!isPreview)}
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-white/20 transition-all"
+                        >
+                            {isPreview ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                            {isPreview ? 'Edit' : 'Preview'}
+                        </button>
+                        <button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.title.trim()}
+                            className="flex items-center gap-2 px-5 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-lg transition-all"
+                        >
+                            {saving ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                                <Save className="w-4 h-4" />
+                            )}
+                            Update Event
+                        </button>
+                    </div>
                 </div>
 
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    {error && (
-                        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center gap-3">
-                            <AlertCircle className="w-5 h-5 shrink-0" />
-                            {error}
-                        </div>
-                    )}
-
-                    {success && (
-                        <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 shrink-0" />
-                            Event updated successfully! Redirecting...
-                        </div>
-                    )}
-
-                    {/* Basic Info */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                        <h2 className="text-lg font-semibold text-white mb-6">Basic Information</h2>
-                        
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Title *</label>
-                                <input
-                                    type="text"
-                                    name="title"
-                                    value={formData.title}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Short Description *</label>
-                                <input
-                                    type="text"
-                                    name="shortDescription"
-                                    value={formData.shortDescription}
-                                    onChange={handleChange}
-                                    required
-                                    maxLength={150}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Full Description</label>
-                                <textarea
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                    rows={6}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors resize-none"
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm text-gray-400 mb-2">Category *</label>
-                                    <select
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
-                                    >
-                                        {categories.map(cat => (
-                                            <option key={cat.id} value={cat.id} className="bg-gray-900">{cat.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm text-gray-400 mb-2">Status</label>
-                                    <select
-                                        name="status"
-                                        value={formData.status}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
-                                    >
-                                        {statuses.map(s => (
-                                            <option key={s.id} value={s.id} className="bg-gray-900">{s.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm text-gray-400 mb-2">Organizer</label>
-                                    <input
-                                        type="text"
-                                        name="organizer"
-                                        value={formData.organizer}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm text-gray-400 mb-2">Tags (comma-separated)</label>
-                                    <input
-                                        type="text"
-                                        name="tags"
-                                        value={formData.tags}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                {/* Success Message */}
+                {success && (
+                    <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                        <p className="text-green-400">Event updated successfully! Redirecting...</p>
                     </div>
+                )}
 
-                    {/* Date & Time */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                        <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-                            <Calendar className="w-5 h-5 text-orange-500" />
-                            Date & Time
-                        </h2>
-                        
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Start Date & Time *</label>
-                                <input
-                                    type="datetime-local"
-                                    name="startDate"
-                                    value={formData.startDate}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
+                {/* Error Message */}
+                {error && (
+                    <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-500" />
+                        <p className="text-red-400">{error}</p>
+                    </div>
+                )}
+
+                {isPreview ? (
+                    /* Preview Mode */
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+                        {/* Banner Image */}
+                        {formData.bannerImage && (
+                            <img
+                                src={formData.bannerImage}
+                                alt="Banner"
+                                className="w-full aspect-[21/9] object-cover rounded-xl mb-6"
+                            />
+                        )}
+
+                        {/* Event Header */}
+                        <div className="mb-8">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="px-3 py-1 bg-orange-500/10 text-orange-400 rounded-full text-sm font-medium capitalize">
+                                    {formData.category}
+                                </span>
+                                <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm font-medium capitalize">
+                                    {formData.status}
+                                </span>
+                                {formData.isFeatured && (
+                                    <span className="px-3 py-1 bg-yellow-500/10 text-yellow-400 rounded-full text-sm font-medium">
+                                        Featured
+                                    </span>
+                                )}
                             </div>
 
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">End Date & Time</label>
-                                <input
-                                    type="datetime-local"
-                                    name="endDate"
-                                    value={formData.endDate}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
-                            </div>
+                            <h1 className="text-4xl font-bold text-white mb-4">
+                                {formData.title || 'Untitled Event'}
+                            </h1>
 
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Timezone</label>
-                                <input
-                                    type="text"
-                                    name="timezone"
-                                    value={formData.timezone}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
-                            </div>
+                            <p className="text-xl text-gray-400 mb-6">
+                                {formData.shortDescription || 'No description provided'}
+                            </p>
 
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Max Participants</label>
-                                <input
-                                    type="number"
-                                    name="maxParticipants"
-                                    value={formData.maxParticipants}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
+                            {/* Event Meta */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
+                                <div className="flex items-center gap-3">
+                                    <Calendar className="w-5 h-5 text-orange-500" />
+                                    <div>
+                                        <p className="text-sm text-gray-500">Start Date</p>
+                                        <p>{formData.startDate ? formatDateForDisplay(formData.startDate) : 'Not set'}</p>
+                                    </div>
+                                </div>
+                                {formData.endDate && (
+                                    <div className="flex items-center gap-3">
+                                        <Clock className="w-5 h-5 text-orange-500" />
+                                        <div>
+                                            <p className="text-sm text-gray-500">End Date</p>
+                                            <p>{formatDateForDisplay(formData.endDate)}</p>
+                                        </div>
+                                    </div>
+                                )}
+                                <div className="flex items-center gap-3">
+                                    <MapPin className="w-5 h-5 text-orange-500" />
+                                    <div>
+                                        <p className="text-sm text-gray-500">Location</p>
+                                        <p className="capitalize">{formData.locationType} - {formData.location || 'Not specified'}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <Globe className="w-5 h-5 text-orange-500" />
+                                    <div>
+                                        <p className="text-sm text-gray-500">Organizer</p>
+                                        <p>{formData.organizer || 'Not specified'}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Location */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                        <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-                            <MapPin className="w-5 h-5 text-orange-500" />
-                            Location
-                        </h2>
-                        
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Location Type *</label>
-                                <div className="flex gap-3">
-                                    {locationTypes.map(type => (
-                                        <button
-                                            key={type.id}
-                                            type="button"
-                                            onClick={() => setFormData(prev => ({ ...prev, locationType: type.id }))}
-                                            className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                                                formData.locationType === type.id
-                                                    ? 'bg-orange-500 text-white'
-                                                    : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-                                            }`}
-                                        >
-                                            {type.name}
-                                        </button>
+                        {/* Cover Image */}
+                        {formData.image && (
+                            <img
+                                src={formData.image}
+                                alt="Cover"
+                                className="w-full aspect-video object-cover rounded-xl mb-6"
+                            />
+                        )}
+
+                        {/* Tags */}
+                        {formData.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mb-6">
+                                {formData.tags.map(tag => (
+                                    <span key={tag} className="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Description */}
+                        <div className="mb-8">
+                            <h2 className="text-2xl font-bold text-white mb-4">About This Event</h2>
+                            <div
+                                className="prose prose-invert max-w-none"
+                                dangerouslySetInnerHTML={{
+                                    __html: `<p class="text-gray-300 mb-4">${renderMarkdown(formData.description) || '<span class="text-gray-500">No description yet...</span>'}</p>`
+                                }}
+                            />
+                        </div>
+
+                        {/* Speakers */}
+                        {formData.speakers.length > 0 && (
+                            <div className="mb-8">
+                                <h2 className="text-2xl font-bold text-white mb-4">Speakers</h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {formData.speakers.map(speaker => (
+                                        <div key={speaker.id} className="flex gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+                                            <img
+                                                src={speaker.image || DEFAULT_SPEAKER_IMAGE}
+                                                alt={speaker.name}
+                                                className="w-20 h-20 rounded-full object-cover"
+                                            />
+                                            <div className="flex-1">
+                                                <h3 className="font-semibold text-white">{speaker.name || 'Unnamed Speaker'}</h3>
+                                                <p className="text-sm text-orange-400 mb-2">{speaker.role || 'Speaker'}</p>
+                                                <p className="text-sm text-gray-400">{speaker.bio || 'No bio provided'}</p>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
+                        )}
 
-                            <div className="grid grid-cols-2 gap-4">
+                        {/* Links */}
+                        <div className="flex flex-wrap gap-4">
+                            {formData.eventLink && (
+                                <a
+                                    href={formData.eventLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors"
+                                >
+                                    Event Website
+                                </a>
+                            )}
+                            {formData.registrationLink && (
+                                <a
+                                    href={formData.registrationLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
+                                >
+                                    Register Now
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                ) : (
+                    /* Edit Mode */
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                        {/* Basic Information */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <h2 className="text-xl font-bold text-white mb-6">Basic Information</h2>
+
+                            {/* Title */}
+                            <div className="mb-6">
+                                <label className="block text-sm text-gray-400 mb-2">
+                                    Event Title <span className="text-red-400">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={formData.title}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                                    className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.title ? 'border-red-500' : 'border-white/10'} rounded-xl text-white text-xl font-semibold placeholder:text-gray-600 placeholder:font-normal focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                    placeholder="Enter event title..."
+                                    required
+                                />
+                                {validationErrors.title && (
+                                    <p className="text-red-400 text-sm mt-1">{validationErrors.title}</p>
+                                )}
+                            </div>
+
+                            {/* Slug */}
+                            <div className="mb-6">
+                                <label className="block text-sm text-gray-400 mb-2">
+                                    URL Slug
+                                </label>
+                                <input
+                                    type="text"
+                                    value={formData.slug}
+                                    onChange={(e) => {
+                                        setFormData(prev => ({ ...prev, slug: e.target.value }));
+                                        setSlugManuallyEdited(true);
+                                    }}
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors font-mono text-sm"
+                                    placeholder="event-slug"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">
+                                    URL: /events/{formData.slug || 'event-slug'}
+                                </p>
+                            </div>
+
+                            {/* Short Description */}
+                            <div className="mb-6">
+                                <label className="block text-sm text-gray-400 mb-2">
+                                    Short Description <span className="text-red-400">*</span>
+                                    <span className="text-gray-500 ml-2">
+                                        ({formData.shortDescription.length}/150)
+                                    </span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={formData.shortDescription}
+                                    onChange={(e) => {
+                                        if (e.target.value.length <= 150) {
+                                            setFormData(prev => ({ ...prev, shortDescription: e.target.value }));
+                                        }
+                                    }}
+                                    className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.shortDescription ? 'border-red-500' : 'border-white/10'} rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                    placeholder="Brief description for event cards..."
+                                    maxLength={150}
+                                    required
+                                />
+                                {validationErrors.shortDescription && (
+                                    <p className="text-red-400 text-sm mt-1">{validationErrors.shortDescription}</p>
+                                )}
+                            </div>
+
+                            {/* Category & Status */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Category</label>
+                                    <select
+                                        value={formData.category}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                                    >
+                                        {categories.map(cat => (
+                                            <option key={cat.value} value={cat.value}>{cat.label}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Status</label>
+                                    <select
+                                        value={formData.status}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as any }))}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                                    >
+                                        {statusOptions.map(status => (
+                                            <option key={status.value} value={status.value}>{status.label}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            {/* Organizer */}
+                            <div className="mb-6">
+                                <label className="block text-sm text-gray-400 mb-2">Organizer</label>
+                                <input
+                                    type="text"
+                                    value={formData.organizer}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, organizer: e.target.value }))}
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                    placeholder="Organization or person organizing the event"
+                                />
+                            </div>
+
+                            {/* Organizer Logo */}
+                            <div className="mb-6">
+                                <label className="block text-sm text-gray-400 mb-2">Organizer Logo URL</label>
+                                <input
+                                    type="url"
+                                    value={formData.organizerLogo}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, organizerLogo: e.target.value }))}
+                                    className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.organizerLogo ? 'border-red-500' : 'border-white/10'} rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                    placeholder="https://example.com/logo.png"
+                                />
+                                {validationErrors.organizerLogo && (
+                                    <p className="text-red-400 text-sm mt-1">{validationErrors.organizerLogo}</p>
+                                )}
+                            </div>
+
+                            {/* Featured Toggle */}
+                            <div className="flex items-center gap-3">
+                                <input
+                                    type="checkbox"
+                                    id="featured"
+                                    checked={formData.isFeatured}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, isFeatured: e.target.checked }))}
+                                    className="w-4 h-4 rounded border-white/10 bg-white/5 text-orange-500 focus:ring-orange-500"
+                                />
+                                <label htmlFor="featured" className="text-sm text-gray-300">
+                                    Feature this event (display prominently on events page)
+                                </label>
+                            </div>
+                        </div>
+
+                        {/* Description with Markdown */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <h2 className="text-xl font-bold text-white mb-6">Event Description</h2>
+
+                            <label className="block text-sm text-gray-400 mb-2">
+                                Description (Markdown supported)
+                            </label>
+
+                            {/* Markdown Toolbar */}
+                            <div className="flex flex-wrap gap-1 p-2 bg-white/5 border border-white/10 border-b-0 rounded-t-xl">
+                                {toolbarButtons.map((btn, i) => (
+                                    <button
+                                        key={i}
+                                        type="button"
+                                        onClick={btn.action}
+                                        title={btn.title}
+                                        className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                                    >
+                                        <btn.icon className="w-4 h-4" />
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Textarea */}
+                            <textarea
+                                ref={descriptionRef}
+                                value={formData.description}
+                                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                                placeholder="Write your event description here... (Markdown supported)"
+                                rows={15}
+                                className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-b-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors font-mono text-sm resize-none"
+                            />
+
+                            {/* Markdown Tips */}
+                            <div className="mt-4 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                                <p className="text-blue-400 text-sm font-medium mb-2">Markdown Tips:</p>
+                                <ul className="text-blue-400/80 text-sm space-y-1">
+                                    <li>• Use **text** for bold and *text* for italic</li>
+                                    <li>• Use # for headings (## for smaller)</li>
+                                    <li>• Use `code` for inline code and ``` for code blocks</li>
+                                    <li>• Use [text](url) for links and ![alt](url) for images</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Date & Time */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <h2 className="text-xl font-bold text-white mb-6">Date & Time</h2>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">
+                                        Start Date & Time <span className="text-red-400">*</span>
+                                    </label>
+                                    <input
+                                        type="datetime-local"
+                                        value={formData.startDate}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
+                                        className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.startDate ? 'border-red-500' : 'border-white/10'} rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                        required
+                                    />
+                                    {validationErrors.startDate && (
+                                        <p className="text-red-400 text-sm mt-1">{validationErrors.startDate}</p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">End Date & Time</label>
+                                    <input
+                                        type="datetime-local"
+                                        value={formData.endDate}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
+                                        className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.endDate ? 'border-red-500' : 'border-white/10'} rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                    />
+                                    {validationErrors.endDate && (
+                                        <p className="text-red-400 text-sm mt-1">{validationErrors.endDate}</p>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Timezone</label>
+                                    <select
+                                        value={formData.timezone}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, timezone: e.target.value }))}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                                    >
+                                        {commonTimezones.map(tz => (
+                                            <option key={tz.value} value={tz.value}>{tz.label}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Max Participants</label>
+                                    <input
+                                        type="number"
+                                        value={formData.maxParticipants || ''}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, maxParticipants: e.target.value ? parseInt(e.target.value) : null }))}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                        placeholder="Unlimited"
+                                        min="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Location */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <h2 className="text-xl font-bold text-white mb-6">Location</h2>
+
+                            <div className="mb-6">
+                                <label className="block text-sm text-gray-400 mb-2">Location Type</label>
+                                <select
+                                    value={formData.locationType}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, locationType: e.target.value as any }))}
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                                >
+                                    {locationTypes.map(type => (
+                                        <option key={type.value} value={type.value}>{type.label}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-sm text-gray-400 mb-2">Location</label>
                                     <input
                                         type="text"
-                                        name="location"
                                         value={formData.location}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                        onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                        placeholder="City, Country or Online"
                                     />
                                 </div>
-
                                 <div>
                                     <label className="block text-sm text-gray-400 mb-2">Venue</label>
                                     <input
                                         type="text"
-                                        name="venue"
                                         value={formData.venue}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                        onChange={(e) => setFormData(prev => ({ ...prev, venue: e.target.value }))}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                        placeholder="Venue name or platform"
                                     />
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Links */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                        <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-                            <LinkIcon className="w-5 h-5 text-orange-500" />
-                            Links
-                        </h2>
-                        
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Event Link</label>
-                                <input
-                                    type="url"
-                                    name="eventLink"
-                                    value={formData.eventLink}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
-                            </div>
+                        {/* Links */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <h2 className="text-xl font-bold text-white mb-6">Links</h2>
 
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Registration Link</label>
-                                <input
-                                    type="url"
-                                    name="registrationLink"
-                                    value={formData.registrationLink}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Images */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                        <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-                            <ImageIcon className="w-5 h-5 text-orange-500" />
-                            Images
-                        </h2>
-                        
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Cover Image URL</label>
-                                <input
-                                    type="url"
-                                    name="image"
-                                    value={formData.image}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Banner Image URL</label>
-                                <input
-                                    type="url"
-                                    name="bannerImage"
-                                    value={formData.bannerImage}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
-                                />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Event Website</label>
+                                    <input
+                                        type="url"
+                                        value={formData.eventLink}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, eventLink: e.target.value }))}
+                                        className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.eventLink ? 'border-red-500' : 'border-white/10'} rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                        placeholder="https://event-website.com"
+                                    />
+                                    {validationErrors.eventLink && (
+                                        <p className="text-red-400 text-sm mt-1">{validationErrors.eventLink}</p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Registration Link</label>
+                                    <input
+                                        type="url"
+                                        value={formData.registrationLink}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, registrationLink: e.target.value }))}
+                                        className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.registrationLink ? 'border-red-500' : 'border-white/10'} rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                        placeholder="https://register.com"
+                                    />
+                                    {validationErrors.registrationLink && (
+                                        <p className="text-red-400 text-sm mt-1">{validationErrors.registrationLink}</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Settings */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                        <h2 className="text-lg font-semibold text-white mb-6">Settings</h2>
-                        
-                        <label className="flex items-center gap-3 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                name="isFeatured"
-                                checked={formData.isFeatured}
-                                onChange={handleChange}
-                                className="w-5 h-5 rounded border-white/20 bg-white/5 text-orange-500 focus:ring-orange-500/50"
-                            />
-                            <span className="text-white">Feature this event</span>
-                        </label>
-                    </div>
+                        {/* Images */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <h2 className="text-xl font-bold text-white mb-6">Images</h2>
 
-                    {/* Submit */}
-                    <div className="flex gap-4">
-                        <Link
-                            href="/admin/events"
-                            className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-colors"
-                        >
-                            Cancel
-                        </Link>
-                        <button
-                            type="submit"
-                            disabled={saving}
-                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white font-medium rounded-xl transition-colors"
-                        >
-                            {saving ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Cover Image URL</label>
+                                    <input
+                                        type="url"
+                                        value={formData.image}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
+                                        className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.image ? 'border-red-500' : 'border-white/10'} rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                        placeholder="https://example.com/cover.jpg"
+                                    />
+                                    {validationErrors.image && (
+                                        <p className="text-red-400 text-sm mt-1">{validationErrors.image}</p>
+                                    )}
+                                    {formData.image && (
+                                        <img src={formData.image} alt="Cover preview" className="mt-2 w-full max-w-md aspect-video object-cover rounded-lg" />
+                                    )}
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Banner Image URL</label>
+                                    <input
+                                        type="url"
+                                        value={formData.bannerImage}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, bannerImage: e.target.value }))}
+                                        className={`w-full px-4 py-3 bg-white/5 border ${validationErrors.bannerImage ? 'border-red-500' : 'border-white/10'} rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                        placeholder="https://example.com/banner.jpg"
+                                    />
+                                    {validationErrors.bannerImage && (
+                                        <p className="text-red-400 text-sm mt-1">{validationErrors.bannerImage}</p>
+                                    )}
+                                    {formData.bannerImage && (
+                                        <img src={formData.bannerImage} alt="Banner preview" className="mt-2 w-full max-w-2xl aspect-[21/9] object-cover rounded-lg" />
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Speakers */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-xl font-bold text-white">Speakers</h2>
+                                <button
+                                    type="button"
+                                    onClick={addSpeaker}
+                                    disabled={formData.speakers.length >= 10}
+                                    className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white rounded-lg transition-colors text-sm"
+                                >
+                                    <Plus className="w-4 h-4" />
+                                    Add Speaker
+                                </button>
+                            </div>
+
+                            {formData.speakers.length === 0 ? (
+                                <p className="text-gray-500 text-center py-8">No speakers added yet. Click "Add Speaker" to add one.</p>
                             ) : (
-                                <>
-                                    <Save className="w-5 h-5" />
-                                    Save Changes
-                                </>
-                            )}
-                        </button>
-                    </div>
-                </form>
+                                <div className="space-y-4">
+                                    {formData.speakers.map((speaker, index) => (
+                                        <div key={speaker.id} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                            <div className="flex items-start justify-between mb-4">
+                                                <div className="flex items-center gap-3">
+                                                    <GripVertical className="w-5 h-5 text-gray-500" />
+                                                    <span className="text-sm text-gray-400">Speaker {index + 1}</span>
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeSpeaker(speaker.id)}
+                                                    className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
 
-                {/* Delete Confirmation Modal */}
-                {showDeleteModal && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-                        <div className="bg-gray-900 border border-white/10 rounded-2xl p-6 max-w-md w-full">
-                            <h3 className="text-lg font-semibold text-white mb-2">Delete Event</h3>
-                            <p className="text-gray-400 mb-6">Are you sure you want to delete this event? This action cannot be undone.</p>
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={() => setShowDeleteModal(false)}
-                                    className="flex-1 px-4 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    onClick={handleDelete}
-                                    className="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl transition-colors"
-                                >
-                                    Delete
-                                </button>
-                            </div>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-sm text-gray-400 mb-2">
+                                                        Name <span className="text-red-400">*</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={speaker.name}
+                                                        onChange={(e) => updateSpeaker(speaker.id, 'name', e.target.value)}
+                                                        className={`w-full px-4 py-2 bg-white/5 border ${validationErrors[`speaker-${index}-name`] ? 'border-red-500' : 'border-white/10'} rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                                        placeholder="Speaker name"
+                                                    />
+                                                    {validationErrors[`speaker-${index}-name`] && (
+                                                        <p className="text-red-400 text-sm mt-1">{validationErrors[`speaker-${index}-name`]}</p>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm text-gray-400 mb-2">Role</label>
+                                                    <input
+                                                        type="text"
+                                                        value={speaker.role}
+                                                        onChange={(e) => updateSpeaker(speaker.id, 'role', e.target.value)}
+                                                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                                        placeholder="Title or role"
+                                                    />
+                                                </div>
+                                                <div className="md:col-span-2">
+                                                    <label className="block text-sm text-gray-400 mb-2">Bio</label>
+                                                    <textarea
+                                                        value={speaker.bio}
+                                                        onChange={(e) => updateSpeaker(speaker.id, 'bio', e.target.value)}
+                                                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors resize-none"
+                                                        placeholder="Brief bio..."
+                                                        rows={3}
+                                                    />
+                                                </div>
+                                                <div className="md:col-span-2">
+                                                    <label className="block text-sm text-gray-400 mb-2">Image URL</label>
+                                                    <input
+                                                        type="url"
+                                                        value={speaker.image}
+                                                        onChange={(e) => updateSpeaker(speaker.id, 'image', e.target.value)}
+                                                        className={`w-full px-4 py-2 bg-white/5 border ${validationErrors[`speaker-${index}-image`] ? 'border-red-500' : 'border-white/10'} rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors`}
+                                                        placeholder="https://example.com/speaker.jpg"
+                                                    />
+                                                    {validationErrors[`speaker-${index}-image`] && (
+                                                        <p className="text-red-400 text-sm mt-1">{validationErrors[`speaker-${index}-image`]}</p>
+                                                    )}
+                                                    {speaker.image && speaker.image !== DEFAULT_SPEAKER_IMAGE && (
+                                                        <img src={speaker.image} alt={speaker.name} className="mt-2 w-20 h-20 rounded-full object-cover" />
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
-                    </div>
+
+                        {/* Tags */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                            <h2 className="text-xl font-bold text-white mb-6">Tags</h2>
+
+                            <div className="flex flex-wrap gap-2 mb-4">
+                                {formData.tags.map(tag => (
+                                    <span
+                                        key={tag}
+                                        className="flex items-center gap-1 px-3 py-1 bg-orange-500/10 text-orange-400 rounded-full text-sm"
+                                    >
+                                        {tag}
+                                        <button
+                                            type="button"
+                                            onClick={() => removeTag(tag)}
+                                            className="hover:text-orange-300"
+                                        >
+                                            <X className="w-3 h-3" />
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
+
+                            {formData.tags.length < 10 && (
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={tagInput}
+                                        onChange={(e) => setTagInput(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                                        placeholder="Add a tag..."
+                                        className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors text-sm"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={addTag}
+                                        className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-white hover:border-white/20 transition-all"
+                                    >
+                                        <Plus className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </form>
                 )}
             </div>
         </div>

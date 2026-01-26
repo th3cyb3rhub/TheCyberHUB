@@ -100,7 +100,7 @@ function FeaturedEventCard({ event }: { event: Event }) {
                         {/* Date Badge */}
                         <div className="absolute top-4 left-4 bg-gray-900/90 backdrop-blur-sm rounded-xl p-3 text-center min-w-[70px]">
                             <div className="text-2xl font-bold text-white">{date.day}</div>
-                            <div className="text-xs font-medium text-cyan-400">{date.month}</div>
+                            <div className="text-xs font-medium text-orange-400">{date.month}</div>
                         </div>
                     </div>
 
@@ -120,7 +120,7 @@ function FeaturedEventCard({ event }: { event: Event }) {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
                             {event.title}
                         </h3>
 
@@ -132,21 +132,21 @@ function FeaturedEventCard({ event }: { event: Event }) {
                         {/* Meta */}
                         <div className="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
                             <div className="flex items-center gap-2">
-                                <Clock className="w-4 h-4 text-cyan-500" />
+                                <Clock className="w-4 h-4 text-orange-500" />
                                 {formatTime(event.startDate)}
                             </div>
                             <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4 text-cyan-500" />
+                                <MapPin className="w-4 h-4 text-orange-500" />
                                 {event.locationType === 'online' ? 'Online' : event.location}
                             </div>
                             <div className="flex items-center gap-2">
-                                <Globe className="w-4 h-4 text-cyan-500" />
+                                <Globe className="w-4 h-4 text-orange-500" />
                                 {event.organizer}
                             </div>
                         </div>
 
                         {/* CTA */}
-                        <div className="flex items-center gap-2 text-cyan-400 font-medium group-hover:gap-3 transition-all">
+                        <div className="flex items-center gap-2 text-orange-400 font-medium group-hover:gap-3 transition-all">
                             View Details
                             <ArrowRight className="w-4 h-4" />
                         </div>
@@ -178,7 +178,7 @@ function EventCard({ event }: { event: Event }) {
                     {/* Date Badge */}
                     <div className="absolute top-3 left-3 bg-gray-900/90 backdrop-blur-sm rounded-lg px-2.5 py-1.5 text-center">
                         <div className="text-lg font-bold text-white leading-none">{date.day}</div>
-                        <div className="text-[10px] font-medium text-cyan-400">{date.month}</div>
+                        <div className="text-[10px] font-medium text-orange-400">{date.month}</div>
                     </div>
 
                     {/* Category Badge */}
@@ -196,7 +196,7 @@ function EventCard({ event }: { event: Event }) {
 
                 {/* Content */}
                 <div className="p-4">
-                    <h3 className="font-semibold text-white mb-2 line-clamp-2 group-hover:text-cyan-400 transition-colors">
+                    <h3 className="font-semibold text-white mb-2 line-clamp-2 group-hover:text-orange-400 transition-colors">
                         {event.title}
                     </h3>
 
@@ -235,7 +235,7 @@ export default function EventsPage() {
             try {
                 setLoading(true);
                 const response = await fetch(`${API_URL}/api/events`);
-                
+
                 if (response.ok) {
                     const data = await response.json();
                     // Transform API response to match Event interface
@@ -263,7 +263,7 @@ export default function EventsPage() {
                         status: event.status || 'upcoming',
                         isFeatured: event.isFeatured || false,
                     })) || [];
-                    
+
                     setEvents(apiEvents.length > 0 ? apiEvents : sampleEvents);
                 } else {
                     // Fallback to sample data
@@ -320,14 +320,14 @@ export default function EventsPage() {
                         Join CTF competitions, workshops, webinars, and meetups.
                         Connect with the cybersecurity community and level up your skills.
                     </p>
-                    
-                    <Link 
-                        href="/events/calendar"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white transition-colors"
+
+                    <button
+                        disabled
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-500 cursor-not-allowed opacity-50"
                     >
                         <Calendar className="w-4 h-4" />
-                        View Calendar
-                    </Link>
+                        View Calendar (Coming Soon)
+                    </button>
                 </div>
             </section>
 
@@ -343,7 +343,7 @@ export default function EventsPage() {
                                 placeholder="Search events..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:bg-white/10 transition-all"
                             />
                         </div>
 
@@ -352,8 +352,8 @@ export default function EventsPage() {
                             <button
                                 onClick={() => setSelectedCategory('all')}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === 'all'
-                                        ? 'bg-white text-gray-900'
-                                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                                    ? 'bg-white text-gray-900'
+                                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                                     }`}
                             >
                                 All Events
@@ -365,8 +365,8 @@ export default function EventsPage() {
                                         key={cat.id}
                                         onClick={() => setSelectedCategory(cat.id)}
                                         className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === cat.id
-                                                ? `${colors.bg} ${colors.text} border ${colors.border}`
-                                                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-transparent'
+                                            ? `${colors.bg} ${colors.text} border ${colors.border}`
+                                            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-transparent'
                                             }`}
                                     >
                                         {categoryIcons[cat.id]}

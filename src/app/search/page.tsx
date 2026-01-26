@@ -52,7 +52,7 @@ const typeColors: Record<string, string> = {
     discussion: 'bg-green-500/20 text-green-400',
     event: 'bg-purple-500/20 text-purple-400',
     challenge: 'bg-orange-500/20 text-orange-400',
-    resource: 'bg-cyan-500/20 text-cyan-400',
+    resource: 'bg-orange-500/20 text-orange-400',
     job: 'bg-yellow-500/20 text-yellow-400',
     user: 'bg-pink-500/20 text-pink-400',
 };
@@ -198,7 +198,7 @@ export default function SearchPage() {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Search for anything..."
-                            className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50"
+                            className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50"
                         />
                         <Button
                             type="submit"
@@ -217,8 +217,8 @@ export default function SearchPage() {
                             key={type}
                             onClick={() => handleTypeFilter(type)}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${searchType === type
-                                    ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50'
-                                    : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10'
+                                ? 'bg-orange-500/20 text-orange-400 border border-orange-500/50'
+                                : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10'
                                 }`}
                         >
                             {typeIcons[type]}

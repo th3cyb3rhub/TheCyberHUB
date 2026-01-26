@@ -164,7 +164,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Login failed');
+            // Handle nested error format: {error: {code, message, details}}
+            const errorObj = data.error || data;
+            const errorMessage = errorObj.details?.[0]?.message || errorObj.message || 'Login failed';
+            throw new Error(errorMessage);
         }
 
         safeLocalStorage.setItem('token', data.token);
@@ -182,7 +185,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Registration failed');
+            // Handle nested error format: {error: {code, message, details}}
+            const errorObj = data.error || data;
+            const errorMessage = errorObj.details?.[0]?.message || errorObj.message || 'Registration failed';
+            throw new Error(errorMessage);
         }
 
         safeLocalStorage.setItem('token', data.token);

@@ -132,8 +132,41 @@ const RoadmapsPage = () => {
                     // Backend returns array of { name, content } objects
                     // Each content item has the roadmap data
                     if (Array.isArray(data) && data.length > 0) {
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        const transformedRoadmaps = data.map((item: any) => {
+                        interface RoadmapApiItem {
+                            content?: {
+                                id?: string;
+                                _id?: string;
+                                title?: string;
+                                name?: string;
+                                description?: string;
+                                category?: string;
+                                totalTime?: string;
+                                total_time?: string;
+                                difficulty?: string;
+                                followers?: string;
+                                rating?: number;
+                                steps?: unknown[];
+                                color?: string;
+                                icon?: string;
+                                featured?: boolean;
+                            };
+                            id?: string;
+                            _id?: string;
+                            title?: string;
+                            name?: string;
+                            description?: string;
+                            category?: string;
+                            totalTime?: string;
+                            total_time?: string;
+                            difficulty?: string;
+                            followers?: string;
+                            rating?: number;
+                            steps?: unknown[];
+                            color?: string;
+                            icon?: string;
+                            featured?: boolean;
+                        }
+                        const transformedRoadmaps = data.map((item: RoadmapApiItem) => {
                             const content = item.content || item;
                             return {
                                 id: content.id || content._id || String(Math.random()),

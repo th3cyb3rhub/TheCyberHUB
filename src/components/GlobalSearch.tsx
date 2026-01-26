@@ -28,9 +28,10 @@ interface SearchItem {
     title: string;
     description: string;
     href: string;
-    category: 'tool' | 'resource' | 'page';
+    category: 'tool' | 'resource' | 'page' | 'blog' | 'event' | 'forum';
     icon: React.ReactNode;
     keywords?: string[];
+    dynamic?: boolean; // Flag for dynamically loaded content
 }
 
 // All searchable items
@@ -77,13 +78,19 @@ const searchItems: SearchItem[] = [
 const categoryLabels = {
     tool: 'Tools',
     resource: 'Resources',
-    page: 'Pages'
+    page: 'Pages',
+    blog: 'Blogs',
+    event: 'Events',
+    forum: 'Forums'
 };
 
 const categoryColors = {
     tool: 'text-orange-400',
     resource: 'text-blue-400',
-    page: 'text-green-400'
+    page: 'text-green-400',
+    blog: 'text-purple-400',
+    event: 'text-pink-400',
+    forum: 'text-cyan-400'
 };
 
 const highlightText = (text: string, query: string) => {
@@ -110,17 +117,102 @@ export const GlobalSearch = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [dynamicItems, setDynamicItems] = useState<SearchItem[]>([]);
+    const [loadingDynamic, setLoadingDynamic] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
+    // Fetch recent dynamic content (blogs, events, forums)
+    useEffect(() => {
+        const fetchDynamicContent = async () => {
+            setLoadingDynamic(true);
+            try {
+                const [blogsRes, eventsRes, forumsRes] = await Promise.all([
+                    fetch(`${API_URL}/api/blogs?limit=3&sort=-createdAt`).catch(() => null),
+                    fetch(`${API_URL}/api/events?limit=3&sort=-createdAt`).catch(() => null),
+                    fetch(`${API_URL}/api/forums/discussions?limit=3&sort=-createdAt`).catch(() => null),
+                ]);
+
+                const items: SearchItem[] = [];
+
+                // Add recent blogs
+                if (blogsRes?.ok) {
+                    const blogsData = await blogsRes.json();
+                    const blogs = blogsData.blogs || blogsData.data || [];
+                    blogs.forEach((blog: any) => {
+                        items.push({
+                            id: `blog-${blog._id}`,
+                            title: blog.title,
+                            description: blog.content?.substring(0, 100) || 'Recent blog post',
+                            href: `/blog/${blog.slug || blog._id}`,
+                            category: 'blog',
+                            icon: <FileText className="w-4 h-4" />,
+                            keywords: [blog.title, blog.category, 'blog', 'article'].filter(Boolean),
+                            dynamic: true,
+                        });
+                    });
+                }
+
+                // Add recent events
+                if (eventsRes?.ok) {
+                    const eventsData = await eventsRes.json();
+                    const events = eventsData.events || eventsData.data || [];
+                    events.forEach((event: any) => {
+                        items.push({
+                            id: `event-${event._id}`,
+                            title: event.title,
+                            description: event.description?.substring(0, 100) || 'Upcoming event',
+                            href: `/events/${event.slug || event._id}`,
+                            category: 'event',
+                            icon: <Calendar className="w-4 h-4" />,
+                            keywords: [event.title, event.category, 'event', 'ctf', 'workshop'].filter(Boolean),
+                            dynamic: true,
+                        });
+                    });
+                }
+
+                // Add recent forum discussions
+                if (forumsRes?.ok) {
+                    const forumsData = await forumsRes.json();
+                    const forums = forumsData.discussions || forumsData.data || [];
+                    forums.forEach((forum: any) => {
+                        items.push({
+                            id: `forum-${forum._id}`,
+                            title: forum.title,
+                            description: forum.content?.substring(0, 100) || 'Forum discussion',
+                            href: `/forums/${forum._id}`,
+                            category: 'forum',
+                            icon: <FileText className="w-4 h-4" />,
+                            keywords: [forum.title, forum.category, 'forum', 'discussion'].filter(Boolean),
+                            dynamic: true,
+                        });
+                    });
+                }
+
+                setDynamicItems(items);
+            } catch (error) {
+                console.error('Failed to fetch dynamic content:', error);
+            } finally {
+                setLoadingDynamic(false);
+            }
+        };
+
+        fetchDynamicContent();
+    }, [API_URL]);
+
+    // Combine static and dynamic items
+    const allItems = [...searchItems, ...dynamicItems];
 
     // Filter results based on query
     const trimmedQuery = query.trim();
     const results = trimmedQuery
-        ? searchItems.filter(item => {
+        ? allItems.filter(item => {
             const searchStr = `${item.title} ${item.description} ${item.keywords?.join(' ') || ''}`.toLowerCase();
             return searchStr.includes(trimmedQuery.toLowerCase());
         })
-        : searchItems.slice(0, 8); // Show popular items when no query
+        : allItems.slice(0, 12); // Show more items when no query (including dynamic content)
 
     // Group results by category
     const groupedResults = results.reduce((acc, item) => {
@@ -196,7 +288,7 @@ export const GlobalSearch = () => {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            placeholder="Search tools, resources, pages..."
+                            placeholder="Search tools, blogs, events, forums..."
                             className="flex-1 py-4 bg-transparent text-white placeholder:text-gray-500 focus:outline-none text-lg"
                         />
                         <kbd className="hidden sm:flex items-center gap-1 px-2 py-1 text-xs text-gray-500 bg-white/5 rounded border border-white/10">
@@ -208,7 +300,11 @@ export const GlobalSearch = () => {
                     <div className="max-h-[60vh] overflow-y-auto p-2">
                         {trimmedQuery === '' && (
                             <div className="px-3 pb-2 text-xs text-gray-500">
-                                Start typing to search tools, resources, and pages. Try &quot;google dork&quot;, &quot;challenges&quot;, or &quot;feeds&quot;.
+                                {loadingDynamic ? (
+                                    'Loading recent content...'
+                                ) : (
+                                    <>Start typing to search tools, blogs, events, forums, and more. Try &quot;google dork&quot;, &quot;challenges&quot;, or &quot;jwt&quot;.</>
+                                )}
                             </div>
                         )}
                         {results.length === 0 ? (

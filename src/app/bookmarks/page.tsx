@@ -248,7 +248,7 @@ export default function BookmarksPage() {
                                         value={newCollectionName}
                                         onChange={(e) => setNewCollectionName(e.target.value)}
                                         placeholder="Collection name"
-                                        className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded text-white text-sm placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 mb-2"
+                                        className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500/50 mb-2"
                                         autoFocus
                                     />
                                     <div className="flex gap-2">
@@ -268,8 +268,8 @@ export default function BookmarksPage() {
                                     <div
                                         key={collection._id}
                                         className={`group flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all ${selectedCollection === collection._id
-                                                ? 'bg-cyan-500/20 border border-cyan-500/50'
-                                                : 'bg-white/5 border border-transparent hover:bg-white/10'
+                                            ? 'bg-orange-500/20 border border-orange-500/50'
+                                            : 'bg-white/5 border border-transparent hover:bg-white/10'
                                             }`}
                                         onClick={() => setSelectedCollection(collection._id)}
                                     >

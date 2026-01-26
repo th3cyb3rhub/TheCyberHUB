@@ -32,8 +32,9 @@ const BlogPage = () => {
             try {
                 const response = await fetch(`${API_URL}/api/blogs`);
                 if (response.ok) {
-                    const data = await response.json();
-                    setBlogs(data);
+                    const result = await response.json();
+                    // API returns { success, data, pagination }
+                    setBlogs(result.data || []);
                 }
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
@@ -44,11 +45,11 @@ const BlogPage = () => {
         fetchBlogs();
     }, []);
 
-    const allTags = Array.from(new Set(blogs.flatMap(b => b.tags || [])));
+    const allTags = Array.from(new Set((blogs || []).flatMap(b => b.tags || [])));
 
-    const filteredBlogs = blogs.filter(blog => {
-        const matchesSearch = blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            blog.content.toLowerCase().includes(searchQuery.toLowerCase());
+    const filteredBlogs = (blogs || []).filter(blog => {
+        const matchesSearch = blog.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            blog.content?.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesTag = !selectedTag || (blog.tags && blog.tags.includes(selectedTag));
         return matchesSearch && matchesTag;
     });

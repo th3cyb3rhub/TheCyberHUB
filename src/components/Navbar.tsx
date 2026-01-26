@@ -61,11 +61,11 @@ const Navbar = () => {
 
     // Learn dropdown items
     const learnLinks = [
-        { title: "Challenges", href: "/challenges", icon: <Flag className="w-4 h-4" />, description: "CTF challenges" },
-        { title: "Labs", href: "/labs", icon: <Shield className="w-4 h-4" />, description: "Hands-on labs (coming soon)" },
+        // { title: "Challenges", href: "/challenges", icon: <Flag className="w-4 h-4" />, description: "CTF challenges" },
+        // { title: "Labs", href: "/labs", icon: <Shield className="w-4 h-4" />, description: "Hands-on labs (coming soon)" },
         { title: "Events", href: "/events", icon: <Calendar className="w-4 h-4" />, description: "CTFs & workshops" },
         { title: "Code Review", href: "/code-review", icon: <Code2 className="w-4 h-4" />, description: "Security exercises" },
-        { title: "Mentorship", href: "/mentorship", icon: <Users className="w-4 h-4" />, description: "Find a mentor", badge: mentorshipNotifications },
+        // { title: "Mentorship", href: "/mentorship", icon: <Users className="w-4 h-4" />, description: "Find a mentor", badge: mentorshipNotifications },
     ];
 
     const DropdownMenu = ({

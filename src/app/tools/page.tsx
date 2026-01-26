@@ -40,15 +40,6 @@ const ToolsPage = () => {
             popular: true
         },
         {
-            id: 'subfinder',
-            name: 'Subdomain Finder',
-            description: 'Discover subdomains using Certificate Transparency',
-            status: 'available',
-            href: '/tools/subfinder',
-            icon: <Globe className="w-5 h-5" />,
-            popular: true
-        },
-        {
             id: 'encoder-decoder',
             name: 'Encoder/Decoder',
             description: 'Base64, URL, HTML encoding and decoding',
@@ -62,14 +53,6 @@ const ToolsPage = () => {
             description: 'Compare two texts and find differences',
             status: 'available',
             href: '/tools/text-diff',
-            icon: <Terminal className="w-5 h-5" />
-        },
-        {
-            id: 'header-analyzer',
-            name: 'Header Analyzer',
-            description: 'Analyze HTTP security headers',
-            status: 'available',
-            href: '/tools/header-analyzer',
             icon: <Terminal className="w-5 h-5" />
         },
         {
@@ -87,30 +70,6 @@ const ToolsPage = () => {
             status: 'available',
             href: '/tools/hash-analyzer',
             icon: <Hash className="w-5 h-5" />
-        },
-        {
-            id: 'ip-lookup',
-            name: 'IP Lookup',
-            description: 'Get geolocation and network info for any IP',
-            status: 'available',
-            href: '/tools/ip-lookup',
-            icon: <Wifi className="w-5 h-5" />
-        },
-        {
-            id: 'whois-lookup',
-            name: 'WHOIS Lookup',
-            description: 'Get domain registration and ownership info',
-            status: 'available',
-            href: '/tools/whois-lookup',
-            icon: <Globe className="w-5 h-5" />
-        },
-        {
-            id: 'dns-lookup',
-            name: 'DNS Lookup',
-            description: 'Query DNS records - A, AAAA, MX, NS, TXT',
-            status: 'available',
-            href: '/tools/dns-lookup',
-            icon: <Server className="w-5 h-5" />
         },
         {
             id: 'reverse-shell',
@@ -138,46 +97,89 @@ const ToolsPage = () => {
             href: '/tools/sql-injection',
             icon: <Database className="w-5 h-5" />
         },
-        {
-            id: 'cors-tester',
-            name: 'CORS Tester',
-            description: 'Test CORS misconfigurations',
-            status: 'available',
-            href: '/tools/cors-tester',
-            icon: <Globe className="w-5 h-5" />
-        },
-        {
-            id: 'ssl-checker',
-            name: 'SSL/TLS Checker',
-            description: 'Analyze SSL certificate security',
-            status: 'available',
-            href: '/tools/ssl-checker',
-            icon: <Lock className="w-5 h-5" />
-        },
-        {
-            id: 'port-scanner',
-            name: 'Port Scanner',
-            description: 'Info about port scanning tools and techniques',
-            status: 'available',
-            href: '/tools/port-scanner',
-            icon: <Radio className="w-5 h-5" />
-        },
-        {
-            id: 'cve-search',
-            name: 'CVE Search',
-            description: 'Search CVE vulnerability database',
-            status: 'available',
-            href: '/tools/cve-search',
-            icon: <Shield className="w-5 h-5" />
-        },
-        {
-            id: 'exploit-db',
-            name: 'Exploit-DB Search',
-            description: 'Search exploits and proof-of-concept code',
-            status: 'available',
-            href: '/tools/exploit-db',
-            icon: <Database className="w-5 h-5" />
-        },
+        // Hidden tools - require backend API setup
+        // Uncomment when backend is ready
+        // {
+        //     id: 'subfinder',
+        //     name: 'Subdomain Finder',
+        //     description: 'Discover subdomains using Certificate Transparency',
+        //     status: 'available',
+        //     href: '/tools/subfinder',
+        //     icon: <Globe className="w-5 h-5" />,
+        //     popular: true
+        // },
+        // {
+        //     id: 'header-analyzer',
+        //     name: 'Header Analyzer',
+        //     description: 'Analyze HTTP security headers',
+        //     status: 'available',
+        //     href: '/tools/header-analyzer',
+        //     icon: <Terminal className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'ip-lookup',
+        //     name: 'IP Lookup',
+        //     description: 'Get geolocation and network info for any IP',
+        //     status: 'available',
+        //     href: '/tools/ip-lookup',
+        //     icon: <Wifi className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'whois-lookup',
+        //     name: 'WHOIS Lookup',
+        //     description: 'Get domain registration and ownership info',
+        //     status: 'available',
+        //     href: '/tools/whois-lookup',
+        //     icon: <Globe className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'dns-lookup',
+        //     name: 'DNS Lookup',
+        //     description: 'Query DNS records - A, AAAA, MX, NS, TXT',
+        //     status: 'available',
+        //     href: '/tools/dns-lookup',
+        //     icon: <Server className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'cors-tester',
+        //     name: 'CORS Tester',
+        //     description: 'Test CORS misconfigurations',
+        //     status: 'available',
+        //     href: '/tools/cors-tester',
+        //     icon: <Globe className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'ssl-checker',
+        //     name: 'SSL/TLS Checker',
+        //     description: 'Analyze SSL certificate security',
+        //     status: 'available',
+        //     href: '/tools/ssl-checker',
+        //     icon: <Lock className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'port-scanner',
+        //     name: 'Port Scanner',
+        //     description: 'Info about port scanning tools and techniques',
+        //     status: 'available',
+        //     href: '/tools/port-scanner',
+        //     icon: <Radio className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'cve-search',
+        //     name: 'CVE Search',
+        //     description: 'Search CVE vulnerability database',
+        //     status: 'available',
+        //     href: '/tools/cve-search',
+        //     icon: <Shield className="w-5 h-5" />
+        // },
+        // {
+        //     id: 'exploit-db',
+        //     name: 'Exploit-DB Search',
+        //     description: 'Search exploits and proof-of-concept code',
+        //     status: 'available',
+        //     href: '/tools/exploit-db',
+        //     icon: <Database className="w-5 h-5" />
+        // },
     ];
 
     const filteredTools = tools.filter(tool => {
@@ -200,7 +202,7 @@ const ToolsPage = () => {
                     <div className="flex items-center gap-2 mb-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5">
                             <Wrench className="w-4 h-4 text-orange-500" />
-                            <span className="text-sm text-gray-400">18 Free Tools</span>
+                            <span className="text-sm text-gray-400">9 Free Tools</span>
                         </div>
                     </div>
 

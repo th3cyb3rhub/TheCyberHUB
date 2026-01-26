@@ -6,7 +6,7 @@ import { ArrowRight, Shield } from 'lucide-react';
 
 const HeroSection = () => {
     return (
-        <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-20">
             {/* Orange gradient shades */}
             <div className="absolute inset-0 pointer-events-none">
                 <div
