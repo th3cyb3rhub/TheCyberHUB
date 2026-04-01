@@ -17,18 +17,18 @@ const CheatsheetsSection = () => {
     ];
 
     return (
-        <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-white/5">
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-3">
-                        <h2 className="text-xl font-semibold text-white">Cheatsheets</h2>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Cheatsheets</h2>
                         <span className="px-2.5 py-1 text-xs font-medium bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">
                             Quick reference
                         </span>
                     </div>
                     <Link
                         href="/cheatsheets"
-                        className="group text-sm text-gray-400 hover:text-orange-400 flex items-center gap-1.5 transition-colors"
+                        className="group text-sm text-gray-500 dark:text-gray-400 hover:text-orange-400 flex items-center gap-1.5 transition-colors"
                     >
                         View all
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -40,12 +40,12 @@ const CheatsheetsSection = () => {
                         <Link
                             key={index}
                             href={sheet.href}
-                            className="group flex flex-col items-center gap-2 p-4 rounded-xl border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300"
+                            className="group flex flex-col items-center gap-2 p-4 rounded-xl border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 bg-white dark:bg-white/[0.02] hover:bg-gray-50 dark:hover:bg-white/[0.04] transition-all duration-300"
                         >
                             <span className={`${sheet.color} group-hover:scale-110 transition-transform`}>
                                 {sheet.icon}
                             </span>
-                            <span className="text-xs text-gray-400 group-hover:text-white transition-colors text-center leading-tight">
+                            <span className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors text-center leading-tight">
                                 {sheet.name}
                             </span>
                         </Link>

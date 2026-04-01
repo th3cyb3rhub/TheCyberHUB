@@ -12,6 +12,13 @@ interface User {
     role: string;
     provider?: 'local' | 'google' | 'github';
     isVerified?: boolean;
+    organization?: {
+        name?: string;
+        domain?: string;
+        website?: string;
+        logo?: string;
+        description?: string;
+    };
     stats?: {
         eventsAttended: number;
         challengesSolved: number;
@@ -30,13 +37,17 @@ interface User {
         }[];
     };
     createdAt?: string;
+    twoFactorAuth?: {
+        enabled: boolean;
+    };
 }
 
 interface AuthContextType {
     user: User | null;
     token: string | null;
     loading: boolean;
-    login: (email: string, password: string) => Promise<void>;
+    login: (email: string, password: string) => Promise<{ requires2FA: boolean; tempToken: string } | void>;
+    verify2faLogin: (tempToken: string, code: string) => Promise<void>;
     register: (name: string, email: string, password: string, username?: string) => Promise<void>;
     logout: () => void;
     updateProfile: (data: { name?: string; username?: string; avatar?: string }) => Promise<void>;
@@ -154,7 +165,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    const login = async (email: string, password: string) => {
+    const login = async (email: string, password: string): Promise<{ requires2FA: boolean; tempToken: string } | void> => {
         const response = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -167,6 +178,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             // Handle nested error format: {error: {code, message, details}}
             const errorObj = data.error || data;
             const errorMessage = errorObj.details?.[0]?.message || errorObj.message || 'Login failed';
+            throw new Error(errorMessage);
+        }
+
+        if (data.requires2FA) {
+            return { requires2FA: true, tempToken: data.tempToken };
+        }
+
+        safeLocalStorage.setItem('token', data.token);
+        setToken(data.token);
+        setUser(data.data);
+    };
+
+    const verify2faLogin = async (tempToken: string, code: string) => {
+        const response = await fetch(`${API_URL}/api/auth/2fa/verify`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tempToken, code }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            const errorObj = data.error || data;
+            const errorMessage = errorObj.details?.[0]?.message || errorObj.message || '2FA Verification failed';
             throw new Error(errorMessage);
         }
 
@@ -400,6 +435,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             token,
             loading,
             login,
+            verify2faLogin,
             register,
             logout,
             updateProfile,

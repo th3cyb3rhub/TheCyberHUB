@@ -17,8 +17,10 @@ import {
     Play
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface LearningPath {
     _id: string;
@@ -85,11 +87,8 @@ const LearningPathsPage = () => {
 
     const fetchPaths = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/learning-paths`);
-            if (response.ok) {
-                const data = await response.json();
-                setPaths(data.data || []);
-            }
+            const data = await fetchApi('/api/learning-paths', { requireAuth: false });
+            setPaths(data.data || []);
         } catch (error) {
             console.error('Failed to fetch learning paths:', error);
         } finally {
@@ -99,13 +98,8 @@ const LearningPathsPage = () => {
 
     const fetchUserProgress = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/learning-paths/user/progress`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setUserProgress(data.data || []);
-            }
+            const data = await fetchApi('/api/learning-paths/user/progress');
+            setUserProgress(data.data || []);
         } catch (error) {
             console.error('Failed to fetch user progress:', error);
         }
@@ -119,14 +113,10 @@ const LearningPathsPage = () => {
 
         setEnrollingPath(pathId);
         try {
-            const response = await fetch(`${API_URL}/api/learning-paths/${pathId}/enroll`, {
+            await fetchApi(`/api/learning-paths/${pathId}/enroll`, {
                 method: 'POST',
-                headers: { Authorization: `Bearer ${token}` }
             });
-
-            if (response.ok) {
-                await fetchUserProgress();
-            }
+            await fetchUserProgress();
         } catch (error) {
             console.error('Failed to enroll:', error);
         } finally {
@@ -189,15 +179,31 @@ const LearningPathsPage = () => {
             {/* Learning Paths Grid */}
             <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
                 {loading ? (
-                    <div className="flex items-center justify-center py-20">
-                        <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                            <div key={i} className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+                                <div className="flex items-start justify-between mb-4">
+                                    <Skeleton className="w-12 h-12 rounded-lg" />
+                                    <Skeleton className="w-20 h-6 rounded" />
+                                </div>
+                                <Skeleton className="h-5 w-3/4 mb-2" />
+                                <Skeleton className="h-4 w-full mb-1" />
+                                <Skeleton className="h-4 w-2/3 mb-4" />
+                                <div className="flex gap-4 mb-4">
+                                    <Skeleton className="h-4 w-20" />
+                                    <Skeleton className="h-4 w-16" />
+                                    <Skeleton className="h-4 w-12" />
+                                </div>
+                                <Skeleton className="h-10 w-full rounded-lg" />
+                            </div>
+                        ))}
                     </div>
                 ) : filteredPaths.length === 0 ? (
-                    <div className="text-center py-20">
-                        <GraduationCap className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-white mb-2">No learning paths available</h3>
-                        <p className="text-gray-400">Check back soon for new content.</p>
-                    </div>
+                    <EmptyState
+                        icon={GraduationCap}
+                        title="No learning paths available"
+                        description="Check back soon for new content."
+                    />
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredPaths.map((path) => {

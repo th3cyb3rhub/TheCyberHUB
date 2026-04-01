@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CheckCircle, MessageSquare, MoreHorizontal, Pencil, Trash2, Clock } from 'lucide-react';
+import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { cn } from '@/lib/utils';
 import type { Reply } from '@/types/forum';
 import { ROLE_BADGES } from '@/types/forum';
@@ -57,6 +59,7 @@ export default function ReplyThread({
     const [showMenu, setShowMenu] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editContent, setEditContent] = useState(reply.content);
+    const { isOpen: confirmOpen, confirm: showConfirm, onConfirm, onCancel } = useConfirmDialog();
 
     const isAuthor = currentUserId === reply.author._id;
     const isDiscussionAuthor = currentUserId === discussionAuthorId;
@@ -74,8 +77,11 @@ export default function ReplyThread({
     };
 
     const handleDelete = async () => {
-        if (onDelete && confirm('Are you sure you want to delete this reply?')) {
-            await onDelete(reply._id);
+        if (onDelete) {
+            const confirmed = await showConfirm();
+            if (confirmed) {
+                await onDelete(reply._id);
+            }
         }
     };
 
@@ -117,10 +123,13 @@ export default function ReplyThread({
                                 className="flex items-center gap-2 hover:text-orange-400 transition-colors"
                             >
                                 {reply.author.avatar ? (
-                                    <img
+                                    <Image
                                         src={reply.author.avatar}
                                         alt={reply.author.username}
+                                        width={24}
+                                        height={24}
                                         className="w-6 h-6 rounded-full"
+                                        unoptimized
                                     />
                                 ) : (
                                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-sm text-white font-medium">
@@ -203,7 +212,9 @@ export default function ReplyThread({
                                     <div className="relative">
                                         <button
                                             onClick={() => setShowMenu(!showMenu)}
-                                            className="p-1 text-gray-400 hover:text-white transition-colors"
+                                            className="p-2.5 text-gray-400 hover:text-white transition-colors"
+                                            aria-label="More options"
+                                            aria-expanded={showMenu}
                                         >
                                             <MoreHorizontal className="w-4 h-4" />
                                         </button>
@@ -263,6 +274,16 @@ export default function ReplyThread({
                     />
                 </div>
             )}
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                title="Delete reply?"
+                description="Are you sure you want to delete this reply?"
+                confirmText="Delete"
+                variant="danger"
+            />
 
             {/* Nested replies */}
             {reply.children && reply.children.length > 0 && (

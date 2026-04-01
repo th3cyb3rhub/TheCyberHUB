@@ -2,13 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Clock, Eye, Loader2, Edit, Trash2 } from 'lucide-react';
-import { API_URL } from '@/lib/api';
+import DOMPurify from 'dompurify';
+import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import CommentSection from '@/components/blog/CommentSection';
 import BlogActions from '@/components/blog/BlogActions';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 interface Blog {
     _id: string;
@@ -36,13 +40,12 @@ const BlogPostPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [deleting, setDeleting] = useState(false);
+    const { isOpen: confirmOpen, confirm: showConfirm, onConfirm, onCancel } = useConfirmDialog();
 
     useEffect(() => {
         const fetchBlog = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/blogs/${params.id}`);
-                if (!response.ok) throw new Error('Blog not found');
-                const data = await response.json();
+                const data = await fetchApi(`/api/blogs/${params.id}`, { requireAuth: false });
                 setBlog(data.data || data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to load blog');
@@ -83,26 +86,16 @@ const BlogPostPage = () => {
     const handleDelete = async () => {
         if (!blog || !token) return;
 
-        const confirmed = window.confirm(
-            'Are you sure you want to delete this blog post? This action cannot be undone.'
-        );
+        const confirmed = await showConfirm();
 
         if (!confirmed) return;
 
         setDeleting(true);
 
         try {
-            const response = await fetch(`${API_URL}/api/blogs/${blog._id}`, {
+            await fetchApi(`/api/blogs/${blog._id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
             });
-
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.error?.message || 'Failed to delete blog');
-            }
 
             addToast({
                 variant: 'success',
@@ -153,6 +146,8 @@ const BlogPostPage = () => {
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
 
                 <div className="relative max-w-3xl mx-auto">
+                    <Breadcrumbs items={[{ label: 'Blog', href: '/blog' }, { label: blog.title }]} />
+
                     {/* Back Link */}
                     <Link
                         href="/blog"
@@ -248,10 +243,13 @@ const BlogPostPage = () => {
             {blog.coverImage && (
                 <section className="max-w-4xl mx-auto px-4 sm:px-6 mb-8">
                     <div className="rounded-xl overflow-hidden">
-                        <img
+                        <Image
                             src={blog.coverImage}
                             alt={blog.title}
+                            width={800}
+                            height={400}
                             className="w-full h-auto"
+                            unoptimized
                         />
                     </div>
                 </section>
@@ -262,7 +260,7 @@ const BlogPostPage = () => {
                 <article className="prose prose-invert prose-orange max-w-none">
                     <div
                         className="text-gray-300 leading-relaxed whitespace-pre-wrap"
-                        dangerouslySetInnerHTML={{ __html: blog.content }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
                     />
                 </article>
 
@@ -282,6 +280,16 @@ const BlogPostPage = () => {
                 {/* Comments Section */}
                 <CommentSection blogId={blog._id} />
             </section>
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                title="Delete blog post?"
+                description="Are you sure you want to delete this blog post? This action cannot be undone."
+                confirmText="Delete"
+                variant="danger"
+            />
         </div>
     );
 };

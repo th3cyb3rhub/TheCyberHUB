@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
 import {
     Code,
@@ -43,13 +44,14 @@ const categoryIcons: Record<string, React.ReactNode> = {
 
 const CodeReviewPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
 
     const filteredSnippets = codeSnippets.filter(snippet => {
-        const matchesSearch = snippet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            snippet.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            snippet.vulnerabilityType.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = snippet.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            snippet.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            snippet.vulnerabilityType.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesCategory = !selectedCategory || snippet.category === selectedCategory;
         const matchesDifficulty = !selectedDifficulty || snippet.difficulty === selectedDifficulty;
         return matchesSearch && matchesCategory && matchesDifficulty;

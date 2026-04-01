@@ -1,4 +1,4 @@
-import { SkeletonBlogGrid } from '@/components/ui/Skeleton';
+import { SkeletonBlogGrid } from '@/components/ui/skeleton';
 
 export default function BlogLoading() {
     return (

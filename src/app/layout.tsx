@@ -60,20 +60,41 @@ export const viewport: Viewport = {
     maximumScale: 5,
     themeColor: [
         { media: '(prefers-color-scheme: dark)', color: '#000000' },
+        { media: '(prefers-color-scheme: light)', color: '#f1f5f9' },
     ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className="dark" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <meta name="darkreader-lock" />
+                <script dangerouslySetInnerHTML={{
+                    __html: `
+                        (function() {
+                            try {
+                                var t = localStorage.getItem('tch-theme');
+                                if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                                document.documentElement.classList.add(t);
+                                if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+                            } catch(e) {
+                                document.documentElement.classList.add('dark');
+                            }
+                        })();
+                    `
+                }} />
             </head>
             <body className={`${inter.className} cyberhub-bg`} suppressHydrationWarning>
+                <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded"
+                >
+                    Skip to main content
+                </a>
                 <ClientProviders>
-                    {children}
+                    <div id="main-content">{children}</div>
                 </ClientProviders>
                 <Analytics />
             </body>

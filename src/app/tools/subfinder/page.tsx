@@ -91,8 +91,6 @@ const SubfinderPage = () => {
         setApiMetadata(null);
         Date.now();
         try {
-            console.log(`Calling Lambda API for domain: ${domain.trim()}`);
-
             const response = await fetch(LAMBDA_API_URL, {
                 method: 'POST',
                 headers: {
@@ -108,8 +106,6 @@ const SubfinderPage = () => {
             }
 
             const lambdaData: LambdaResponse = await response.json();
-
-            console.log('Lambda response:', lambdaData);
 
             // Handle successful response
             if (lambdaData.success) {
@@ -146,7 +142,6 @@ const SubfinderPage = () => {
             }
 
         } catch (err) {
-            console.error('Error calling Lambda API:', err);
             const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
 
             if (errorMessage.includes('504') || errorMessage.includes('timeout')) {

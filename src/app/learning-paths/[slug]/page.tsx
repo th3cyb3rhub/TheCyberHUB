@@ -17,7 +17,7 @@ import {
     Trophy
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 
 interface Module {
@@ -94,9 +94,7 @@ const LearningPathDetailPage = () => {
 
     const fetchPath = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/learning-paths/${params.slug}`);
-            if (!response.ok) throw new Error('Learning path not found');
-            const data = await response.json();
+            const data = await fetchApi(`/api/learning-paths/${params.slug}`, { requireAuth: false });
             setPath(data.data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to load');
@@ -107,14 +105,9 @@ const LearningPathDetailPage = () => {
 
     const fetchProgress = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/learning-paths/${path?._id}/progress`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setProgress(data.data);
-            }
-        } catch (error) {
+            const data = await fetchApi(`/api/learning-paths/${path?._id}/progress`);
+            setProgress(data.data);
+        } catch (_error) {
             // Not enrolled yet
         }
     };
@@ -127,14 +120,10 @@ const LearningPathDetailPage = () => {
 
         setEnrolling(true);
         try {
-            const response = await fetch(`${API_URL}/api/learning-paths/${path?._id}/enroll`, {
+            await fetchApi(`/api/learning-paths/${path?._id}/enroll`, {
                 method: 'POST',
-                headers: { Authorization: `Bearer ${token}` }
             });
-
-            if (response.ok) {
-                await fetchProgress();
-            }
+            await fetchProgress();
         } catch (error) {
             console.error('Failed to enroll:', error);
         } finally {
@@ -147,18 +136,11 @@ const LearningPathDetailPage = () => {
 
         setCompletingModule(moduleId);
         try {
-            const response = await fetch(
-                `${API_URL}/api/learning-paths/${path._id}/modules/${moduleId}/complete`,
-                {
-                    method: 'POST',
-                    headers: { Authorization: `Bearer ${token}` }
-                }
+            const data = await fetchApi(
+                `/api/learning-paths/${path._id}/modules/${moduleId}/complete`,
+                { method: 'POST' }
             );
-
-            if (response.ok) {
-                const data = await response.json();
-                setProgress(data.data);
-            }
+            setProgress(data.data);
         } catch (error) {
             console.error('Failed to complete module:', error);
         } finally {
@@ -402,7 +384,7 @@ const LearningPathDetailPage = () => {
                 {/* Skills */}
                 {path.skills && path.skills.length > 0 && (
                     <div className="mt-12">
-                        <h2 className="text-xl font-semibold text-white mb-4">Skills You'll Learn</h2>
+                        <h2 className="text-xl font-semibold text-white mb-4">Skills You&apos;ll Learn</h2>
                         <div className="flex flex-wrap gap-2">
                             {path.skills.map((skill, i) => (
                                 <span

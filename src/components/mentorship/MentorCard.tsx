@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { RatingStars } from './RatingStars';
@@ -30,10 +31,13 @@ export function MentorCard({ mentor, onClick, featured }: MentorCardProps) {
                     <div className="relative">
                         <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center overflow-hidden">
                             {mentor.user.avatar ? (
-                                <img
+                                <Image
                                     src={mentor.user.avatar}
                                     alt={`${mentor.user.name}'s avatar`}
+                                    width={48}
+                                    height={48}
                                     className="w-full h-full object-cover"
+                                    unoptimized
                                 />
                             ) : (
                                 <span className="text-lg font-semibold text-muted-foreground" aria-hidden="true">

@@ -3,7 +3,9 @@
 import React, { useState, use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Highlight, themes } from 'prism-react-renderer';
+import dynamic from 'next/dynamic';
+
+const CodeHighlight = dynamic(() => import('@/components/code/CodeHighlight'), { ssr: false });
 import {
     ArrowLeft,
     Code,
@@ -102,7 +104,7 @@ const CodeReviewDetailPage = ({ params }: { params: Promise<{ id: string }> }) =
         const maxLineWidth = getMaxLineWidth(code);
 
         return (
-            <div className="relative rounded-xl overflow-hidden border border-white/10 bg-[#0d1117]">
+            <div className="relative rounded-xl overflow-hidden border border-white/10 bg-gray-950">
                 {/* Header */}
                 <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-white/5 to-transparent border-b border-white/10">
                     <div className="flex items-center gap-3">
@@ -162,40 +164,13 @@ const CodeReviewDetailPage = ({ params }: { params: Promise<{ id: string }> }) =
 
                 {/* Code with Syntax Highlighting */}
                 <div className="overflow-x-auto">
-                    <Highlight
-                        theme={themes.nightOwl}
+                    <CodeHighlight
                         code={code}
                         language={languageMap[snippet.language] || 'javascript'}
-                    >
-                        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                            <pre className={`${className} p-4 text-sm leading-relaxed`} style={{ ...style, background: 'transparent' }}>
-                                {tokens.map((line, i) => {
-                                    const lineNum = i + 1;
-                                    const isHighlighted = showHighlight && snippet.vulnerableLines?.includes(lineNum);
-
-                                    return (
-                                        <div
-                                            key={i}
-                                            {...getLineProps({ line })}
-                                            className={`flex ${isHighlighted ? 'bg-red-500/15 -mx-4 px-4 border-l-2 border-red-500' : ''}`}
-                                        >
-                                            <span
-                                                className={`inline-block text-right mr-4 select-none font-mono ${isHighlighted ? 'text-red-400' : 'text-gray-600'}`}
-                                                style={{ minWidth: `${maxLineWidth + 0.5}ch` }}
-                                            >
-                                                {lineNum}
-                                            </span>
-                                            <span className="whitespace-pre-wrap break-all">
-                                                {line.map((token, key) => (
-                                                    <span key={key} {...getTokenProps({ token })} />
-                                                ))}
-                                            </span>
-                                        </div>
-                                    );
-                                })}
-                            </pre>
-                        )}
-                    </Highlight>
+                        vulnerableLines={snippet.vulnerableLines}
+                        showHighlight={showHighlight}
+                        maxLineWidth={maxLineWidth}
+                    />
                 </div>
             </div>
         );

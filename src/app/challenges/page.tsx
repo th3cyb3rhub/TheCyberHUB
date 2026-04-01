@@ -1,6 +1,8 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -19,11 +21,14 @@ import {
     Globe,
     Database,
     Terminal,
-    Cpu
+    Cpu,
+    X
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { Skeleton } from '@/components/ui/Skeleton';
-import { API_URL } from '@/lib/api';
+import { Skeleton } from '@/components/ui/skeleton';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { fetchApi } from '@/lib/api';
+import { useToast } from '@/context/ToastContext';
 
 interface Challenge {
     _id: string;
@@ -95,39 +100,55 @@ const ChallengeSkeleton = () => (
 );
 
 const ChallengesPage = () => {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
     const { user, token } = useAuth();
+    const { addToast } = useToast();
     const [challenges, setChallenges] = useState<Challenge[]>([]);
     const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
     const [loading, setLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState<string>('all');
-    const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
-    const [solvedFilter, setSolvedFilter] = useState<'all' | 'unsolved' | 'solved'>('all');
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+    const debouncedSearch = useDebounce(searchQuery, 300);
+    const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || 'all');
+    const [selectedDifficulty, setSelectedDifficulty] = useState<string>(searchParams.get('difficulty') || 'all');
+    const [solvedFilter, setSolvedFilter] = useState<'all' | 'unsolved' | 'solved'>((searchParams.get('solved') as 'all' | 'unsolved' | 'solved') || 'all');
     const [showLeaderboard, setShowLeaderboard] = useState(false);
+
+    const updateFilters = useCallback((key: string, value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (value === 'all' || value === '') {
+            params.delete(key);
+        } else {
+            params.set(key, value);
+        }
+        const qs = params.toString();
+        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    }, [searchParams, router, pathname]);
+
+    const clearAllFilters = useCallback(() => {
+        setSearchQuery('');
+        setSelectedCategory('all');
+        setSelectedDifficulty('all');
+        setSolvedFilter('all');
+        router.replace(pathname, { scroll: false });
+    }, [router, pathname]);
+
+    const hasActiveFilters = selectedCategory !== 'all' || selectedDifficulty !== 'all' || solvedFilter !== 'all' || searchQuery !== '';
 
     // Fetch challenges
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const headers: Record<string, string> = {};
-                if (token) headers['Authorization'] = `Bearer ${token}`;
-
-                const [challengesRes, leaderboardRes] = await Promise.all([
-                    fetch(`${API_URL}/api/challenges`, { headers }),
-                    fetch(`${API_URL}/api/challenges/leaderboard`)
+                const [challengesData, leaderboardData] = await Promise.all([
+                    fetchApi('/api/challenges'),
+                    fetchApi('/api/challenges/leaderboard', { requireAuth: false })
                 ]);
-
-                if (challengesRes.ok) {
-                    const data = await challengesRes.json();
-                    setChallenges(Array.isArray(data) ? data : data.challenges || []);
-                }
-
-                if (leaderboardRes.ok) {
-                    const data = await leaderboardRes.json();
-                    setLeaderboard(Array.isArray(data) ? data.slice(0, 10) : []);
-                }
+                setChallenges(Array.isArray(challengesData) ? challengesData : challengesData.challenges || []);
+                setLeaderboard(Array.isArray(leaderboardData) ? leaderboardData.slice(0, 10) : []);
             } catch (error) {
                 console.error('Failed to fetch challenges:', error);
+                addToast('Failed to load challenges', 'error');
             } finally {
                 setLoading(false);
             }
@@ -140,9 +161,9 @@ const ChallengesPage = () => {
 
     // Filter challenges
     const filteredChallenges = challenges.filter(challenge => {
-        const matchesSearch = challenge.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            challenge.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            challenge.tags?.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+        const matchesSearch = challenge.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            challenge.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            challenge.tags?.some(t => t.toLowerCase().includes(debouncedSearch.toLowerCase()));
         const matchesCategory = selectedCategory === 'all' || challenge.category === selectedCategory;
         const matchesDifficulty = selectedDifficulty === 'all' || challenge.difficulty === selectedDifficulty;
         const isSolved = !!challenge.solved;
@@ -156,7 +177,7 @@ const ChallengesPage = () => {
     const totalSolved = challenges.filter(c => c.solved).length;
     const totalPoints = challenges.filter(c => c.solved).reduce((acc, c) => acc + c.points, 0);
     const currentUserEntry = user
-        ? leaderboard.find(entry => entry.username === (user as any).username)
+        ? leaderboard.find(entry => entry.username === user.username)
         : undefined;
 
     return (
@@ -164,7 +185,7 @@ const ChallengesPage = () => {
             {/* Hero */}
             <section className="relative pt-32 pb-12 px-4 sm:px-6">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
-                
+
                 <div className="relative max-w-5xl mx-auto">
                     <div className="text-center mb-8">
                         <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5">
@@ -173,7 +194,7 @@ const ChallengesPage = () => {
                         </div>
 
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
-                            Security <span className="gradient-text">Challenges</span>
+                            Security <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 animate-pulse-slow drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">Challenges</span>
                         </h1>
                         <p className="text-gray-400 max-w-lg mx-auto">
                             Test your skills with hands-on security challenges. Solve puzzles, capture flags, and climb the leaderboard.
@@ -200,22 +221,20 @@ const ChallengesPage = () => {
                     <div className="flex items-center justify-center gap-2 mb-8">
                         <button
                             onClick={() => setShowLeaderboard(false)}
-                            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all ${
-                                !showLeaderboard
+                            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all ${!showLeaderboard
                                     ? 'bg-orange-500 text-white'
                                     : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-                            }`}
+                                }`}
                         >
                             <Target className="w-4 h-4" />
                             Challenges
                         </button>
                         <button
                             onClick={() => setShowLeaderboard(true)}
-                            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all ${
-                                showLeaderboard
+                            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all ${showLeaderboard
                                     ? 'bg-orange-500 text-white'
                                     : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-                            }`}
+                                }`}
                         >
                             <Trophy className="w-4 h-4" />
                             Leaderboard
@@ -254,24 +273,22 @@ const ChallengesPage = () => {
                         </div>
                         <div className="divide-y divide-white/5">
                             {leaderboard.map((entry, index) => {
-                                const isCurrentUser = !!user && entry.username === (user as any).username;
+                                const isCurrentUser = !!user && entry.username === user.username;
                                 return (
                                     <div
                                         key={entry._id}
-                                        className={`flex items-center gap-4 p-4 hover:bg-white/5 transition-colors ${
-                                            index < 3 ? 'bg-white/[0.02]' : ''
-                                        } ${isCurrentUser ? 'border border-orange-500/40 bg-orange-500/10' : ''}`}
+                                        className={`flex items-center gap-4 p-4 hover:bg-white/5 transition-colors ${index < 3 ? 'bg-white/[0.02]' : ''
+                                            } ${isCurrentUser ? 'border border-orange-500/40 bg-orange-500/10' : ''}`}
                                     >
                                         <div
-                                            className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${
-                                                index === 0
+                                            className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${index === 0
                                                     ? 'bg-yellow-500/20 text-yellow-400'
                                                     : index === 1
                                                         ? 'bg-gray-400/20 text-gray-300'
                                                         : index === 2
                                                             ? 'bg-orange-600/20 text-orange-400'
                                                             : 'bg-white/5 text-gray-500'
-                                            }`}
+                                                }`}
                                         >
                                             {index + 1}
                                         </div>
@@ -302,14 +319,14 @@ const ChallengesPage = () => {
                                 <input
                                     type="text"
                                     value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onChange={(e) => { setSearchQuery(e.target.value); updateFilters('search', e.target.value); }}
                                     placeholder="Search challenges..."
                                     className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
                                 />
                             </div>
                             <select
                                 value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                onChange={(e) => { setSelectedCategory(e.target.value); updateFilters('category', e.target.value); }}
                                 className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors appearance-none cursor-pointer"
                             >
                                 {categories.map(cat => (
@@ -320,7 +337,7 @@ const ChallengesPage = () => {
                             </select>
                             <select
                                 value={selectedDifficulty}
-                                onChange={(e) => setSelectedDifficulty(e.target.value)}
+                                onChange={(e) => { setSelectedDifficulty(e.target.value); updateFilters('difficulty', e.target.value); }}
                                 className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors appearance-none cursor-pointer"
                             >
                                 <option value="all" className="bg-zinc-900">All Difficulties</option>
@@ -331,44 +348,51 @@ const ChallengesPage = () => {
                             </select>
                             <select
                                 value={solvedFilter}
-                                onChange={(e) => setSolvedFilter(e.target.value as 'all' | 'unsolved' | 'solved')}
+                                onChange={(e) => { setSolvedFilter(e.target.value as 'all' | 'unsolved' | 'solved'); updateFilters('solved', e.target.value); }}
                                 className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors appearance-none cursor-pointer"
                             >
                                 <option value="all" className="bg-zinc-900">All Statuses</option>
                                 <option value="unsolved" className="bg-zinc-900">Unsolved only</option>
                                 <option value="solved" className="bg-zinc-900">Solved only</option>
                             </select>
+                            {hasActiveFilters && (
+                                <button
+                                    onClick={clearAllFilters}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-all"
+                                >
+                                    <X className="w-3.5 h-3.5" /> Clear Filters
+                                </button>
+                            )}
                         </div>
 
                         {/* Challenges Grid */}
                         {loading ? (
                             <ChallengeSkeleton />
                         ) : filteredChallenges.length === 0 ? (
-                            <div className="text-center py-16">
-                                <Flag className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                                <p className="text-gray-400 mb-2">No challenges found</p>
-                                <p className="text-sm text-gray-600">Try adjusting your filters</p>
-                            </div>
+                            <EmptyState
+                                icon={Flag}
+                                title="No challenges found"
+                                description="Try adjusting your filters or search query."
+                            />
                         ) : (
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {filteredChallenges.map((challenge) => {
+                                {filteredChallenges.map((challenge, index) => {
                                     const difficulty = difficultyConfig[challenge.difficulty];
                                     const categoryIcon = categoryIcons[challenge.category] || <Flag className="w-5 h-5" />;
-                                    
+
                                     return (
                                         <Link
                                             key={challenge._id}
                                             href={`/challenges/${challenge.slug}`}
-                                            className={`group p-5 rounded-2xl border bg-white/[0.02] hover:bg-white/[0.04] transition-all ${
-                                                challenge.solved 
-                                                    ? 'border-green-500/30 hover:border-green-500/50' 
-                                                    : 'border-white/10 hover:border-orange-500/30'
-                                            }`}
+                                            className={`group p-5 rounded-2xl border bg-white/[0.02] backdrop-blur-md hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl card-hover animate-fade-in-up animate-stagger-${index % 6 + 1} ${challenge.solved
+                                                    ? 'border-green-500/30 hover:border-green-500/50 hover:shadow-green-500/20'
+                                                    : 'border-white/10 hover:border-orange-500/40 hover:shadow-orange-500/20'
+                                                }`}
+                                            style={{ opacity: 0, animationFillMode: 'forwards' }}
                                         >
                                             <div className="flex items-start justify-between mb-3">
-                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                                                    challenge.solved ? 'bg-green-500/10 text-green-400' : 'bg-white/5 text-orange-400'
-                                                }`}>
+                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${challenge.solved ? 'bg-green-500/10 text-green-400' : 'bg-white/5 text-orange-400'
+                                                    }`}>
                                                     {challenge.solved ? <CheckCircle className="w-5 h-5" /> : categoryIcon}
                                                 </div>
                                                 <div className="flex items-center gap-2">

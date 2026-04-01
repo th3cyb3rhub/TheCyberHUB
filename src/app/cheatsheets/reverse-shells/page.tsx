@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Terminal, Search, Copy, Check, AlertTriangle } from 'lucide-react';
 
 interface Shell {
@@ -73,6 +74,7 @@ const categories: Category[] = [
 
 const ReverseShellsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [lhost, setLhost] = useState('10.10.10.10');
     const [lport, setLport] = useState('4444');
     const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
@@ -87,8 +89,8 @@ const ReverseShellsPage = () => {
     const filteredCategories = categories.map(cat => ({
         ...cat,
         shells: cat.shells.filter(shell =>
-            shell.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            shell.command.toLowerCase().includes(searchQuery.toLowerCase())
+            shell.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            shell.command.toLowerCase().includes(debouncedSearch.toLowerCase())
         )
     })).filter(cat => cat.shells.length > 0);
 

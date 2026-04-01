@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import {
     FileText,
     Download,
@@ -538,7 +539,7 @@ nmap -sS -sV target.com
                                 </div>
                                 <div
                                     className="p-6 h-96 lg:h-[600px] overflow-y-auto prose prose-invert max-w-none"
-                                    dangerouslySetInnerHTML={{ __html: preview }}
+                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(preview) }}
                                 />
                             </div>
                         )}

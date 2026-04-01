@@ -2,6 +2,7 @@
 
 import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
     ArrowLeft,
@@ -11,7 +12,6 @@ import {
     Pin,
     Lock,
     CheckCircle,
-    MoreHorizontal,
     Pencil,
     Trash2,
     Loader2,
@@ -34,6 +34,8 @@ import {
     toggleLock,
 } from '@/lib/api/forum';
 import { useAuth } from '@/context/AuthContext';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
 import VoteButtons from '@/components/forums/VoteButtons';
 import MarkdownContent from '@/components/forums/MarkdownContent';
 import ReplyThread from '@/components/forums/ReplyThread';
@@ -65,7 +67,7 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
     const [replies, setReplies] = useState<Reply[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [showMenu, setShowMenu] = useState(false);
+    const { isOpen: confirmOpen, confirm: showConfirm, onConfirm, onCancel } = useConfirmDialog();
 
     // Map auth user to currentUser format
     const currentUser = user ? { _id: user.id, role: user.role } : null;
@@ -158,7 +160,8 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
     };
 
     const handleDeleteDiscussion = async () => {
-        if (!confirm('Are you sure you want to delete this discussion? This cannot be undone.')) return;
+        const confirmed = await showConfirm();
+        if (!confirmed) return;
         await deleteDiscussion(id);
         router.push('/forums');
     };
@@ -212,6 +215,7 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
             {/* Header */}
             <div className="border-b border-white/5">
                 <div className="max-w-4xl mx-auto px-4 py-4">
+                    <Breadcrumbs items={[{ label: 'Forums', href: '/forums' }, { label: discussion.title }]} />
                     <Link
                         href="/forums"
                         className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
@@ -263,10 +267,13 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
                             className="flex items-center gap-2 hover:text-orange-400 transition-colors"
                         >
                             {discussion.author.avatar ? (
-                                <img
+                                <Image
                                     src={discussion.author.avatar}
                                     alt={discussion.author.username}
+                                    width={32}
+                                    height={32}
                                     className="w-8 h-8 rounded-full ring-2 ring-orange-500/30"
+                                    unoptimized
                                 />
                             ) : (
                                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-sm text-white font-medium">
@@ -451,6 +458,16 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
                     )}
                 </section>
             </div>
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                title="Delete discussion?"
+                description="Are you sure you want to delete this discussion? This cannot be undone."
+                confirmText="Delete"
+                variant="danger"
+            />
 
             <Footer />
         </div>

@@ -2,13 +2,19 @@
   "name": "thecyberhub",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--no-experimental-webstorage next dev --turbopack",
     "dev:webpack": "cross-env NODE_OPTIONS=--no-experimental-webstorage next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.1.12",
@@ -16,10 +22,13 @@
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-navigation-menu": "^1.2.13",
     "@radix-ui/react-slot": "^1.2.3",
+    "@sentry/nextjs": "^10.46.0",
     "@tanstack/react-query": "^5.62.0",
+    "@types/dompurify": "^3.0.5",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dompurify": "^3.3.3",
     "lucide-react": "^0.525.0",
     "next": "^15.3.3",
     "prism-react-renderer": "^2.4.1",
@@ -27,6 +36,7 @@
     "react-dom": "^19.1.0",
     "react-intersection-observer": "^9.16.0",
     "recharts": "^2.15.3",
+    "socket.io-client": "^4.8.3",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
@@ -35,6 +45,9 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@playwright/test": "^1.52.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -42,8 +55,10 @@
     "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "^15.3.3",
+    "jsdom": "^29.0.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.8"
+    "typescript": "^5.8",
+    "vitest": "^4.1.2"
   }
 }

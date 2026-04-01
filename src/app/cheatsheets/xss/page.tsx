@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Code, Search, Copy, Check, ChevronDown, ChevronRight, AlertTriangle } from 'lucide-react';
 
 interface Payload {
@@ -88,6 +89,7 @@ const sections: Section[] = [
 
 const XSSCheatsheetPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [copiedPayload, setCopiedPayload] = useState<string | null>(null);
     const [expandedSections, setExpandedSections] = useState<string[]>(sections.map(s => s.title));
 
@@ -106,8 +108,8 @@ const XSSCheatsheetPage = () => {
     const filteredSections = sections.map(section => ({
         ...section,
         payloads: section.payloads.filter(p =>
-            p.payload.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.description.toLowerCase().includes(searchQuery.toLowerCase())
+            p.payload.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            p.description.toLowerCase().includes(debouncedSearch.toLowerCase())
         )
     })).filter(section => section.payloads.length > 0);
 

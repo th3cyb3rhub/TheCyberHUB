@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Database, Copy, Check, ArrowLeft, Search, AlertTriangle, Info } from 'lucide-react';
 import Link from 'next/link';
 
@@ -77,14 +78,15 @@ const dbColors: Record<DbType, string> = {
 
 const SQLInjectionPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState<Category>('all');
     const [selectedDb, setSelectedDb] = useState<DbType | 'all'>('all');
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
     const filteredPayloads = payloads.filter(p => {
-        const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.payload.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = p.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            p.payload.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            p.description.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesCategory = selectedCategory === 'all' || p.category === selectedCategory;
         const matchesDb = selectedDb === 'all' || p.databases.includes(selectedDb);
         return matchesSearch && matchesCategory && matchesDb;

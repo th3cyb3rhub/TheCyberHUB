@@ -54,7 +54,7 @@ export default function EditDiscussionPage({ params }: { params: Promise<{ id: s
                 } else {
                     setError('Discussion not found');
                 }
-            } catch (err) {
+            } catch (_err) {
                 setError('Failed to load discussion');
             } finally {
                 setLoading(false);

@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
 import { Users, Search, Filter, ChevronRight, UserPlus } from 'lucide-react';
 import { MentorCard } from '@/components/mentorship/MentorCard';
 import { MentorFilters } from '@/components/mentorship/MentorFilters';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { mentorApi } from '@/lib/mentorship/api';
 import type { MentorProfile, ExpertiseArea, MentorSortOption } from '@/lib/mentorship/types';
 
@@ -18,6 +21,7 @@ export default function MentorDirectoryPage() {
 
     // Filter state
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedExpertise, setSelectedExpertise] = useState<ExpertiseArea[]>([]);
     const [minRating, setMinRating] = useState(0);
     const [availableOnly, setAvailableOnly] = useState(false);
@@ -33,7 +37,7 @@ export default function MentorDirectoryPage() {
         setError(null);
         try {
             const response = await mentorApi.search({
-                search: searchQuery || undefined,
+                search: debouncedSearch || undefined,
                 expertise: selectedExpertise.length > 0 ? selectedExpertise : undefined,
                 minRating: minRating > 0 ? minRating : undefined,
                 available: availableOnly || undefined,
@@ -49,7 +53,7 @@ export default function MentorDirectoryPage() {
         } finally {
             setLoading(false);
         }
-    }, [searchQuery, selectedExpertise, minRating, availableOnly, sortBy, page]);
+    }, [debouncedSearch, selectedExpertise, minRating, availableOnly, sortBy, page]);
 
     const fetchFeatured = useCallback(async () => {
         try {
@@ -196,7 +200,23 @@ export default function MentorDirectoryPage() {
                     {loading ? (
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                             {Array.from({ length: 8 }).map((_, i) => (
-                                <div key={i} className="h-64 rounded-xl bg-white/5 animate-pulse" />
+                                <div key={i} className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <Skeleton className="w-14 h-14 rounded-full" />
+                                        <div className="space-y-2 flex-1">
+                                            <Skeleton className="h-4 w-3/4" />
+                                            <Skeleton className="h-3 w-1/2" />
+                                        </div>
+                                    </div>
+                                    <Skeleton className="h-4 w-full mb-2" />
+                                    <Skeleton className="h-4 w-2/3 mb-4" />
+                                    <div className="flex gap-2 mb-4">
+                                        <Skeleton className="h-6 w-16 rounded-full" />
+                                        <Skeleton className="h-6 w-20 rounded-full" />
+                                        <Skeleton className="h-6 w-14 rounded-full" />
+                                    </div>
+                                    <Skeleton className="h-9 w-full rounded-lg" />
+                                </div>
                             ))}
                         </div>
                     ) : error ? (
@@ -207,20 +227,16 @@ export default function MentorDirectoryPage() {
                             </Button>
                         </div>
                     ) : mentors.length === 0 ? (
-                        <div className="text-center py-12">
-                            <Users className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                            <h3 className="text-lg font-medium text-white mb-2">No mentors found</h3>
-                            <p className="text-gray-400 mb-4">
-                                {hasActiveFilters
-                                    ? 'Try adjusting your filters'
-                                    : 'Be the first to become a mentor!'}
-                            </p>
-                            {hasActiveFilters && (
-                                <Button onClick={clearFilters} variant="outline">
-                                    Clear Filters
-                                </Button>
-                            )}
-                        </div>
+                        <EmptyState
+                            icon={Users}
+                            title="No mentors found"
+                            description={hasActiveFilters
+                                ? 'Try adjusting your filters'
+                                : 'Be the first to become a mentor!'}
+                            actionLabel={hasActiveFilters ? 'Clear Filters' : 'Become a Mentor'}
+                            onAction={hasActiveFilters ? clearFilters : undefined}
+                            actionHref={hasActiveFilters ? undefined : '/mentorship/become-mentor'}
+                        />
                     ) : (
                         <>
                             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

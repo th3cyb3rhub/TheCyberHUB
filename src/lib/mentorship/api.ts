@@ -1,4 +1,4 @@
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 import type {
     MentorProfile,
     MentorSearchParams,
@@ -16,21 +16,6 @@ import type {
     NotificationCounts,
 } from './types';
 
-// ============ Helper Functions ============
-
-const authHeaders = (token: string) => ({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-});
-
-const handleResponse = async <T>(response: Response): Promise<T> => {
-    if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Request failed' }));
-        throw error;
-    }
-    return response.json();
-};
-
 // ============ Mentor API ============
 
 export const mentorApi = {
@@ -44,59 +29,41 @@ export const mentorApi = {
         if (params.page) searchParams.set('page', params.page.toString());
         if (params.limit) searchParams.set('limit', params.limit.toString());
 
-        const response = await fetch(`${API_URL}/api/mentors?${searchParams}`);
-        return handleResponse(response);
+        return fetchApi(`/api/mentors?${searchParams}`, { requireAuth: false });
     },
 
     getById: async (id: string): Promise<MentorProfile> => {
-        const response = await fetch(`${API_URL}/api/mentors/${id}`);
-        return handleResponse(response);
+        return fetchApi(`/api/mentors/${id}`, { requireAuth: false });
     },
 
     getFeatured: async (limit = 6): Promise<MentorProfile[]> => {
-        const response = await fetch(`${API_URL}/api/mentors/featured?limit=${limit}`);
-        return handleResponse(response);
+        return fetchApi(`/api/mentors/featured?limit=${limit}`, { requireAuth: false });
     },
 
-    getMyProfile: async (token: string): Promise<MentorProfile> => {
-        const response = await fetch(`${API_URL}/api/mentors/me`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getMyProfile: async (): Promise<MentorProfile> => {
+        return fetchApi('/api/mentors/me');
     },
 
-    register: async (data: MentorRegistrationData, token: string): Promise<MentorProfile> => {
-        const response = await fetch(`${API_URL}/api/mentors/register`, {
+    register: async (data: MentorRegistrationData): Promise<MentorProfile> => {
+        return fetchApi('/api/mentors/register', {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify(data),
         });
-        return handleResponse(response);
     },
 
-    updateProfile: async (data: Partial<MentorRegistrationData>, token: string): Promise<MentorProfile> => {
-        const response = await fetch(`${API_URL}/api/mentors/me`, {
+    updateProfile: async (data: Partial<MentorRegistrationData>): Promise<MentorProfile> => {
+        return fetchApi('/api/mentors/me', {
             method: 'PATCH',
-            headers: authHeaders(token),
             body: JSON.stringify(data),
         });
-        return handleResponse(response);
     },
 
-    pause: async (token: string): Promise<MentorProfile> => {
-        const response = await fetch(`${API_URL}/api/mentors/me/pause`, {
-            method: 'POST',
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    pause: async (): Promise<MentorProfile> => {
+        return fetchApi('/api/mentors/me/pause', { method: 'POST' });
     },
 
-    resume: async (token: string): Promise<MentorProfile> => {
-        const response = await fetch(`${API_URL}/api/mentors/me/resume`, {
-            method: 'POST',
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    resume: async (): Promise<MentorProfile> => {
+        return fetchApi('/api/mentors/me/resume', { method: 'POST' });
     },
 };
 
@@ -104,152 +71,103 @@ export const mentorApi = {
 // ============ Request API ============
 
 export const requestApi = {
-    create: async (data: RequestFormData, token: string): Promise<MentorshipRequest> => {
-        const response = await fetch(`${API_URL}/api/mentorship-requests`, {
+    create: async (data: RequestFormData): Promise<MentorshipRequest> => {
+        return fetchApi('/api/mentorship-requests', {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify(data),
         });
-        return handleResponse(response);
     },
 
-    getMyRequests: async (token: string): Promise<MentorshipRequest[]> => {
-        const response = await fetch(`${API_URL}/api/mentorship-requests/me`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getMyRequests: async (): Promise<MentorshipRequest[]> => {
+        return fetchApi('/api/mentorship-requests/me');
     },
 
-    getById: async (id: string, token: string): Promise<MentorshipRequest> => {
-        const response = await fetch(`${API_URL}/api/mentorship-requests/${id}`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getById: async (id: string): Promise<MentorshipRequest> => {
+        return fetchApi(`/api/mentorship-requests/${id}`);
     },
 
-    getMatches: async (id: string, token: string): Promise<MentorProfile[]> => {
-        const response = await fetch(`${API_URL}/api/mentorship-requests/${id}/matches`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getMatches: async (id: string): Promise<MentorProfile[]> => {
+        return fetchApi(`/api/mentorship-requests/${id}/matches`);
     },
 
-    selectMentor: async (requestId: string, mentorId: string, token: string): Promise<MentorshipRequest> => {
-        const response = await fetch(`${API_URL}/api/mentorship-requests/${requestId}/select/${mentorId}`, {
+    selectMentor: async (requestId: string, mentorId: string): Promise<MentorshipRequest> => {
+        return fetchApi(`/api/mentorship-requests/${requestId}/select/${mentorId}`, {
             method: 'POST',
-            headers: authHeaders(token),
         });
-        return handleResponse(response);
     },
 
-    cancel: async (id: string, token: string): Promise<void> => {
-        const response = await fetch(`${API_URL}/api/mentorship-requests/${id}`, {
+    cancel: async (id: string): Promise<void> => {
+        await fetchApi(`/api/mentorship-requests/${id}`, {
             method: 'DELETE',
-            headers: authHeaders(token),
         });
-        if (!response.ok) {
-            const error = await response.json().catch(() => ({ error: 'Request failed' }));
-            throw error;
-        }
     },
 
-    getIncoming: async (token: string): Promise<MentorshipRequest[]> => {
-        const response = await fetch(`${API_URL}/api/mentors/me/requests`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getIncoming: async (): Promise<MentorshipRequest[]> => {
+        return fetchApi('/api/mentors/me/requests');
     },
 
-    accept: async (requestId: string, token: string): Promise<Mentorship> => {
-        const response = await fetch(`${API_URL}/api/mentors/me/requests/${requestId}/accept`, {
+    accept: async (requestId: string): Promise<Mentorship> => {
+        return fetchApi(`/api/mentors/me/requests/${requestId}/accept`, {
             method: 'POST',
-            headers: authHeaders(token),
         });
-        return handleResponse(response);
     },
 
-    decline: async (requestId: string, token: string): Promise<void> => {
-        const response = await fetch(`${API_URL}/api/mentors/me/requests/${requestId}/decline`, {
+    decline: async (requestId: string): Promise<void> => {
+        await fetchApi(`/api/mentors/me/requests/${requestId}/decline`, {
             method: 'POST',
-            headers: authHeaders(token),
         });
-        if (!response.ok) {
-            const error = await response.json().catch(() => ({ error: 'Request failed' }));
-            throw error;
-        }
     },
 };
 
 // ============ Mentorship API ============
 
 export const mentorshipApi = {
-    getMyMentorships: async (token: string): Promise<Mentorship[]> => {
-        const response = await fetch(`${API_URL}/api/mentorships`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getMyMentorships: async (): Promise<Mentorship[]> => {
+        return fetchApi('/api/mentorships');
     },
 
-    getById: async (id: string, token: string): Promise<Mentorship> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${id}`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getById: async (id: string): Promise<Mentorship> => {
+        return fetchApi(`/api/mentorships/${id}`);
     },
 
-    pause: async (id: string, reason: string, token: string): Promise<Mentorship> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${id}/pause`, {
+    pause: async (id: string, reason: string): Promise<Mentorship> => {
+        return fetchApi(`/api/mentorships/${id}/pause`, {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify({ reason }),
         });
-        return handleResponse(response);
     },
 
-    resume: async (id: string, token: string): Promise<Mentorship> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${id}/resume`, {
-            method: 'POST',
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    resume: async (id: string): Promise<Mentorship> => {
+        return fetchApi(`/api/mentorships/${id}/resume`, { method: 'POST' });
     },
 
-    complete: async (id: string, token: string): Promise<Mentorship> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${id}/complete`, {
-            method: 'POST',
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    complete: async (id: string): Promise<Mentorship> => {
+        return fetchApi(`/api/mentorships/${id}/complete`, { method: 'POST' });
     },
 
-    extend: async (id: string, months: number, token: string): Promise<Mentorship> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${id}/extend`, {
+    extend: async (id: string, months: number): Promise<Mentorship> => {
+        return fetchApi(`/api/mentorships/${id}/extend`, {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify({ months }),
         });
-        return handleResponse(response);
     },
 
     submitFinalFeedback: async (
         id: string,
         rating: number,
-        comment: string,
-        token: string
+        comment: string
     ): Promise<Mentorship> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${id}/feedback`, {
+        return fetchApi(`/api/mentorships/${id}/feedback`, {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify({ rating, comment }),
         });
-        return handleResponse(response);
     },
 
-    getDashboard: async (token: string): Promise<MentorshipDashboardData> => {
+    getDashboard: async (): Promise<MentorshipDashboardData> => {
         const [mentorships, pendingRequests, incomingRequests] = await Promise.all([
-            mentorshipApi.getMyMentorships(token),
-            requestApi.getMyRequests(token),
-            requestApi.getIncoming(token).catch(() => []),
+            mentorshipApi.getMyMentorships(),
+            requestApi.getMyRequests(),
+            requestApi.getIncoming().catch(() => []),
         ]);
 
         return {
@@ -265,70 +183,51 @@ export const mentorshipApi = {
 // ============ Session API ============
 
 export const sessionApi = {
-    getByMentorship: async (mentorshipId: string, token: string): Promise<Session[]> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${mentorshipId}/sessions`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getByMentorship: async (mentorshipId: string): Promise<Session[]> => {
+        return fetchApi(`/api/mentorships/${mentorshipId}/sessions`);
     },
 
-    getUpcoming: async (token: string): Promise<Session[]> => {
-        const response = await fetch(`${API_URL}/api/sessions/upcoming`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getUpcoming: async (): Promise<Session[]> => {
+        return fetchApi('/api/sessions/upcoming');
     },
 
-    getById: async (id: string, token: string): Promise<Session> => {
-        const response = await fetch(`${API_URL}/api/sessions/${id}`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getById: async (id: string): Promise<Session> => {
+        return fetchApi(`/api/sessions/${id}`);
     },
 
-    create: async (data: SessionFormData, token: string): Promise<Session> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${data.mentorshipId}/sessions`, {
+    create: async (data: SessionFormData): Promise<Session> => {
+        return fetchApi(`/api/mentorships/${data.mentorshipId}/sessions`, {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify(data),
         });
-        return handleResponse(response);
     },
 
-    reschedule: async (id: string, scheduledAt: string, token: string): Promise<Session> => {
-        const response = await fetch(`${API_URL}/api/sessions/${id}`, {
+    reschedule: async (id: string, scheduledAt: string): Promise<Session> => {
+        return fetchApi(`/api/sessions/${id}`, {
             method: 'PATCH',
-            headers: authHeaders(token),
             body: JSON.stringify({ scheduledAt }),
         });
-        return handleResponse(response);
     },
 
-    cancel: async (id: string, reason: string, token: string): Promise<Session> => {
-        const response = await fetch(`${API_URL}/api/sessions/${id}`, {
+    cancel: async (id: string, reason: string): Promise<Session> => {
+        return fetchApi(`/api/sessions/${id}`, {
             method: 'DELETE',
-            headers: authHeaders(token),
             body: JSON.stringify({ reason }),
         });
-        return handleResponse(response);
     },
 
-    complete: async (id: string, notes: string, actualDuration?: number, token?: string): Promise<Session> => {
-        const response = await fetch(`${API_URL}/api/sessions/${id}/complete`, {
+    complete: async (id: string, notes: string, actualDuration?: number): Promise<Session> => {
+        return fetchApi(`/api/sessions/${id}/complete`, {
             method: 'POST',
-            headers: authHeaders(token || ''),
             body: JSON.stringify({ notes, actualDuration }),
         });
-        return handleResponse(response);
     },
 
-    addNotes: async (id: string, notes: string, token: string): Promise<Session> => {
-        const response = await fetch(`${API_URL}/api/sessions/${id}/notes`, {
+    addNotes: async (id: string, notes: string): Promise<Session> => {
+        return fetchApi(`/api/sessions/${id}/notes`, {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify({ notes }),
         });
-        return handleResponse(response);
     },
 };
 
@@ -338,59 +237,50 @@ export const messageApi = {
     getMessages: async (
         mentorshipId: string,
         page = 1,
-        limit = 50,
-        token: string
+        limit = 50
     ): Promise<PaginatedResponse<Message>> => {
-        const response = await fetch(
-            `${API_URL}/api/mentorships/${mentorshipId}/messages?page=${page}&limit=${limit}`,
-            { headers: authHeaders(token) }
+        return fetchApi(
+            `/api/mentorships/${mentorshipId}/messages?page=${page}&limit=${limit}`
         );
-        return handleResponse(response);
     },
 
     send: async (
         mentorshipId: string,
         content: string,
         contentType: string,
-        codeLanguage: string | undefined,
-        token: string
+        codeLanguage: string | undefined
     ): Promise<Message> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${mentorshipId}/messages`, {
+        return fetchApi(`/api/mentorships/${mentorshipId}/messages`, {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify({ content, contentType, codeLanguage }),
         });
-        return handleResponse(response);
     },
 
-    sendFile: async (mentorshipId: string, file: File, token: string): Promise<Message> => {
-        const formData = new FormData();
-        formData.append('file', file);
+    sendFile: async (mentorshipId: string, file: File): Promise<Message> => {
+        // 1. Upload file to S3 first
+        const { uploadFile } = await import('@/lib/api');
+        const fileUrl = await uploadFile(file, 'mentorship');
 
-        const response = await fetch(`${API_URL}/api/mentorships/${mentorshipId}/messages/file`, {
+        // 2. Send the message payload
+        return fetchApi(`/api/mentorships/${mentorshipId}/messages/file`, {
             method: 'POST',
-            headers: { Authorization: `Bearer ${token}` },
-            body: formData,
+            body: JSON.stringify({
+                filename: file.name,
+                url: fileUrl,
+                size: file.size,
+                mimeType: file.type || 'application/octet-stream',
+            }),
         });
-        return handleResponse(response);
     },
 
-    markAsRead: async (mentorshipId: string, token: string): Promise<void> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${mentorshipId}/messages/read`, {
+    markAsRead: async (mentorshipId: string): Promise<void> => {
+        await fetchApi(`/api/mentorships/${mentorshipId}/messages/read`, {
             method: 'POST',
-            headers: authHeaders(token),
         });
-        if (!response.ok) {
-            const error = await response.json().catch(() => ({ error: 'Request failed' }));
-            throw error;
-        }
     },
 
-    getUnreadCount: async (mentorshipId: string, token: string): Promise<number> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${mentorshipId}/messages/unread`, {
-            headers: authHeaders(token),
-        });
-        const data = await handleResponse<{ count: number }>(response);
+    getUnreadCount: async (mentorshipId: string): Promise<number> => {
+        const data = await fetchApi(`/api/mentorships/${mentorshipId}/messages/unread`);
         return data.count;
     },
 };
@@ -398,37 +288,26 @@ export const messageApi = {
 // ============ Feedback API ============
 
 export const feedbackApi = {
-    submit: async (data: FeedbackFormData, token: string): Promise<Feedback> => {
-        const response = await fetch(`${API_URL}/api/sessions/${data.sessionId}/feedback`, {
+    submit: async (data: FeedbackFormData): Promise<Feedback> => {
+        return fetchApi(`/api/sessions/${data.sessionId}/feedback`, {
             method: 'POST',
-            headers: authHeaders(token),
             body: JSON.stringify(data),
         });
-        return handleResponse(response);
     },
 
-    getByMentorship: async (mentorshipId: string, token: string): Promise<Feedback[]> => {
-        const response = await fetch(`${API_URL}/api/mentorships/${mentorshipId}/feedback`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getByMentorship: async (mentorshipId: string): Promise<Feedback[]> => {
+        return fetchApi(`/api/mentorships/${mentorshipId}/feedback`);
     },
 
-    getPending: async (token: string): Promise<Session[]> => {
-        const response = await fetch(`${API_URL}/api/feedback/pending`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getPending: async (): Promise<Session[]> => {
+        return fetchApi('/api/feedback/pending');
     },
 };
 
 // ============ Notification API ============
 
 export const notificationApi = {
-    getCounts: async (token: string): Promise<NotificationCounts> => {
-        const response = await fetch(`${API_URL}/api/mentorship/notifications/counts`, {
-            headers: authHeaders(token),
-        });
-        return handleResponse(response);
+    getCounts: async (): Promise<NotificationCounts> => {
+        return fetchApi('/api/mentorship/notifications/counts');
     },
 };

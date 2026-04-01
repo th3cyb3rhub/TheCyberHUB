@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Copy, Check, Search, Terminal } from 'lucide-react';
 import CheatsheetPageLayout from '@/components/ui/CheatsheetPageLayout';
 
@@ -12,6 +13,7 @@ interface Command {
 
 const LinuxCommandsCheatsheet = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
 
     const commands: Command[] = [
@@ -54,9 +56,9 @@ const LinuxCommandsCheatsheet = () => {
     };
 
     const filteredCommands = commands.filter(cmd =>
-        cmd.command.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        cmd.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        cmd.category.toLowerCase().includes(searchQuery.toLowerCase())
+        cmd.command.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        cmd.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        cmd.category.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
 
     const categories = Array.from(new Set(commands.map(c => c.category)));

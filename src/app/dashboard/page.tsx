@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -24,8 +24,10 @@ import {
     ChevronRight,
     Flag,
 } from 'lucide-react';
-import { SkeletonDashboard } from '@/components/ui/Skeleton';
-import { API_URL } from '@/lib/api';
+import { SkeletonDashboard } from '@/components/ui/skeleton';
+import { fetchApi } from '@/lib/api';
+import StreakWidget from '@/components/StreakWidget';
+const DailyChallenge = lazy(() => import('@/components/DailyChallenge'));
 
 interface ChallengeSummary {
     _id: string;
@@ -86,28 +88,24 @@ const DashboardPage = () => {
     useEffect(() => {
         const fetchActivity = async () => {
             try {
-                const challengesRes = await fetch(`${API_URL}/api/challenges?limit=3`);
+                const json = await fetchApi('/api/challenges?limit=3', { requireAuth: false });
+                const rawChallenges = Array.isArray(json)
+                    ? json
+                    : Array.isArray(json.data)
+                        ? json.data
+                        : [];
 
-                if (challengesRes.ok) {
-                    const json = await challengesRes.json();
-                    const rawChallenges = Array.isArray(json)
-                        ? json
-                        : Array.isArray(json.data)
-                            ? json.data
-                            : [];
+                const mapped: ChallengeSummary[] = rawChallenges
+                    .slice(0, 3)
+                    .map((c: { _id: string; title: string; slug: string; difficulty: string; currentPoints?: number; basePoints?: number; points?: number }) => ({
+                        _id: c._id,
+                        title: c.title,
+                        slug: c.slug,
+                        difficulty: c.difficulty,
+                        points: c.currentPoints ?? c.basePoints ?? c.points ?? 0,
+                    }));
 
-                    const mapped: ChallengeSummary[] = rawChallenges
-                        .slice(0, 3)
-                        .map((c: { _id: string; title: string; slug: string; difficulty: string; currentPoints?: number; basePoints?: number; points?: number }) => ({
-                            _id: c._id,
-                            title: c.title,
-                            slug: c.slug,
-                            difficulty: c.difficulty,
-                            points: c.currentPoints ?? c.basePoints ?? c.points ?? 0,
-                        }));
-
-                    setRecentChallenges(mapped);
-                }
+                setRecentChallenges(mapped);
             } catch (error) {
                 console.error('Failed to load dashboard activity:', error);
             } finally {
@@ -183,6 +181,16 @@ const DashboardPage = () => {
                                 <p className="text-sm text-gray-500">{stat.label}</p>
                             </div>
                         ))}
+                    </div>
+
+                    {/* Engagement Section — Streak + Daily Challenge */}
+                    <div className="grid lg:grid-cols-2 gap-6 mb-10">
+                        <StreakWidget />
+                        <Suspense fallback={
+                            <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] animate-pulse h-48" />
+                        }>
+                            <DailyChallenge />
+                        </Suspense>
                     </div>
 
                     <div className="grid lg:grid-cols-3 gap-6">
@@ -386,8 +394,8 @@ const GettingStartedCard = ({
     <Link
         href={href}
         className={`group p-4 rounded-xl border transition-all ${completed
-                ? 'border-green-500/30 bg-green-500/5'
-                : 'border-white/10 bg-white/[0.02] hover:border-orange-500/40'
+            ? 'border-green-500/30 bg-green-500/5'
+            : 'border-white/10 bg-white/[0.02] hover:border-orange-500/40'
             }`}
     >
         <div className="flex items-start gap-3">

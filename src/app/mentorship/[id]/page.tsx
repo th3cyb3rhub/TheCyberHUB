@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, MessageSquare, Calendar, Star, BarChart3, Pause, Play, CheckCircle, Clock, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -48,12 +49,12 @@ export default function MentorshipDetailPage({ params }: PageProps) {
             if (!token) return;
             setLoading(true);
             try {
-                const mentorshipData = await mentorshipApi.getById(id, token);
+                const mentorshipData = await mentorshipApi.getById(id);
                 setMentorship(mentorshipData);
 
                 const [sessionsData, feedbackData] = await Promise.all([
-                    sessionApi.getByMentorship(id, token),
-                    feedbackApi.getByMentorship(id, token),
+                    sessionApi.getByMentorship(id),
+                    feedbackApi.getByMentorship(id),
                 ]);
                 setSessions(sessionsData);
                 setFeedback(feedbackData);
@@ -71,7 +72,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
         const fetchMessages = async () => {
             if (!token || activeTab !== 'messages') return;
             try {
-                const response = await messageApi.getMessages(id, 1, 100, token);
+                const response = await messageApi.getMessages(id, 1, 100);
                 setMessages(response.data);
             } catch (err) {
                 console.error('Failed to load messages:', err);
@@ -83,7 +84,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
     const handleSendMessage = async (content: string, contentType: string, codeLanguage?: string) => {
         if (!token) return;
         try {
-            const newMessage = await messageApi.send(id, content, contentType, codeLanguage, token);
+            const newMessage = await messageApi.send(id, content, contentType, codeLanguage);
             setMessages(prev => [...prev, newMessage]);
         } catch (err) {
             console.error('Failed to send message:', err);
@@ -93,7 +94,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
     const handleSendFile = async (file: File) => {
         if (!token) return;
         try {
-            const newMessage = await messageApi.sendFile(id, file, token);
+            const newMessage = await messageApi.sendFile(id, file);
             setMessages(prev => [...prev, newMessage]);
         } catch (err) {
             console.error('Failed to send file:', err);
@@ -102,14 +103,14 @@ export default function MentorshipDetailPage({ params }: PageProps) {
 
     const handleCreateSession = async (data: SessionFormData) => {
         if (!token) return;
-        const newSession = await sessionApi.create({ ...data, mentorshipId: id }, token);
+        const newSession = await sessionApi.create({ ...data, mentorshipId: id });
         setSessions(prev => [...prev, newSession]);
         setShowSessionForm(false);
     };
 
     const handleSubmitFeedback = async (data: FeedbackFormData) => {
         if (!token) return;
-        const newFeedback = await feedbackApi.submit({ ...data, mentorshipId: id }, token);
+        const newFeedback = await feedbackApi.submit({ ...data, mentorshipId: id });
         setFeedback(prev => [...prev, newFeedback]);
         setShowFeedbackForm(false);
         setSelectedSession(null);
@@ -118,7 +119,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
     const handlePause = async () => {
         if (!token || !mentorship) return;
         try {
-            const updated = await mentorshipApi.pause(id, 'Taking a break', token);
+            const updated = await mentorshipApi.pause(id, 'Taking a break');
             setMentorship(updated);
         } catch (err) {
             console.error('Failed to pause:', err);
@@ -128,7 +129,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
     const handleResume = async () => {
         if (!token || !mentorship) return;
         try {
-            const updated = await mentorshipApi.resume(id, token);
+            const updated = await mentorshipApi.resume(id);
             setMentorship(updated);
         } catch (err) {
             console.error('Failed to resume:', err);
@@ -138,7 +139,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
     const handleComplete = async () => {
         if (!token || !mentorship) return;
         try {
-            const updated = await mentorshipApi.complete(id, token);
+            const updated = await mentorshipApi.complete(id);
             setMentorship(updated);
         } catch (err) {
             console.error('Failed to complete:', err);
@@ -148,7 +149,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
     const handleExtend = async () => {
         if (!token || !mentorship) return;
         try {
-            const updated = await mentorshipApi.extend(id, 1, token);
+            const updated = await mentorshipApi.extend(id, 1);
             setMentorship(updated);
         } catch (err) {
             console.error('Failed to extend:', err);
@@ -211,7 +212,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
                         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                             <div className="flex items-center gap-4">
                                 {partner.avatar ? (
-                                    <img src={partner.avatar} alt={partner.name} className="w-14 h-14 rounded-xl object-cover" />
+                                    <Image src={partner.avatar} alt={partner.name} width={56} height={56} className="w-14 h-14 rounded-xl object-cover" unoptimized />
                                 ) : (
                                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
                                         <span className="text-xl font-bold text-white">{partner.name.charAt(0)}</span>
@@ -413,7 +414,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
             {/* Session Form Modal */}
             {showSessionForm && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-                    <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 rounded-2xl border border-white/10 bg-black">
+                    <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 rounded-2xl border border-white/10 bg-black" role="dialog" aria-modal="true" aria-label="Schedule session">
                         <SessionForm
                             mentorshipId={id}
                             onSubmit={handleCreateSession}
@@ -426,7 +427,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
             {/* Feedback Form Modal */}
             {showFeedbackForm && selectedSession && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-                    <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 rounded-2xl border border-white/10 bg-black">
+                    <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 rounded-2xl border border-white/10 bg-black" role="dialog" aria-modal="true" aria-label="Submit feedback">
                         <FeedbackForm
                             mentorshipId={id}
                             sessionId={selectedSession._id}

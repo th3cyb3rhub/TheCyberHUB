@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import {
     Globe,
     Copy,
@@ -42,6 +43,7 @@ const SSRFTesterPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
     /*const [selectedTarget, setSelectedTarget] = useState('');*/
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [webhookData, setWebhookData] = useState<WebhookData | null>(null);
     const [copiedPayload, setCopiedPayload] = useState('');
     const [monitoringActive, setMonitoringActive] = useState(false);
@@ -223,9 +225,9 @@ const SSRFTesterPage = () => {
 
     const filteredPayloads = payloads.filter(payload => {
         const matchesCategory = selectedCategory === 'all' || payload.category === selectedCategory;
-        const matchesSearch = payload.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            payload.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            payload.payload.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = payload.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            payload.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            payload.payload.toLowerCase().includes(debouncedSearch.toLowerCase());
         return matchesCategory && matchesSearch;
     });
 

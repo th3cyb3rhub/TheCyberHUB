@@ -20,8 +20,9 @@ import {
     Trophy,
     ExternalLink
 } from 'lucide-react';
-import { Skeleton } from '@/components/ui/Skeleton';
-import { API_URL } from '@/lib/api';
+import { Skeleton } from '@/components/ui/skeleton';
+import { fetchApi } from '@/lib/api';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 interface Hint {
     content?: string;
@@ -76,16 +77,8 @@ const ChallengePage = () => {
     useEffect(() => {
         const fetchChallenge = async () => {
             try {
-                const headers: Record<string, string> = {};
-                if (token) headers['Authorization'] = `Bearer ${token}`;
-
-                const response = await fetch(`${API_URL}/api/challenges/${slug}`, { headers });
-                if (response.ok) {
-                    const data = await response.json();
-                    setChallenge(data);
-                } else if (response.status === 404) {
-                    router.push('/challenges');
-                }
+                const data = await fetchApi(`/api/challenges/${slug}`);
+                setChallenge(data);
             } catch (error) {
                 console.error('Failed to fetch challenge:', error);
             } finally {
@@ -104,18 +97,12 @@ const ChallengePage = () => {
         setResult(null);
 
         try {
-            const response = await fetch(`${API_URL}/api/challenges/${challenge._id}/submit`, {
+            const data = await fetchApi(`/api/challenges/${challenge._id}/submit`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ flag: flag.trim() })
+                body: JSON.stringify({ flag: flag.trim() }),
             });
 
-            const data = await response.json();
-
-            if (response.ok && data.correct) {
+            if (data.correct) {
                 setResult({ success: true, message: 'Correct! Flag captured! 🎉' });
                 addToast({
                     variant: 'success',
@@ -153,31 +140,20 @@ const ChallengePage = () => {
         setUnlockingHint(hintIndex);
 
         try {
-            const response = await fetch(`${API_URL}/api/challenges/${challenge._id}/hints/${hintIndex}`, {
+            const data = await fetchApi(`/api/challenges/${challenge._id}/hints/${hintIndex}`, {
                 method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}` }
             });
-
-            if (response.ok) {
-                const data = await response.json();
-                setChallenge(prev => {
-                    if (!prev || !prev.hints) return prev;
-                    const newHints = [...prev.hints];
-                    newHints[hintIndex] = { ...newHints[hintIndex], unlocked: true, content: data.hint };
-                    return { ...prev, hints: newHints };
-                });
-                addToast({
-                    variant: 'success',
-                    title: 'Hint unlocked',
-                    message: 'A hint has been revealed for this challenge.',
-                });
-            } else {
-                addToast({
-                    variant: 'error',
-                    title: 'Hint error',
-                    message: 'Could not unlock this hint.',
-                });
-            }
+            setChallenge(prev => {
+                if (!prev || !prev.hints) return prev;
+                const newHints = [...prev.hints];
+                newHints[hintIndex] = { ...newHints[hintIndex], unlocked: true, content: data.hint };
+                return { ...prev, hints: newHints };
+            });
+            addToast({
+                variant: 'success',
+                title: 'Hint unlocked',
+                message: 'A hint has been revealed for this challenge.',
+            });
         } catch (error) {
             console.error('Failed to unlock hint:', error);
             addToast({
@@ -227,6 +203,8 @@ const ChallengePage = () => {
     return (
         <div className="min-h-screen bg-black pt-24 pb-16 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto">
+                <Breadcrumbs items={[{ label: 'Challenges', href: '/challenges' }, { label: challenge.title }]} />
+
                 {/* Back link */}
                 <Link
                     href="/challenges"

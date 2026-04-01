@@ -35,9 +35,9 @@ export default function MentorshipDashboardPage() {
             setLoading(true);
             try {
                 const [mentorshipsData, pendingData, incomingData] = await Promise.all([
-                    mentorshipApi.getMyMentorships(token),
-                    requestApi.getMyRequests(token),
-                    requestApi.getIncoming(token).catch(() => []),
+                    mentorshipApi.getMyMentorships(),
+                    requestApi.getMyRequests(),
+                    requestApi.getIncoming().catch(() => []),
                 ]);
                 setMentorships(mentorshipsData);
                 setPendingRequests(pendingData.filter(r => r.status === 'pending' || r.status === 'matched'));
@@ -55,9 +55,9 @@ export default function MentorshipDashboardPage() {
     const handleAcceptRequest = async (requestId: string) => {
         if (!token) return;
         try {
-            await requestApi.accept(requestId, token);
+            await requestApi.accept(requestId);
             setIncomingRequests(prev => prev.filter(r => r._id !== requestId));
-            const updated = await mentorshipApi.getMyMentorships(token);
+            const updated = await mentorshipApi.getMyMentorships();
             setMentorships(updated);
         } catch (err) {
             console.error('Failed to accept request:', err);
@@ -67,7 +67,7 @@ export default function MentorshipDashboardPage() {
     const handleDeclineRequest = async (requestId: string) => {
         if (!token) return;
         try {
-            await requestApi.decline(requestId, token);
+            await requestApi.decline(requestId);
             setIncomingRequests(prev => prev.filter(r => r._id !== requestId));
         } catch (err) {
             console.error('Failed to decline request:', err);

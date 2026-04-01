@@ -2,51 +2,56 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Button } from './button';
+import { LucideIcon } from 'lucide-react';
 
 interface EmptyStateProps {
-    icon: React.ReactNode;
+    icon: LucideIcon;
     title: string;
     description?: string;
-    action?: {
-        label: string;
-        href?: string;
-        onClick?: () => void;
-    };
+    actionLabel?: string;
+    actionHref?: string;
+    onAction?: () => void;
 }
 
 export function EmptyState({
-    icon,
+    icon: Icon,
     title,
     description,
-    action,
+    actionLabel,
+    actionHref,
+    onAction,
 }: EmptyStateProps) {
     return (
         <div className="text-center py-16">
             {/* Icon Container */}
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/5 flex items-center justify-center">
-                <span className="text-gray-600">{icon}</span>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/5 dark:bg-white/5 flex items-center justify-center">
+                <Icon className="w-12 h-12 text-gray-400 dark:text-gray-400" />
             </div>
 
             {/* Title */}
-            <p className="text-gray-400 mb-2">{title}</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
 
             {/* Description */}
             {description && (
-                <p className="text-sm text-gray-600 mb-4">{description}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 max-w-md mx-auto">{description}</p>
             )}
 
             {/* Action */}
-            {action && (
-                action.href ? (
-                    <Link href={action.href}>
-                        <Button variant="outline">{action.label}</Button>
-                    </Link>
-                ) : action.onClick ? (
-                    <Button variant="outline" onClick={action.onClick}>
-                        {action.label}
-                    </Button>
-                ) : null
+            {actionLabel && actionHref && (
+                <Link
+                    href={actionHref}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors"
+                >
+                    {actionLabel}
+                </Link>
+            )}
+            {actionLabel && onAction && !actionHref && (
+                <button
+                    onClick={onAction}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors"
+                >
+                    {actionLabel}
+                </button>
             )}
         </div>
     );

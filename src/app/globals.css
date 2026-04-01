@@ -26,6 +26,16 @@
   --color-error: #ef4444;
   /* red-500 */
 
+  /* Semantic theme tokens (light mode defaults) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --bg-tertiary: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+
   /* Spacing */
   --spacing-page-top: 8rem;
   /* pt-32 */
@@ -47,22 +57,148 @@
   --shadow-glow: 0 0 30px rgba(249, 115, 22, 0.2);
 }
 
+/* Dark mode semantic tokens */
+.dark {
+  --bg-primary: #030712;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border-primary: #374151;
+  --border-secondary: #1f2937;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 html,
 body {
-  background: #000000;
-  color: #ffffff;
+  background: var(--color-background);
+  color: var(--color-text-primary);
   min-height: 100vh;
 }
 
-/* Subtle gradient background */
-.cyberhub-bg {
+/* Light Mode Overrides */
+html.light,
+html[data-theme="light"] {
+  --background: #f1f5f9;
+  /* Slate 100 instead of slate 50 */
+  --foreground: #0f172a;
+  --color-background: #f1f5f9;
+  --color-surface-1: rgba(0, 0, 0, 0.03);
+  --color-surface-2: rgba(0, 0, 0, 0.05);
+  --color-surface-3: rgba(0, 0, 0, 0.09);
+  --color-border: rgba(0, 0, 0, 0.15);
+  --color-border-hover: rgba(249, 115, 22, 0.5);
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #475569;
+  --shadow-card-hover: 0 20px 40px -15px rgba(249, 115, 22, 0.12);
+  --shadow-glow: 0 0 30px rgba(249, 115, 22, 0.1);
+
+  /* Semantic tokens for light mode */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --bg-tertiary: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+
+  color-scheme: light;
+}
+
+/* ============================
+   Global Light Mode Visual Remappings
+   Uses data-theme attribute for maximum CSS reliability.
+   ============================ */
+html[data-theme="light"] body {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html[data-theme="light"] .cyberhub-bg {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(249, 115, 22, 0.08), transparent),
-    #000000;
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(249, 115, 22, 0.05), transparent),
+    #f1f5f9 !important;
+}
+
+/* Headings, labels, and key text in light mode */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] strong,
+html[data-theme="light"] b {
+  color: #0f172a !important;
+}
+
+html[data-theme="light"] p,
+html[data-theme="light"] span,
+html[data-theme="light"] a,
+html[data-theme="light"] li,
+html[data-theme="light"] td,
+html[data-theme="light"] th,
+html[data-theme="light"] label,
+html[data-theme="light"] div {
+  --tw-text-opacity: 1;
+}
+
+/* Navbar in light mode */
+html[data-theme="light"] nav {
+  color: #1e293b;
+}
+
+/* Cards and surfaces */
+html[data-theme="light"] [class*="border-white"] {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+html[data-theme="light"] [class*="bg-white/"],
+html[data-theme="light"] [class*="bg-white\\/"] {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Fix divide colors */
+html[data-theme="light"] [class*="divide-white"]>*+* {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Modal and overlay backgrounds */
+html[data-theme="light"] [class*="bg-black/6"],
+html[data-theme="light"] [class*="bg-black/8"] {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Input overrides */
+html[data-theme="light"] input,
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+  color: #0f172a !important;
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Scrollbar */
+html[data-theme="light"] ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Selection */
+html[data-theme="light"] ::selection {
+  background: rgba(249, 115, 22, 0.2);
+  color: #0f172a;
 }
 
 /* Animation keyframes */
@@ -184,14 +320,50 @@ body {
   background: radial-gradient(var(--tw-gradient-stops));
 }
 
+/* Shimmer animation for skeleton loaders */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Staggered card animation delays */
+.animate-stagger-1 { animation-delay: 0.05s; }
+.animate-stagger-2 { animation-delay: 0.1s; }
+.animate-stagger-3 { animation-delay: 0.15s; }
+.animate-stagger-4 { animation-delay: 0.2s; }
+.animate-stagger-5 { animation-delay: 0.25s; }
+.animate-stagger-6 { animation-delay: 0.3s; }
+
+/* Micro-interaction animations */
+@keyframes like-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+.animate-like { animation: like-pulse 0.3s ease-in-out; }
+
+@keyframes bookmark-bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.animate-bookmark { animation: bookmark-bounce 0.3s ease-in-out; }
+
 /* Card hover effects */
 .card-hover {
-  @apply transition-all duration-300;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -15px rgba(249, 115, 22, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.3);
 }
 
 /* Gradient text */
@@ -260,7 +432,13 @@ body {
 
 /* Consistent input styling */
 .input-base {
-  @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-all;
+  @apply w-full px-4 py-3 rounded-xl focus:border-orange-500/50 focus:outline-none transition-all;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+.input-base::placeholder {
+  color: var(--color-text-muted);
 }
 
 /* Consistent button styling */
@@ -269,12 +447,22 @@ body {
 }
 
 .btn-secondary {
-  @apply px-4 py-3 bg-white/5 text-gray-400 hover:text-white border border-white/10 hover:border-white/20 rounded-xl transition-all;
+  @apply px-4 py-3 rounded-xl transition-all;
+  background: var(--color-surface-1);
+  color: var(--text-secondary);
+  border: 1px solid var(--color-border);
+}
+.btn-secondary:hover {
+  color: var(--text-primary);
+  border-color: var(--color-border-hover);
 }
 
 /* Consistent badge styling */
 .badge-base {
-  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-gray-400;
+  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-1);
+  color: var(--text-secondary);
 }
 
 /* Consistent section styling */
@@ -284,7 +472,9 @@ body {
 
 /* Consistent card base */
 .card-base {
-  @apply rounded-2xl border border-white/10 bg-white/[0.02] hover:border-orange-500/40 transition-all duration-300;
+  @apply rounded-2xl hover:border-orange-500/40 transition-all duration-300;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-1);
 }
 
 /* Icon container */
@@ -302,12 +492,14 @@ body {
 }
 
 .empty-state-icon {
-  @apply w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/5 flex items-center justify-center;
+  @apply w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center;
+  background: var(--color-surface-2);
 }
 
 /* Skeleton animation */
 .skeleton {
-  @apply bg-white/5 animate-pulse rounded;
+  @apply animate-pulse rounded;
+  background: var(--color-surface-2);
 }
 
 /* Line clamp utilities */
@@ -323,4 +515,50 @@ body {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ============================
+   Feed Dark Mode Forced Fixes
+   Forcing specific background colors because Turbopack 
+   Tailwind compilation cache is stuck for these components.
+   ============================ */
+html.dark [class*="card-base"],
+html[data-theme="dark"] [class*="card-base"],
+html:not([data-theme="light"]) .card-base {
+  background-color: #000000 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[class="dark"] .bg-\[\#0a0a0a\],
+html:not([data-theme="light"]) .bg-\[\#0a0a0a\] {
+  background-color: #000000 !important;
+}
+
+html[class="dark"] .bg-\[\#111\],
+html:not([data-theme="light"]) .bg-\[\#111\] {
+  background-color: #0a0a0a !important;
+}
+
+html[class="dark"] .bg-\[\#1a1a1a\],
+html:not([data-theme="light"]) .bg-\[\#1a1a1a\] {
+  background-color: #111111 !important;
+}
+
+/* Focus visible styles for accessibility */
+*:focus-visible {
+    outline: 2px solid rgb(249 115 22 / 0.7);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid rgb(249 115 22 / 0.7);
+    outline-offset: 2px;
+}
+
+/* Shared input field class */
+.input-field {
+    @apply w-full px-4 py-3 rounded-xl border text-sm transition-all duration-200;
+    @apply bg-white/5 border-white/10 text-white placeholder-gray-500;
+    @apply focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20;
 }

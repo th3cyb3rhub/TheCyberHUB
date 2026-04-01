@@ -16,7 +16,7 @@ export default function AdminError({
     }, [error]);
 
     return (
-        <div className="min-h-screen bg-black pt-20">
+        <div className="min-h-screen bg-[var(--color-background)] pt-20">
             <div className="max-w-2xl mx-auto px-4 py-16 text-center">
                 {/* Error Icon */}
                 <div className="w-20 h-20 bg-red-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-red-500/20">
@@ -28,7 +28,7 @@ export default function AdminError({
                 </h1>
 
                 <p className="text-gray-400 mb-8">
-                    An error occurred in the admin panel. This could be due to 
+                    An error occurred in the admin panel. This could be due to
                     authentication issues or server problems.
                 </p>
 

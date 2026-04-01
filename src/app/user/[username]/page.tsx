@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { 
-    User, 
-    Calendar, 
-    Shield, 
+import {
+    User,
+    Calendar,
+    Shield,
     Github,
     Twitter,
     Globe,
@@ -16,8 +17,8 @@ import {
     BookOpen,
     Trophy
 } from 'lucide-react';
-import { Skeleton } from '@/components/ui/Skeleton';
-import { API_URL } from '@/lib/api';
+import { Skeleton } from '@/components/ui/skeleton';
+import { fetchApi } from '@/lib/api';
 
 interface PublicUser {
     id: string;
@@ -26,6 +27,7 @@ interface PublicUser {
     avatar: string | null;
     role: string;
     createdAt: string;
+    isPublic: boolean;
     bio?: string;
     location?: string;
     website?: string;
@@ -42,7 +44,7 @@ interface PublicUser {
 const PublicProfilePage = () => {
     const params = useParams();
     const username = params.username as string;
-    
+
     const [user, setUser] = useState<PublicUser | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -50,13 +52,7 @@ const PublicProfilePage = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/users/${username}`);
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.error || 'User not found');
-                }
-                
+                const data = await fetchApi(`/api/users/${username}`, { requireAuth: false });
                 setUser(data.data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to load profile');
@@ -106,11 +102,31 @@ const PublicProfilePage = () => {
                 </div>
                 <h1 className="text-2xl font-bold text-white mb-2">User not found</h1>
                 <p className="text-gray-400 mb-8">The user @{username} doesn&apos;t exist.</p>
-                <Link 
+                <Link
                     href="/"
                     className="text-orange-400 hover:text-orange-300 transition-colors"
                 >
                     Go back home
+                </Link>
+            </div>
+        );
+    }
+
+    if (!user.isPublic) {
+        return (
+            <div className="min-h-screen bg-black flex flex-col items-center justify-center px-4">
+                <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 shadow-2xl backdrop-blur-md">
+                    <Shield className="w-10 h-10 text-orange-500" />
+                </div>
+                <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Private Profile</h1>
+                <p className="text-gray-400 text-center max-w-sm mb-8">
+                    @{user.username} has chosen to keep their portfolio private.
+                </p>
+                <Link
+                    href="/leaderboard"
+                    className="text-orange-400 hover:text-orange-300 transition-colors font-medium hover:underline"
+                >
+                    Return to Leaderboard
                 </Link>
             </div>
         );
@@ -130,10 +146,13 @@ const PublicProfilePage = () => {
                     {/* Avatar */}
                     <div className="w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-4xl font-bold text-white border-4 border-black shadow-xl">
                         {user.avatar ? (
-                            <img 
-                                src={user.avatar} 
+                            <Image
+                                src={user.avatar}
                                 alt={user.name}
+                                width={128}
+                                height={128}
                                 className="w-full h-full rounded-full object-cover"
+                                unoptimized
                             />
                         ) : (
                             user.name.charAt(0).toUpperCase()
@@ -175,7 +194,7 @@ const PublicProfilePage = () => {
                     {/* Social Links */}
                     <div className="flex items-center gap-3 mt-4">
                         {user.website && (
-                            <a 
+                            <a
                                 href={user.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -185,7 +204,7 @@ const PublicProfilePage = () => {
                             </a>
                         )}
                         {user.github && (
-                            <a 
+                            <a
                                 href={`https://github.com/${user.github}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -195,7 +214,7 @@ const PublicProfilePage = () => {
                             </a>
                         )}
                         {user.twitter && (
-                            <a 
+                            <a
                                 href={`https://twitter.com/${user.twitter}`}
                                 target="_blank"
                                 rel="noopener noreferrer"

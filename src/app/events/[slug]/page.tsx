@@ -2,6 +2,7 @@
 
 import { use, useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound, useRouter } from 'next/navigation';
 import {
     Calendar,
@@ -28,7 +29,7 @@ import { sampleEvents, Event } from '@/data/events';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 // Registration Button Component
 function RegistrationButton({ eventId, registrationLink }: { eventId: string; registrationLink?: string }) {
@@ -48,14 +49,9 @@ function RegistrationButton({ eventId, registrationLink }: { eventId: string; re
             }
 
             try {
-                const response = await fetch(`${API_URL}/api/events/${eventId}/registration`, {
-                    headers: { 'Authorization': `Bearer ${token}` },
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setIsRegistered(data.data?.isRegistered || false);
-                    setRegisteredCount(data.data?.registeredCount || 0);
-                }
+                const data = await fetchApi(`/api/events/${eventId}/registration`);
+                setIsRegistered(data.data?.isRegistered || false);
+                setRegisteredCount(data.data?.registeredCount || 0);
             } catch (err) {
                 console.error('Failed to check registration:', err);
             } finally {
@@ -80,14 +76,11 @@ function RegistrationButton({ eventId, registrationLink }: { eventId: string; re
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/api/events/${eventId}/register`, {
+            await fetchApi(`/api/events/${eventId}/register`, {
                 method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}` },
             });
-            if (response.ok) {
-                setIsRegistered(true);
-                setRegisteredCount(prev => prev + 1);
-            }
+            setIsRegistered(true);
+            setRegisteredCount(prev => prev + 1);
         } catch (err) {
             console.error('Failed to register:', err);
         } finally {
@@ -100,14 +93,11 @@ function RegistrationButton({ eventId, registrationLink }: { eventId: string; re
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/api/events/${eventId}/register`, {
+            await fetchApi(`/api/events/${eventId}/register`, {
                 method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` },
             });
-            if (response.ok) {
-                setIsRegistered(false);
-                setRegisteredCount(prev => Math.max(0, prev - 1));
-            }
+            setIsRegistered(false);
+            setRegisteredCount(prev => Math.max(0, prev - 1));
         } catch (err) {
             console.error('Failed to unregister:', err);
         } finally {
@@ -375,10 +365,8 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
     useEffect(() => {
         const fetchEvent = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/events/${slug}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.success && data.data) {
+                const data = await fetchApi(`/api/events/${slug}`, { requireAuth: false });
+                if (data.success && data.data) {
                         const e = data.data;
                         setEvent({
                             id: e._id,
@@ -409,11 +397,6 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                         const sampleEvent = sampleEvents.find(e => e.slug === slug);
                         setEvent(sampleEvent || null);
                     }
-                } else {
-                    // Fallback to sample data
-                    const sampleEvent = sampleEvents.find(e => e.slug === slug);
-                    setEvent(sampleEvent || null);
-                }
             } catch (err) {
                 console.error('Failed to fetch event:', err);
                 // Fallback to sample data
@@ -447,10 +430,13 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
             <div className="relative">
                 {/* Background Image */}
                 <div className="absolute inset-0 h-[400px]">
-                    <img
+                    <Image
                         src={event.bannerImage || event.image}
                         alt={event.title}
+                        width={1200}
+                        height={400}
                         className="w-full h-full object-cover"
+                        unoptimized
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
                 </div>

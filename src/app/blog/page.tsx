@@ -1,11 +1,16 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
-import { Search, Calendar, User, Clock, BookOpen, PenLine } from 'lucide-react';
+import Image from 'next/image';
+import { Search, Calendar, User, Clock, BookOpen, PenLine, FileText, X } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { SkeletonBlogGrid } from '@/components/ui/Skeleton';
-import { API_URL } from '@/lib/api';
+import { SkeletonBlogGrid } from '@/components/ui/skeleton';
+import { fetchApi } from '@/lib/api';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { useToast } from '@/context/ToastContext';
 
 interface Blog {
     _id: string;
@@ -22,22 +27,44 @@ interface Blog {
 }
 
 const BlogPage = () => {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
     const [blogs, setBlogs] = useState<Blog[]>([]);
     const [loading, setLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedTag, setSelectedTag] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+    const debouncedSearch = useDebounce(searchQuery, 300);
+    const [selectedTag, setSelectedTag] = useState<string | null>(searchParams.get('tag') || null);
+    const { addToast } = useToast();
+
+    const updateFilters = useCallback((key: string, value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (value === '' || value === 'all') {
+            params.delete(key);
+        } else {
+            params.set(key, value);
+        }
+        const qs = params.toString();
+        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    }, [searchParams, router, pathname]);
+
+    const hasActiveFilters = searchQuery !== '' || selectedTag !== null;
+
+    const clearAllFilters = useCallback(() => {
+        setSearchQuery('');
+        setSelectedTag(null);
+        router.replace(pathname, { scroll: false });
+    }, [router, pathname]);
 
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/blogs`);
-                if (response.ok) {
-                    const result = await response.json();
-                    // API returns { success, data, pagination }
-                    setBlogs(result.data || []);
-                }
+                const result = await fetchApi('/api/blogs', { requireAuth: false });
+                // API returns { success, data, pagination }
+                setBlogs(result.data || []);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
+                addToast('Failed to load blog posts', 'error');
             } finally {
                 setLoading(false);
             }
@@ -48,8 +75,8 @@ const BlogPage = () => {
     const allTags = Array.from(new Set((blogs || []).flatMap(b => b.tags || [])));
 
     const filteredBlogs = (blogs || []).filter(blog => {
-        const matchesSearch = blog.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            blog.content?.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = blog.title?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            blog.content?.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesTag = !selectedTag || (blog.tags && blog.tags.includes(selectedTag));
         return matchesSearch && matchesTag;
     });
@@ -111,7 +138,7 @@ const BlogPage = () => {
                         <input
                             type="text"
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onChange={(e) => { setSearchQuery(e.target.value); updateFilters('search', e.target.value); }}
                             placeholder="Search articles..."
                             className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-all"
                         />
@@ -119,13 +146,14 @@ const BlogPage = () => {
                 </div>
 
                 {/* Tags */}
-                {allTags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4">
+                <div className="flex flex-wrap items-center gap-2 mt-4">
+                    {allTags.length > 0 && (
+                        <>
                         <button
-                            onClick={() => setSelectedTag(null)}
+                            onClick={() => { setSelectedTag(null); updateFilters('tag', ''); }}
                             className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                                !selectedTag 
-                                    ? 'bg-orange-500 text-white' 
+                                !selectedTag
+                                    ? 'bg-orange-500 text-white'
                                     : 'bg-white/5 text-gray-400 hover:text-white'
                             }`}
                         >
@@ -134,18 +162,27 @@ const BlogPage = () => {
                         {allTags.slice(0, 10).map(tag => (
                             <button
                                 key={tag}
-                                onClick={() => setSelectedTag(tag)}
+                                onClick={() => { setSelectedTag(tag); updateFilters('tag', tag); }}
                                 className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                                    selectedTag === tag 
-                                        ? 'bg-orange-500 text-white' 
+                                    selectedTag === tag
+                                        ? 'bg-orange-500 text-white'
                                         : 'bg-white/5 text-gray-400 hover:text-white'
                                 }`}
                             >
                                 {tag}
                             </button>
                         ))}
-                    </div>
-                )}
+                        </>
+                    )}
+                    {hasActiveFilters && (
+                        <button
+                            onClick={clearAllFilters}
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-all ml-auto"
+                        >
+                            <X className="w-3.5 h-3.5" /> Clear Filters
+                        </button>
+                    )}
+                </div>
             </section>
 
             {/* Blog Grid */}
@@ -153,29 +190,34 @@ const BlogPage = () => {
                 {loading ? (
                     <SkeletonBlogGrid />
                 ) : filteredBlogs.length === 0 ? (
-                    <div className="text-center py-20">
-                        <p className="text-gray-500">
-                            {blogs.length === 0 
-                                ? 'No blog posts yet. Be the first to write one!'
-                                : 'No posts found matching your search.'
-                            }
-                        </p>
-                    </div>
+                    <EmptyState
+                        icon={FileText}
+                        title={blogs.length === 0 ? 'No blog posts yet' : 'No posts found'}
+                        description={blogs.length === 0
+                            ? 'Be the first to write one!'
+                            : 'No posts found matching your search.'}
+                        actionLabel="Write an Article"
+                        actionHref="/blog/write"
+                    />
                 ) : (
                     <div className="grid md:grid-cols-2 gap-6">
-                        {filteredBlogs.map((blog) => (
+                        {filteredBlogs.map((blog, index) => (
                             <Link
                                 key={blog._id}
                                 href={`/blog/${blog._id}`}
-                                className="group rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden hover:border-orange-500/30 transition-all duration-300 card-hover"
+                                className={`group rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden hover:border-orange-500/30 transition-all duration-300 card-hover animate-fade-in-up animate-stagger-${index % 6 + 1}`}
+                                style={{ opacity: 0, animationFillMode: 'forwards' }}
                             >
                                 {/* Cover Image */}
                                 {blog.coverImage && (
                                     <div className="aspect-video bg-white/5 overflow-hidden">
-                                        <img 
-                                            src={blog.coverImage} 
+                                        <Image
+                                            src={blog.coverImage}
                                             alt={blog.title}
+                                            width={800}
+                                            height={400}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                            unoptimized
                                         />
                                     </div>
                                 )}

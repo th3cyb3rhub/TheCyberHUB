@@ -242,7 +242,7 @@ const SubtakerPage = () => {
                                                     <p className="text-sm text-red-400/80 mt-1 ml-8">Vulnerable via <span className="font-semibold">{finding.service}</span></p>
                                                 </div>
                                                 <div className="flex items-center space-x-2 ml-8 sm:ml-0">
-                                                    <button onClick={() => copyToClipboard(finding.subdomain)} title="Copy subdomain" className="p-2 text-gray-400 hover:text-red-300 hover:bg-gray-800/60 rounded-md transition-all duration-200"><Copy className="h-4 w-4" /></button>
+                                                    <button onClick={() => copyToClipboard(finding.subdomain)} title="Copy subdomain" aria-label="Copy subdomain" className="p-2 text-gray-400 hover:text-red-300 hover:bg-gray-800/60 rounded-md transition-all duration-200"><Copy className="h-4 w-4" /></button>
                                                     <a href={`http://${finding.subdomain}`} target="_blank" rel="noopener noreferrer" title="Visit subdomain (HTTP)" className="p-2 text-gray-400 hover:text-red-300 hover:bg-gray-800/60 rounded-md transition-all duration-200"><ExternalLink className="h-4 w-4" /></a>
                                                 </div>
                                             </div>

@@ -194,7 +194,7 @@ interface PageErrorBoundaryProps {
 export function PageErrorBoundary({ children }: PageErrorBoundaryProps): JSX.Element {
     return (
         <ErrorBoundary
-            onError={(error, errorInfo) => {
+            onError={(error, _errorInfo) => {
                 // Log page-level errors
                 console.error('[Page Error]', error.message);
             }}

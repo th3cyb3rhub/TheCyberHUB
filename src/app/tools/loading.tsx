@@ -1,4 +1,4 @@
-import { SkeletonToolsGrid } from '@/components/ui/Skeleton';
+import { SkeletonToolsGrid } from '@/components/ui/skeleton';
 
 export default function ToolsLoading() {
     return (

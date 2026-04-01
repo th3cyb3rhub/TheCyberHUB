@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -50,7 +51,7 @@ export function RequestCard({
                     {/* Avatar */}
                     <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
                         {user.avatar ? (
-                            <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+                            <Image src={user.avatar} alt={user.name} width={40} height={40} className="w-full h-full object-cover" unoptimized />
                         ) : (
                             <span className="text-sm font-semibold text-muted-foreground">
                                 {user.name.charAt(0).toUpperCase()}

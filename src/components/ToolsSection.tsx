@@ -35,18 +35,18 @@ const ToolsSection = () => {
     ];
 
     return (
-        <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-white/5">
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-3">
-                        <h2 className="text-xl font-semibold text-white">Popular Tools</h2>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Popular Tools</h2>
                         <span className="px-2.5 py-1 text-xs font-medium bg-orange-500/10 text-orange-400 rounded-full border border-orange-500/20">
                             22+ tools
                         </span>
                     </div>
                     <Link
                         href="/tools"
-                        className="group text-sm text-gray-400 hover:text-orange-400 flex items-center gap-1.5 transition-colors"
+                        className="group text-sm text-gray-500 dark:text-gray-400 hover:text-orange-400 flex items-center gap-1.5 transition-colors"
                     >
                         View all
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -58,19 +58,19 @@ const ToolsSection = () => {
                         <Link
                             key={index}
                             href={tool.href}
-                            className="group relative flex flex-col items-center gap-2.5 p-4 rounded-xl border border-white/10 hover:border-orange-500/40 bg-white/[0.02] hover:bg-gradient-to-b hover:from-orange-500/5 hover:to-transparent transition-all duration-300"
+                            className="group relative flex flex-col items-center gap-2.5 p-4 rounded-xl border border-gray-200 dark:border-white/10 hover:border-orange-500/40 bg-white dark:bg-white/[0.02] hover:bg-gradient-to-b hover:from-orange-500/5 hover:to-transparent transition-all duration-300"
                         >
                             {tool.hot && (
                                 <div className="absolute -top-1.5 -right-1.5">
                                     <Sparkles className="w-3.5 h-3.5 text-orange-400" />
                                 </div>
                             )}
-                            <div className="w-10 h-10 rounded-lg bg-white/5 group-hover:bg-orange-500/10 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                                <span className="text-gray-400 group-hover:text-orange-400 transition-colors">
+                            <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-white/5 group-hover:bg-orange-500/10 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                                <span className="text-gray-500 dark:text-gray-400 group-hover:text-orange-400 transition-colors">
                                     {tool.icon}
                                 </span>
                             </div>
-                            <span className="text-xs text-gray-400 group-hover:text-white transition-colors text-center leading-tight">
+                            <span className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors text-center leading-tight">
                                 {tool.name}
                             </span>
                         </Link>

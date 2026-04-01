@@ -1,11 +1,15 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
     Calendar,
     MapPin,
     Clock,
+    X,
     Users,
     Flag,
     Video,
@@ -17,12 +21,14 @@ import {
     Sparkles,
     ArrowRight,
     Globe,
-    Timer,
-    Loader2
+    Timer
 } from 'lucide-react';
 import { sampleEvents, eventCategories, Event } from '@/data/events';
 import Footer from '@/components/Footer';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { useToast } from '@/context/ToastContext';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const categoryIcons: Record<string, React.ReactNode> = {
     ctf: <Flag className="w-4 h-4" />,
@@ -89,10 +95,13 @@ function FeaturedEventCard({ event }: { event: Event }) {
                 <div className="flex flex-col lg:flex-row">
                     {/* Image */}
                     <div className="relative lg:w-2/5 h-56 lg:h-auto overflow-hidden">
-                        <img
+                        <Image
                             src={event.image}
                             alt={event.title}
+                            width={600}
+                            height={224}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            unoptimized
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-gray-950/90 hidden lg:block" />
                         <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 to-transparent lg:hidden" />
@@ -168,10 +177,13 @@ function EventCard({ event }: { event: Event }) {
             <div className="relative bg-gray-900/50 border border-white/5 rounded-xl overflow-hidden hover:border-white/20 transition-all duration-300 h-full">
                 {/* Image Container */}
                 <div className="relative h-44 overflow-hidden">
-                    <img
+                    <Image
                         src={event.image}
                         alt={event.title}
+                        width={400}
+                        height={176}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent" />
 
@@ -222,24 +234,45 @@ function EventCard({ event }: { event: Event }) {
 }
 
 export default function EventsPage() {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_error, _setError] = useState<string | null>(null);
-    const [selectedCategory, setSelectedCategory] = useState<string>('all');
-    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || 'all');
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+    const debouncedSearch = useDebounce(searchQuery, 300);
+    const { addToast } = useToast();
+
+    const updateFilters = useCallback((key: string, value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (value === 'all' || value === '') {
+            params.delete(key);
+        } else {
+            params.set(key, value);
+        }
+        const qs = params.toString();
+        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    }, [searchParams, router, pathname]);
+
+    const hasActiveFilters = selectedCategory !== 'all' || searchQuery !== '';
+
+    const clearAllFilters = useCallback(() => {
+        setSelectedCategory('all');
+        setSearchQuery('');
+        router.replace(pathname, { scroll: false });
+    }, [router, pathname]);
 
     // Fetch events from API
     useEffect(() => {
         const fetchEvents = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${API_URL}/api/events`);
-
-                if (response.ok) {
-                    const data = await response.json();
-                    // Transform API response to match Event interface
-                    const apiEvents = data.data?.map((event: { _id: string; title: string; slug: string; description?: string; shortDescription?: string; image?: string; bannerImage?: string; startDate: string; endDate: string }) => ({
+                const data = await fetchApi('/api/events', { requireAuth: false });
+                // Transform API response to match Event interface
+                const apiEvents = data.data?.map((event: { _id: string; title: string; slug: string; description?: string; shortDescription?: string; image?: string; bannerImage?: string; startDate: string; endDate: string }) => ({
                         id: event._id,
                         title: event.title,
                         slug: event.slug,
@@ -264,13 +297,10 @@ export default function EventsPage() {
                         isFeatured: event.isFeatured || false,
                     })) || [];
 
-                    setEvents(apiEvents.length > 0 ? apiEvents : sampleEvents);
-                } else {
-                    // Fallback to sample data
-                    setEvents(sampleEvents);
-                }
+                setEvents(apiEvents.length > 0 ? apiEvents : sampleEvents);
             } catch (err) {
                 console.error('Failed to fetch events:', err);
+                addToast('Failed to load events', 'error');
                 // Fallback to sample data on error
                 setEvents(sampleEvents);
             } finally {
@@ -284,19 +314,39 @@ export default function EventsPage() {
     const filteredEvents = useMemo(() => {
         return events.filter((event) => {
             const matchesCategory = selectedCategory === 'all' || event.category === selectedCategory;
-            const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                event.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesSearch = event.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                event.shortDescription.toLowerCase().includes(debouncedSearch.toLowerCase());
             return matchesCategory && matchesSearch;
         });
-    }, [events, selectedCategory, searchQuery]);
+    }, [events, selectedCategory, debouncedSearch]);
 
     const featuredEvents = filteredEvents.filter(e => e.isFeatured);
     const regularEvents = filteredEvents.filter(e => !e.isFeatured);
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+            <div className="min-h-screen bg-black pt-32 px-4 sm:px-6">
+                <div className="max-w-7xl mx-auto">
+                    <div className="space-y-4 mb-8 text-center">
+                        <Skeleton className="h-10 w-64 mx-auto" />
+                        <Skeleton className="h-5 w-96 mx-auto max-w-full" />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                        {Array.from({ length: 8 }).map((_, i) => (
+                            <div key={i} className="rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
+                                <Skeleton className="h-44 w-full" />
+                                <div className="p-4 space-y-3">
+                                    <Skeleton className="h-5 w-3/4" />
+                                    <Skeleton className="h-4 w-full" />
+                                    <div className="flex gap-3">
+                                        <Skeleton className="h-4 w-16" />
+                                        <Skeleton className="h-4 w-20" />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -342,16 +392,16 @@ export default function EventsPage() {
                                 type="text"
                                 placeholder="Search events..."
                                 value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onChange={(e) => { setSearchQuery(e.target.value); updateFilters('search', e.target.value); }}
                                 className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:bg-white/10 transition-all"
                             />
                         </div>
 
                         {/* Category Pills */}
-                        <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-hide">
+                        <div className="flex items-center gap-2 overflow-x-auto snap-x snap-mandatory pb-1 md:pb-0 scrollbar-hide">
                             <button
-                                onClick={() => setSelectedCategory('all')}
-                                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === 'all'
+                                onClick={() => { setSelectedCategory('all'); updateFilters('category', 'all'); }}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap shrink-0 snap-start transition-all ${selectedCategory === 'all'
                                     ? 'bg-white text-gray-900'
                                     : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                                     }`}
@@ -363,8 +413,8 @@ export default function EventsPage() {
                                 return (
                                     <button
                                         key={cat.id}
-                                        onClick={() => setSelectedCategory(cat.id)}
-                                        className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === cat.id
+                                        onClick={() => { setSelectedCategory(cat.id); updateFilters('category', cat.id); }}
+                                        className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap shrink-0 snap-start transition-all ${selectedCategory === cat.id
                                             ? `${colors.bg} ${colors.text} border ${colors.border}`
                                             : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-transparent'
                                             }`}
@@ -374,6 +424,14 @@ export default function EventsPage() {
                                     </button>
                                 );
                             })}
+                            {hasActiveFilters && (
+                                <button
+                                    onClick={clearAllFilters}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-all shrink-0 snap-start"
+                                >
+                                    <X className="w-3.5 h-3.5" /> Clear Filters
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -412,13 +470,11 @@ export default function EventsPage() {
 
                 {/* Empty State */}
                 {filteredEvents.length === 0 && (
-                    <div className="text-center py-20">
-                        <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <Calendar className="w-8 h-8 text-gray-600" />
-                        </div>
-                        <h3 className="text-xl font-medium text-white mb-2">No events found</h3>
-                        <p className="text-gray-500">Try adjusting your filters or check back later for new events.</p>
-                    </div>
+                    <EmptyState
+                        icon={Calendar}
+                        title="No events found"
+                        description="Try adjusting your filters or check back later for new events."
+                    />
                 )}
             </div>
 

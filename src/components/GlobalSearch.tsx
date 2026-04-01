@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDebounce } from '@/hooks/useDebounce';
+import { fetchApi } from '@/lib/api';
 import {
     Search,
     Wrench,
@@ -116,32 +118,30 @@ const highlightText = (text: string, query: string) => {
 export const GlobalSearch = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState('');
+    const debouncedQuery = useDebounce(query, 300);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [dynamicItems, setDynamicItems] = useState<SearchItem[]>([]);
     const [loadingDynamic, setLoadingDynamic] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
     // Fetch recent dynamic content (blogs, events, forums)
     useEffect(() => {
         const fetchDynamicContent = async () => {
             setLoadingDynamic(true);
             try {
-                const [blogsRes, eventsRes, forumsRes] = await Promise.all([
-                    fetch(`${API_URL}/api/blogs?limit=3&sort=-createdAt`).catch(() => null),
-                    fetch(`${API_URL}/api/events?limit=3&sort=-createdAt`).catch(() => null),
-                    fetch(`${API_URL}/api/forums/discussions?limit=3&sort=-createdAt`).catch(() => null),
+                const [blogsData, eventsData, forumsData] = await Promise.all([
+                    fetchApi('/api/blogs?limit=3&sort=-createdAt', { requireAuth: false }).catch(() => null),
+                    fetchApi('/api/events?limit=3&sort=-createdAt', { requireAuth: false }).catch(() => null),
+                    fetchApi('/api/forums/discussions?limit=3&sort=-createdAt', { requireAuth: false }).catch(() => null),
                 ]);
 
                 const items: SearchItem[] = [];
 
                 // Add recent blogs
-                if (blogsRes?.ok) {
-                    const blogsData = await blogsRes.json();
+                if (blogsData) {
                     const blogs = blogsData.blogs || blogsData.data || [];
-                    blogs.forEach((blog: any) => {
+                    blogs.forEach((blog: { _id: string; title: string; content?: string; slug?: string; category?: string }) => {
                         items.push({
                             id: `blog-${blog._id}`,
                             title: blog.title,
@@ -156,10 +156,9 @@ export const GlobalSearch = () => {
                 }
 
                 // Add recent events
-                if (eventsRes?.ok) {
-                    const eventsData = await eventsRes.json();
+                if (eventsData) {
                     const events = eventsData.events || eventsData.data || [];
-                    events.forEach((event: any) => {
+                    events.forEach((event: { _id: string; title: string; description?: string; slug?: string; category?: string }) => {
                         items.push({
                             id: `event-${event._id}`,
                             title: event.title,
@@ -174,10 +173,9 @@ export const GlobalSearch = () => {
                 }
 
                 // Add recent forum discussions
-                if (forumsRes?.ok) {
-                    const forumsData = await forumsRes.json();
+                if (forumsData) {
                     const forums = forumsData.discussions || forumsData.data || [];
-                    forums.forEach((forum: any) => {
+                    forums.forEach((forum: { _id: string; title: string; content?: string; category?: string }) => {
                         items.push({
                             id: `forum-${forum._id}`,
                             title: forum.title,
@@ -200,13 +198,13 @@ export const GlobalSearch = () => {
         };
 
         fetchDynamicContent();
-    }, [API_URL]);
+    }, []);
 
     // Combine static and dynamic items
     const allItems = [...searchItems, ...dynamicItems];
 
-    // Filter results based on query
-    const trimmedQuery = query.trim();
+    // Filter results based on debounced query
+    const trimmedQuery = debouncedQuery.trim();
     const results = trimmedQuery
         ? allItems.filter(item => {
             const searchStr = `${item.title} ${item.description} ${item.keywords?.join(' ') || ''}`.toLowerCase();
@@ -278,7 +276,7 @@ export const GlobalSearch = () => {
 
             {/* Modal */}
             <div className="fixed inset-0 flex items-start justify-center pt-[12vh] px-4 pointer-events-none">
-                <div className="w-full max-w-xl bg-zinc-900/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden pointer-events-auto" style={{ animation: 'fadeInScale 0.15s ease-out' }}>
+                <div className="w-full max-w-xl bg-zinc-900/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden pointer-events-auto" role="dialog" aria-modal="true" aria-label="Search" style={{ animation: 'fadeInScale 0.15s ease-out' }}>
                     {/* Search Input */}
                     <div className="flex items-center gap-3 px-4 border-b border-white/10">
                         <Search className="w-5 h-5 text-gray-500 flex-shrink-0" />

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from 'react';
+import DOMPurify from 'dompurify';
 import {
     Copy,
     Download,
@@ -546,7 +547,7 @@ const TextDiffTool = () => {
                                                     <div className="flex-1 px-2">
                                                         {line.type !== 'added' && (
                                                             syntaxMode !== 'none'
-                                                                ? <span dangerouslySetInnerHTML={{ __html: highlightSyntax(line.leftLine) }} />
+                                                                ? <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlightSyntax(line.leftLine)) }} />
                                                                 : renderWhitespace(line.leftLine)
                                                         )}
                                                     </div>
@@ -575,7 +576,7 @@ const TextDiffTool = () => {
                                                     <div className="flex-1 px-2">
                                                         {line.type !== 'removed' && (
                                                             syntaxMode !== 'none'
-                                                                ? <span dangerouslySetInnerHTML={{ __html: highlightSyntax(line.rightLine) }} />
+                                                                ? <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlightSyntax(line.rightLine)) }} />
                                                                 : renderWhitespace(line.rightLine)
                                                         )}
                                                     </div>
@@ -610,7 +611,7 @@ const TextDiffTool = () => {
                                             )}
                                             <div className="flex-1 px-2">
                                                 {syntaxMode !== 'none'
-                                                    ? <span dangerouslySetInnerHTML={{ __html: highlightSyntax(line.type === 'removed' ? line.leftLine : line.rightLine) }} />
+                                                    ? <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlightSyntax(line.type === 'removed' ? line.leftLine : line.rightLine)) }} />
                                                     : renderWhitespace(line.type === 'removed' ? line.leftLine : line.rightLine)
                                                 }
                                             </div>

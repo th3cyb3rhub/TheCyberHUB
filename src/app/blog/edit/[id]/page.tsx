@@ -3,8 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
+import DOMPurify from 'dompurify';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { renderMarkdownToHtml } from '@/lib/renderMarkdown';
 import {
     ArrowLeft,
     Save,
@@ -26,12 +29,12 @@ import {
     CheckCircle,
     AlertCircle
 } from 'lucide-react';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 const BlogEditPage = () => {
     const router = useRouter();
     const params = useParams();
-    const { user, token, loading: authLoading } = useAuth();
+    const { user, loading: authLoading } = useAuth();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [title, setTitle] = useState('');
@@ -52,10 +55,7 @@ const BlogEditPage = () => {
             if (!params.id) return;
 
             try {
-                const response = await fetch(`${API_URL}/api/blogs/${params.id}`);
-                if (!response.ok) throw new Error('Blog not found');
-                
-                const data = await response.json();
+                const data = await fetchApi(`/api/blogs/${params.id}`, { requireAuth: false });
                 const blog = data.data || data;
 
                 // Check if user is owner or admin
@@ -156,25 +156,15 @@ const BlogEditPage = () => {
         setError(null);
 
         try {
-            const response = await fetch(`${API_URL}/api/blogs/${params.id}`, {
+            await fetchApi(`/api/blogs/${params.id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
                 body: JSON.stringify({
                     title: title.trim(),
                     content: content.trim(),
                     tags,
                     coverImage: coverImage.trim() || undefined
-                })
+                }),
             });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error?.message || 'Failed to update');
-            }
 
             setSuccess(true);
             addToast({
@@ -197,25 +187,7 @@ const BlogEditPage = () => {
         }
     };
 
-    // Simple markdown to HTML converter for preview
-    const renderMarkdown = (text: string) => {
-        return text
-            .replace(/^### (.*$)/gim, '<h3 class="text-lg font-semibold text-white mt-4 mb-2">$1</h3>')
-            .replace(/^## (.*$)/gim, '<h2 class="text-xl font-semibold text-white mt-6 mb-3">$1</h2>')
-            .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold text-white mt-6 mb-4">$1</h1>')
-            .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-black/50 border border-white/10 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-orange-400 text-sm">$2</code></pre>')
-            .replace(/`(.*?)`/g, '<code class="bg-white/10 px-1.5 py-0.5 rounded text-orange-400 text-sm">$1</code>')
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-orange-400 hover:text-orange-300 underline" target="_blank">$1</a>')
-            .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full my-4" />')
-            .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-orange-500 pl-4 my-4 text-gray-400 italic">$1</blockquote>')
-            .replace(/^\d+\. (.*$)/gim, '<li class="ml-6 list-decimal text-gray-300">$1</li>')
-            .replace(/^- (.*$)/gim, '<li class="ml-6 list-disc text-gray-300">$1</li>')
-            .replace(/\n\n/g, '</p><p class="text-gray-300 mb-4">')
-            .replace(/\n/g, '<br />');
-    };
+    const renderMarkdown = renderMarkdownToHtml;
 
     if (authLoading || loading) {
         return (
@@ -285,10 +257,13 @@ const BlogEditPage = () => {
                     /* Preview Mode */
                     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
                         {coverImage && (
-                            <img 
-                                src={coverImage} 
-                                alt="Cover" 
+                            <Image
+                                src={coverImage}
+                                alt="Cover"
+                                width={800}
+                                height={450}
                                 className="w-full aspect-video object-cover rounded-xl mb-6"
+                                unoptimized
                             />
                         )}
                         <h1 className="text-3xl font-bold text-white mb-4">
@@ -305,8 +280,8 @@ const BlogEditPage = () => {
                         )}
                         <div 
                             className="prose prose-invert max-w-none"
-                            dangerouslySetInnerHTML={{ 
-                                __html: `<p class="text-gray-300 mb-4">${renderMarkdown(content) || '<span class="text-gray-500">No content yet...</span>'}</p>` 
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(`<p class="text-gray-300 mb-4">${renderMarkdown(content) || '<span class="text-gray-500">No content yet...</span>'}</p>`)
                             }}
                         />
                     </div>

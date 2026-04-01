@@ -24,7 +24,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="border-t border-white/5 bg-black/50">
+        <footer aria-label="Site footer" className="border-t border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/50">
             <div className="max-w-5xl mx-auto px-4 sm:px-6">
                 {/* Main footer content */}
                 <div className="py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -38,7 +38,7 @@ const Footer = () => {
                                 alt="TheCyberHub"
                                 className="w-7 h-7 transition-transform group-hover:scale-110"
                             />
-                            <span className="text-white font-semibold">TheCyberHub</span>
+                            <span className="text-gray-900 dark:text-white font-semibold">TheCyberHub</span>
                         </Link>
                         <p className="text-sm text-gray-500 mb-4 leading-relaxed">
                             Open source cybersecurity community for learning and growth.
@@ -51,7 +51,7 @@ const Footer = () => {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-8 h-8 rounded-lg bg-white/5 hover:bg-orange-500/20 flex items-center justify-center text-gray-500 hover:text-orange-500 transition-all duration-300"
+                                    className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 hover:bg-orange-500/20 flex items-center justify-center text-gray-500 hover:text-orange-500 transition-all duration-300"
                                     aria-label={social.name}
                                 >
                                     {social.icon}
@@ -62,7 +62,7 @@ const Footer = () => {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="text-sm font-semibold text-white mb-4">Quick Links</h4>
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h4>
                         <ul className="space-y-2.5">
                             {quickLinks.map((link) => (
                                 <li key={link.name}>
@@ -79,7 +79,7 @@ const Footer = () => {
 
                     {/* Resources */}
                     <div>
-                        <h4 className="text-sm font-semibold text-white mb-4">Resources</h4>
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">Resources</h4>
                         <ul className="space-y-2.5">
                             {resources.map((link) => (
                                 <li key={link.name}>
@@ -107,7 +107,7 @@ const Footer = () => {
 
                     {/* Community */}
                     <div>
-                        <h4 className="text-sm font-semibold text-white mb-4">Community</h4>
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">Community</h4>
                         <Link
                             href="https://discord.gg/d3gBSNrVKb"
                             target="_blank"
@@ -121,7 +121,7 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="py-6 border-t border-gray-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="text-sm text-gray-600">
                         © {new Date().getFullYear()} TheCyberHub. All rights reserved.
                     </div>

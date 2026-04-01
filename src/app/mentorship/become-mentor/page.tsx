@@ -28,7 +28,7 @@ export default function BecomeMentorPage() {
         const checkMentorStatus = async () => {
             if (!token) return;
             try {
-                await mentorApi.getMyProfile(token);
+                await mentorApi.getMyProfile();
                 setIsAlreadyMentor(true);
             } catch {
                 setIsAlreadyMentor(false);
@@ -41,7 +41,7 @@ export default function BecomeMentorPage() {
 
     const handleSubmit = async (data: MentorRegistrationData) => {
         if (!token) return;
-        await mentorApi.register(data, token);
+        await mentorApi.register(data);
         router.push('/mentorship/my-profile');
     };
 

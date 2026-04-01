@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Monitor, Smartphone, Globe, Trash2, Loader2, Shield, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 interface Session {
     id: string;
@@ -28,10 +28,7 @@ const SessionsPage = () => {
     const fetchSessions = async () => {
         if (!token) return;
         try {
-            const res = await fetch(`${API_URL}/api/auth/sessions`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const data = await res.json();
+            const data = await fetchApi('/api/auth/sessions');
             if (data.success) {
                 setSessions(data.data);
             }
@@ -46,13 +43,10 @@ const SessionsPage = () => {
         if (!token) return;
         setRevoking(sessionId);
         try {
-            const res = await fetch(`${API_URL}/api/auth/sessions/${sessionId}`, {
+            await fetchApi(`/api/auth/sessions/${sessionId}`, {
                 method: 'DELETE',
-                headers: { Authorization: `Bearer ${token}` },
             });
-            if (res.ok) {
-                setSessions(prev => prev.filter(s => s.id !== sessionId));
-            }
+            setSessions(prev => prev.filter(s => s.id !== sessionId));
         } catch {
             setError('Failed to revoke session');
         } finally {

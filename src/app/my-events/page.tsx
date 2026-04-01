@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
     Calendar,
     MapPin,
@@ -21,7 +22,7 @@ import {
     Ticket
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 interface Event {
     _id: string;
@@ -96,10 +97,13 @@ function EventCard({ event, onUnregister }: { event: Event; onUnregister: (id: s
             <div className="flex flex-col sm:flex-row">
                 {/* Image */}
                 <div className="relative sm:w-48 h-40 sm:h-auto overflow-hidden shrink-0">
-                    <img
+                    <Image
                         src={event.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800'}
                         alt={event.title}
+                        width={192}
+                        height={160}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-gray-900/80 hidden sm:block" />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent sm:hidden" />
@@ -194,16 +198,8 @@ export default function MyEventsPage() {
             if (!token) return;
 
             try {
-                const response = await fetch(`${API_URL}/api/events/my-registrations`, {
-                    headers: { 'Authorization': `Bearer ${token}` },
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    setEvents(data.data || []);
-                } else {
-                    console.error('Failed to fetch registered events');
-                }
+                const data = await fetchApi('/api/events/my-registrations');
+                setEvents(data.data || []);
             } catch (err) {
                 console.error('Failed to fetch events:', err);
             } finally {
@@ -220,14 +216,10 @@ export default function MyEventsPage() {
         if (!token) return;
 
         try {
-            const response = await fetch(`${API_URL}/api/events/${eventId}/register`, {
+            await fetchApi(`/api/events/${eventId}/register`, {
                 method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` },
             });
-
-            if (response.ok) {
-                setEvents(events.filter(e => e._id !== eventId));
-            }
+            setEvents(events.filter(e => e._id !== eventId));
         } catch (err) {
             console.error('Failed to unregister:', err);
         }

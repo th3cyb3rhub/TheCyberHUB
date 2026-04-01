@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Code, Copy, Check, Search, AlertTriangle } from 'lucide-react';
 import ToolPageLayout from '@/components/ui/ToolPageLayout';
 
@@ -52,14 +53,15 @@ const categoryLabels: Record<Category, string> = {
 
 const XSSPayloadsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState<Category>('all');
     const [copiedId, setCopiedId] = useState<string | null>(null);
     const [customPayload, setCustomPayload] = useState('');
 
     const filteredPayloads = payloads.filter(p => {
-        const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.payload.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = p.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            p.payload.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            p.description.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesCategory = selectedCategory === 'all' || p.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
@@ -137,10 +139,10 @@ const XSSPayloadsPage = () => {
                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search payloads..."
                         className="w-full pl-11 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none" />
                 </div>
-                <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
+                <div className="flex gap-2 overflow-x-auto snap-x snap-mandatory pb-2 sm:pb-0 scrollbar-hide">
                     {(Object.keys(categoryLabels) as Category[]).map((cat) => (
                         <button key={cat} onClick={() => setSelectedCategory(cat)}
-                            className={`px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCategory === cat ? 'bg-orange-500 text-white' : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'}`}>
+                            className={`px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shrink-0 snap-start transition-all ${selectedCategory === cat ? 'bg-orange-500 text-white' : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'}`}>
                             {categoryLabels[cat]}
                         </button>
                     ))}

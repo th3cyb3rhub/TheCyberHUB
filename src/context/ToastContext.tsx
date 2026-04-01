@@ -56,7 +56,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     return (
         <ToastContext.Provider value={{ addToast }}>
             {children}
-            <div className="fixed top-4 right-4 z-[10000] space-y-2 w-full max-w-sm pointer-events-none">
+            <div aria-live="polite" className="fixed top-4 right-4 z-[10000] space-y-2 w-full max-w-sm pointer-events-none">
                 {toasts.map((toast) => (
                     <div
                         key={toast.id}
@@ -74,6 +74,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
                         <button
                             onClick={() => removeToast(toast.id)}
                             className="ml-2 text-xs text-gray-500 hover:text-white"
+                            aria-label="Dismiss notification"
                         >
                             ✕
                         </button>

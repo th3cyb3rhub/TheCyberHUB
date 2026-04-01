@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { Flag, Loader2, Shield, AlertTriangle } from 'lucide-react';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 const stubLabs = [
     { id: 'web-101', name: 'Web Security Lab 101', level: 'Beginner', focus: 'OWASP Top 10' },
@@ -35,15 +35,11 @@ const LabsPage = () => {
 
         setPendingLabId(`${labId}:${action}`);
         try {
-            const response = await fetch(`${API_URL}/api/labs/${labId}/${action}`, {
+            const data = await fetchApi(`/api/labs/${labId}/${action}`, {
                 method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
             });
-            const data = await response.json();
 
-            if (!response.ok || !data.success) {
+            if (!data.success) {
                 throw new Error(data.error || 'Request failed');
             }
 

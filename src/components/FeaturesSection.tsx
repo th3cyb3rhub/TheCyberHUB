@@ -11,8 +11,8 @@ import {
     Code2,
     Map,
     BookOpen,
-    ArrowRight,
-    Sparkles
+    Sparkles,
+    Briefcase
 } from 'lucide-react';
 
 const FeaturesSection = () => {
@@ -43,10 +43,10 @@ const FeaturesSection = () => {
         },
         {
             icon: <Users className="w-6 h-6" />,
-            title: "Mentorship",
-            description: "Connect with experienced security professionals to accelerate your growth.",
-            href: "/mentorship",
-            stats: "1-on-1 guidance",
+            title: "Internships",
+            description: "Join community cohorts and build practical security experience.",
+            href: "/internships",
+            stats: "Cohorts",
             color: "green"
         },
         {
@@ -80,6 +80,14 @@ const FeaturesSection = () => {
             href: "/blog",
             stats: "Fresh content",
             color: "pink"
+        },
+        {
+            icon: <Briefcase className="w-6 h-6" />,
+            title: "Jobs",
+            description: "Browse cybersecurity jobs from top companies. Post openings with your org email.",
+            href: "/jobs",
+            stats: "Hiring now",
+            color: "orange"
         }
     ];
 
@@ -95,18 +103,18 @@ const FeaturesSection = () => {
     };
 
     return (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-white/5">
             <div className="max-w-6xl mx-auto">
                 {/* Section header */}
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full border border-white/10 bg-white/5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5">
                         <Sparkles className="w-4 h-4 text-orange-400" />
-                        <span className="text-sm text-gray-400">Everything you need</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">Everything you need</span>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                         One Platform, <span className="gradient-text">Endless Learning</span>
                     </h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto">
+                    <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                         From beginner to expert, we provide all the resources you need to master cybersecurity.
                     </p>
                 </div>
@@ -119,13 +127,13 @@ const FeaturesSection = () => {
                             <Link
                                 key={index}
                                 href={feature.href}
-                                className={`group p-5 rounded-xl border border-white/10 ${colors.hover} bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300`}
+                                className={`group p-5 rounded-xl border border-gray-200 dark:border-white/10 ${colors.hover} bg-white dark:bg-white/[0.02] hover:bg-gray-50 dark:hover:bg-white/[0.04] transition-all duration-300`}
                             >
                                 <div className={`w-12 h-12 rounded-lg ${colors.bg} ${colors.border} border flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
                                     <span className={colors.text}>{feature.icon}</span>
                                 </div>
                                 <div className="flex items-center justify-between mb-2">
-                                    <h3 className="text-base font-semibold text-white group-hover:text-orange-400 transition-colors">
+                                    <h3 className="text-base font-semibold text-gray-900 dark:text-white group-hover:text-orange-400 transition-colors">
                                         {feature.title}
                                     </h3>
                                     <span className={`text-xs px-2 py-0.5 rounded-full ${colors.bg} ${colors.text}`}>

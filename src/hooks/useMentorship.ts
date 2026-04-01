@@ -34,7 +34,7 @@ export function useMentorships(): UseMentorshipsReturn {
         setError(null);
 
         try {
-            const data = await mentorshipApi.getMyMentorships(token);
+            const data = await mentorshipApi.getMyMentorships();
             setMentorships(data);
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Failed to fetch mentorships';
@@ -85,7 +85,7 @@ export function useMentorship(mentorshipId: string | null): UseMentorshipReturn 
         setError(null);
 
         try {
-            const data = await mentorshipApi.getById(mentorshipId, token);
+            const data = await mentorshipApi.getById(mentorshipId);
             setMentorship(data);
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Failed to fetch mentorship';
@@ -101,25 +101,25 @@ export function useMentorship(mentorshipId: string | null): UseMentorshipReturn 
 
     const pause = useCallback(async (reason: string) => {
         if (!token || !mentorshipId) return;
-        const updated = await mentorshipApi.pause(mentorshipId, reason, token);
+        const updated = await mentorshipApi.pause(mentorshipId, reason);
         setMentorship(updated);
     }, [token, mentorshipId]);
 
     const resume = useCallback(async () => {
         if (!token || !mentorshipId) return;
-        const updated = await mentorshipApi.resume(mentorshipId, token);
+        const updated = await mentorshipApi.resume(mentorshipId);
         setMentorship(updated);
     }, [token, mentorshipId]);
 
     const complete = useCallback(async () => {
         if (!token || !mentorshipId) return;
-        const updated = await mentorshipApi.complete(mentorshipId, token);
+        const updated = await mentorshipApi.complete(mentorshipId);
         setMentorship(updated);
     }, [token, mentorshipId]);
 
     const extend = useCallback(async (months: number) => {
         if (!token || !mentorshipId) return;
-        const updated = await mentorshipApi.extend(mentorshipId, months, token);
+        const updated = await mentorshipApi.extend(mentorshipId, months);
         setMentorship(updated);
     }, [token, mentorshipId]);
 
@@ -166,8 +166,8 @@ export function useMentorshipRequests(): UseMentorshipRequestsReturn {
 
         try {
             const [myRequests, incoming] = await Promise.all([
-                requestApi.getMyRequests(token),
-                requestApi.getIncoming(token).catch(() => []),
+                requestApi.getMyRequests(),
+                requestApi.getIncoming().catch(() => []),
             ]);
             setRequests(myRequests);
             setIncomingRequests(incoming);
@@ -185,20 +185,20 @@ export function useMentorshipRequests(): UseMentorshipRequestsReturn {
 
     const cancel = useCallback(async (requestId: string) => {
         if (!token) return;
-        await requestApi.cancel(requestId, token);
+        await requestApi.cancel(requestId);
         setRequests((prev) => prev.filter((r) => r._id !== requestId));
     }, [token]);
 
     const accept = useCallback(async (requestId: string): Promise<Mentorship> => {
         if (!token) throw new Error('Not authenticated');
-        const mentorship = await requestApi.accept(requestId, token);
+        const mentorship = await requestApi.accept(requestId);
         setIncomingRequests((prev) => prev.filter((r) => r._id !== requestId));
         return mentorship;
     }, [token]);
 
     const decline = useCallback(async (requestId: string) => {
         if (!token) return;
-        await requestApi.decline(requestId, token);
+        await requestApi.decline(requestId);
         setIncomingRequests((prev) => prev.filter((r) => r._id !== requestId));
     }, [token]);
 
@@ -240,9 +240,9 @@ export function useMentorshipDashboard(): UseMentorshipDashboardReturn {
 
         try {
             const [mentorships, myRequests, incoming] = await Promise.all([
-                mentorshipApi.getMyMentorships(token),
-                requestApi.getMyRequests(token),
-                requestApi.getIncoming(token).catch(() => []),
+                mentorshipApi.getMyMentorships(),
+                requestApi.getMyRequests(),
+                requestApi.getIncoming().catch(() => []),
             ]);
 
             setData({

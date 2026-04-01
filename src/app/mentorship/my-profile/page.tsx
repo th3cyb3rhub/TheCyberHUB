@@ -30,7 +30,7 @@ export default function MyMentorProfilePage() {
         const fetchProfile = async () => {
             if (!token) return;
             try {
-                const data = await mentorApi.getMyProfile(token);
+                const data = await mentorApi.getMyProfile();
                 setProfile(data);
             } catch {
                 setError('You are not registered as a mentor');
@@ -43,7 +43,7 @@ export default function MyMentorProfilePage() {
 
     const handleUpdate = async (data: MentorRegistrationData) => {
         if (!token) return;
-        const updated = await mentorApi.updateProfile(data, token);
+        const updated = await mentorApi.updateProfile(data);
         setProfile(updated);
         setIsEditing(false);
     };
@@ -51,7 +51,7 @@ export default function MyMentorProfilePage() {
     const handlePause = async () => {
         if (!token) return;
         try {
-            const updated = await mentorApi.pause(token);
+            const updated = await mentorApi.pause();
             setProfile(updated);
         } catch (err) {
             console.error('Failed to pause:', err);
@@ -61,7 +61,7 @@ export default function MyMentorProfilePage() {
     const handleResume = async () => {
         if (!token) return;
         try {
-            const updated = await mentorApi.resume(token);
+            const updated = await mentorApi.resume();
             setProfile(updated);
         } catch (err) {
             console.error('Failed to resume:', err);

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { User } from 'lucide-react';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 interface UserSuggestion {
     _id: string;
@@ -32,12 +33,9 @@ export function MentionAutocomplete({ query, position, onSelect, onClose }: Ment
 
             setLoading(true);
             try {
-                const response = await fetch(`${API_URL}/api/users/search?q=${encodeURIComponent(query)}&limit=5`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setSuggestions(data.data || []);
-                    setSelectedIndex(0);
-                }
+                const data = await fetchApi(`/api/users/search?q=${encodeURIComponent(query)}&limit=5`, { requireAuth: false });
+                setSuggestions(data.data || []);
+                setSelectedIndex(0);
             } catch (err) {
                 console.error('Failed to fetch user suggestions:', err);
             } finally {
@@ -113,7 +111,7 @@ export function MentionAutocomplete({ query, position, onSelect, onClose }: Ment
                             >
                                 <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                                     {user.avatar ? (
-                                        <img src={user.avatar} alt="" className="w-8 h-8 rounded-full" />
+                                        <Image src={user.avatar} alt={user.username} width={32} height={32} className="w-8 h-8 rounded-full" unoptimized />
                                     ) : (
                                         <User className="w-4 h-4 text-gray-400" />
                                     )}

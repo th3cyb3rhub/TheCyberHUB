@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -23,7 +24,7 @@ import {
     StarOff
 } from 'lucide-react';
 import Link from 'next/link';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 interface Event {
     _id: string;
@@ -60,6 +61,7 @@ export default function AdminEventsPage() {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [deleteId, setDeleteId] = useState<string | null>(null);
 
     // Check if user is admin
@@ -74,11 +76,8 @@ export default function AdminEventsPage() {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/events?limit=100`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setEvents(data.data || []);
-                }
+                const data = await fetchApi('/api/events?limit=100', { requireAuth: false });
+                setEvents(data.data || []);
             } catch (err) {
                 console.error('Failed to fetch events:', err);
             } finally {
@@ -95,16 +94,10 @@ export default function AdminEventsPage() {
         if (!token) return;
 
         try {
-            const response = await fetch(`${API_URL}/api/events/${id}`, {
+            await fetchApi(`/api/events/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
             });
-
-            if (response.ok) {
-                setEvents(events.filter(e => e._id !== id));
-            }
+            setEvents(events.filter(e => e._id !== id));
         } catch (err) {
             console.error('Failed to delete event:', err);
         } finally {
@@ -116,28 +109,21 @@ export default function AdminEventsPage() {
         if (!token) return;
 
         try {
-            const response = await fetch(`${API_URL}/api/events/${id}`, {
+            await fetchApi(`/api/events/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify({ isFeatured: !currentFeatured }),
             });
-
-            if (response.ok) {
-                setEvents(events.map(e => 
-                    e._id === id ? { ...e, isFeatured: !currentFeatured } : e
-                ));
-            }
+            setEvents(events.map(e =>
+                e._id === id ? { ...e, isFeatured: !currentFeatured } : e
+            ));
         } catch (err) {
             console.error('Failed to toggle featured:', err);
         }
     };
 
     const filteredEvents = events.filter(event =>
-        event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        event.category.toLowerCase().includes(searchQuery.toLowerCase())
+        event.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        event.category.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
 
     const formatDate = (dateString: string) => {
@@ -150,7 +136,7 @@ export default function AdminEventsPage() {
 
     if (authLoading || loading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--color-background)] flex items-center justify-center">
                 <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
             </div>
         );
@@ -161,7 +147,7 @@ export default function AdminEventsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-black pt-24 pb-12 px-4">
+        <div className="min-h-screen bg-[var(--color-background)] pt-24 pb-12 px-4">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
@@ -287,7 +273,7 @@ export default function AdminEventsPage() {
                 {/* Delete Confirmation Modal */}
                 {deleteId && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-                        <div className="bg-gray-900 border border-white/10 rounded-2xl p-6 max-w-md w-full">
+                        <div className="bg-gray-900 border border-white/10 rounded-2xl p-6 max-w-md w-full" role="dialog" aria-modal="true" aria-label="Delete event confirmation">
                             <h3 className="text-lg font-semibold text-white mb-2">Delete Event</h3>
                             <p className="text-gray-400 mb-6">Are you sure you want to delete this event? This action cannot be undone.</p>
                             <div className="flex gap-3">

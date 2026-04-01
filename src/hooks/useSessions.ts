@@ -36,7 +36,7 @@ export function useSessions(mentorshipId: string | null): UseSessionsReturn {
         setError(null);
 
         try {
-            const data = await sessionApi.getByMentorship(mentorshipId, token);
+            const data = await sessionApi.getByMentorship(mentorshipId);
             setSessions(data);
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Failed to fetch sessions';
@@ -60,26 +60,26 @@ export function useSessions(mentorshipId: string | null): UseSessionsReturn {
 
     const create = useCallback(async (data: SessionFormData): Promise<Session> => {
         if (!token) throw new Error('Not authenticated');
-        const session = await sessionApi.create(data, token);
+        const session = await sessionApi.create(data);
         setSessions((prev) => [...prev, session]);
         return session;
     }, [token]);
 
     const reschedule = useCallback(async (sessionId: string, scheduledAt: string) => {
         if (!token) return;
-        const updated = await sessionApi.reschedule(sessionId, scheduledAt, token);
+        const updated = await sessionApi.reschedule(sessionId, scheduledAt);
         setSessions((prev) => prev.map((s) => (s._id === sessionId ? updated : s)));
     }, [token]);
 
     const cancel = useCallback(async (sessionId: string, reason: string) => {
         if (!token) return;
-        const updated = await sessionApi.cancel(sessionId, reason, token);
+        const updated = await sessionApi.cancel(sessionId, reason);
         setSessions((prev) => prev.map((s) => (s._id === sessionId ? updated : s)));
     }, [token]);
 
     const complete = useCallback(async (sessionId: string, notes: string, actualDuration?: number) => {
         if (!token) return;
-        const updated = await sessionApi.complete(sessionId, notes, actualDuration, token);
+        const updated = await sessionApi.complete(sessionId, notes, actualDuration);
         setSessions((prev) => prev.map((s) => (s._id === sessionId ? updated : s)));
     }, [token]);
 
@@ -122,7 +122,7 @@ export function useUpcomingSessions(): UseUpcomingSessionsReturn {
         setError(null);
 
         try {
-            const data = await sessionApi.getUpcoming(token);
+            const data = await sessionApi.getUpcoming();
             setSessions(data);
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Failed to fetch upcoming sessions';
@@ -170,7 +170,7 @@ export function useSession(sessionId: string | null): UseSessionReturn {
         setError(null);
 
         try {
-            const data = await sessionApi.getById(sessionId, token);
+            const data = await sessionApi.getById(sessionId);
             setSession(data);
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Failed to fetch session';
@@ -186,7 +186,7 @@ export function useSession(sessionId: string | null): UseSessionReturn {
 
     const addNotes = useCallback(async (notes: string) => {
         if (!token || !sessionId) return;
-        const updated = await sessionApi.addNotes(sessionId, notes, token);
+        const updated = await sessionApi.addNotes(sessionId, notes);
         setSession(updated);
     }, [token, sessionId]);
 

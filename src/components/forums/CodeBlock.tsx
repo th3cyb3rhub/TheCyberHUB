@@ -69,6 +69,7 @@ export default function CodeBlock({
                 <button
                     onClick={handleCopy}
                     className="flex items-center gap-1.5 px-2 py-1 text-xs text-gray-400 hover:text-white rounded transition-colors"
+                    aria-label="Copy code"
                 >
                     {copied ? (
                         <>

@@ -57,8 +57,6 @@ export interface User {
     bookmarks?: UserBookmarks;
     progress?: UserProgress;
     contributionStats?: ContributionStats;
-    mentorshipStats?: MentorshipStats;
-    isMentor?: boolean;
     createdAt?: string;
     updatedAt?: string;
 }
@@ -93,27 +91,7 @@ export interface ContributionStats {
     helpfulVotes: number;
 }
 
-export interface MentorshipStats {
-    asMentor: MentorStats;
-    asMentee: MenteeStats;
-}
 
-export interface MentorStats {
-    totalMentorships: number;
-    activeMentorships: number;
-    completedMentorships: number;
-    totalSessionsCompleted: number;
-    totalHoursMentored: number;
-    averageRating: number;
-}
-
-export interface MenteeStats {
-    totalMentorships: number;
-    activeMentorships: number;
-    completedMentorships: number;
-    totalSessionsAttended: number;
-    totalHoursLearned: number;
-}
 
 // ============================================
 // Auth Types
@@ -158,19 +136,19 @@ export interface Challenge {
     updatedAt: string;
 }
 
-export type ChallengeCategory = 
-    | 'web' 
-    | 'crypto' 
-    | 'forensics' 
-    | 'pwn' 
-    | 'reverse' 
-    | 'misc' 
+export type ChallengeCategory =
+    | 'web'
+    | 'crypto'
+    | 'forensics'
+    | 'pwn'
+    | 'reverse'
+    | 'misc'
     | 'osint';
 
-export type ChallengeDifficulty = 
-    | 'easy' 
-    | 'medium' 
-    | 'hard' 
+export type ChallengeDifficulty =
+    | 'easy'
+    | 'medium'
+    | 'hard'
     | 'insane';
 
 export interface ChallengeHint {
@@ -221,13 +199,13 @@ export interface Event {
     updatedAt: string;
 }
 
-export type EventCategory = 
-    | 'ctf' 
-    | 'workshop' 
-    | 'meetup' 
-    | 'webinar' 
-    | 'conference' 
-    | 'hackathon' 
+export type EventCategory =
+    | 'ctf'
+    | 'workshop'
+    | 'meetup'
+    | 'webinar'
+    | 'conference'
+    | 'hackathon'
     | 'other';
 
 export interface EventSpeaker {
@@ -235,73 +213,6 @@ export interface EventSpeaker {
     title?: string;
     bio?: string;
     avatar?: string;
-}
-
-// ============================================
-// Mentorship Types
-// ============================================
-
-export interface MentorProfile {
-    id: string;
-    user: Pick<User, 'id' | 'username' | 'avatar' | 'name'>;
-    expertiseAreas: string[];
-    bio: string;
-    availability: string;
-    maxMentees: number;
-    currentMentees: number;
-    rating: number;
-    totalReviews: number;
-    completedMentorships: number;
-    isVerified: boolean;
-    isFeatured: boolean;
-    isPaused: boolean;
-    createdAt: string;
-}
-
-export interface Mentorship {
-    id: string;
-    mentor: Pick<User, 'id' | 'username' | 'avatar' | 'name'>;
-    mentee: Pick<User, 'id' | 'username' | 'avatar' | 'name'>;
-    mentorProfile: Pick<MentorProfile, 'id' | 'expertiseAreas' | 'rating'>;
-    status: MentorshipStatus;
-    startDate: string;
-    expectedEndDate: string;
-    actualEndDate?: string;
-    totalHours: number;
-    sessionsCompleted: number;
-    pauseReason?: string;
-    createdAt: string;
-}
-
-export type MentorshipStatus = 
-    | 'active' 
-    | 'paused' 
-    | 'completed' 
-    | 'terminated';
-
-export interface MentorshipRequest {
-    id: string;
-    mentor: Pick<User, 'id' | 'username' | 'avatar'>;
-    mentee: Pick<User, 'id' | 'username' | 'avatar'>;
-    message: string;
-    goals: string[];
-    status: 'pending' | 'accepted' | 'declined' | 'cancelled';
-    createdAt: string;
-}
-
-export interface Session {
-    id: string;
-    mentorship: string;
-    scheduledAt: string;
-    duration: number;
-    status: 'scheduled' | 'completed' | 'cancelled' | 'no_show';
-    notes?: string;
-    feedback?: SessionFeedback;
-}
-
-export interface SessionFeedback {
-    rating: number;
-    comment?: string;
 }
 
 // ============================================
@@ -374,7 +285,7 @@ export interface Notification {
     createdAt: string;
 }
 
-export type NotificationType = 
+export type NotificationType =
     | 'system'
     | 'achievement'
     | 'mention'

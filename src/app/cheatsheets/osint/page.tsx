@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Shield, Copy, Check, Search, Eye, Globe, Info, ChevronRight, Database, Image as ImageIcon, Users } from 'lucide-react';
 import Footer from '@/components/Footer';
 
@@ -21,6 +22,7 @@ interface CommandSection {
 const OSINTCheatsheet = () => {
     const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState<'all' | 'search-engines' | 'social-media' | 'domains' | 'images' | 'people' | 'data-breaches' | 'tools'>('all');
 
     const sections: CommandSection[] = [
@@ -397,9 +399,9 @@ const OSINTCheatsheet = () => {
         .map(section => ({
             ...section,
             commands: section.commands.filter(cmd => {
-                const matchesSearch = cmd.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    cmd.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    cmd.command.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesSearch = cmd.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                    cmd.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                    cmd.command.toLowerCase().includes(debouncedSearch.toLowerCase());
                 const matchesCategory = selectedCategory === 'all' || cmd.category === selectedCategory;
                 return matchesSearch && matchesCategory;
             })

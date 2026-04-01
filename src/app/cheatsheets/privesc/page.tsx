@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Shield, Copy, Check, Search, Terminal, AlertTriangle, Info, ChevronRight } from 'lucide-react';
 import Footer from '@/components/Footer';
 
@@ -19,6 +20,7 @@ interface CommandSection {
 const PrivEscCheatsheet = () => {
     const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedPlatform, setSelectedPlatform] = useState<'All' | 'Linux' | 'Windows'>('All');
 
     const sections: CommandSection[] = [
@@ -403,9 +405,9 @@ const PrivEscCheatsheet = () => {
         .map(section => ({
             ...section,
             commands: section.commands.filter(cmd =>
-                cmd.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                cmd.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                cmd.command.toLowerCase().includes(searchQuery.toLowerCase())
+                cmd.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                cmd.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                cmd.command.toLowerCase().includes(debouncedSearch.toLowerCase())
             )
         }))
         .filter(section => section.commands.length > 0);

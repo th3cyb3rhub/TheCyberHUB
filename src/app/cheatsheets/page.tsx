@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Search, Terminal, Database, ArrowRight, Network, FileText, Code } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
@@ -18,6 +19,7 @@ interface Cheatsheet {
 
 const CheatsheetsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState('all');
 
     const cheatsheets: Cheatsheet[] = [
@@ -106,8 +108,8 @@ const CheatsheetsPage = () => {
     const categories = ['all', ...Array.from(new Set(cheatsheets.map(s => s.category)))];
 
     const filteredCheatsheets = cheatsheets.filter(sheet => {
-        const matchesSearch = sheet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            sheet.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = sheet.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            sheet.description.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesCategory = selectedCategory === 'all' || sheet.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });

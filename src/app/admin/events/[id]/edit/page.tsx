@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
+import DOMPurify from 'dompurify';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { renderMarkdownToHtml } from '@/lib/renderMarkdown';
 import {
     ArrowLeft,
     Save,
@@ -30,10 +33,9 @@ import {
     Calendar,
     Clock,
     MapPin,
-    Globe,
-    Users
+    Globe
 } from 'lucide-react';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 // Interfaces
 interface Speaker {
@@ -134,24 +136,7 @@ const isValidUrl = (url: string): boolean => {
     }
 };
 
-const renderMarkdown = (text: string): string => {
-    return text
-        .replace(/^### (.*$)/gim, '<h3 class="text-lg font-semibold text-white mt-4 mb-2">$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2 class="text-xl font-semibold text-white mt-6 mb-3">$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold text-white mt-6 mb-4">$1</h1>')
-        .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-black/50 border border-white/10 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-orange-400 text-sm">$2</code></pre>')
-        .replace(/`(.*?)`/g, '<code class="bg-white/10 px-1.5 py-0.5 rounded text-orange-400 text-sm">$1</code>')
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-orange-400 hover:text-orange-300 underline" target="_blank">$1</a>')
-        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full my-4" />')
-        .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-orange-500 pl-4 my-4 text-gray-400 italic">$1</blockquote>')
-        .replace(/^\d+\. (.*$)/gim, '<li class="ml-6 list-decimal text-gray-300">$1</li>')
-        .replace(/^- (.*$)/gim, '<li class="ml-6 list-disc text-gray-300">$1</li>')
-        .replace(/\n\n/g, '</p><p class="text-gray-300 mb-4">')
-        .replace(/\n/g, '<br />');
-};
+const renderMarkdown = renderMarkdownToHtml;
 
 const formatDateForInput = (dateString: string): string => {
     if (!dateString) return '';
@@ -175,7 +160,7 @@ const formatDateForDisplay = (dateString: string): string => {
 export default function AdminEventEditPage() {
     const router = useRouter();
     const params = useParams();
-    const { user, token, loading: authLoading } = useAuth();
+    const { user, loading: authLoading } = useAuth();
     const { addToast } = useToast();
     const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -230,10 +215,7 @@ export default function AdminEventEditPage() {
             if (!params.id) return;
 
             try {
-                const response = await fetch(`${API_URL}/api/events/${params.id}`);
-                if (!response.ok) throw new Error('Event not found');
-
-                const data = await response.json();
+                const data = await fetchApi(`/api/events/${params.id}`, { requireAuth: false });
                 const event = data.data || data;
 
                 setFormData({
@@ -297,10 +279,16 @@ export default function AdminEventEditPage() {
         const timer = setTimeout(() => {
             if (formData.title) {
                 setAutoSaveStatus('saving');
-                localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify({
-                    formData,
-                    timestamp: Date.now()
-                }));
+                try {
+                    if (typeof window !== 'undefined') {
+                        localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify({
+                            formData,
+                            timestamp: Date.now()
+                        }));
+                    }
+                } catch {
+                    // localStorage may be unavailable
+                }
                 setAutoSaveStatus('saved');
                 setTimeout(() => setAutoSaveStatus('idle'), 2000);
             }
@@ -461,12 +449,8 @@ export default function AdminEventEditPage() {
         setError(null);
 
         try {
-            const response = await fetch(`${API_URL}/api/events/${params.id}`, {
+            await fetchApi(`/api/events/${params.id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
                 body: JSON.stringify({
                     ...formData,
                     startDate: new Date(formData.startDate).toISOString(),
@@ -481,14 +465,14 @@ export default function AdminEventEditPage() {
                 })
             });
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error?.message || 'Failed to update event');
-            }
-
             // Clear auto-save
-            localStorage.removeItem(`event-edit-autosave-${params.id}`);
+            try {
+                if (typeof window !== 'undefined') {
+                    localStorage.removeItem(`event-edit-autosave-${params.id}`);
+                }
+            } catch {
+                // localStorage may be unavailable
+            }
 
             setSuccess(true);
             addToast({
@@ -514,7 +498,7 @@ export default function AdminEventEditPage() {
 
     if (authLoading || loading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--color-background)] flex items-center justify-center">
                 <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
             </div>
         );
@@ -525,7 +509,7 @@ export default function AdminEventEditPage() {
     }
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen bg-[var(--color-background)]">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 pb-12">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
@@ -586,10 +570,13 @@ export default function AdminEventEditPage() {
                     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
                         {/* Banner Image */}
                         {formData.bannerImage && (
-                            <img
+                            <Image
                                 src={formData.bannerImage}
                                 alt="Banner"
+                                width={1200}
+                                height={514}
                                 className="w-full aspect-[21/9] object-cover rounded-xl mb-6"
+                                unoptimized
                             />
                         )}
 
@@ -654,10 +641,13 @@ export default function AdminEventEditPage() {
 
                         {/* Cover Image */}
                         {formData.image && (
-                            <img
+                            <Image
                                 src={formData.image}
                                 alt="Cover"
+                                width={800}
+                                height={450}
                                 className="w-full aspect-video object-cover rounded-xl mb-6"
+                                unoptimized
                             />
                         )}
 
@@ -678,7 +668,7 @@ export default function AdminEventEditPage() {
                             <div
                                 className="prose prose-invert max-w-none"
                                 dangerouslySetInnerHTML={{
-                                    __html: `<p class="text-gray-300 mb-4">${renderMarkdown(formData.description) || '<span class="text-gray-500">No description yet...</span>'}</p>`
+                                    __html: DOMPurify.sanitize(`<p class="text-gray-300 mb-4">${renderMarkdown(formData.description) || '<span class="text-gray-500">No description yet...</span>'}</p>`)
                                 }}
                             />
                         </div>
@@ -690,10 +680,13 @@ export default function AdminEventEditPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {formData.speakers.map(speaker => (
                                         <div key={speaker.id} className="flex gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                                            <img
+                                            <Image
                                                 src={speaker.image || DEFAULT_SPEAKER_IMAGE}
                                                 alt={speaker.name}
+                                                width={80}
+                                                height={80}
                                                 className="w-20 h-20 rounded-full object-cover"
+                                                unoptimized
                                             />
                                             <div className="flex-1">
                                                 <h3 className="font-semibold text-white">{speaker.name || 'Unnamed Speaker'}</h3>
@@ -819,7 +812,7 @@ export default function AdminEventEditPage() {
                                     <label className="block text-sm text-gray-400 mb-2">Status</label>
                                     <select
                                         value={formData.status}
-                                        onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as any }))}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as EventFormData['status'] }))}
                                         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
                                     >
                                         {statusOptions.map(status => (
@@ -985,7 +978,7 @@ export default function AdminEventEditPage() {
                                 <label className="block text-sm text-gray-400 mb-2">Location Type</label>
                                 <select
                                     value={formData.locationType}
-                                    onChange={(e) => setFormData(prev => ({ ...prev, locationType: e.target.value as any }))}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, locationType: e.target.value as EventFormData['locationType'] }))}
                                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
                                 >
                                     {locationTypes.map(type => (
@@ -1070,7 +1063,7 @@ export default function AdminEventEditPage() {
                                         <p className="text-red-400 text-sm mt-1">{validationErrors.image}</p>
                                     )}
                                     {formData.image && (
-                                        <img src={formData.image} alt="Cover preview" className="mt-2 w-full max-w-md aspect-video object-cover rounded-lg" />
+                                        <Image src={formData.image} alt="Cover preview" width={800} height={450} className="mt-2 w-full max-w-md aspect-video object-cover rounded-lg" unoptimized />
                                     )}
                                 </div>
 
@@ -1087,7 +1080,7 @@ export default function AdminEventEditPage() {
                                         <p className="text-red-400 text-sm mt-1">{validationErrors.bannerImage}</p>
                                     )}
                                     {formData.bannerImage && (
-                                        <img src={formData.bannerImage} alt="Banner preview" className="mt-2 w-full max-w-2xl aspect-[21/9] object-cover rounded-lg" />
+                                        <Image src={formData.bannerImage} alt="Banner preview" width={1200} height={514} className="mt-2 w-full max-w-2xl aspect-[21/9] object-cover rounded-lg" unoptimized />
                                     )}
                                 </div>
                             </div>
@@ -1109,7 +1102,7 @@ export default function AdminEventEditPage() {
                             </div>
 
                             {formData.speakers.length === 0 ? (
-                                <p className="text-gray-500 text-center py-8">No speakers added yet. Click "Add Speaker" to add one.</p>
+                                <p className="text-gray-500 text-center py-8">No speakers added yet. Click &quot;Add Speaker&quot; to add one.</p>
                             ) : (
                                 <div className="space-y-4">
                                     {formData.speakers.map((speaker, index) => (
@@ -1177,7 +1170,7 @@ export default function AdminEventEditPage() {
                                                         <p className="text-red-400 text-sm mt-1">{validationErrors[`speaker-${index}-image`]}</p>
                                                     )}
                                                     {speaker.image && speaker.image !== DEFAULT_SPEAKER_IMAGE && (
-                                                        <img src={speaker.image} alt={speaker.name} className="mt-2 w-20 h-20 rounded-full object-cover" />
+                                                        <Image src={speaker.image} alt={speaker.name} width={80} height={80} className="mt-2 w-20 h-20 rounded-full object-cover" unoptimized />
                                                     )}
                                                 </div>
                                             </div>

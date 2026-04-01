@@ -1,14 +1,20 @@
-import { Loader2 } from 'lucide-react';
+import { SkeletonPageHeader, SkeletonListItem, SkeletonStatsCard } from '@/components/ui/skeleton';
 
 export default function Loading() {
     return (
-        <div className="min-h-screen bg-black flex items-center justify-center">
-            <div className="flex flex-col items-center gap-4">
-                <div className="relative">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 animate-pulse" />
-                    <Loader2 className="w-6 h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin" />
+        <div className="min-h-screen bg-black pt-24 pb-12 px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto space-y-8">
+                <SkeletonPageHeader />
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <SkeletonStatsCard key={i} />
+                    ))}
                 </div>
-                <p className="text-gray-500 text-sm">Loading...</p>
+                <div className="space-y-4">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <SkeletonListItem key={i} />
+                    ))}
+                </div>
             </div>
         </div>
     );

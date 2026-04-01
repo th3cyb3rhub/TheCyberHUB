@@ -31,16 +31,16 @@ const HeroSection = () => {
                 </div>
 
                 {/* Main heading */}
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
                     Learn. Practice.
                     <br />
                     <span className="gradient-text">Master Security.</span>
                 </h1>
 
                 {/* Subheading */}
-                <p className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
                     Your all-in-one platform for cybersecurity learning.
-                    Tools, challenges, cheatsheets, mentorship, and a thriving community.
+                    Tools, challenges, cheatsheets, internships, and a thriving community.
                 </p>
 
                 {/* CTA buttons */}
@@ -54,7 +54,7 @@ const HeroSection = () => {
                     </Link>
                     <Link
                         href="/cheatsheets"
-                        className="group inline-flex items-center gap-3 px-8 py-4 text-white text-lg font-medium rounded-xl border border-white/20 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300"
+                        className="group inline-flex items-center gap-3 px-8 py-4 text-gray-900 dark:text-white text-lg font-medium rounded-xl border border-gray-300 dark:border-white/20 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300"
                     >
                         Browse Resources
                         <ArrowRight className="w-5 h-5 opacity-0 -ml-2 transition-all group-hover:opacity-100 group-hover:ml-0" />
@@ -64,22 +64,22 @@ const HeroSection = () => {
                 {/* Stats */}
                 <div className="flex items-center justify-center gap-8 sm:gap-16">
                     <div className="text-center">
-                        <div className="text-3xl sm:text-4xl font-bold text-white">22+</div>
-                        <div className="text-sm text-gray-500">Security Tools</div>
+                        <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">22+</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-500">Security Tools</div>
                     </div>
-                    <div className="h-10 w-px bg-white/10" />
+                    <div className="h-10 w-px bg-gray-200 dark:bg-white/10" />
                     <div className="text-center">
-                        <div className="text-3xl sm:text-4xl font-bold text-white">100+</div>
-                        <div className="text-sm text-gray-500">CTF Challenges</div>
+                        <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">100+</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-500">CTF Challenges</div>
                     </div>
-                    <div className="h-10 w-px bg-white/10" />
+                    <div className="h-10 w-px bg-gray-200 dark:bg-white/10" />
                     <div className="text-center">
-                        <div className="text-3xl sm:text-4xl font-bold text-white">10K+</div>
-                        <div className="text-sm text-gray-500">Community</div>
+                        <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">10K+</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-500">Community</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import {
@@ -12,9 +12,6 @@ import {
     Lock,
     CheckCircle,
     Plus,
-    Loader2,
-    Filter,
-    TrendingUp,
     HelpCircle,
     Tag,
     Flame,
@@ -24,6 +21,9 @@ import {
 import { Discussion, Category, CategoryStats, PopularTag, SortOption, CATEGORY_INFO } from '@/types/forum';
 import { getDiscussions, getCategoryStats, getPopularTags } from '@/lib/api/forum';
 import Footer from '@/components/Footer';
+import { SkeletonForumList } from '@/components/ui/skeleton';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { useToast } from '@/context/ToastContext';
 
 function formatTimeAgo(dateString: string): string {
     const date = new Date(dateString);
@@ -46,9 +46,9 @@ function DiscussionCard({ discussion }: { discussion: Discussion }) {
 
     return (
         <Link href={`/forums/${discussion._id}`} className="block group">
-            <div className={`relative rounded-xl border bg-black/40 backdrop-blur-sm p-5 transition-all duration-200 ${discussion.isPinned
-                ? 'border-orange-500/30 bg-orange-500/5'
-                : 'border-white/10 hover:border-orange-500/20 hover:bg-black/60'
+            <div className={`relative rounded-xl border bg-black/40 backdrop-blur-md p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${discussion.isPinned
+                ? 'border-orange-500/40 bg-orange-500/10 shadow-orange-500/10'
+                : 'border-white/10 hover:border-orange-500/40 hover:bg-white/[0.04] hover:shadow-orange-500/20'
                 }`}>
                 {/* Pinned/Locked indicators */}
                 <div className="absolute top-4 right-4 flex items-center gap-2">
@@ -235,6 +235,7 @@ export default function ForumsPage() {
     const [popularTags, setPopularTags] = useState<PopularTag[]>([]);
     const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
+    const { addToast } = useToast();
 
     // Get filters from URL
     const selectedCategory = (searchParams.get('category') as Category) || null;
@@ -272,6 +273,7 @@ export default function ForumsPage() {
                 setPopularTags(tagsRes.data || []);
             } catch (err) {
                 console.error('Failed to fetch meta:', err);
+                addToast('Failed to load forum data', 'error');
             }
         };
         fetchMeta();
@@ -294,6 +296,7 @@ export default function ForumsPage() {
                 setTotalPages(result.pagination?.totalPages || 1);
             } catch (err) {
                 console.error('Failed to fetch discussions:', err);
+                addToast('Failed to load discussions', 'error');
             } finally {
                 setLoading(false);
             }
@@ -313,7 +316,7 @@ export default function ForumsPage() {
                         <span className="text-sm text-gray-400">Community Forums</span>
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                        Ask, Share & <span className="text-orange-500">Learn</span>
+                        Ask, Share & <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 animate-pulse-slow drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">Learn</span>
                     </h1>
                     <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-8">
                         Get help with CTF challenges, discuss career paths, share your projects,
@@ -427,9 +430,7 @@ export default function ForumsPage() {
 
                         {/* Discussion List */}
                         {loading ? (
-                            <div className="flex items-center justify-center py-20">
-                                <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
-                            </div>
+                            <SkeletonForumList />
                         ) : discussions.length > 0 ? (
                             <div className="space-y-4">
                                 {discussions.map((discussion) => (
@@ -437,24 +438,15 @@ export default function ForumsPage() {
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-center py-20">
-                                <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                                    <HelpCircle className="w-8 h-8 text-gray-600" />
-                                </div>
-                                <h3 className="text-xl font-medium text-white mb-2">No discussions found</h3>
-                                <p className="text-gray-500 mb-6">
-                                    {searchQuery || selectedCategory || selectedTag
-                                        ? 'Try adjusting your filters or search query.'
-                                        : 'Be the first to start a discussion!'}
-                                </p>
-                                <Link
-                                    href="/forums/new"
-                                    className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors"
-                                >
-                                    <Plus className="w-5 h-5" />
-                                    Start a Discussion
-                                </Link>
-                            </div>
+                            <EmptyState
+                                icon={MessageSquare}
+                                title="No discussions found"
+                                description={searchQuery || selectedCategory || selectedTag
+                                    ? 'Try adjusting your filters or search query.'
+                                    : 'Be the first to start a discussion!'}
+                                actionLabel="Start a Discussion"
+                                actionHref="/forums/new"
+                            />
                         )}
 
                         {/* Pagination */}

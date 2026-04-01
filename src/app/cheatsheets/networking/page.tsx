@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Network, Search, Copy, Check, ChevronDown, ChevronRight } from 'lucide-react';
 
 interface Command {
@@ -100,6 +101,7 @@ const sections: Section[] = [
 
 const NetworkingCheatsheetPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
     const [expandedSections, setExpandedSections] = useState<string[]>(sections.map(s => s.title));
 
@@ -120,8 +122,8 @@ const NetworkingCheatsheetPage = () => {
     const filteredSections = sections.map(section => ({
         ...section,
         commands: section.commands.filter(cmd =>
-            cmd.command.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            cmd.description.toLowerCase().includes(searchQuery.toLowerCase())
+            cmd.command.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            cmd.description.toLowerCase().includes(debouncedSearch.toLowerCase())
         )
     })).filter(section => section.commands.length > 0);
 

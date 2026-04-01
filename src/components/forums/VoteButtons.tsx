@@ -74,7 +74,7 @@ export default function VoteButtons({
     };
 
     const sizeClasses = {
-        sm: { button: 'p-1.5', icon: 'w-5 h-5', text: 'text-sm' },
+        sm: { button: 'p-2.5', icon: 'w-5 h-5', text: 'text-sm' },
         md: { button: 'p-2', icon: 'w-6 h-6', text: 'text-base' },
         lg: { button: 'p-2.5', icon: 'w-7 h-7', text: 'text-lg' },
     };
@@ -95,6 +95,7 @@ export default function VoteButtons({
                     (disabled || isVoting) && 'opacity-50 cursor-not-allowed'
                 )}
                 title="Upvote"
+                aria-label="Upvote"
             >
                 <ChevronUp className={cn(s.icon, isVoting && 'animate-pulse')} />
             </button>
@@ -123,6 +124,7 @@ export default function VoteButtons({
                     (disabled || isVoting) && 'opacity-50 cursor-not-allowed'
                 )}
                 title="Downvote"
+                aria-label="Downvote"
             >
                 <ChevronDown className={cn(s.icon, isVoting && 'animate-pulse')} />
             </button>

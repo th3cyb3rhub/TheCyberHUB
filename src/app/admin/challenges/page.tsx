@@ -4,20 +4,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Shield, Play, Square, BarChart3, Settings, Plus, Loader2, AlertCircle } from 'lucide-react';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
-// Safe localStorage access for SSR
-const getToken = (): string | null => {
-    if (typeof window === 'undefined') return null;
-    try {
-        const storage = window.localStorage;
-        if (!storage || typeof storage.getItem !== 'function') return null;
-        return storage.getItem('token');
-    } catch {
-        return null;
-    }
-};
+import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { fetchApi } from '@/lib/api';
 
 interface Solve {
     user: string;
@@ -48,6 +36,7 @@ export default function AdminChallenges() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [actionLoading, setActionLoading] = useState<string | null>(null);
+    const { isOpen: confirmOpen, confirm: showConfirm, onConfirm, onCancel } = useConfirmDialog();
 
     useEffect(() => {
         fetchChallenges();
@@ -56,13 +45,12 @@ export default function AdminChallenges() {
     const fetchChallenges = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`${API_URL}/api/challenges?status=all&limit=100`);
-            const data = await res.json();
+            const data = await fetchApi('/api/challenges?status=all&limit=100');
 
             if (data.success) {
                 setChallenges(data.data);
             } else {
-                setError('Failed to load challenges');
+                setError(data.error?.message || 'Failed to load challenges');
             }
         } catch (err) {
             console.error('Error fetching challenges:', err);
@@ -75,17 +63,10 @@ export default function AdminChallenges() {
     const updateChallengeStatus = async (id: string, status: 'active' | 'draft' | 'archived') => {
         setActionLoading(id);
         try {
-            const token = getToken();
-            const res = await fetch(`${API_URL}/api/challenges/${id}`, {
+            const data = await fetchApi(`/api/challenges/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
                 body: JSON.stringify({ status }),
             });
-
-            const data = await res.json();
 
             if (data.success) {
                 setChallenges(prev =>
@@ -104,19 +85,14 @@ export default function AdminChallenges() {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const deleteChallenge = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this challenge?')) return;
+        const confirmed = await showConfirm();
+        if (!confirmed) return;
 
         setActionLoading(id);
         try {
-            const token = getToken();
-            const res = await fetch(`${API_URL}/api/challenges/${id}`, {
+            const data = await fetchApi(`/api/challenges/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
             });
-
-            const data = await res.json();
 
             if (data.success) {
                 setChallenges(prev => prev.filter(c => c._id !== id));
@@ -133,7 +109,7 @@ export default function AdminChallenges() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-black px-4 sm:px-6 pt-28 pb-16 flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--color-background)] px-4 sm:px-6 pt-28 pb-16 flex items-center justify-center">
                 <div className="flex items-center gap-2 text-gray-400">
                     <Loader2 className="w-5 h-5 animate-spin" />
                     <span>Loading challenges...</span>
@@ -144,7 +120,7 @@ export default function AdminChallenges() {
 
     if (error) {
         return (
-            <div className="min-h-screen bg-black px-4 sm:px-6 pt-28 pb-16 flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--color-background)] px-4 sm:px-6 pt-28 pb-16 flex items-center justify-center">
                 <div className="flex items-center gap-2 text-red-400">
                     <AlertCircle className="w-5 h-5" />
                     <span>{error}</span>
@@ -154,7 +130,7 @@ export default function AdminChallenges() {
     }
 
     return (
-        <div className="min-h-screen bg-black px-4 sm:px-6 pt-28 pb-16">
+        <div className="min-h-screen bg-[var(--color-background)] px-4 sm:px-6 pt-28 pb-16">
             <div className="max-w-5xl mx-auto">
                 <div className="flex items-center justify-between mb-8">
                     <div>
@@ -254,6 +230,16 @@ export default function AdminChallenges() {
                     </div>
                 )}
             </div>
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                title="Delete challenge?"
+                description="Are you sure you want to delete this challenge?"
+                confirmText="Delete"
+                variant="danger"
+            />
         </div>
     );
 }

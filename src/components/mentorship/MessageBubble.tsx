@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { formatMessageTime } from '@/hooks/useMessages';
 import type { Message } from '@/lib/mentorship/types';
 
@@ -18,7 +19,7 @@ export function MessageBubble({ message, isOwn }: MessageBubbleProps) {
                 {!isOwn && (
                     <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
                         {message.sender.avatar ? (
-                            <img src={message.sender.avatar} alt={message.sender.name} className="w-full h-full object-cover" />
+                            <Image src={message.sender.avatar} alt={message.sender.name} width={32} height={32} className="w-full h-full object-cover" unoptimized />
                         ) : (
                             <span className="text-xs font-semibold text-muted-foreground">
                                 {message.sender.name.charAt(0).toUpperCase()}

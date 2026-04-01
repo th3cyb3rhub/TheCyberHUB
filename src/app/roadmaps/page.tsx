@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
 import {
     Map,
@@ -23,7 +24,7 @@ import Footer from '@/components/Footer';
 import { SkeletonRoadmapsGrid } from '@/components/ui/SkeletonRoadmap';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 interface LearningStep {
     id: string;
@@ -64,6 +65,7 @@ const RoadmapsPage = () => {
     const router = useRouter();
     const { addToast } = useToast();
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [loading, setLoading] = useState(true);
@@ -124,32 +126,13 @@ const RoadmapsPage = () => {
             try {
                 setLoading(true);
                 // Try fetching from /api/resources/roadmaps endpoint
-                const response = await fetch(`${API_URL}/api/resources/roadmaps`);
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    
-                    // Backend returns array of { name, content } objects
-                    // Each content item has the roadmap data
-                    if (Array.isArray(data) && data.length > 0) {
-                        interface RoadmapApiItem {
-                            content?: {
-                                id?: string;
-                                _id?: string;
-                                title?: string;
-                                name?: string;
-                                description?: string;
-                                category?: string;
-                                totalTime?: string;
-                                total_time?: string;
-                                difficulty?: string;
-                                followers?: string;
-                                rating?: number;
-                                steps?: unknown[];
-                                color?: string;
-                                icon?: string;
-                                featured?: boolean;
-                            };
+                const data = await fetchApi('/api/resources/roadmaps', { requireAuth: false });
+
+                // Backend returns array of { name, content } objects
+                // Each content item has the roadmap data
+                if (Array.isArray(data) && data.length > 0) {
+                    interface RoadmapApiItem {
+                        content?: {
                             id?: string;
                             _id?: string;
                             title?: string;
@@ -165,30 +148,45 @@ const RoadmapsPage = () => {
                             color?: string;
                             icon?: string;
                             featured?: boolean;
-                        }
-                        const transformedRoadmaps = data.map((item: RoadmapApiItem) => {
-                            const content = item.content || item;
-                            return {
-                                id: content.id || content._id || String(Math.random()),
-                                title: content.title || content.name || '',
-                                description: content.description || '',
-                                category: content.category || 'Complete Path',
-                                totalTime: content.totalTime || content.total_time || '3-6 months',
-                                difficulty: content.difficulty || 'Beginner',
-                                followers: content.followers || '0',
-                                rating: content.rating || 4.5,
-                                steps: content.steps || [],
-                                color: content.color || 'from-orange-500 to-orange-600',
-                                icon: content.icon || 'shield',
-                                featured: content.featured || false,
-                            };
-                        });
-                        setRoadmaps(transformedRoadmaps);
-                        return;
+                        };
+                        id?: string;
+                        _id?: string;
+                        title?: string;
+                        name?: string;
+                        description?: string;
+                        category?: string;
+                        totalTime?: string;
+                        total_time?: string;
+                        difficulty?: string;
+                        followers?: string;
+                        rating?: number;
+                        steps?: unknown[];
+                        color?: string;
+                        icon?: string;
+                        featured?: boolean;
                     }
+                    const transformedRoadmaps = data.map((item: RoadmapApiItem) => {
+                        const content = item.content || item;
+                        return {
+                            id: content.id || content._id || String(Math.random()),
+                            title: content.title || content.name || '',
+                            description: content.description || '',
+                            category: content.category || 'Complete Path',
+                            totalTime: content.totalTime || content.total_time || '3-6 months',
+                            difficulty: content.difficulty || 'Beginner',
+                            followers: content.followers || '0',
+                            rating: content.rating || 4.5,
+                            steps: content.steps || [],
+                            color: content.color || 'from-orange-500 to-orange-600',
+                            icon: content.icon || 'shield',
+                            featured: content.featured || false,
+                        };
+                    });
+                    setRoadmaps(transformedRoadmaps);
+                    return;
                 }
-                
-                // If API fails or returns empty, use fallback
+
+                // If API returns empty, use fallback
                 setRoadmaps(fallbackRoadmaps);
             } catch (err) {
                 console.error('Error fetching roadmaps:', err);
@@ -484,8 +482,8 @@ const RoadmapsPage = () => {
     ];
 
     const filteredRoadmaps = roadmaps.filter(roadmap => {
-        const matchesSearch = roadmap.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            roadmap.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = roadmap.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            roadmap.description.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesCategory = selectedCategory === 'all' ||
             (selectedCategory === 'complete' && roadmap.category === 'Complete Path') ||
             (selectedCategory === 'specialized' && roadmap.category === 'Specialized');

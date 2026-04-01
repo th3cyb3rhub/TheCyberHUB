@@ -2,6 +2,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Search, Key, Globe, Terminal, ArrowRight, ArrowLeftRight, Hash, Wifi, Server, Wrench, Sparkles, Code, Database, Shield, Lock, Radio } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
@@ -14,10 +15,12 @@ interface Tool {
     href: string;
     icon: React.ReactNode;
     popular?: boolean;
+    comingSoon?: boolean;
 }
 
 const ToolsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState('all');
 
     const tools: Tool[] = [
@@ -180,12 +183,103 @@ const ToolsPage = () => {
         //     href: '/tools/exploit-db',
         //     icon: <Database className="w-5 h-5" />
         // },
+        // Coming Soon tools
+        {
+            id: 'port-scanner',
+            name: 'Port Scanner',
+            description: 'Scan ports and discover open services on targets',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Radio className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'dns-lookup',
+            name: 'DNS Lookup',
+            description: 'Query DNS records - A, AAAA, MX, NS, TXT',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Server className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'ssl-checker',
+            name: 'SSL Scanner',
+            description: 'Analyze SSL/TLS certificate security configuration',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Lock className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'whois-lookup',
+            name: 'Whois Lookup',
+            description: 'Get domain registration and ownership info',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Globe className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'ip-lookup',
+            name: 'IP Lookup',
+            description: 'Get geolocation and network info for any IP',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Wifi className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'cve-search',
+            name: 'CVE Search',
+            description: 'Search the CVE vulnerability database',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Shield className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'header-analyzer',
+            name: 'Header Analyzer',
+            description: 'Analyze HTTP security headers for misconfigurations',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Terminal className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'cors-tester',
+            name: 'CORS Tester',
+            description: 'Test CORS misconfigurations on web applications',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Globe className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'subdomain-takeover',
+            name: 'Subdomain Takeover',
+            description: 'Check for subdomain takeover vulnerabilities',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Globe className="w-5 h-5" />,
+            comingSoon: true
+        },
+        {
+            id: 'ssrf-tester',
+            name: 'SSRF Tester',
+            description: 'Test for server-side request forgery vulnerabilities',
+            status: 'coming-soon',
+            href: '#',
+            icon: <Shield className="w-5 h-5" />,
+            comingSoon: true
+        },
     ];
 
     const filteredTools = tools.filter(tool => {
-        const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            tool.description.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = selectedCategory === 'all' || 
+        const matchesSearch = tool.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            tool.description.toLowerCase().includes(debouncedSearch.toLowerCase());
+        const matchesCategory = selectedCategory === 'all' ||
             (selectedCategory === 'popular' && tool.popular);
         return matchesSearch && matchesCategory;
     });
@@ -196,18 +290,18 @@ const ToolsPage = () => {
             <section className="relative pt-32 pb-16 px-4 sm:px-6">
                 {/* Background glow */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
-                
+
                 <div className="relative max-w-5xl mx-auto">
                     {/* Badge */}
                     <div className="flex items-center gap-2 mb-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5">
                             <Wrench className="w-4 h-4 text-orange-500" />
-                            <span className="text-sm text-gray-400">9 Free Tools</span>
+                            <span className="text-sm text-gray-400">{tools.filter(t => t.status === 'available').length} Free Tools</span>
                         </div>
                     </div>
 
                     <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-                        Security <span className="gradient-text">Tools</span>
+                        Security <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 animate-pulse-slow drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">Tools</span>
                     </h1>
                     <p className="text-lg text-gray-400 max-w-2xl mb-8">
                         Free, open-source security tools for penetration testing and security research. No signup required.
@@ -228,21 +322,19 @@ const ToolsPage = () => {
                         <div className="flex gap-2">
                             <button
                                 onClick={() => setSelectedCategory('all')}
-                                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                                    selectedCategory === 'all' 
-                                        ? 'bg-orange-500 text-white' 
+                                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${selectedCategory === 'all'
+                                        ? 'bg-orange-500 text-white'
                                         : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-                                }`}
+                                    }`}
                             >
                                 All
                             </button>
                             <button
                                 onClick={() => setSelectedCategory('popular')}
-                                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
-                                    selectedCategory === 'popular' 
-                                        ? 'bg-orange-500 text-white' 
+                                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${selectedCategory === 'popular'
+                                        ? 'bg-orange-500 text-white'
                                         : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-                                }`}
+                                    }`}
                             >
                                 <Sparkles className="w-3.5 h-3.5" />
                                 Popular
@@ -256,11 +348,35 @@ const ToolsPage = () => {
             <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredTools.map((tool, index) => (
+                        tool.status === 'coming-soon' ? (
+                        <div
+                            key={tool.id}
+                            className={`group relative p-5 rounded-2xl border border-white/10 backdrop-blur-md bg-white/[0.02] cursor-not-allowed animate-fade-in-up animate-stagger-${index % 6 + 1}`}
+                            style={{ opacity: 0, animationFillMode: 'forwards', filter: 'brightness(0.5)' }}
+                        >
+                            <div className="absolute -top-2 -right-2 z-10">
+                                <div className="px-2.5 py-0.5 bg-gray-500/20 border border-gray-500/30 rounded-full">
+                                    <span className="text-xs text-gray-400 font-medium">Coming Soon</span>
+                                </div>
+                            </div>
+                            <div className="flex items-start justify-between mb-4">
+                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-gray-500">
+                                    {tool.icon}
+                                </div>
+                            </div>
+                            <h3 className="text-gray-400 font-semibold mb-2">
+                                {tool.name}
+                            </h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                {tool.description}
+                            </p>
+                        </div>
+                        ) : (
                         <Link
                             key={tool.id}
                             href={tool.href}
-                            className="group relative p-5 rounded-2xl border border-white/10 hover:border-orange-500/40 bg-white/[0.02] hover:bg-gradient-to-b hover:from-orange-500/5 hover:to-transparent transition-all duration-300 card-hover"
-                            style={{ animationDelay: `${index * 50}ms` }}
+                            className={`group relative p-5 rounded-2xl border border-white/10 backdrop-blur-md hover:border-orange-500/40 bg-white/[0.02] hover:bg-gradient-to-b hover:from-orange-500/10 hover:to-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/20 card-hover animate-fade-in-up animate-stagger-${index % 6 + 1}`}
+                            style={{ opacity: 0, animationFillMode: 'forwards' }}
                         >
                             {tool.popular && (
                                 <div className="absolute -top-2 -right-2">
@@ -282,6 +398,7 @@ const ToolsPage = () => {
                                 {tool.description}
                             </p>
                         </Link>
+                        )
                     ))}
                 </div>
 

@@ -15,7 +15,7 @@ import {
     CheckCircle
 } from 'lucide-react';
 import Link from 'next/link';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 const categories = [
     { id: 'ctf', name: 'CTF' },
@@ -111,24 +111,14 @@ export default function NewEventPage() {
                 maxParticipants: formData.maxParticipants ? parseInt(formData.maxParticipants) : undefined,
             };
 
-            const response = await fetch(`${API_URL}/api/events`, {
+            await fetchApi('/api/events', {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify(eventData),
             });
-
-            if (response.ok) {
-                setSuccess(true);
-                setTimeout(() => {
-                    router.push('/admin/events');
-                }, 1500);
-            } else {
-                const data = await response.json();
-                setError(data.error || 'Failed to create event');
-            }
+            setSuccess(true);
+            setTimeout(() => {
+                router.push('/admin/events');
+            }, 1500);
         } catch {
             setError('Failed to create event');
         } finally {
@@ -138,7 +128,7 @@ export default function NewEventPage() {
 
     if (authLoading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--color-background)] flex items-center justify-center">
                 <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
             </div>
         );
@@ -149,7 +139,7 @@ export default function NewEventPage() {
     }
 
     return (
-        <div className="min-h-screen bg-black pt-24 pb-12 px-4">
+        <div className="min-h-screen bg-[var(--color-background)] pt-24 pb-12 px-4">
             <div className="max-w-3xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
@@ -182,7 +172,7 @@ export default function NewEventPage() {
                     {/* Basic Info */}
                     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
                         <h2 className="text-lg font-semibold text-white mb-6">Basic Information</h2>
-                        
+
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm text-gray-400 mb-2">Title *</label>
@@ -271,7 +261,7 @@ export default function NewEventPage() {
                             <Calendar className="w-5 h-5 text-orange-500" />
                             Date & Time
                         </h2>
-                        
+
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm text-gray-400 mb-2">Start Date & Time *</label>
@@ -328,7 +318,7 @@ export default function NewEventPage() {
                             <MapPin className="w-5 h-5 text-orange-500" />
                             Location
                         </h2>
-                        
+
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm text-gray-400 mb-2">Location Type *</label>
@@ -338,11 +328,10 @@ export default function NewEventPage() {
                                             key={type.id}
                                             type="button"
                                             onClick={() => setFormData(prev => ({ ...prev, locationType: type.id }))}
-                                            className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                                                formData.locationType === type.id
+                                            className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${formData.locationType === type.id
                                                     ? 'bg-orange-500 text-white'
                                                     : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-                                            }`}
+                                                }`}
                                         >
                                             {type.name}
                                         </button>
@@ -384,7 +373,7 @@ export default function NewEventPage() {
                             <LinkIcon className="w-5 h-5 text-orange-500" />
                             Links
                         </h2>
-                        
+
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm text-gray-400 mb-2">Event Link</label>
@@ -418,7 +407,7 @@ export default function NewEventPage() {
                             <ImageIcon className="w-5 h-5 text-orange-500" />
                             Images
                         </h2>
-                        
+
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm text-gray-400 mb-2">Cover Image URL</label>
@@ -449,7 +438,7 @@ export default function NewEventPage() {
                     {/* Settings */}
                     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
                         <h2 className="text-lg font-semibold text-white mb-6">Settings</h2>
-                        
+
                         <label className="flex items-center gap-3 cursor-pointer">
                             <input
                                 type="checkbox"

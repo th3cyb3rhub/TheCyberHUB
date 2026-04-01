@@ -30,8 +30,8 @@ export default function RequestsPage() {
             setLoading(true);
             try {
                 const [myData, incomingData] = await Promise.all([
-                    requestApi.getMyRequests(token),
-                    requestApi.getIncoming(token).catch(() => []),
+                    requestApi.getMyRequests(),
+                    requestApi.getIncoming().catch(() => []),
                 ]);
                 setMyRequests(myData);
                 setIncomingRequests(incomingData);
@@ -48,7 +48,7 @@ export default function RequestsPage() {
     const handleCancel = async (requestId: string) => {
         if (!token) return;
         try {
-            await requestApi.cancel(requestId, token);
+            await requestApi.cancel(requestId);
             setMyRequests(prev => prev.filter(r => r._id !== requestId));
         } catch (err) {
             console.error('Failed to cancel request:', err);
@@ -58,7 +58,7 @@ export default function RequestsPage() {
     const handleAccept = async (requestId: string) => {
         if (!token) return;
         try {
-            await requestApi.accept(requestId, token);
+            await requestApi.accept(requestId);
             setIncomingRequests(prev => prev.filter(r => r._id !== requestId));
         } catch (err) {
             console.error('Failed to accept request:', err);
@@ -68,7 +68,7 @@ export default function RequestsPage() {
     const handleDecline = async (requestId: string) => {
         if (!token) return;
         try {
-            await requestApi.decline(requestId, token);
+            await requestApi.decline(requestId);
             setIncomingRequests(prev => prev.filter(r => r._id !== requestId));
         } catch (err) {
             console.error('Failed to decline request:', err);

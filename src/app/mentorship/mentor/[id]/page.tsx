@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock, Users, Award, MessageSquare, CheckCircle, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -24,7 +25,6 @@ export default function MentorProfilePage({ params }: PageProps) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [showRequestForm, setShowRequestForm] = useState(false);
-    const [requestSubmitting, setRequestSubmitting] = useState(false);
 
     useEffect(() => {
         const fetchMentor = async () => {
@@ -48,7 +48,7 @@ export default function MentorProfilePage({ params }: PageProps) {
         }
         setRequestSubmitting(true);
         try {
-            await requestApi.create({ ...data, mentorId: id }, token);
+            await requestApi.create({ ...data, mentorId: id });
             setShowRequestForm(false);
             router.push('/mentorship/requests');
         } catch (err) {
@@ -114,10 +114,13 @@ export default function MentorProfilePage({ params }: PageProps) {
                             {/* Avatar */}
                             <div className="flex-shrink-0">
                                 {mentor.user.avatar ? (
-                                    <img
+                                    <Image
                                         src={mentor.user.avatar}
                                         alt={mentor.user.name}
+                                        width={96}
+                                        height={96}
                                         className="w-24 h-24 rounded-2xl object-cover"
+                                        unoptimized
                                     />
                                 ) : (
                                     <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
@@ -301,7 +304,7 @@ export default function MentorProfilePage({ params }: PageProps) {
             {/* Request Form Modal */}
             {showRequestForm && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-                    <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 rounded-2xl border border-white/10 bg-black">
+                    <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 rounded-2xl border border-white/10 bg-black" role="dialog" aria-modal="true" aria-label="Request mentorship">
                         <RequestForm
                             mentorId={id}
                             onSubmit={handleRequestSubmit}

@@ -5,7 +5,7 @@ import { Heart, Bookmark, Share2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { useRouter } from 'next/navigation';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 interface BlogActionsProps {
     blogId: string;
@@ -20,7 +20,7 @@ const BlogActions: React.FC<BlogActionsProps> = ({
     initialIsLiked,
     initialIsBookmarked
 }) => {
-    const { user, token, updateBookmarks } = useAuth();
+    const { user, updateBookmarks } = useAuth();
     const { addToast } = useToast();
     const router = useRouter();
 
@@ -50,22 +50,12 @@ const BlogActions: React.FC<BlogActionsProps> = ({
         setLikeCount(prev => wasLiked ? prev - 1 : prev + 1);
 
         try {
-            const response = await fetch(`${API_URL}/api/blogs/${blogId}/like`, {
+            const data = await fetchApi(`/api/blogs/${blogId}/like`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to update like');
-            }
-
-            const data = await response.json();
             setIsLiked(data.data.isLiked);
             setLikeCount(data.data.likeCount);
-        } catch (error) {
+        } catch (_error) {
             // Revert on error
             setIsLiked(wasLiked);
             setLikeCount(prev => wasLiked ? prev + 1 : prev - 1);
@@ -114,7 +104,7 @@ const BlogActions: React.FC<BlogActionsProps> = ({
                     ? 'This post was removed from your bookmarks.'
                     : 'You can find this post in your saved items.',
             });
-        } catch (error) {
+        } catch (_error) {
             // Revert on error
             setIsBookmarked(wasBookmarked);
             addToast({
@@ -171,6 +161,7 @@ const BlogActions: React.FC<BlogActionsProps> = ({
                         ? 'bg-red-500/10 border-red-500/50 text-red-400'
                         : 'text-gray-400 hover:text-white border-white/10 hover:border-white/20'
                     }`}
+                aria-label={isLiked ? 'Unlike' : 'Like'}
             >
                 <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
                 {likeCount > 0 && <span>{likeCount}</span>}

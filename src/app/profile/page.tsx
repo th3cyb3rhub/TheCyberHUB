@@ -2,9 +2,13 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import dynamic from 'next/dynamic';
+
+const ProfileChart = dynamic(() => import('@/components/charts/ProfileChart'), { ssr: false });
 import {
     User,
     Mail,
@@ -28,9 +32,7 @@ import {
     BarChart3,
     Award
 } from 'lucide-react';
-import { API_URL } from '@/lib/api';
-import { AchievementGrid, type Achievement } from '@/components/ui/AchievementBadge';
-
+import { API_URL, fetchApi, tokenStore } from '@/lib/api';
 const ProfilePage = () => {
     const router = useRouter();
     const { user, loading, logout, updateProfile, updatePassword, requestVerification } = useAuth();
@@ -76,7 +78,7 @@ const ProfilePage = () => {
 
             const response = await fetch(`${API_URL}/api/upload/avatar`, {
                 method: 'POST',
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                headers: { Authorization: `Bearer ${tokenStore.get()}` },
                 body: formData,
             });
 
@@ -119,18 +121,23 @@ const ProfilePage = () => {
     const [verificationError, setVerificationError] = useState<string | null>(null);
     const { addToast } = useToast();
 
+    // 2FA Management
+    const [is2FAEnabled, setIs2FAEnabled] = useState(user?.twoFactorAuth?.enabled || false);
+    const [twoFactorLoading, setTwoFactorLoading] = useState(false);
+    const [qrCodeData, setQrCodeData] = useState<{ secret: string, qr: string } | null>(null);
+    const [setupCode, setSetupCode] = useState('');
+    const [disableCode, setDisableCode] = useState('');
+    const [disablePassword, setDisablePassword] = useState('');
+    const [setupStep, setSetupStep] = useState<'initial' | 'generate' | 'verify'>('initial');
+    const [disableStep, setDisableStep] = useState<'initial' | 'verify'>('initial');
+
     // Fetch user stats
     useEffect(() => {
         const fetchStats = async () => {
             if (!user) return;
             try {
-                const response = await fetch(`${API_URL}/api/users/${user.username}/stats`, {
-                    credentials: 'include'
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setStats(data.data);
-                }
+                const data = await fetchApi(`/api/users/${user.username}/stats`, { requireAuth: false, credentials: 'include' });
+                setStats(data.data);
             } catch (error) {
                 console.error('Failed to fetch stats:', error);
             } finally {
@@ -139,6 +146,29 @@ const ProfilePage = () => {
         };
         fetchStats();
     }, [user]);
+
+    // Generate mock performance curve based on actual points
+    const getPerformanceData = (totalPoints: number) => {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const currentMonth = new Date().getMonth();
+        const data = [];
+
+        for (let i = 5; i >= 0; i--) {
+            let monthIndex = currentMonth - i;
+            if (monthIndex < 0) monthIndex += 12;
+            data.push({ name: months[monthIndex], points: 0 });
+        }
+
+        if (totalPoints > 0) {
+            data[0].points = Math.max(0, Math.floor(totalPoints * 0.2));
+            data[1].points = Math.floor(totalPoints * 0.35);
+            data[2].points = Math.floor(totalPoints * 0.5);
+            data[3].points = Math.floor(totalPoints * 0.7);
+            data[4].points = Math.floor(totalPoints * 0.85);
+            data[5].points = totalPoints;
+        }
+        return data;
+    };
 
     // Initialize form when user loads
     React.useEffect(() => {
@@ -223,6 +253,73 @@ const ProfilePage = () => {
         }
     };
 
+    const handleGenerate2FA = async () => {
+        setTwoFactorLoading(true);
+        try {
+            const data = await fetchApi('/api/auth/2fa/generate', {
+                method: 'GET',
+            });
+            if (data.success) {
+                setQrCodeData({ secret: data.secret, qr: data.qrCodeUrl });
+                setSetupStep('verify');
+            } else {
+                throw new Error(data.message || 'Failed to generate 2FA');
+            }
+        } catch (err) {
+            addToast({ variant: 'error', title: 'Error', message: err instanceof Error ? err.message : 'Failed to generate 2FA' });
+        } finally {
+            setTwoFactorLoading(false);
+        }
+    };
+
+    const handleEnable2FA = async () => {
+        if (setupCode.length !== 6) return;
+        setTwoFactorLoading(true);
+        try {
+            const data = await fetchApi('/api/auth/2fa/enable', {
+                method: 'POST',
+                body: JSON.stringify({ token: setupCode }),
+            });
+            if (data.success) {
+                setIs2FAEnabled(true);
+                setSetupStep('initial');
+                setQrCodeData(null);
+                setSetupCode('');
+                addToast({ variant: 'success', title: '2FA Enabled', message: 'Two-factor authentication is now enabled.' });
+            } else {
+                throw new Error(data.error?.message || data.message || 'Invalid code');
+            }
+        } catch (err) {
+            addToast({ variant: 'error', title: 'Error', message: err instanceof Error ? err.message : 'Invalid code' });
+        } finally {
+            setTwoFactorLoading(false);
+        }
+    };
+
+    const handleDisable2FA = async () => {
+        if (disableCode.length !== 6) return;
+        setTwoFactorLoading(true);
+        try {
+            const data = await fetchApi('/api/auth/2fa/disable', {
+                method: 'POST',
+                body: JSON.stringify({ token: disableCode, password: disablePassword }),
+            });
+            if (data.success) {
+                setIs2FAEnabled(false);
+                setDisableStep('initial');
+                setDisableCode('');
+                setDisablePassword('');
+                addToast({ variant: 'success', title: '2FA Disabled', message: 'Two-factor authentication has been disabled.' });
+            } else {
+                throw new Error(data.error?.message || data.message || 'Failed to disable 2FA');
+            }
+        } catch (err) {
+            addToast({ variant: 'error', title: 'Error', message: err instanceof Error ? err.message : 'Failed to disable 2FA' });
+        } finally {
+            setTwoFactorLoading(false);
+        }
+    };
+
     const handleLogout = () => {
         logout();
         addToast({
@@ -255,10 +352,13 @@ const ProfilePage = () => {
                         <div className="flex items-center gap-5">
                             <div className="relative group">
                                 {user.avatar || avatarUrl ? (
-                                    <img
+                                    <Image
                                         src={avatarUrl || user.avatar || ''}
                                         alt={user.name}
+                                        width={80}
+                                        height={80}
                                         className="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-orange-500/20"
+                                        unoptimized
                                     />
                                 ) : (
                                     <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-orange-500/20">
@@ -397,6 +497,24 @@ const ProfilePage = () => {
                                     <p className="text-2xl font-bold text-white">
                                         {statsLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (stats?.eventsAttended || 0)}
                                     </p>
+                                </div>
+                            </div>
+
+                            {/* Points Growth Chart */}
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <BarChart3 className="w-5 h-5 text-orange-400" />
+                                    <h3 className="text-lg font-semibold text-white">Points Growth</h3>
+                                </div>
+                                <div className="h-[300px] w-full">
+                                    {statsLoading ? (
+                                        <div className="w-full h-full flex flex-col items-center justify-center">
+                                            <Loader2 className="w-8 h-8 animate-spin text-orange-500 mb-4" />
+                                            <p className="text-gray-500 text-sm">Loading activity data...</p>
+                                        </div>
+                                    ) : (
+                                        <ProfileChart data={getPerformanceData(stats?.ctfPoints || 0)} />
+                                    )}
                                 </div>
                             </div>
 
@@ -656,6 +774,152 @@ const ProfilePage = () => {
                                 </button>
                             </form>
 
+                            {/* Two-Factor Authentication */}
+                            <div className="mt-8 pt-8 border-t border-white/10">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h3 className="text-white font-medium mb-1">Two-Factor Authentication</h3>
+                                        <p className="text-sm text-gray-400">Add an extra layer of security to your account.</p>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <span className={`text-xs px-2 py-1 rounded border ${is2FAEnabled ? 'border-green-500/40 text-green-400 bg-green-500/10' : 'border-gray-500/40 text-gray-400 bg-gray-500/10'}`}>
+                                            {is2FAEnabled ? 'Enabled' : 'Disabled'}
+                                        </span>
+                                        {!is2FAEnabled ? (
+                                            setupStep === 'initial' && (
+                                                <button
+                                                    onClick={handleGenerate2FA}
+                                                    disabled={twoFactorLoading}
+                                                    className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
+                                                >
+                                                    Enable 2FA
+                                                </button>
+                                            )
+                                        ) : (
+                                            disableStep === 'initial' && (
+                                                <button
+                                                    onClick={() => setDisableStep('verify')}
+                                                    className="px-4 py-2 border border-white/10 text-red-400 hover:bg-white/5 text-sm font-medium rounded-lg transition-colors"
+                                                >
+                                                    Disable 2FA
+                                                </button>
+                                            )
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* 2FA Setup Flow */}
+                                {!is2FAEnabled && setupStep === 'verify' && qrCodeData && (
+                                    <div className="bg-white/5 border border-white/10 rounded-xl p-6 mt-4">
+                                        <h4 className="text-white font-medium mb-4">Set up Authenticator App</h4>
+                                        <div className="flex flex-col sm:flex-row gap-6">
+                                            <div className="bg-white p-2 rounded-xl w-32 h-32 flex-shrink-0">
+                                                <Image src={qrCodeData.qr} alt="2FA QR Code" width={128} height={128} className="w-full h-full" unoptimized />
+                                            </div>
+                                            <div className="flex-1 space-y-4">
+                                                <div>
+                                                    <p className="text-sm text-gray-400 mb-2">1. Scan this QR code with your authenticator app (like Google Authenticator or Authy).</p>
+                                                    <p className="text-sm text-gray-500">Alternatively, manually enter this code: <span className="text-orange-400 font-mono tracking-wider ml-1">{qrCodeData.secret}</span></p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-400 mb-2">2. Enter the 6-digit code generated by your app below.</p>
+                                                    <div className="flex gap-3">
+                                                        <input
+                                                            type="text"
+                                                            value={setupCode}
+                                                            onChange={(e) => setSetupCode(e.target.value.replace(/\D/g, ''))}
+                                                            placeholder="123456"
+                                                            maxLength={6}
+                                                            className="w-32 px-4 py-2 bg-black border border-white/10 rounded-lg text-white font-mono tracking-[0.2em] text-center focus:border-orange-500/50 focus:outline-none"
+                                                        />
+                                                        <button
+                                                            onClick={handleEnable2FA}
+                                                            disabled={setupCode.length !== 6 || twoFactorLoading}
+                                                            className="px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white text-sm font-medium rounded-lg transition-colors"
+                                                        >
+                                                            {twoFactorLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify'}
+                                                        </button>
+                                                        <button
+                                                            onClick={() => {
+                                                                setSetupStep('initial');
+                                                                setQrCodeData(null);
+                                                                setSetupCode('');
+                                                            }}
+                                                            className="px-4 py-2 border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 text-sm font-medium rounded-lg transition-colors"
+                                                        >
+                                                            Cancel
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* 2FA Disable Flow */}
+                                {is2FAEnabled && disableStep === 'verify' && (
+                                    <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-6 mt-4">
+                                        <h4 className="text-red-400 font-medium mb-4 flex items-center gap-2">
+                                            <AlertCircle className="w-4 h-4" />
+                                            Disable Two-Factor Authentication
+                                        </h4>
+                                        <div className="space-y-4">
+                                            <p className="text-sm text-gray-400">
+                                                Are you sure you want to disable 2FA? This will make your account less secure.
+                                                To confirm, please enter a valid code from your authenticator app{user.provider === 'local' ? ' and your current password' : ''}.
+                                            </p>
+
+                                            <div className="grid gap-4 sm:grid-cols-2">
+                                                <div>
+                                                    <label className="block text-xs text-gray-500 mb-1">Authenticator Code</label>
+                                                    <input
+                                                        type="text"
+                                                        value={disableCode}
+                                                        onChange={(e) => setDisableCode(e.target.value.replace(/\D/g, ''))}
+                                                        placeholder="123456"
+                                                        maxLength={6}
+                                                        className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg text-white font-mono tracking-[0.2em] focus:border-red-500/50 focus:outline-none"
+                                                    />
+                                                </div>
+                                                {user.provider === 'local' && (
+                                                    <div>
+                                                        <label className="block text-xs text-gray-500 mb-1">Password</label>
+                                                        <input
+                                                            type="password"
+                                                            value={disablePassword}
+                                                            onChange={(e) => setDisablePassword(e.target.value)}
+                                                            placeholder="••••••••"
+                                                            className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg text-white focus:border-red-500/50 focus:outline-none"
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <div className="flex gap-3 pt-2">
+                                                <button
+                                                    onClick={handleDisable2FA}
+                                                    disabled={disableCode.length !== 6 || (user.provider === 'local' && disablePassword.length === 0) || twoFactorLoading}
+                                                    className="px-4 py-2 bg-red-500 hover:bg-red-600 disabled:bg-red-500/50 text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2"
+                                                >
+                                                    {twoFactorLoading && <Loader2 className="w-4 h-4 animate-spin" />}
+                                                    Confirm Disable
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setDisableStep('initial');
+                                                        setDisableCode('');
+                                                        setDisablePassword('');
+                                                    }}
+                                                    className="px-4 py-2 border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 text-sm font-medium rounded-lg transition-colors"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
                             {/* Active Sessions */}
                             <div className="mt-8 pt-8 border-t border-white/10">
                                 <div className="flex items-center justify-between">
@@ -702,23 +966,17 @@ const ProfilePage = () => {
                                             setPrivacyLoading(true);
                                             try {
                                                 const newValue = !isProfilePublic;
-                                                const response = await fetch(`${API_URL}/api/users/profile`, {
+                                                await fetchApi('/api/users/profile', {
                                                     method: 'PUT',
-                                                    headers: { 
-                                                        'Content-Type': 'application/json',
-                                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                                                    },
-                                                    body: JSON.stringify({ isPublic: newValue })
+                                                    body: JSON.stringify({ isPublic: newValue }),
                                                 });
-                                                if (response.ok) {
-                                                    setIsProfilePublic(newValue);
-                                                    addToast({
-                                                        variant: 'success',
-                                                        title: 'Privacy updated',
-                                                        message: `Your profile is now ${newValue ? 'public' : 'private'}.`,
-                                                    });
-                                                }
-                                            } catch (error) {
+                                                setIsProfilePublic(newValue);
+                                                addToast({
+                                                    variant: 'success',
+                                                    title: 'Privacy updated',
+                                                    message: `Your profile is now ${newValue ? 'public' : 'private'}.`,
+                                                });
+                                            } catch (_error) {
                                                 addToast({
                                                     variant: 'error',
                                                     title: 'Update failed',

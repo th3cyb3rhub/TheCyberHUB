@@ -52,7 +52,7 @@ export function useMessages(
         setError(null);
 
         try {
-            const response = await messageApi.getMessages(mentorshipId, pageNum, 50, token);
+            const response = await messageApi.getMessages(mentorshipId, pageNum, 50);
 
             if (append) {
                 setMessages((prev) => [...response.data, ...prev]);
@@ -74,7 +74,7 @@ export function useMessages(
         if (!token || !mentorshipId) return;
 
         try {
-            const count = await messageApi.getUnreadCount(mentorshipId, token);
+            const count = await messageApi.getUnreadCount(mentorshipId);
             setUnreadCount(count);
         } catch {
             // Silently fail for unread count
@@ -115,7 +115,7 @@ export function useMessages(
     ): Promise<Message> => {
         if (!token || !mentorshipId) throw new Error('Not authenticated');
 
-        const message = await messageApi.send(mentorshipId, content, contentType, codeLanguage, token);
+        const message = await messageApi.send(mentorshipId, content, contentType, codeLanguage);
         setMessages((prev) => [...prev, message]);
         return message;
     }, [token, mentorshipId]);
@@ -129,7 +129,7 @@ export function useMessages(
             throw new Error('File size exceeds 10MB limit');
         }
 
-        const message = await messageApi.sendFile(mentorshipId, file, token);
+        const message = await messageApi.sendFile(mentorshipId, file);
         setMessages((prev) => [...prev, message]);
         return message;
     }, [token, mentorshipId]);
@@ -137,7 +137,7 @@ export function useMessages(
     const markAsRead = useCallback(async () => {
         if (!token || !mentorshipId) return;
 
-        await messageApi.markAsRead(mentorshipId, token);
+        await messageApi.markAsRead(mentorshipId);
         setUnreadCount(0);
         setMessages((prev) =>
             prev.map((m) => (m.isRead ? m : { ...m, isRead: true, readAt: new Date().toISOString() }))

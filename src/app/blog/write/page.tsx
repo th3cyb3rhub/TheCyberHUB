@@ -3,8 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
+import DOMPurify from 'dompurify';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { renderMarkdownToHtml } from '@/lib/renderMarkdown';
 import {
     ArrowLeft,
     Save,
@@ -26,11 +29,11 @@ import {
     CheckCircle,
     AlertCircle
 } from 'lucide-react';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 const BlogWritePage = () => {
     const router = useRouter();
-    const { user, token, loading: authLoading } = useAuth();
+    const { user, loading: authLoading } = useAuth();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [title, setTitle] = useState('');
@@ -42,7 +45,56 @@ const BlogWritePage = () => {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
+    const [draftSaved, setDraftSaved] = useState(false);
+    const [showDraftRestore, setShowDraftRestore] = useState(false);
     const { addToast } = useToast();
+
+    const DRAFT_KEY = 'blog-draft';
+
+    // Load draft on mount
+    useEffect(() => {
+        const saved = localStorage.getItem(DRAFT_KEY);
+        if (saved) {
+            try {
+                const draft = JSON.parse(saved);
+                if (draft.title || draft.content) {
+                    setShowDraftRestore(true);
+                }
+            } catch { /* ignore parse errors */ }
+        }
+    }, []);
+
+    const restoreDraft = () => {
+        const saved = localStorage.getItem(DRAFT_KEY);
+        if (saved) {
+            try {
+                const draft = JSON.parse(saved);
+                if (draft.title) setTitle(draft.title);
+                if (draft.content) setContent(draft.content);
+                if (draft.tags) setTags(draft.tags);
+                if (draft.coverImage) setCoverImage(draft.coverImage);
+                addToast({ variant: 'success', title: 'Draft restored', message: 'Your previous draft has been restored.' });
+            } catch { /* ignore */ }
+        }
+        setShowDraftRestore(false);
+    };
+
+    const dismissDraft = () => {
+        localStorage.removeItem(DRAFT_KEY);
+        setShowDraftRestore(false);
+    };
+
+    // Auto-save every 30 seconds
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (title || content) {
+                localStorage.setItem(DRAFT_KEY, JSON.stringify({ title, content, tags, coverImage, savedAt: Date.now() }));
+                setDraftSaved(true);
+                setTimeout(() => setDraftSaved(false), 2000);
+            }
+        }, 30000);
+        return () => clearInterval(timer);
+    }, [title, content, tags, coverImage]);
 
     // Redirect if not logged in
     useEffect(() => {
@@ -59,14 +111,14 @@ const BlogWritePage = () => {
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const selectedText = content.substring(start, end) || placeholder;
-        
-        const newContent = 
-            content.substring(0, start) + 
-            before + selectedText + after + 
+
+        const newContent =
+            content.substring(0, start) +
+            before + selectedText + after +
             content.substring(end);
-        
+
         setContent(newContent);
-        
+
         // Set cursor position after insertion
         setTimeout(() => {
             textarea.focus();
@@ -102,7 +154,7 @@ const BlogWritePage = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!title.trim()) {
             setError('Please enter a title');
             return;
@@ -116,26 +168,17 @@ const BlogWritePage = () => {
         setError(null);
 
         try {
-            const response = await fetch(`${API_URL}/api/blogs`, {
+            const data = await fetchApi('/api/blogs', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
                 body: JSON.stringify({
                     title: title.trim(),
                     content: content.trim(),
                     tags,
                     coverImage: coverImage.trim() || undefined
-                })
+                }),
             });
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to publish');
-            }
-
+            localStorage.removeItem(DRAFT_KEY);
             setSuccess(true);
             addToast({
                 variant: 'success',
@@ -158,33 +201,7 @@ const BlogWritePage = () => {
     };
 
     // Simple markdown to HTML converter for preview
-    const renderMarkdown = (text: string) => {
-        return text
-            // Headers
-            .replace(/^### (.*$)/gim, '<h3 class="text-lg font-semibold text-white mt-4 mb-2">$1</h3>')
-            .replace(/^## (.*$)/gim, '<h2 class="text-xl font-semibold text-white mt-6 mb-3">$1</h2>')
-            .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold text-white mt-6 mb-4">$1</h1>')
-            // Bold & Italic
-            .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            // Code blocks
-            .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-black/50 border border-white/10 rounded-lg p-4 my-4 overflow-x-auto"><code class="text-orange-400 text-sm">$2</code></pre>')
-            // Inline code
-            .replace(/`(.*?)`/g, '<code class="bg-white/10 px-1.5 py-0.5 rounded text-orange-400 text-sm">$1</code>')
-            // Links
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-orange-400 hover:text-orange-300 underline" target="_blank">$1</a>')
-            // Images
-            .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full my-4" />')
-            // Blockquotes
-            .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-orange-500 pl-4 my-4 text-gray-400 italic">$1</blockquote>')
-            // Lists
-            .replace(/^\d+\. (.*$)/gim, '<li class="ml-6 list-decimal text-gray-300">$1</li>')
-            .replace(/^- (.*$)/gim, '<li class="ml-6 list-disc text-gray-300">$1</li>')
-            // Line breaks
-            .replace(/\n\n/g, '</p><p class="text-gray-300 mb-4">')
-            .replace(/\n/g, '<br />');
-    };
+    const renderMarkdown = renderMarkdownToHtml;
 
     if (authLoading) {
         return (
@@ -202,14 +219,17 @@ const BlogWritePage = () => {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <Link 
-                            href="/blog" 
+                        <Link
+                            href="/blog"
                             className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white mb-2 transition-colors"
                         >
                             <ArrowLeft className="w-4 h-4" />
                             Back to Blog
                         </Link>
-                        <h1 className="text-2xl font-bold text-white">Write Article</h1>
+                        <div className="flex items-center gap-2">
+                            <h1 className="text-2xl font-bold text-white">Write Article</h1>
+                            {draftSaved && <span className="text-xs text-green-400 animate-fade-in">Draft saved</span>}
+                        </div>
                     </div>
                     <div className="flex items-center gap-3">
                         <button
@@ -234,6 +254,24 @@ const BlogWritePage = () => {
                     </div>
                 </div>
 
+                {/* Draft Restore Prompt */}
+                {showDraftRestore && !title && !content && (
+                    <div className="mb-6 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <Save className="w-5 h-5 text-blue-400" />
+                            <p className="text-blue-400 text-sm">You have an unsaved draft. Would you like to restore it?</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <button onClick={restoreDraft} className="px-3 py-1.5 text-sm bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors">
+                                Restore
+                            </button>
+                            <button onClick={dismissDraft} className="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-300 rounded-lg transition-colors">
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+                )}
+
                 {/* Success Message */}
                 {success && (
                     <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center gap-3">
@@ -254,10 +292,13 @@ const BlogWritePage = () => {
                     /* Preview Mode */
                     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
                         {coverImage && (
-                            <img 
-                                src={coverImage} 
-                                alt="Cover" 
+                            <Image
+                                src={coverImage}
+                                alt="Cover"
+                                width={800}
+                                height={450}
                                 className="w-full aspect-video object-cover rounded-xl mb-6"
+                                unoptimized
                             />
                         )}
                         <h1 className="text-3xl font-bold text-white mb-4">
@@ -272,26 +313,63 @@ const BlogWritePage = () => {
                                 ))}
                             </div>
                         )}
-                        <div 
+                        <div
                             className="prose prose-invert max-w-none"
-                            dangerouslySetInnerHTML={{ 
-                                __html: `<p class="text-gray-300 mb-4">${renderMarkdown(content) || '<span class="text-gray-500">No content yet...</span>'}</p>` 
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(`<p class="text-gray-300 mb-4">${renderMarkdown(content) || '<span class="text-gray-500">No content yet...</span>'}</p>`)
                             }}
                         />
                     </div>
                 ) : (
                     /* Edit Mode */
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Cover Image URL */}
+                        {/* Cover Image Upload */}
                         <div>
-                            <label className="block text-sm text-gray-400 mb-2">Cover Image URL (optional)</label>
-                            <input
-                                type="url"
-                                value={coverImage}
-                                onChange={(e) => setCoverImage(e.target.value)}
-                                placeholder="https://example.com/image.jpg"
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors"
-                            />
+                            <label className="block text-sm text-gray-400 mb-2">Cover Image (optional)</label>
+
+                            {coverImage ? (
+                                <div className="relative rounded-xl overflow-hidden border border-white/10 aspect-video mb-3">
+                                    <Image src={coverImage} alt="Cover Preview" width={800} height={450} className="w-full h-full object-cover" unoptimized />
+                                    <button
+                                        type="button"
+                                        onClick={() => setCoverImage('')}
+                                        className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="flex items-center justify-center w-full">
+                                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/10 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 hover:border-orange-500/50 transition-all">
+                                        <div className="flex flex-col items-center justify-center pt-5 pb-6 text-gray-400">
+                                            <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
+                                            <p className="mb-1 text-sm font-semibold">Click to upload cover image</p>
+                                            <p className="text-xs opacity-70">PNG, JPG, or WebP (Max 5MB)</p>
+                                        </div>
+                                        <input
+                                            type="file"
+                                            className="hidden"
+                                            accept="image/*"
+                                            onChange={async (e) => {
+                                                const file = e.target.files?.[0];
+                                                if (!file) return;
+
+                                                try {
+                                                    setSaving(true);
+                                                    const { uploadFile } = await import('@/lib/api');
+                                                    const url = await uploadFile(file, 'blogs');
+                                                    setCoverImage(url);
+                                                    addToast({ variant: 'success', title: 'Image uploaded', message: 'Cover image uploaded successfully.' });
+                                                } catch (err) {
+                                                    addToast({ variant: 'error', title: 'Upload failed', message: err instanceof Error ? err.message : 'Error uploading image' });
+                                                } finally {
+                                                    setSaving(false);
+                                                }
+                                            }}
+                                        />
+                                    </label>
+                                </div>
+                            )}
                         </div>
 
                         {/* Title */}
@@ -312,12 +390,12 @@ const BlogWritePage = () => {
                             <label className="block text-sm text-gray-400 mb-2">Tags (up to 5)</label>
                             <div className="flex flex-wrap gap-2 mb-2">
                                 {tags.map(tag => (
-                                    <span 
-                                        key={tag} 
+                                    <span
+                                        key={tag}
                                         className="flex items-center gap-1 px-3 py-1 bg-orange-500/10 text-orange-400 rounded-full text-sm"
                                     >
                                         {tag}
-                                        <button 
+                                        <button
                                             type="button"
                                             onClick={() => removeTag(tag)}
                                             className="hover:text-orange-300"
@@ -351,7 +429,7 @@ const BlogWritePage = () => {
                         {/* Content Editor */}
                         <div>
                             <label className="block text-sm text-gray-400 mb-2">Content (Markdown supported)</label>
-                            
+
                             {/* Toolbar */}
                             <div className="flex flex-wrap gap-1 p-2 bg-white/5 border border-white/10 border-b-0 rounded-t-xl">
                                 {toolbarButtons.map((btn, i) => (

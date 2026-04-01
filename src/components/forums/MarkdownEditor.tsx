@@ -65,6 +65,7 @@ export default function MarkdownEditor({
                             onClick={action}
                             className="p-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded transition-colors"
                             title={label}
+                            aria-label={label}
                         >
                             <Icon className="w-4 h-4" />
                         </button>

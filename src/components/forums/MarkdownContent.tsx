@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import DOMPurify from 'dompurify';
 import CodeBlock from './CodeBlock';
 
 interface MarkdownContentProps {
@@ -17,7 +18,7 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     return (
         <div
             className={`prose prose-invert prose-sm max-w-none ${className}`}
-            dangerouslySetInnerHTML={{ __html: rendered }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(rendered) }}
         />
     );
 }
@@ -143,7 +144,7 @@ export function CodeBlockRenderer({ content }: { content: string }) {
                 part.type === 'code' ? (
                     <CodeBlock key={i} code={part.content} language={part.language} />
                 ) : (
-                    <div key={i} dangerouslySetInnerHTML={{ __html: part.content }} />
+                    <div key={i} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(part.content) }} />
                 )
             )}
         </>

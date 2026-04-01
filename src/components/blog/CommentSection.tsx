@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { MessageSquare, ThumbsUp, Reply, Trash2, Loader2, Send, User } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-import { API_URL } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
+import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 interface Comment {
     _id: string;
@@ -28,6 +30,8 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
     const [replyTo, setReplyTo] = useState<string | null>(null);
     const [replyContent, setReplyContent] = useState('');
     const [submitting, setSubmitting] = useState(false);
+    const [, setDeletingCommentId] = useState<string | null>(null);
+    const { isOpen: confirmOpen, confirm: showConfirm, onConfirm, onCancel } = useConfirmDialog();
 
     useEffect(() => {
         fetchComments();
@@ -35,8 +39,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
 
     const fetchComments = async () => {
         try {
-            const res = await fetch(`${API_URL}/api/comments/blog/${blogId}`);
-            const data = await res.json();
+            const data = await fetchApi(`/api/comments/blog/${blogId}`, { requireAuth: false });
             if (data.success) setComments(data.data);
         } catch (err) {
             console.error('Failed to fetch comments:', err);
@@ -51,12 +54,10 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
 
         setSubmitting(true);
         try {
-            const res = await fetch(`${API_URL}/api/comments/blog/${blogId}`, {
+            const data = await fetchApi(`/api/comments/blog/${blogId}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ content, parentComment: parentId }),
             });
-            const data = await res.json();
             if (data.success) {
                 if (parentId) {
                     setComments(prev => prev.map(c =>
@@ -79,11 +80,9 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
     const toggleLike = async (commentId: string) => {
         if (!token) return;
         try {
-            const res = await fetch(`${API_URL}/api/comments/${commentId}/like`, {
+            const data = await fetchApi(`/api/comments/${commentId}/like`, {
                 method: 'POST',
-                headers: { Authorization: `Bearer ${token}` },
             });
-            const data = await res.json();
             if (data.success) {
                 const updateLikes = (comments: Comment[]): Comment[] =>
                     comments.map(c => {
@@ -104,15 +103,16 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
     };
 
     const deleteComment = async (commentId: string) => {
-        if (!token || !confirm('Delete this comment?')) return;
+        if (!token) return;
+        setDeletingCommentId(commentId);
+        const confirmed = await showConfirm();
+        setDeletingCommentId(null);
+        if (!confirmed) return;
         try {
-            const res = await fetch(`${API_URL}/api/comments/${commentId}`, {
+            await fetchApi(`/api/comments/${commentId}`, {
                 method: 'DELETE',
-                headers: { Authorization: `Bearer ${token}` },
             });
-            if (res.ok) {
-                setComments(prev => prev.filter(c => c._id !== commentId));
-            }
+            setComments(prev => prev.filter(c => c._id !== commentId));
         } catch (err) {
             console.error('Failed to delete comment:', err);
         }
@@ -136,7 +136,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
             <div className="flex gap-3">
                 <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center shrink-0">
                     {comment.author.avatar ? (
-                        <img src={comment.author.avatar} alt="" className="w-8 h-8 rounded-full" />
+                        <Image src={comment.author.avatar} alt={comment.author.name || comment.author.username} width={32} height={32} className="w-8 h-8 rounded-full" unoptimized />
                     ) : (
                         <User className="w-4 h-4 text-orange-500" />
                     )}
@@ -158,7 +158,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
                             </button>
                         )}
                         {user && (user.id === comment.author._id || user.role === 'admin') && (
-                            <button onClick={() => deleteComment(comment._id)} className="flex items-center gap-1 text-xs text-gray-500 hover:text-red-400">
+                            <button onClick={() => deleteComment(comment._id)} className="flex items-center gap-1 text-xs text-gray-500 hover:text-red-400" aria-label="Delete comment">
                                 <Trash2 className="w-3.5 h-3.5" />
                             </button>
                         )}
@@ -166,7 +166,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
                     {replyTo === comment._id && (
                         <div className="mt-3 flex gap-2">
                             <input value={replyContent} onChange={e => setReplyContent(e.target.value)} placeholder="Write a reply..." className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-orange-500/50" />
-                            <button onClick={() => submitComment(comment._id)} disabled={submitting || !replyContent.trim()} className="px-3 py-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white rounded-lg">
+                            <button onClick={() => submitComment(comment._id)} disabled={submitting || !replyContent.trim()} className="px-3 py-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white rounded-lg" aria-label="Submit reply">
                                 {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                             </button>
                         </div>
@@ -226,6 +226,16 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogId }) => {
                     {comments.map(comment => <CommentItem key={comment._id} comment={comment} />)}
                 </div>
             )}
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                title="Delete comment?"
+                description="Are you sure you want to delete this comment?"
+                confirmText="Delete"
+                variant="danger"
+            />
         </div>
     );
 };

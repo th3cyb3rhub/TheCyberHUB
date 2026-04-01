@@ -1,15 +1,15 @@
 import type { NextConfig } from 'next'
 import type { Configuration } from 'webpack'
+import { withSentryConfig } from '@sentry/nextjs'
 
 const nextConfig: NextConfig = {
-    // Disable ESLint during build (warnings won't block deployment)
+    // Enable ESLint and TypeScript checking during builds
     eslint: {
-        ignoreDuringBuilds: true,
+        ignoreDuringBuilds: false,
     },
-    
-    // Disable TypeScript errors during build
+
     typescript: {
-        ignoreBuildErrors: true,
+        ignoreBuildErrors: false,
     },
 
     // Enable experimental features for better SEO and performance
@@ -26,6 +26,28 @@ const nextConfig: NextConfig = {
         minimumCacheTTL: 31536000, // 1 year cache
         dangerouslyAllowSVG: true,
         contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '*.amazonaws.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'avatars.githubusercontent.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.thecyberhub.org',
+            },
+        ],
     },
 
     // Compiler optimizations
@@ -63,10 +85,18 @@ const nextConfig: NextConfig = {
                         key: 'Strict-Transport-Security',
                         value: 'max-age=31536000; includeSubDomains; preload',
                     },
-                    {
+                    ...(process.env.NODE_ENV === 'production' ? [{
                         key: 'Content-Security-Policy',
-                        value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:* https://crt.sh https://www.google-analytics.com https://www.googletagmanager.com https://9b5gemj3ff.execute-api.us-east-1.amazonaws.com https://va.vercel-scripts.com; frame-ancestors 'none';",
-                    },
+                        value: [
+                            "default-src 'self'",
+                            "script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com https://va.vercel-scripts.com",
+                            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+                            "font-src 'self' https://fonts.gstatic.com",
+                            "img-src 'self' data: https:",
+                            `connect-src 'self' https://*.amazonaws.com https://crt.sh https://www.google-analytics.com https://www.googletagmanager.com https://va.vercel-scripts.com${process.env.NEXT_PUBLIC_AWS_API_GATEWAY ? ' ' + process.env.NEXT_PUBLIC_AWS_API_GATEWAY : ''}`,
+                            "frame-ancestors 'none'",
+                        ].join('; ') + ';',
+                    }] : []),
                 ],
             },
             // Cache static assets
@@ -172,7 +202,11 @@ const nextConfig: NextConfig = {
     },
 }
 
-// Sentry is optional - only wrap if @sentry/nextjs is installed and DSN is configured
-// To enable Sentry: npm install @sentry/nextjs && set NEXT_PUBLIC_SENTRY_DSN env var
+// Sentry is optional - only wrap if DSN is configured
+const finalConfig = process.env.NEXT_PUBLIC_SENTRY_DSN
+    ? withSentryConfig(nextConfig, { silent: true })
+    : nextConfig
 
-export default nextConfig
+export default finalConfig
+
+// cache-bust-trigger-1

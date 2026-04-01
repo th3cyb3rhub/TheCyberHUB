@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { Bookmark, Plus, Folder, FileText, MessageSquare, Calendar, Briefcase, Trash2, Edit2, X, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { fetchApi } from '@/lib/api';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { useToast } from '@/context/ToastContext';
 
 interface BookmarkItem {
     _id: string;
@@ -64,44 +68,37 @@ export default function BookmarksPage() {
     const [newCollectionName, setNewCollectionName] = useState('');
     const [editingCollection, setEditingCollection] = useState<string | null>(null);
     const [editName, setEditName] = useState('');
+    const { isOpen: confirmOpen, confirm: showConfirm, onConfirm, onCancel } = useConfirmDialog();
+    const { addToast } = useToast();
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
     const fetchCollections = useCallback(async () => {
         if (!token) return;
         try {
-            const res = await fetch(`${API_URL}/api/bookmarks/collections`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setCollections(data.collections || []);
-                if (data.collections?.length > 0 && !selectedCollection) {
-                    setSelectedCollection(data.collections[0]._id);
-                }
+            const data = await fetchApi('/api/bookmarks/collections');
+            setCollections(data.collections || []);
+            if (data.collections?.length > 0 && !selectedCollection) {
+                setSelectedCollection(data.collections[0]._id);
             }
         } catch (error) {
             console.error('Error fetching collections:', error);
+            addToast('Failed to load collections', 'error');
         }
-    }, [API_URL, token, selectedCollection]);
+    }, [token, selectedCollection, addToast]);
 
     const fetchBookmarks = useCallback(async (collectionId: string) => {
         if (!token) return;
         setLoading(true);
         try {
-            const res = await fetch(`${API_URL}/api/bookmarks/collections/${collectionId}/bookmarks`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setBookmarks(data.bookmarks || []);
-            }
+            const data = await fetchApi(`/api/bookmarks/collections/${collectionId}/bookmarks`);
+            setBookmarks(data.bookmarks || []);
         } catch (error) {
             console.error('Error fetching bookmarks:', error);
+            addToast('Failed to load bookmarks', 'error');
         } finally {
             setLoading(false);
         }
-    }, [API_URL, token]);
+    }, [token]);
 
     useEffect(() => {
         fetchCollections();
@@ -116,78 +113,67 @@ export default function BookmarksPage() {
     const createCollection = async () => {
         if (!token || !newCollectionName.trim()) return;
         try {
-            const res = await fetch(`${API_URL}/api/bookmarks/collections`, {
+            await fetchApi('/api/bookmarks/collections', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
                 body: JSON.stringify({ name: newCollectionName }),
             });
-            if (res.ok) {
-                setNewCollectionName('');
-                setShowNewCollection(false);
-                fetchCollections();
-            }
+            setNewCollectionName('');
+            setShowNewCollection(false);
+            fetchCollections();
         } catch (error) {
             console.error('Error creating collection:', error);
+            addToast('Failed to create collection', 'error');
         }
     };
 
     const updateCollection = async (collectionId: string) => {
         if (!token || !editName.trim()) return;
         try {
-            const res = await fetch(`${API_URL}/api/bookmarks/collections/${collectionId}`, {
+            await fetchApi(`/api/bookmarks/collections/${collectionId}`, {
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
                 body: JSON.stringify({ name: editName }),
             });
-            if (res.ok) {
-                setEditingCollection(null);
-                setEditName('');
-                fetchCollections();
-            }
+            setEditingCollection(null);
+            setEditName('');
+            fetchCollections();
         } catch (error) {
             console.error('Error updating collection:', error);
+            addToast('Failed to update collection', 'error');
         }
     };
 
     const deleteCollection = async (collectionId: string) => {
         if (!token) return;
-        if (!confirm('Are you sure you want to delete this collection?')) return;
+        const confirmed = await showConfirm();
+        if (!confirmed) return;
         try {
-            const res = await fetch(`${API_URL}/api/bookmarks/collections/${collectionId}`, {
+            await fetchApi(`/api/bookmarks/collections/${collectionId}`, {
                 method: 'DELETE',
-                headers: { Authorization: `Bearer ${token}` },
             });
-            if (res.ok) {
-                fetchCollections();
-                if (selectedCollection === collectionId) {
-                    setSelectedCollection(null);
-                    setBookmarks([]);
-                }
+            fetchCollections();
+            if (selectedCollection === collectionId) {
+                setSelectedCollection(null);
+                setBookmarks([]);
             }
         } catch (error) {
             console.error('Error deleting collection:', error);
+            addToast('Failed to delete collection', 'error');
         }
     };
 
     const removeBookmark = async (contentType: string, contentId: string) => {
         if (!token) return;
         try {
-            const res = await fetch(`${API_URL}/api/bookmarks/${contentType}/${contentId}`, {
+            await fetchApi(`/api/bookmarks/${contentType}/${contentId}`, {
                 method: 'DELETE',
-                headers: { Authorization: `Bearer ${token}` },
             });
-            if (res.ok && selectedCollection) {
+            if (selectedCollection) {
                 fetchBookmarks(selectedCollection);
                 fetchCollections();
             }
         } catch (error) {
             console.error('Error removing bookmark:', error);
+            addToast('Failed to remove bookmark', 'error');
         }
     };
 
@@ -313,13 +299,13 @@ export default function BookmarksPage() {
                                                                 setEditingCollection(collection._id);
                                                                 setEditName(collection.name);
                                                             }}
-                                                            className="p-1 text-gray-400 hover:text-white"
+                                                            className="p-2.5 text-gray-400 hover:text-white"
                                                         >
                                                             <Edit2 className="w-3 h-3" />
                                                         </button>
                                                         <button
                                                             onClick={(e) => { e.stopPropagation(); deleteCollection(collection._id); }}
-                                                            className="p-1 text-gray-400 hover:text-red-400"
+                                                            className="p-2.5 text-gray-400 hover:text-red-400"
                                                         >
                                                             <Trash2 className="w-3 h-3" />
                                                         </button>
@@ -382,20 +368,30 @@ export default function BookmarksPage() {
                                 ))}
                             </div>
                         ) : selectedCollection ? (
-                            <div className="text-center py-16">
-                                <Bookmark className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                                <p className="text-gray-400">No bookmarks in this collection</p>
-                                <p className="text-gray-500 text-sm mt-2">Save content from blogs, forums, events, and more</p>
-                            </div>
+                            <EmptyState
+                                icon={Bookmark}
+                                title="No bookmarks in this collection"
+                                description="Save content from blogs, forums, events, and more."
+                            />
                         ) : (
-                            <div className="text-center py-16">
-                                <Folder className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                                <p className="text-gray-400">Select a collection to view bookmarks</p>
-                            </div>
+                            <EmptyState
+                                icon={Folder}
+                                title="Select a collection to view bookmarks"
+                            />
                         )}
                     </div>
                 </div>
             </div>
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                title="Delete collection?"
+                description="Are you sure you want to delete this collection?"
+                confirmText="Delete"
+                variant="danger"
+            />
         </div>
     );
 }

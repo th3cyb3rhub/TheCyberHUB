@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Search, FileText, MessageSquare, Calendar, User, BookOpen, Briefcase, Clock, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { fetchApi } from '@/lib/api';
 
 interface SearchResult {
     _id: string;
@@ -73,8 +74,6 @@ export default function SearchPage() {
     const [page, setPage] = useState(1);
     const [pages, setPages] = useState(1);
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
     const fetchResults = useCallback(async (searchQuery: string, type: string, pageNum: number) => {
         if (!searchQuery.trim()) {
             setResults([]);
@@ -91,31 +90,25 @@ export default function SearchPage() {
             });
             if (type) params.append('type', type);
 
-            const res = await fetch(`${API_URL}/api/search?${params}`);
-            if (res.ok) {
-                const data: SearchResponse = await res.json();
-                setResults(data.results || []);
-                setTotal(data.total || 0);
-                setPages(data.pages || 1);
-            }
+            const data: SearchResponse = await fetchApi(`/api/search?${params}`, { requireAuth: false });
+            setResults(data.results || []);
+            setTotal(data.total || 0);
+            setPages(data.pages || 1);
         } catch (error) {
             console.error('Search error:', error);
         } finally {
             setLoading(false);
         }
-    }, [API_URL]);
+    }, []);
 
     const fetchPopularSearches = useCallback(async () => {
         try {
-            const res = await fetch(`${API_URL}/api/search/popular`);
-            if (res.ok) {
-                const data = await res.json();
-                setPopularSearches(data.searches || []);
-            }
+            const data = await fetchApi('/api/search/popular', { requireAuth: false });
+            setPopularSearches(data.searches || []);
         } catch (error) {
             console.error('Popular searches error:', error);
         }
-    }, [API_URL]);
+    }, []);
 
     useEffect(() => {
         fetchPopularSearches();
