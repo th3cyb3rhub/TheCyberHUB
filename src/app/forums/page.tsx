@@ -273,7 +273,7 @@ export default function ForumsPage() {
                 setPopularTags(tagsRes.data || []);
             } catch (err) {
                 console.error('Failed to fetch meta:', err);
-                addToast('Failed to load forum data', 'error');
+                addToast({ message: 'Failed to load forum data', variant: 'error' });
             }
         };
         fetchMeta();
@@ -296,7 +296,7 @@ export default function ForumsPage() {
                 setTotalPages(result.pagination?.totalPages || 1);
             } catch (err) {
                 console.error('Failed to fetch discussions:', err);
-                addToast('Failed to load discussions', 'error');
+                addToast({ message: 'Failed to load discussions', variant: 'error' });
             } finally {
                 setLoading(false);
             }

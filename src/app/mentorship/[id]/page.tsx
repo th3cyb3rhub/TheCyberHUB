@@ -183,7 +183,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
         );
     }
 
-    const isMentor = mentorship.mentor._id === user._id;
+    const isMentor = mentorship.mentor._id === user.id;
     const partner = isMentor ? mentorship.mentee : mentorship.mentor;
     const upcomingSessions = sessions.filter(s => s.status === 'scheduled' && new Date(s.scheduledAt) > new Date());
     const pastSessions = sessions.filter(s => s.status === 'completed' || new Date(s.scheduledAt) <= new Date());
@@ -324,7 +324,7 @@ export default function MentorshipDetailPage({ params }: PageProps) {
                         <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden">
                             <div className="h-[500px] flex flex-col">
                                 <div className="flex-1 overflow-hidden">
-                                    <MessageList messages={messages} currentUserId={user._id} />
+                                    <MessageList messages={messages} currentUserId={user.id} />
                                 </div>
                                 <div className="border-t border-white/10 p-4">
                                     <MessageInput

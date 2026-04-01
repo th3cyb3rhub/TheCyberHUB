@@ -26,7 +26,7 @@ interface CompanyProfile {
 
 export default function EmployerCompanyPage() {
     const { user, token } = useAuth();
-    const { showToast } = useToast();
+    const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
@@ -50,7 +50,7 @@ export default function EmployerCompanyPage() {
         const fetchCompanyData = async () => {
             if (!token) return;
             try {
-                const response = await fetchApi('/companies/my/profile', { token });
+                const response = await fetchApi('/companies/my/profile');
                 if (response.success && response.data) {
                     setCompany({
                         ...company,
@@ -64,7 +64,7 @@ export default function EmployerCompanyPage() {
                 // Don't show toast for 404/not found as they might just be a new employer
                 const message = error instanceof Error ? error.message : 'An error occurred';
                 if (message !== 'Company not found') {
-                    showToast('Failed to load company profile', 'error');
+                    addToast({ message: 'Failed to load company profile', variant: 'error' });
                 }
             } finally {
                 setIsLoading(false);
@@ -98,24 +98,24 @@ export default function EmployerCompanyPage() {
 
         // Basic validation
         if (!file.type.startsWith('image/')) {
-            showToast('Please upload an image file', 'error');
+            addToast({ message: 'Please upload an image file', variant: 'error' });
             return;
         }
 
         if (file.size > 2 * 1024 * 1024) {
-            showToast('Image must be less than 2MB', 'error');
+            addToast({ message: 'Image must be less than 2MB', variant: 'error' });
             return;
         }
 
         setIsUploading(true);
         try {
             // Upload to S3 using the new generic endpoint
-            const data = await uploadFile(file, 'company-logos');
-            setCompany(prev => ({ ...prev, logo: data.url }));
-            showToast('Logo uploaded successfully', 'success');
+            const url = await uploadFile(file, 'company-logos');
+            setCompany(prev => ({ ...prev, logo: url }));
+            addToast({ message: 'Logo uploaded successfully', variant: 'success' });
         } catch (error) {
             console.error('Upload error:', error);
-            showToast('Failed to upload logo', 'error');
+            addToast({ message: 'Failed to upload logo', variant: 'error' });
         } finally {
             setIsUploading(false);
             // Reset input
@@ -127,7 +127,7 @@ export default function EmployerCompanyPage() {
         e.preventDefault();
 
         if (!company.name.trim() || !company.description.trim()) {
-            showToast('Company name and description are required', 'error');
+            addToast({ message: 'Company name and description are required', variant: 'error' });
             return;
         }
 
@@ -136,21 +136,20 @@ export default function EmployerCompanyPage() {
             const response = await fetchApi('/companies/my/profile', {
                 method: 'POST',
                 body: JSON.stringify(company),
-                token
             });
 
             if (response.success) {
-                showToast('Company profile saved successfully!', 'success');
+                addToast({ message: 'Company profile saved successfully!', variant: 'success' });
                 setCompany({
                     ...company,
                     ...response.data
                 });
             } else {
-                showToast(response.error?.message || 'Failed to save profile', 'error');
+                addToast({ message: response.error?.message || 'Failed to save profile', variant: 'error' });
             }
         } catch (error: unknown) {
             const message = error instanceof Error ? error.message : 'Failed to save profile';
-            showToast(message, 'error');
+            addToast({ message, variant: 'error' });
         } finally {
             setIsSaving(false);
         }

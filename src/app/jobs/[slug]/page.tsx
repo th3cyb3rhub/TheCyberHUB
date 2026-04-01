@@ -186,7 +186,7 @@ const JobDetailPage = () => {
                     <div className="flex flex-col sm:flex-row gap-6">
                         <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
                             {job.companyRef?.logo || job.companyLogo ? (
-                                <Image src={job.companyRef?.logo || job.companyLogo} alt={job.companyRef?.name || job.company} width={64} height={64} className="w-full h-full object-cover" unoptimized />
+                                <Image src={job.companyRef?.logo || job.companyLogo || ''} alt={job.companyRef?.name || job.company || 'Company'} width={64} height={64} className="w-full h-full object-cover" unoptimized />
                             ) : (
                                 <Building2 className="w-8 h-8 text-gray-500" />
                             )}

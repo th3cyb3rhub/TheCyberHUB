@@ -25,6 +25,7 @@ export default function MentorProfilePage({ params }: PageProps) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [showRequestForm, setShowRequestForm] = useState(false);
+    const [requestSubmitting, setRequestSubmitting] = useState(false);
 
     useEffect(() => {
         const fetchMentor = async () => {
@@ -59,7 +60,7 @@ export default function MentorProfilePage({ params }: PageProps) {
     };
 
     const isAvailable = mentor && !mentor.isPaused && mentor.currentMenteeCount < mentor.maxMentees;
-    const isOwnProfile = user && mentor && user._id === mentor.user._id;
+    const isOwnProfile = user && mentor && user.id === mentor.user._id;
 
     if (loading) {
         return (

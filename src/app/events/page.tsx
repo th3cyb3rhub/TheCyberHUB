@@ -272,7 +272,7 @@ export default function EventsPage() {
                 setLoading(true);
                 const data = await fetchApi('/api/events', { requireAuth: false });
                 // Transform API response to match Event interface
-                const apiEvents = data.data?.map((event: { _id: string; title: string; slug: string; description?: string; shortDescription?: string; image?: string; bannerImage?: string; startDate: string; endDate: string }) => ({
+                const apiEvents = data.data?.map((event: Record<string, string | boolean | string[] | undefined> & { _id: string; title: string; startDate: string }) => ({
                         id: event._id,
                         title: event.title,
                         slug: event.slug,
@@ -300,7 +300,7 @@ export default function EventsPage() {
                 setEvents(apiEvents.length > 0 ? apiEvents : sampleEvents);
             } catch (err) {
                 console.error('Failed to fetch events:', err);
-                addToast('Failed to load events', 'error');
+                addToast({ message: 'Failed to load events', variant: 'error' });
                 // Fallback to sample data on error
                 setEvents(sampleEvents);
             } finally {

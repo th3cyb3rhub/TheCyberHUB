@@ -430,9 +430,9 @@ export default function OvaManagerPage() {
                                                         </span>
                                                     </div>
 
-                                                    {!launchedInstances[task.imageId] ? (
+                                                    {task.imageId && !launchedInstances[task.imageId] ? (
                                                         <button
-                                                            onClick={() => handleLaunchAmi(task.imageId)}
+                                                            onClick={() => task.imageId && handleLaunchAmi(task.imageId)}
                                                             disabled={launchingAmiId === task.imageId}
                                                             className="w-full py-1.5 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/20 rounded-lg transition-colors flex items-center justify-center gap-2 text-xs font-medium"
                                                         >
@@ -455,7 +455,7 @@ export default function OvaManagerPage() {
                                                                 * Access via SSH or Web. If Public IP is &quot;Pending&quot;, the AWS Subnet may not auto-assign public IPs, or it is booting. You can access it via VPN/Bastion Host using the Private IP.
                                                             </div>
                                                             <button
-                                                                onClick={() => handleTerminateInstance(task.imageId, launchedInstances[task.imageId].instanceId)}
+                                                                onClick={() => task.imageId && handleTerminateInstance(task.imageId, launchedInstances[task.imageId]?.instanceId)}
                                                                 className="w-full py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-lg transition-colors flex items-center justify-center gap-2 text-xs font-medium"
                                                             >
                                                                 <Square className="w-3 h-3" /> Terminate Instance

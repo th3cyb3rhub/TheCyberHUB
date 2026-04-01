@@ -7,8 +7,8 @@ import Link from 'next/link';
 export default function RouteError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     useEffect(() => {
         // Log to Sentry if available
-        if (typeof window !== 'undefined' && (window as any).__SENTRY__) {
-            import('@sentry/nextjs').then(Sentry => Sentry.captureException(error));
+        if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+            import('@sentry/nextjs').then(Sentry => Sentry.captureException(error)).catch(() => {});
         }
     }, [error]);
 

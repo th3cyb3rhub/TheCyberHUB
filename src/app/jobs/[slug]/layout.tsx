@@ -1,14 +1,14 @@
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
-    params: { slug: string }
+    params: Promise<{ slug: string }>
 };
 
 export async function generateMetadata(
     { params }: Props,
     _parent: ResolvingMetadata
 ): Promise<Metadata> {
-    const slug = params.slug;
+    const { slug } = await params;
 
     try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';

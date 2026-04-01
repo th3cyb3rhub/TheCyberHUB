@@ -132,7 +132,7 @@ const LearningPathsPage = () => {
         ? paths
         : paths.filter(p => p.category === selectedCategory);
 
-    const categories = ['all', ...new Set(paths.map(p => p.category))];
+    const categories = ['all', ...Array.from(new Set(paths.map(p => p.category)))];
 
     return (
         <div className="min-h-screen bg-black">

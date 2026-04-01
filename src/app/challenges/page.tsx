@@ -148,7 +148,7 @@ const ChallengesPage = () => {
                 setLeaderboard(Array.isArray(leaderboardData) ? leaderboardData.slice(0, 10) : []);
             } catch (error) {
                 console.error('Failed to fetch challenges:', error);
-                addToast('Failed to load challenges', 'error');
+                addToast({ message: 'Failed to load challenges', variant: 'error' });
             } finally {
                 setLoading(false);
             }

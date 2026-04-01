@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { AlertCircle, Info, CheckCircle, AlertTriangle, X } from 'lucide-react';
-import { API_URL, fetchApi } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 
 interface SystemAlert {
     _id: string;

@@ -89,7 +89,7 @@ export default function FeedPage() {
                 setHasMore(data.pagination.hasMore);
                 setCursor(data.pagination.nextCursor);
             }
-        } catch (_err) { addToast('Failed to load feed', 'error'); }
+        } catch (_err) { addToast({ message: 'Failed to load feed', variant: 'error' }); }
         finally { setLoading(false); setLoadingMore(false); }
     }, [cursor, filter, hashtag]);
 
@@ -124,7 +124,7 @@ export default function FeedPage() {
                 setPosts(prev => [data.data, ...prev]);
                 setReshareTarget(null); setReshareComment(''); setReshareImageUrl('');
             }
-        } catch (_err) { addToast('Failed to reshare post', 'error'); }
+        } catch (_err) { addToast({ message: 'Failed to reshare post', variant: 'error' }); }
         finally { setReshareLoading(false); }
     };
 

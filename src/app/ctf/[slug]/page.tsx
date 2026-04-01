@@ -54,6 +54,8 @@ interface Challenge {
     files: ChallengeFile[];
     instanceUrl?: string;
     instanceType?: string;
+    containerImage?: string;
+    containerPort?: number;
     status: string;
     isFeatured: boolean;
     solveCount: number;
@@ -123,7 +125,7 @@ export default function ChallengeDetailPage() {
                     if (user && data.data.hints) {
                         const unlocked = new Set<number>();
                         data.data.hints.forEach((hint: Hint, i: number) => {
-                            if (hint.unlocked?.includes(user._id)) unlocked.add(i);
+                            if (hint.unlocked?.includes(user.id)) unlocked.add(i);
                         });
                         setUnlockedHints(unlocked);
                     }

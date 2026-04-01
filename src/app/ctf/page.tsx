@@ -94,7 +94,7 @@ const CTFPage = () => {
                     }
                 }
             } catch (_error) {
-                addToast('Failed to load challenges', 'error');
+                addToast({ message: 'Failed to load challenges', variant: 'error' });
             } finally {
                 setLoading(false);
                 setFilterLoading(false);

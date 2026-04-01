@@ -7,11 +7,15 @@ import { ArrowLeft, Loader2, CheckCircle, XCircle, Eye, Download, MessageSquare 
 import { fetchApi } from '@/lib/api';
 import { useToast } from '@/context/ToastContext';
 
+interface AppUser { _id: string; name: string; username: string; avatar?: string; }
+interface Application { _id: string; user?: AppUser; status: string; coverLetter?: string; resume?: string; portfolio?: string; resumeUrl?: string; githubUrl?: string; linkedinUrl?: string; portfolioUrl?: string; createdAt: string; updatedAt?: string; [key: string]: unknown; }
+interface Cohort { _id: string; title: string; [key: string]: unknown; }
+
 export default function CohortApplicationsPage() {
     const params = useParams();
     const { addToast } = useToast();
-    const [applications, setApplications] = useState<Record<string, unknown>[]>([]);
-    const [cohort, setCohort] = useState<Record<string, unknown> | null>(null);
+    const [applications, setApplications] = useState<Application[]>([]);
+    const [cohort, setCohort] = useState<Cohort | null>(null);
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState<string | null>(null);
 

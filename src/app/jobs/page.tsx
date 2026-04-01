@@ -140,7 +140,7 @@ const JobsPage = () => {
             setPagination(data.pagination || { page: 1, pages: 1, total: 0 });
         } catch (error) {
             console.error('Failed to fetch jobs:', error);
-            addToast('Failed to load jobs', 'error');
+            addToast({ message: 'Failed to load jobs', variant: 'error' });
             setJobs([]);
         } finally {
             setLoading(false);

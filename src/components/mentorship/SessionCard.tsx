@@ -12,6 +12,7 @@ interface SessionCardProps {
     onCancel?: () => void;
     onReschedule?: () => void;
     onAddNotes?: () => void;
+    onFeedback?: () => void;
     showActions?: boolean;
     isMentor?: boolean;
 }

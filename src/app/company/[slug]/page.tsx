@@ -35,7 +35,8 @@ interface JobData {
     createdAt: string;
 }
 
-export default function CompanyPage({ params }: { params: { slug: string } }) {
+export default function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = React.use(params);
     const [company, setCompany] = useState<CompanyProfile | null>(null);
     const [jobs, setJobs] = useState<JobData[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +45,7 @@ export default function CompanyPage({ params }: { params: { slug: string } }) {
     useEffect(() => {
         const fetchCompany = async () => {
             try {
-                const response = await fetchApi(`/companies/${params.slug}`);
+                const response = await fetchApi(`/companies/${slug}`);
                 if (response.success && response.data) {
                     setCompany(response.data);
                 }
@@ -57,7 +58,7 @@ export default function CompanyPage({ params }: { params: { slug: string } }) {
 
         const fetchJobs = async () => {
             try {
-                const response = await fetchApi(`/companies/${params.slug}/jobs`);
+                const response = await fetchApi(`/companies/${slug}/jobs`);
                 if (response.success && response.data) {
                     setJobs(response.data);
                 }
@@ -70,7 +71,7 @@ export default function CompanyPage({ params }: { params: { slug: string } }) {
 
         fetchCompany();
         fetchJobs();
-    }, [params.slug]);
+    }, [slug]);
 
     if (isLoading) {
         return (

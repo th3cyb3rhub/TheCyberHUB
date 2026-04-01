@@ -10,7 +10,8 @@ import { useToast } from '@/context/ToastContext';
 export default function AdminInternshipsPage() {
     const { user, loading: authLoading } = useAuth();
     const { addToast } = useToast();
-    const [cohorts, setCohorts] = useState<Record<string, unknown>[]>([]);
+    interface Cohort { _id: string; title: string; type: string; status: string; applicationDeadline: string; startDate: string; endDate: string; maxParticipants?: number; applicationsCount?: number; }
+    const [cohorts, setCohorts] = useState<Cohort[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

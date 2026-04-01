@@ -6,16 +6,23 @@ import { ArrowLeft, Loader2, MessageCircle } from 'lucide-react';
 import FeedItem from '@/components/feed/FeedItem';
 import { fetchApi } from '@/lib/api';
 
-export default function ThreadViewerPage({ params }: { params: { id: string } }) {
+export default function ThreadViewerPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = React.use(params);
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     interface ThreadPost {
         _id: string;
         content?: string;
+        type: 'post' | 'event';
         author: { _id: string; name: string; username: string; avatar?: string };
         images?: string[];
         likes?: string[];
+        likeCount?: number;
         commentCount: number;
+        bookmarks?: string[];
+        reshares?: string[];
+        reshareCount?: number;
+        hashtags?: string[];
         createdAt: string;
     }
 
@@ -24,11 +31,11 @@ export default function ThreadViewerPage({ params }: { params: { id: string } })
     useEffect(() => {
         const fetchThread = async () => {
             try {
-                const data = await fetchApi(`/api/feed/posts/${params.id}/thread`, { requireAuth: false });
+                const data = await fetchApi(`/api/feed/posts/${id}/thread`, { requireAuth: false });
                 if (data.success) {
                     setThread({
-                        root: data.root,
-                        descendants: data.descendants || []
+                        root: { ...data.root, type: data.root.type || 'post' },
+                        descendants: (data.descendants || []).map((d: ThreadPost) => ({ ...d, type: d.type || 'post' } as ThreadPost)),
                     });
                 }
             } catch (error) {
@@ -39,7 +46,7 @@ export default function ThreadViewerPage({ params }: { params: { id: string } })
         };
 
         fetchThread();
-    }, [params.id]);
+    }, [id]);
 
     if (loading) {
         return (

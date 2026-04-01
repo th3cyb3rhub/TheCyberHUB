@@ -64,7 +64,7 @@ const BlogPage = () => {
                 setBlogs(result.data || []);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
-                addToast('Failed to load blog posts', 'error');
+                addToast({ message: 'Failed to load blog posts', variant: 'error' });
             } finally {
                 setLoading(false);
             }

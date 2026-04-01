@@ -82,7 +82,7 @@ export default function BookmarksPage() {
             }
         } catch (error) {
             console.error('Error fetching collections:', error);
-            addToast('Failed to load collections', 'error');
+            addToast({ message: 'Failed to load collections', variant: 'error' });
         }
     }, [token, selectedCollection, addToast]);
 
@@ -94,7 +94,7 @@ export default function BookmarksPage() {
             setBookmarks(data.bookmarks || []);
         } catch (error) {
             console.error('Error fetching bookmarks:', error);
-            addToast('Failed to load bookmarks', 'error');
+            addToast({ message: 'Failed to load bookmarks', variant: 'error' });
         } finally {
             setLoading(false);
         }
@@ -122,7 +122,7 @@ export default function BookmarksPage() {
             fetchCollections();
         } catch (error) {
             console.error('Error creating collection:', error);
-            addToast('Failed to create collection', 'error');
+            addToast({ message: 'Failed to create collection', variant: 'error' });
         }
     };
 
@@ -138,7 +138,7 @@ export default function BookmarksPage() {
             fetchCollections();
         } catch (error) {
             console.error('Error updating collection:', error);
-            addToast('Failed to update collection', 'error');
+            addToast({ message: 'Failed to update collection', variant: 'error' });
         }
     };
 
@@ -157,7 +157,7 @@ export default function BookmarksPage() {
             }
         } catch (error) {
             console.error('Error deleting collection:', error);
-            addToast('Failed to delete collection', 'error');
+            addToast({ message: 'Failed to delete collection', variant: 'error' });
         }
     };
 
@@ -173,7 +173,7 @@ export default function BookmarksPage() {
             }
         } catch (error) {
             console.error('Error removing bookmark:', error);
-            addToast('Failed to remove bookmark', 'error');
+            addToast({ message: 'Failed to remove bookmark', variant: 'error' });
         }
     };
 
