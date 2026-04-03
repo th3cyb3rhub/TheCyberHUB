@@ -149,7 +149,7 @@ export const GlobalSearch = () => {
                             href: `/blog/${blog.slug || blog._id}`,
                             category: 'blog',
                             icon: <FileText className="w-4 h-4" />,
-                            keywords: [blog.title, blog.category, 'blog', 'article'].filter(Boolean),
+                            keywords: [blog.title, blog.category, 'blog', 'article'].filter((k): k is string => !!k),
                             dynamic: true,
                         });
                     });
@@ -166,7 +166,7 @@ export const GlobalSearch = () => {
                             href: `/events/${event.slug || event._id}`,
                             category: 'event',
                             icon: <Calendar className="w-4 h-4" />,
-                            keywords: [event.title, event.category, 'event', 'ctf', 'workshop'].filter(Boolean),
+                            keywords: [event.title, event.category, 'event', 'ctf', 'workshop'].filter((k): k is string => !!k),
                             dynamic: true,
                         });
                     });
@@ -183,7 +183,7 @@ export const GlobalSearch = () => {
                             href: `/forums/${forum._id}`,
                             category: 'forum',
                             icon: <FileText className="w-4 h-4" />,
-                            keywords: [forum.title, forum.category, 'forum', 'discussion'].filter(Boolean),
+                            keywords: [forum.title, forum.category, 'forum', 'discussion'].filter((k): k is string => !!k),
                             dynamic: true,
                         });
                     });

@@ -135,7 +135,7 @@ export default function RequestsPage() {
                                             <RequestCard
                                                 key={request._id}
                                                 request={request}
-                                                viewMode="mentor"
+                                                variant="incoming"
                                                 onAccept={() => handleAccept(request._id)}
                                                 onDecline={() => handleDecline(request._id)}
                                             />
@@ -154,7 +154,7 @@ export default function RequestsPage() {
                                     <div className="space-y-4">
                                         {pendingRequests.map(request => (
                                             <div key={request._id} className="relative">
-                                                <RequestCard request={request} viewMode="mentee" />
+                                                <RequestCard request={request} variant="outgoing" />
                                                 <button
                                                     onClick={() => handleCancel(request._id)}
                                                     className="absolute top-4 right-4 p-2 text-gray-400 hover:text-red-400 transition-colors"
@@ -180,7 +180,7 @@ export default function RequestsPage() {
                                             <RequestCard
                                                 key={request._id}
                                                 request={request}
-                                                viewMode="mentee"
+                                                variant="outgoing"
                                             />
                                         ))}
                                     </div>

@@ -219,7 +219,7 @@ export default function FeedComments({
                                                     {/* Actions */}
                                                     <div className="flex items-center gap-4 mt-1.5 ml-1">
                                                         <button
-                                                            onClick={() => handleReplyClick(reply.author.username)}
+                                                            onClick={() => handleReplyClick(reply._id, reply.author.username)}
                                                             className="flex items-center gap-1 text-[11px] text-gray-500 font-medium hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
                                                         >
                                                             <CornerDownRight className="w-3 h-3" />

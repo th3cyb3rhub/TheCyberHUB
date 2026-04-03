@@ -182,7 +182,7 @@ const RoadmapsPage = () => {
                             featured: content.featured || false,
                         };
                     });
-                    setRoadmaps(transformedRoadmaps);
+                    setRoadmaps(transformedRoadmaps as Roadmap[]);
                     return;
                 }
 

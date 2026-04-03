@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Zap, Clock, CheckCircle, XCircle, Loader2, Brain, ArrowRight } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 
 interface ChallengeData {
     _id: string;
@@ -44,6 +45,7 @@ const categoryLabels: Record<string, string> = {
 
 export default function DailyChallenge() {
     const { user } = useAuth();
+    const { addToast } = useToast();
     const [challenge, setChallenge] = useState<ChallengeData | null>(null);
     const [loading, setLoading] = useState(true);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -66,6 +68,7 @@ export default function DailyChallenge() {
             }
         } catch (err) {
             console.error('Failed to fetch daily challenge:', err);
+            addToast({ message: 'Failed to load daily challenge', variant: 'error' });
         } finally {
             setLoading(false);
         }
@@ -80,7 +83,7 @@ export default function DailyChallenge() {
         const updateTimer = () => {
             const now = new Date();
             const tomorrow = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
-            const diff = tomorrow.getTime() - now.getTime();
+            const diff = Math.max(0, tomorrow.getTime() - now.getTime());
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff / (1000 * 60)) % 60);
             const seconds = Math.floor((diff / 1000) % 60);
@@ -102,6 +105,7 @@ export default function DailyChallenge() {
             setResult(data.data);
         } catch (err) {
             console.error('Submit failed:', err);
+            addToast({ message: 'Failed to submit answer', variant: 'error' });
         } finally {
             setSubmitting(false);
         }

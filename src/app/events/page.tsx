@@ -297,11 +297,15 @@ export default function EventsPage() {
                         isFeatured: event.isFeatured || false,
                     })) || [];
 
-                setEvents(apiEvents.length > 0 ? apiEvents : sampleEvents);
+                if (apiEvents.length > 0) {
+                    setEvents(apiEvents);
+                } else {
+                    setEvents(sampleEvents);
+                    addToast({ message: 'Showing sample events — no live events available', variant: 'info' });
+                }
             } catch (err) {
                 console.error('Failed to fetch events:', err);
-                addToast({ message: 'Failed to load events', variant: 'error' });
-                // Fallback to sample data on error
+                addToast({ message: 'Failed to load events — showing sample data', variant: 'error' });
                 setEvents(sampleEvents);
             } finally {
                 setLoading(false);

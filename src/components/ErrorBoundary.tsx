@@ -175,7 +175,7 @@ export function ErrorBoundaryWrapper({
     children,
     resetKey,
     ...props
-}: ErrorBoundaryWrapperProps): JSX.Element {
+}: ErrorBoundaryWrapperProps): React.JSX.Element {
     return (
         <ErrorBoundary key={resetKey} {...props}>
             {children}
@@ -191,7 +191,7 @@ interface PageErrorBoundaryProps {
     children: ReactNode;
 }
 
-export function PageErrorBoundary({ children }: PageErrorBoundaryProps): JSX.Element {
+export function PageErrorBoundary({ children }: PageErrorBoundaryProps): React.JSX.Element {
     return (
         <ErrorBoundary
             onError={(error, _errorInfo) => {

@@ -45,7 +45,8 @@ const PdfExportButton: React.FC<PdfExportButtonProps> = ({
                 pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
             };
 
-            await html2pdf().set(opt).from(element).save();
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            await (html2pdf as any)().set(opt).from(element).save();
         } catch (error) {
             console.error('PDF generation failed:', error);
             alert('Failed to generate PDF. Please try again.');

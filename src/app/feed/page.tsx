@@ -97,12 +97,18 @@ export default function FeedPage() {
 
     useEffect(() => {
         if (!hasMore || loadingMore) return;
-        observerRef.current = new IntersectionObserver(
+        const sentinel = sentinelRef.current;
+        if (!sentinel) return;
+        const observer = new IntersectionObserver(
             entries => { if (entries[0].isIntersecting && hasMore && !loadingMore) fetchFeed(true); },
             { threshold: 0.5 }
         );
-        if (sentinelRef.current) observerRef.current.observe(sentinelRef.current);
-        return () => observerRef.current?.disconnect();
+        observer.observe(sentinel);
+        observerRef.current = observer;
+        return () => {
+            observer.unobserve(sentinel);
+            observer.disconnect();
+        };
     }, [hasMore, loadingMore, fetchFeed]);
 
     const handlePostCreated = (post: unknown) => setPosts(prev => [post as FeedPost, ...prev]);

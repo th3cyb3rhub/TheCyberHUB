@@ -160,19 +160,11 @@ export function usePaginatedQuery<T>(
  */
 export function useApiMutation<TData, TVariables>(
     mutationFn: (variables: TVariables) => Promise<ApiResponse<TData>>,
-    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TVariables>, 'mutationFn'>
+    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TVariables, unknown>, 'mutationFn'>
 ) {
-    const queryClient = useQueryClient();
-
-    return useMutation<ApiResponse<TData>, Error, TVariables>({
+    return useMutation<ApiResponse<TData>, Error, TVariables, unknown>({
         mutationFn,
         ...options,
-        onSuccess: (data, variables, context) => {
-            options?.onSuccess?.(data, variables, context);
-        },
-        onError: (error, variables, context) => {
-            options?.onError?.(error, variables, context);
-        },
     });
 }
 
@@ -182,19 +174,18 @@ export function useApiMutation<TData, TVariables>(
 export function useApiMutationWithInvalidation<TData, TVariables>(
     mutationFn: (variables: TVariables) => Promise<ApiResponse<TData>>,
     invalidateKeys: QueryKey[],
-    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TVariables>, 'mutationFn'>
+    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TVariables, unknown>, 'mutationFn'>
 ) {
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse<TData>, Error, TVariables>({
+    return useMutation<ApiResponse<TData>, Error, TVariables, unknown>({
         mutationFn,
         ...options,
-        onSuccess: (data, variables, context) => {
-            // Invalidate specified query keys
+        onSuccess: (...args) => {
             invalidateKeys.forEach((key) => {
                 queryClient.invalidateQueries({ queryKey: key });
             });
-            options?.onSuccess?.(data, variables, context);
+            options?.onSuccess?.(...args);
         },
     });
 }
@@ -209,25 +200,25 @@ export function useApiMutationWithInvalidation<TData, TVariables>(
 export function usePost<TData, TBody = Record<string, unknown>>(
     endpoint: string,
     invalidateKeys?: QueryKey[],
-    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TBody>, 'mutationFn'>
+    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TBody, unknown>, 'mutationFn'>
 ) {
     const { token } = useAuth();
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse<TData>, Error, TBody>({
+    return useMutation<ApiResponse<TData>, Error, TBody, unknown>({
         mutationFn: (body) =>
             apiFetch<ApiResponse<TData>>(endpoint, {
                 method: 'POST',
                 body: JSON.stringify(body),
             }, token),
         ...options,
-        onSuccess: (data, variables, context) => {
+        onSuccess: (...args) => {
             if (invalidateKeys) {
                 invalidateKeys.forEach((key) => {
                     queryClient.invalidateQueries({ queryKey: key });
                 });
             }
-            options?.onSuccess?.(data, variables, context);
+            options?.onSuccess?.(...args);
         },
     });
 }
@@ -238,25 +229,25 @@ export function usePost<TData, TBody = Record<string, unknown>>(
 export function usePut<TData, TBody = Record<string, unknown>>(
     endpoint: string,
     invalidateKeys?: QueryKey[],
-    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TBody>, 'mutationFn'>
+    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, TBody, unknown>, 'mutationFn'>
 ) {
     const { token } = useAuth();
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse<TData>, Error, TBody>({
+    return useMutation<ApiResponse<TData>, Error, TBody, unknown>({
         mutationFn: (body) =>
             apiFetch<ApiResponse<TData>>(endpoint, {
                 method: 'PUT',
                 body: JSON.stringify(body),
             }, token),
         ...options,
-        onSuccess: (data, variables, context) => {
+        onSuccess: (...args) => {
             if (invalidateKeys) {
                 invalidateKeys.forEach((key) => {
                     queryClient.invalidateQueries({ queryKey: key });
                 });
             }
-            options?.onSuccess?.(data, variables, context);
+            options?.onSuccess?.(...args);
         },
     });
 }
@@ -267,24 +258,24 @@ export function usePut<TData, TBody = Record<string, unknown>>(
 export function useDelete<TData>(
     endpoint: string,
     invalidateKeys?: QueryKey[],
-    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, void>, 'mutationFn'>
+    options?: Omit<UseMutationOptions<ApiResponse<TData>, Error, void, unknown>, 'mutationFn'>
 ) {
     const { token } = useAuth();
     const queryClient = useQueryClient();
 
-    return useMutation<ApiResponse<TData>, Error, void>({
+    return useMutation<ApiResponse<TData>, Error, void, unknown>({
         mutationFn: () =>
             apiFetch<ApiResponse<TData>>(endpoint, {
                 method: 'DELETE',
             }, token),
         ...options,
-        onSuccess: (data, variables, context) => {
+        onSuccess: (...args) => {
             if (invalidateKeys) {
                 invalidateKeys.forEach((key) => {
                     queryClient.invalidateQueries({ queryKey: key });
                 });
             }
-            options?.onSuccess?.(data, variables, context);
+            options?.onSuccess?.(...args);
         },
     });
 }
