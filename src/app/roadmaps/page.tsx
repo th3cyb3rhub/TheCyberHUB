@@ -18,7 +18,11 @@ import {
     Youtube,
     ArrowRight,
     Sparkles,
-    Bookmark
+    Bookmark,
+    ChevronLeft,
+    ChevronRight,
+    Loader2,
+    Check
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { SkeletonRoadmapsGrid } from '@/components/ui/SkeletonRoadmap';
@@ -70,6 +74,91 @@ const RoadmapsPage = () => {
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [loading, setLoading] = useState(true);
     const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
+    const [bookmarkPending, setBookmarkPending] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
+    const [completedSteps, setCompletedSteps] = useState<Record<string, Set<string>>>({});
+    const [userRatings, setUserRatings] = useState<Record<string, number>>({});
+    const [hoverRating, setHoverRating] = useState<{ id: string; value: number } | null>(null);
+
+    // Load user ratings from localStorage
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem('roadmap-ratings');
+            if (saved) {
+                setUserRatings(JSON.parse(saved));
+            }
+        } catch {
+            // Ignore
+        }
+    }, []);
+
+    const rateRoadmap = (roadmapId: string, rating: number) => {
+        if (!user) {
+            addToast({ variant: 'info', title: 'Sign in required', message: 'Sign in to rate roadmaps.' });
+            return;
+        }
+
+        setUserRatings(prev => {
+            const updated = { ...prev, [roadmapId]: rating };
+            try { localStorage.setItem('roadmap-ratings', JSON.stringify(updated)); } catch { /* ignore */ }
+            return updated;
+        });
+        addToast({ variant: 'success', message: `Rated ${rating} stars` });
+    };
+
+    // Load progress from localStorage
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem('roadmap-progress');
+            if (saved) {
+                const parsed = JSON.parse(saved) as Record<string, string[]>;
+                const restored: Record<string, Set<string>> = {};
+                for (const [roadmapId, steps] of Object.entries(parsed)) {
+                    restored[roadmapId] = new Set(steps);
+                }
+                setCompletedSteps(restored);
+            }
+        } catch {
+            // Ignore localStorage errors
+        }
+    }, []);
+
+    const toggleStepCompletion = (roadmapId: string, stepId: string) => {
+        if (!user) {
+            addToast({ variant: 'info', title: 'Sign in required', message: 'Sign in to track your progress.' });
+            return;
+        }
+
+        setCompletedSteps(prev => {
+            const roadmapSteps = new Set(prev[roadmapId] || []);
+            if (roadmapSteps.has(stepId)) {
+                roadmapSteps.delete(stepId);
+            } else {
+                roadmapSteps.add(stepId);
+            }
+            const updated = { ...prev, [roadmapId]: roadmapSteps };
+
+            // Persist to localStorage
+            try {
+                const serializable: Record<string, string[]> = {};
+                for (const [key, val] of Object.entries(updated)) {
+                    serializable[key] = Array.from(val);
+                }
+                localStorage.setItem('roadmap-progress', JSON.stringify(serializable));
+            } catch {
+                // Ignore
+            }
+
+            return updated;
+        });
+    };
+
+    const getStepProgress = (roadmapId: string, totalSteps: number): number => {
+        const completed = completedSteps[roadmapId]?.size || 0;
+        if (totalSteps === 0) return 0;
+        return Math.round((completed / totalSteps) * 100);
+    };
 
     // Load bookmarks from user
     useEffect(() => {
@@ -90,13 +179,19 @@ const RoadmapsPage = () => {
             return;
         }
 
+        // Prevent double-clicks while a bookmark operation is pending
+        if (bookmarkPending === roadmapId) return;
+        setBookmarkPending(roadmapId);
+
+        const previousBookmarks = new Set(bookmarkedIds);
         const newBookmarks = new Set(bookmarkedIds);
         if (newBookmarks.has(roadmapId)) {
             newBookmarks.delete(roadmapId);
         } else {
             newBookmarks.add(roadmapId);
         }
-        
+
+        // Optimistic update
         setBookmarkedIds(newBookmarks);
 
         try {
@@ -111,12 +206,14 @@ const RoadmapsPage = () => {
         } catch (err) {
             console.error('Failed to update bookmarks:', err);
             // Revert on error
-            setBookmarkedIds(bookmarkedIds);
+            setBookmarkedIds(previousBookmarks);
             addToast({
                 variant: 'error',
                 title: 'Failed to update bookmarks',
                 message: 'Please try again in a moment.',
             });
+        } finally {
+            setBookmarkPending(null);
         }
     };
 
@@ -125,12 +222,13 @@ const RoadmapsPage = () => {
         const fetchRoadmaps = async () => {
             try {
                 setLoading(true);
-                // Try fetching from /api/resources/roadmaps endpoint
-                const data = await fetchApi('/api/resources/roadmaps', { requireAuth: false });
+                // Fetch from /api/resources/roadmaps — supports both { success, data } and raw array formats
+                const response = await fetchApi('/api/resources/roadmaps', { requireAuth: false });
 
-                // Backend returns array of { name, content } objects
-                // Each content item has the roadmap data
-                if (Array.isArray(data) && data.length > 0) {
+                // Normalize: handle both standardized { success, data, pagination } and raw array
+                const rawItems = response?.success ? (response.data || []) : (Array.isArray(response) ? response : []);
+
+                if (rawItems.length > 0) {
                     interface RoadmapApiItem {
                         content?: {
                             id?: string;
@@ -165,7 +263,7 @@ const RoadmapsPage = () => {
                         icon?: string;
                         featured?: boolean;
                     }
-                    const transformedRoadmaps = data.map((item: RoadmapApiItem) => {
+                    const transformedRoadmaps = rawItems.map((item: RoadmapApiItem) => {
                         const content = item.content || item;
                         return {
                             id: content.id || content._id || String(Math.random()),
@@ -481,7 +579,7 @@ const RoadmapsPage = () => {
         { id: 'specialized', name: 'Specialized' }
     ];
 
-    const filteredRoadmaps = roadmaps.filter(roadmap => {
+    const allFilteredRoadmaps = roadmaps.filter(roadmap => {
         const matchesSearch = roadmap.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
             roadmap.description.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesCategory = selectedCategory === 'all' ||
@@ -489,6 +587,14 @@ const RoadmapsPage = () => {
             (selectedCategory === 'specialized' && roadmap.category === 'Specialized');
         return matchesSearch && matchesCategory;
     });
+
+    const totalPages = Math.ceil(allFilteredRoadmaps.length / pageSize);
+    const filteredRoadmaps = allFilteredRoadmaps.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+    // Reset page when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [debouncedSearch, selectedCategory]);
 
     const getDifficultyColor = (difficulty: string) => {
         switch (difficulty.toLowerCase()) {
@@ -634,18 +740,60 @@ const RoadmapsPage = () => {
                                                 <Users className="w-3.5 h-3.5" />
                                                 {roadmap.followers}
                                             </span>
+                                            {/* Star Rating */}
+                                            <span className="flex items-center gap-0.5 ml-2">
+                                                {[1, 2, 3, 4, 5].map(star => {
+                                                    const currentRating = userRatings[roadmap.id] || roadmap.rating;
+                                                    const isHovering = hoverRating?.id === roadmap.id;
+                                                    const displayRating = isHovering ? hoverRating.value : currentRating;
+                                                    const filled = star <= Math.round(displayRating);
+                                                    return (
+                                                        <button
+                                                            key={star}
+                                                            onClick={(e) => { e.stopPropagation(); rateRoadmap(roadmap.id, star); }}
+                                                            onMouseEnter={() => setHoverRating({ id: roadmap.id, value: star })}
+                                                            onMouseLeave={() => setHoverRating(null)}
+                                                            className="p-0 transition-colors"
+                                                        >
+                                                            <Star className={`w-3.5 h-3.5 ${filled ? 'text-yellow-400 fill-current' : 'text-gray-600'}`} />
+                                                        </button>
+                                                    );
+                                                })}
+                                                <span className="ml-1 text-gray-400">{(userRatings[roadmap.id] || roadmap.rating).toFixed(1)}</span>
+                                            </span>
                                         </div>
+
+                                        {/* Progress bar for this roadmap */}
+                                        {user && roadmap.steps.length > 0 && (
+                                            <div className="mt-3">
+                                                <div className="flex items-center justify-between text-xs mb-1">
+                                                    <span className="text-gray-500">Your Progress</span>
+                                                    <span className="text-orange-400">{getStepProgress(roadmap.id, roadmap.steps.length)}%</span>
+                                                </div>
+                                                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-orange-500 rounded-full transition-all duration-300"
+                                                        style={{ width: `${getStepProgress(roadmap.id, roadmap.steps.length)}%` }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                     <button
                                         onClick={() => toggleBookmark(roadmap.id)}
-                                        className={`shrink-0 p-2 rounded-lg border transition-all ${
+                                        disabled={bookmarkPending === roadmap.id}
+                                        className={`shrink-0 p-2 rounded-lg border transition-all disabled:opacity-50 ${
                                             bookmarkedIds.has(roadmap.id)
                                                 ? 'bg-orange-500/10 border-orange-500/50 text-orange-400'
                                                 : 'border-white/10 text-gray-400 hover:border-orange-500/30 hover:text-orange-400'
                                         }`}
                                         title={bookmarkedIds.has(roadmap.id) ? 'Remove bookmark' : 'Bookmark roadmap'}
                                     >
-                                        <Bookmark className={`w-5 h-5 ${bookmarkedIds.has(roadmap.id) ? 'fill-current' : ''}`} />
+                                        {bookmarkPending === roadmap.id ? (
+                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                        ) : (
+                                            <Bookmark className={`w-5 h-5 ${bookmarkedIds.has(roadmap.id) ? 'fill-current' : ''}`} />
+                                        )}
                                     </button>
                                 </div>
                             </div>
@@ -656,11 +804,19 @@ const RoadmapsPage = () => {
                                     {roadmap.steps.map((step, index) => (
                                         <div key={step.id} className="group">
                                             <div className="flex gap-4">
-                                                {/* Step number */}
+                                                {/* Step number - click to toggle completion */}
                                                 <div className="flex flex-col items-center">
-                                                    <div className={`w-8 h-8 bg-gradient-to-br ${roadmap.color} rounded-full flex items-center justify-center text-white text-sm font-medium`}>
-                                                        {index + 1}
-                                                    </div>
+                                                    <button
+                                                        onClick={() => toggleStepCompletion(roadmap.id, step.id)}
+                                                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
+                                                            completedSteps[roadmap.id]?.has(step.id)
+                                                                ? 'bg-green-500 text-white ring-2 ring-green-500/30'
+                                                                : `bg-gradient-to-br ${roadmap.color} text-white hover:ring-2 hover:ring-white/20`
+                                                        }`}
+                                                        title={completedSteps[roadmap.id]?.has(step.id) ? 'Mark as incomplete' : 'Mark as completed'}
+                                                    >
+                                                        {completedSteps[roadmap.id]?.has(step.id) ? <Check className="w-4 h-4" /> : index + 1}
+                                                    </button>
                                                     {index < roadmap.steps.length - 1 && (
                                                         <div className="w-px h-full bg-white/10 mt-2" />
                                                     )}
@@ -729,6 +885,49 @@ const RoadmapsPage = () => {
                             </div>
                             <p className="text-gray-400 mb-2">No roadmaps found</p>
                             <p className="text-sm text-gray-600">Try adjusting your search or filter</p>
+                        </div>
+                    )}
+
+                    {/* Pagination Controls */}
+                    {totalPages > 1 && (
+                        <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-white/5">
+                            <button
+                                onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                disabled={currentPage <= 1}
+                                className="flex items-center gap-1 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                            >
+                                <ChevronLeft className="w-4 h-4" />
+                                Prev
+                            </button>
+
+                            <div className="flex items-center gap-1">
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
+                                    <button
+                                        key={pageNum}
+                                        onClick={() => { setCurrentPage(pageNum); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                        className={`w-8 h-8 rounded-lg text-sm font-medium transition-all ${
+                                            currentPage === pageNum
+                                                ? 'bg-orange-500 text-white'
+                                                : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                                        }`}
+                                    >
+                                        {pageNum}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                disabled={currentPage >= totalPages}
+                                className="flex items-center gap-1 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                            >
+                                Next
+                                <ChevronRight className="w-4 h-4" />
+                            </button>
+
+                            <span className="text-sm text-gray-500 ml-2">
+                                Page {currentPage} of {totalPages}
+                            </span>
                         </div>
                     )}
                 </div>

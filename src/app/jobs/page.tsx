@@ -96,6 +96,10 @@ const JobsPage = () => {
     const [selectedLocation, setSelectedLocation] = useState(searchParams.get('locationType') || 'all');
     const [selectedType, setSelectedType] = useState(searchParams.get('employmentType') || 'all');
     const [showFilters, setShowFilters] = useState(false);
+    const [salaryMin, setSalaryMin] = useState(searchParams.get('salaryMin') || '');
+    const [salaryMax, setSalaryMax] = useState(searchParams.get('salaryMax') || '');
+    const debouncedSalaryMin = useDebounce(salaryMin, 500);
+    const debouncedSalaryMax = useDebounce(salaryMax, 500);
     const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0 });
 
     const updateFilters = useCallback((key: string, value: string) => {
@@ -109,7 +113,7 @@ const JobsPage = () => {
         router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     }, [searchParams, router, pathname]);
 
-    const hasActiveFilters = selectedCategory !== 'all' || selectedLevel !== 'all' || selectedLocation !== 'all' || selectedType !== 'all' || searchQuery !== '';
+    const hasActiveFilters = selectedCategory !== 'all' || selectedLevel !== 'all' || selectedLocation !== 'all' || selectedType !== 'all' || searchQuery !== '' || salaryMin !== '' || salaryMax !== '';
 
     const clearAllFilters = useCallback(() => {
         setSelectedCategory('all');
@@ -117,12 +121,14 @@ const JobsPage = () => {
         setSelectedLocation('all');
         setSelectedType('all');
         setSearchQuery('');
+        setSalaryMin('');
+        setSalaryMax('');
         router.replace(pathname, { scroll: false });
     }, [router, pathname]);
 
     useEffect(() => {
         fetchJobs();
-    }, [selectedCategory, selectedLevel, selectedLocation, selectedType, debouncedSearch]);
+    }, [selectedCategory, selectedLevel, selectedLocation, selectedType, debouncedSearch, debouncedSalaryMin, debouncedSalaryMax]);
 
     const fetchJobs = async () => {
         try {
@@ -133,6 +139,8 @@ const JobsPage = () => {
             if (selectedLocation !== 'all') params.append('locationType', selectedLocation);
             if (selectedType !== 'all') params.append('employmentType', selectedType);
             if (debouncedSearch) params.append('search', debouncedSearch);
+            if (debouncedSalaryMin) params.append('salaryMin', debouncedSalaryMin);
+            if (debouncedSalaryMax) params.append('salaryMax', debouncedSalaryMax);
             params.append('limit', '20');
 
             const data = await fetchApi(`/api/jobs?${params.toString()}`, { requireAuth: false });
@@ -260,6 +268,33 @@ const JobsPage = () => {
                         <select value={selectedType} onChange={(e) => { setSelectedType(e.target.value); updateFilters('employmentType', e.target.value); }} className={selectClass}>
                             {employmentTypes.map(t => <option key={t.id} value={t.id} className="bg-gray-900">{t.name}</option>)}
                         </select>
+
+                        {/* Salary Range Inputs */}
+                        <div className="flex items-center gap-2">
+                            <div className="relative">
+                                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
+                                <input
+                                    type="number"
+                                    placeholder="Min salary"
+                                    value={salaryMin}
+                                    onChange={(e) => { setSalaryMin(e.target.value); updateFilters('salaryMin', e.target.value); }}
+                                    className="w-28 pl-8 pr-2 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:border-orange-500/50 focus:outline-none"
+                                    min="0"
+                                />
+                            </div>
+                            <span className="text-gray-500 text-sm">-</span>
+                            <div className="relative">
+                                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
+                                <input
+                                    type="number"
+                                    placeholder="Max salary"
+                                    value={salaryMax}
+                                    onChange={(e) => { setSalaryMax(e.target.value); updateFilters('salaryMax', e.target.value); }}
+                                    className="w-28 pl-8 pr-2 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:border-orange-500/50 focus:outline-none"
+                                    min="0"
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-3 ml-auto">
@@ -304,7 +339,7 @@ const JobsPage = () => {
                                     ? 'border-orange-500/30 bg-orange-500/[0.03] hover:border-orange-500/50'
                                     : 'border-white/10 bg-white/[0.02] hover:border-white/20'
                                     }`}
-                                style={{ opacity: 0, animationFillMode: 'forwards' }}
+                                style={{ animationFillMode: 'forwards' }}
                             >
                                 <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                                     {/* Company Logo */}

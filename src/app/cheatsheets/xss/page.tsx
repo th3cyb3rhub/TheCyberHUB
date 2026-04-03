@@ -187,13 +187,13 @@ const XSSCheatsheetPage = () => {
                                         >
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-sm text-gray-400 mb-2">{item.description}</p>
-                                                <code className="block text-sm text-orange-400 font-mono bg-black/50 px-3 py-2 rounded overflow-x-auto">
+                                                <code className="block text-sm font-mono bg-black/50 px-3 py-2 rounded overflow-x-auto syntax-highlight-html">
                                                     {item.payload}
                                                 </code>
                                             </div>
                                             <button
                                                 onClick={() => copyToClipboard(item.payload)}
-                                                className="p-2 text-gray-500 hover:text-white opacity-0 group-hover:opacity-100 transition-all ml-2"
+                                                className="p-2 text-gray-500 hover:text-white sm:opacity-0 sm:group-hover:opacity-100 transition-all ml-2"
                                             >
                                                 {copiedPayload === item.payload 
                                                     ? <Check className="w-4 h-4 text-green-400" />

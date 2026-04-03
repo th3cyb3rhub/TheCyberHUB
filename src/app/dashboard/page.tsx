@@ -23,6 +23,10 @@ import {
     Star,
     ChevronRight,
     Flag,
+    Award,
+    Sparkles,
+    Target,
+    PartyPopper,
 } from 'lucide-react';
 import { SkeletonDashboard } from '@/components/ui/skeleton';
 import { fetchApi } from '@/lib/api';
@@ -63,19 +67,60 @@ const statsConfig = [
     { label: 'Events Attended', icon: Calendar, color: 'text-purple-400' },
 ];
 
+// Milestone definitions
+const MILESTONES = [
+    { key: 'first_challenge', threshold: 1, field: 'challengesSolved', label: 'First Challenge Solved!', description: 'You completed your first security challenge!' },
+    { key: 'challenges_10', threshold: 10, field: 'challengesSolved', label: '10 Challenges!', description: 'You have solved 10 challenges. Keep going!' },
+    { key: 'points_100', threshold: 100, field: 'points', label: '100 Points!', description: 'You have earned 100 CTF points!' },
+    { key: 'points_500', threshold: 500, field: 'points', label: '500 Points!', description: 'Half a thousand points. Impressive!' },
+    { key: 'first_event', threshold: 1, field: 'eventsAttended', label: 'Event Goer!', description: 'You attended your first event!' },
+];
+
 const DashboardPage = () => {
     const router = useRouter();
     const { user, loading } = useAuth();
     const [greeting, setGreeting] = useState('');
     const [recentChallenges, setRecentChallenges] = useState<ChallengeSummary[]>([]);
     const [activityLoading, setActivityLoading] = useState(true);
+    const [showMilestone, setShowMilestone] = useState<{ label: string; description: string } | null>(null);
 
+    // Fix: Use Intl.DateTimeFormat to get user's local timezone hour
     useEffect(() => {
-        const hour = new Date().getHours();
-        if (hour < 12) setGreeting('Good morning');
-        else if (hour < 18) setGreeting('Good afternoon');
-        else setGreeting('Good evening');
+        try {
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                hour12: false,
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            });
+            const hour = parseInt(formatter.format(new Date()), 10);
+            if (hour < 12) setGreeting('Good morning');
+            else if (hour < 18) setGreeting('Good afternoon');
+            else setGreeting('Good evening');
+        } catch {
+            // Fallback
+            const hour = new Date().getHours();
+            if (hour < 12) setGreeting('Good morning');
+            else if (hour < 18) setGreeting('Good afternoon');
+            else setGreeting('Good evening');
+        }
     }, []);
+
+    // Milestone celebration check
+    useEffect(() => {
+        if (!user?.stats) return;
+        const dismissed = JSON.parse(localStorage.getItem('dismissed_milestones') || '[]');
+        for (const m of MILESTONES) {
+            const value = user.stats[m.field as keyof typeof user.stats] ?? 0;
+            if (typeof value === 'number' && value >= m.threshold && !dismissed.includes(m.key)) {
+                setShowMilestone({ label: m.label, description: m.description });
+                const updated = [...dismissed, m.key];
+                localStorage.setItem('dismissed_milestones', JSON.stringify(updated));
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => setShowMilestone(null), 5000);
+                break;
+            }
+        }
+    }, [user]);
 
     // Redirect if not logged in
     useEffect(() => {
@@ -144,8 +189,44 @@ const DashboardPage = () => {
         { ...statsConfig[3], value: eventsAttended.toString() },
     ];
 
+    // Personalized recommendations based on user activity
+    const getRecommendations = () => {
+        const recs = [];
+        if (challengesSolved === 0) {
+            recs.push({ title: 'Try Your First Challenge', description: 'Start with a beginner challenge to get your feet wet', href: '/challenges', icon: Flag });
+        }
+        if (challengesSolved > 0 && challengesSolved < 10) {
+            recs.push({ title: 'Keep Solving Challenges', description: `${10 - challengesSolved} more to earn the Problem Solver badge`, href: '/challenges', icon: Target });
+        }
+        if (eventsAttended === 0) {
+            recs.push({ title: 'Attend an Event', description: 'Join a CTF, workshop, or webinar', href: '/events', icon: Calendar });
+        }
+        recs.push({ title: 'Explore Learning Paths', description: 'Follow structured cybersecurity roadmaps', href: '/roadmaps', icon: Map });
+        if (ctfPoints < 100) {
+            recs.push({ title: 'Earn More Points', description: 'Reach 100 points to earn Rising Star badge', href: '/challenges', icon: Star });
+        }
+        return recs.slice(0, 3);
+    };
+
     return (
         <div className="min-h-screen bg-black">
+            {/* Milestone Celebration */}
+            {showMilestone && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-gray-900 border border-orange-500/50 rounded-2xl p-8 max-w-sm mx-4 text-center shadow-xl shadow-orange-500/20">
+                        <PartyPopper className="w-12 h-12 text-orange-400 mx-auto mb-4" />
+                        <h3 className="text-xl font-bold text-white mb-2">{showMilestone.label}</h3>
+                        <p className="text-gray-400 text-sm mb-6">{showMilestone.description}</p>
+                        <button
+                            onClick={() => setShowMilestone(null)}
+                            className="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-colors"
+                        >
+                            Awesome!
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Background effects */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-orange-500/8 rounded-full blur-[150px] pointer-events-none" />
             <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
@@ -191,6 +272,88 @@ const DashboardPage = () => {
                         }>
                             <DailyChallenge />
                         </Suspense>
+                    </div>
+
+                    {/* Achievements & Recommendations */}
+                    <div className="grid lg:grid-cols-2 gap-6 mb-10">
+                        {/* Recent Achievements */}
+                        <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
+                            <h2 className="text-lg font-semibold text-white flex items-center gap-2 mb-4">
+                                <Award className="w-5 h-5 text-yellow-400" />
+                                Achievements
+                            </h2>
+                            {challengesSolved > 0 || ctfPoints > 0 || eventsAttended > 0 ? (
+                                <div className="space-y-3">
+                                    {challengesSolved >= 1 && (
+                                        <div className="flex items-center gap-3 p-3 rounded-lg bg-green-500/5 border border-green-500/10">
+                                            <Flag className="w-5 h-5 text-green-400" />
+                                            <div>
+                                                <p className="text-sm font-medium text-white">First Blood</p>
+                                                <p className="text-xs text-gray-500">Solved your first challenge</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {ctfPoints >= 100 && (
+                                        <div className="flex items-center gap-3 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/10">
+                                            <Star className="w-5 h-5 text-yellow-400" />
+                                            <div>
+                                                <p className="text-sm font-medium text-white">Rising Star</p>
+                                                <p className="text-xs text-gray-500">Earned 100+ CTF points</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {challengesSolved >= 10 && (
+                                        <div className="flex items-center gap-3 p-3 rounded-lg bg-purple-500/5 border border-purple-500/10">
+                                            <Award className="w-5 h-5 text-purple-400" />
+                                            <div>
+                                                <p className="text-sm font-medium text-white">Problem Solver</p>
+                                                <p className="text-xs text-gray-500">Solved 10+ challenges</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {eventsAttended >= 1 && (
+                                        <div className="flex items-center gap-3 p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
+                                            <Calendar className="w-5 h-5 text-blue-400" />
+                                            <div>
+                                                <p className="text-sm font-medium text-white">Event Goer</p>
+                                                <p className="text-xs text-gray-500">Attended your first event</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="text-center py-6">
+                                    <Award className="w-10 h-10 text-gray-600 mx-auto mb-2" />
+                                    <p className="text-gray-500 text-sm">Complete challenges and attend events to earn badges</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Personalized Recommendations */}
+                        <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
+                            <h2 className="text-lg font-semibold text-white flex items-center gap-2 mb-4">
+                                <Sparkles className="w-5 h-5 text-orange-400" />
+                                Recommended For You
+                            </h2>
+                            <div className="space-y-3">
+                                {getRecommendations().map((rec, i) => (
+                                    <Link
+                                        key={i}
+                                        href={rec.href}
+                                        className="group flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:border-orange-500/30 hover:bg-orange-500/5 transition-all"
+                                    >
+                                        <div className="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                                            <rec.icon className="w-4 h-4 text-orange-400" />
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium text-white group-hover:text-orange-400 transition-colors">{rec.title}</p>
+                                            <p className="text-xs text-gray-500">{rec.description}</p>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-orange-500 transition-colors" />
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                     <div className="grid lg:grid-cols-3 gap-6">

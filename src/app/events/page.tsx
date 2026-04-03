@@ -67,6 +67,24 @@ function formatTime(dateString: string): string {
     });
 }
 
+function formatTimeWithTimezone(dateString: string, timezone: string): string {
+    const date = new Date(dateString);
+    try {
+        const eventTime = date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+            timeZone: timezone,
+        });
+        const tzAbbr = new Intl.DateTimeFormat('en-US', { timeZone: timezone, timeZoneName: 'short' })
+            .formatToParts(date)
+            .find(p => p.type === 'timeZoneName')?.value || timezone;
+        return `${eventTime} ${tzAbbr}`;
+    } catch {
+        return formatTime(dateString);
+    }
+}
+
 function getTimeUntil(dateString: string): { value: string; label: string; isLive: boolean } {
     const now = new Date();
     const eventDate = new Date(dateString);
@@ -142,7 +160,7 @@ function FeaturedEventCard({ event }: { event: Event }) {
                         <div className="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
                             <div className="flex items-center gap-2">
                                 <Clock className="w-4 h-4 text-orange-500" />
-                                {formatTime(event.startDate)}
+                                {formatTimeWithTimezone(event.startDate, event.timezone)}
                             </div>
                             <div className="flex items-center gap-2">
                                 <MapPin className="w-4 h-4 text-orange-500" />
@@ -220,7 +238,7 @@ function EventCard({ event }: { event: Event }) {
                     <div className="flex items-center gap-3 text-xs text-gray-500">
                         <div className="flex items-center gap-1">
                             <Clock className="w-3.5 h-3.5" />
-                            {formatTime(event.startDate)}
+                            {formatTimeWithTimezone(event.startDate, event.timezone)}
                         </div>
                         <div className="flex items-center gap-1 truncate">
                             <MapPin className="w-3.5 h-3.5 shrink-0" />
@@ -238,7 +256,9 @@ export default function EventsPage() {
     const router = useRouter();
     const pathname = usePathname();
     const [events, setEvents] = useState<Event[]>([]);
+    const [pastEvents, setPastEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
+    const [showPastEvents, setShowPastEvents] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_error, _setError] = useState<string | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || 'all');
@@ -265,43 +285,55 @@ export default function EventsPage() {
         router.replace(pathname, { scroll: false });
     }, [router, pathname]);
 
+    const transformEvent = (event: Record<string, string | boolean | string[] | undefined> & { _id: string; title: string; startDate: string }): Event => ({
+        id: event._id,
+        title: event.title,
+        slug: event.slug as string,
+        description: (event.description || '') as string,
+        shortDescription: (event.shortDescription || '') as string,
+        image: (event.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800') as string,
+        bannerImage: event.bannerImage as string | undefined,
+        startDate: event.startDate,
+        endDate: event.endDate as string | undefined,
+        timezone: (event.timezone || 'Asia/Kolkata') as string,
+        locationType: (event.locationType || 'online') as Event['locationType'],
+        location: (event.location || 'Online') as string,
+        venue: event.venue as string | undefined,
+        eventLink: event.eventLink as string | undefined,
+        registrationLink: event.registrationLink as string | undefined,
+        category: event.category as Event['category'],
+        tags: (event.tags || []) as string[],
+        organizer: (event.organizer || 'TheCyberHub') as string,
+        organizerLogo: event.organizerLogo as string | undefined,
+        speakers: (event.speakers || []) as unknown as Event['speakers'],
+        status: (event.status || 'upcoming') as Event['status'],
+        isFeatured: (event.isFeatured || false) as boolean,
+        recordingLink: event.recordingLink as string | undefined,
+        slidesLink: event.slidesLink as string | undefined,
+        summaryNotes: event.summaryNotes as string | undefined,
+    });
+
     // Fetch events from API
     useEffect(() => {
         const fetchEvents = async () => {
             try {
                 setLoading(true);
                 const data = await fetchApi('/api/events', { requireAuth: false });
-                // Transform API response to match Event interface
-                const apiEvents = data.data?.map((event: Record<string, string | boolean | string[] | undefined> & { _id: string; title: string; startDate: string }) => ({
-                        id: event._id,
-                        title: event.title,
-                        slug: event.slug,
-                        description: event.description || '',
-                        shortDescription: event.shortDescription || '',
-                        image: event.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800',
-                        bannerImage: event.bannerImage,
-                        startDate: event.startDate,
-                        endDate: event.endDate,
-                        timezone: event.timezone || 'Asia/Kolkata',
-                        locationType: event.locationType || 'online',
-                        location: event.location || 'Online',
-                        venue: event.venue,
-                        eventLink: event.eventLink,
-                        registrationLink: event.registrationLink,
-                        category: event.category,
-                        tags: event.tags || [],
-                        organizer: event.organizer || 'TheCyberHub',
-                        organizerLogo: event.organizerLogo,
-                        speakers: event.speakers || [],
-                        status: event.status || 'upcoming',
-                        isFeatured: event.isFeatured || false,
-                    })) || [];
+                const apiEvents = data.data?.map(transformEvent) || [];
 
                 if (apiEvents.length > 0) {
                     setEvents(apiEvents);
                 } else {
                     setEvents(sampleEvents);
                     addToast({ message: 'Showing sample events — no live events available', variant: 'info' });
+                }
+
+                // Fetch past events
+                try {
+                    const pastData = await fetchApi('/api/events/archives', { requireAuth: false });
+                    setPastEvents(pastData.data?.map(transformEvent) || []);
+                } catch {
+                    // Past events are optional
                 }
             } catch (err) {
                 console.error('Failed to fetch events:', err);
@@ -375,13 +407,13 @@ export default function EventsPage() {
                         Connect with the cybersecurity community and level up your skills.
                     </p>
 
-                    <button
-                        disabled
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-500 cursor-not-allowed opacity-50"
+                    <Link
+                        href="/events/calendar"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:border-white/20 transition-colors"
                     >
                         <Calendar className="w-4 h-4" />
-                        View Calendar (Coming Soon)
-                    </button>
+                        View Calendar
+                    </Link>
                 </div>
             </section>
 
@@ -479,6 +511,50 @@ export default function EventsPage() {
                         title="No events found"
                         description="Try adjusting your filters or check back later for new events."
                     />
+                )}
+
+                {/* Past Events Archive */}
+                {pastEvents.length > 0 && (
+                    <section className="mt-16 pt-10 border-t border-white/5">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+                                <Clock className="w-5 h-5 text-gray-500" />
+                                Past Events
+                            </h2>
+                            <button
+                                onClick={() => setShowPastEvents(!showPastEvents)}
+                                className="text-sm text-gray-400 hover:text-white transition-colors"
+                            >
+                                {showPastEvents ? 'Hide' : `Show All (${pastEvents.length})`}
+                            </button>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                            {(showPastEvents ? pastEvents : pastEvents.slice(0, 4)).map((event) => (
+                                <div key={event.id} className="relative">
+                                    <EventCard event={event} />
+                                    <div className="absolute top-3 left-3 z-10">
+                                        <span className="px-2 py-1 text-[10px] font-medium bg-gray-700/90 text-gray-300 rounded-md">
+                                            Ended
+                                        </span>
+                                    </div>
+                                    {(event.recordingLink || event.slidesLink) && (
+                                        <div className="absolute bottom-3 right-3 flex gap-1.5">
+                                            {event.recordingLink && (
+                                                <span className="px-2 py-1 text-[10px] font-medium bg-blue-500/20 text-blue-400 rounded-md">
+                                                    Recording
+                                                </span>
+                                            )}
+                                            {event.slidesLink && (
+                                                <span className="px-2 py-1 text-[10px] font-medium bg-purple-500/20 text-purple-400 rounded-md">
+                                                    Slides
+                                                </span>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
                 )}
             </div>
 

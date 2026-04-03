@@ -10,14 +10,50 @@ interface CreatePostProps {
     onPostCreated: (post: unknown) => void;
 }
 
+const DRAFT_KEY = 'tch:feed:draft';
+
 export default function CreatePost({ onPostCreated }: CreatePostProps) {
     const { user } = useAuth();
-    const [contents, setContents] = useState<string[]>(['']);
+    const [contents, setContents] = useState<string[]>(() => {
+        // Restore draft from localStorage
+        try {
+            const draft = localStorage.getItem(DRAFT_KEY);
+            if (draft) {
+                const parsed = JSON.parse(draft);
+                if (Array.isArray(parsed.contents) && parsed.contents.some((c: string) => c.trim())) {
+                    return parsed.contents;
+                }
+            }
+        } catch {}
+        return [''];
+    });
     const [images, setImages] = useState<string[][]>([[]]);
     const [loading, setLoading] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+    const [showDraftBanner, setShowDraftBanner] = useState(() => {
+        try {
+            const draft = localStorage.getItem(DRAFT_KEY);
+            if (draft) {
+                const parsed = JSON.parse(draft);
+                return Array.isArray(parsed.contents) && parsed.contents.some((c: string) => c.trim());
+            }
+        } catch {}
+        return false;
+    });
     // refs for each textarea
     const textareaRefs = React.useRef<(HTMLTextAreaElement | null)[]>([]);
+
+    // Auto-save draft to localStorage
+    React.useEffect(() => {
+        const hasContent = contents.some(c => c.trim());
+        if (hasContent) {
+            try {
+                localStorage.setItem(DRAFT_KEY, JSON.stringify({ contents, savedAt: Date.now() }));
+            } catch {}
+        } else {
+            try { localStorage.removeItem(DRAFT_KEY); } catch {}
+        }
+    }, [contents]);
 
     if (!user) return null;
 
@@ -44,6 +80,8 @@ export default function CreatePost({ onPostCreated }: CreatePostProps) {
             setContents(['']);
             setImages([[]]);
             setFocusedIndex(null);
+            setShowDraftBanner(false);
+            try { localStorage.removeItem(DRAFT_KEY); } catch {}
         } catch (err) {
             console.error('Create post failed:', err);
         } finally {
@@ -118,8 +156,36 @@ export default function CreatePost({ onPostCreated }: CreatePostProps) {
 
     const maxChars = 2000;
 
+    const discardDraft = () => {
+        setContents(['']);
+        setImages([[]]);
+        setFocusedIndex(null);
+        setShowDraftBanner(false);
+        try { localStorage.removeItem(DRAFT_KEY); } catch {}
+    };
+
     return (
         <div className={`bg-black border border-white/10 rounded-2xl p-5 shadow-sm transition-all ${isFocused ? 'ring-1 ring-orange-500/50' : ''}`}>
+            {/* Draft resume banner */}
+            {showDraftBanner && !isFocused && contents.some(c => c.trim()) && (
+                <div className="flex items-center justify-between mb-3 px-3 py-2 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                    <span className="text-xs text-orange-400 font-medium">You have an unsaved draft</span>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => { setFocusedIndex(0); setShowDraftBanner(false); }}
+                            className="text-xs text-orange-400 hover:text-orange-300 font-medium"
+                        >
+                            Resume
+                        </button>
+                        <button
+                            onClick={discardDraft}
+                            className="text-xs text-gray-500 hover:text-gray-300"
+                        >
+                            Discard
+                        </button>
+                    </div>
+                </div>
+            )}
             {contents.map((content, index) => {
                 const charCount = content.length;
                 const isOverLimit = charCount > maxChars;
@@ -254,7 +320,7 @@ export default function CreatePost({ onPostCreated }: CreatePostProps) {
 
                     <div className="flex items-center gap-2">
                         <button
-                            onClick={() => { setFocusedIndex(null); setContents(['']); }}
+                            onClick={discardDraft}
                             className="px-4 py-2 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors rounded-xl"
                         >
                             Cancel

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { Zap, Clock, CheckCircle, XCircle, Loader2, Brain, ArrowRight } from 'lucide-react';
+import { Zap, Clock, CheckCircle, XCircle, Loader2, Brain, ArrowRight, Flame, TrendingUp, History, ChevronDown, ChevronUp } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
@@ -24,6 +24,22 @@ interface ChallengeData {
         isCorrect: boolean;
         xpEarned: number;
     };
+    streak?: number;
+    difficultyProgression?: {
+        currentLevel: string;
+        nextLevel: string;
+        challengesUntilNext: number;
+    };
+}
+
+interface ChallengeHistoryItem {
+    _id: string;
+    date: string;
+    question: string;
+    difficulty: 'easy' | 'medium' | 'hard';
+    category: string;
+    isCorrect: boolean;
+    xpEarned: number;
 }
 
 const difficultyColors = {
@@ -31,6 +47,8 @@ const difficultyColors = {
     medium: 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20',
     hard: 'text-red-400 bg-red-500/10 border-red-500/20',
 };
+
+const difficultyOrder = ['easy', 'medium', 'hard'] as const;
 
 const categoryLabels: Record<string, string> = {
     web: '🌐 Web',
@@ -52,6 +70,9 @@ export default function DailyChallenge() {
     const [submitting, setSubmitting] = useState(false);
     const [result, setResult] = useState<{ isCorrect: boolean; explanation: string; xpEarned: number; correctIndex: number } | null>(null);
     const [timeUntilNext, setTimeUntilNext] = useState('');
+    const [showHistory, setShowHistory] = useState(false);
+    const [history, setHistory] = useState<ChallengeHistoryItem[]>([]);
+    const [historyLoading, setHistoryLoading] = useState(false);
 
     const fetchChallenge = useCallback(async () => {
         try {
@@ -73,6 +94,19 @@ export default function DailyChallenge() {
             setLoading(false);
         }
     }, []);
+
+    const fetchHistory = useCallback(async () => {
+        if (historyLoading) return;
+        setHistoryLoading(true);
+        try {
+            const data = await fetchApi('/api/daily-challenge/history?limit=7');
+            setHistory(data.data || []);
+        } catch {
+            // History endpoint may not exist yet -- silently ignore
+        } finally {
+            setHistoryLoading(false);
+        }
+    }, [historyLoading]);
 
     useEffect(() => {
         if (user) fetchChallenge();
@@ -103,12 +137,23 @@ export default function DailyChallenge() {
                 body: JSON.stringify({ selectedIndex: selectedOption }),
             });
             setResult(data.data);
+            // Update streak from response if available
+            if (data.data?.streak !== undefined && challenge) {
+                setChallenge({ ...challenge, streak: data.data.streak });
+            }
         } catch (err) {
             console.error('Submit failed:', err);
             addToast({ message: 'Failed to submit answer', variant: 'error' });
         } finally {
             setSubmitting(false);
         }
+    };
+
+    const handleToggleHistory = () => {
+        if (!showHistory && history.length === 0) {
+            fetchHistory();
+        }
+        setShowHistory(!showHistory);
     };
 
     if (!user) return null;
@@ -141,6 +186,10 @@ export default function DailyChallenge() {
         );
     }
 
+    const streak = challenge.streak ?? 0;
+    const progression = challenge.difficultyProgression;
+    const currentDifficultyIdx = difficultyOrder.indexOf(challenge.difficulty);
+
     return (
         <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6 relative overflow-hidden">
             {/* Header */}
@@ -161,11 +210,51 @@ export default function DailyChallenge() {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-1.5 text-orange-400">
-                    <Zap className="w-4 h-4" />
-                    <span className="text-sm font-semibold">+{challenge.xpReward} XP</span>
+                <div className="flex items-center gap-3">
+                    {/* Streak display */}
+                    {streak > 0 && (
+                        <div className="flex items-center gap-1 text-orange-400" title={`${streak} day streak`}>
+                            <Flame className="w-4 h-4" />
+                            <span className="text-xs font-bold">{streak}</span>
+                        </div>
+                    )}
+                    <div className="flex items-center gap-1.5 text-orange-400">
+                        <Zap className="w-4 h-4" />
+                        <span className="text-sm font-semibold">+{challenge.xpReward} XP</span>
+                    </div>
                 </div>
             </div>
+
+            {/* Difficulty Progression */}
+            {progression && (
+                <div className="mb-4 p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                    <div className="flex items-center gap-2 mb-2">
+                        <TrendingUp className="w-3.5 h-3.5 text-purple-400" />
+                        <span className="text-xs text-gray-400 font-medium">Difficulty Progression</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        {difficultyOrder.map((level, idx) => (
+                            <div key={level} className="flex-1 flex flex-col items-center gap-1">
+                                <div
+                                    className={`h-1.5 w-full rounded-full ${
+                                        idx <= currentDifficultyIdx
+                                            ? idx === 0 ? 'bg-green-500' : idx === 1 ? 'bg-yellow-500' : 'bg-red-500'
+                                            : 'bg-white/10'
+                                    }`}
+                                />
+                                <span className={`text-[9px] ${idx === currentDifficultyIdx ? 'text-white font-medium' : 'text-gray-600'}`}>
+                                    {level}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                    {progression.challengesUntilNext > 0 && (
+                        <p className="text-[10px] text-gray-500 mt-1.5">
+                            {progression.challengesUntilNext} more correct to unlock {progression.nextLevel}
+                        </p>
+                    )}
+                </div>
+            )}
 
             {/* Question */}
             <p className="text-white text-sm font-medium mb-4 leading-relaxed">{challenge.question}</p>
@@ -225,9 +314,21 @@ export default function DailyChallenge() {
                         <span className={`font-semibold text-sm ${result.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
                             {result.isCorrect ? `Correct! +${result.xpEarned} XP` : 'Incorrect'}
                         </span>
+                        {result.isCorrect && streak > 1 && (
+                            <span className="ml-auto flex items-center gap-1 text-xs text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded-full">
+                                <Flame className="w-3 h-3" />
+                                {streak} day streak!
+                            </span>
+                        )}
                     </div>
+                    {/* Show explanation for both correct and incorrect answers */}
                     {result.explanation && (
                         <p className="text-xs text-gray-400 leading-relaxed">{result.explanation}</p>
+                    )}
+                    {!result.isCorrect && !result.explanation && (
+                        <p className="text-xs text-gray-400 leading-relaxed">
+                            The correct answer was <strong className="text-green-400">{challenge.options[result.correctIndex]}</strong>.
+                        </p>
                     )}
                 </div>
             ) : (
@@ -250,16 +351,66 @@ export default function DailyChallenge() {
                 </button>
             )}
 
-            {/* Timer */}
+            {/* Timer & History Toggle */}
             <div className="flex items-center justify-between mt-4 text-xs text-gray-600">
                 <span className="flex items-center gap-1.5">
                     <Clock className="w-3 h-3" />
                     Next challenge in {timeUntilNext}
                 </span>
-                {challenge.successRate !== null && (
-                    <span>{challenge.successRate}% success rate</span>
-                )}
+                <div className="flex items-center gap-3">
+                    {challenge.successRate !== null && (
+                        <span>{challenge.successRate}% success rate</span>
+                    )}
+                    <button
+                        onClick={handleToggleHistory}
+                        className="flex items-center gap-1 text-gray-500 hover:text-gray-300 transition-colors"
+                    >
+                        <History className="w-3 h-3" />
+                        History
+                        {showHistory ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    </button>
+                </div>
             </div>
+
+            {/* Challenge History */}
+            {showHistory && (
+                <div className="mt-4 pt-4 border-t border-white/5">
+                    <h4 className="text-xs font-medium text-gray-400 mb-3">Recent Challenges</h4>
+                    {historyLoading ? (
+                        <div className="flex justify-center py-4">
+                            <Loader2 className="w-4 h-4 animate-spin text-gray-600" />
+                        </div>
+                    ) : history.length === 0 ? (
+                        <p className="text-xs text-gray-600 text-center py-3">No challenge history yet</p>
+                    ) : (
+                        <div className="space-y-2">
+                            {history.map((item) => (
+                                <div
+                                    key={item._id}
+                                    className="flex items-center justify-between px-3 py-2 rounded-lg bg-white/[0.02] border border-white/5"
+                                >
+                                    <div className="flex items-center gap-2 min-w-0">
+                                        {item.isCorrect ? (
+                                            <CheckCircle className="w-3.5 h-3.5 text-green-400 shrink-0" />
+                                        ) : (
+                                            <XCircle className="w-3.5 h-3.5 text-red-400 shrink-0" />
+                                        )}
+                                        <span className="text-xs text-gray-400 truncate">{item.question}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 shrink-0 ml-2">
+                                        <span className={`text-[10px] px-1.5 py-0.5 rounded border ${difficultyColors[item.difficulty]}`}>
+                                            {item.difficulty}
+                                        </span>
+                                        {item.xpEarned > 0 && (
+                                            <span className="text-[10px] text-orange-400">+{item.xpEarned}</span>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

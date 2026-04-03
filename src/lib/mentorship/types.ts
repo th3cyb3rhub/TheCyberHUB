@@ -53,11 +53,19 @@ export interface MentorAvailability {
     timezone: string;
 }
 
+export interface MentorReview {
+    mentee: UserSummary;
+    rating: number;
+    comment: string;
+    createdAt: string;
+}
+
 export interface MentorProfile {
     _id: string;
     user: UserSummary;
     expertiseAreas: ExpertiseArea[];
     bio: string;
+    videoIntroUrl?: string;
     availability: MentorAvailability;
     maxMentees: number;
     currentMenteeCount: number;
@@ -68,6 +76,7 @@ export interface MentorProfile {
     totalSessionsCompleted: number;
     isVerified: boolean;
     isFeatured: boolean;
+    reviews?: MentorReview[];
     createdAt: string;
     updatedAt?: string;
 }

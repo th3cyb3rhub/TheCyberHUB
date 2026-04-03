@@ -214,8 +214,8 @@ html[data-theme="light"] ::selection {
 
 @keyframes fade-in-up {
   from {
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 0.01;
+    transform: translateY(12px);
   }
 
   to {
@@ -347,6 +347,56 @@ html[data-theme="light"] ::selection {
   100% { transform: scale(1); }
 }
 .animate-like { animation: like-pulse 0.3s ease-in-out; }
+
+/* Blog content code block styling */
+.blog-content pre {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin: 1.5rem 0;
+}
+
+.blog-content pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  color: #e2e8f0;
+}
+
+.blog-content :not(pre) > code {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.375rem;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.85em;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  color: #f97316;
+}
+
+/* Basic syntax highlighting tokens (works with highlight.js or prism class names) */
+.blog-content .hljs-keyword,
+.blog-content .token.keyword { color: #c084fc; }
+.blog-content .hljs-string,
+.blog-content .token.string { color: #86efac; }
+.blog-content .hljs-comment,
+.blog-content .token.comment { color: #6b7280; font-style: italic; }
+.blog-content .hljs-function,
+.blog-content .token.function { color: #60a5fa; }
+.blog-content .hljs-number,
+.blog-content .token.number { color: #f472b6; }
+.blog-content .hljs-built_in,
+.blog-content .token.builtin { color: #fbbf24; }
+.blog-content .hljs-class,
+.blog-content .token.class-name { color: #22d3ee; }
+.blog-content .hljs-attr,
+.blog-content .token.attr-name { color: #f97316; }
+.blog-content .hljs-tag,
+.blog-content .token.tag { color: #ef4444; }
 
 @keyframes bookmark-bounce {
   0% { transform: scale(1); }
@@ -562,3 +612,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     @apply bg-white/5 border-white/10 text-white placeholder-gray-500;
     @apply focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20;
 }
+
+/* Syntax Highlighting for cheatsheet code blocks */
+.syntax-highlight-sql {
+    color: #fb923c; /* orange-400 base */
+}
+.syntax-highlight-html {
+    color: #f87171; /* red-400 for HTML tags */
+}
+code .keyword { color: #818cf8; font-weight: 600; }       /* purple - keywords */
+code .command { color: #4ade80; font-weight: 600; }        /* green - commands */
+code .string  { color: #34d399; }                          /* green - strings */
+code .flag    { color: #fbbf24; }                          /* yellow - flags */
+code .comment { color: #6b7280; font-style: italic; }      /* gray - comments */
+code .tag     { color: #f87171; }                          /* red - HTML tags */
+code .attr    { color: #fbbf24; }                          /* yellow - attributes */
+code .number  { color: #38bdf8; }                          /* blue - numbers */
+code .operator { color: #c084fc; }                         /* purple - operators */

@@ -1,7 +1,7 @@
 // app/tools/page.tsx
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { Search, Key, Globe, Terminal, ArrowRight, ArrowLeftRight, Hash, Wifi, Server, Wrench, Sparkles, Code, Database, Shield, Lock, Radio } from 'lucide-react';
 import Link from 'next/link';
@@ -22,6 +22,19 @@ const ToolsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState('all');
+
+    // Keyboard shortcut: Ctrl+K to focus search
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const input = document.querySelector<HTMLInputElement>('[data-tools-search]');
+                input?.focus();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     const tools: Tool[] = [
         {
@@ -100,179 +113,102 @@ const ToolsPage = () => {
             href: '/tools/sql-injection',
             icon: <Database className="w-5 h-5" />
         },
-        // Hidden tools - require backend API setup
-        // Uncomment when backend is ready
-        // {
-        //     id: 'subfinder',
-        //     name: 'Subdomain Finder',
-        //     description: 'Discover subdomains using Certificate Transparency',
-        //     status: 'available',
-        //     href: '/tools/subfinder',
-        //     icon: <Globe className="w-5 h-5" />,
-        //     popular: true
-        // },
-        // {
-        //     id: 'header-analyzer',
-        //     name: 'Header Analyzer',
-        //     description: 'Analyze HTTP security headers',
-        //     status: 'available',
-        //     href: '/tools/header-analyzer',
-        //     icon: <Terminal className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'ip-lookup',
-        //     name: 'IP Lookup',
-        //     description: 'Get geolocation and network info for any IP',
-        //     status: 'available',
-        //     href: '/tools/ip-lookup',
-        //     icon: <Wifi className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'whois-lookup',
-        //     name: 'WHOIS Lookup',
-        //     description: 'Get domain registration and ownership info',
-        //     status: 'available',
-        //     href: '/tools/whois-lookup',
-        //     icon: <Globe className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'dns-lookup',
-        //     name: 'DNS Lookup',
-        //     description: 'Query DNS records - A, AAAA, MX, NS, TXT',
-        //     status: 'available',
-        //     href: '/tools/dns-lookup',
-        //     icon: <Server className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'cors-tester',
-        //     name: 'CORS Tester',
-        //     description: 'Test CORS misconfigurations',
-        //     status: 'available',
-        //     href: '/tools/cors-tester',
-        //     icon: <Globe className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'ssl-checker',
-        //     name: 'SSL/TLS Checker',
-        //     description: 'Analyze SSL certificate security',
-        //     status: 'available',
-        //     href: '/tools/ssl-checker',
-        //     icon: <Lock className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'port-scanner',
-        //     name: 'Port Scanner',
-        //     description: 'Info about port scanning tools and techniques',
-        //     status: 'available',
-        //     href: '/tools/port-scanner',
-        //     icon: <Radio className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'cve-search',
-        //     name: 'CVE Search',
-        //     description: 'Search CVE vulnerability database',
-        //     status: 'available',
-        //     href: '/tools/cve-search',
-        //     icon: <Shield className="w-5 h-5" />
-        // },
-        // {
-        //     id: 'exploit-db',
-        //     name: 'Exploit-DB Search',
-        //     description: 'Search exploits and proof-of-concept code',
-        //     status: 'available',
-        //     href: '/tools/exploit-db',
-        //     icon: <Database className="w-5 h-5" />
-        // },
-        // Coming Soon tools
         {
-            id: 'port-scanner',
-            name: 'Port Scanner',
-            description: 'Scan ports and discover open services on targets',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Radio className="w-5 h-5" />,
-            comingSoon: true
-        },
-        {
-            id: 'dns-lookup',
-            name: 'DNS Lookup',
-            description: 'Query DNS records - A, AAAA, MX, NS, TXT',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Server className="w-5 h-5" />,
-            comingSoon: true
-        },
-        {
-            id: 'ssl-checker',
-            name: 'SSL Scanner',
-            description: 'Analyze SSL/TLS certificate security configuration',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Lock className="w-5 h-5" />,
-            comingSoon: true
-        },
-        {
-            id: 'whois-lookup',
-            name: 'Whois Lookup',
-            description: 'Get domain registration and ownership info',
-            status: 'coming-soon',
-            href: '#',
+            id: 'subfinder',
+            name: 'Subdomain Finder',
+            description: 'Discover subdomains using Certificate Transparency',
+            status: 'available',
+            href: '/tools/subfinder',
             icon: <Globe className="w-5 h-5" />,
-            comingSoon: true
-        },
-        {
-            id: 'ip-lookup',
-            name: 'IP Lookup',
-            description: 'Get geolocation and network info for any IP',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Wifi className="w-5 h-5" />,
-            comingSoon: true
-        },
-        {
-            id: 'cve-search',
-            name: 'CVE Search',
-            description: 'Search the CVE vulnerability database',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Shield className="w-5 h-5" />,
-            comingSoon: true
+            popular: true
         },
         {
             id: 'header-analyzer',
             name: 'Header Analyzer',
             description: 'Analyze HTTP security headers for misconfigurations',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Terminal className="w-5 h-5" />,
-            comingSoon: true
+            status: 'available',
+            href: '/tools/header-analyzer',
+            icon: <Terminal className="w-5 h-5" />
+        },
+        {
+            id: 'ip-lookup',
+            name: 'IP Lookup',
+            description: 'Get geolocation and network info for any IP',
+            status: 'available',
+            href: '/tools/ip-lookup',
+            icon: <Wifi className="w-5 h-5" />
+        },
+        {
+            id: 'whois-lookup',
+            name: 'WHOIS Lookup',
+            description: 'Get domain registration and ownership info',
+            status: 'available',
+            href: '/tools/whois-lookup',
+            icon: <Globe className="w-5 h-5" />
+        },
+        {
+            id: 'dns-lookup',
+            name: 'DNS Lookup',
+            description: 'Query DNS records - A, AAAA, MX, NS, TXT',
+            status: 'available',
+            href: '/tools/dns-lookup',
+            icon: <Server className="w-5 h-5" />
         },
         {
             id: 'cors-tester',
             name: 'CORS Tester',
             description: 'Test CORS misconfigurations on web applications',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Globe className="w-5 h-5" />,
-            comingSoon: true
+            status: 'available',
+            href: '/tools/cors-tester',
+            icon: <Globe className="w-5 h-5" />
         },
         {
-            id: 'subdomain-takeover',
+            id: 'ssl-checker',
+            name: 'SSL/TLS Checker',
+            description: 'Analyze SSL certificate security configuration',
+            status: 'available',
+            href: '/tools/ssl-checker',
+            icon: <Lock className="w-5 h-5" />
+        },
+        {
+            id: 'port-scanner',
+            name: 'Port Scanner',
+            description: 'Info about port scanning tools and techniques',
+            status: 'available',
+            href: '/tools/port-scanner',
+            icon: <Radio className="w-5 h-5" />
+        },
+        {
+            id: 'cve-search',
+            name: 'CVE Search',
+            description: 'Search the CVE vulnerability database',
+            status: 'available',
+            href: '/tools/cve-search',
+            icon: <Shield className="w-5 h-5" />
+        },
+        {
+            id: 'exploit-db',
+            name: 'Exploit-DB Search',
+            description: 'Search exploits and proof-of-concept code',
+            status: 'available',
+            href: '/tools/exploit-db',
+            icon: <Database className="w-5 h-5" />
+        },
+        {
+            id: 'sub-takeover',
             name: 'Subdomain Takeover',
             description: 'Check for subdomain takeover vulnerabilities',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Globe className="w-5 h-5" />,
-            comingSoon: true
+            status: 'available',
+            href: '/tools/sub-takeover',
+            icon: <Globe className="w-5 h-5" />
         },
         {
             id: 'ssrf-tester',
             name: 'SSRF Tester',
             description: 'Test for server-side request forgery vulnerabilities',
-            status: 'coming-soon',
-            href: '#',
-            icon: <Shield className="w-5 h-5" />,
-            comingSoon: true
+            status: 'available',
+            href: '/tools/ssrf-tester',
+            icon: <Shield className="w-5 h-5" />
         },
     ];
 
@@ -312,10 +248,11 @@ const ToolsPage = () => {
                         <div className="relative flex-1">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                             <input
+                                data-tools-search
                                 type="text"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                placeholder="Search tools..."
+                                placeholder="Search tools... (Ctrl+K)"
                                 className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-all"
                             />
                         </div>
@@ -346,7 +283,7 @@ const ToolsPage = () => {
 
             {/* Tools Grid */}
             <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredTools.map((tool, index) => (
                         tool.status === 'coming-soon' ? (
                         <div

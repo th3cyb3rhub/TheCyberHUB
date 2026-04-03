@@ -17,11 +17,21 @@ const DNSLookupPage = () => {
     const [records, setRecords] = useState<DNSRecord[]>([]);
     const [copied, setCopied] = useState<string | null>(null);
 
+    const isValidDomain = (d: string): boolean => {
+        const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z]{2,})+$/;
+        return domainRegex.test(d);
+    };
+
     const lookupDNS = async () => {
         const cleanDomain = domain.trim().toLowerCase().replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
-        
+
         if (!cleanDomain) {
             setError('Please enter a domain name');
+            return;
+        }
+
+        if (!isValidDomain(cleanDomain)) {
+            setError('Invalid domain format. Use a valid domain like example.com');
             return;
         }
 
@@ -152,6 +162,17 @@ const DNSLookupPage = () => {
                     {/* Results */}
                     {Object.keys(groupedRecords).length > 0 && (
                         <div className="space-y-4">
+                            {/* Copy All */}
+                            <button
+                                onClick={() => {
+                                    const text = records.map(r => `${r.type}\t${r.value}${r.ttl ? `\tTTL:${r.ttl}` : ''}`).join('\n');
+                                    copyToClipboard(text);
+                                }}
+                                className="w-full p-3 text-center rounded-lg border border-white/10 text-sm text-gray-400 hover:text-white hover:border-orange-500/30 transition-colors flex items-center justify-center gap-2"
+                            >
+                                <Copy className="w-4 h-4" />
+                                Copy All Records
+                            </button>
                             {Object.entries(groupedRecords).map(([type, typeRecords]) => (
                                 <div key={type} className="rounded-lg bg-white/[0.02] border border-white/5 overflow-hidden">
                                     <div className="px-4 py-3 border-b border-white/5 flex items-center gap-3">

@@ -19,6 +19,7 @@ import {
 import Footer from '@/components/Footer';
 import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -72,6 +73,7 @@ const difficultyColors: Record<string, string> = {
 
 const LearningPathsPage = () => {
     const { user, token } = useAuth();
+    const { addToast } = useToast();
     const [paths, setPaths] = useState<LearningPath[]>([]);
     const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
     const [loading, setLoading] = useState(true);
@@ -113,12 +115,20 @@ const LearningPathsPage = () => {
 
         setEnrollingPath(pathId);
         try {
-            await fetchApi(`/api/learning-paths/${pathId}/enroll`, {
+            const result = await fetchApi(`/api/learning-paths/${pathId}/enroll`, {
                 method: 'POST',
             });
+            if (result.success) {
+                addToast({ message: 'Successfully enrolled in learning path!', variant: 'success' });
+            }
             await fetchUserProgress();
         } catch (error) {
-            console.error('Failed to enroll:', error);
+            const message = error instanceof Error ? error.message : 'Failed to enroll';
+            addToast({
+                title: 'Enrollment failed',
+                message: message.includes('Already enrolled') ? 'You are already enrolled in this path.' : message,
+                variant: 'error',
+            });
         } finally {
             setEnrollingPath(null);
         }
@@ -257,21 +267,33 @@ const LearningPathsPage = () => {
                                         </span>
                                     </div>
 
-                                    {/* Progress Bar (if enrolled) */}
-                                    {isEnrolled && (
-                                        <div className="mb-4">
-                                            <div className="flex items-center justify-between text-xs mb-1">
-                                                <span className="text-gray-400">Progress</span>
-                                                <span className="text-orange-400">{progress.progress}%</span>
-                                            </div>
-                                            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                                                <div
-                                                    className="h-full bg-orange-500 rounded-full transition-all"
-                                                    style={{ width: `${progress.progress}%` }}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
+                                    {/* Progress Bar */}
+                                    <div className="mb-4">
+                                        {isEnrolled ? (
+                                            <>
+                                                <div className="flex items-center justify-between text-xs mb-1">
+                                                    <span className="text-gray-400">Progress</span>
+                                                    <span className="text-orange-400">{progress.progress}%</span>
+                                                </div>
+                                                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-orange-500 rounded-full transition-all"
+                                                        style={{ width: `${progress.progress}%` }}
+                                                    />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="flex items-center justify-between text-xs mb-1">
+                                                    <span className="text-gray-500">{path.modules?.length || 0} modules</span>
+                                                    <span className="text-gray-500">Enroll to track</span>
+                                                </div>
+                                                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                                                    <div className="h-full bg-white/10 rounded-full" style={{ width: '0%' }} />
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
 
                                     {/* Skills */}
                                     {path.skills && path.skills.length > 0 && (

@@ -1,8 +1,19 @@
 export interface Speaker {
     name: string;
     title: string;
+    bio?: string;
     avatar?: string;
     linkedin?: string;
+    twitter?: string;
+    github?: string;
+    website?: string;
+}
+
+export interface EventFeedback {
+    user: { username: string; name?: string; avatar?: string };
+    rating: number;
+    comment: string;
+    submittedAt: string;
 }
 
 export interface Event {
@@ -28,6 +39,12 @@ export interface Event {
     speakers?: Speaker[];
     status: 'upcoming' | 'live' | 'ended' | 'cancelled';
     isFeatured: boolean;
+    // Archive fields (past events)
+    recordingLink?: string;
+    slidesLink?: string;
+    summaryNotes?: string;
+    // Feedback
+    feedback?: EventFeedback[];
 }
 
 export const sampleEvents: Event[] = [

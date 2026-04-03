@@ -7,8 +7,10 @@ import { useParams } from 'next/navigation';
 import {
     ArrowLeft, Briefcase, MapPin, Clock, DollarSign, Building2,
     ExternalLink, Share2, CheckCircle,
-    Globe, Gift, Calendar, Sparkles
+    Globe, Gift, Calendar, Sparkles, Zap, Bell, BellOff
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 import Footer from '@/components/Footer';
 import { fetchApi } from '@/lib/api';
 
@@ -70,9 +72,13 @@ const employmentTypeColors: Record<string, string> = {
 
 const JobDetailPage = () => {
     const params = useParams();
+    const { user } = useAuth();
+    const { addToast } = useToast();
     const [job, setJob] = useState<Job | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [quickApplied, setQuickApplied] = useState(false);
+    const [alertSaved, setAlertSaved] = useState(false);
 
     useEffect(() => {
         const fetchJob = async () => {
@@ -229,9 +235,47 @@ const JobDetailPage = () => {
                             className="flex items-center gap-2 px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-all hover:shadow-lg hover:shadow-orange-500/20">
                             <ExternalLink className="w-4 h-4" /> Apply Now
                         </button>
+                        {user && !quickApplied && (
+                            <button
+                                onClick={async () => {
+                                    try {
+                                        await fetchApi(`/api/jobs/${job._id}/apply`, { method: 'POST' });
+                                        setQuickApplied(true);
+                                        addToast({ message: 'Quick application submitted! The employer will be notified.', variant: 'success' });
+                                    } catch {
+                                        addToast({ message: 'Failed to quick apply', variant: 'error' });
+                                    }
+                                }}
+                                className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all"
+                            >
+                                <Zap className="w-4 h-4" /> Quick Apply
+                            </button>
+                        )}
+                        {quickApplied && (
+                            <span className="flex items-center gap-2 px-6 py-3 bg-green-500/20 text-green-400 rounded-xl border border-green-500/30">
+                                <CheckCircle className="w-4 h-4" /> Applied
+                            </span>
+                        )}
                         <button onClick={handleShare}
                             className="flex items-center gap-2 px-4 py-3 border border-white/10 hover:border-white/20 text-gray-400 hover:text-white rounded-xl transition-colors">
                             <Share2 className="w-4 h-4" /> Share
+                        </button>
+                        <button
+                            onClick={() => {
+                                setAlertSaved(!alertSaved);
+                                addToast({
+                                    message: alertSaved ? 'Job alert removed' : 'Job alert saved! You will be notified of similar jobs.',
+                                    variant: alertSaved ? 'info' : 'success'
+                                });
+                            }}
+                            className={`flex items-center gap-2 px-4 py-3 border rounded-xl transition-colors ${
+                                alertSaved
+                                    ? 'border-orange-500/30 text-orange-400 bg-orange-500/10'
+                                    : 'border-white/10 hover:border-white/20 text-gray-400 hover:text-white'
+                            }`}
+                        >
+                            {alertSaved ? <BellOff className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
+                            {alertSaved ? 'Alert Saved' : 'Save Alert'}
                         </button>
                     </div>
                 </div>

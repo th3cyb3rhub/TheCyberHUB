@@ -36,6 +36,8 @@ interface FeedPost {
 
 interface TrendingTag { tag: string; count: number; }
 
+const DRAFT_KEY = 'tch:feed:draft';
+
 export default function FeedPage() {
     const { user } = useAuth();
     const { addToast } = useToast();
@@ -111,8 +113,21 @@ export default function FeedPage() {
         };
     }, [hasMore, loadingMore, fetchFeed]);
 
-    const handlePostCreated = (post: unknown) => setPosts(prev => [post as FeedPost, ...prev]);
+    const handlePostCreated = (post: unknown) => {
+        setPosts(prev => [post as FeedPost, ...prev]);
+        // Clear draft on successful post
+        try { localStorage.removeItem(DRAFT_KEY); } catch {}
+    };
     const handleDelete = (id: string) => setPosts(prev => prev.filter(p => p._id !== id));
+
+    // Handle hashtag click from feed items
+    const handleHashtagClick = useCallback((tag: string) => {
+        // Strip leading # if present
+        const cleanTag = tag.startsWith('#') ? tag.slice(1) : tag;
+        setHashtag(cleanTag);
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
 
     const handleReshare = async () => {
         if (!reshareTarget || reshareLoading) return;
@@ -157,6 +172,36 @@ export default function FeedPage() {
                         </div>
                         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">Feed</h1>
                         <p className="text-gray-600 dark:text-gray-500 text-sm">Wins, writeups, and insights from the community.</p>
+                    </div>
+
+                    {/* Mobile Trending Tags -- visible on small screens */}
+                    <div className="lg:hidden mb-6">
+                        {trendingLoading ? (
+                            <div className="flex justify-center py-2">
+                                <Loader2 className="w-4 h-4 animate-spin text-gray-600" />
+                            </div>
+                        ) : trendingTags.length > 0 ? (
+                            <div className="overflow-x-auto scrollbar-none">
+                                <div className="flex items-center gap-2 pb-2 min-w-max">
+                                    <TrendingUp className="w-4 h-4 text-orange-500 shrink-0" />
+                                    <span className="text-xs font-semibold text-gray-400 shrink-0">Trending:</span>
+                                    {trendingTags.slice(0, 8).map((t) => (
+                                        <button
+                                            key={t.tag}
+                                            onClick={() => setHashtag(t.tag)}
+                                            className={`px-2.5 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
+                                                hashtag === t.tag
+                                                    ? 'bg-orange-500/20 text-orange-400'
+                                                    : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
+                                            }`}
+                                        >
+                                            #{t.tag}
+                                            <span className="ml-1 text-gray-600">{t.count}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : null}
                     </div>
 
                     {/* Two-column layout via CSS flexbox */}
@@ -229,7 +274,7 @@ export default function FeedPage() {
                             ) : (
                                 <div className="space-y-4">
                                     {filteredPosts.map(post => (
-                                        <FeedItem key={post._id} post={post} onDelete={handleDelete} onReshare={p => setReshareTarget(p)} />
+                                        <FeedItem key={post._id} post={post} onDelete={handleDelete} onReshare={p => setReshareTarget(p)} onHashtagClick={handleHashtagClick} />
                                     ))}
                                 </div>
                             )}

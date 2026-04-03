@@ -335,9 +335,61 @@ export default function ForumsPage() {
 
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-4 py-8">
+                {/* Mobile Category Tabs */}
+                <div className="lg:hidden mb-6 overflow-x-auto scrollbar-none">
+                    <div className="flex items-center gap-2 pb-2 min-w-max">
+                        <button
+                            onClick={() => updateParams({ category: null })}
+                            className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+                                selectedCategory === null
+                                    ? 'bg-orange-500/20 text-orange-400'
+                                    : 'bg-white/5 text-gray-400 hover:text-white'
+                            }`}
+                        >
+                            All
+                        </button>
+                        {categoryStats.map((stat) => {
+                            const info = CATEGORY_INFO[stat.category];
+                            if (!info) return null;
+                            return (
+                                <button
+                                    key={stat.category}
+                                    onClick={() => updateParams({ category: stat.category })}
+                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+                                        selectedCategory === stat.category
+                                            ? `${info.bgColor} ${info.color}`
+                                            : 'bg-white/5 text-gray-400 hover:text-white'
+                                    }`}
+                                >
+                                    {info.label} <span className="text-xs opacity-60">({stat.count})</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                    {/* Mobile Popular Tags */}
+                    {popularTags.length > 0 && (
+                        <div className="flex items-center gap-2 mt-2 min-w-max">
+                            <Tag className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+                            {popularTags.slice(0, 8).map((t) => (
+                                <button
+                                    key={t.tag}
+                                    onClick={() => updateParams({ tag: selectedTag === t.tag ? null : t.tag })}
+                                    className={`px-2 py-1 rounded text-xs whitespace-nowrap transition-colors ${
+                                        selectedTag === t.tag
+                                            ? 'bg-orange-500/20 text-orange-400'
+                                            : 'bg-white/5 text-gray-400 hover:text-white'
+                                    }`}
+                                >
+                                    {t.tag}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
                 <div className="flex flex-col lg:flex-row gap-8">
-                    {/* Sidebar */}
-                    <aside className="lg:w-64 shrink-0">
+                    {/* Sidebar - desktop only */}
+                    <aside className="hidden lg:block lg:w-64 shrink-0">
                         <CategorySidebar
                             stats={categoryStats}
                             selectedCategory={selectedCategory}

@@ -206,7 +206,7 @@ const BlogPage = () => {
                                 key={blog._id}
                                 href={`/blog/${blog._id}`}
                                 className={`group rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden hover:border-orange-500/30 transition-all duration-300 card-hover animate-fade-in-up animate-stagger-${index % 6 + 1}`}
-                                style={{ opacity: 0, animationFillMode: 'forwards' }}
+                                style={{ animationFillMode: 'forwards' }}
                             >
                                 {/* Cover Image */}
                                 {blog.coverImage && (

@@ -138,23 +138,49 @@ const isValidUrl = (url: string): boolean => {
 
 const renderMarkdown = renderMarkdownToHtml;
 
-const formatDateForInput = (dateString: string): string => {
+const formatDateForInput = (dateString: string, timezone?: string): string => {
     if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toISOString().slice(0, 16);
+    try {
+        if (timezone) {
+            // Convert UTC date to the event's timezone for the input
+            const date = new Date(dateString);
+            const formatter = new Intl.DateTimeFormat('sv-SE', {
+                timeZone: timezone,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+            });
+            const parts = formatter.formatToParts(date);
+            const get = (type: string) => parts.find(p => p.type === type)?.value || '';
+            return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}`;
+        }
+        const date = new Date(dateString);
+        return date.toISOString().slice(0, 16);
+    } catch {
+        const date = new Date(dateString);
+        return date.toISOString().slice(0, 16);
+    }
 };
 
-const formatDateForDisplay = (dateString: string): string => {
+const formatDateForDisplay = (dateString: string, timezone?: string): string => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    const options: Intl.DateTimeFormatOptions = {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-    });
+    };
+    if (timezone) {
+        options.timeZone = timezone;
+        options.timeZoneName = 'short';
+    }
+    return date.toLocaleDateString('en-US', options);
 };
 
 export default function AdminEventEditPage() {
@@ -225,8 +251,8 @@ export default function AdminEventEditPage() {
                     description: event.description || '',
                     image: event.image || '',
                     bannerImage: event.bannerImage || '',
-                    startDate: formatDateForInput(event.startDate),
-                    endDate: formatDateForInput(event.endDate),
+                    startDate: formatDateForInput(event.startDate, event.timezone || 'Asia/Kolkata'),
+                    endDate: formatDateForInput(event.endDate, event.timezone || 'Asia/Kolkata'),
                     timezone: event.timezone || 'Asia/Kolkata',
                     locationType: event.locationType || 'online',
                     location: event.location || '',
@@ -610,7 +636,7 @@ export default function AdminEventEditPage() {
                                     <Calendar className="w-5 h-5 text-orange-500" />
                                     <div>
                                         <p className="text-sm text-gray-500">Start Date</p>
-                                        <p>{formData.startDate ? formatDateForDisplay(formData.startDate) : 'Not set'}</p>
+                                        <p>{formData.startDate ? formatDateForDisplay(formData.startDate, formData.timezone) : 'Not set'}</p>
                                     </div>
                                 </div>
                                 {formData.endDate && (
@@ -618,7 +644,7 @@ export default function AdminEventEditPage() {
                                         <Clock className="w-5 h-5 text-orange-500" />
                                         <div>
                                             <p className="text-sm text-gray-500">End Date</p>
-                                            <p>{formatDateForDisplay(formData.endDate)}</p>
+                                            <p>{formatDateForDisplay(formData.endDate, formData.timezone)}</p>
                                         </div>
                                     </div>
                                 )}

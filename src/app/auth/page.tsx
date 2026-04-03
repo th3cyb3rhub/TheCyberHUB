@@ -1,11 +1,13 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Shield, Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2, CheckCircle2, Zap, Users, BookOpen } from 'lucide-react';
+import { Shield, Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2, CheckCircle2, Zap, Users, BookOpen, XCircle, Monitor, Clock } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { useDebounce } from '@/hooks/useDebounce';
+import { fetchApi } from '@/lib/api';
 
 type AuthMode = 'login' | 'register' | '2fa';
 
@@ -30,6 +32,14 @@ const AuthPage = () => {
     const [tempToken, setTempToken] = useState<string | null>(null);
     const [twoFactorCode, setTwoFactorCode] = useState('');
 
+    // Username availability check
+    const [usernameChecking, setUsernameChecking] = useState(false);
+    const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null);
+    const [usernameError, setUsernameError] = useState<string | null>(null);
+
+    // Login activity
+    const [loginActivity, setLoginActivity] = useState<Array<{ timestamp: string; ip?: string; userAgent?: string }>>([]);
+
     const [formData, setFormData] = useState({
         name: '',
         username: '',
@@ -37,6 +47,53 @@ const AuthPage = () => {
         password: '',
         confirmPassword: '',
     });
+
+    const debouncedUsername = useDebounce(formData.username, 500);
+
+    // Username availability check
+    const checkUsernameAvailability = useCallback(async (username: string) => {
+        if (!username || username.length < 3) {
+            setUsernameAvailable(null);
+            setUsernameError(null);
+            return;
+        }
+        setUsernameChecking(true);
+        setUsernameError(null);
+        try {
+            const data = await fetchApi(`/api/users?q=${encodeURIComponent(username)}&limit=1`, { requireAuth: false });
+            const users = data.data || data.users || [];
+            const taken = users.some((u: { username: string }) => u.username.toLowerCase() === username.toLowerCase());
+            setUsernameAvailable(!taken);
+            if (taken) {
+                setUsernameError('Username is already taken');
+            }
+        } catch {
+            setUsernameAvailable(null);
+        } finally {
+            setUsernameChecking(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (mode === 'register' && debouncedUsername && debouncedUsername.length >= 3) {
+            checkUsernameAvailability(debouncedUsername);
+        } else {
+            setUsernameAvailable(null);
+            setUsernameError(null);
+        }
+    }, [debouncedUsername, mode, checkUsernameAvailability]);
+
+    // Reset form on mode switch
+    const switchMode = (newMode: AuthMode) => {
+        setFormData({ name: '', username: '', email: '', password: '', confirmPassword: '' });
+        setError(null);
+        setSuccess(null);
+        setShowPassword(false);
+        setShowConfirmPassword(false);
+        setUsernameAvailable(null);
+        setUsernameError(null);
+        setMode(newMode);
+    };
 
     // Password strength indicator
     const getPasswordStrength = (password: string) => {
@@ -216,7 +273,7 @@ const AuthPage = () => {
                     {mode !== '2fa' && (
                         <div className="flex gap-2 p-1 bg-white/5 rounded-lg mb-8">
                             <button
-                                onClick={() => setMode('login')}
+                                onClick={() => switchMode('login')}
                                 className={`flex-1 py-2.5 text-sm font-medium rounded-md transition-all ${mode === 'login'
                                     ? 'bg-orange-500 text-white'
                                     : 'text-gray-400 hover:text-white'
@@ -225,7 +282,7 @@ const AuthPage = () => {
                                 Sign In
                             </button>
                             <button
-                                onClick={() => setMode('register')}
+                                onClick={() => switchMode('register')}
                                 className={`flex-1 py-2.5 text-sm font-medium rounded-md transition-all ${mode === 'register'
                                     ? 'bg-orange-500 text-white'
                                     : 'text-gray-400 hover:text-white'
@@ -318,10 +375,37 @@ const AuthPage = () => {
                                             placeholder="johndoe"
                                             minLength={3}
                                             maxLength={30}
-                                            className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                            className={`w-full pl-11 pr-10 py-3 bg-white/5 border rounded-lg text-white placeholder:text-gray-500 focus:outline-none transition-colors ${
+                                                formData.username && formData.username.length >= 3
+                                                    ? usernameAvailable === true ? 'border-green-500/50 focus:border-green-500'
+                                                    : usernameAvailable === false ? 'border-red-500/50 focus:border-red-500'
+                                                    : 'border-white/10 focus:border-orange-500/50'
+                                                    : 'border-white/10 focus:border-orange-500/50'
+                                            }`}
                                         />
+                                        {formData.username && formData.username.length >= 3 && (
+                                            <span className="absolute right-4 top-1/2 -translate-y-1/2">
+                                                {usernameChecking ? (
+                                                    <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
+                                                ) : usernameAvailable === true ? (
+                                                    <CheckCircle2 className="w-4 h-4 text-green-400" />
+                                                ) : usernameAvailable === false ? (
+                                                    <XCircle className="w-4 h-4 text-red-400" />
+                                                ) : null}
+                                            </span>
+                                        )}
                                     </div>
-                                    <p className="text-xs text-gray-600 mt-1">Leave empty to auto-generate from email</p>
+                                    {usernameError && (
+                                        <p className="text-xs text-red-400 mt-1">{usernameError}</p>
+                                    )}
+                                    {usernameAvailable === true && formData.username.length >= 3 && (
+                                        <p className="text-xs text-green-400 mt-1 flex items-center gap-1">
+                                            <CheckCircle2 className="w-3 h-3" /> Username is available
+                                        </p>
+                                    )}
+                                    {!usernameError && usernameAvailable === null && (
+                                        <p className="text-xs text-gray-600 mt-1">Leave empty to auto-generate from email</p>
+                                    )}
                                 </div>
                             </>
                         )}

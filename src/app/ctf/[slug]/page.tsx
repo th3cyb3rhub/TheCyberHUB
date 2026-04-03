@@ -93,6 +93,7 @@ export default function ChallengeDetailPage() {
 
     // Flag submission
     const [flagInput, setFlagInput] = useState('');
+    const [flagFormatError, setFlagFormatError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
 
@@ -142,9 +143,37 @@ export default function ChallengeDetailPage() {
         if (params.slug) fetchChallenge();
     }, [params.slug, token, user]);
 
+    const validateFlagFormat = (flag: string, format: string): string | null => {
+        const trimmed = flag.trim();
+        if (!trimmed) return 'Flag cannot be empty';
+
+        // Common flag format patterns
+        if (format) {
+            // Extract prefix from format like "flag{...}" or "CTF{...}"
+            const formatMatch = format.match(/^([a-zA-Z0-9_]+)\{.*\}$/);
+            if (formatMatch) {
+                const prefix = formatMatch[1];
+                const flagRegex = new RegExp(`^${prefix}\\{.+\\}$`, 'i');
+                if (!flagRegex.test(trimmed)) {
+                    return `Flag must match format: ${format}`;
+                }
+            }
+        }
+
+        return null;
+    };
+
     const handleSubmitFlag = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!flagInput.trim() || !challenge || !token) return;
+
+        // Client-side flag format validation
+        const formatError = validateFlagFormat(flagInput, challenge.flagFormat);
+        if (formatError) {
+            setFlagFormatError(formatError);
+            return;
+        }
+        setFlagFormatError(null);
 
         setSubmitting(true);
         setSubmitResult(null);
@@ -560,10 +589,16 @@ export default function ChallengeDetailPage() {
                                     <input
                                         type="text"
                                         value={flagInput}
-                                        onChange={(e) => setFlagInput(e.target.value)}
+                                        onChange={(e) => { setFlagInput(e.target.value); setFlagFormatError(null); }}
                                         placeholder="flag{...}"
-                                        className="w-full px-4 py-3 bg-black/30 border border-white/10 rounded-xl text-white font-mono text-sm placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none mb-3 transition-colors"
+                                        className={`w-full px-4 py-3 bg-black/30 border rounded-xl text-white font-mono text-sm placeholder:text-gray-600 focus:outline-none mb-1 transition-colors ${
+                                            flagFormatError ? 'border-red-500/50 focus:border-red-500/70' : 'border-white/10 focus:border-orange-500/50'
+                                        }`}
                                     />
+                                    {flagFormatError && (
+                                        <p className="text-xs text-red-400 mb-2">{flagFormatError}</p>
+                                    )}
+                                    <div className="mb-3" />
                                     <button
                                         type="submit"
                                         disabled={submitting || !flagInput.trim()}

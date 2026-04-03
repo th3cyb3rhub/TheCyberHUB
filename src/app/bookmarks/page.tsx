@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import { Bookmark, Plus, Folder, FileText, MessageSquare, Calendar, Briefcase, Trash2, Edit2, X, Check } from 'lucide-react';
+import { Bookmark, Plus, Folder, FileText, MessageSquare, Calendar, Briefcase, Trash2, Edit2, X, Check, Search, ArrowUpDown, CheckSquare, Square, FolderInput, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { fetchApi } from '@/lib/api';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useToast } from '@/context/ToastContext';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface BookmarkItem {
     _id: string;
@@ -70,6 +71,94 @@ export default function BookmarksPage() {
     const [editName, setEditName] = useState('');
     const { isOpen: confirmOpen, confirm: showConfirm, onConfirm, onCancel } = useConfirmDialog();
     const { addToast } = useToast();
+
+    // Search
+    const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 300);
+
+    // Sort
+    const [sortBy, setSortBy] = useState<'date' | 'name'>('date');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
+    // Bulk operations
+    const [selectedBookmarks, setSelectedBookmarks] = useState<Set<string>>(new Set());
+    const [bulkMode, setBulkMode] = useState(false);
+    const [moveTarget, setMoveTarget] = useState<string | null>(null);
+    const [bulkLoading, setBulkLoading] = useState(false);
+
+    // Prevent race condition: track in-flight delete
+    const [deletingBookmarks, setDeletingBookmarks] = useState<Set<string>>(new Set());
+
+    // Filtered and sorted bookmarks
+    const filteredBookmarks = useMemo(() => {
+        let filtered = [...bookmarks];
+
+        // Filter by search query
+        if (debouncedSearch) {
+            const query = debouncedSearch.toLowerCase();
+            filtered = filtered.filter(b =>
+                (b.content?.title || b.content?.name || '').toLowerCase().includes(query) ||
+                b.contentType.toLowerCase().includes(query)
+            );
+        }
+
+        // Sort
+        filtered.sort((a, b) => {
+            if (sortBy === 'name') {
+                const nameA = (a.content?.title || a.content?.name || '').toLowerCase();
+                const nameB = (b.content?.title || b.content?.name || '').toLowerCase();
+                return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+            } else {
+                const dateA = new Date(a.createdAt).getTime();
+                const dateB = new Date(b.createdAt).getTime();
+                return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+            }
+        });
+
+        return filtered;
+    }, [bookmarks, debouncedSearch, sortBy, sortOrder]);
+
+    const toggleBookmarkSelection = (id: string) => {
+        setSelectedBookmarks(prev => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            return next;
+        });
+    };
+
+    const selectAll = () => {
+        if (selectedBookmarks.size === filteredBookmarks.length) {
+            setSelectedBookmarks(new Set());
+        } else {
+            setSelectedBookmarks(new Set(filteredBookmarks.map(b => b._id)));
+        }
+    };
+
+    const handleBulkDelete = async () => {
+        if (selectedBookmarks.size === 0) return;
+        const confirmed = await showConfirm();
+        if (!confirmed) return;
+        setBulkLoading(true);
+        try {
+            const promises = Array.from(selectedBookmarks).map(id => {
+                const bm = bookmarks.find(b => b._id === id);
+                if (bm) return fetchApi(`/api/bookmarks/${bm.contentType}/${bm.contentId}`, { method: 'DELETE' });
+                return Promise.resolve();
+            });
+            await Promise.all(promises);
+            setSelectedBookmarks(new Set());
+            setBulkMode(false);
+            if (selectedCollection) {
+                await Promise.all([fetchBookmarks(selectedCollection), fetchCollections()]);
+            }
+            addToast({ message: 'Bookmarks removed', variant: 'success' });
+        } catch {
+            addToast({ message: 'Failed to remove some bookmarks', variant: 'error' });
+        } finally {
+            setBulkLoading(false);
+        }
+    };
 
 
     const fetchCollections = useCallback(async () => {
@@ -150,30 +239,41 @@ export default function BookmarksPage() {
             await fetchApi(`/api/bookmarks/collections/${collectionId}`, {
                 method: 'DELETE',
             });
-            fetchCollections();
             if (selectedCollection === collectionId) {
                 setSelectedCollection(null);
                 setBookmarks([]);
             }
+            await fetchCollections();
         } catch (error) {
             console.error('Error deleting collection:', error);
             addToast({ message: 'Failed to delete collection', variant: 'error' });
         }
     };
 
-    const removeBookmark = async (contentType: string, contentId: string) => {
-        if (!token) return;
+    const removeBookmark = async (bookmarkId: string, contentType: string, contentId: string) => {
+        if (!token || deletingBookmarks.has(bookmarkId)) return;
+        setDeletingBookmarks(prev => new Set(prev).add(bookmarkId));
+        // Optimistic UI: remove immediately
+        setBookmarks(prev => prev.filter(b => b._id !== bookmarkId));
         try {
             await fetchApi(`/api/bookmarks/${contentType}/${contentId}`, {
                 method: 'DELETE',
             });
             if (selectedCollection) {
-                fetchBookmarks(selectedCollection);
-                fetchCollections();
+                // Both fetches run in parallel after delete
+                await Promise.all([fetchBookmarks(selectedCollection), fetchCollections()]);
             }
         } catch (error) {
             console.error('Error removing bookmark:', error);
             addToast({ message: 'Failed to remove bookmark', variant: 'error' });
+            // Rollback: refetch
+            if (selectedCollection) fetchBookmarks(selectedCollection);
+        } finally {
+            setDeletingBookmarks(prev => {
+                const next = new Set(prev);
+                next.delete(bookmarkId);
+                return next;
+            });
         }
     };
 
@@ -325,6 +425,74 @@ export default function BookmarksPage() {
 
                     {/* Bookmarks Content */}
                     <div className="lg:col-span-3">
+                        {/* Search and Sort Bar */}
+                        {selectedCollection && bookmarks.length > 0 && (
+                            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                                <div className="relative flex-1">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                    <input
+                                        type="text"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        placeholder="Search bookmarks..."
+                                        className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 transition-colors"
+                                    />
+                                </div>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => {
+                                            if (sortBy === 'date') {
+                                                setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
+                                            } else {
+                                                setSortBy('date');
+                                                setSortOrder('desc');
+                                            }
+                                        }}
+                                        className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border transition-colors ${sortBy === 'date' ? 'border-orange-500/50 bg-orange-500/10 text-orange-400' : 'border-white/10 bg-white/5 text-gray-400 hover:text-white'}`}
+                                    >
+                                        <Calendar className="w-3 h-3" />
+                                        Date {sortBy === 'date' && (sortOrder === 'desc' ? '(newest)' : '(oldest)')}
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (sortBy === 'name') {
+                                                setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+                                            } else {
+                                                setSortBy('name');
+                                                setSortOrder('asc');
+                                            }
+                                        }}
+                                        className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border transition-colors ${sortBy === 'name' ? 'border-orange-500/50 bg-orange-500/10 text-orange-400' : 'border-white/10 bg-white/5 text-gray-400 hover:text-white'}`}
+                                    >
+                                        <ArrowUpDown className="w-3 h-3" />
+                                        Name {sortBy === 'name' && (sortOrder === 'asc' ? '(A-Z)' : '(Z-A)')}
+                                    </button>
+                                    <button
+                                        onClick={() => { setBulkMode(!bulkMode); setSelectedBookmarks(new Set()); }}
+                                        className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border transition-colors ${bulkMode ? 'border-orange-500/50 bg-orange-500/10 text-orange-400' : 'border-white/10 bg-white/5 text-gray-400 hover:text-white'}`}
+                                    >
+                                        <CheckSquare className="w-3 h-3" />
+                                        Select
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Bulk Action Bar */}
+                        {bulkMode && selectedBookmarks.size > 0 && (
+                            <div className="flex items-center gap-3 mb-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                                <button onClick={selectAll} className="text-xs text-orange-400 hover:text-orange-300">
+                                    {selectedBookmarks.size === filteredBookmarks.length ? 'Deselect All' : 'Select All'}
+                                </button>
+                                <span className="text-xs text-gray-400">{selectedBookmarks.size} selected</span>
+                                <div className="flex-1" />
+                                <Button size="sm" variant="outline" onClick={handleBulkDelete} disabled={bulkLoading}>
+                                    {bulkLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Trash2 className="w-3 h-3" />}
+                                    <span className="ml-1">Delete</span>
+                                </Button>
+                            </div>
+                        )}
+
                         {loading ? (
                             <div className="space-y-4">
                                 {[1, 2, 3].map((i) => (
@@ -334,13 +502,25 @@ export default function BookmarksPage() {
                                     </div>
                                 ))}
                             </div>
-                        ) : bookmarks.length > 0 ? (
+                        ) : filteredBookmarks.length > 0 ? (
                             <div className="space-y-4">
-                                {bookmarks.map((bookmark) => (
+                                {filteredBookmarks.map((bookmark) => (
                                     <div
                                         key={bookmark._id}
                                         className="group flex items-center justify-between p-4 bg-white/[0.02] border border-white/10 rounded-xl hover:bg-white/[0.05] transition-all"
                                     >
+                                        {bulkMode && (
+                                            <button
+                                                onClick={() => toggleBookmarkSelection(bookmark._id)}
+                                                className="mr-3 text-gray-400 hover:text-orange-400 transition-colors"
+                                            >
+                                                {selectedBookmarks.has(bookmark._id) ? (
+                                                    <CheckSquare className="w-5 h-5 text-orange-400" />
+                                                ) : (
+                                                    <Square className="w-5 h-5" />
+                                                )}
+                                            </button>
+                                        )}
                                         <Link href={getBookmarkLink(bookmark)} className="flex items-center gap-4 flex-1">
                                             <div className={`p-2 rounded-lg ${contentTypeColors[bookmark.contentType]}`}>
                                                 {contentTypeIcons[bookmark.contentType]}
@@ -358,15 +538,26 @@ export default function BookmarksPage() {
                                             </div>
                                         </Link>
                                         <button
-                                            onClick={() => removeBookmark(bookmark.contentType, bookmark.contentId)}
-                                            className="p-2 text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                                            onClick={() => removeBookmark(bookmark._id, bookmark.contentType, bookmark.contentId)}
+                                            disabled={deletingBookmarks.has(bookmark._id)}
+                                            className="p-2 text-gray-400 hover:text-red-400 disabled:opacity-50 opacity-0 group-hover:opacity-100 transition-opacity"
                                             title="Remove bookmark"
                                         >
-                                            <Trash2 className="w-4 h-4" />
+                                            {deletingBookmarks.has(bookmark._id) ? (
+                                                <Loader2 className="w-4 h-4 animate-spin" />
+                                            ) : (
+                                                <Trash2 className="w-4 h-4" />
+                                            )}
                                         </button>
                                     </div>
                                 ))}
                             </div>
+                        ) : selectedCollection && bookmarks.length > 0 && debouncedSearch ? (
+                            <EmptyState
+                                icon={Search}
+                                title={`No bookmarks matching "${debouncedSearch}"`}
+                                description="Try different keywords."
+                            />
                         ) : selectedCollection ? (
                             <EmptyState
                                 icon={Bookmark}

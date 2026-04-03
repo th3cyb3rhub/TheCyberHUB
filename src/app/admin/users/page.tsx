@@ -24,7 +24,10 @@ import {
     AtSign,
     CalendarDays,
     Star,
-    Award
+    Award,
+    CheckSquare,
+    Square,
+    Download,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -99,7 +102,70 @@ export default function AdminUsersPage() {
     const [selectedBadge, setSelectedBadge] = useState<string>('');
     const [awardingBadge, setAwardingBadge] = useState<boolean>(false);
 
+    // Bulk operations
+    const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
+    const [bulkMode, setBulkMode] = useState(false);
+    const [bulkLoading, setBulkLoading] = useState(false);
+
     const token = tokenStore.get();
+
+    const toggleUserSelection = (id: string) => {
+        setSelectedUsers(prev => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            return next;
+        });
+    };
+
+    const selectAllUsers = () => {
+        if (selectedUsers.size === users.length) {
+            setSelectedUsers(new Set());
+        } else {
+            setSelectedUsers(new Set(users.map(u => u._id)));
+        }
+    };
+
+    const handleBulkBan = async () => {
+        if (selectedUsers.size === 0) return;
+        setBulkLoading(true);
+        try {
+            const promises = Array.from(selectedUsers).map(id =>
+                fetchApi(`/api/admin/users/${id}/status`, { method: 'PATCH' })
+            );
+            await Promise.all(promises);
+            addToast({ variant: 'success', title: 'Bulk Action', message: `Toggled status for ${selectedUsers.size} users.` });
+            setSelectedUsers(new Set());
+            setBulkMode(false);
+            fetchUsers(pagination.page);
+        } catch {
+            addToast({ variant: 'error', title: 'Error', message: 'Failed to complete bulk action.' });
+        } finally {
+            setBulkLoading(false);
+        }
+    };
+
+    // CSV export
+    const exportUsersCSV = () => {
+        const header = ['Name', 'Username', 'Email', 'Role', 'Verified', 'Active', 'Joined'];
+        const rows = users.map(u => [
+            u.name,
+            u.username,
+            u.email,
+            u.role,
+            u.isVerified ? 'Yes' : 'No',
+            u.isActive ? 'Yes' : 'No',
+            new Date(u.createdAt).toLocaleDateString(),
+        ]);
+        const csv = [header, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `users-export-${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
     const canChangeRoles = currentUser?.role === 'admin' || currentUser?.role === 'owner';
 
     const fetchUsers = useCallback(async (page = 1) => {
@@ -235,7 +301,42 @@ export default function AdminUsersPage() {
                             <p className="text-sm text-gray-500">{pagination.total} total users</p>
                         </div>
                     </div>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => { setBulkMode(!bulkMode); setSelectedUsers(new Set()); }}
+                            className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border transition-colors ${bulkMode ? 'border-orange-500/50 bg-orange-500/10 text-orange-400' : 'border-white/10 bg-white/5 text-gray-400 hover:text-white'}`}
+                        >
+                            <CheckSquare className="w-3.5 h-3.5" />
+                            Bulk Select
+                        </button>
+                        <button
+                            onClick={exportUsersCSV}
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border border-white/10 bg-white/5 text-gray-400 hover:text-white transition-colors"
+                        >
+                            <Download className="w-3.5 h-3.5" />
+                            Export CSV
+                        </button>
+                    </div>
                 </div>
+
+                {/* Bulk Action Bar */}
+                {bulkMode && selectedUsers.size > 0 && (
+                    <div className="flex items-center gap-3 mb-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                        <button onClick={selectAllUsers} className="text-xs text-orange-400 hover:text-orange-300">
+                            {selectedUsers.size === users.length ? 'Deselect All' : 'Select All'}
+                        </button>
+                        <span className="text-xs text-gray-400">{selectedUsers.size} selected</span>
+                        <div className="flex-1" />
+                        <button
+                            onClick={handleBulkBan}
+                            disabled={bulkLoading}
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                        >
+                            {bulkLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Ban className="w-3 h-3" />}
+                            Toggle Ban
+                        </button>
+                    </div>
+                )}
 
                 {/* Filters */}
                 <div className="flex flex-col sm:flex-row gap-3 mb-6">
@@ -444,6 +545,13 @@ export default function AdminUsersPage() {
                             <table className="w-full">
                                 <thead>
                                     <tr className="border-b border-white/10">
+                                        {bulkMode && (
+                                            <th className="px-3 py-4 w-10">
+                                                <button onClick={selectAllUsers} className="text-gray-400 hover:text-orange-400 transition-colors">
+                                                    {selectedUsers.size === users.length ? <CheckSquare className="w-4 h-4 text-orange-400" /> : <Square className="w-4 h-4" />}
+                                                </button>
+                                            </th>
+                                        )}
                                         <th className="text-left px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
                                         <th className="text-left px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                                         <th className="text-left px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -459,6 +567,16 @@ export default function AdminUsersPage() {
 
                                         return (
                                             <tr key={u._id} className="hover:bg-white/[0.02] transition-colors">
+                                                {bulkMode && (
+                                                    <td className="px-3 py-4 w-10">
+                                                        <button
+                                                            onClick={() => toggleUserSelection(u._id)}
+                                                            className="text-gray-400 hover:text-orange-400 transition-colors"
+                                                        >
+                                                            {selectedUsers.has(u._id) ? <CheckSquare className="w-4 h-4 text-orange-400" /> : <Square className="w-4 h-4" />}
+                                                        </button>
+                                                    </td>
+                                                )}
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-sm text-white font-medium shrink-0">

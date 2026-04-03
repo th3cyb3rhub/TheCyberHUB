@@ -15,7 +15,7 @@ import { useAuth } from '@/context/AuthContext';
 import FeedComments from './FeedComments';
 
 // Simple markdown-to-HTML (bold, italic, code, links)
-function renderMarkdown(text: string): React.ReactNode[] {
+function renderMarkdown(text: string, onHashtagClick?: (tag: string) => void): React.ReactNode[] {
     if (!text) return [];
     const parts: React.ReactNode[] = [];
     // Split on markdown patterns
@@ -46,7 +46,21 @@ function renderMarkdown(text: string): React.ReactNode[] {
             );
         } else if (m.startsWith('#')) {
             parts.push(
-                <span key={i} className="text-orange-400 hover:underline cursor-pointer">{m}</span>
+                <span
+                    key={i}
+                    className="text-orange-400 hover:underline cursor-pointer"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onHashtagClick?.(m);
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') { onHashtagClick?.(m); }
+                    }}
+                >
+                    {m}
+                </span>
             );
         }
         lastIndex = match.index + m.length;
@@ -109,10 +123,12 @@ export default function FeedItem({
     post,
     onDelete,
     onReshare,
+    onHashtagClick,
 }: {
     post: FeedPostData;
     onDelete?: (id: string) => void;
     onReshare?: (post: FeedPostData) => void;
+    onHashtagClick?: (tag: string) => void;
 }) {
     const router = useRouter();
     const { user } = useAuth();
@@ -364,7 +380,7 @@ export default function FeedItem({
             {/* Reshare comment */}
             {post.reshareComment && (
                 <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed mb-3 whitespace-pre-wrap">
-                    {renderMarkdown(post.reshareComment)}
+                    {renderMarkdown(post.reshareComment, onHashtagClick)}
                 </p>
             )}
 
@@ -372,7 +388,7 @@ export default function FeedItem({
             {post.content && (
                 <div className="mb-3">
                     <div className={`text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap ${isLongPost && !expanded ? 'line-clamp-6' : ''}`}>
-                        {renderMarkdown(post.content)}
+                        {renderMarkdown(post.content, onHashtagClick)}
                     </div>
                     {isLongPost && (
                         <button

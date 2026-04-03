@@ -63,13 +63,19 @@ export function MentorCard({ mentor, onClick, featured }: MentorCardProps) {
                         </h3>
                         <p className="text-xs text-muted-foreground truncate">@{mentor.user.username}</p>
                     </div>
-                    <Badge
-                        variant={isAvailable ? 'default' : 'secondary'}
-                        className="text-xs"
-                        aria-label={isAvailable ? 'Mentor is available' : 'Mentor is unavailable'}
-                    >
-                        {isAvailable ? 'Available' : 'Unavailable'}
-                    </Badge>
+                    <div className="flex items-center gap-1.5">
+                        <span
+                            className={`w-2 h-2 rounded-full ${isAvailable ? 'bg-green-400 animate-pulse' : 'bg-gray-500'}`}
+                            aria-hidden="true"
+                        />
+                        <Badge
+                            variant={isAvailable ? 'default' : 'secondary'}
+                            className="text-xs"
+                            aria-label={isAvailable ? 'Mentor is available' : 'Mentor is unavailable'}
+                        >
+                            {isAvailable ? 'Available' : 'Unavailable'}
+                        </Badge>
+                    </div>
                 </div>
 
                 {/* Rating */}
@@ -91,6 +97,16 @@ export function MentorCard({ mentor, onClick, featured }: MentorCardProps) {
                         </Badge>
                     )}
                 </div>
+
+                {/* Video Intro indicator */}
+                {mentor.videoIntroUrl && (
+                    <div className="flex items-center gap-1.5 text-xs text-blue-400 mb-2">
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                        Video Intro
+                    </div>
+                )}
 
                 {/* Stats */}
                 <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t">

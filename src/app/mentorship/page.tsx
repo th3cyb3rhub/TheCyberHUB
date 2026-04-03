@@ -32,7 +32,7 @@ export default function MentorDirectoryPage() {
     const [totalPages, setTotalPages] = useState(1);
     const limit = 12;
 
-    const fetchMentors = useCallback(async () => {
+    const fetchMentors = useCallback(async (signal?: AbortSignal) => {
         setLoading(true);
         setError(null);
         try {
@@ -45,13 +45,17 @@ export default function MentorDirectoryPage() {
                 page,
                 limit,
             });
+            if (signal?.aborted) return;
             setMentors(response.data);
             setTotalPages(response.pagination.pages);
         } catch (err) {
+            if (signal?.aborted) return;
             setError('Failed to load mentors');
             console.error(err);
         } finally {
-            setLoading(false);
+            if (!signal?.aborted) {
+                setLoading(false);
+            }
         }
     }, [debouncedSearch, selectedExpertise, minRating, availableOnly, sortBy, page]);
 
@@ -65,7 +69,9 @@ export default function MentorDirectoryPage() {
     }, []);
 
     useEffect(() => {
-        fetchMentors();
+        const controller = new AbortController();
+        fetchMentors(controller.signal);
+        return () => controller.abort();
     }, [fetchMentors]);
 
     useEffect(() => {
@@ -222,7 +228,7 @@ export default function MentorDirectoryPage() {
                     ) : error ? (
                         <div className="text-center py-12">
                             <p className="text-red-400 mb-4">{error}</p>
-                            <Button onClick={fetchMentors} variant="outline">
+                            <Button onClick={() => fetchMentors()} variant="outline">
                                 Try Again
                             </Button>
                         </div>

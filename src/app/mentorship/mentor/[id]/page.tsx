@@ -4,7 +4,7 @@ import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Calendar, Clock, Users, Award, MessageSquare, CheckCircle, XCircle } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Users, Award, MessageSquare, CheckCircle, XCircle, Star, PlayCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ExpertiseBadge } from '@/components/mentorship/ExpertiseBadge';
 import { RatingStars } from '@/components/mentorship/RatingStars';
@@ -188,6 +188,26 @@ export default function MentorProfilePage({ params }: PageProps) {
                                 </p>
                             </div>
 
+                            {/* Video Introduction */}
+                            {mentor.videoIntroUrl && (
+                                <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
+                                    <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                                        <PlayCircle className="w-5 h-5 text-orange-500" />
+                                        Video Introduction
+                                    </h2>
+                                    <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
+                                        <video
+                                            src={mentor.videoIntroUrl}
+                                            controls
+                                            className="w-full h-full object-cover"
+                                            preload="metadata"
+                                        >
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                </div>
+                            )}
+
                             {/* Availability */}
                             <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
                                 <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
@@ -219,6 +239,41 @@ export default function MentorProfilePage({ params }: PageProps) {
                                     </p>
                                 </div>
                             </div>
+
+                            {/* Reviews */}
+                            {mentor.reviews && mentor.reviews.length > 0 && (
+                                <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
+                                    <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                                        <Star className="w-5 h-5 text-yellow-400" />
+                                        Reviews ({mentor.totalRatings})
+                                    </h2>
+                                    <div className="space-y-4">
+                                        {mentor.reviews.map((review, i) => (
+                                            <div key={i} className="p-4 bg-white/5 rounded-xl">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className="text-sm font-medium text-white">
+                                                        {review.mentee.name}
+                                                    </span>
+                                                    <div className="flex items-center gap-1">
+                                                        {Array.from({ length: 5 }).map((_, j) => (
+                                                            <Star
+                                                                key={j}
+                                                                className={`w-3.5 h-3.5 ${j < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                {review.comment && (
+                                                    <p className="text-sm text-gray-400">{review.comment}</p>
+                                                )}
+                                                <p className="text-xs text-gray-600 mt-2">
+                                                    {new Date(review.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Sidebar */}

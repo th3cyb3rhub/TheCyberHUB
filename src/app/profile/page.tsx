@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -30,7 +30,13 @@ import {
     Eye,
     EyeOff,
     BarChart3,
-    Award
+    Award,
+    Activity,
+    Tag,
+    X,
+    Plus,
+    FileText,
+    MessageSquare
 } from 'lucide-react';
 import { API_URL, fetchApi, tokenStore } from '@/lib/api';
 const ProfilePage = () => {
@@ -52,10 +58,41 @@ const ProfilePage = () => {
 
     // Avatar upload
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const [avatarLoading, setAvatarLoading] = useState(false);
 
-    // Avatar upload handler
-    const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Skills/expertise tags
+    const [skills, setSkills] = useState<string[]>([]);
+    const [newSkill, setNewSkill] = useState('');
+
+    // Activity feed
+    interface ActivityItem {
+        type: 'challenge' | 'blog' | 'event' | 'forum';
+        title: string;
+        date: string;
+        description: string;
+    }
+    const [activityFeed, setActivityFeed] = useState<ActivityItem[]>([]);
+    const [activityLoading, setActivityLoading] = useState(true);
+
+    // Profile completeness calculation
+    const getProfileCompleteness = useCallback(() => {
+        if (!user) return { percent: 0, missing: [] as string[] };
+        const checks = [
+            { field: 'name', label: 'Full Name', filled: !!user.name },
+            { field: 'username', label: 'Username', filled: !!user.username },
+            { field: 'email', label: 'Email', filled: !!user.email },
+            { field: 'avatar', label: 'Profile Picture', filled: !!(user.avatar || avatarUrl) },
+            { field: 'isVerified', label: 'Email Verified', filled: !!user.isVerified },
+            { field: 'skills', label: 'Skills/Expertise', filled: skills.length > 0 },
+        ];
+        const filled = checks.filter(c => c.filled).length;
+        const missing = checks.filter(c => !c.filled).map(c => c.label);
+        return { percent: Math.round((filled / checks.length) * 100), missing };
+    }, [user, avatarUrl, skills]);
+
+    // Avatar upload handler with preview
+    const handleAvatarSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -71,6 +108,18 @@ const ProfilePage = () => {
             return;
         }
 
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            setAvatarPreview(event.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleAvatarUpload = async () => {
+        const file = avatarInputRef.current?.files?.[0];
+        if (!file) return;
+
         setAvatarLoading(true);
         try {
             const formData = new FormData();
@@ -85,6 +134,7 @@ const ProfilePage = () => {
             const data = await response.json();
             if (data.success) {
                 setAvatarUrl(data.data.url);
+                setAvatarPreview(null);
                 addToast({ variant: 'success', title: 'Avatar updated', message: 'Your profile picture has been updated.' });
             } else {
                 throw new Error(data.error || 'Upload failed');
@@ -94,6 +144,11 @@ const ProfilePage = () => {
         } finally {
             setAvatarLoading(false);
         }
+    };
+
+    const cancelAvatarPreview = () => {
+        setAvatarPreview(null);
+        if (avatarInputRef.current) avatarInputRef.current.value = '';
     };
 
     // Privacy settings
@@ -131,7 +186,7 @@ const ProfilePage = () => {
     const [setupStep, setSetupStep] = useState<'initial' | 'generate' | 'verify'>('initial');
     const [disableStep, setDisableStep] = useState<'initial' | 'verify'>('initial');
 
-    // Fetch user stats
+    // Fetch user stats and activity
     useEffect(() => {
         const fetchStats = async () => {
             if (!user) return;
@@ -144,7 +199,27 @@ const ProfilePage = () => {
                 setStatsLoading(false);
             }
         };
+        const fetchActivity = async () => {
+            if (!user) return;
+            try {
+                // Load recent challenges as activity
+                const json = await fetchApi('/api/challenges?limit=5', { requireAuth: false });
+                const challenges = Array.isArray(json) ? json : Array.isArray(json.data) ? json.data : [];
+                const items: ActivityItem[] = challenges.slice(0, 5).map((c: { title: string; createdAt: string; difficulty?: string }) => ({
+                    type: 'challenge' as const,
+                    title: c.title,
+                    date: c.createdAt,
+                    description: `${c.difficulty || 'Challenge'} challenge`,
+                }));
+                setActivityFeed(items);
+            } catch {
+                // Activity feed is optional
+            } finally {
+                setActivityLoading(false);
+            }
+        };
         fetchStats();
+        fetchActivity();
     }, [user]);
 
     // Generate mock performance curve based on actual points
@@ -351,7 +426,16 @@ const ProfilePage = () => {
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-10">
                         <div className="flex items-center gap-5">
                             <div className="relative group">
-                                {user.avatar || avatarUrl ? (
+                                {avatarPreview ? (
+                                    <Image
+                                        src={avatarPreview}
+                                        alt="Preview"
+                                        width={80}
+                                        height={80}
+                                        className="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-orange-500/20 ring-2 ring-orange-500"
+                                        unoptimized
+                                    />
+                                ) : user.avatar || avatarUrl ? (
                                     <Image
                                         src={avatarUrl || user.avatar || ''}
                                         alt={user.name}
@@ -365,24 +449,45 @@ const ProfilePage = () => {
                                         {user.name.charAt(0).toUpperCase()}
                                     </div>
                                 )}
-                                <button
-                                    onClick={() => avatarInputRef.current?.click()}
-                                    disabled={avatarLoading}
-                                    className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"
-                                >
-                                    {avatarLoading ? (
-                                        <Loader2 className="w-6 h-6 text-white animate-spin" />
-                                    ) : (
-                                        <Camera className="w-6 h-6 text-white" />
-                                    )}
-                                </button>
+                                {!avatarPreview && (
+                                    <button
+                                        onClick={() => avatarInputRef.current?.click()}
+                                        disabled={avatarLoading}
+                                        className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"
+                                    >
+                                        {avatarLoading ? (
+                                            <Loader2 className="w-6 h-6 text-white animate-spin" />
+                                        ) : (
+                                            <Camera className="w-6 h-6 text-white" />
+                                        )}
+                                    </button>
+                                )}
                                 <input
                                     ref={avatarInputRef}
                                     type="file"
                                     accept="image/jpeg,image/png,image/gif,image/webp"
-                                    onChange={handleAvatarUpload}
+                                    onChange={handleAvatarSelect}
                                     className="hidden"
                                 />
+                                {avatarPreview && (
+                                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                                        <button
+                                            onClick={handleAvatarUpload}
+                                            disabled={avatarLoading}
+                                            className="p-1.5 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
+                                            title="Upload"
+                                        >
+                                            {avatarLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <CheckCircle className="w-3 h-3" />}
+                                        </button>
+                                        <button
+                                            onClick={cancelAvatarPreview}
+                                            className="p-1.5 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
+                                            title="Cancel"
+                                        >
+                                            <X className="w-3 h-3" />
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                             <div>
                                 <h1 className="text-2xl font-bold text-white mb-1">{user.name}</h1>
@@ -412,6 +517,31 @@ const ProfilePage = () => {
                             Logout
                         </button>
                     </div>
+
+                    {/* Profile Completeness Indicator */}
+                    {(() => {
+                        const { percent, missing } = getProfileCompleteness();
+                        if (percent >= 100) return null;
+                        return (
+                            <div className="mb-6 p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm font-medium text-gray-300">Profile Completeness</span>
+                                    <span className={`text-sm font-bold ${percent >= 80 ? 'text-green-400' : percent >= 50 ? 'text-yellow-400' : 'text-orange-400'}`}>{percent}%</span>
+                                </div>
+                                <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden mb-2">
+                                    <div
+                                        className={`h-full rounded-full transition-all duration-500 ${percent >= 80 ? 'bg-green-500' : percent >= 50 ? 'bg-yellow-500' : 'bg-orange-500'}`}
+                                        style={{ width: `${percent}%` }}
+                                    />
+                                </div>
+                                {missing.length > 0 && (
+                                    <p className="text-xs text-gray-500">
+                                        Complete: {missing.join(', ')}
+                                    </p>
+                                )}
+                            </div>
+                        );
+                    })()}
 
                     {/* Tabs */}
                     <div className="flex gap-2 sm:gap-4 mb-8 border-b border-white/10 overflow-x-auto">
@@ -531,6 +661,50 @@ const ProfilePage = () => {
                                         Achievements will be displayed here as you progress.
                                     </p>
                                 </div>
+                            </div>
+
+                            {/* Activity Feed */}
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <Activity className="w-5 h-5 text-blue-400" />
+                                    <h3 className="text-lg font-semibold text-white">Recent Activity</h3>
+                                </div>
+                                {activityLoading ? (
+                                    <div className="flex items-center justify-center py-8">
+                                        <Loader2 className="w-6 h-6 animate-spin text-orange-500" />
+                                    </div>
+                                ) : activityFeed.length === 0 ? (
+                                    <div className="text-center py-8">
+                                        <Activity className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+                                        <p className="text-gray-400">No recent activity</p>
+                                        <p className="text-sm text-gray-500 mt-1">
+                                            Start solving challenges and writing posts to see activity here.
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-3">
+                                        {activityFeed.map((item, i) => {
+                                            const icons = {
+                                                challenge: <Flag className="w-4 h-4 text-green-400" />,
+                                                blog: <FileText className="w-4 h-4 text-blue-400" />,
+                                                event: <Calendar className="w-4 h-4 text-purple-400" />,
+                                                forum: <MessageSquare className="w-4 h-4 text-orange-400" />,
+                                            };
+                                            return (
+                                                <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
+                                                    <div className="mt-0.5">{icons[item.type]}</div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-sm text-white font-medium truncate">{item.title}</p>
+                                                        <p className="text-xs text-gray-500">{item.description}</p>
+                                                    </div>
+                                                    <span className="text-xs text-gray-600 whitespace-nowrap">
+                                                        {item.date ? new Date(item.date).toLocaleDateString() : ''}
+                                                    </span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )}
@@ -665,6 +839,64 @@ const ProfilePage = () => {
                                             className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-gray-500 cursor-not-allowed"
                                         />
                                     </div>
+                                </div>
+
+                                {/* Skills / Expertise Tags */}
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                                        <Tag className="w-4 h-4" />
+                                        Skills / Expertise
+                                    </label>
+                                    <div className="flex flex-wrap gap-2 mb-3">
+                                        {skills.map((skill, i) => (
+                                            <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm">
+                                                {skill}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setSkills(prev => prev.filter((_, idx) => idx !== i))}
+                                                    className="hover:text-orange-300 transition-colors"
+                                                >
+                                                    <X className="w-3 h-3" />
+                                                </button>
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <div className="relative flex-1">
+                                            <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                            <input
+                                                type="text"
+                                                value={newSkill}
+                                                onChange={(e) => setNewSkill(e.target.value)}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        e.preventDefault();
+                                                        const trimmed = newSkill.trim();
+                                                        if (trimmed && !skills.includes(trimmed) && skills.length < 15) {
+                                                            setSkills(prev => [...prev, trimmed]);
+                                                            setNewSkill('');
+                                                        }
+                                                    }
+                                                }}
+                                                placeholder="e.g. Penetration Testing, Python, Network Security"
+                                                className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                const trimmed = newSkill.trim();
+                                                if (trimmed && !skills.includes(trimmed) && skills.length < 15) {
+                                                    setSkills(prev => [...prev, trimmed]);
+                                                    setNewSkill('');
+                                                }
+                                            }}
+                                            className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                                        >
+                                            <Plus className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    <p className="text-xs text-gray-500 mt-1">Press Enter to add. Max 15 skills.</p>
                                 </div>
 
                                 <button

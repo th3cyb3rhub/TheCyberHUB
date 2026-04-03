@@ -25,10 +25,28 @@ const IPLookupPage = () => {
     const [copied, setCopied] = useState(false);
     const [myIp, setMyIp] = useState<string | null>(null);
 
+    const isValidIP = (addr: string): boolean => {
+        // IPv4
+        const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+        if (ipv4Regex.test(addr)) {
+            return addr.split('.').every(part => {
+                const num = parseInt(part, 10);
+                return num >= 0 && num <= 255;
+            });
+        }
+        // IPv6 (simplified check)
+        const ipv6Regex = /^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$/;
+        return ipv6Regex.test(addr);
+    };
+
     const lookupIP = async (ipAddress?: string) => {
         const target = ipAddress || ip.trim();
         if (!target && !ipAddress) {
             setError('Please enter an IP address');
+            return;
+        }
+        if (target && !isValidIP(target)) {
+            setError('Invalid IP address format. Use IPv4 (e.g., 8.8.8.8) or IPv6.');
             return;
         }
 
@@ -206,6 +224,26 @@ const IPLookupPage = () => {
                                     </p>
                                 </div>
                             </div>
+
+                            {/* Copy All Results */}
+                            <button
+                                onClick={() => {
+                                    const text = [
+                                        `IP: ${result.ip}`,
+                                        `Location: ${[result.city, result.region, result.country_name].filter(Boolean).join(', ')}`,
+                                        result.postal ? `Postal: ${result.postal}` : '',
+                                        result.latitude ? `Coordinates: ${result.latitude}, ${result.longitude}` : '',
+                                        result.timezone ? `Timezone: ${result.timezone}` : '',
+                                        result.org ? `Organization: ${result.org}` : '',
+                                        result.asn ? `ASN: ${result.asn}` : '',
+                                    ].filter(Boolean).join('\n');
+                                    copyToClipboard(text);
+                                }}
+                                className="w-full p-3 text-center rounded-lg border border-white/10 text-sm text-gray-400 hover:text-white hover:border-orange-500/30 transition-colors flex items-center justify-center gap-2"
+                            >
+                                <Copy className="w-4 h-4" />
+                                Copy All Results
+                            </button>
 
                             {/* Map Link */}
                             {result.latitude && result.longitude && (

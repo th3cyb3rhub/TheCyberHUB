@@ -19,6 +19,7 @@ import {
     Shield,
     Key,
     Search,
+    Download,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -142,6 +143,26 @@ export default function AdminAuditLogsPage() {
 
     if (!currentUser || !['admin', 'owner'].includes(currentUser.role)) return null;
 
+    const exportAuditLogsCSV = () => {
+        const header = ['Timestamp', 'Action', 'Severity', 'Actor', 'Target', 'IP'];
+        const rows = logs.map(log => [
+            new Date(log.timestamp).toLocaleString(),
+            log.action,
+            log.severity,
+            log.actor?.username || 'System',
+            log.target?.name || '-',
+            log.request?.ip || '-',
+        ]);
+        const csv = [header, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `audit-logs-${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="min-h-screen bg-[var(--color-background)] pt-24 pb-12 px-4">
             <div className="max-w-5xl mx-auto">
@@ -150,14 +171,24 @@ export default function AdminAuditLogsPage() {
                     <Link href="/admin" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 mb-4 transition-colors">
                         <ArrowLeft className="w-4 h-4" /> Back to Dashboard
                     </Link>
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
-                            <ClipboardList className="w-5 h-5 text-white" />
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                <ClipboardList className="w-5 h-5 text-white" />
+                            </div>
+                            <div>
+                                <h1 className="text-2xl font-bold text-white">Audit Logs</h1>
+                                <p className="text-sm text-gray-400">{total} entries (auto-expires after 90 days)</p>
+                            </div>
                         </div>
-                        <div>
-                            <h1 className="text-2xl font-bold text-white">Audit Logs</h1>
-                            <p className="text-sm text-gray-400">{total} entries</p>
-                        </div>
+                        <button
+                            onClick={exportAuditLogsCSV}
+                            disabled={logs.length === 0}
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border border-white/10 bg-white/5 text-gray-400 hover:text-white disabled:opacity-50 transition-colors"
+                        >
+                            <Download className="w-3.5 h-3.5" />
+                            Export CSV
+                        </button>
                     </div>
                 </div>
 

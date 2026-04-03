@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { Flag, Trophy, Target, Users, Star, ChevronRight, Lock, Search, Filter, X, Loader2, CheckCircle } from 'lucide-react';
+import { Flag, Trophy, Target, Users, Star, ChevronRight, ChevronLeft, Lock, Search, Filter, X, Loader2, CheckCircle, Bookmark } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import { fetchApi } from '@/lib/api';
@@ -26,13 +26,23 @@ interface Challenge {
     isSolved?: boolean;
 }
 
+interface PaginationMeta {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+    hasMore: boolean;
+}
+
+const PAGE_SIZES = [10, 20, 50];
+
 const CTFPage = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
 
     const [challenges, setChallenges] = useState<Challenge[]>([]);
-    const [totalChallenges, setTotalChallenges] = useState(0);
+    const [pagination, setPagination] = useState<PaginationMeta>({ total: 0, page: 1, limit: 20, totalPages: 1, hasMore: false });
     const [loading, setLoading] = useState(true);
     const [filterLoading, setFilterLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
@@ -40,8 +50,11 @@ const CTFPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all');
     const [selectedDifficulty, setSelectedDifficulty] = useState(searchParams.get('difficulty') || 'all');
     const [selectedStatus, setSelectedStatus] = useState(searchParams.get('status') || 'all'); // all, solved, unsolved
-    const { token } = useAuth();
+    const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1', 10));
+    const [pageSize, setPageSize] = useState(parseInt(searchParams.get('limit') || '20', 10));
+    const { user, token } = useAuth();
     const { addToast } = useToast();
+    const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
 
     const updateFilters = useCallback((key: string, value: string) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -49,6 +62,11 @@ const CTFPage = () => {
             params.delete(key);
         } else {
             params.set(key, value);
+        }
+        // Reset to page 1 when filters change
+        if (key !== 'page') {
+            params.delete('page');
+            setCurrentPage(1);
         }
         const qs = params.toString();
         router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
@@ -78,19 +96,25 @@ const CTFPage = () => {
             if (!loading) setFilterLoading(true);
 
             try {
-                let url = `/api/challenges?status=active`;
+                let url = `/api/challenges?status=active&page=${currentPage}&limit=${pageSize}`;
                 if (selectedCategory !== 'all') url += `&category=${selectedCategory}`;
                 if (selectedDifficulty !== 'all') url += `&difficulty=${selectedDifficulty}`;
                 if (selectedStatus === 'solved') url += `&solved=true`;
                 if (selectedStatus === 'unsolved') url += `&solved=false`;
+                if (debouncedSearch) url += `&search=${encodeURIComponent(debouncedSearch)}`;
 
                 const result = await fetchApi(url, { requireAuth: !!token });
 
                 if (result.success) {
                     setChallenges(result.data);
-                    // Set total on first load
-                    if (selectedCategory === 'all' && selectedDifficulty === 'all' && selectedStatus === 'all') {
-                        setTotalChallenges(result.data.length);
+                    if (result.meta) {
+                        setPagination({
+                            total: result.meta.total || result.data.length,
+                            page: result.meta.page || currentPage,
+                            limit: result.meta.limit || pageSize,
+                            totalPages: result.meta.totalPages || 1,
+                            hasMore: result.meta.hasMore || false,
+                        });
                     }
                 }
             } catch (_error) {
@@ -102,7 +126,63 @@ const CTFPage = () => {
         };
 
         fetchChallenges();
-    }, [selectedCategory, selectedDifficulty, selectedStatus, loading, token]);
+    }, [selectedCategory, selectedDifficulty, selectedStatus, debouncedSearch, currentPage, pageSize, token]);
+
+    // Load bookmarked challenge IDs
+    useEffect(() => {
+        if (!token) return;
+        const fetchBookmarks = async () => {
+            try {
+                const data = await fetchApi('/api/bookmarks?contentType=challenge&limit=100');
+                if (data.success && data.data) {
+                    setBookmarkedIds(new Set(data.data.map((b: { contentId: string }) => b.contentId)));
+                }
+            } catch {
+                // Silently fail - bookmarks are non-critical
+            }
+        };
+        fetchBookmarks();
+    }, [token]);
+
+    const toggleBookmark = async (e: React.MouseEvent, challengeId: string, challengeTitle: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!user || !token) {
+            addToast({ message: 'Sign in to bookmark challenges', variant: 'info' });
+            return;
+        }
+
+        const isBookmarked = bookmarkedIds.has(challengeId);
+        const newSet = new Set(bookmarkedIds);
+        if (isBookmarked) {
+            newSet.delete(challengeId);
+        } else {
+            newSet.add(challengeId);
+        }
+        setBookmarkedIds(newSet);
+
+        try {
+            if (isBookmarked) {
+                await fetchApi(`/api/bookmarks/challenge/${challengeId}`, { method: 'DELETE' });
+                addToast({ message: 'Bookmark removed', variant: 'success' });
+            } else {
+                await fetchApi('/api/bookmarks', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        contentType: 'challenge',
+                        contentId: challengeId,
+                        contentTitle: challengeTitle,
+                    }),
+                });
+                addToast({ message: 'Challenge bookmarked', variant: 'success' });
+            }
+        } catch {
+            // Revert on failure
+            setBookmarkedIds(bookmarkedIds);
+            addToast({ message: 'Failed to update bookmark', variant: 'error' });
+        }
+    };
 
 // Check if any filters are active
 const hasActiveFilters = selectedCategory !== 'all' || selectedDifficulty !== 'all' || selectedStatus !== 'all' || searchQuery !== '';
@@ -113,6 +193,7 @@ const clearFilters = useCallback(() => {
     setSelectedDifficulty('all');
     setSelectedStatus('all');
     setSearchQuery('');
+    setCurrentPage(1);
     router.replace(pathname, { scroll: false });
 }, [router, pathname]);
 
@@ -144,6 +225,22 @@ const getCategoryColor = (category: string) => {
     return colors[category] || 'text-gray-400';
 };
 
+const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    updateFilters('page', String(newPage));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const handlePageSizeChange = (newSize: number) => {
+    setPageSize(newSize);
+    setCurrentPage(1);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('limit', String(newSize));
+    params.delete('page');
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+};
+
 return (
     <div className="min-h-screen bg-black">
         {/* Hero Section */}
@@ -173,7 +270,7 @@ return (
                     </Link>
                     <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/5 border border-white/10 rounded-lg">
                         <div className="text-center">
-                            <div className="text-2xl font-bold text-orange-500">{challenges.length}</div>
+                            <div className="text-2xl font-bold text-orange-500">{pagination.total || challenges.length}</div>
                             <div className="text-xs text-gray-400">Challenges</div>
                         </div>
                         <div className="w-px h-8 bg-white/10"></div>
@@ -209,7 +306,7 @@ return (
                                 <Loader2 className="w-4 h-4 text-orange-500 animate-spin" />
                             )}
                             <span className="text-sm text-gray-400">
-                                {filteredChallenges.length}{totalChallenges > 0 ? ` of ${totalChallenges}` : ''} challenges
+                                {pagination.total > 0 ? `${filteredChallenges.length} of ${pagination.total}` : `${filteredChallenges.length}`} challenges
                             </span>
                             {hasActiveFilters && (
                                 <button
@@ -241,18 +338,22 @@ return (
                         ))}
                     </div>
 
-                    {difficulties.map((diff) => (
-                        <button
-                            key={diff.id}
-                            onClick={() => { setSelectedDifficulty(diff.id); updateFilters('difficulty', diff.id); }}
-                            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${selectedDifficulty === diff.id
-                                ? 'bg-orange-500 text-white'
-                                : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
-                                }`}
-                        >
-                            {diff.name}
-                        </button>
-                    ))}
+                    {/* Difficulty Filter - now with snap scroll for mobile */}
+                    <div className="flex items-center gap-2 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-1">
+                        {difficulties.map((diff) => (
+                            <button
+                                key={diff.id}
+                                onClick={() => { setSelectedDifficulty(diff.id); updateFilters('difficulty', diff.id); }}
+                                className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap shrink-0 snap-start transition-all ${selectedDifficulty === diff.id
+                                    ? 'bg-orange-500 text-white'
+                                    : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                                    }`}
+                            >
+                                {diff.name}
+                            </button>
+                        ))}
+                    </div>
+
                     {/* Status Filter */}
                     <div className="flex items-center gap-2">
                         {['all', 'solved', 'unsolved'].map((status) => (
@@ -304,55 +405,145 @@ return (
                     description="Try adjusting your filters or search query."
                 />
             ) : (
-                <div className="grid gap-4">
-                    {filteredChallenges.map((challenge) => (
-                        <Link
-                            key={challenge._id}
-                            href={`/ctf/${challenge.slug}`}
-                            className="group rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-orange-500/30 p-6 transition-all duration-200 card-hover"
-                        >
-                            <div className="flex items-start justify-between gap-4">
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="text-lg font-semibold text-white group-hover:text-orange-500 transition-colors">
-                                            {challenge.title}
-                                        </h3>
-                                        <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getDifficultyColor(challenge.difficulty)}`}>
-                                            {challenge.difficulty}
-                                        </span>
-                                        <span className={`text-sm font-medium ${getCategoryColor(challenge.category)}`}>
-                                            {challenge.category}
-                                        </span>
-                                        {challenge.isSolved && (
-                                            <span className="flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase tracking-wider">
-                                                <CheckCircle className="w-3 h-3" /> Solved
+                <>
+                    <div className="grid gap-4">
+                        {filteredChallenges.map((challenge) => (
+                            <Link
+                                key={challenge._id}
+                                href={`/ctf/${challenge.slug}`}
+                                className="group rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-orange-500/30 p-6 transition-all duration-200 card-hover"
+                            >
+                                <div className="flex items-start justify-between gap-4">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <h3 className="text-lg font-semibold text-white group-hover:text-orange-500 transition-colors">
+                                                {challenge.title}
+                                            </h3>
+                                            <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getDifficultyColor(challenge.difficulty)}`}>
+                                                {challenge.difficulty}
                                             </span>
+                                            <span className={`text-sm font-medium ${getCategoryColor(challenge.category)}`}>
+                                                {challenge.category}
+                                            </span>
+                                            {challenge.isSolved && (
+                                                <span className="flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase tracking-wider">
+                                                    <CheckCircle className="w-3 h-3" /> Solved
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        {challenge.shortDescription && (
+                                            <p className="text-sm text-gray-400 mb-3">
+                                                {challenge.shortDescription}
+                                            </p>
                                         )}
+
+                                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                                            <div className="flex items-center gap-1">
+                                                <Trophy className="w-4 h-4" />
+                                                {challenge.currentPoints} pts
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <Users className="w-4 h-4" />
+                                                {challenge.solveCount} solves
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    {challenge.shortDescription && (
-                                        <p className="text-sm text-gray-400 mb-3">
-                                            {challenge.shortDescription}
-                                        </p>
-                                    )}
-
-                                    <div className="flex items-center gap-4 text-sm text-gray-500">
-                                        <div className="flex items-center gap-1">
-                                            <Trophy className="w-4 h-4" />
-                                            {challenge.currentPoints} pts
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <Users className="w-4 h-4" />
-                                            {challenge.solveCount} solves
-                                        </div>
+                                    <div className="flex items-center gap-2 shrink-0">
+                                        <button
+                                            onClick={(e) => toggleBookmark(e, challenge._id, challenge.title)}
+                                            className={`p-1.5 rounded-lg border transition-all ${
+                                                bookmarkedIds.has(challenge._id)
+                                                    ? 'bg-orange-500/10 border-orange-500/50 text-orange-400'
+                                                    : 'border-transparent text-gray-600 hover:border-white/10 hover:text-gray-400'
+                                            }`}
+                                            title={bookmarkedIds.has(challenge._id) ? 'Remove bookmark' : 'Bookmark challenge'}
+                                        >
+                                            <Bookmark className={`w-4 h-4 ${bookmarkedIds.has(challenge._id) ? 'fill-current' : ''}`} />
+                                        </button>
+                                        <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-orange-500 transition-colors" />
                                     </div>
                                 </div>
+                            </Link>
+                        ))}
+                    </div>
 
-                                <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-orange-500 transition-colors shrink-0" />
+                    {/* Pagination Controls */}
+                    {pagination.totalPages > 1 && (
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-white/5">
+                            {/* Page size selector */}
+                            <div className="flex items-center gap-2 text-sm text-gray-400">
+                                <span>Show</span>
+                                <select
+                                    value={pageSize}
+                                    onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+                                    className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-white text-sm focus:outline-none focus:border-orange-500/50"
+                                >
+                                    {PAGE_SIZES.map(size => (
+                                        <option key={size} value={size} className="bg-gray-900">{size}</option>
+                                    ))}
+                                </select>
+                                <span>per page</span>
                             </div>
-                        </Link>
-                    ))}
-                </div>
+
+                            {/* Page navigation */}
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage <= 1}
+                                    className="flex items-center gap-1 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                                >
+                                    <ChevronLeft className="w-4 h-4" />
+                                    Prev
+                                </button>
+
+                                {/* Page numbers */}
+                                <div className="flex items-center gap-1">
+                                    {Array.from({ length: Math.min(pagination.totalPages, 5) }, (_, i) => {
+                                        let pageNum: number;
+                                        if (pagination.totalPages <= 5) {
+                                            pageNum = i + 1;
+                                        } else if (currentPage <= 3) {
+                                            pageNum = i + 1;
+                                        } else if (currentPage >= pagination.totalPages - 2) {
+                                            pageNum = pagination.totalPages - 4 + i;
+                                        } else {
+                                            pageNum = currentPage - 2 + i;
+                                        }
+                                        return (
+                                            <button
+                                                key={pageNum}
+                                                onClick={() => handlePageChange(pageNum)}
+                                                className={`w-8 h-8 rounded-lg text-sm font-medium transition-all ${
+                                                    currentPage === pageNum
+                                                        ? 'bg-orange-500 text-white'
+                                                        : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                                                }`}
+                                            >
+                                                {pageNum}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                <button
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage >= pagination.totalPages}
+                                    className="flex items-center gap-1 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                                >
+                                    Next
+                                    <ChevronRight className="w-4 h-4" />
+                                </button>
+                            </div>
+
+                            {/* Page info */}
+                            <span className="text-sm text-gray-500">
+                                Page {currentPage} of {pagination.totalPages}
+                            </span>
+                        </div>
+                    )}
+                </>
             )}
             </div>
         </section>

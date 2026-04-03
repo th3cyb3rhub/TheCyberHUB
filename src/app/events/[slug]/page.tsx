@@ -23,9 +23,15 @@ import {
     Timer,
     Ticket,
     Check,
-    Loader2
+    Loader2,
+    Star,
+    Globe,
+    Twitter,
+    Github,
+    PlayCircle,
+    FileText,
 } from 'lucide-react';
-import { sampleEvents, Event } from '@/data/events';
+import { sampleEvents, Event, EventFeedback } from '@/data/events';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
@@ -208,6 +214,28 @@ function formatTime(dateString: string): string {
     });
 }
 
+function formatTimeInTimezone(dateString: string, timezone: string): string {
+    try {
+        const date = new Date(dateString);
+        const time = date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+            timeZone: timezone,
+        });
+        const tzAbbr = new Intl.DateTimeFormat('en-US', { timeZone: timezone, timeZoneName: 'short' })
+            .formatToParts(date)
+            .find(p => p.type === 'timeZoneName')?.value || timezone;
+        return `${time} ${tzAbbr}`;
+    } catch {
+        return formatTime(dateString);
+    }
+}
+
+function getViewerTimezone(): string {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 function getCountdown(dateString: string): { days: number; hours: number; minutes: number } {
     const now = new Date();
     const eventDate = new Date(dateString);
@@ -357,6 +385,143 @@ function CountdownTimer({ dateString }: { dateString: string }) {
     );
 }
 
+function EventFeedbackSection({ eventId }: { eventId: string }) {
+    const { user, token } = useAuth();
+    const { addToast } = useToast();
+    const [feedbackList, setFeedbackList] = useState<EventFeedback[]>([]);
+    const [avgRating, setAvgRating] = useState(0);
+    const [showForm, setShowForm] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    useEffect(() => {
+        const fetchFeedback = async () => {
+            try {
+                const data = await fetchApi(`/api/events/${eventId}/feedback`, { requireAuth: false });
+                setFeedbackList(data.data?.feedback || []);
+                setAvgRating(data.data?.averageRating || 0);
+                if (user && data.data?.feedback?.some((f: EventFeedback) => f.user?.username === user.username)) {
+                    setHasSubmitted(true);
+                }
+            } catch {
+                // Feedback is optional
+            }
+        };
+        fetchFeedback();
+    }, [eventId, user]);
+
+    const handleSubmit = async () => {
+        if (!rating) return;
+        setSubmitting(true);
+        try {
+            await fetchApi(`/api/events/${eventId}/feedback`, {
+                method: 'POST',
+                body: JSON.stringify({ rating, comment }),
+            });
+            addToast({ message: 'Feedback submitted!', variant: 'success' });
+            setShowForm(false);
+            setHasSubmitted(true);
+            // Refresh
+            const data = await fetchApi(`/api/events/${eventId}/feedback`, { requireAuth: false });
+            setFeedbackList(data.data?.feedback || []);
+            setAvgRating(data.data?.averageRating || 0);
+        } catch (err) {
+            addToast({ message: err instanceof Error ? err.message : 'Failed to submit feedback', variant: 'error' });
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <section className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+            <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold text-white">Event Feedback</h2>
+                {avgRating > 0 && (
+                    <div className="flex items-center gap-2">
+                        <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                        <span className="text-white font-medium">{avgRating}</span>
+                        <span className="text-gray-500 text-sm">({feedbackList.length} reviews)</span>
+                    </div>
+                )}
+            </div>
+
+            {/* Submit feedback */}
+            {user && token && !hasSubmitted && !showForm && (
+                <button
+                    onClick={() => setShowForm(true)}
+                    className="mb-6 px-4 py-2 bg-orange-500/10 text-orange-400 rounded-lg hover:bg-orange-500/20 transition-colors text-sm"
+                >
+                    Leave Feedback
+                </button>
+            )}
+
+            {showForm && (
+                <div className="mb-6 p-4 bg-white/5 rounded-xl space-y-4">
+                    <div>
+                        <label className="text-sm text-gray-400 mb-2 block">Rating</label>
+                        <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map((v) => (
+                                <button key={v} onClick={() => setRating(v)} className="p-1">
+                                    <Star className={`w-6 h-6 ${v <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-sm text-gray-400 mb-2 block">Comment (optional)</label>
+                        <textarea
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="How was the event?"
+                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 resize-none"
+                            rows={3}
+                            maxLength={500}
+                        />
+                    </div>
+                    <div className="flex gap-3">
+                        <button
+                            onClick={handleSubmit}
+                            disabled={!rating || submitting}
+                            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 disabled:opacity-50 transition-colors text-sm"
+                        >
+                            {submitting ? 'Submitting...' : 'Submit Feedback'}
+                        </button>
+                        <button
+                            onClick={() => setShowForm(false)}
+                            className="px-4 py-2 text-gray-400 hover:text-white transition-colors text-sm"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Feedback list */}
+            {feedbackList.length > 0 ? (
+                <div className="space-y-4">
+                    {feedbackList.slice(0, 10).map((fb, i) => (
+                        <div key={i} className="p-4 bg-white/5 rounded-xl">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-sm font-medium text-white">{fb.user?.name || fb.user?.username || 'Anonymous'}</span>
+                                <div className="flex items-center gap-1">
+                                    {Array.from({ length: 5 }).map((_, j) => (
+                                        <Star key={j} className={`w-3.5 h-3.5 ${j < fb.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} />
+                                    ))}
+                                </div>
+                            </div>
+                            {fb.comment && <p className="text-sm text-gray-400">{fb.comment}</p>}
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p className="text-sm text-gray-500">No feedback yet. Be the first to share your experience!</p>
+            )}
+        </section>
+    );
+}
+
 export default function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
     const [event, setEvent] = useState<Event | null>(null);
@@ -391,6 +556,9 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                             speakers: e.speakers || [],
                             status: e.status || 'upcoming',
                             isFeatured: e.isFeatured || false,
+                            recordingLink: e.recordingLink,
+                            slidesLink: e.slidesLink,
+                            summaryNotes: e.summaryNotes,
                         });
                     } else {
                         // Fallback to sample data
@@ -522,26 +690,90 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                                 <h2 className="text-xl font-semibold text-white mb-6">Speakers</h2>
                                 <div className="grid gap-4">
                                     {event.speakers.map((speaker, i) => (
-                                        <div key={i} className="flex items-center gap-4 p-4 bg-white/5 rounded-xl">
-                                            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-xl font-bold shrink-0">
-                                                {speaker.name.charAt(0)}
+                                        <div key={i} className="p-4 bg-white/5 rounded-xl">
+                                            <div className="flex items-center gap-4">
+                                                {speaker.avatar ? (
+                                                    <Image
+                                                        src={speaker.avatar}
+                                                        alt={speaker.name}
+                                                        width={56}
+                                                        height={56}
+                                                        className="w-14 h-14 rounded-xl object-cover shrink-0"
+                                                        unoptimized
+                                                    />
+                                                ) : (
+                                                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-xl font-bold shrink-0">
+                                                        {speaker.name.charAt(0)}
+                                                    </div>
+                                                )}
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="font-semibold text-white">{speaker.name}</p>
+                                                    <p className="text-sm text-gray-400">{speaker.title}</p>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    {speaker.linkedin && (
+                                                        <a href={speaker.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                                                            <Linkedin className="w-4 h-4 text-gray-400 hover:text-blue-400" />
+                                                        </a>
+                                                    )}
+                                                    {speaker.twitter && (
+                                                        <a href={speaker.twitter} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                                                            <Twitter className="w-4 h-4 text-gray-400 hover:text-sky-400" />
+                                                        </a>
+                                                    )}
+                                                    {speaker.github && (
+                                                        <a href={speaker.github} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                                                            <Github className="w-4 h-4 text-gray-400 hover:text-white" />
+                                                        </a>
+                                                    )}
+                                                    {speaker.website && (
+                                                        <a href={speaker.website} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                                                            <Globe className="w-4 h-4 text-gray-400 hover:text-orange-400" />
+                                                        </a>
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="font-semibold text-white">{speaker.name}</p>
-                                                <p className="text-sm text-gray-400">{speaker.title}</p>
-                                            </div>
-                                            {speaker.linkedin && (
-                                                <a
-                                                    href={speaker.linkedin}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-                                                >
-                                                    <Linkedin className="w-5 h-5 text-gray-400 hover:text-orange-400" />
-                                                </a>
+                                            {speaker.bio && (
+                                                <p className="text-sm text-gray-400 mt-3 leading-relaxed">{speaker.bio}</p>
                                             )}
                                         </div>
                                     ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Event Feedback (for ended events) */}
+                        {event.status === 'ended' && (
+                            <EventFeedbackSection eventId={event.id} />
+                        )}
+
+                        {/* Archive Resources (past events) */}
+                        {event.status === 'ended' && (event.recordingLink || event.slidesLink || event.summaryNotes) && (
+                            <section className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+                                <h2 className="text-xl font-semibold text-white mb-6">Event Resources</h2>
+                                <div className="space-y-3">
+                                    {event.recordingLink && (
+                                        <a href={event.recordingLink} target="_blank" rel="noopener noreferrer"
+                                            className="flex items-center gap-3 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors">
+                                            <PlayCircle className="w-5 h-5 text-red-400" />
+                                            <span className="text-white">Watch Recording</span>
+                                            <ExternalLink className="w-4 h-4 text-gray-500 ml-auto" />
+                                        </a>
+                                    )}
+                                    {event.slidesLink && (
+                                        <a href={event.slidesLink} target="_blank" rel="noopener noreferrer"
+                                            className="flex items-center gap-3 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors">
+                                            <FileText className="w-5 h-5 text-blue-400" />
+                                            <span className="text-white">View Slides</span>
+                                            <ExternalLink className="w-4 h-4 text-gray-500 ml-auto" />
+                                        </a>
+                                    )}
+                                    {event.summaryNotes && (
+                                        <div className="p-4 bg-white/5 rounded-xl">
+                                            <h3 className="text-sm font-medium text-gray-400 mb-2">Summary Notes</h3>
+                                            <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{event.summaryNotes}</p>
+                                        </div>
+                                    )}
                                 </div>
                             </section>
                         )}
@@ -569,11 +801,19 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                                         <Clock className="w-5 h-5 text-orange-400" />
                                     </div>
                                     <div>
-                                        <p className="font-medium text-white">{formatTime(event.startDate)}</p>
+                                        <p className="font-medium text-white">{formatTimeInTimezone(event.startDate, event.timezone)}</p>
                                         {event.endDate && (
-                                            <p className="text-sm text-gray-500">to {formatTime(event.endDate)}</p>
+                                            <p className="text-sm text-gray-500">to {formatTimeInTimezone(event.endDate, event.timezone)}</p>
                                         )}
-                                        <p className="text-sm text-gray-500">{event.timezone}</p>
+                                        {getViewerTimezone() !== event.timezone && (
+                                            <div className="mt-2 pt-2 border-t border-white/5">
+                                                <p className="text-xs text-gray-500 mb-0.5">Your time</p>
+                                                <p className="text-sm text-gray-300">{formatTimeInTimezone(event.startDate, getViewerTimezone())}</p>
+                                                {event.endDate && (
+                                                    <p className="text-xs text-gray-500">to {formatTimeInTimezone(event.endDate, getViewerTimezone())}</p>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>

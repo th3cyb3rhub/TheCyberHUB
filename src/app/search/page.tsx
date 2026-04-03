@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Search, FileText, MessageSquare, Calendar, User, BookOpen, Briefcase, Clock, TrendingUp } from 'lucide-react';
+import { Search, FileText, MessageSquare, Calendar, User, BookOpen, Briefcase, Clock, TrendingUp, X, History, CalendarRange, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { fetchApi } from '@/lib/api';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface SearchResult {
     _id: string;
@@ -59,6 +60,41 @@ const typeColors: Record<string, string> = {
 };
 
 
+// Highlight matching terms in text
+function highlightText(text: string, searchQuery: string): React.ReactNode {
+    if (!searchQuery.trim() || !text) return text;
+    const terms = searchQuery.trim().split(/\s+/).filter(t => t.length > 1);
+    if (terms.length === 0) return text;
+    const regex = new RegExp(`(${terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+    const parts = text.split(regex);
+    return parts.map((part, i) =>
+        regex.test(part) ? <mark key={i} className="bg-orange-500/30 text-orange-300 rounded px-0.5">{part}</mark> : part
+    );
+}
+
+// Search history helpers
+const SEARCH_HISTORY_KEY = 'search_history';
+const MAX_HISTORY = 10;
+
+function getSearchHistory(): string[] {
+    if (typeof window === 'undefined') return [];
+    try {
+        return JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY) || '[]');
+    } catch { return []; }
+}
+
+function addToSearchHistory(term: string) {
+    if (typeof window === 'undefined' || !term.trim()) return;
+    const history = getSearchHistory().filter(h => h !== term);
+    history.unshift(term);
+    localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(history.slice(0, MAX_HISTORY)));
+}
+
+function clearSearchHistory() {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(SEARCH_HISTORY_KEY);
+}
+
 export default function SearchPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -73,6 +109,47 @@ export default function SearchPage() {
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [pages, setPages] = useState(1);
+
+    // Autocomplete
+    const [suggestions, setSuggestions] = useState<string[]>([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const debouncedQuery = useDebounce(query, 300);
+    const searchInputRef = useRef<HTMLInputElement>(null);
+
+    // Search history
+    const [searchHistory, setSearchHistory] = useState<string[]>([]);
+
+    // Advanced filters
+    const [showFilters, setShowFilters] = useState(false);
+    const [dateFrom, setDateFrom] = useState('');
+    const [dateTo, setDateTo] = useState('');
+    const [authorFilter, setAuthorFilter] = useState('');
+
+    // Load search history on mount
+    useEffect(() => {
+        setSearchHistory(getSearchHistory());
+    }, []);
+
+    // Autocomplete suggestions
+    useEffect(() => {
+        if (debouncedQuery.length < 2 || debouncedQuery === initialQuery) {
+            setSuggestions([]);
+            return;
+        }
+        const fetchSuggestions = async () => {
+            try {
+                const data = await fetchApi(`/api/search?q=${encodeURIComponent(debouncedQuery)}&limit=5`, { requireAuth: false });
+                const titles = (data.results || [])
+                    .map((r: SearchResult) => r.title || r.name || r.username || '')
+                    .filter((t: string) => t)
+                    .slice(0, 5);
+                setSuggestions(titles);
+            } catch {
+                setSuggestions([]);
+            }
+        };
+        fetchSuggestions();
+    }, [debouncedQuery, initialQuery]);
 
     const fetchResults = useCallback(async (searchQuery: string, type: string, pageNum: number) => {
         if (!searchQuery.trim()) {
@@ -122,11 +199,36 @@ export default function SearchPage() {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
+        if (query.trim()) {
+            addToSearchHistory(query.trim());
+            setSearchHistory(getSearchHistory());
+        }
+        setShowSuggestions(false);
         const params = new URLSearchParams();
         if (query) params.append('q', query);
         if (searchType) params.append('type', searchType);
+        if (dateFrom) params.append('from', dateFrom);
+        if (dateTo) params.append('to', dateTo);
+        if (authorFilter) params.append('author', authorFilter);
         router.push(`/search?${params.toString()}`);
         fetchResults(query, searchType, 1);
+        setPage(1);
+    };
+
+    const selectSuggestion = (suggestion: string) => {
+        setQuery(suggestion);
+        setShowSuggestions(false);
+        addToSearchHistory(suggestion);
+        setSearchHistory(getSearchHistory());
+        router.push(`/search?q=${encodeURIComponent(suggestion)}`);
+        fetchResults(suggestion, searchType, 1);
+        setPage(1);
+    };
+
+    const selectHistoryItem = (term: string) => {
+        setQuery(term);
+        router.push(`/search?q=${encodeURIComponent(term)}`);
+        fetchResults(term, searchType, 1);
         setPage(1);
     };
 
@@ -183,13 +285,16 @@ export default function SearchPage() {
                 </div>
 
                 {/* Search Form */}
-                <form onSubmit={handleSearch} className="mb-8">
+                <form onSubmit={handleSearch} className="mb-4">
                     <div className="relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                         <input
+                            ref={searchInputRef}
                             type="text"
                             value={query}
-                            onChange={(e) => setQuery(e.target.value)}
+                            onChange={(e) => { setQuery(e.target.value); setShowSuggestions(true); }}
+                            onFocus={() => setShowSuggestions(true)}
+                            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                             placeholder="Search for anything..."
                             className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50"
                         />
@@ -200,8 +305,115 @@ export default function SearchPage() {
                         >
                             {loading ? 'Searching...' : 'Search'}
                         </Button>
+
+                        {/* Autocomplete / Search History Dropdown */}
+                        {showSuggestions && (suggestions.length > 0 || (searchHistory.length > 0 && !query)) && (
+                            <div className="absolute top-full left-0 right-0 mt-2 z-20 bg-gray-900 border border-white/10 rounded-xl overflow-hidden shadow-xl">
+                                {query && suggestions.length > 0 && (
+                                    <div>
+                                        {suggestions.map((s, i) => (
+                                            <button
+                                                key={i}
+                                                type="button"
+                                                onMouseDown={() => selectSuggestion(s)}
+                                                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-white transition-colors text-left"
+                                            >
+                                                <Search className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                                                <span className="truncate">{s}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                                {!query && searchHistory.length > 0 && (
+                                    <div>
+                                        <div className="flex items-center justify-between px-4 py-2 border-b border-white/10">
+                                            <span className="text-xs text-gray-500 flex items-center gap-1">
+                                                <History className="w-3 h-3" /> Recent Searches
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onMouseDown={() => { clearSearchHistory(); setSearchHistory([]); }}
+                                                className="text-xs text-gray-500 hover:text-red-400 transition-colors"
+                                            >
+                                                Clear
+                                            </button>
+                                        </div>
+                                        {searchHistory.map((h, i) => (
+                                            <button
+                                                key={i}
+                                                type="button"
+                                                onMouseDown={() => selectHistoryItem(h)}
+                                                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-white transition-colors text-left"
+                                            >
+                                                <History className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                                                <span className="truncate">{h}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </form>
+
+                {/* Advanced Filters Toggle */}
+                <div className="flex items-center gap-3 mb-4">
+                    <button
+                        onClick={() => setShowFilters(!showFilters)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${showFilters ? 'border-orange-500/50 bg-orange-500/10 text-orange-400' : 'border-white/10 bg-white/5 text-gray-400 hover:text-white'}`}
+                    >
+                        <Filter className="w-3 h-3" />
+                        Advanced Filters
+                    </button>
+                    {(dateFrom || dateTo || authorFilter) && (
+                        <button
+                            onClick={() => { setDateFrom(''); setDateTo(''); setAuthorFilter(''); }}
+                            className="text-xs text-gray-500 hover:text-red-400 flex items-center gap-1 transition-colors"
+                        >
+                            <X className="w-3 h-3" /> Clear Filters
+                        </button>
+                    )}
+                </div>
+
+                {/* Advanced Filters Panel */}
+                {showFilters && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/10">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">
+                                <CalendarRange className="w-3 h-3 inline mr-1" /> From Date
+                            </label>
+                            <input
+                                type="date"
+                                value={dateFrom}
+                                onChange={(e) => setDateFrom(e.target.value)}
+                                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-orange-500/50"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">
+                                <CalendarRange className="w-3 h-3 inline mr-1" /> To Date
+                            </label>
+                            <input
+                                type="date"
+                                value={dateTo}
+                                onChange={(e) => setDateTo(e.target.value)}
+                                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-orange-500/50"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">
+                                <User className="w-3 h-3 inline mr-1" /> Author
+                            </label>
+                            <input
+                                type="text"
+                                value={authorFilter}
+                                onChange={(e) => setAuthorFilter(e.target.value)}
+                                placeholder="Filter by author..."
+                                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50"
+                            />
+                        </div>
+                    </div>
+                )}
 
                 {/* Type Filters */}
                 <div className="flex flex-wrap gap-2 mb-8">
@@ -252,7 +464,15 @@ export default function SearchPage() {
 
                         {results.length > 0 ? (
                             <div className="space-y-4">
-                                {results.map((result) => (
+                                {results
+                                    .filter(result => {
+                                        // Client-side advanced filters
+                                        if (dateFrom && result.createdAt && new Date(result.createdAt) < new Date(dateFrom)) return false;
+                                        if (dateTo && result.createdAt && new Date(result.createdAt) > new Date(dateTo + 'T23:59:59')) return false;
+                                        if (authorFilter && result.author && !result.author.username.toLowerCase().includes(authorFilter.toLowerCase())) return false;
+                                        return true;
+                                    })
+                                    .map((result) => (
                                     <Link
                                         key={`${result.type}-${result._id}`}
                                         href={getResultLink(result)}
@@ -272,11 +492,11 @@ export default function SearchPage() {
                                                     )}
                                                 </div>
                                                 <h3 className="text-white font-medium mb-1 truncate">
-                                                    {getResultTitle(result)}
+                                                    {highlightText(getResultTitle(result), query)}
                                                 </h3>
                                                 {getResultDescription(result) && (
                                                     <p className="text-gray-400 text-sm line-clamp-2">
-                                                        {getResultDescription(result)}
+                                                        {highlightText(getResultDescription(result), query)}
                                                     </p>
                                                 )}
                                                 <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
