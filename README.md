@@ -97,11 +97,21 @@ TheCyberHub/
 
 ## Environment Variables
 
-Create a `.env.local` file in the project root:
+Copy the example file and you're ready to go — it points to the dev API by default:
+
+```bash
+cp .env.example .env.local
+```
 
 ```env
-NEXT_PUBLIC_API_URL=https://api.thecyberhub.org
-NEXT_PUBLIC_SENTRY_DSN=              # Optional
+# Dev API (default — no local backend needed)
+NEXT_PUBLIC_API_URL=https://dev-api.thecyberhub.org
+
+# Production API
+# NEXT_PUBLIC_API_URL=https://api.thecyberhub.org
+
+# Local backend (only if running thecyberhub-core locally)
+# NEXT_PUBLIC_API_URL=http://localhost:5001
 ```
 
 ---
