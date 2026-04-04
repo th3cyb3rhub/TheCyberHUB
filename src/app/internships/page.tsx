@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BookOpen, Calendar, ArrowRight, Sparkles, GraduationCap, Clock, AlertTriangle, ExternalLink, Trophy } from 'lucide-react';
+import { BookOpen, Calendar, ArrowRight, Sparkles, GraduationCap, AlertTriangle, ExternalLink, Trophy } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
 import { SkeletonInternshipList } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';

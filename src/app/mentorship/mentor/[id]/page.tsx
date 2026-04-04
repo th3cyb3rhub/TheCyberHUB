@@ -25,7 +25,7 @@ export default function MentorProfilePage({ params }: PageProps) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [showRequestForm, setShowRequestForm] = useState(false);
-    const [requestSubmitting, setRequestSubmitting] = useState(false);
+    const [, setRequestSubmitting] = useState(false);
 
     useEffect(() => {
         const fetchMentor = async () => {

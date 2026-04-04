@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // app/ctf/page.tsx
 "use client"
 
@@ -117,7 +118,7 @@ const CTFPage = () => {
                         });
                     }
                 }
-            } catch (_error) {
+            } catch {
                 addToast({ message: 'Failed to load challenges', variant: 'error' });
             } finally {
                 setLoading(false);

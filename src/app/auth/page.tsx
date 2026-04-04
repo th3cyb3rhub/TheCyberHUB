@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Shield, Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2, CheckCircle2, Zap, Users, BookOpen, XCircle, Monitor, Clock } from 'lucide-react';
+import { Shield, Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2, CheckCircle2, Zap, Users, BookOpen, XCircle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -38,8 +38,6 @@ const AuthPage = () => {
     const [usernameError, setUsernameError] = useState<string | null>(null);
 
     // Login activity
-    const [loginActivity, setLoginActivity] = useState<Array<{ timestamp: string; ip?: string; userAgent?: string }>>([]);
-
     const [formData, setFormData] = useState({
         name: '',
         username: '',

@@ -23,6 +23,7 @@ export function captureMessage(message: string, level: 'info' | 'warning' | 'err
 /**
  * Set user context for error tracking
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function setUser(_user: { id: string; email?: string; username?: string } | null): void {
     // No-op - Sentry handles this via sentry.client.config.ts
 }
@@ -44,6 +45,7 @@ export function addBreadcrumb(breadcrumb: {
 /**
  * Start a performance transaction
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function startTransaction(_name: string, _op: string): { finish: () => void } {
     return { finish: () => { } };
 }
@@ -87,7 +89,7 @@ export function trackApiCall(endpoint: string, method: string, duration: number,
     });
 }
 
-export default {
+const monitoring = {
     captureException,
     captureMessage,
     setUser,
@@ -97,3 +99,5 @@ export default {
     trackAction,
     trackApiCall,
 };
+
+export default monitoring;

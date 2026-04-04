@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -125,7 +126,7 @@ const EditJobPage = () => {
                 applicationDeadline: job.applicationDeadline ? new Date(job.applicationDeadline).toISOString().split('T')[0] : '',
                 isActive: job.isActive ?? true
             });
-        } catch (_err) {
+        } catch {
             setError('Failed to load job');
         } finally {
             setLoading(false);

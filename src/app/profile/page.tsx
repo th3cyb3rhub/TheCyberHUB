@@ -1208,7 +1208,7 @@ const ProfilePage = () => {
                                                     title: 'Privacy updated',
                                                     message: `Your profile is now ${newValue ? 'public' : 'private'}.`,
                                                 });
-                                            } catch (_error) {
+                                            } catch {
                                                 addToast({
                                                     variant: 'error',
                                                     title: 'Update failed',

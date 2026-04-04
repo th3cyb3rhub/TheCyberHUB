@@ -3,19 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-    Wrench,
     User,
     LogOut,
     Shield,
-    Briefcase,
     Building2,
-    Rss,
-    MessagesSquare,
     Trophy,
     MessageCircle,
-    Calendar,
-    Code2,
-    Users,
 } from 'lucide-react';
 export interface NavDropdownItem {
     title: string;

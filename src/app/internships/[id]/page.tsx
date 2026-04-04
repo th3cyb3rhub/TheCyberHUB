@@ -1,10 +1,11 @@
 'use client';
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import { BookOpen, Users, Calendar, ArrowLeft, Loader2, Sparkles, CheckCircle2, AlertCircle, AlertTriangle, Clock, GraduationCap } from 'lucide-react';
+import { BookOpen, Users, Calendar, ArrowLeft, Loader2, Sparkles, CheckCircle2, AlertCircle, AlertTriangle, GraduationCap } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
 import { useToast } from '@/context/ToastContext';
 

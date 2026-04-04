@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-    Briefcase, MapPin, ArrowRight, Clock, DollarSign,
+    Briefcase, MapPin, ArrowRight, Clock,
     Building2, Sparkles
 } from 'lucide-react';
 import { fetchApi } from '@/lib/api';

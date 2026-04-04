@@ -21,7 +21,7 @@ export function SystemAlertBanner() {
                 if (data?.success) {
                     setAlerts(data.data);
                 }
-            } catch (_error) {
+            } catch {
                 // Silently ignore connection errors
             }
         };

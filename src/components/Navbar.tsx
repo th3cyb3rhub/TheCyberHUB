@@ -12,7 +12,6 @@ import {
     Wrench,
     FileText,
     Map as MapIcon,
-    User,
     BookOpen,
     Calendar,
     Code2,

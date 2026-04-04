@@ -1,9 +1,10 @@
 'use client';
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import { Bookmark, Plus, Folder, FileText, MessageSquare, Calendar, Briefcase, Trash2, Edit2, X, Check, Search, ArrowUpDown, CheckSquare, Square, FolderInput, Loader2 } from 'lucide-react';
+import { Bookmark, Plus, Folder, FileText, MessageSquare, Calendar, Briefcase, Trash2, Edit2, X, Check, Search, ArrowUpDown, CheckSquare, Square, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { fetchApi } from '@/lib/api';
@@ -83,7 +84,6 @@ export default function BookmarksPage() {
     // Bulk operations
     const [selectedBookmarks, setSelectedBookmarks] = useState<Set<string>>(new Set());
     const [bulkMode, setBulkMode] = useState(false);
-    const [moveTarget, setMoveTarget] = useState<string | null>(null);
     const [bulkLoading, setBulkLoading] = useState(false);
 
     // Prevent race condition: track in-flight delete

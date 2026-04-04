@@ -124,11 +124,11 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
             setConnected(true);
         };
 
-        const onDisconnect = (_reason: string) => {
+        const onDisconnect = () => {
             setConnected(false);
         };
 
-        const onConnectError = (_error: Error) => {
+        const onConnectError = () => {
             setConnected(false);
         };
 

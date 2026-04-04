@@ -55,7 +55,7 @@ const BlogActions: React.FC<BlogActionsProps> = ({
             });
             setIsLiked(data.data.isLiked);
             setLikeCount(data.data.likeCount);
-        } catch (_error) {
+        } catch {
             // Revert on error
             setIsLiked(wasLiked);
             setLikeCount(prev => wasLiked ? prev + 1 : prev - 1);
@@ -104,7 +104,7 @@ const BlogActions: React.FC<BlogActionsProps> = ({
                     ? 'This post was removed from your bookmarks.'
                     : 'You can find this post in your saved items.',
             });
-        } catch (_error) {
+        } catch {
             // Revert on error
             setIsBookmarked(wasBookmarked);
             addToast({

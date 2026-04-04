@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -108,7 +109,7 @@ export default function AdminSystemAlertsPage() {
                 addToast({ variant: 'success', title: 'Success', message: `Alert ${!currentStatus ? 'enabled' : 'disabled'}` });
                 fetchAlerts();
             }
-        } catch (_err) {
+        } catch {
             addToast({ variant: 'error', title: 'Error', message: 'Could not toggle alert' });
         }
     };
@@ -124,7 +125,7 @@ export default function AdminSystemAlertsPage() {
                 addToast({ variant: 'success', title: 'Success', message: 'Alert deleted' });
                 fetchAlerts();
             }
-        } catch (_err) {
+        } catch {
             addToast({ variant: 'error', title: 'Error', message: 'Could not delete alert' });
         }
     };

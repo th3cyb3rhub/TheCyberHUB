@@ -5,7 +5,7 @@
  * Run with: npx vitest (after installing vitest)
  */
 
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 // Mock implementations for testing without full React setup
 // In a real setup, these would use @testing-library/react

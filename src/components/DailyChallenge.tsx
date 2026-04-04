@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { Zap, Clock, CheckCircle, XCircle, Loader2, Brain, ArrowRight, Flame, TrendingUp, History, ChevronDown, ChevronUp } from 'lucide-react';

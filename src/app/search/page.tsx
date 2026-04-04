@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Search, FileText, MessageSquare, Calendar, User, BookOpen, Briefcase, Clock, TrendingUp, X, History, CalendarRange, Filter } from 'lucide-react';

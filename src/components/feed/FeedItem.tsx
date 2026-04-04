@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import {
     MessageCircle, MoreHorizontal, Trash2,
     Flag, Trophy, Flame, PenLine, MessageSquare, Calendar,
@@ -10,7 +10,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { fetchApi, tokenStore } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import FeedComments from './FeedComments';
 

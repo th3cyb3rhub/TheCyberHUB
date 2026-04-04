@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 
 type Props = {
     params: Promise<{ slug: string }>
@@ -6,7 +6,6 @@ type Props = {
 
 export async function generateMetadata(
     { params }: Props,
-    _parent: ResolvingMetadata
 ): Promise<Metadata> {
     const { slug } = await params;
 

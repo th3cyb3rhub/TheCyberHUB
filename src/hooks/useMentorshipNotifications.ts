@@ -23,6 +23,7 @@ const DEFAULT_COUNTS: NotificationCounts = {
     pendingFeedback: 0,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function useMentorshipNotifications(_pollInterval = 60000) {
     const [counts] = useState<NotificationCounts>(DEFAULT_COUNTS);
 

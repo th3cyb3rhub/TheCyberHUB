@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { fetchApi, tokenStore } from '@/lib/api';
+import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import FeedComments from './FeedComments';
 
@@ -101,11 +101,9 @@ function timeAgo(dateStr: string): string {
 export default function FeedCard({
     post,
     onDelete,
-    onReshare,
 }: {
     post: FeedPostData;
     onDelete?: (id: string) => void;
-    onReshare?: (post: FeedPostData) => void;
 }) {
     const { user } = useAuth();
     const userId = user ? user.id : null;

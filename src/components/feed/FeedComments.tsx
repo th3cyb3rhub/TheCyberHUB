@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Send, Loader2, Trash2, MoreHorizontal, CornerDownRight } from 'lucide-react';
+import { Send, Loader2, CornerDownRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { fetchApi } from '@/lib/api';

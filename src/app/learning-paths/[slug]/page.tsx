@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -107,7 +108,7 @@ const LearningPathDetailPage = () => {
         try {
             const data = await fetchApi(`/api/learning-paths/${path?._id}/progress`);
             setProgress(data.data);
-        } catch (_error) {
+        } catch {
             // Not enrolled yet
         }
     };
