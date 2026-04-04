@@ -96,16 +96,14 @@ const Navbar = () => {
 
     // --- Hacker/Cyberpunk nav link with animated underline ---
     const navLink = (href: string, icon: React.ReactNode, label: string) => (
-        <NavigationMenuItem>
-            <Link href={href} className="group/navlink relative inline-flex items-center gap-1.5 h-10 px-3 text-[13px] font-medium tracking-wide uppercase transition-all duration-200">
-                <span className={isActive(href) ? 'text-orange-400' : 'text-gray-500 group-hover/navlink:text-orange-400 transition-colors duration-200'}>{icon}</span>
-                <span className={isActive(href) ? 'text-white' : 'text-gray-400 group-hover/navlink:text-white transition-colors duration-200'}>{label}</span>
-                {/* Animated underline */}
-                <span className={`absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transition-all duration-300 ${isActive(href) ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0 group-hover/navlink:opacity-100 group-hover/navlink:scale-x-100'}`} />
-                {/* Active glow */}
-                {isActive(href) && <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-orange-500 blur-sm" />}
-            </Link>
-        </NavigationMenuItem>
+        <Link key={href} href={href} className="group/navlink relative inline-flex items-center gap-1.5 h-10 px-3 text-[13px] font-medium tracking-wide uppercase transition-all duration-200">
+            <span className={isActive(href) ? 'text-orange-400' : 'text-gray-500 group-hover/navlink:text-orange-400 transition-colors duration-200'}>{icon}</span>
+            <span className={isActive(href) ? 'text-white' : 'text-gray-400 group-hover/navlink:text-white transition-colors duration-200'}>{label}</span>
+            {/* Animated underline */}
+            <span className={`absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transition-all duration-300 ${isActive(href) ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0 group-hover/navlink:opacity-100 group-hover/navlink:scale-x-100'}`} />
+            {/* Active glow */}
+            {isActive(href) && <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-orange-500 blur-sm" />}
+        </Link>
     );
 
     // --- Hacker dropdown trigger ---
@@ -223,12 +221,13 @@ const Navbar = () => {
                         </Link>
 
                         {/* ===== DESKTOP NAV ===== */}
-                        <div className="hidden md:flex items-center">
+                        <div className="hidden md:flex items-center gap-0">
+                            {/* Standalone links (outside NavigationMenu to avoid shared hover) */}
+                            {navLink('/ctf', <Shield className="w-3.5 h-3.5" />, 'CTF')}
+                            {navLink('/leaderboard', <Trophy className="w-3.5 h-3.5" />, 'Rankings')}
+
                             <NavigationMenu viewport={false}>
                                 <NavigationMenuList className="gap-0">
-                                    {navLink('/ctf', <Shield className="w-3.5 h-3.5" />, 'CTF')}
-                                    {navLink('/leaderboard', <Trophy className="w-3.5 h-3.5" />, 'Rankings')}
-
                                     <NavigationMenuItem>
                                         {dropdownTrigger('Learn', <GraduationCap className="w-3.5 h-3.5" />, learnLinks.map(l => l.href))}
                                         <NavigationMenuContent>
