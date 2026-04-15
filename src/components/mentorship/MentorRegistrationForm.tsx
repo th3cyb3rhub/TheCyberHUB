@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ExpertiseBadge } from './ExpertiseBadge';
 import type { ExpertiseArea, MentorRegistrationData, PreferredTime } from '@/lib/mentorship/types';
+import { mentorProfileSchema } from '@/lib/validations';
 
 interface MentorRegistrationFormProps {
     onSubmit: (data: MentorRegistrationData) => Promise<void>;
@@ -84,25 +85,21 @@ export function MentorRegistrationForm({
         e.preventDefault();
         setError(null);
 
-        // Validation
-        if (expertiseAreas.length === 0) {
-            setError('Please select at least one expertise area');
+        const validation = mentorProfileSchema.safeParse({
+            expertise: expertiseAreas,
+            bio: bio.trim(),
+            yearsOfExperience: 0, // not collected in this form, defaults to 0
+            availability: 'available',
+            maxMentees,
+        });
+        if (!validation.success) {
+            setError(validation.error.issues[0]?.message || 'Please fix validation errors');
             return;
         }
-        if (bio.length < MIN_BIO_LENGTH) {
-            setError(`Bio must be at least ${MIN_BIO_LENGTH} characters`);
-            return;
-        }
-        if (bio.length > MAX_BIO_LENGTH) {
-            setError(`Bio must be no more than ${MAX_BIO_LENGTH} characters`);
-            return;
-        }
+
+        // Additional UI-level checks
         if (hoursPerWeek < 1 || hoursPerWeek > 20) {
             setError('Hours per week must be between 1 and 20');
-            return;
-        }
-        if (maxMentees < 1 || maxMentees > 5) {
-            setError('Max mentees must be between 1 and 5');
             return;
         }
 

@@ -36,6 +36,7 @@ import {
     Globe
 } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
+import { eventSchema } from '@/lib/validations';
 
 // Interfaces
 interface Speaker {
@@ -327,18 +328,37 @@ export default function AdminEventEditPage() {
     const validateForm = (): boolean => {
         const errors: ValidationErrors = {};
 
+        // Zod schema validation for core fields
+        const zodResult = eventSchema.safeParse({
+            title: formData.title.trim(),
+            description: formData.description.trim() || 'No description',
+            startDate: formData.startDate,
+            endDate: formData.endDate || formData.startDate,
+            category: formData.category as 'ctf' | 'workshop' | 'meetup' | 'webinar' | 'conference' | 'hackathon' | 'other',
+            locationType: formData.locationType,
+            location: formData.location || undefined,
+            shortDescription: formData.shortDescription || undefined,
+            maxParticipants: formData.maxParticipants ?? undefined,
+        });
+        if (!zodResult.success) {
+            zodResult.error.issues.forEach(issue => {
+                const key = issue.path[0] as string;
+                if (!errors[key]) errors[key] = issue.message;
+            });
+        }
+
         if (!formData.title.trim()) {
-            errors.title = 'Title is required';
+            errors.title = errors.title || 'Title is required';
         }
 
         if (!formData.shortDescription.trim()) {
-            errors.shortDescription = 'Short description is required';
+            errors.shortDescription = errors.shortDescription || 'Short description is required';
         } else if (formData.shortDescription.length > 150) {
             errors.shortDescription = 'Short description must be 150 characters or less';
         }
 
         if (!formData.startDate) {
-            errors.startDate = 'Start date is required';
+            errors.startDate = errors.startDate || 'Start date is required';
         }
 
         if (formData.endDate && new Date(formData.startDate) > new Date(formData.endDate)) {

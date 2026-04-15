@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { fetchApi } from '@/lib/api';
+import { flagSubmissionSchema } from '@/lib/validations';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 interface Hint {
@@ -91,7 +92,13 @@ const ChallengePage = () => {
     // Submit flag
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!flag.trim() || !token || !challenge) return;
+        if (!token || !challenge) return;
+
+        const validation = flagSubmissionSchema.safeParse({ flag: flag.trim() });
+        if (!validation.success) {
+            setResult({ success: false, message: validation.error.issues[0]?.message || 'Invalid flag' });
+            return;
+        }
 
         setSubmitting(true);
         setResult(null);

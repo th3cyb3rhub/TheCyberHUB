@@ -39,6 +39,7 @@ import {
     MessageSquare
 } from 'lucide-react';
 import { API_URL, fetchApi, tokenStore } from '@/lib/api';
+import { profileSchema } from '@/lib/validations';
 const ProfilePage = () => {
     const router = useRouter();
     const { user, loading, logout, updateProfile, updatePassword, requestVerification } = useAuth();
@@ -262,9 +263,16 @@ const ProfilePage = () => {
 
     const handleProfileUpdate = async (e: React.FormEvent) => {
         e.preventDefault();
-        setProfileLoading(true);
         setProfileError(null);
         setProfileSuccess(false);
+
+        const validation = profileSchema.safeParse({ username, name: name || undefined });
+        if (!validation.success) {
+            setProfileError(validation.error.issues[0]?.message || 'Invalid profile data');
+            return;
+        }
+
+        setProfileLoading(true);
 
         try {
             await updateProfile({ name, username });

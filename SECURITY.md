@@ -1,235 +1,158 @@
 # Security Policy
 
+## Supported Versions
+
+| Version | Supported |
+|---------|-----------|
+| 2.x (current) | Yes |
+| 1.x | Security fixes only |
+| < 1.0 | No |
+
+Only the latest major version receives active security updates. Previous major versions may receive critical security patches at the maintainers' discretion.
+
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in TheCyberHub, please report it responsibly:
+If you discover a security vulnerability in TheCyberHub, please report it responsibly. **Do not** create a public GitHub issue.
 
 ### How to Report
 
-1. **Email**: Send details to security@thecyberhub.org
-2. **Do NOT** create a public GitHub issue
-3. **Include**:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact
-   - Suggested fix (if any)
+1. **Email**: Send details to **security@thecyberhub.org**
+2. Include:
+   - A clear description of the vulnerability
+   - Steps to reproduce (or a proof of concept)
+   - Affected components (frontend, API, specific endpoint)
+   - Potential impact and severity assessment
+   - Suggested fix, if you have one
 
 ### What to Expect
 
-- **Acknowledgment**: Within 48 hours
-- **Initial Assessment**: Within 7 days
-- **Fix Timeline**: Depends on severity
-- **Credit**: We'll credit you in the security advisory (if desired)
+| Step | Timeline |
+|------|----------|
+| Acknowledgment | Within 48 hours |
+| Initial assessment | Within 7 days |
+| Status update | Every 7 days until resolved |
+| Fix deployed | Depends on severity (critical: 24-72h, high: 1-2 weeks, medium/low: next release) |
+| Public disclosure | After fix is deployed and users have had time to update |
 
-## Security Best Practices
+### Credit
 
-### For Contributors
+We credit researchers in our security advisories (unless you prefer to remain anonymous). Let us know your preference when reporting.
 
-#### Environment Variables
-- **Never commit** `.env.local` or files containing secrets
-- Use `.env.example` for documentation only
-- Store sensitive data in environment variables
-- Use different credentials for dev/staging/production
+## Disclosure Policy
 
-#### API Keys and Secrets
-- Rotate API keys regularly
-- Use least-privilege access
-- Never hardcode credentials in source code
-- Use environment variables with `NEXT_PUBLIC_` prefix only for non-sensitive data
+- We follow coordinated disclosure. Reporters are asked to keep vulnerabilities confidential until a fix is released.
+- We will work with you to understand and verify the issue.
+- We will not take legal action against researchers acting in good faith.
+- We aim to fix critical vulnerabilities within 72 hours of confirmation.
+- Security advisories are published on GitHub after patches are deployed.
 
-#### Code Security
-- Validate all user inputs
-- Sanitize data before rendering
-- Use parameterized queries (prevent SQL injection)
-- Implement proper authentication and authorization
-- Follow OWASP Top 10 guidelines
-
-### For Deployment
-
-#### AWS Lambda Security
-The project uses AWS Lambda for certain security tools. Protect these endpoints:
-
-1. **API Gateway Configuration**
-   ```yaml
-   - Enable API keys
-   - Set rate limiting (100 req/min recommended)
-   - Configure CORS (allow only your domain)
-   - Enable AWS WAF
-   - Set up CloudWatch alarms
-   ```
-
-2. **Lambda Function Security**
-   - Use environment variables for secrets
-   - Implement request validation
-   - Set appropriate IAM roles
-   - Enable CloudWatch logging
-   - Set reserved concurrency limits
-
-3. **Monitoring**
-   - Monitor for unusual traffic patterns
-   - Set up billing alarms
-   - Track error rates
-   - Log all security events
-
-#### External APIs
-
-The project uses several external APIs. Secure them properly:
-
-| Service | Security Measures |
-|---------|-------------------|
-| **ipapi.co** | No key required, rate-limited by IP |
-| **API Ninjas** | API key required, rotate regularly |
-| **SSL Labs** | Free service, rate-limited |
-| **AWS Lambda** | Use environment variables, enable auth |
+## Security Features
 
 ### Authentication
 
-#### OAuth Configuration
-- Use separate OAuth apps for dev/prod
-- Restrict callback URLs
-- Keep client secrets secure
-- Rotate credentials periodically
+- **Password hashing**: bcrypt with 12 salt rounds
+- **JWT access tokens**: Short-lived, signed with `JWT_SECRET`
+- **Refresh tokens**: Long-lived, stored as httpOnly cookies, signed with separate `JWT_REFRESH_SECRET`
+- **Token rotation**: Refresh tokens are invalidated and replaced on each use
+- **Two-factor authentication (2FA)**: TOTP-based with separate `JWT_2FA_SECRET` for temporary tokens
+- **Google OAuth**: ID token verification for social login
+- **Account lockout**: Progressive delays after failed login attempts, full lockout after 5 failures (60-minute duration)
 
-#### Session Management
-- Use secure, httpOnly cookies
-- Implement CSRF protection
-- Set appropriate session timeouts
-- Validate tokens on every request
+### Authorization
 
-## Known Security Considerations
+- Role-based access control: `user`, `moderator`, `admin`, `owner`
+- Route-level authorization middleware (`protect`, `authorize`, `isAdmin`, `isModerator`)
+- Resource ownership checks in controllers (e.g., only blog authors can edit their posts)
 
-### Client-Side Tools
-Many tools run entirely in the browser (JWT Analyzer, Encoder/Decoder, etc.). These are safe as they don't send data to servers.
+### Rate Limiting
 
-### Server-Side Tools
-Tools that require backend processing (Subfinder, Header Analyzer, Subdomain Takeover) use AWS Lambda. Ensure these are properly secured.
+Seven specialized rate limiters protect against abuse:
 
-### Third-Party APIs
-Some tools use external APIs (IP Lookup, WHOIS, SSL Checker). Be aware of:
-- Rate limits
-- Data privacy
-- API key exposure
-- Service availability
+| Limiter | Window | Max Requests | Scope |
+|---------|--------|-------------|-------|
+| Global API | 15 min | 50 anonymous / 200 authenticated | All /api/* |
+| Authentication | 15 min | 5 attempts | Per IP |
+| 2FA verification | 15 min | 5 attempts | Per IP |
+| Registration | 1 hour | 2 accounts | Per IP |
+| Password reset | 1 hour | 3 requests | Per IP |
+| Search | 1 min | 30 queries | Per user/IP |
+| Upload | 1 hour | 10 files | Per user |
+| General mutation | 1 min | 30 requests | Per user |
 
-## Security Checklist
+Rate limiters use Redis in production for distributed enforcement. In development, limits are multiplied by 50x to avoid interrupting workflow.
 
-### Before Committing
-- [ ] No secrets or API keys in code
-- [ ] `.env.local` not committed
-- [ ] User inputs validated
-- [ ] SQL queries parameterized
-- [ ] XSS prevention implemented
-- [ ] CSRF tokens used where needed
+### Input Validation
 
-### Before Deploying
-- [ ] Environment variables set in hosting platform
-- [ ] Different credentials for production
-- [ ] HTTPS enabled
-- [ ] Security headers configured
-- [ ] Rate limiting enabled
-- [ ] Monitoring and alerts set up
-- [ ] Backup and recovery plan in place
+- **Server-side**: Joi schemas validate all request bodies, params, and query strings
+- **NoSQL injection prevention**: `express-mongo-sanitize` strips `$` and `.` operators from all input
+- **HTTP parameter pollution**: `hpp` middleware prevents duplicate query parameter attacks
+- **XSS sanitization**: Custom middleware sanitizes all incoming request bodies
+- **Client-side**: DOMPurify sanitizes all `dangerouslySetInnerHTML` content
 
-### Regular Maintenance
-- [ ] Update dependencies monthly
-- [ ] Review security advisories
-- [ ] Rotate API keys quarterly
-- [ ] Audit access logs
-- [ ] Test backup restoration
-- [ ] Review and update security policies
+### Security Headers
 
-## Dependency Security
+Configured via Helmet middleware:
 
-### Automated Scanning
-We use automated tools to scan for vulnerabilities:
-- GitHub Dependabot
-- npm audit
-- Snyk (optional)
-
-### Manual Review
-- Review dependency updates before merging
-- Check for known vulnerabilities
-- Verify package authenticity
-- Use lock files (`package-lock.json`)
-
-### Updating Dependencies
-```bash
-# Check for vulnerabilities
-npm audit
-
-# Fix automatically (if possible)
-npm audit fix
-
-# Update specific package
-npm update package-name
-
-# Update all packages (carefully)
-npm update
-```
-
-## Incident Response
-
-### If a Security Breach Occurs
-
-1. **Immediate Actions**
-   - Contain the breach
-   - Assess the impact
-   - Notify affected users
-   - Document everything
-
-2. **Investigation**
-   - Identify the vulnerability
-   - Determine scope of breach
-   - Review logs and access patterns
-   - Identify affected data
-
-3. **Remediation**
-   - Fix the vulnerability
-   - Rotate all credentials
-   - Deploy security patches
-   - Update security measures
-
-4. **Post-Incident**
-   - Conduct post-mortem
-   - Update security policies
-   - Improve monitoring
-   - Share lessons learned
-
-## Compliance
+- `Content-Security-Policy` -- restricts resource loading sources
+- `Strict-Transport-Security` -- enforces HTTPS (max-age: 1 year, includeSubDomains)
+- `X-Frame-Options: DENY` -- prevents clickjacking
+- `X-Content-Type-Options: nosniff` -- prevents MIME sniffing
+- `X-XSS-Protection` -- legacy XSS filter
+- `Referrer-Policy` -- controls referrer information
+- `Permissions-Policy` -- restricts browser feature access
 
 ### Data Protection
-- Follow GDPR guidelines (if applicable)
-- Implement data minimization
-- Provide data export/deletion
-- Maintain audit logs
 
-### Open Source Security
-- Review all contributions
-- Scan for malicious code
-- Verify contributor identity
-- Use signed commits (recommended)
+- Passwords are never stored in plaintext or logged
+- Sensitive fields are excluded from API responses (password, tokens, etc.)
+- File uploads go to AWS S3 (not stored on the application server)
+- Body parser limits enforced (1MB max) to prevent memory exhaustion
 
-## Resources
+### Infrastructure
 
-### Security Tools
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [npm audit](https://docs.npmjs.com/cli/v8/commands/npm-audit)
-- [Snyk](https://snyk.io/)
-- [GitHub Security Advisories](https://github.com/advisories)
+- HTTPS enforced in production (HTTP-to-HTTPS redirect)
+- Trust proxy configured for accurate client IP detection behind reverse proxies
+- MongoDB connections use authenticated URIs in production
+- Redis connections support TLS in production
+- Docker containers run with resource limits (memory, CPU)
+- Graceful shutdown prevents data corruption on deployment
 
-### Learning Resources
-- [OWASP Cheat Sheets](https://cheatsheetseries.owasp.org/)
-- [Web Security Academy](https://portswigger.net/web-security)
-- [Security Headers](https://securityheaders.com/)
+### Error Handling
+
+- Custom `ApiError` class hierarchy with standardized error codes
+- Stack traces stripped from production error responses
+- Request ID tracking (`X-Request-Id`) for incident investigation
+- Structured logging via Winston (no `console.log` in production)
+- Sentry integration for error monitoring and alerting
+
+## Security Best Practices for Contributors
+
+### Before Committing
+
+- [ ] No secrets, API keys, or credentials in code
+- [ ] `.env` files are not committed (check `.gitignore`)
+- [ ] All user inputs are validated with Joi schemas
+- [ ] Database queries use parameterized inputs (Mongoose handles this)
+- [ ] `dangerouslySetInnerHTML` content is sanitized with DOMPurify
+- [ ] New endpoints have appropriate auth and rate limiting middleware
+- [ ] Sensitive data is not logged or exposed in error responses
+
+### Environment Variables
+
+- Use `.env.example` files for documentation only (never include real values)
+- Use `NEXT_PUBLIC_` prefix only for non-sensitive frontend values
+- Never hardcode credentials -- always use environment variables
+- Use different credentials for development, staging, and production
+
+### Dependencies
+
+- Run `npm audit` before submitting PRs
+- Keep dependencies updated -- Dependabot creates automated PRs
+- Review dependency changes carefully (supply chain attacks)
+- Use `package-lock.json` to pin exact versions
 
 ## Contact
 
-- **Security Issues**: security@thecyberhub.org
-- **General Questions**: GitHub Discussions
+- **Security issues**: security@thecyberhub.org
+- **General questions**: GitHub Discussions
 - **Community**: Discord Server
-
----
-
-**Last Updated**: January 2026
-
-Thank you for helping keep TheCyberHub secure! 🔒

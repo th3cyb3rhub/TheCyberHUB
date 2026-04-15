@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { ArrowLeft, Loader2, Sparkles, Send } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
+import { internshipApplicationSchema } from '@/lib/validations';
 import { useToast } from '@/context/ToastContext';
 
 interface Cohort {
@@ -27,6 +28,7 @@ export default function ApplyPage() {
     const [cohort, setCohort] = useState<Cohort | null>(null);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
     const [formData, setFormData] = useState({
         coverLetter: '',
@@ -76,6 +78,23 @@ export default function ApplyPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        const validation = internshipApplicationSchema.safeParse({
+            coverLetter: formData.coverLetter.trim(),
+            resume: formData.resumeUrl || undefined,
+            portfolio: formData.portfolioUrl || undefined,
+        });
+        if (!validation.success) {
+            const errs: Record<string, string> = {};
+            validation.error.issues.forEach(issue => {
+                const key = issue.path.join('.');
+                if (!errs[key]) errs[key] = issue.message;
+            });
+            setFieldErrors(errs);
+            addToast({ title: 'Validation Error', message: validation.error.issues[0]?.message || 'Please fix the errors', variant: 'error' });
+            return;
+        }
+        setFieldErrors({});
         setSubmitting(true);
 
         try {
@@ -136,6 +155,7 @@ export default function ApplyPage() {
                                 placeholder="Tell us about yourself, your goals, and why you're a good fit..."
                             />
                             <p className="text-xs text-gray-500 mt-2">Maximum 3000 characters.</p>
+                            {fieldErrors.coverLetter && <p className="text-red-400 text-xs mt-1">{fieldErrors.coverLetter}</p>}
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-6">

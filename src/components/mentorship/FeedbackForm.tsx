@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RatingStars } from './RatingStars';
 import type { FeedbackFormData, FeedbackType } from '@/lib/mentorship/types';
+import { mentorshipFeedbackSchema } from '@/lib/validations';
 
 interface FeedbackFormProps {
     mentorshipId: string;
@@ -25,8 +26,12 @@ export function FeedbackForm({ mentorshipId, sessionId, type, onSubmit, onClose 
         e.preventDefault();
         setError(null);
 
-        if (rating === 0) {
-            setError('Please select a rating');
+        const validation = mentorshipFeedbackSchema.safeParse({
+            rating,
+            comment: comment.trim() || 'No comment',
+        });
+        if (!validation.success) {
+            setError(validation.error.issues[0]?.message || 'Please fix validation errors');
             return;
         }
 

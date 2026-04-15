@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
@@ -9,9 +8,8 @@ import Image from 'next/image';
 import { Search, Calendar, User, Clock, BookOpen, PenLine, FileText, X } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { SkeletonBlogGrid } from '@/components/ui/skeleton';
-import { fetchApi } from '@/lib/api';
+import { useBlogs } from '@/hooks/queries';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { useToast } from '@/context/ToastContext';
 
 interface Blog {
     _id: string;
@@ -31,12 +29,12 @@ const BlogPage = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
-    const [blogs, setBlogs] = useState<Blog[]>([]);
-    const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
     const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedTag, setSelectedTag] = useState<string | null>(searchParams.get('tag') || null);
-    const { addToast } = useToast();
+
+    const { data: blogsData, isLoading: loading } = useBlogs();
+    const blogs: Blog[] = blogsData?.data || [];
 
     const updateFilters = useCallback((key: string, value: string) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -56,22 +54,6 @@ const BlogPage = () => {
         setSelectedTag(null);
         router.replace(pathname, { scroll: false });
     }, [router, pathname]);
-
-    useEffect(() => {
-        const fetchBlogs = async () => {
-            try {
-                const result = await fetchApi('/api/blogs', { requireAuth: false });
-                // API returns { success, data, pagination }
-                setBlogs(result.data || []);
-            } catch (error) {
-                console.error('Failed to fetch blogs:', error);
-                addToast({ message: 'Failed to load blog posts', variant: 'error' });
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchBlogs();
-    }, []);
 
     const allTags = Array.from(new Set((blogs || []).flatMap(b => b.tags || [])));
 

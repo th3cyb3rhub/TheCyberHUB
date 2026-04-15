@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Shield, ArrowLeft, Plus, X, Upload, Loader2, Save } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { fetchApi, uploadFile } from '@/lib/api';
+import { challengeSchema } from '@/lib/validations';
 
 const categories = ['web', 'crypto', 'pwn', 'reverse', 'forensics', 'misc', 'osint'];
 const difficulties = ['easy', 'medium', 'hard', 'insane'];
@@ -88,6 +89,27 @@ export default function NewChallengePage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+
+        const validation = challengeSchema.safeParse({
+            title: form.title,
+            description: form.description,
+            shortDescription: form.shortDescription || undefined,
+            category: form.category,
+            difficulty: form.difficulty,
+            flag: form.flag,
+            flagFormat: form.flagFormat || undefined,
+            isCaseSensitive: form.isCaseSensitive,
+            basePoints: form.basePoints,
+            dynamicScoring: form.dynamicScoring,
+            tags: form.tags,
+            hints: form.hints.map(h => ({ content: h.text, cost: h.pointsDeduction })),
+            status: form.status as 'draft' | 'active' | 'archived',
+        });
+        if (!validation.success) {
+            setError(validation.error.issues[0]?.message || 'Please fix the validation errors');
+            return;
+        }
+
         setSubmitting(true);
 
         try {

@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { useDebounce } from '@/hooks/useDebounce';
 import { fetchApi } from '@/lib/api';
+import { loginSchema, registerSchema } from '@/lib/validations';
 
 type AuthMode = 'login' | 'register' | '2fa';
 
@@ -36,6 +37,9 @@ const AuthPage = () => {
     const [usernameChecking, setUsernameChecking] = useState(false);
     const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null);
     const [usernameError, setUsernameError] = useState<string | null>(null);
+
+    // Field-level validation errors
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
     // Login activity
     const [formData, setFormData] = useState({
@@ -90,6 +94,7 @@ const AuthPage = () => {
         setShowConfirmPassword(false);
         setUsernameAvailable(null);
         setUsernameError(null);
+        setFieldErrors({});
         setMode(newMode);
     };
 
@@ -113,43 +118,42 @@ const AuthPage = () => {
         }
     }, [authLoading, user, router, redirect]);
 
+    const validateForm = () => {
+        const schema = mode === 'register' ? registerSchema : loginSchema;
+        const data = mode === 'register'
+            ? { name: formData.name, username: formData.username || 'auto', email: formData.email, password: formData.password, confirmPassword: formData.confirmPassword, acceptTerms: true as const }
+            : { email: formData.email, password: formData.password };
+        const result = schema.safeParse(data);
+        if (!result.success) {
+            const errs: Record<string, string> = {};
+            result.error.issues.forEach(issue => {
+                const key = issue.path.join('.');
+                if (!errs[key]) errs[key] = issue.message;
+            });
+            setFieldErrors(errs);
+            return false;
+        }
+        setFieldErrors({});
+        return true;
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }));
         setError(null);
+        setFieldErrors(prev => ({ ...prev, [e.target.name]: '' }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (mode !== '2fa' && !validateForm()) return;
         setLoading(true);
         setError(null);
 
         try {
             if (mode === 'register') {
-                if (formData.password !== formData.confirmPassword) {
-                    setError('Passwords do not match');
-                    setLoading(false);
-                    return;
-                }
-
-                if (formData.password.length < 8) {
-                    setError('Password must be at least 8 characters');
-                    setLoading(false);
-                    return;
-                }
-
-                // Check password complexity
-                if (!/[A-Z]/.test(formData.password) ||
-                    !/[a-z]/.test(formData.password) ||
-                    !/[0-9]/.test(formData.password) ||
-                    !/[^A-Za-z0-9]/.test(formData.password)) {
-                    setError('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
-                    setLoading(false);
-                    return;
-                }
-
                 await register(formData.name, formData.email, formData.password, formData.username || undefined);
                 setSuccess('Account created successfully!');
                 addToast({
@@ -349,11 +353,15 @@ const AuthPage = () => {
                                             name="name"
                                             value={formData.name}
                                             onChange={handleChange}
+                                            onBlur={validateForm}
                                             placeholder="John Doe"
                                             required
+                                            aria-invalid={!!fieldErrors.name}
+                                            aria-describedby={fieldErrors.name ? 'name-error' : undefined}
                                             className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
                                         />
                                     </div>
+                                    {fieldErrors.name && <p id="name-error" className="text-red-400 text-xs mt-1">{fieldErrors.name}</p>}
                                 </div>
 
                                 <div>
@@ -418,11 +426,15 @@ const AuthPage = () => {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
+                                    onBlur={validateForm}
                                     placeholder="you@example.com"
                                     required
+                                    aria-invalid={!!fieldErrors.email}
+                                    aria-describedby={fieldErrors.email ? 'email-error' : undefined}
                                     className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
                                 />
                             </div>
+                            {fieldErrors.email && <p id="email-error" className="text-red-400 text-xs mt-1">{fieldErrors.email}</p>}
                         </div>
 
                         {/* Password */}
@@ -442,9 +454,12 @@ const AuthPage = () => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
+                                    onBlur={validateForm}
                                     placeholder="••••••••"
                                     required
                                     minLength={8}
+                                    aria-invalid={!!fieldErrors.password}
+                                    aria-describedby={fieldErrors.password ? 'password-error' : undefined}
                                     className="w-full pl-11 pr-12 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
                                 />
                                 <button
@@ -456,6 +471,7 @@ const AuthPage = () => {
                                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                 </button>
                             </div>
+                            {fieldErrors.password && <p id="password-error" className="text-red-400 text-xs mt-1">{fieldErrors.password}</p>}
                             {/* Password Requirements Checklist */}
                             {mode === 'register' && formData.password && (
                                 <div className="mt-3 space-y-1.5">
@@ -510,9 +526,12 @@ const AuthPage = () => {
                                         name="confirmPassword"
                                         value={formData.confirmPassword}
                                         onChange={handleChange}
+                                        onBlur={validateForm}
                                         placeholder="••••••••"
                                         required
                                         minLength={8}
+                                        aria-invalid={!!fieldErrors.confirmPassword}
+                                        aria-describedby={fieldErrors.confirmPassword ? 'confirmPassword-error' : undefined}
                                         className={`w-full pl-11 pr-12 py-3 bg-white/5 border rounded-lg text-white placeholder:text-gray-500 focus:outline-none transition-colors ${formData.confirmPassword
                                             ? formData.password === formData.confirmPassword
                                                 ? 'border-green-500/50 focus:border-green-500'
@@ -537,6 +556,7 @@ const AuthPage = () => {
                                         <CheckCircle2 className="w-3 h-3" /> Passwords match
                                     </p>
                                 )}
+                                {fieldErrors.confirmPassword && <p id="confirmPassword-error" className="text-red-400 text-xs mt-1">{fieldErrors.confirmPassword}</p>}
                             </div>
                         )}
 

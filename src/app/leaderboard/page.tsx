@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
-import { fetchApi } from '@/lib/api';
+import React, { useState } from 'react';
 import { Trophy, Medal, Target, Crown, ChevronUp, Search } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useLeaderboard } from '@/hooks/queries';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
@@ -85,24 +85,14 @@ const PodiumSpot = ({ entry, position }: { entry: LeaderboardEntry; position: 1 
 
 export default function LeaderboardPage() {
     const { user } = useAuth();
-    const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-    const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const debouncedSearch = useDebounce(searchQuery, 300);
 
-    useEffect(() => {
-        const fetchLeaderboard = async () => {
-            try {
-                const data = await fetchApi('/api/challenges/leaderboard', { requireAuth: false });
-                setLeaderboard(Array.isArray(data) ? data : data.data || []);
-            } catch (err) {
-                console.error("Failed to fetch leaderboard", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchLeaderboard();
-    }, []);
+    const { data: leaderboardData, isLoading: loading } = useLeaderboard();
+    const leaderboard: LeaderboardEntry[] = (() => {
+        const raw = leaderboardData;
+        return Array.isArray(raw) ? raw : raw?.data || [];
+    })();
 
     // Find current user's rank
     const userRank = user ? leaderboard.find(e => e.username === user.username) : null;

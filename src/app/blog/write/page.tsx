@@ -30,6 +30,7 @@ import {
     AlertCircle
 } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
+import { blogPostSchema } from '@/lib/validations';
 
 const BlogWritePage = () => {
     const router = useRouter();
@@ -47,6 +48,7 @@ const BlogWritePage = () => {
     const [success, setSuccess] = useState(false);
     const [draftSaved, setDraftSaved] = useState(false);
     const [showDraftRestore, setShowDraftRestore] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
     const { addToast } = useToast();
 
     const DRAFT_KEY = 'blog-draft';
@@ -152,15 +154,25 @@ const BlogWritePage = () => {
         setTags(tags.filter(t => t !== tagToRemove));
     };
 
+    const validateBlog = () => {
+        const result = blogPostSchema.safeParse({ title: title.trim(), content: content.trim(), tags, coverImage: coverImage.trim() || undefined });
+        if (!result.success) {
+            const errs: Record<string, string> = {};
+            result.error.issues.forEach(issue => {
+                const key = issue.path.join('.');
+                if (!errs[key]) errs[key] = issue.message;
+            });
+            setFieldErrors(errs);
+            return false;
+        }
+        setFieldErrors({});
+        return true;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!title.trim()) {
-            setError('Please enter a title');
-            return;
-        }
-        if (!content.trim()) {
-            setError('Please write some content');
+        if (!validateBlog()) {
             return;
         }
 
@@ -378,11 +390,14 @@ const BlogWritePage = () => {
                             <input
                                 type="text"
                                 value={title}
-                                onChange={(e) => setTitle(e.target.value)}
+                                onChange={(e) => { setTitle(e.target.value); setFieldErrors(p => ({ ...p, title: '' })); }}
                                 placeholder="Enter your article title..."
+                                aria-invalid={!!fieldErrors.title}
+                                aria-describedby={fieldErrors.title ? 'blog-title-error' : undefined}
                                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-xl font-semibold placeholder:text-gray-600 placeholder:font-normal focus:border-orange-500/50 focus:outline-none transition-colors"
                                 required
                             />
+                            {fieldErrors.title && <p id="blog-title-error" className="text-red-400 text-xs mt-1">{fieldErrors.title}</p>}
                         </div>
 
                         {/* Tags */}
@@ -449,12 +464,15 @@ const BlogWritePage = () => {
                             <textarea
                                 ref={textareaRef}
                                 value={content}
-                                onChange={(e) => setContent(e.target.value)}
+                                onChange={(e) => { setContent(e.target.value); setFieldErrors(p => ({ ...p, content: '' })); }}
                                 placeholder="Write your article content here... (Markdown supported)"
                                 rows={20}
+                                aria-invalid={!!fieldErrors.content}
+                                aria-describedby={fieldErrors.content ? 'blog-content-error' : undefined}
                                 className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-b-xl text-white placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none transition-colors font-mono text-sm resize-none"
                                 required
                             />
+                            {fieldErrors.content && <p id="blog-content-error" className="text-red-400 text-xs mt-1">{fieldErrors.content}</p>}
                         </div>
 
                         {/* Tips */}

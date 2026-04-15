@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { feedCommentSchema } from '@/lib/validations';
 
 interface Comment {
     _id: string;
@@ -68,6 +69,8 @@ export default function FeedComments({
 
     const handleSubmit = async () => {
         if (!newComment.trim() || submitting || !user) return;
+        const validation = feedCommentSchema.safeParse({ content: newComment.trim() });
+        if (!validation.success) return;
         setSubmitting(true);
         try {
             const data = await fetchApi(`/api/feed/posts/${postId}/comments`, {

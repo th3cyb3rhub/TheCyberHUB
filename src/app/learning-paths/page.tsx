@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { fetchApi } from '@/lib/api';
+import { useLearningPaths } from '@/hooks/queries';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -74,30 +75,14 @@ const difficultyColors: Record<string, string> = {
 const LearningPathsPage = () => {
     const { user, token } = useAuth();
     const { addToast } = useToast();
-    const [paths, setPaths] = useState<LearningPath[]>([]);
     const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
-    const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [enrollingPath, setEnrollingPath] = useState<string | null>(null);
 
-    useEffect(() => {
-        fetchPaths();
-        if (user && token) {
-            fetchUserProgress();
-        }
-    }, [user, token]);
+    const { data: pathsData, isLoading: loading } = useLearningPaths();
+    const paths: LearningPath[] = pathsData?.data || [];
 
-    const fetchPaths = async () => {
-        try {
-            const data = await fetchApi('/api/learning-paths', { requireAuth: false });
-            setPaths(data.data || []);
-        } catch (error) {
-            console.error('Failed to fetch learning paths:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
+    // Fetch user progress (no React Query hook available for /api/learning-paths/user/progress)
     const fetchUserProgress = async () => {
         try {
             const data = await fetchApi('/api/learning-paths/user/progress');
@@ -106,6 +91,12 @@ const LearningPathsPage = () => {
             console.error('Failed to fetch user progress:', error);
         }
     };
+
+    useEffect(() => {
+        if (user && token) {
+            fetchUserProgress();
+        }
+    }, [user, token]);
 
     const handleEnroll = async (pathId: string) => {
         if (!user || !token) {

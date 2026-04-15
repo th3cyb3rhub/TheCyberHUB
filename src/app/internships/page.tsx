@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { BookOpen, Calendar, ArrowRight, Sparkles, GraduationCap, AlertTriangle, ExternalLink, Trophy } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
+import { useInternships } from '@/hooks/queries';
 import { SkeletonInternshipList } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
 
@@ -30,31 +31,22 @@ interface Cohort {
 }
 
 export default function InternshipsPage() {
-    const [cohorts, setCohorts] = useState<Cohort[]>([]);
     const [pastCohorts, setPastCohorts] = useState<Cohort[]>([]);
-    const [loading, setLoading] = useState(true);
 
+    const { data: internshipsData, isLoading: loading } = useInternships();
+    const cohorts: Cohort[] = internshipsData?.data || [];
+
+    // Fetch past cohorts (no React Query hook available for /api/internships/past)
     useEffect(() => {
-        const fetchCohorts = async () => {
+        const fetchPastCohorts = async () => {
             try {
-                const data = await fetchApi('/api/internships', { requireAuth: false });
-                setCohorts(data.data);
-
-                // Fetch past cohorts
-                try {
-                    const pastData = await fetchApi('/api/internships/past', { requireAuth: false });
-                    setPastCohorts(pastData.data || []);
-                } catch {
-                    // Past cohorts are optional
-                }
-            } catch (error) {
-                console.error('Failed to fetch cohorts', error);
-            } finally {
-                setLoading(false);
+                const pastData = await fetchApi('/api/internships/past', { requireAuth: false });
+                setPastCohorts(pastData.data || []);
+            } catch {
+                // Past cohorts are optional
             }
         };
-
-        fetchCohorts();
+        fetchPastCohorts();
     }, []);
 
     const formatDate = (dateString: string) => {

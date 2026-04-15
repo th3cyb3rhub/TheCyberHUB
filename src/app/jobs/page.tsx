@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
@@ -12,11 +11,10 @@ import {
     ArrowRight, Sparkles, X
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { fetchApi } from '@/lib/api';
+import { useJobs } from '@/hooks/queries';
 import { useAuth } from '@/context/AuthContext';
 import { SkeletonJobsGrid } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { useToast } from '@/context/ToastContext';
 
 interface Job {
     _id: string;
@@ -87,9 +85,6 @@ const JobsPage = () => {
     const router = useRouter();
     const pathname = usePathname();
     useAuth();
-    const { addToast } = useToast();
-    const [jobs, setJobs] = useState<Job[]>([]);
-    const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
     const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all');
@@ -101,7 +96,23 @@ const JobsPage = () => {
     const [salaryMax, setSalaryMax] = useState(searchParams.get('salaryMax') || '');
     const debouncedSalaryMin = useDebounce(salaryMin, 500);
     const debouncedSalaryMax = useDebounce(salaryMax, 500);
-    const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0 });
+
+    // Build query params for useJobs hook
+    // NOTE: useJobs hook type is narrower than what the API accepts; using type assertion
+    // to pass additional filter params (experienceLevel, locationType, employmentType, salaryMin, salaryMax)
+    const jobsQueryParams = {
+        ...(selectedCategory !== 'all' && { category: selectedCategory }),
+        ...(selectedLevel !== 'all' && { experienceLevel: selectedLevel }),
+        ...(selectedLocation !== 'all' && { locationType: selectedLocation }),
+        ...(selectedType !== 'all' && { type: selectedType }),
+        ...(debouncedSearch && { search: debouncedSearch }),
+        ...(debouncedSalaryMin && { salaryMin: debouncedSalaryMin }),
+        ...(debouncedSalaryMax && { salaryMax: debouncedSalaryMax }),
+    } as Parameters<typeof useJobs>[0];
+
+    const { data: jobsData, isLoading: loading } = useJobs(jobsQueryParams);
+    const jobs: Job[] = jobsData?.data || [];
+    const pagination = jobsData?.pagination || { page: 1, pages: 1, total: 0 };
 
     const updateFilters = useCallback((key: string, value: string) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -127,38 +138,9 @@ const JobsPage = () => {
         router.replace(pathname, { scroll: false });
     }, [router, pathname]);
 
-    useEffect(() => {
-        fetchJobs();
-    }, [selectedCategory, selectedLevel, selectedLocation, selectedType, debouncedSearch, debouncedSalaryMin, debouncedSalaryMax]);
-
-    const fetchJobs = async () => {
-        try {
-            setLoading(true);
-            const params = new URLSearchParams();
-            if (selectedCategory !== 'all') params.append('category', selectedCategory);
-            if (selectedLevel !== 'all') params.append('experienceLevel', selectedLevel);
-            if (selectedLocation !== 'all') params.append('locationType', selectedLocation);
-            if (selectedType !== 'all') params.append('employmentType', selectedType);
-            if (debouncedSearch) params.append('search', debouncedSearch);
-            if (debouncedSalaryMin) params.append('salaryMin', debouncedSalaryMin);
-            if (debouncedSalaryMax) params.append('salaryMax', debouncedSalaryMax);
-            params.append('limit', '20');
-
-            const data = await fetchApi(`/api/jobs?${params.toString()}`, { requireAuth: false });
-            setJobs(data.data || []);
-            setPagination(data.pagination || { page: 1, pages: 1, total: 0 });
-        } catch (error) {
-            console.error('Failed to fetch jobs:', error);
-            addToast({ message: 'Failed to load jobs', variant: 'error' });
-            setJobs([]);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-        fetchJobs();
+        // React Query auto-refetches when params change; this just prevents form submission
     };
 
     const formatSalary = (salary?: Job['salary']) => {

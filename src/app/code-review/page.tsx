@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
+import { fetchApi } from '@/lib/api';
 import {
     Code,
     Search,
@@ -14,10 +15,11 @@ import {
     Shield,
     Terminal,
     ChevronRight,
-    AlertTriangle
+    AlertTriangle,
+    Loader2,
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { codeSnippets, categories, difficulties } from '@/data/codeSnippets';
+import { codeSnippets as localSnippets, categories, difficulties, type CodeSnippet } from '@/data/codeSnippets';
 
 const severityColors = {
     low: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
@@ -42,20 +44,132 @@ const categoryIcons: Record<string, React.ReactNode> = {
     injection: <Terminal className="w-4 h-4" />,
 };
 
+// API response snippet type (from backend)
+interface ApiSnippet {
+    _id: string;
+    title: string;
+    description: string;
+    language: string;
+    category: string;
+    difficulty: 'easy' | 'medium' | 'hard';
+    vulnerableCode: string;
+    fixedCode: string;
+    explanation: string;
+    vulnerabilityType?: string;
+    tags?: string[];
+    author?: { username: string; name: string; avatar?: string };
+    isPublished: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// Normalized display snippet that works for both API and local data
+interface DisplaySnippet {
+    id: string;
+    title: string;
+    description: string;
+    language: string;
+    category: string;
+    difficulty: 'easy' | 'medium' | 'hard';
+    vulnerabilityType: string;
+    severity?: 'low' | 'medium' | 'high' | 'critical';
+    cwe?: string;
+    isLocal: boolean; // true if from local data (has detail page support)
+}
+
+function normalizeLocalSnippet(s: CodeSnippet): DisplaySnippet {
+    return {
+        id: s.id,
+        title: s.title,
+        description: s.description,
+        language: s.language,
+        category: s.category,
+        difficulty: s.difficulty,
+        vulnerabilityType: s.vulnerabilityType,
+        severity: s.severity,
+        cwe: s.cwe,
+        isLocal: true,
+    };
+}
+
+function normalizeApiSnippet(s: ApiSnippet): DisplaySnippet {
+    return {
+        id: s._id,
+        title: s.title,
+        description: s.description,
+        language: s.language,
+        category: s.category,
+        difficulty: s.difficulty,
+        vulnerabilityType: s.vulnerabilityType || s.category,
+        isLocal: false,
+    };
+}
+
 const CodeReviewPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
 
-    const filteredSnippets = codeSnippets.filter(snippet => {
-        const matchesSearch = snippet.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-            snippet.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-            snippet.vulnerabilityType.toLowerCase().includes(debouncedSearch.toLowerCase());
-        const matchesCategory = !selectedCategory || snippet.category === selectedCategory;
-        const matchesDifficulty = !selectedDifficulty || snippet.difficulty === selectedDifficulty;
-        return matchesSearch && matchesCategory && matchesDifficulty;
-    });
+    // Data source state
+    const [apiSnippets, setApiSnippets] = useState<DisplaySnippet[] | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [useLocalData, setUseLocalData] = useState(false);
+
+    // Fetch from API on mount
+    const fetchSnippets = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const params = new URLSearchParams();
+            params.set('limit', '50');
+            if (debouncedSearch) params.set('search', debouncedSearch);
+            if (selectedCategory) params.set('category', selectedCategory);
+            if (selectedDifficulty) params.set('difficulty', selectedDifficulty);
+
+            // fetchApi returns parsed JSON directly and throws on error
+            const data = await fetchApi(`/api/code-review?${params.toString()}`, {
+                requireAuth: false,
+            });
+
+            if (data && data.success && data.data && data.data.length > 0) {
+                setApiSnippets(data.data.map(normalizeApiSnippet));
+                setUseLocalData(false);
+            } else {
+                // API returned empty — fall back to local data
+                setUseLocalData(true);
+            }
+        } catch {
+            // API unreachable or error — fall back to local data
+            setUseLocalData(true);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [debouncedSearch, selectedCategory, selectedDifficulty]);
+
+    useEffect(() => {
+        fetchSnippets();
+    }, [fetchSnippets]);
+
+    // Determine which snippets to display
+    const displaySnippets: DisplaySnippet[] = (() => {
+        if (useLocalData) {
+            // Filter local data client-side
+            return localSnippets
+                .map(normalizeLocalSnippet)
+                .filter(snippet => {
+                    const matchesSearch = !debouncedSearch ||
+                        snippet.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                        snippet.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                        snippet.vulnerabilityType.toLowerCase().includes(debouncedSearch.toLowerCase());
+                    const matchesCategory = !selectedCategory || snippet.category === selectedCategory;
+                    const matchesDifficulty = !selectedDifficulty || snippet.difficulty === selectedDifficulty;
+                    return matchesSearch && matchesCategory && matchesDifficulty;
+                });
+        }
+        return apiSnippets || [];
+    })();
+
+    const totalCount = useLocalData ? localSnippets.length : (apiSnippets?.length || 0);
 
     return (
         <div className="min-h-screen bg-black">
@@ -142,17 +256,23 @@ const CodeReviewPage = () => {
                 </div>
 
                 {/* Results Count */}
-                <p className="text-sm text-gray-500 mb-6">
-                    Showing {filteredSnippets.length} of {codeSnippets.length} snippets
-                </p>
+                <div className="flex items-center gap-3 mb-6">
+                    <p className="text-sm text-gray-500">
+                        Showing {displaySnippets.length} of {totalCount} snippets
+                    </p>
+                    {isLoading && (
+                        <Loader2 className="w-4 h-4 text-gray-500 animate-spin" />
+                    )}
+                </div>
 
                 {/* Snippet Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {filteredSnippets.map(snippet => (
+                    {displaySnippets.map(snippet => (
                         <Link
                             key={snippet.id}
-                            href={`/code-review/${snippet.id}`}
-                            className="group rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:border-orange-500/30 hover:bg-white/[0.04] transition-all"
+                            href={snippet.isLocal ? `/code-review/${snippet.id}` : '#'}
+                            className={`group rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:border-orange-500/30 hover:bg-white/[0.04] transition-all ${!snippet.isLocal ? 'cursor-default' : ''}`}
+                            onClick={snippet.isLocal ? undefined : (e) => e.preventDefault()}
                         >
                             <div className="flex items-start justify-between mb-4">
                                 <div className="flex items-center gap-3">
@@ -166,7 +286,9 @@ const CodeReviewPage = () => {
                                         <p className="text-xs text-gray-500">{snippet.language}</p>
                                     </div>
                                 </div>
-                                <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-orange-400 group-hover:translate-x-1 transition-all" />
+                                {snippet.isLocal && (
+                                    <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-orange-400 group-hover:translate-x-1 transition-all" />
+                                )}
                             </div>
 
                             <p className="text-sm text-gray-400 mb-4 line-clamp-2">
@@ -174,11 +296,13 @@ const CodeReviewPage = () => {
                             </p>
 
                             <div className="flex flex-wrap gap-2">
-                                {/* Severity */}
-                                <span className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded border ${severityColors[snippet.severity]}`}>
-                                    <AlertTriangle className="w-3 h-3" />
-                                    {snippet.severity}
-                                </span>
+                                {/* Severity (local data only) */}
+                                {snippet.severity && (
+                                    <span className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded border ${severityColors[snippet.severity]}`}>
+                                        <AlertTriangle className="w-3 h-3" />
+                                        {snippet.severity}
+                                    </span>
+                                )}
 
                                 {/* Difficulty */}
                                 <span className={`text-xs px-2 py-1 rounded border ${difficultyColors[snippet.difficulty]}`}>
@@ -190,7 +314,7 @@ const CodeReviewPage = () => {
                                     {snippet.vulnerabilityType}
                                 </span>
 
-                                {/* CWE/OWASP */}
+                                {/* CWE (local data only) */}
                                 {snippet.cwe && (
                                     <span className="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded">
                                         {snippet.cwe}
@@ -202,7 +326,7 @@ const CodeReviewPage = () => {
                 </div>
 
                 {/* Empty State */}
-                {filteredSnippets.length === 0 && (
+                {!isLoading && displaySnippets.length === 0 && (
                     <div className="text-center py-20">
                         <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/5 flex items-center justify-center">
                             <Code className="w-8 h-8 text-gray-600" />

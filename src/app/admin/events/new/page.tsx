@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { fetchApi } from '@/lib/api';
+import { eventSchema } from '@/lib/validations';
 
 const categories = [
     { id: 'ctf', name: 'CTF' },
@@ -59,6 +60,7 @@ export default function NewEventPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
     const [formData, setFormData] = useState<EventFormData>({
         title: '',
@@ -97,9 +99,39 @@ export default function NewEventPage() {
         }));
     };
 
+    const validateEvent = () => {
+        const result = eventSchema.safeParse({
+            title: formData.title,
+            description: formData.description || 'No description provided',
+            startDate: formData.startDate,
+            endDate: formData.endDate || formData.startDate,
+            category: formData.category as 'ctf' | 'workshop' | 'meetup' | 'webinar' | 'conference' | 'hackathon' | 'other',
+            locationType: formData.locationType as 'online' | 'in-person' | 'hybrid',
+            location: formData.location || undefined,
+            shortDescription: formData.shortDescription || undefined,
+            maxParticipants: formData.maxParticipants ? parseInt(formData.maxParticipants) : undefined,
+        });
+        if (!result.success) {
+            const errs: Record<string, string> = {};
+            result.error.issues.forEach(issue => {
+                const key = issue.path.join('.');
+                if (!errs[key]) errs[key] = issue.message;
+            });
+            setFieldErrors(errs);
+            return false;
+        }
+        setFieldErrors({});
+        return true;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!token) return;
+
+        if (!validateEvent()) {
+            setError('Please fix the validation errors');
+            return;
+        }
 
         setLoading(true);
         setError(null);
@@ -180,11 +212,13 @@ export default function NewEventPage() {
                                     type="text"
                                     name="title"
                                     value={formData.title}
-                                    onChange={handleChange}
+                                    onChange={(e) => { handleChange(e); setFieldErrors(p => ({ ...p, title: '' })); }}
                                     required
                                     placeholder="e.g., Web Security Workshop"
+                                    aria-invalid={!!fieldErrors.title}
                                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
                                 />
+                                {fieldErrors.title && <p className="text-red-400 text-xs mt-1">{fieldErrors.title}</p>}
                             </div>
 
                             <div>

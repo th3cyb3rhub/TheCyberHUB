@@ -1,5 +1,4 @@
 'use client';
-/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
@@ -27,6 +26,7 @@ import {
 import { sampleEvents, eventCategories, Event } from '@/data/events';
 import Footer from '@/components/Footer';
 import { fetchApi } from '@/lib/api';
+import { useEvents } from '@/hooks/queries';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useToast } from '@/context/ToastContext';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -256,12 +256,8 @@ export default function EventsPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
-    const [events, setEvents] = useState<Event[]>([]);
     const [pastEvents, setPastEvents] = useState<Event[]>([]);
-    const [loading, setLoading] = useState(true);
     const [showPastEvents, setShowPastEvents] = useState(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_error, _setError] = useState<string | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || 'all');
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
     const debouncedSearch = useDebounce(searchQuery, 300);
@@ -314,38 +310,35 @@ export default function EventsPage() {
         summaryNotes: event.summaryNotes as string | undefined,
     });
 
-    // Fetch events from API
+    // Fetch events via React Query
+    const { data: eventsData, isLoading: loading, isError } = useEvents();
+    const events: Event[] = useMemo(() => {
+        const apiEvents = eventsData?.data?.map(transformEvent) || [];
+        if (apiEvents.length > 0) return apiEvents;
+        return sampleEvents;
+    }, [eventsData]);
+
+    // Show toast for sample/error fallback (only once via useEffect)
     useEffect(() => {
-        const fetchEvents = async () => {
+        if (!loading && !isError && eventsData && (eventsData.data?.length === 0 || !eventsData.data)) {
+            addToast({ message: 'Showing sample events — no live events available', variant: 'info' });
+        }
+        if (isError) {
+            addToast({ message: 'Failed to load events — showing sample data', variant: 'error' });
+        }
+    }, [loading, isError, eventsData, addToast]);
+
+    // Fetch past events (no React Query hook available for archives endpoint)
+    useEffect(() => {
+        const fetchPastEvents = async () => {
             try {
-                setLoading(true);
-                const data = await fetchApi('/api/events', { requireAuth: false });
-                const apiEvents = data.data?.map(transformEvent) || [];
-
-                if (apiEvents.length > 0) {
-                    setEvents(apiEvents);
-                } else {
-                    setEvents(sampleEvents);
-                    addToast({ message: 'Showing sample events — no live events available', variant: 'info' });
-                }
-
-                // Fetch past events
-                try {
-                    const pastData = await fetchApi('/api/events/archives', { requireAuth: false });
-                    setPastEvents(pastData.data?.map(transformEvent) || []);
-                } catch {
-                    // Past events are optional
-                }
-            } catch (err) {
-                console.error('Failed to fetch events:', err);
-                addToast({ message: 'Failed to load events — showing sample data', variant: 'error' });
-                setEvents(sampleEvents);
-            } finally {
-                setLoading(false);
+                const pastData = await fetchApi('/api/events/archives', { requireAuth: false });
+                setPastEvents(pastData.data?.map(transformEvent) || []);
+            } catch {
+                // Past events are optional
             }
         };
-
-        fetchEvents();
+        fetchPastEvents();
     }, []);
 
     const filteredEvents = useMemo(() => {

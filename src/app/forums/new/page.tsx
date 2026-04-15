@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
 import { Category, CATEGORY_INFO, CreateDiscussionData } from '@/types/forum';
 import { createDiscussion } from '@/lib/api/forum';
 import { useAuth } from '@/context/AuthContext';
+import { discussionSchema } from '@/lib/validations';
 import MarkdownEditor from '@/components/forums/MarkdownEditor';
 import TagInput from '@/components/forums/TagInput';
 import Footer from '@/components/Footer';
@@ -37,26 +38,25 @@ export default function NewDiscussionPage() {
     }, [authLoading, user, router]);
 
     const validate = (): boolean => {
-        const newErrors: typeof errors = {};
-
-        if (title.trim().length < 10) {
-            newErrors.title = 'Title must be at least 10 characters';
-        } else if (title.trim().length > 200) {
-            newErrors.title = 'Title cannot exceed 200 characters';
+        const result = discussionSchema.safeParse({
+            title: title.trim(),
+            body: content.trim(),
+            category: category || undefined,
+            tags: tags.length > 0 ? tags : undefined,
+        });
+        if (!result.success) {
+            const newErrors: typeof errors = {};
+            result.error.issues.forEach(issue => {
+                const key = issue.path[0] as string;
+                if (key === 'body') newErrors.content = issue.message;
+                else if (key === 'title') newErrors.title = issue.message;
+                else if (key === 'category') newErrors.category = issue.message;
+            });
+            setErrors(newErrors);
+            return false;
         }
-
-        if (content.trim().length < 30) {
-            newErrors.content = 'Content must be at least 30 characters';
-        } else if (content.trim().length > 10000) {
-            newErrors.content = 'Content cannot exceed 10000 characters';
-        }
-
-        if (!category) {
-            newErrors.category = 'Please select a category';
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        setErrors({});
+        return true;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {

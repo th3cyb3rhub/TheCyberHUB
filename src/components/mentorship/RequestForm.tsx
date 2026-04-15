@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ExpertiseBadge } from './ExpertiseBadge';
 import type { ExpertiseArea, SkillLevel, RequestFormData } from '@/lib/mentorship/types';
+import { mentorshipRequestSchema } from '@/lib/validations';
 
 interface RequestFormProps {
     mentorId?: string;
@@ -45,21 +46,13 @@ export function RequestForm({ mentorId, onSubmit, onClose }: RequestFormProps) {
         e.preventDefault();
         setError(null);
 
-        // Validation
-        if (expertiseAreas.length === 0) {
-            setError('Please select at least one expertise area');
-            return;
-        }
-        if (goals.length < MIN_GOALS_LENGTH) {
-            setError(`Goals must be at least ${MIN_GOALS_LENGTH} characters`);
-            return;
-        }
-        if (goals.length > MAX_GOALS_LENGTH) {
-            setError(`Goals must be no more than ${MAX_GOALS_LENGTH} characters`);
-            return;
-        }
-        if (!skillLevel) {
-            setError('Please select your skill level');
+        const validation = mentorshipRequestSchema.safeParse({
+            expertiseAreas,
+            goals: goals.trim(),
+            skillLevel: skillLevel || undefined,
+        });
+        if (!validation.success) {
+            setError(validation.error.issues[0]?.message || 'Please fix validation errors');
             return;
         }
 
@@ -69,7 +62,7 @@ export function RequestForm({ mentorId, onSubmit, onClose }: RequestFormProps) {
                 mentorId,
                 expertiseAreas,
                 goals: goals.trim(),
-                skillLevel,
+                skillLevel: skillLevel as SkillLevel,
             });
             onClose();
         } catch (err) {

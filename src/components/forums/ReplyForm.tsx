@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import MarkdownEditor from './MarkdownEditor';
+import { replySchema } from '@/lib/validations';
 
 interface ReplyFormProps {
     onSubmit: (content: string) => Promise<void>;
@@ -26,12 +27,9 @@ export default function ReplyForm({
         setError('');
 
         const trimmed = content.trim();
-        if (trimmed.length < 10) {
-            setError('Reply must be at least 10 characters');
-            return;
-        }
-        if (trimmed.length > 5000) {
-            setError('Reply cannot exceed 5000 characters');
+        const result = replySchema.safeParse({ body: trimmed });
+        if (!result.success) {
+            setError(result.error.issues[0]?.message || 'Invalid reply');
             return;
         }
 

@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { fetchApi } from '@/lib/api';
+import { jobSchema } from '@/lib/validations';
 import Footer from '@/components/Footer';
 
 const categories = [
@@ -159,12 +160,32 @@ const EditJobPage = () => {
     };
 
     const handleSave = async () => {
-        if (!form.title.trim() || form.title.trim().length < 5) {
-            setError('Job title must be at least 5 characters');
-            return;
-        }
-        if (!form.description.trim() || form.description.trim().length < 50) {
-            setError('Job description must be at least 50 characters');
+        const result = jobSchema.safeParse({
+            title: form.title.trim(),
+            company: 'My Company',
+            description: form.description.trim(),
+            category: form.category,
+            experienceLevel: form.experienceLevel,
+            employmentType: form.employmentType,
+            locationType: form.locationType,
+            location: form.location || undefined,
+            skills: form.skills.filter(s => s.trim()),
+            requirements: form.requirements.filter(r => r.trim()),
+            responsibilities: form.responsibilities.filter(r => r.trim()),
+            benefits: form.benefits,
+            applyUrl: form.applyUrl || undefined,
+            applyEmail: form.applyEmail || undefined,
+            applicationDeadline: form.applicationDeadline || undefined,
+            salary: (form.salaryMin || form.salaryMax) ? {
+                min: form.salaryMin ? parseInt(form.salaryMin) : undefined,
+                max: form.salaryMax ? parseInt(form.salaryMax) : undefined,
+                currency: form.salaryCurrency,
+                period: form.salaryPeriod as 'hourly' | 'monthly' | 'yearly',
+            } : undefined,
+        });
+        if (!result.success) {
+            const firstIssue = result.error.issues[0];
+            setError(firstIssue?.message || 'Please fix the validation errors');
             return;
         }
         try {

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Send, Loader2, Bold, Code, Link2, Hash, Plus, Trash2, Image as ImageIcon } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { feedPostSchema } from '@/lib/validations';
 
 interface CreatePostProps {
     onPostCreated: (post: unknown) => void;
@@ -64,6 +65,15 @@ export default function CreatePost({ onPostCreated }: CreatePostProps) {
         // filter out completely empty trailing thread links
         const validContents = contents.map(c => c.trim()).filter(c => c.length > 0);
         if (validContents.length === 0 || loading) return;
+
+        // Validate each post content against the schema
+        for (const postContent of validContents) {
+            const validation = feedPostSchema.safeParse({ content: postContent });
+            if (!validation.success) {
+                console.error('Feed post validation failed:', validation.error.issues[0]?.message);
+                return;
+            }
+        }
 
         setLoading(true);
         try {

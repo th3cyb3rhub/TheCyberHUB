@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import Link from 'next/link';
@@ -28,8 +27,7 @@ import {
 import Footer from '@/components/Footer';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { fetchApi } from '@/lib/api';
-import { useToast } from '@/context/ToastContext';
+import { useChallenges, useLeaderboard } from '@/hooks/queries';
 
 interface Challenge {
     _id: string;
@@ -104,17 +102,27 @@ const ChallengesPage = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
-    const { user, token } = useAuth();
-    const { addToast } = useToast();
-    const [challenges, setChallenges] = useState<Challenge[]>([]);
-    const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-    const [loading, setLoading] = useState(true);
+    const { user } = useAuth();
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
     const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || 'all');
     const [selectedDifficulty, setSelectedDifficulty] = useState<string>(searchParams.get('difficulty') || 'all');
     const [solvedFilter, setSolvedFilter] = useState<'all' | 'unsolved' | 'solved'>((searchParams.get('solved') as 'all' | 'unsolved' | 'solved') || 'all');
     const [showLeaderboard, setShowLeaderboard] = useState(false);
+
+    const { data: challengesData, isLoading: challengesLoading } = useChallenges();
+    const { data: leaderboardData, isLoading: leaderboardLoading } = useLeaderboard({ limit: 10 });
+
+    const challenges: Challenge[] = (() => {
+        const raw = challengesData;
+        return Array.isArray(raw) ? raw : raw?.challenges || raw?.data || [];
+    })();
+    const leaderboard: LeaderboardEntry[] = (() => {
+        const raw = leaderboardData;
+        if (Array.isArray(raw)) return raw.slice(0, 10);
+        return (raw?.data || []).slice(0, 10);
+    })();
+    const loading = challengesLoading || leaderboardLoading;
 
     const updateFilters = useCallback((key: string, value: string) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -136,26 +144,6 @@ const ChallengesPage = () => {
     }, [router, pathname]);
 
     const hasActiveFilters = selectedCategory !== 'all' || selectedDifficulty !== 'all' || solvedFilter !== 'all' || searchQuery !== '';
-
-    // Fetch challenges
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [challengesData, leaderboardData] = await Promise.all([
-                    fetchApi('/api/challenges'),
-                    fetchApi('/api/challenges/leaderboard', { requireAuth: false })
-                ]);
-                setChallenges(Array.isArray(challengesData) ? challengesData : challengesData.challenges || []);
-                setLeaderboard(Array.isArray(leaderboardData) ? leaderboardData.slice(0, 10) : []);
-            } catch (error) {
-                console.error('Failed to fetch challenges:', error);
-                addToast({ message: 'Failed to load challenges', variant: 'error' });
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, [token]);
 
     // Get unique categories
     const categories = ['all', ...Array.from(new Set(challenges.map(c => c.category)))];
