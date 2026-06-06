@@ -51,7 +51,7 @@ export default function EmployerCompanyPage() {
         const fetchCompanyData = async () => {
             if (!token) return;
             try {
-                const response = await fetchApi('/companies/my/profile');
+                const response = await fetchApi('/api/companies/my/profile');
                 if (response.success && response.data) {
                     setCompany({
                         ...company,
@@ -133,7 +133,7 @@ export default function EmployerCompanyPage() {
 
         setIsSaving(true);
         try {
-            const response = await fetchApi('/companies/my/profile', {
+            const response = await fetchApi('/api/companies/my/profile', {
                 method: 'POST',
                 body: JSON.stringify(company),
             });

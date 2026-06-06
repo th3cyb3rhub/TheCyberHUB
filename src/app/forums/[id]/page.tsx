@@ -41,6 +41,7 @@ import MarkdownContent from '@/components/forums/MarkdownContent';
 import ReplyThread from '@/components/forums/ReplyThread';
 import ReplyForm from '@/components/forums/ReplyForm';
 import Footer from '@/components/Footer';
+import { ReportContentButton } from '@/components/ui/ReportContentButton';
 
 function formatTimeAgo(dateString: string): string {
     const date = new Date(dateString);
@@ -339,7 +340,6 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
                                 <button
                                     onClick={() => {
                                         navigator.clipboard.writeText(window.location.href);
-                                        // You could add a toast notification here
                                     }}
                                     className="flex items-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-sm rounded-lg transition-colors"
                                 >
@@ -355,6 +355,7 @@ export default function DiscussionDetailPage({ params }: { params: Promise<{ id:
                                     <LinkIcon className="w-4 h-4" />
                                     Copy Link
                                 </button>
+                                <ReportContentButton contentType="discussion" contentId={discussion._id} />
                             </div>
 
                             {/* Actions */}

@@ -90,6 +90,15 @@ export const NotificationDropdown = ({
                                 ))
                             )}
                         </div>
+                        <div className="border-t border-white/10">
+                            <Link
+                                href="/notifications"
+                                onClick={() => setIsOpen(false)}
+                                className="block px-4 py-2.5 text-center text-xs text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                            >
+                                View all notifications →
+                            </Link>
+                        </div>
                     </div>
                 </div>
             )}

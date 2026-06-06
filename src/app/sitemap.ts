@@ -90,6 +90,11 @@ const staticRoutes = [
         priority: 0.8,
     },
     {
+        url: '/ctf/competitions',
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+    },
+    {
         url: '/search',
         changeFrequency: 'weekly' as const,
         priority: 0.5,
@@ -123,6 +128,22 @@ const staticRoutes = [
         url: '/terms',
         changeFrequency: 'yearly' as const,
         priority: 0.3,
+    },
+
+    {
+        url: '/events',
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+    },
+    {
+        url: '/mentorship',
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+    },
+    {
+        url: '/learning-paths',
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
     },
 
     // Auth

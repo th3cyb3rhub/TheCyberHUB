@@ -45,7 +45,7 @@ export default function CompanyPage({ params }: { params: Promise<{ slug: string
     useEffect(() => {
         const fetchCompany = async () => {
             try {
-                const response = await fetchApi(`/companies/${slug}`);
+                const response = await fetchApi(`/api/companies/${slug}`);
                 if (response.success && response.data) {
                     setCompany(response.data);
                 }
@@ -58,7 +58,7 @@ export default function CompanyPage({ params }: { params: Promise<{ slug: string
 
         const fetchJobs = async () => {
             try {
-                const response = await fetchApi(`/companies/${slug}/jobs`);
+                const response = await fetchApi(`/api/companies/${slug}/jobs`);
                 if (response.success && response.data) {
                     setJobs(response.data);
                 }

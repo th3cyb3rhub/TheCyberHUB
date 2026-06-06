@@ -33,7 +33,7 @@ const BlogPage = () => {
     const debouncedSearch = useDebounce(searchQuery, 300);
     const [selectedTag, setSelectedTag] = useState<string | null>(searchParams.get('tag') || null);
 
-    const { data: blogsData, isLoading: loading } = useBlogs();
+    const { data: blogsData, isLoading: loading, isError: blogsError, refetch: refetchBlogs } = useBlogs();
     const blogs: Blog[] = blogsData?.data || [];
 
     const updateFilters = useCallback((key: string, value: string) => {
@@ -81,6 +81,19 @@ const BlogPage = () => {
         const stripped = content.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '');
         return stripped.length > maxLength ? stripped.substring(0, maxLength) + '...' : stripped;
     };
+
+    if (blogsError) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center px-4">
+                <div className="text-center">
+                    <p className="text-gray-400 mb-4">Failed to load blog posts.</p>
+                    <button onClick={() => refetchBlogs()} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors">
+                        Try again
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-black">
