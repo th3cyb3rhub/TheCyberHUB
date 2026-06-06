@@ -3,8 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Shield } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 const HeroSection = () => {
+    const { user } = useAuth();
+
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-20">
             {/* Orange gradient shades */}
@@ -43,22 +46,43 @@ const HeroSection = () => {
                     Tools, challenges, cheatsheets, internships, and a thriving community.
                 </p>
 
-                {/* CTA buttons */}
+                {/* CTA buttons — auth-aware */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-                    <Link
-                        href="/tools"
-                        className="group inline-flex items-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white text-lg font-medium rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/30 btn-press"
-                    >
-                        Get Started
-                        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                    <Link
-                        href="/cheatsheets"
-                        className="group inline-flex items-center gap-3 px-8 py-4 text-gray-900 dark:text-white text-lg font-medium rounded-xl border border-gray-300 dark:border-white/20 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300"
-                    >
-                        Browse Resources
-                        <ArrowRight className="w-5 h-5 opacity-0 -ml-2 transition-all group-hover:opacity-100 group-hover:ml-0" />
-                    </Link>
+                    {user ? (
+                        <>
+                            <Link
+                                href="/ctf"
+                                className="group inline-flex items-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white text-lg font-medium rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/30 btn-press"
+                            >
+                                Continue Learning
+                                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                            <Link
+                                href="/cheatsheets"
+                                className="group inline-flex items-center gap-3 px-8 py-4 text-gray-900 dark:text-white text-lg font-medium rounded-xl border border-gray-300 dark:border-white/20 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300"
+                            >
+                                Browse Resources
+                                <ArrowRight className="w-5 h-5 opacity-0 -ml-2 transition-all group-hover:opacity-100 group-hover:ml-0" />
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link
+                                href="/auth?tab=register"
+                                className="group inline-flex items-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white text-lg font-medium rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/30 btn-press"
+                            >
+                                Create Free Account
+                                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                            <Link
+                                href="/tools"
+                                className="group inline-flex items-center gap-3 px-8 py-4 text-gray-900 dark:text-white text-lg font-medium rounded-xl border border-gray-300 dark:border-white/20 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300"
+                            >
+                                Explore Tools
+                                <ArrowRight className="w-5 h-5 opacity-0 -ml-2 transition-all group-hover:opacity-100 group-hover:ml-0" />
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/* Stats */}
@@ -79,7 +103,7 @@ const HeroSection = () => {
                     </div>
                 </div>
             </div>
-        </section >
+        </section>
     );
 };
 
