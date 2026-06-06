@@ -235,6 +235,7 @@ export default function ForumsPage() {
     const [categoryStats, setCategoryStats] = useState<CategoryStats[]>([]);
     const [popularTags, setPopularTags] = useState<PopularTag[]>([]);
     const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const { addToast } = useToast();
 
@@ -272,8 +273,7 @@ export default function ForumsPage() {
                 ]);
                 setCategoryStats(statsRes.data || []);
                 setPopularTags(tagsRes.data || []);
-            } catch (err) {
-                console.error('Failed to fetch meta:', err);
+            } catch {
                 addToast({ message: 'Failed to load forum data', variant: 'error' });
             }
         };
@@ -285,6 +285,7 @@ export default function ForumsPage() {
         const fetchDiscussions = async () => {
             try {
                 setLoading(true);
+                setFetchError(false);
                 const result = await getDiscussions({
                     page,
                     limit: 20,
@@ -295,8 +296,8 @@ export default function ForumsPage() {
                 });
                 setDiscussions(result.data || []);
                 setTotalPages(result.pagination?.totalPages || 1);
-            } catch (err) {
-                console.error('Failed to fetch discussions:', err);
+            } catch {
+                setFetchError(true);
                 addToast({ message: 'Failed to load discussions', variant: 'error' });
             } finally {
                 setLoading(false);
@@ -484,6 +485,23 @@ export default function ForumsPage() {
                         {/* Discussion List */}
                         {loading ? (
                             <SkeletonForumList />
+                        ) : fetchError ? (
+                            <div className="flex flex-col items-center justify-center py-16 text-center">
+                                <p className="text-gray-400 mb-4">Failed to load discussions.</p>
+                                <button
+                                    onClick={() => {
+                                        setFetchError(false);
+                                        setLoading(true);
+                                        getDiscussions({ page, limit: 20, category: selectedCategory || undefined, tag: selectedTag || undefined, sort: sortBy, search: searchQuery || undefined })
+                                            .then(result => { setDiscussions(result.data || []); setTotalPages(result.pagination?.totalPages || 1); })
+                                            .catch(() => setFetchError(true))
+                                            .finally(() => setLoading(false));
+                                    }}
+                                    className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors"
+                                >
+                                    Try again
+                                </button>
+                            </div>
                         ) : discussions.length > 0 ? (
                             <div className="space-y-4">
                                 {discussions.map((discussion) => (

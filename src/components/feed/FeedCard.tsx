@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { fetchApi } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import FeedComments from './FeedComments';
+import { ReportContentButton } from '@/components/ui/ReportContentButton';
 
 // Simple markdown-to-HTML (bold, italic, code, links)
 function renderMarkdown(text: string): React.ReactNode[] {
@@ -324,6 +325,7 @@ export default function FeedCard({
                     {commentCount > 0 && commentCount}
                     <span className="hidden sm:inline">Comment</span>
                 </button>
+                <ReportContentButton contentType="feedPost" contentId={post._id} />
             </div>
 
             {/* Comments section */}

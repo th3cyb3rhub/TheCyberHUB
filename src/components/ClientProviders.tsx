@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import Navbar from "@/components/Navbar";
 const GlobalSearch = lazy(() => import("@/components/GlobalSearch"));
 import { SystemAlertNotice } from "@/components/ui/SystemAlertNotice";
+import { EmailVerificationBanner } from "@/components/ui/EmailVerificationBanner";
 import MobileBottomNav from "@/components/ui/MobileBottomNav";
 
 export default function ClientProviders({ children }: { children: React.ReactNode }) {
@@ -25,6 +26,7 @@ export default function ClientProviders({ children }: { children: React.ReactNod
                         <ToastProvider>
                             <NotificationProvider>
                                 <SystemAlertNotice />
+                                <EmailVerificationBanner />
                                 <Navbar />
                                 <Suspense fallback={null}>
                                     <GlobalSearch />

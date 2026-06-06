@@ -401,13 +401,22 @@ export default function EventsPage() {
                         Connect with the cybersecurity community and level up your skills.
                     </p>
 
-                    <Link
-                        href="/events/calendar"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:border-white/20 transition-colors"
-                    >
-                        <Calendar className="w-4 h-4" />
-                        View Calendar
-                    </Link>
+                    <div className="flex flex-wrap justify-center gap-3">
+                        <Link
+                            href="/events/calendar"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:border-white/20 transition-colors"
+                        >
+                            <Calendar className="w-4 h-4" />
+                            View Calendar
+                        </Link>
+                        <Link
+                            href="/events/submit"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-lg text-sm text-orange-400 hover:bg-orange-500/20 transition-colors"
+                        >
+                            <Sparkles className="w-4 h-4" />
+                            Submit Community Event
+                        </Link>
+                    </div>
                 </div>
             </section>
 

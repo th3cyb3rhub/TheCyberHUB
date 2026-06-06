@@ -12,12 +12,14 @@ import {
     Twitter,
     Globe,
     MapPin,
+    Linkedin,
     Flag,
     Star,
     BookOpen,
     Trophy
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { fetchApi } from '@/lib/api';
 
 interface PublicUser {
@@ -28,17 +30,22 @@ interface PublicUser {
     role: string;
     createdAt: string;
     isPublic: boolean;
-    bio?: string;
-    location?: string;
-    website?: string;
-    github?: string;
-    twitter?: string;
-    stats?: {
-        blogs: number;
-        ctfSolves: number;
-        ctfPoints: number;
-        contributions: number;
+    bio?: string | null;
+    location?: string | null;
+    skills?: string[];
+    socialLinks?: {
+        website?: string | null;
+        github?: string | null;
+        twitter?: string | null;
+        linkedin?: string | null;
     };
+    stats?: {
+        challengesSolved: number;
+        eventsAttended: number;
+        points: number;
+        rank?: number | null;
+    };
+    badgeCount?: number;
 }
 
 const PublicProfilePage = () => {
@@ -134,6 +141,11 @@ const PublicProfilePage = () => {
 
     return (
         <div className="min-h-screen bg-black">
+            {/* Breadcrumbs */}
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-20">
+                <Breadcrumbs items={[{ label: 'Community', href: '/leaderboard' }, { label: user.username }]} />
+            </div>
+
             {/* Hero Background */}
             <div className="h-48 bg-gradient-to-br from-orange-500/20 to-orange-600/10 relative">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -192,69 +204,99 @@ const PublicProfilePage = () => {
                     </div>
 
                     {/* Social Links */}
-                    <div className="flex items-center gap-3 mt-4">
-                        {user.website && (
-                            <a
-                                href={user.website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
-                            >
-                                <Globe className="w-5 h-5" />
-                            </a>
-                        )}
-                        {user.github && (
-                            <a
-                                href={`https://github.com/${user.github}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
-                            >
-                                <Github className="w-5 h-5" />
-                            </a>
-                        )}
-                        {user.twitter && (
-                            <a
-                                href={`https://twitter.com/${user.twitter}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
-                            >
-                                <Twitter className="w-5 h-5" />
-                            </a>
-                        )}
-                    </div>
+                    {user.socialLinks && (
+                        <div className="flex items-center gap-3 mt-4">
+                            {user.socialLinks.website && (
+                                <a
+                                    href={user.socialLinks.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                    title="Website"
+                                >
+                                    <Globe className="w-5 h-5" />
+                                </a>
+                            )}
+                            {user.socialLinks.github && (
+                                <a
+                                    href={`https://github.com/${user.socialLinks.github}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                    title="GitHub"
+                                >
+                                    <Github className="w-5 h-5" />
+                                </a>
+                            )}
+                            {user.socialLinks.twitter && (
+                                <a
+                                    href={`https://twitter.com/${user.socialLinks.twitter}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                    title="Twitter / X"
+                                >
+                                    <Twitter className="w-5 h-5" />
+                                </a>
+                            )}
+                            {user.socialLinks.linkedin && (
+                                <a
+                                    href={`https://linkedin.com/in/${user.socialLinks.linkedin}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                    title="LinkedIn"
+                                >
+                                    <Linkedin className="w-5 h-5" />
+                                </a>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Skills */}
+                    {user.skills && user.skills.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-4">
+                            {user.skills.map((skill, i) => (
+                                <span
+                                    key={i}
+                                    className="px-3 py-1 text-sm rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400"
+                                >
+                                    {skill}
+                                </span>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
                     <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
                         <div className="flex items-center gap-2 mb-2">
-                            <BookOpen className="w-4 h-4 text-blue-400" />
-                            <p className="text-sm text-gray-500">Blog Posts</p>
-                        </div>
-                        <p className="text-2xl font-bold text-white">{user.stats?.blogs || 0}</p>
-                    </div>
-                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
-                        <div className="flex items-center gap-2 mb-2">
                             <Flag className="w-4 h-4 text-green-400" />
                             <p className="text-sm text-gray-500">CTF Solves</p>
                         </div>
-                        <p className="text-2xl font-bold text-white">{user.stats?.ctfSolves || 0}</p>
+                        <p className="text-2xl font-bold text-white">{user.stats?.challengesSolved || 0}</p>
                     </div>
                     <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
                         <div className="flex items-center gap-2 mb-2">
                             <Star className="w-4 h-4 text-yellow-400" />
-                            <p className="text-sm text-gray-500">CTF Points</p>
+                            <p className="text-sm text-gray-500">Points</p>
                         </div>
-                        <p className="text-2xl font-bold text-white">{user.stats?.ctfPoints || 0}</p>
+                        <p className="text-2xl font-bold text-white">{user.stats?.points || 0}</p>
                     </div>
                     <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
                         <div className="flex items-center gap-2 mb-2">
                             <Trophy className="w-4 h-4 text-orange-400" />
-                            <p className="text-sm text-gray-500">Contributions</p>
+                            <p className="text-sm text-gray-500">Rank</p>
                         </div>
-                        <p className="text-2xl font-bold text-white">{user.stats?.contributions || 0}</p>
+                        <p className="text-2xl font-bold text-white">{user.stats?.rank ? `#${user.stats.rank}` : '—'}</p>
+                    </div>
+                    <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] group hover:border-orange-500/30 transition-colors">
+                        <div className="flex items-center gap-2 mb-2">
+                            <BookOpen className="w-4 h-4 text-blue-400" />
+                            <p className="text-sm text-gray-500">Events</p>
+                        </div>
+                        <p className="text-2xl font-bold text-white">{user.stats?.eventsAttended || 0}</p>
                     </div>
                 </div>
 

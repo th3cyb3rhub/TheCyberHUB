@@ -13,6 +13,7 @@ import CommentSection from '@/components/blog/CommentSection';
 import BlogActions from '@/components/blog/BlogActions';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ConfirmDialog, useConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { ReportContentButton } from '@/components/ui/ReportContentButton';
 
 interface Blog {
     _id: string;
@@ -388,6 +389,7 @@ const BlogPostPage = () => {
                                 initialIsBookmarked={!!isBookmarked}
                             />
                             <SocialShareButtons title={blog.title} />
+                            <ReportContentButton contentType="blog" contentId={blog._id} />
                         </div>
 
                         {/* Edit/Delete Buttons (Owner or Admin only) */}

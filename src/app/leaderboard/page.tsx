@@ -88,7 +88,7 @@ export default function LeaderboardPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const debouncedSearch = useDebounce(searchQuery, 300);
 
-    const { data: leaderboardData, isLoading: loading } = useLeaderboard();
+    const { data: leaderboardData, isLoading: loading, isError: leaderboardError, refetch: refetchLeaderboard } = useLeaderboard();
     const leaderboard: LeaderboardEntry[] = (() => {
         const raw = leaderboardData;
         return Array.isArray(raw) ? raw : raw?.data || [];
@@ -106,6 +106,19 @@ export default function LeaderboardPage() {
 
     const topThree = filteredLeaderboard.slice(0, 3);
     const rest = filteredLeaderboard.slice(3);
+
+    if (leaderboardError) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center px-4">
+                <div className="text-center">
+                    <p className="text-gray-400 mb-4">Failed to load leaderboard.</p>
+                    <button onClick={() => refetchLeaderboard()} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors">
+                        Try again
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-black flex flex-col">

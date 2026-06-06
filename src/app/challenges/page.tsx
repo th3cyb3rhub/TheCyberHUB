@@ -110,7 +110,7 @@ const ChallengesPage = () => {
     const [solvedFilter, setSolvedFilter] = useState<'all' | 'unsolved' | 'solved'>((searchParams.get('solved') as 'all' | 'unsolved' | 'solved') || 'all');
     const [showLeaderboard, setShowLeaderboard] = useState(false);
 
-    const { data: challengesData, isLoading: challengesLoading } = useChallenges();
+    const { data: challengesData, isLoading: challengesLoading, isError: challengesError, refetch: refetchChallenges } = useChallenges();
     const { data: leaderboardData, isLoading: leaderboardLoading } = useLeaderboard({ limit: 10 });
 
     const challenges: Challenge[] = (() => {
@@ -168,6 +168,22 @@ const ChallengesPage = () => {
     const currentUserEntry = user
         ? leaderboard.find(entry => entry.username === user.username)
         : undefined;
+
+    if (challengesError) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center px-4">
+                <div className="text-center">
+                    <p className="text-gray-400 mb-4">Failed to load challenges.</p>
+                    <button
+                        onClick={() => refetchChallenges()}
+                        className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors"
+                    >
+                        Try again
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-black">

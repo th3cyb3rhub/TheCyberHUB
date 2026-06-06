@@ -169,6 +169,35 @@ const BlogWritePage = () => {
         return true;
     };
 
+    const handleSaveAsDraft = async () => {
+        if (!title.trim()) {
+            addToast({ variant: 'error', title: 'Title required', message: 'Add a title before saving as draft.' });
+            return;
+        }
+        setSaving(true);
+        setError(null);
+        try {
+            await fetchApi('/api/blogs', {
+                method: 'POST',
+                body: JSON.stringify({
+                    title: title.trim(),
+                    content: content.trim(),
+                    tags,
+                    coverImage: coverImage.trim() || undefined,
+                    status: 'draft',
+                }),
+            });
+            localStorage.removeItem(DRAFT_KEY);
+            setDraftSaved(true);
+            addToast({ variant: 'success', title: 'Draft saved', message: 'Your article has been saved as a draft.' });
+            setTimeout(() => setDraftSaved(false), 3000);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to save draft');
+        } finally {
+            setSaving(false);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -186,7 +215,8 @@ const BlogWritePage = () => {
                     title: title.trim(),
                     content: content.trim(),
                     tags,
-                    coverImage: coverImage.trim() || undefined
+                    coverImage: coverImage.trim() || undefined,
+                    status: 'published',
                 }),
             });
 
@@ -250,6 +280,15 @@ const BlogWritePage = () => {
                         >
                             {isPreview ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                             {isPreview ? 'Edit' : 'Preview'}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleSaveAsDraft}
+                            disabled={saving || !title.trim()}
+                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 hover:bg-white/10 disabled:opacity-40 text-gray-300 font-medium rounded-lg transition-all"
+                        >
+                            <Save className="w-4 h-4" />
+                            Save Draft
                         </button>
                         <button
                             onClick={handleSubmit}

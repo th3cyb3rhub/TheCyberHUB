@@ -40,6 +40,15 @@ interface User {
     twoFactorAuth?: {
         enabled: boolean;
     };
+    bio?: string | null;
+    location?: string | null;
+    skills?: string[];
+    socialLinks?: {
+        website?: string | null;
+        github?: string | null;
+        twitter?: string | null;
+        linkedin?: string | null;
+    };
 }
 
 interface AuthContextType {
@@ -50,7 +59,15 @@ interface AuthContextType {
     verify2faLogin: (tempToken: string, code: string) => Promise<void>;
     register: (name: string, email: string, password: string, username?: string) => Promise<void>;
     logout: () => void;
-    updateProfile: (data: { name?: string; username?: string; avatar?: string }) => Promise<void>;
+    updateProfile: (data: {
+        name?: string;
+        username?: string;
+        avatar?: string;
+        bio?: string | null;
+        location?: string | null;
+        skills?: string[];
+        socialLinks?: { website?: string | null; github?: string | null; twitter?: string | null; linkedin?: string | null };
+    }) => Promise<void>;
     updatePassword: (currentPassword: string, newPassword: string) => Promise<void>;
     forgotPassword: (email: string) => Promise<string>;
     resetPassword: (token: string, password: string) => Promise<void>;
@@ -237,7 +254,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(null);
     };
 
-    const updateProfile = async (data: { name?: string; username?: string; avatar?: string }) => {
+    const updateProfile = async (data: {
+        name?: string;
+        username?: string;
+        avatar?: string;
+        bio?: string | null;
+        location?: string | null;
+        skills?: string[];
+        socialLinks?: { website?: string | null; github?: string | null; twitter?: string | null; linkedin?: string | null };
+    }) => {
         const response = await fetch(`${API_URL}/api/auth/me`, {
             method: 'PUT',
             headers: {

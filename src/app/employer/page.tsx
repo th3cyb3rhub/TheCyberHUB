@@ -136,6 +136,33 @@ const EmployerDashboard = () => {
     // Not logged in
     if (!user) return null;
 
+    // Non-employer gate — show "become employer" CTA
+    if (!['employer', 'admin', 'owner', 'moderator'].includes(user.role)) {
+        return (
+            <div className="min-h-screen bg-black">
+                <div className="max-w-2xl mx-auto px-4 pt-32 pb-20 text-center">
+                    <div className="p-8 rounded-2xl border border-orange-500/20 bg-orange-500/5">
+                        <div className="w-16 h-16 rounded-full bg-orange-500/10 flex items-center justify-center mx-auto mb-6">
+                            <Building2 className="w-8 h-8 text-orange-400" />
+                        </div>
+                        <h1 className="text-2xl font-bold text-white mb-3">Hire on TheCyberHub</h1>
+                        <p className="text-gray-400 mb-8 leading-relaxed">
+                            Create a company profile and start posting jobs to reach thousands of cybersecurity professionals.
+                        </p>
+                        <Link
+                            href="/employer/setup"
+                            className="inline-flex items-center gap-2 px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl transition-all"
+                        >
+                            <ArrowRight className="w-5 h-5" />
+                            Set up Employer Account
+                        </Link>
+                    </div>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
+
     // Consumer email gate
     if (isConsumerEmail(user.email)) {
         return (

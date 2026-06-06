@@ -58,41 +58,34 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
     const fetchNotifications = useCallback(async () => {
         if (!token) return;
         try {
-            const data = await fetchApi('/api/notifications?limit=20');
-            if (data.success) {
-                setNotifications(data.data);
-            }
-
-            const unreadData = await fetchApi('/api/notifications/unread-count');
-            if (unreadData.success) {
-                setUnreadCount(unreadData.data.count);
-            }
-        } catch (error) {
-            console.error('Failed to fetch notifications:', error);
+            const [data, unreadData] = await Promise.all([
+                fetchApi('/api/notifications?limit=20'),
+                fetchApi('/api/notifications/unread-count'),
+            ]);
+            if (data.success) setNotifications(data.data);
+            if (unreadData.success) setUnreadCount(unreadData.data.count);
+        } catch {
+            // Silently fail — notification fetch is non-critical
         }
     }, [token]);
 
     const markAsRead = async (id: string) => {
         try {
-            await fetchApi(`/api/notifications/${id}/read`, {
-                method: 'PATCH',
-            });
+            await fetchApi(`/api/notifications/${id}/read`, { method: 'PATCH' });
             setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
             setUnreadCount(prev => Math.max(0, prev - 1));
-        } catch (error) {
-            console.error('Failed to mark as read:', error);
+        } catch {
+            // Silently fail
         }
     };
 
     const markAllAsRead = async () => {
         try {
-            await fetchApi('/api/notifications/read-all', {
-                method: 'PATCH',
-            });
+            await fetchApi('/api/notifications/read-all', { method: 'PATCH' });
             setNotifications(prev => prev.map(n => ({ ...n, read: true })));
             setUnreadCount(0);
-        } catch (error) {
-            console.error('Failed to mark all as read:', error);
+        } catch {
+            // Silently fail
         }
     };
 

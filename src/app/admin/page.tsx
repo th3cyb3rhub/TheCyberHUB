@@ -109,6 +109,14 @@ const adminSections = [
         minRole: 'moderator' as MinRole,
     },
     {
+        title: 'Moderation',
+        description: 'Review flagged content and community reports',
+        icon: Flag,
+        href: '/admin/moderation',
+        color: 'from-red-500 to-rose-600',
+        minRole: 'moderator' as MinRole,
+    },
+    {
         title: 'Settings',
         description: 'Platform configuration and system settings',
         icon: Settings,
@@ -121,7 +129,7 @@ const adminSections = [
         description: 'Publish platform-wide alert banners',
         icon: ShieldAlert,
         href: '/admin/alerts',
-        color: 'from-red-500 to-rose-600',
+        color: 'from-orange-600 to-red-600',
         minRole: 'admin' as MinRole,
     },
 ];

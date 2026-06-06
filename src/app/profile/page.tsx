@@ -9,6 +9,7 @@ import { useToast } from '@/context/ToastContext';
 import dynamic from 'next/dynamic';
 
 const ProfileChart = dynamic(() => import('@/components/charts/ProfileChart'), { ssr: false });
+const ActivityHeatmap = dynamic(() => import('@/components/charts/ActivityHeatmap'), { ssr: false });
 import {
     User,
     Mail,
@@ -36,7 +37,12 @@ import {
     X,
     Plus,
     FileText,
-    MessageSquare
+    MessageSquare,
+    MapPin,
+    Globe,
+    Github,
+    Twitter,
+    Linkedin
 } from 'lucide-react';
 import { API_URL, fetchApi, tokenStore } from '@/lib/api';
 import { profileSchema } from '@/lib/validations';
@@ -45,6 +51,13 @@ const ProfilePage = () => {
     const { user, loading, logout, updateProfile, updatePassword, requestVerification } = useAuth();
     const [activeTab, setActiveTab] = useState<'stats' | 'profile' | 'security' | 'privacy'>('stats');
     const avatarInputRef = useRef<HTMLInputElement>(null);
+
+    // Profile extended fields
+    const [bio, setBio] = useState<string>('');
+    const [location, setLocation] = useState<string>('');
+    const [socialLinks, setSocialLinks] = useState<{ website: string; github: string; twitter: string; linkedin: string }>({
+        website: '', github: '', twitter: '', linkedin: '',
+    });
 
     // User stats
     interface UserStats {
@@ -76,6 +89,15 @@ const ProfilePage = () => {
     const [activityFeed, setActivityFeed] = useState<ActivityItem[]>([]);
     const [activityLoading, setActivityLoading] = useState(true);
 
+    // Streak & heatmap
+    interface StreakData {
+        currentStreak: number;
+        longestStreak: number;
+        totalActiveDays: number;
+        activityLog: { date: string; actions: string[]; xpEarned: number }[];
+    }
+    const [streakData, setStreakData] = useState<StreakData | null>(null);
+
     // Profile completeness calculation
     const getProfileCompleteness = useCallback(() => {
         if (!user) return { percent: 0, missing: [] as string[] };
@@ -85,12 +107,13 @@ const ProfilePage = () => {
             { field: 'email', label: 'Email', filled: !!user.email },
             { field: 'avatar', label: 'Profile Picture', filled: !!(user.avatar || avatarUrl) },
             { field: 'isVerified', label: 'Email Verified', filled: !!user.isVerified },
+            { field: 'bio', label: 'Bio', filled: !!(user.bio || bio) },
             { field: 'skills', label: 'Skills/Expertise', filled: skills.length > 0 },
         ];
         const filled = checks.filter(c => c.filled).length;
         const missing = checks.filter(c => !c.filled).map(c => c.label);
         return { percent: Math.round((filled / checks.length) * 100), missing };
-    }, [user, avatarUrl, skills]);
+    }, [user, avatarUrl, bio, skills]);
 
     // Avatar upload handler with preview
     const handleAvatarSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -184,7 +207,7 @@ const ProfilePage = () => {
     const [setupCode, setSetupCode] = useState('');
     const [disableCode, setDisableCode] = useState('');
     const [disablePassword, setDisablePassword] = useState('');
-    const [setupStep, setSetupStep] = useState<'initial' | 'generate' | 'verify'>('initial');
+    const [setupStep, setSetupStep] = useState<'initial' | 'generate' | 'verify' | 'done'>('initial');
     const [disableStep, setDisableStep] = useState<'initial' | 'verify'>('initial');
 
     // Fetch user stats and activity
@@ -219,8 +242,19 @@ const ProfilePage = () => {
                 setActivityLoading(false);
             }
         };
+        const fetchStreak = async () => {
+            if (!user) return;
+            try {
+                const data = await fetchApi('/api/streak/me', { credentials: 'include' });
+                setStreakData(data.data);
+            } catch {
+                // Streak is optional
+            }
+        };
+
         fetchStats();
         fetchActivity();
+        fetchStreak();
     }, [user]);
 
     // Generate mock performance curve based on actual points
@@ -251,6 +285,15 @@ const ProfilePage = () => {
         if (user) {
             setName(user.name);
             setUsername(user.username);
+            setBio(user.bio || '');
+            setLocation(user.location || '');
+            setSkills(user.skills || []);
+            setSocialLinks({
+                website: user.socialLinks?.website || '',
+                github: user.socialLinks?.github || '',
+                twitter: user.socialLinks?.twitter || '',
+                linkedin: user.socialLinks?.linkedin || '',
+            });
         }
     }, [user]);
 
@@ -275,7 +318,19 @@ const ProfilePage = () => {
         setProfileLoading(true);
 
         try {
-            await updateProfile({ name, username });
+            await updateProfile({
+                name,
+                username,
+                bio: bio.trim() || null,
+                location: location.trim() || null,
+                skills,
+                socialLinks: {
+                    website: socialLinks.website.trim() || null,
+                    github: socialLinks.github.trim() || null,
+                    twitter: socialLinks.twitter.trim() || null,
+                    linkedin: socialLinks.linkedin.trim() || null,
+                },
+            });
             setProfileSuccess(true);
             addToast({
                 variant: 'success',
@@ -339,14 +394,12 @@ const ProfilePage = () => {
     const handleGenerate2FA = async () => {
         setTwoFactorLoading(true);
         try {
-            const data = await fetchApi('/api/auth/2fa/generate', {
-                method: 'GET',
-            });
-            if (data.success) {
-                setQrCodeData({ secret: data.secret, qr: data.qrCodeUrl });
+            const res = await fetchApi('/api/auth/2fa/generate', { method: 'GET' });
+            if (res.success) {
+                setQrCodeData({ secret: res.data.secret, qr: res.data.qrCodeUrl });
                 setSetupStep('verify');
             } else {
-                throw new Error(data.message || 'Failed to generate 2FA');
+                throw new Error(res.message || 'Failed to generate 2FA');
             }
         } catch (err) {
             addToast({ variant: 'error', title: 'Error', message: err instanceof Error ? err.message : 'Failed to generate 2FA' });
@@ -359,21 +412,19 @@ const ProfilePage = () => {
         if (setupCode.length !== 6) return;
         setTwoFactorLoading(true);
         try {
-            const data = await fetchApi('/api/auth/2fa/enable', {
+            const res = await fetchApi('/api/auth/2fa/enable', {
                 method: 'POST',
                 body: JSON.stringify({ token: setupCode }),
             });
-            if (data.success) {
+            if (res.success) {
                 setIs2FAEnabled(true);
-                setSetupStep('initial');
-                setQrCodeData(null);
+                setSetupStep('done');
                 setSetupCode('');
-                addToast({ variant: 'success', title: '2FA Enabled', message: 'Two-factor authentication is now enabled.' });
             } else {
-                throw new Error(data.error?.message || data.message || 'Invalid code');
+                throw new Error(res.error?.message || res.message || 'Invalid code');
             }
         } catch (err) {
-            addToast({ variant: 'error', title: 'Error', message: err instanceof Error ? err.message : 'Invalid code' });
+            addToast({ variant: 'error', title: 'Invalid code', message: err instanceof Error ? err.message : 'The code you entered is incorrect. Try again.' });
         } finally {
             setTwoFactorLoading(false);
         }
@@ -656,6 +707,35 @@ const ProfilePage = () => {
                                 </div>
                             </div>
 
+                            {/* Activity Heatmap */}
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-2">
+                                        <Activity className="w-5 h-5 text-orange-400" />
+                                        <h3 className="text-lg font-semibold text-white">Activity</h3>
+                                    </div>
+                                    {streakData && (
+                                        <div className="flex items-center gap-4 text-sm">
+                                            <span className="text-gray-400">
+                                                🔥 <span className="text-orange-400 font-semibold">{streakData.currentStreak}</span> day streak
+                                            </span>
+                                            <span className="text-gray-500">
+                                                Best: <span className="text-gray-300">{streakData.longestStreak}</span>
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="overflow-x-auto">
+                                    {streakData ? (
+                                        <ActivityHeatmap activityLog={streakData.activityLog} />
+                                    ) : (
+                                        <div className="flex items-center justify-center py-6">
+                                            <p className="text-sm text-gray-500">No activity data yet. Start completing challenges!</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
                             {/* Achievements Section */}
                             <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
                                 <div className="flex items-center gap-2 mb-4">
@@ -765,6 +845,80 @@ const ProfilePage = () => {
                                         />
                                     </div>
                                     <p className="text-xs text-gray-500 mt-1">Letters, numbers, and underscores only</p>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Bio</label>
+                                    <textarea
+                                        value={bio}
+                                        onChange={(e) => setBio(e.target.value)}
+                                        placeholder="Tell the community about yourself..."
+                                        maxLength={300}
+                                        rows={3}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors resize-none"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">{bio.length}/300 characters</p>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Location</label>
+                                    <div className="relative">
+                                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                        <input
+                                            type="text"
+                                            value={location}
+                                            onChange={(e) => setLocation(e.target.value)}
+                                            placeholder="e.g. San Francisco, CA"
+                                            maxLength={100}
+                                            className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-3">Social Links</label>
+                                    <div className="space-y-3">
+                                        <div className="relative">
+                                            <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                            <input
+                                                type="url"
+                                                value={socialLinks.website}
+                                                onChange={(e) => setSocialLinks(prev => ({ ...prev, website: e.target.value }))}
+                                                placeholder="https://yourwebsite.com"
+                                                className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                            />
+                                        </div>
+                                        <div className="relative">
+                                            <Github className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                            <input
+                                                type="text"
+                                                value={socialLinks.github}
+                                                onChange={(e) => setSocialLinks(prev => ({ ...prev, github: e.target.value }))}
+                                                placeholder="GitHub username"
+                                                className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                            />
+                                        </div>
+                                        <div className="relative">
+                                            <Twitter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                            <input
+                                                type="text"
+                                                value={socialLinks.twitter}
+                                                onChange={(e) => setSocialLinks(prev => ({ ...prev, twitter: e.target.value }))}
+                                                placeholder="Twitter/X handle"
+                                                className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                            />
+                                        </div>
+                                        <div className="relative">
+                                            <Linkedin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                            <input
+                                                type="text"
+                                                value={socialLinks.linkedin}
+                                                onChange={(e) => setSocialLinks(prev => ({ ...prev, linkedin: e.target.value }))}
+                                                placeholder="LinkedIn username"
+                                                className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:border-orange-500/50 focus:outline-none transition-colors"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -1049,6 +1203,24 @@ const ProfilePage = () => {
                                 </div>
 
                                 {/* 2FA Setup Flow */}
+                                {setupStep === 'done' && is2FAEnabled && (
+                                    <div className="bg-green-500/5 border border-green-500/20 rounded-xl p-6 mt-4 flex items-start gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                                            <CheckCircle className="w-5 h-5 text-green-400" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <h4 className="text-white font-medium mb-1">2FA is now active</h4>
+                                            <p className="text-sm text-gray-400 mb-3">Your account is protected. You&apos;ll need your authenticator app every time you sign in.</p>
+                                            <button
+                                                onClick={() => setSetupStep('initial')}
+                                                className="text-xs text-gray-500 hover:text-white underline"
+                                            >
+                                                Dismiss
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
                                 {!is2FAEnabled && setupStep === 'verify' && qrCodeData && (
                                     <div className="bg-white/5 border border-white/10 rounded-xl p-6 mt-4">
                                         <h4 className="text-white font-medium mb-4">Set up Authenticator App</h4>
@@ -1058,26 +1230,33 @@ const ProfilePage = () => {
                                             </div>
                                             <div className="flex-1 space-y-4">
                                                 <div>
-                                                    <p className="text-sm text-gray-400 mb-2">1. Scan this QR code with your authenticator app (like Google Authenticator or Authy).</p>
-                                                    <p className="text-sm text-gray-500">Alternatively, manually enter this code: <span className="text-orange-400 font-mono tracking-wider ml-1">{qrCodeData.secret}</span></p>
+                                                    <p className="text-sm text-gray-400 mb-2">1. Scan this QR code with Google Authenticator, Authy, or any TOTP app.</p>
+                                                    <div className="flex items-center gap-2 mt-2">
+                                                        <span className="text-xs text-gray-500">Manual key:</span>
+                                                        <code className="text-xs text-orange-400 font-mono tracking-widest bg-orange-500/10 px-2 py-0.5 rounded select-all">
+                                                            {qrCodeData.secret}
+                                                        </code>
+                                                    </div>
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm text-gray-400 mb-2">2. Enter the 6-digit code generated by your app below.</p>
+                                                    <p className="text-sm text-gray-400 mb-2">2. Enter the 6-digit code from your app to verify.</p>
                                                     <div className="flex gap-3">
                                                         <input
                                                             type="text"
                                                             value={setupCode}
                                                             onChange={(e) => setSetupCode(e.target.value.replace(/\D/g, ''))}
+                                                            onKeyDown={(e) => e.key === 'Enter' && handleEnable2FA()}
                                                             placeholder="123456"
                                                             maxLength={6}
                                                             className="w-32 px-4 py-2 bg-black border border-white/10 rounded-lg text-white font-mono tracking-[0.2em] text-center focus:border-orange-500/50 focus:outline-none"
+                                                            autoFocus
                                                         />
                                                         <button
                                                             onClick={handleEnable2FA}
                                                             disabled={setupCode.length !== 6 || twoFactorLoading}
-                                                            className="px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white text-sm font-medium rounded-lg transition-colors"
+                                                            className="px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2"
                                                         >
-                                                            {twoFactorLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify'}
+                                                            {twoFactorLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify & Enable'}
                                                         </button>
                                                         <button
                                                             onClick={() => {

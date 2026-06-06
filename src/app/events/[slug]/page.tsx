@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { sampleEvents, Event, EventFeedback } from '@/data/events';
 import Footer from '@/components/Footer';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { fetchApi } from '@/lib/api';
@@ -611,6 +612,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
 
                 {/* Nav */}
                 <div className="relative max-w-6xl mx-auto px-4 pt-6">
+                    <Breadcrumbs items={[{ label: 'Events', href: '/events' }, { label: event.title }]} />
                     <Link
                         href="/events"
                         className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-colors text-sm"

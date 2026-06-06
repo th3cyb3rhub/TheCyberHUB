@@ -269,6 +269,13 @@ return (
                         <Trophy className="w-4 h-4" />
                         Leaderboard
                     </Link>
+                    <Link
+                        href="/ctf/competitions"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 rounded-lg text-orange-400 transition-colors"
+                    >
+                        <Flag className="w-4 h-4" />
+                        Competitions
+                    </Link>
                     <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/5 border border-white/10 rounded-lg">
                         <div className="text-center">
                             <div className="text-2xl font-bold text-orange-500">{pagination.total || challenges.length}</div>
