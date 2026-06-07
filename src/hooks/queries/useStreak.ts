@@ -4,7 +4,7 @@ import { fetchApi } from '@/lib/api';
 export function useStreak() {
     return useQuery({
         queryKey: ['streak'],
-        queryFn: () => fetchApi('/api/streak'),
+        queryFn: () => fetchApi('/api/streak/me'),
         staleTime: 10 * 60 * 1000,
     });
 }
